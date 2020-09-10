@@ -1,0 +1,249 @@
+CREATE TABLE If NOT EXISTS approvalDetails (
+    approvalDetailsId INT NOT NULL AUTO_INCREMENT ,
+    createdBy VARCHAR(100) NOT NULL,
+    firstApprovedBy VARCHAR(100),
+    secondApprovedBy VARCHAR(100),
+    thirdApprovedBy VARCHAR(100),
+    fouthApprovedBy VARCHAR(100),
+    fifthApprovedBy VARCHAR(100),
+
+    createdByAt VARCHAR(100) NOT NULL,
+    firstApprovedByAt VARCHAR(100),
+    secondApprovedByAt VARCHAR(100),
+    thirdApprovedByAt VARCHAR(100),
+    fouthApprovedByAt VARCHAR(100),
+    fifthApprovedByAt VARCHAR(100),
+
+    updatedBy VARCHAR(100) NOT NULL,
+    firstUpdateApprovedBy VARCHAR(100),
+    secondUpdateApprovedBy VARCHAR(100),
+    thirdUpdateApprovedBy VARCHAR(100),
+    fouthUpdateApprovedBy VARCHAR(100),
+    fifthUpdateApprovedBy VARCHAR(100),
+
+    updatedByAt VARCHAR(100) NOT NULL,
+    firstUpdateApprovedByAt VARCHAR(100),
+    secondUpdateApprovedByAt VARCHAR(100),
+    thirdUpdateApprovedByAt VARCHAR(100),
+    fouthUpdateApprovedByAt VARCHAR(100),
+    fifthUpdateApprovedByAt VARCHAR(100), 
+    PRIMARY KEY (approvalDetailsId)
+) 
+ENGINE = InnoDB
+AUTO_INCREMENT = 100
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS accessRights (
+    accessRightsId INT NOT NULL,
+    roleName VARCHAR(100), -- CENTRAL_MANAGER, AREA_MANAGER, TOWN_MANAGER, STATION_MANAGER, STATION_OFFICER
+    PRIMARY KEY (accessRightsId)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 200
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS company (
+    companyId INT NOT NULL AUTO_INCREMENT,
+    companyName VARCHAR(100),
+    fkApprovalDetailsIdCompany INT, 
+    PRIMARY KEY(companyId), 
+    CONSTRAINT fkApprovalDetailsIdCompany FOREIGN KEY(fkApprovalDetailsIdCompany)
+    REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 300
+DEFAULT CHARACTER SET = utf8;
+
+CREATE INDEX fkApprovalDetailsIdCompanyIndex ON company(fkApprovalDetailsIdCompany ASC ) VISIBLE;
+
+CREATE TABLE IF NOT EXISTS businessUnits (
+    businnessUnitId INT NOT NULL AUTO_INCREMENT,
+    bussinessUnitName VARCHAR(100),
+    fkApprovalDetailsIdBusiness INT NOT NULL,
+    PRIMARY KEY (businnessUnitId),
+    CONSTRAINT fkApprovalDetailsIdBusiness FOREIGN KEY(fkApprovalDetailsIdBusiness) 
+    REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 400
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS businessUnit (
+   fkBusinnessUnitIdUnit INT NOT NULL,
+   fkCompanyIdBusinessUnit INT NOT NULL,
+   CONSTRAINT fkBusinnessUnitIdUnit FOREIGN KEY (fkBusinnessUnitIdUnit) 
+   REFERENCES businessUnits (businnessUnitId) ON DELETE CASCADE ON UPDATE NO ACTION,
+   CONSTRAINT fkCompanyIdBusinessUnit FOREIGN KEY (fkCompanyIdBusinessUnit) 
+   REFERENCES company (companyId) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS areas (
+    areaId INT NOT NULL AUTO_INCREMENT ,
+    areaName VARCHAR(100)
+    PRIMARY KEY (areaId )
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 500
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS area (
+    fkAreaId INT NOT NULL,
+    areamManagerId INT NOT NULL,
+    numberOfTowns INT,
+    CONSTRAINT fkAreaId FOREIGN KEY (fkAreaId) 
+    REFERENCES areas (areaId) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS towns (
+    townId INT NOT NULL AUTO_INCREMENT ,
+    townName VARCHAR(100) NOT NULL,
+    PRIMARY KEY (townId)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS town (
+    fkTownId INT NOT NULL,
+    townManager VARCHAR(100),
+    CONSTRAINT fkTownId FOREIGN KEY (fkTownId) 
+    REFERENCES areas (areaId) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS stations (
+    stationId INT NOT NULL AUTO_INCREMENT ,
+    stationName VARCHAR(100) NOT NULL,
+    PRIMARY KEY (townId)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 700
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS station (
+    fkStationId INT NOT NULL,
+    stationManager VARCHAR(100),
+    CONSTRAINT fkStationId FOREIGN KEY (fkStationId) 
+    REFERENCES areas (areaId) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS clients (
+    clientId INT NOT NULL AUTO_INCREMENT,
+    clientFirstName VARCHAR(100) NOT NULL,
+    clientLastName VARCHAR(100) NOT NULL,
+    clientTelNo INT NOT NULL,
+    clientNIN VARCHAR(100) NOT NULL,
+    clientTaxUID VARCHAR(10),
+    clientBodaUID VARCHAR(100),
+    clientPassword VARCHAR(100) NOT NULL,
+    PRIMARY KEY (clientId)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 800
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS user (
+    userId INT NOT NULL AUTO_INCREMENT ,
+    ftRoleNameUser VARCHAR(100) NOT NULL,
+    userFirstName VARCHAR(20) NOT NULL,
+    userLastName VARCHAR(20) NOT NULL,
+    userEmail VARCHAR(20) NOT NULL,
+    userPassword VARCHAR(20) NOT NULL,
+    PRIMARY KEY (userId),
+    CONSTRAINT ftRoleNameUser FOREIGN KEY (ftRoleNameUser) 
+    REFERENCES accessRights (roleName) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 900
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS userDetails (
+    
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS savings (
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS loans(
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS loanPayments (
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS interest (
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS interestPayment (
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS commision (
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS commisionDetail (
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS stages (
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS cashLedger (
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS balances (
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS commonBio (
+
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 600
+DEFAULT CHARACTER SET = utf8;
