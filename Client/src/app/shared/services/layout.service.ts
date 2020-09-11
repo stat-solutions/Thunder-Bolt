@@ -22,10 +22,10 @@ export class LayoutService {
   public collapsedLeftHeader = true;  // valshould be true, false
   public toggleOnHover = true;
 
-  public defaultNavbar: string;    // Value Should be 'expended', 'collapsed', 'offcanvas', 'compact'
-  public toggleNavbar: string;     // Value Should be 'expended', 'collapsed', 'offcanvas', 'compact'
-  public navBarEffect: string;     // Value Should be 'shrink', 'push', 'overlay'
-  public deviceType: string;       // Value should be mobile, tablet, desktop
+  public defaultNavbar = 'expended';    // Value Should be 'expended', 'collapsed', 'offcanvas', 'compact'
+  public toggleNavbar = 'expended';      // Value Should be 'expended', 'collapsed', 'offcanvas', 'compact'
+  public navBarEffect = 'overlay';    // Value Should be 'shrink', 'push', 'overlay'
+  public deviceType = 'desktop';       // Value should be mobile, tablet, desktop
 
   // defaultVerticalMenu[0] = Default menu on mobile
   // defaultVerticalMenu[1] = Default menu on tablet

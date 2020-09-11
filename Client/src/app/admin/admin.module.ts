@@ -6,14 +6,14 @@ import { AdminComponent } from './admin.component';
 import { CompanySetupComponent } from './components/company-setup/company-setup.component';
 import { ApprovalSetupComponent } from './components/approval-setup/approval-setup.component';
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
-import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [AdminComponent, CompanySetupComponent, ApprovalSetupComponent, AdminProfileComponent, AdminDashboardComponent],
+  declarations: [AdminComponent, CompanySetupComponent, ApprovalSetupComponent, AdminProfileComponent],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    SharedModule,
   ]
 })
 export class AdminModule { }

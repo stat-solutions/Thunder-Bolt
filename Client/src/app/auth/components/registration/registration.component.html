@@ -1,0 +1,61 @@
+<div>
+    <div>
+        <h3> Register Now</h3>
+        <p> you can request for any position here</p>
+    </div>
+        <form [formGroup]="userForm" (ngSubmit)="register()">
+            <div>
+                <div>
+                <label for="position">position</label>
+                    <select id="" formControlName="position" *ngFor="let account of AccountTypes">
+                        <option value="Area Manager">{{account}}</option>
+                    </select>
+                </div>
+                <div>
+                    <select  id="" formControlName="area_manager" >
+                        <label for="area_manager">Choose Area</label>
+                        <option value="Central Region">Central Region</option>
+                    </select>
+                    <label for="town_manager">Choose Town</label>
+                    <select  id="" formControlName="town_manager">
+                        <option value="Kampala">Kampala</option>
+                    </select>
+                    <label for="staition_manager">Chose Station</label>
+                    <select  id="" formcontrolName="staition_manager">
+                        <option value="Nakulabye">Nankulabye</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="user_email">Email</label><input type="text" formControlName="user_email">
+                </div>
+                <div>
+                    <label for="user_contact_number">PhoneNumber</label><input type="text" id="" formControlName="user_contact_number" >
+                </div>
+                <div>
+                    <label for="user_full_name">Full Name</label><input type="text" id="" formControlName="user_full_name">
+                </div>
+                <div>
+                    <label for="user_ID_type">ID type</label>
+                    <select  id="" formControlName="user_ID_type">
+                        <option value="National ID">national ID</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="user_ID">ID Number</label><input type="text" id="" formControlName="user_ID" >
+                </div>
+                <div>
+                    <label for="user_DOB">Date Of Birth</label><input type="text" id="" formControlName="user_DOB">
+                </div>
+                <div>
+                    <label for="user_home_area">Residence</label><input type="text" id="" formControlName="user_home_area">
+                </div>
+            </div>
+        </form>
+        <div>
+            <button type="submit">Send Request</button>
+            <button type="cancel">Cancel</button>
+        </div>
+        <div>
+            <p>You have an account  <a [routerLink]="[ '/authpage/login']"> log in</a></p>
+        </div>
+    </div>

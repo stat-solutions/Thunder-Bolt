@@ -235,6 +235,10 @@ CREATE TABLE IF NOT EXISTS theStation (
         CONSTRAINT fkTheTownIdTheStation FOREIGN KEY (fkTheTownIdTheStation) 
     REFERENCES theTown (theTownId) ON DELETE CASCADE ON UPDATE NO ACTION
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5ef44e83df2834016d010e7738277ab2e58261cc
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 900
@@ -245,7 +249,10 @@ CREATE INDEX fkStationIdTheStationIndex ON theStation(fkStationIdTheStation ASC 
 CREATE INDEX fkTheTownIdTheStationIndex ON theStation(fkTheTownIdTheStation ASC ) VISIBLE;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 5ef44e83df2834016d010e7738277ab2e58261cc
 
 
 CREATE TABLE IF NOT EXISTS user (
@@ -270,7 +277,10 @@ CREATE TABLE IF NOT EXISTS user (
     CONSTRAINT ftRoleNameUser FOREIGN KEY (ftRoleNameUser) 
     REFERENCES accessRights (roleName) ON DELETE CASCADE ON UPDATE NO ACTION
 =======
+<<<<<<< HEAD
 >>>>>>> Other company details
+=======
+>>>>>>> 5ef44e83df2834016d010e7738277ab2e58261cc
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 900
@@ -278,14 +288,20 @@ DEFAULT CHARACTER SET = utf8;
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5ef44e83df2834016d010e7738277ab2e58261cc
 
 
 
 
+<<<<<<< HEAD
 =======
 CREATE INDEX fkStationIdTheStationIndex ON theStation(fkStationIdTheStation ASC ) VISIBLE;
 CREATE INDEX fkTheTownIdTheStationIndex ON theStation(fkTheTownIdTheStation ASC ) VISIBLE;
 >>>>>>> Other company details
+=======
+>>>>>>> 5ef44e83df2834016d010e7738277ab2e58261cc
 
 >>>>>>> Other company details
 CREATE TABLE IF NOT EXISTS clients (

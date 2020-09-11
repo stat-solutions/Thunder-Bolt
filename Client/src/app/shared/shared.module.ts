@@ -18,7 +18,7 @@ import { MenudropdownDirective } from './directives/menudropdown.directive';
   ],
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<SharedModule> {
     return {
       ngModule: SharedModule,
       providers: [
