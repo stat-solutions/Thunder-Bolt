@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS itemRequiringApprovalCreate (
     PRIMARY KEY (itemRequiringApprovalId)
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 200
+AUTO_INCREMENT = 300
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS itemRequiringApprovalUpdate (
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS itemRequiringApprovalUpdate (
     PRIMARY KEY (itemRequiringApprovalId)
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 200
+AUTO_INCREMENT = 400
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS company (
@@ -77,95 +77,187 @@ CREATE TABLE IF NOT EXISTS company (
      companyEmail2  VARCHAR(100),
     companyPhoneContact1  VARCHAR(100),
     companyPhoneContact2  VARCHAR(100),
+    companyLogoUrl   VARCHAR(100),
     fkApprovalDetailsIdCompany INT NULL, 
     PRIMARY KEY(companyId), 
     CONSTRAINT fkApprovalDetailsIdCompany FOREIGN KEY(fkApprovalDetailsIdCompany)
     REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 300
+AUTO_INCREMENT = 500
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkApprovalDetailsIdCompanyIndex ON company(fkApprovalDetailsIdCompany ASC ) VISIBLE;
 
-CREATE TABLE IF NOT EXISTS businessUnits (
-    businnessUnitsId INT NOT NULL AUTO_INCREMENT,
-    bussinessUnitsName VARCHAR(100),
-    fkApprovalDetailsIdBusinessUnits INT NOT NULL,
+CREATE TABLE IF NOT EXISTS businessUnit (
+    businnessUnitId INT NOT NULL AUTO_INCREMENT,
+    bussinessUnitName VARCHAR(100),
+    bussinessUnitStatus INT,-- 1=CREATED,2=APPROVED,3=DEACTIVATED
+    fkApprovalDetailsIdBusinessUnit INT NULL,
     PRIMARY KEY (businnessUnitsId),
-    CONSTRAINT fkApprovalDetailsIdBusinessUnits FOREIGN KEY(fkApprovalDetailsIdBusinessUnits) 
+    CONSTRAINT fkApprovalDetailsIdBusinessUnit FOREIGN KEY(fkApprovalDetailsIdBusinessUnit) 
     REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
-)
-ENGINE = InnoDB
-AUTO_INCREMENT = 400
-DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE IF NOT EXISTS theBusinessUnit (
-    theBusinessUnitId INT NOT NULL
-   fkBusinnessUnitIdUnit INT NOT NULL,
-   fkCompanyIdBusinessUnit INT NOT NULL,
-   CONSTRAINT fkBusinnessUnitIdUnit FOREIGN KEY (fkBusinnessUnitIdUnit) 
-   REFERENCES businessUnits (businnessUnitId) ON DELETE CASCADE ON UPDATE NO ACTION,
-   CONSTRAINT fkCompanyIdBusinessUnit FOREIGN KEY (fkCompanyIdBusinessUnit) 
-   REFERENCES company (companyId) ON DELETE CASCADE ON UPDATE NO ACTION
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE IF NOT EXISTS areas (
-    areaId INT NOT NULL AUTO_INCREMENT ,
-    areaName VARCHAR(100)
-    PRIMARY KEY (areaId )
-)
-ENGINE = InnoDB
-AUTO_INCREMENT = 500
-DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE IF NOT EXISTS area (
-    fkAreaId INT NOT NULL,
-    areamManagerId INT NOT NULL,
-    numberOfTowns INT,
-    CONSTRAINT fkAreaId FOREIGN KEY (fkAreaId) 
-    REFERENCES areas (areaId) ON DELETE CASCADE ON UPDATE NO ACTION
-)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE IF NOT EXISTS towns (
-    townId INT NOT NULL AUTO_INCREMENT ,
-    townName VARCHAR(100) NOT NULL,
-    PRIMARY KEY (townId)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 600
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS town (
-    fkTownId INT NOT NULL,
-    townManager VARCHAR(100),
-    CONSTRAINT fkTownId FOREIGN KEY (fkTownId) 
-    REFERENCES areas (areaId) ON DELETE CASCADE ON UPDATE NO ACTION
+CREATE INDEX fkApprovalDetailsIdBusinessUnitIndex ON businessUnit(fkApprovalDetailsIdBusinessUnit ASC ) VISIBLE;
+
+
+
+CREATE TABLE IF NOT EXISTS theBusinessUnit (
+    theBusinessUnitId INT NOT NULL AUTO_INCREMENT,
+   fkBusinnessUnitIdTheBusinessUnit INT  NULL,
+   fkCompanyIdTheBusinessUnit INT  NULL,
+     PRIMARY KEY (theBusinessUnitId),
+
+   CONSTRAINT fkBusinnessUnitIdTheBusinessUnit FOREIGN KEY (fkBusinnessUnitIdTheBusinessUnit) 
+   REFERENCES businessUnit (businnessUnitId) ON DELETE CASCADE ON UPDATE NO ACTION,
+
+   CONSTRAINT fkCompanyIdTheBusinessUnit FOREIGN KEY (fkCompanyIdTheBusinessUnit) 
+   REFERENCES company (companyId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
+AUTO_INCREMENT = 1100
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS stations (
-    stationId INT NOT NULL AUTO_INCREMENT ,
-    stationName VARCHAR(100) NOT NULL,
-    PRIMARY KEY (townId)
+CREATE INDEX fkBusinnessUnitIdTheBusinessUnitIndex ON theBusinessUnit(fkBusinnessUnitIdTheBusinessUnit ASC ) VISIBLE;
+CREATE INDEX fkCompanyIdTheBusinessUnitIndex ON theBusinessUnit(fkCompanyIdTheBusinessUnit ASC ) VISIBLE;
+
+
+
+CREATE TABLE IF NOT EXISTS areaRegion (
+    areaRegionId INT NOT NULL AUTO_INCREMENT ,
+    areaRegionName VARCHAR(100),
+    fkApprovalDetailsIdAreaRegion INT NULL,
+    PRIMARY KEY (areaRegionId ),
+      CONSTRAINT fkApprovalDetailsIdAreaRegion FOREIGN KEY(fkApprovalDetailsIdAreaRegion) 
+    REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 700
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS station (
-    fkStationId INT NOT NULL,
-    stationManager VARCHAR(100),
-    CONSTRAINT fkStationId FOREIGN KEY (fkStationId) 
-    REFERENCES areas (areaId) ON DELETE CASCADE ON UPDATE NO ACTION
+CREATE INDEX fkApprovalDetailsIdAreaRegionIndex ON areaRegion(fkApprovalDetailsIdAreaRegion ASC ) VISIBLE;
+
+
+
+CREATE TABLE IF NOT EXISTS theAreaRegion (
+    theAreaRegionId INT NOT NULL AUTO_INCREMENT,
+    fkAreaRegionIdTheAreaRegion INT NULL,
+    fkTheBusinessUnitIdTheAreaRegion INT NULL,
+      PRIMARY KEY (theAreaRegionId),
+
+    CONSTRAINT fkAreaRegionIdTheAreaRegion FOREIGN KEY (fkAreaRegionIdTheAreaRegion) 
+    REFERENCES areaRegion (areaRegionId) ON DELETE CASCADE ON UPDATE NO ACTION,
+
+        CONSTRAINT fkTheBusinessUnitIdTheAreaRegion FOREIGN KEY (fkTheBusinessUnitIdTheAreaRegion) 
+    REFERENCES theBusinessUnit (theBusinessUnitId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+
+CREATE INDEX fkAreaRegionIdTheAreaRegionIndex ON theAreaRegion(fkAreaRegionIdTheAreaRegion ASC ) VISIBLE;
+CREATE INDEX fkTheBusinessUnitIdTheAreaRegionIndex ON theAreaRegion(fkTheBusinessUnitIdTheAreaRegion ASC ) VISIBLE;
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS town (
+    townId INT NOT NULL AUTO_INCREMENT ,
+    townName VARCHAR(100),
+    fkApprovalDetailsIdTown INT NULL,
+    PRIMARY KEY (townId ),
+      CONSTRAINT fkApprovalDetailsIdTown FOREIGN KEY(fkApprovalDetailsIdTown) 
+    REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 700
+DEFAULT CHARACTER SET = utf8;
+
+CREATE INDEX fkApprovalDetailsIdTownIndex ON town(fkApprovalDetailsIdTown ASC ) VISIBLE;
+
+
+
+CREATE TABLE IF NOT EXISTS theTown (
+    theTownId INT NOT NULL AUTO_INCREMENT,
+    fkTownIdTheTown INT NULL,
+    fkTheAreaRegionIdTheTown INT NULL,
+      PRIMARY KEY (theTownId),
+
+    CONSTRAINT fkTownIdTheTown FOREIGN KEY (fkTownIdTheTown) 
+    REFERENCES town (townId) ON DELETE CASCADE ON UPDATE NO ACTION,
+
+        CONSTRAINT fkTheAreaRegionIdTheTown FOREIGN KEY (fkTheAreaRegionIdTheTown) 
+    REFERENCES theAreaRegion (theAreaRegionId) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+CREATE INDEX fkTownIdTheTownIndex ON theTown(fkTownIdTheTownIndex ASC ) VISIBLE;
+CREATE INDEX fkTheAreaRegionIdTheTownIndex ON theTown(fkTheAreaRegionIdTheTown ASC ) VISIBLE;
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS station (
+    stationId INT NOT NULL AUTO_INCREMENT ,
+   stationName VARCHAR(100),
+    fkApprovalDetailsIdStation INT NULL,
+    PRIMARY KEY (stationId),
+      CONSTRAINT fkApprovalDetailsIdStation FOREIGN KEY(fkApprovalDetailsIdStation) 
+    REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 700
+DEFAULT CHARACTER SET = utf8;
+
+CREATE INDEX fkApprovalDetailsIdStationIndex ON station(fkApprovalDetailsIdStation ASC ) VISIBLE;
+
+
+
+CREATE TABLE IF NOT EXISTS theStation (
+    theStationId INT NOT NULL AUTO_INCREMENT,
+    fkStationIdTheStation INT NULL,
+    fkTheTownIdTheStation INT NULL,
+      PRIMARY KEY (theStationId),
+
+    CONSTRAINT fkStationIdTheStation FOREIGN KEY (fkStationIdTheStation) 
+    REFERENCES station (stationId) ON DELETE CASCADE ON UPDATE NO ACTION,
+
+        CONSTRAINT fkTheTownIdTheStation FOREIGN KEY (fkTheTownIdTheStation) 
+    REFERENCES theTown (theTownId) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+CREATE INDEX fkStationIdTheStationIndex ON theStation(fkStationIdTheStation ASC ) VISIBLE;
+CREATE INDEX fkTheTownIdTheStationIndex ON theStation(fkTheTownIdTheStation ASC ) VISIBLE;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 CREATE TABLE IF NOT EXISTS clients (
     clientId INT NOT NULL AUTO_INCREMENT,
@@ -179,7 +271,7 @@ CREATE TABLE IF NOT EXISTS clients (
     PRIMARY KEY (clientId)
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 800
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS user (
