@@ -236,45 +236,12 @@ CREATE TABLE IF NOT EXISTS theStation (
     REFERENCES theTown (theTownId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
+AUTO_INCREMENT = 900
 DEFAULT CHARACTER SET = utf8;
 
 
 CREATE INDEX fkStationIdTheStationIndex ON theStation(fkStationIdTheStation ASC ) VISIBLE;
 CREATE INDEX fkTheTownIdTheStationIndex ON theStation(fkTheTownIdTheStation ASC ) VISIBLE;
-
-
-
-CREATE TABLE IF NOT EXISTS user (
-    userId INT NOT NULL AUTO_INCREMENT ,
-    userName VARCHAR(100)  NULL,
-    userEmail1 VARCHAR(100)  NULL,
-    userEmail2 VARCHAR(100)  NULL,
-    userPhone1 VARCHAR(100)  NULL,
-    userPhone2 VARCHAR(100)  NULL,
-    userIdType VARCHAR(100)  NULL,
-    userIdNumber VARCHAR(100) NULL,
-    userPhotoUrl VARCHAR(100) NULL,
-    userHomeAreaDetails VARCHAR(500)  NULL,
-    userDateOfBirth DATE,
-    userRecruitmentDate DATE,
-    userPassword VARCHAR(200)  NULL,
-    fkNextOfKinIdUser INT  NULL,
-    fkTheStationIdUser  INT  NULL,
-    fkApprovalDetailsIdUser  INT  NULL,
-    fkAccessRightsIdUser  INT  NULL,
-    PRIMARY KEY (userId),
-    CONSTRAINT ftRoleNameUser FOREIGN KEY (ftRoleNameUser) 
-    REFERENCES accessRights (roleName) ON DELETE CASCADE ON UPDATE NO ACTION
-)
-ENGINE = InnoDB
-AUTO_INCREMENT = 900
-DEFAULT CHARACTER SET = utf8;
-
-
-
-
-
-
 
 CREATE TABLE IF NOT EXISTS clients (
     clientId INT NOT NULL AUTO_INCREMENT,
