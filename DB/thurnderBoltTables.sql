@@ -42,10 +42,42 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 200
 DEFAULT CHARACTER SET = utf8;
 
+
+CREATE TABLE IF NOT EXISTS itemRequiringApprovalCreate (
+    itemRequiringApprovalId INT NOT NULL,
+    itemName VARCHAR(100), -- COMPANY_CREATION,BUSINESSUNIT_CREATION,
+    itemStatus INT,--1=FIRST_APPROVAL,2=SECOND_APPROVAL,3=THIRD_APPROVAL,4=FOURTH_APPROVAL,5=FIFTH_APPROVAL
+    PRIMARY KEY (itemRequiringApprovalId)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 200
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS itemRequiringApprovalUpdate (
+    itemRequiringApprovalId INT NOT NULL,
+    itemName VARCHAR(100), -- COMPANY_UPDATE,BUSINESSUNIT_UPDATE,
+    itemStatus INT,--1=FIRST_APPROVAL,2=SECOND_APPROVAL,3=THIRD_APPROVAL,4=FOURTH_APPROVAL,5=FIFTH_APPROVAL
+    PRIMARY KEY (itemRequiringApprovalId)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 200
+DEFAULT CHARACTER SET = utf8;
+
 CREATE TABLE IF NOT EXISTS company (
     companyId INT NOT NULL AUTO_INCREMENT,
     companyName VARCHAR(100),
-    fkApprovalDetailsIdCompany INT, 
+    companyBoxNumber VARCHAR(100),
+    companyCityLocation  VARCHAR(100),
+    companyCountryLocation  VARCHAR(100),
+    companyRegionLocation  VARCHAR(100),
+    companyOfficeFloor  VARCHAR(100),
+    companyPlotNumber   VARCHAR(100),
+    companyStreetBuilding  VARCHAR(100),
+    companyEmail1  VARCHAR(100),
+     companyEmail2  VARCHAR(100),
+    companyPhoneContact1  VARCHAR(100),
+    companyPhoneContact2  VARCHAR(100),
+    fkApprovalDetailsIdCompany INT NULL, 
     PRIMARY KEY(companyId), 
     CONSTRAINT fkApprovalDetailsIdCompany FOREIGN KEY(fkApprovalDetailsIdCompany)
     REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
@@ -57,18 +89,19 @@ DEFAULT CHARACTER SET = utf8;
 CREATE INDEX fkApprovalDetailsIdCompanyIndex ON company(fkApprovalDetailsIdCompany ASC ) VISIBLE;
 
 CREATE TABLE IF NOT EXISTS businessUnits (
-    businnessUnitId INT NOT NULL AUTO_INCREMENT,
-    bussinessUnitName VARCHAR(100),
-    fkApprovalDetailsIdBusiness INT NOT NULL,
-    PRIMARY KEY (businnessUnitId),
-    CONSTRAINT fkApprovalDetailsIdBusiness FOREIGN KEY(fkApprovalDetailsIdBusiness) 
+    businnessUnitsId INT NOT NULL AUTO_INCREMENT,
+    bussinessUnitsName VARCHAR(100),
+    fkApprovalDetailsIdBusinessUnits INT NOT NULL,
+    PRIMARY KEY (businnessUnitsId),
+    CONSTRAINT fkApprovalDetailsIdBusinessUnits FOREIGN KEY(fkApprovalDetailsIdBusinessUnits) 
     REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 400
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS businessUnit (
+CREATE TABLE IF NOT EXISTS theBusinessUnit (
+    theBusinessUnitId INT NOT NULL
    fkBusinnessUnitIdUnit INT NOT NULL,
    fkCompanyIdBusinessUnit INT NOT NULL,
    CONSTRAINT fkBusinnessUnitIdUnit FOREIGN KEY (fkBusinnessUnitIdUnit) 
