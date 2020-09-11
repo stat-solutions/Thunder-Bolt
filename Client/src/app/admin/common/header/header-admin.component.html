@@ -1,0 +1,31 @@
+<header class="flux-header clearfix" [attr.nav-layout]="navLayout"
+  [attr.navbar-type]="toggleStatus ? defaultNavbar : toggleNavbar " [attr.effect-type]="navbarEffect"
+  [attr.header-theme]="headerColorTheme" [attr.collapsed-left-header]="collapsedLeftHeader"
+  [attr.device-type]="deviceType">
+
+  <div class="flux-header-wrapper clearfix">
+    <div class="flux-brand" [attr.left-header-theme]="leftHeaderColorTheme">
+      <span class="flux-brand-logo"><img src="../../../../assets/img/brimas_logo.svg"  height="60" width="50"></span>
+      <span class="flux-brand-text">BRIMASLEAD</span>
+    </div>
+    <div class="flux-header-navbar">
+      <div class="flux-left-header clearfix">
+        <div class="sidebarToggle" (click)="changeTheToggleStatus()"><i class="fas fa-bars"></i></div>
+        <!-- <div class="left-header-nav">
+          <ul>
+            <li><a href="" class="dropdown-toggle">Mega</a></li>
+            <li><a href="" class="dropdown-toggle">New</a></li>
+          </ul>
+        </div> -->
+      </div>
+    <span class="text-info align-self-baseline mt-4 mb-0 pl-3 pt-2 pb-0">ADMIN DASHBOARD</span>
+      <div class="flux-right-header clearfix">
+        <ul>
+          <li><a href=""><i class="far fa-list-alt"></i></a></li>
+          <li><a href="" class="dropdown-toggle"><i class="fas fa-cog"></i> <span *ngIf="deviceType !== 'mobile'" >&nbsp;System Settings</span> </a></li>
+          <li><a href=""><i class="fas fa-power-off"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
