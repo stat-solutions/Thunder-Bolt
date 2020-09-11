@@ -244,14 +244,31 @@ CREATE INDEX fkTheTownIdTheStationIndex ON theStation(fkTheTownIdTheStation ASC 
 
 
 
-
-
-
-
-
-
-
-
+CREATE TABLE IF NOT EXISTS user (
+    userId INT NOT NULL AUTO_INCREMENT ,
+    userName VARCHAR(100)  NULL,
+    userEmail1 VARCHAR(100)  NULL,
+    userEmail2 VARCHAR(100)  NULL,
+    userPhone1 VARCHAR(100)  NULL,
+    userPhone2 VARCHAR(100)  NULL,
+    userIdType VARCHAR(100)  NULL,
+    userIdNumber VARCHAR(100) NULL,
+    userPhotoUrl VARCHAR(100) NULL,
+    userHomeAreaDetails VARCHAR(500)  NULL,
+    userDateOfBirth DATE,
+    userRecruitmentDate DATE,
+    userPassword VARCHAR(200)  NULL,
+    fkNextOfKinIdUser INT  NULL,
+    fkTheStationIdUser  INT  NULL,
+    fkApprovalDetailsIdUser  INT  NULL,
+    fkAccessRightsIdUser  INT  NULL,
+    PRIMARY KEY (userId),
+    CONSTRAINT ftRoleNameUser FOREIGN KEY (ftRoleNameUser) 
+    REFERENCES accessRights (roleName) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 900
+DEFAULT CHARACTER SET = utf8;
 
 
 
@@ -274,27 +291,7 @@ ENGINE = InnoDB
 AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS user (
-    userId INT NOT NULL AUTO_INCREMENT ,
-    ftRoleNameUser VARCHAR(100) NOT NULL,
-    userFirstName VARCHAR(20) NOT NULL,
-    userLastName VARCHAR(20) NOT NULL,
-    userEmail VARCHAR(20) NOT NULL,
-    userPassword VARCHAR(20) NOT NULL,
-    PRIMARY KEY (userId),
-    CONSTRAINT ftRoleNameUser FOREIGN KEY (ftRoleNameUser) 
-    REFERENCES accessRights (roleName) ON DELETE CASCADE ON UPDATE NO ACTION
-)
-ENGINE = InnoDB
-AUTO_INCREMENT = 900
-DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS userDetails (
-    
-)
-ENGINE = InnoDB
-AUTO_INCREMENT = 600
-DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS savings (
 
