@@ -1,0 +1,195 @@
+ 
+ ng generate module auth --routing  --module app.module
+
+
+
+ng generate c auth/auth  --skip-tests true --flat
+
+ ng generate module  admin-dashboard/admin-dashboard  --flat
+ 
+ ng generate service  admin-dashboard/initial-setup/setup  --skip-tests true
+
+ ng generate module super-user-dashboard --routing  --module app.module
+
+ ng generate interface  admin-dashboard/initial-setup/setup-data
+ 
+  ng generate pipe  shared/pipes/db-date
+
+ admin-assistant
+ auth
+ creative-and-design
+ finance
+ front-desk
+ management
+ production
+ quality-and-assurance
+ sales-and-marketing
+ system-admin
+ transport-and-logistics
+ 
+  ng generate service  shared/services/front-desk-services/rfq-serial-number --skip-tests
+   
+   //List of models and components
+   
+   [class.bg-warning]="loans.aging_days>=5" [class.text-light]="loans.aging_days>=5"
+            [class.bg-danger]="loans.aging_days>=10" class="text-success"
+            
+            let i=index;let odd=odd;let first=first;let last=last"
+         [class.text-secondary]="odd"
+          [class.text-success]="!odd"
+
+            [class.bg-primary]="first||last"
+            [class.text-light]="first||last"
+   
+  AccessRights=LoginComponent
+  ClientRfqData=RequestForQuoteComponent
+  ListCustomers=RfqRelatedServiceService
+  RfqSumData=RequestForQuoteComponent
+  ItemCatalog=CreateCatalogItemComponent
+  BrimasleadSerialNumbers=RfqSerialNumberService
+  CustomerData=client_data.model
+
+
+ng generate c front-desk/front-desk-dashboard/create-catalog-item --skip-tests true --flat
+
+OrderNumber	OrderNumber	Name
+InventoryStatus	InventoryStatus	Category
+PaymentStatus	PaymentStatus	ItemType
+Vendor	Customer	TrackSerials
+ContactName	ContactName	SerialPrefix
+Phone	Phone	SerialNextNumber
+Email	Email	SerialSuffix
+VendorAddress1	BillingAddress1	Description
+VendorAddress2	BillingAddress2	DefaultUnitPrice
+VendorCity	BillingCity	Markup
+VendorState	BillingState	IsFixedMarkup
+VendorCountry	BillingCountry	IsTaxInclusivePrice
+VendorPostalCode	BillingPostalCode	Cost
+VendorAddressRemarks	BillingAddressRemarks	SpecialTaxRate
+ShipToCompanyName	ShipToCompanyName	LastVendor
+ShipToAddress1	ShippingAddress1	VendorProductCode
+ShipToAddress2	ShippingAddress2	VendorPrice
+ShipToCity	ShippingCity	BarCode
+ShipToState	ShippingState	ReorderPoint
+ShipToCountry	ShippingCountry	ReorderQuantity
+ShipToPostalCode	ShippingPostalCode	DefaultLocation
+ShipToAddressRemarks	ShippingAddressRemarks	DefaultSublocation
+CurrencyCode	CurrencyCode	Uom
+ExchangeRate	ExchangeRate	SalesUom
+NonVendorCost	NonCustomerCost	SalesUomRatio1
+OrderDate	OrderDate	SalesUomRatio2
+OrderRemarks	OrderRemarks	PurchasingUom
+Freight	Freight	PurchasingUomRatio1
+DueDate	InvoicedDate	PurchasingUomRatio2
+DatePaid	DueDate	ProductLength
+AmountPaid	DatePaid	ProductWidth
+RequestedShipDate	AmountPaid	ProductHeight
+VendorOrderNumber	RequestedShipDate	ProductWeight
+Location	PONumber	Remarks
+PaymentTerms	SalesRep	ImageLargeUrl
+PaymentMethod	Location	"IsActive																																																							"
+TaxingScheme	PricingScheme	
+Tax1Rate	PaymentTerms	
+Tax2Rate	PaymentMethod	
+CalculateTax2OnTax1	TaxingScheme	
+Tax1Name	Tax1Rate	
+Tax2Name	Tax2Rate	
+Tax1OnShipping	CalculateTax2OnTax1	
+Tax2OnShipping	Tax1Name	
+ItemName	Tax2Name	
+ItemDescription	Tax1OnShipping	
+ItemQuantity	Tax2OnShipping	
+ItemQuantityUoM	ItemName	
+ItemUnitPrice	ItemDescription	
+ItemDiscount	ItemQuantity	
+VendorItemCode	ItemQuantityUoM	
+ItemSubtotal	ItemUnitPrice	
+ItemSerials	ItemDiscount	
+SpecialTaxRate	ItemSubtotal	
+AssignedToTeamMember	ItemSerials	
+IsCancelled	SpecialTaxRate	
+	AssignedToTeamMember	
+	IsQuote	
+	IsCancelled	
+
+
+
+ng generate c smart-saver-dashboard/components/withdraw-saver-profit --skip-tests true 
+ ng generate c  admin-dashboard/components/admin-dashboard/approve-token-purchases  --skip-tests true
+ 
+ 
+  ng g service  services/branch-user  --skip-tests true
+
+
+ng generate c branch-user-dashboard/branch-user-dashboard --skip-tests true --flat
+
+
+ng generate c admin-dashboard/view-branch-bankings/vbb-view-port --skip-tests true
+
+ ng generate interface  models/ledger-statement
+ 
+ 
+  ng generate module admin-dashboard/view-branch-bankings/view-branch-bankings --flat --routing  --module admin-dashboard.module
+ 
+  ng generate module admin-dashboard/view-branch-investments/view-branch-investements --flat --routing  --module admin-dashboard.module
+ 
+
+
+ ng generate c admin-dashboard/view-branch-investments/vbi-layout --skip-tests true
+
+ ng generate c admin-dashboard/view-branch-investments/vbi-view-port-branches --skip-tests true
+
+
+ ng generate c branch-user-dashboard/view-investments --skip-tests true
+
+ ng generate c branch-user-dashboard/post-bankings --skip-tests true
+
+
+
+  ng generate module super-user/super-user-dashboard --routing  --module app.module
+
+
+   ng generate c super-user/super-user-layout --skip-tests true
+
+
+    ng generate interface  models/allocation-total-statement
+
+        ng generate interface  models/allocation-details-statement
+
+
+
+         ng generate c admin-dashboard/view-branch-allocations/vba-allocations-ledger-state --skip-tests true
+
+
+                 ng generate c admin-dashboard/view-branch-allocations/vba-allocations-made-state --skip-tests true
+
+
+                  ng g service  services/super-user  --skip-tests true
+
+
+                    ng generate interface  models/area-region
+
+
+                      ng generate interface  models/customer-pay-statement
+
+                      ng generate c admin-dashboard/admin-dashboard-landing/reject-approval --skip-tests true
+ng generate c admin-dashboard/admin-dashboard-landing/reject-approval --skip-tests true
+
+  ng generate interface  models/rejection-branch-statement
+
+
+     ng generate c dashboard-user/waive-interest --skip-tests true
+  ng generate interface  shared/models/user-profile/approval-details 
+
+
+    ng generate interface  shared/models/user-profile/supplier-data
+   
+
+    ng generate service  shared/services/auth-services/approval-details  --skip-tests true
+
+
+       ng generate c dashboard-pump/savings --skip-tests true
+
+
+
+ ng generate interface  models/savings-repayment
