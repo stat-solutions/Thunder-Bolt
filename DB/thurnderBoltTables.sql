@@ -234,11 +234,6 @@ CREATE TABLE IF NOT EXISTS theStation (
 
         CONSTRAINT fkTheTownIdTheStation FOREIGN KEY (fkTheTownIdTheStation) 
     REFERENCES theTown (theTownId) ON DELETE CASCADE ON UPDATE NO ACTION
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 5ef44e83df2834016d010e7738277ab2e58261cc
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 900
@@ -248,62 +243,6 @@ DEFAULT CHARACTER SET = utf8;
 CREATE INDEX fkStationIdTheStationIndex ON theStation(fkStationIdTheStation ASC ) VISIBLE;
 CREATE INDEX fkTheTownIdTheStationIndex ON theStation(fkTheTownIdTheStation ASC ) VISIBLE;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 5ef44e83df2834016d010e7738277ab2e58261cc
-
-
-CREATE TABLE IF NOT EXISTS user (
-    userId INT NOT NULL AUTO_INCREMENT ,
-    userName VARCHAR(100)  NULL,
-    userEmail1 VARCHAR(100)  NULL,
-    userEmail2 VARCHAR(100)  NULL,
-    userPhone1 VARCHAR(100)  NULL,
-    userPhone2 VARCHAR(100)  NULL,
-    userIdType VARCHAR(100)  NULL,
-    userIdNumber VARCHAR(100) NULL,
-    userPhotoUrl VARCHAR(100) NULL,
-    userHomeAreaDetails VARCHAR(500)  NULL,
-    userDateOfBirth DATE,
-    userRecruitmentDate DATE,
-    userPassword VARCHAR(200)  NULL,
-    fkNextOfKinIdUser INT  NULL,
-    fkTheStationIdUser  INT  NULL,
-    fkApprovalDetailsIdUser  INT  NULL,
-    fkAccessRightsIdUser  INT  NULL,
-    PRIMARY KEY (userId),
-    CONSTRAINT ftRoleNameUser FOREIGN KEY (ftRoleNameUser) 
-    REFERENCES accessRights (roleName) ON DELETE CASCADE ON UPDATE NO ACTION
-=======
-<<<<<<< HEAD
->>>>>>> Other company details
-=======
->>>>>>> 5ef44e83df2834016d010e7738277ab2e58261cc
-)
-ENGINE = InnoDB
-AUTO_INCREMENT = 900
-DEFAULT CHARACTER SET = utf8;
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 5ef44e83df2834016d010e7738277ab2e58261cc
-
-
-
-
-<<<<<<< HEAD
-=======
-CREATE INDEX fkStationIdTheStationIndex ON theStation(fkStationIdTheStation ASC ) VISIBLE;
-CREATE INDEX fkTheTownIdTheStationIndex ON theStation(fkTheTownIdTheStation ASC ) VISIBLE;
->>>>>>> Other company details
-=======
->>>>>>> 5ef44e83df2834016d010e7738277ab2e58261cc
-
->>>>>>> Other company details
 CREATE TABLE IF NOT EXISTS clients (
     clientId INT NOT NULL AUTO_INCREMENT,
     clientFirstName VARCHAR(100) NOT NULL,
