@@ -71,6 +71,7 @@ export class LeftPanelAdminComponent implements OnInit {
         // badge: '3',
         // badgeBg: 'bg-danger',
       },
+
     ];
   }
 }

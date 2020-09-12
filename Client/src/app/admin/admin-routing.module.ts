@@ -25,7 +25,7 @@ const routes: Routes = [
         component: ApprovalSetupComponent
       },
       {
-        path: "adminprofile",
+        path: "/adminprofile",
         component: AdminProfileComponent
       }
     ] 
