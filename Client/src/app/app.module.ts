@@ -19,7 +19,6 @@ import { CentralmanagementModule } from './centralmanagement/centralmanagement.m
     AppRoutingModule,
     AdminModule,
     AuthModule,
-    TownmanagementModule,
     StationofficerModule,
     StationmanagementModule,
     CentralmanagementModule,

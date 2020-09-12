@@ -6,11 +6,11 @@
     *ngIf="setNavLayout === 'horizontal' && setDeviceType === 'mobile' && setToggleStatus === false"
     (click)="changeTheToggleStatus()"></div>
   <div class="flux-wrapper">
-    <app-header-admin [navLayout]="setNavLayout" [defaultNavbar]="setDefaultNavbar" [toggleNavbar]="setToggleNavbar"
+    <app-header [navLayout]="setNavLayout" [defaultNavbar]="setDefaultNavbar" [toggleNavbar]="setToggleNavbar"
       [toggleStatus]="setToggleStatus" [navbarEffect]="setVerticalNavbarEffect" [headerColorTheme]="setHeaderColorTheme"
       [navbarColorTheme]="setNavbarColorTheme" [activeNavColorTheme]="setActiveNavColorTheme"
       [headerHeight]="setHeaderHeight" [leftHeaderColorTheme]="setLeftHeaderColorTheme"
-      [collapsedLeftHeader]="setCollapsedLeftHeader" [deviceType]="setDeviceType"></app-header-admin>
+      [collapsedLeftHeader]="setCollapsedLeftHeader" [deviceType]="setDeviceType"></app-header>
 
     <app-left-panel [navLayout]="setNavLayout" [defaultNavbar]="setDefaultNavbar" [toggleNavbar]="setToggleNavbar"
       [toggleStatus]="setToggleStatus" [navbarEffect]="setVerticalNavbarEffect" [headerColorTheme]="setHeaderColorTheme"

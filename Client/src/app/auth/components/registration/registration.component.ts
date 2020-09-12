@@ -22,7 +22,6 @@ export interface Stations {
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-AccountTypes: [''];
 userForm:  FormGroup;
   constructor(private fb: FormBuilder) { }
 

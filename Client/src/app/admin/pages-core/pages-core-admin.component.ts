@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { LayoutService } from '../../shared/services/other-services/layout.service';
+import { LayoutService } from '../../shared/services/layout.service';
 
 @Component({
   selector: 'app-pages-core-admin',

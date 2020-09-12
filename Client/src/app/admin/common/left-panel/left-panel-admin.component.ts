@@ -50,28 +50,34 @@ export class LeftPanelAdminComponent implements OnInit {
 
     this.menuList = [
       {
-        name: "Company Setup",
-        icon: "fas fa-tachometer-alt",
-        url: "/adminsetup"
-        // badge: '2',
-        // badgeBg: 'bg-success',
+        name: this.userName,
+        icon: 'far fa-user-circle',
+        url: '/none',
+        image: this.imageurl
       },
 
       {
-        name: "Approval Setup",
-        icon: "fas fa-tasks",
-        url: "/approvalsetup"
-        // badge: '3',
-        // badgeBg: 'bg-danger',
-      },
-      {
-        name: "Settings",
-        icon: "far fa-user-circle",
-        url: "/adminprofile"
-        // badge: '3',
-        // badgeBg: 'bg-danger',
+        name: 'Admin Dashboard',
+        icon: 'fas fa-tachometer-alt',
+        url: '/admindashboardamin'
       },
 
+      {
+        name: 'Approval Setup',
+        icon: 'fas fa-cart-plus',
+        url: '/approvalsetup'
+      },
+      {
+        name: 'Company Setup',
+        icon: 'fas fa-cart-arrow-down',
+        url: '/companysetup'
+      }
+      ,
+      {
+        name: 'Update Profile',
+        icon: 'fas fa-user-cog',
+        url: '/updateagentprofile'
+      }
     ];
   }
 }

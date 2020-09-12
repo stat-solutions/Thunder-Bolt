@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { PagesCoreadminComponent } from './pages-core-admin.component';
+import { PagesCoreAdminComponent } from './pages-core-admin.component';
 
 
 describe('PagesCoreComponent', () => {
-  let component: PagesCoreadminComponent;
-  let fixture: ComponentFixture<PagesCoreadminComponent>;
+  let component: PagesCoreAdminComponent;
+  let fixture: ComponentFixture<PagesCoreAdminComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PagesCoreadminComponent ]
+      declarations: [ PagesCoreAdminComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PagesCoreadminComponent);
+    fixture = TestBed.createComponent(PagesCoreAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

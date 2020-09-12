@@ -58,6 +58,10 @@
   }
 }
 
+.text-primob{
+  color: #be6928;
+}
+
 .flux-header-navbar {
   margin-left: 230px;
   display: block;
@@ -520,8 +524,8 @@
 }
 
 
-@include headerColorTheme(theme1, #ecf0f8, #354052, #FFF, #678098, #f5f5f5, #354052, #54a9c9,
-  #354052, #c63685f3, #364357, #007bff, #f2f2f2, #54a9c9, #54a9c9, #FFF, #FFF);
+@include headerColorTheme(theme1, #ecf0f8, #354052, #FFF, #678098, #f5f5f5, #354052, #be6928,
+  #354052, #c63685f3, #364357, #007bff, #f2f2f2, #be6928, #be6928, #FFF, #FFF);
 
 @include headerColorTheme(theme2, #1c232e, #354052, #354052, #b4bcc8, #485468, #1c232e, #b4bcc8,
   #b4bcc8, #1c232e, #b4bcc8, #FFFFFF, #1c232e, #b4bcc8, #b4bcc8, #1c232e, #1c232e);
