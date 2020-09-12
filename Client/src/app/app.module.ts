@@ -4,9 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
-import { AreamanagerModule } from './areamanager/areamanager.module';
-import { TownmanagerModule } from './townmanager/townmanager.module';
-import { StationmanagerModule } from './stationmanager/stationmanager.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -18,9 +15,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     AdminModule,
     AuthModule,
-    AreamanagerModule,
-    TownmanagerModule,
-    StationmanagerModule,
     ReactiveFormsModule
   ],
   providers: [],

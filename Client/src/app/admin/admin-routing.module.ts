@@ -1,35 +1,42 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { AdminComponent } from './admin.component';
-import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+import { PagesCoreAdminComponent } from './pages-core/pages-core-admin.component';
+import { AdminComponent } from './components/admin/admin.component';
 import { ApprovalSetupComponent } from './components/approval-setup/approval-setup.component';
 import { CompanySetupComponent } from './components/company-setup/company-setup.component';
+import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 
 const routes: Routes = [
-  { 
-    path: '', 
-    component: AdminComponent,
+  {
+    path: '',
+    component: PagesCoreAdminComponent,
     children: [
       {
-        path: "",
-        pathMatch: "full",
-        redirectTo: "admindashboardadmin"
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'admindashboardadmin'
+      },
+
+      {
+        path: 'admindashboardadmin',
+       component: AdminComponent,
       },
       {
-        path: "companysetup",
-        component: CompanySetupComponent
+        path: 'approvalsetup',
+       component: ApprovalSetupComponent,
       },
       {
-        path: "approvalsetup",
-        component: ApprovalSetupComponent
+        path: 'companysetup',
+       component: CompanySetupComponent,
       },
       {
-        path: "/adminprofile",
-        component: AdminProfileComponent
+        path: 'adminprofile',
+       component: AdminProfileComponent,
       }
-    ] 
-  }];
+    ]
+  },
+];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
