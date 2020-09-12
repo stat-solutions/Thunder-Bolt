@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidator } from 'src/app/validators/custom-validator';
-
+export interface logininfo {
+  userTelNo: number;
+  userPasword: number;
+}
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

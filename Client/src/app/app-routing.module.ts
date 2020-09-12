@@ -5,9 +5,11 @@ const routes: Routes = [
   {path: 'authpage', redirectTo: '/authpage/login', pathMatch: 'full' },
   {path: '', redirectTo: '/authpage/login', pathMatch: 'full' },
   { path: 'admin-dashboard', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
-  { path: 'areamanager', loadChildren: () => import('./areamanager/areamanager.module').then(m => m.AreamanagerModule) },
-  { path: 'townmanager', loadChildren: () => import('./townmanager/townmanager.module').then(m => m.TownmanagerModule) },
-  { path: 'stationmanager', loadChildren: () => import('./stationmanager/stationmanager.module').then(m => m.StationmanagerModule) }
+  { path: 'centralmanagement', loadChildren: () => import('./centralmanagement/centralmanagement.module').then(m => m.CentralmanagementModule) },
+  { path: 'stationmanagement', loadChildren: () => import('./stationmanagement/stationmanagement.module').then(m => m.StationmanagementModule) },
+  { path: 'townmanagement', loadChildren: () => import('./townmanagement/townmanagement.module').then(m => m.TownmanagementModule) },
+  { path: 'areamanagement', loadChildren: () => import('./areamanagement/areamanagement.module').then(m => m.AreamanagementModule) },
+  { path: 'stationofficer', loadChildren: () => import('./stationofficer/stationofficer.module').then(m => m.StationofficerModule) }
 ];
 
 @NgModule({
