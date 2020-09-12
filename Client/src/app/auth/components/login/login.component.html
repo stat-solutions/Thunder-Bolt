@@ -1,0 +1,22 @@
+<div>
+    <div>
+        <div>
+            <h4> Log In</h4>
+            <p> Welcome Back</p>
+        </div>
+        <form [formGroup]="userForm" (ngSubmit)="login()">
+            <div>
+             <input type="email" formControlName="user_contact_number" id="" placeholder="phone number" required>
+            </div>
+            <div>
+                <input type="password" formControlName="user_password" id="" placeholder="PIN" required>
+            </div>
+        </form>
+        <div>
+            <button type="submit">Log In</button>
+       </div>
+        <div>
+            <p>Don't have account <a [routerLink]="[ '/authpage/register']"> register</a></p>
+        </div>
+    </div>
+</div>

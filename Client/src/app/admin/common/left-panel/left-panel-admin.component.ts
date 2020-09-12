@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { LayoutService } from '../../../shared/services/other-services/layout.service';
+import { LayoutService } from '../../../shared/services/layout.service';
 
 @Component({
   selector: 'app-left-panel',
@@ -50,43 +50,28 @@ export class LeftPanelAdminComponent implements OnInit {
 
     this.menuList = [
       {
-        name: "Company",
+        name: "Company Setup",
         icon: "fas fa-tachometer-alt",
-        url: "/admindashboard"
+        url: "/adminsetup"
         // badge: '2',
         // badgeBg: 'bg-success',
       },
 
       {
-        name: "Role Management",
+        name: "Approval Setup",
         icon: "fas fa-tasks",
-        url: "/role-mgt"
+        url: "/approvalsetup"
         // badge: '3',
         // badgeBg: 'bg-danger',
       },
       {
-        name: "Account Management",
+        name: "Settings",
         icon: "far fa-user-circle",
-        url: "/account-mgt"
+        url: "/adminprofile"
         // badge: '3',
         // badgeBg: 'bg-danger',
       },
 
-      {
-        name: "Tickets",
-        icon: "fas fa-tools",
-        url: "/tickets",
-        badge: "8",
-        badgeBg: "bg-warning"
-      },
-
-      {
-        name: "Notifications",
-        icon: "fas fa-envelope",
-        url: "/notifications",
-        badge: "8",
-        badgeBg: "bg-warning"
-      }
     ];
   }
 }

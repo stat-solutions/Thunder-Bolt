@@ -12,11 +12,16 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
-        path: "/companysetup",
+        path: "",
+        pathMatch: "full",
+        redirectTo: "admindashboardadmin"
+      },
+      {
+        path: "companysetup",
         component: CompanySetupComponent
       },
       {
-        path: "/approvalsetup",
+        path: "approvalsetup",
         component: ApprovalSetupComponent
       },
       {
