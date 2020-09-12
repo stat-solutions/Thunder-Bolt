@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StationmanagerComponent } from './stationmanager.component';
+import { TownmanagementComponent } from './townmanagement.component';
 
-describe('StationmanagerComponent', () => {
-  let component: StationmanagerComponent;
-  let fixture: ComponentFixture<StationmanagerComponent>;
+describe('TownmanagementComponent', () => {
+  let component: TownmanagementComponent;
+  let fixture: ComponentFixture<TownmanagementComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StationmanagerComponent ]
+      declarations: [ TownmanagementComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StationmanagerComponent);
+    fixture = TestBed.createComponent(TownmanagementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,15 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
-import { AreamanagerModule } from './areamanager/areamanager.module';
-import { TownmanagerModule } from './townmanager/townmanager.module';
-import { StationmanagerModule } from './stationmanager/stationmanager.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { TownmanagementModule } from './townmanagement/townmanagement.module';
+import { StationofficerModule } from './stationofficer/stationofficer.module';
+import { StationmanagementModule } from './stationmanagement/stationmanagement.module';
+import { CentralmanagementModule } from './centralmanagement/centralmanagement.module';
 
 @NgModule({
   declarations: [
@@ -20,9 +19,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     AdminModule,
     AuthModule,
-    AreamanagerModule,
-    TownmanagerModule,
-    StationmanagerModule,
+    TownmanagementModule,
+    StationofficerModule,
+    StationmanagementModule,
+    CentralmanagementModule,
+    TownmanagementModule,
     ReactiveFormsModule
   ],
   providers: [],
