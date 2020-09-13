@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Observable, throwError, of } from 'rxjs';
 
-import { HttpHeaders, HttpErrorResponse, HttpClient, HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpErrorResponse, HttpClient, HttpParams, HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 
 import { Tokens } from '../models/tokens';
 
@@ -14,7 +14,7 @@ import { CountryRegions } from '../models/country-regions';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthServiceService implements HttpInterceptor{
 
 
 
@@ -29,6 +29,9 @@ export class AuthServiceService {
     };
 
     constructor(private http: HttpClient, private router: Router) { }
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    throw new Error('Method not implemented.');
+  }
 
 
     loginNormalUser(postData: FormGroup): Observable<boolean> {
@@ -258,9 +261,6 @@ export class AuthServiceService {
           'The Back End was not able to Handle this Request' : errorResponse.error}
   !!`);
     }
-
-
-
     private OtherErrors(errorResponse: HttpErrorResponse) {
 
       if (errorResponse.error instanceof ErrorEvent) {
@@ -276,8 +276,4 @@ export class AuthServiceService {
       // return an observable with a user-facing error message
       return throwError('The backend was not able to handle this request. Please contact system admin 0781331616.');
     }
-
-
-
-
 }

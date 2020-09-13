@@ -3,17 +3,16 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { CustomValidator } from 'src/app/validators/custom-validator';
 
 export interface AccountTypes {
-  accountType: string;
-}
-
-export interface Areas {
+  name: string;
+  DOB: string;
+  email: string;
+  tel: string;
+  userRegIdType: string;
+  userRegId: string;
+  homeAddress: string;
+  position: string;
   area: string;
-}
-
-export interface Towns {
   town: string;
-}
-export interface Stations {
   station: string;
 }
 @Component({
@@ -22,7 +21,6 @@ export interface Stations {
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-AccountTypes: [''];
 userForm:  FormGroup;
   constructor(private fb: FormBuilder) { }
 
@@ -33,25 +31,13 @@ userForm:  FormGroup;
   createFormGroup() {
     return this.fb.group({
 
-      position: this.fb.control(
+      user_full_name: this.fb.control(
         '',
         Validators.compose([
           Validators.required,
         ])
       ),
-      area_manager: this.fb.control(
-        '',
-        Validators.compose([
-          Validators.required,
-        ])
-      ),
-      town_manager: this.fb.control(
-        '',
-        Validators.compose([
-          Validators.required,
-        ])
-      ),
-      station_manager: this.fb.control(
+      user_DOB: this.fb.control(
         '',
         Validators.compose([
           Validators.required,
@@ -72,12 +58,6 @@ userForm:  FormGroup;
           Validators.minLength(10)
         ])
       ),
-      user_full_name: this.fb.control(
-        '',
-        Validators.compose([
-          Validators.required,
-        ])
-      ),
       user_ID_type: this.fb.control(
         '',
         Validators.compose([
@@ -90,13 +70,31 @@ userForm:  FormGroup;
           Validators.required,
         ])
       ),
-      user_DOB: this.fb.control(
+      user_home_area: this.fb.control(
         '',
         Validators.compose([
           Validators.required,
         ])
       ),
-      user_home_area: this.fb.control(
+      position: this.fb.control(
+        '',
+        Validators.compose([
+          Validators.required,
+        ])
+      ),
+      area_manager: this.fb.control(
+        '',
+        Validators.compose([
+          Validators.required,
+        ])
+      ),
+      town_manager: this.fb.control(
+        '',
+        Validators.compose([
+          Validators.required,
+        ])
+      ),
+      station_manager: this.fb.control(
         '',
         Validators.compose([
           Validators.required,

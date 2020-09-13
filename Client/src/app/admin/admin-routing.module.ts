@@ -1,35 +1,47 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { AdminComponent } from './admin.component';
-import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+import { PagesCoreAdminComponent } from './pages-core/pages-core-admin.component';
 import { ApprovalSetupComponent } from './components/approval-setup/approval-setup.component';
 import { CompanySetupComponent } from './components/company-setup/company-setup.component';
+import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { BussinessunitsComponent } from './components/bussinessunits/bussinessunits.component';
 
 const routes: Routes = [
-  { 
-    path: '', 
-    component: AdminComponent,
+  {
+    path: '',
+    component: PagesCoreAdminComponent,
     children: [
       {
-        path: "",
-        pathMatch: "full",
-        redirectTo: "admindashboardadmin"
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'dashboard'
+      },
+
+      {
+        path: 'dashboard',
+       component: DashboardComponent,
       },
       {
-        path: "companysetup",
-        component: CompanySetupComponent
+        path: 'companysetup',
+       component: CompanySetupComponent,
       },
       {
-        path: "approvalsetup",
-        component: ApprovalSetupComponent
+        path: 'businessunits',
+        component: BussinessunitsComponent,
       },
       {
-        path: "adminprofile",
-        component: AdminProfileComponent
+        path: 'approvalsetup',
+       component: ApprovalSetupComponent,
+      },
+      {
+        path: 'profile',
+       component: AdminProfileComponent,
       }
-    ] 
-  }];
+    ]
+  },
+];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

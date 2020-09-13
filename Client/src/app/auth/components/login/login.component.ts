@@ -4,6 +4,8 @@ import { CustomValidator } from 'src/app/validators/custom-validator';
 export interface logininfo {
   userTelNo: number;
   userPasword: number;
+  accessRight: string;
+  photoUrl: string;
 }
 @Component({
   selector: 'app-login',
@@ -12,7 +14,11 @@ export interface logininfo {
 })
 export class LoginComponent implements OnInit {
   userForm: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  submitted: boolean;
+  posted: boolean;
+  constructor(
+    private fb: FormBuilder,
+    ) { }
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
@@ -39,9 +45,7 @@ export class LoginComponent implements OnInit {
       ])
     });
   };
-
   login(){
-    
-  }
 
-}
+  }
+} 

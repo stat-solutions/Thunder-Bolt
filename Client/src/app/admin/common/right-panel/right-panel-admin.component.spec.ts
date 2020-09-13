@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RightPanelComponent } from './right-panel-admin.component';
+import { RightPanelAdminComponent } from './right-panel-admin.component';
 
-describe('RightPanelComponent', () => {
-  let component: RightPanelComponent;
-  let fixture: ComponentFixture<RightPanelComponent>;
+describe('RightPanelAdminComponent', () => {
+  let component: RightPanelAdminComponent;
+  let fixture: ComponentFixture<RightPanelAdminComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RightPanelComponent ]
+      declarations: [ RightPanelAdminComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RightPanelComponent);
+    fixture = TestBed.createComponent(RightPanelAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

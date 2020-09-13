@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+export interface company {
+  name: string;
+  
+}
 @Component({
   selector: 'app-company-setup',
   templateUrl: './company-setup.component.html',

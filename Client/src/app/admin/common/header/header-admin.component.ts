@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { LayoutService } from '../../../shared/services/other-services/layout.service';
+import { LayoutService } from '../../../shared/services/layout.service';
 
 @Component({
-  selector: 'app-header-admin',
+  selector: 'app-header',
   templateUrl: './header-admin.component.html',
   styleUrls: ['./header-admin.component.scss']
 })
@@ -20,13 +20,14 @@ export class HeaderAdminComponent implements OnInit {
   @Input() headerHeight: number;
   @Input() collapsedLeftHeader: boolean;
 
-  imageUrl = '../assets/img/brimas_logo.svg';
+  constructor( private layoutService: LayoutService) { }
 
-  constructor(private layoutService: LayoutService) {}
+  ngOnInit() {
 
-  ngOnInit() {}
+  }
 
   changeTheToggleStatus() {
     this.layoutService.getToggleStatus();
   }
+
 }
