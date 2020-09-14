@@ -1,25 +1,63 @@
-<header class="flux-header clearfix" [attr.nav-layout]="navLayout"
-  [attr.navbar-type]="toggleStatus ? defaultNavbar : toggleNavbar " [attr.effect-type]="navbarEffect"
-  [attr.header-theme]="headerColorTheme" [attr.collapsed-left-header]="collapsedLeftHeader"
-  [attr.device-type]="deviceType">
-
+<header
+  class="flux-header clearfix"
+  [attr.nav-layout]="navLayout"
+  [attr.navbar-type]="toggleStatus ? defaultNavbar : toggleNavbar"
+  [attr.effect-type]="navbarEffect"
+  [attr.header-theme]="headerColorTheme"
+  [attr.collapsed-left-header]="collapsedLeftHeader"
+  [attr.device-type]="deviceType"
+>
   <div class="flux-header-wrapper clearfix">
     <div class="flux-brand" [attr.left-header-theme]="leftHeaderColorTheme">
-      <span class="flux-brand-logo"><img src="../../../../assets/EdadLogo.jpg"  height="40" width="35"></span>
-      <span class="flux-brand-text">EDAD TOKEN BOX</span>
+      <span class="flux-brand-logo"
+        ><img
+          src="../../../../assets/img/mafuta-logo-1b.svg"
+          height="60"
+          width="50"
+      /></span>
+      <span class="flux-brand-text">ThunderBoltApp</span>
     </div>
     <div class="flux-header-navbar">
       <div class="flux-left-header clearfix">
-        <div class="sidebarToggle" (click)="changeTheToggleStatus()"><i class="fas fa-bars"></i></div>
+        <div class="sidebarToggle" (click)="changeTheToggleStatus()">
+          <i class="fas fa-bars"></i>
+        </div>
       </div>
-    <span class="text-primob align-self-baseline mb-0 pl-3 pb-0">SMART AGENT</span>
-      <div class="flux-right-header clearfix">
-        <ul>
-          <!-- <li><a class="dropdown-toggle"><i class="fas fa-cog"></i> <span *ngIf="deviceType !== 'mobile'" >&nbsp;System Settings</span> </a></li> -->
-          <li><a href=""><i class="fas fa-power-off"></i></a></li>
+      <span
+        class="dashHead text-info align-self-baseline mt-4 mb-0 ml-1 mr-0 px-0 pb-0"
+        >ADMIN</span
+      >
+      <div class="flux-right-header mt-0 mx-0 p-0">
+        <ul class="align-items-center mt-2 mx-0 px-0">
+          <li>
+            <a
+              class="dropdown-toggle nav-link mt-0 ml-3 mr-0 pl-0 pr-0 pt-0"
+              data-toggle="dropdown"
+              aria-expanded="false"
+              href="#"
+              ><span class="d-none d-lg-inline mr-0 text-gray-600 small">{{
+                userName
+              }}</span
+              ><img
+                class="border rounded-circle img-profile"
+                style="width: 30px; height: 30px"
+                [src]="user"
+              />
+            </a>
+
+            <div
+              class="dropdown-menu shadow dropdown-menu-right animated--grow-in"
+              role="menu"
+            >
+              <a class="dropdown-item text-info" role="presentation" routerLink="/profile"
+                ><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i
+                >&nbsp;Profile</a
+              >
+            </div>
+          </li>
+          <li><a (click)="logoutUser()"><i class="fas fa-power-off"></i></a></li>
         </ul>
       </div>
     </div>
   </div>
 </header>
-

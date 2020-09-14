@@ -49,12 +49,12 @@ export class LeftPanelAdminComponent implements OnInit {
     this.title = 'Navigation';
 
     this.menuList = [
-      {
-        name: this.userName,
-        icon: 'far fa-user-circle',
-        url: '/none',
-        image: this.imageurl
-      },
+      // {
+      //   name: this.userName,
+      //   icon: 'far fa-user-circle',
+      //   url: '/none',
+      //   image: this.imageurl
+      // },
 
       {
         name: 'Admin Dashboard',

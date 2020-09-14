@@ -9,6 +9,8 @@ import { TownmanagementModule } from './townmanagement/townmanagement.module';
 import { StationofficerModule } from './stationofficer/stationofficer.module';
 import { StationmanagementModule } from './stationmanagement/stationmanagement.module';
 import { CentralmanagementModule } from './centralmanagement/centralmanagement.module';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { CentralmanagementModule } from './centralmanagement/centralmanagement.m
     AppRoutingModule,
     AdminModule,
     AuthModule,
+    HttpClientModule,
     StationofficerModule,
     StationmanagementModule,
     CentralmanagementModule,

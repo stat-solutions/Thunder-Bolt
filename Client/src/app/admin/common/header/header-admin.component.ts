@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LayoutService } from '../../../shared/services/layout.service';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +22,13 @@ export class HeaderAdminComponent implements OnInit {
   @Input() headerHeight: number;
   @Input() collapsedLeftHeader: boolean;
 
-  constructor( private layoutService: LayoutService) { }
+  user = '/../../../assets/avatar3.jpg';
+  userName: string;
+  serviceErrors: any;
+
+  constructor(private layoutService: LayoutService,
+              private authService: AuthServiceService,
+              private router: Router) {}
 
   ngOnInit() {
 
@@ -28,6 +36,17 @@ export class HeaderAdminComponent implements OnInit {
 
   changeTheToggleStatus() {
     this.layoutService.getToggleStatus();
+  }
+  logoutUser() {
+    // this.spinner.show();
+    this.serviceErrors = 'Bye bye!';
+    setTimeout(() => {
+      this.router.navigate(['authpage/login']);
+
+      // this.spinner.hide();
+      }, 1000);
+
+
   }
 
 }

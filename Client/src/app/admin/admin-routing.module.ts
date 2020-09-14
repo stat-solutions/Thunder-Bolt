@@ -26,17 +26,12 @@ const routes: Routes = [
        component: ApprovalSetupComponent,
       },
       {
-<<<<<<< HEAD
-        path: "adminprofile",
-        component: AdminProfileComponent
-=======
         path: 'companysetup',
        component: CompanySetupComponent,
       },
       {
         path: 'adminprofile',
        component: AdminProfileComponent,
->>>>>>> beb2389... first commit of dashboard layout
       }
     ]
   },

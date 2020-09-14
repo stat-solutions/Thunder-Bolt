@@ -22,9 +22,9 @@
           [ngClass]="{ active: isActive(ml.name), hasMenu: ml.subMenu }"
           appMenudropdown
         >
-          <a *ngIf="ml.image">
+          <!-- <a *ngIf="ml.image">
             <img [src]="imageurl"  height="40" width="40"/>
-          </a>
+          </a> -->
 
           <a
             *ngIf="!((ml.subMenu)||(ml.image))"
