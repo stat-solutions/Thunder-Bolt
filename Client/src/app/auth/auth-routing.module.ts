@@ -7,7 +7,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 
 const routes: Routes = [
   {
-  path: "authpage",
+  path: '',
   component: AuthpageComponent,
   children: [
     {

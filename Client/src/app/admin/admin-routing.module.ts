@@ -22,6 +22,7 @@ const routes: Routes = [
         path: 'dashboard',
        component: DashboardComponent,
       },
+
       {
         path: 'companysetup',
        component: CompanySetupComponent,
