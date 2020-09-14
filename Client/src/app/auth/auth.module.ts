@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AlertModule } from 'ngx-alerts';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
@@ -14,7 +18,15 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule,
+    ReactiveFormsModule,
+    AlertModule,
+    NgxSpinnerModule,
+    AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
+    // BootstrapAlertModule
   ]
 })
 export class AuthModule { }
