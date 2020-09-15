@@ -5,9 +5,9 @@
     <div class="head-icon d-flex justify-content-center mt-3 mb-3 pb-0">
       <img
         class="mx-auto mb-0 pb-0"
-        src="assets/img/mafuta-logo-1.svg"
-        width="30"
-        height="31"
+        src="assets/img/mafuta-logo-2b.svg"
+        width="35"
+        height="35"
       />
   </div>
   <div class="card-body mt-1 pt-2 mb-0 pb-3 shadow-lg">
@@ -89,11 +89,7 @@
             class="form-control"
             bsDatepicker
             [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
-<<<<<<< HEAD
             placement="bottom"
-=======
-            placement="top"
->>>>>>> af38087827896ef7cad18712d9122448e86faab4
           />
         </div>
         <div
@@ -132,7 +128,10 @@
           autocomplete="off"
           placeholder="Select the ID type"
         >
-          <option></option>
+          <option>National ID</option>
+          <option>Passport Number</option>
+          <option>Driving Permit</option>
+          <option>Village ID</option>
         </select>
     </div>
         <div
@@ -324,8 +323,13 @@
           }"
           autocomplete="off"
           placeholder="Select the Position"
+          [(ngModel)] = positionValue
         >
-          <option></option>
+          <option>Central User</option>
+          <option>Area Manager</option>
+          <option>Town Manager</option>
+          <option>Station Manager</option>
+          <option>Station Officer</option>
         </select>
     </div>
         <div
@@ -337,52 +341,15 @@
         >
           The position is required!
         </div>
-
-        <!--the divs below will appear depending on the position selected-->
-
-        <!--the div for central-->
-        <div class="form-group text-primary">
-          <label
-            for="central"
-            [ngClass]="fval.central.valid ? 'text-info' : ''"
-            ><i *ngIf="fval.central.valid" class="material-icons"
-              >check_circle</i
-            >Choose central role</label
-          >
-          <div class="input-group mb-2">
-            <select
-            formControlName="central"
-            class="form-control"
-            [ngClass]="{
-              'is-invalid':
-                (fval.central.touched || fval.central.dirty) &&
-                fval.central.errors
-            }"
-            autocomplete="off"
-            placeholder="Select the role at central"
-          >
-            <option></option>
-          </select>
       </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.central.touched || fval.central.dirty) &&
-              fval.central.errors?.required
-            "
-          >
-            The central role is required!
-          </div>
-        </div>
-
         <!--the div for area-->
-        <div class="form-group text-primary">
+        <div class="form-group text-primary" *ngIf="(positionValue == 'Area Manager'||positionValue=='Town Manager'||positionValue=='Station Manager'||positionValue=='Station Officer')">
           <label
             for="area"
             [ngClass]="fval.area.valid ? 'text-info' : ''"
             ><i *ngIf="fval.area.valid" class="material-icons"
               >check_circle</i
-            >Choose the area</label
+            >Choose Area</label
           >
           <div class="input-group mb-2">
             <select
@@ -394,9 +361,12 @@
                 fval.area.errors
             }"
             autocomplete="off"
-            placeholder="Select the area"
+            placeholder="Select Area"
+            (change) = "setTownsSelection(fval.area.value)"
           >
-            <option></option>
+            <option  *ngFor="let area of areas"> 
+              {{area}}
+            </option>
           </select>
       </div>
           <div
@@ -411,13 +381,13 @@
         </div>
 
         <!--the div for town-->
-        <div class="form-group text-primary">
+        <div class="form-group text-primary" *ngIf="(positionValue=='Town Manager'||positionValue=='Station Manager'||positionValue=='Station Officer')">
           <label
             for="town"
             [ngClass]="fval.town.valid ? 'text-info' : ''"
             ><i *ngIf="fval.town.valid" class="material-icons"
               >check_circle</i
-            >Choose the town</label
+            >Choose Town</label
           >
           <div class="input-group mb-2">
             <select
@@ -429,9 +399,12 @@
                 fval.town.errors
             }"
             autocomplete="off"
-            placeholder="Select the town"
+            placeholder="Select town"
+            (change) = "setStationSelection(fval.town.value)"
           >
-            <option></option>
+            <option *ngFor="let town of towns">
+              {{town.name}}
+            </option>
           </select>
       </div>
           <div
@@ -446,13 +419,13 @@
         </div>
 
         <!--the div for station-->
-        <div class="form-group text-primary">
+        <div class="form-group text-primary" *ngIf="(positionValue  == 'Station Manager'||positionValue=='Station Officer')">
           <label
             for="station"
             [ngClass]="fval.station.valid ? 'text-info' : ''"
             ><i *ngIf="fval.station.valid" class="material-icons"
               >check_circle</i
-            >Choose station role</label
+            >Choose station</label
           >
           <div class="input-group mb-2">
             <select
@@ -464,9 +437,11 @@
                 fval.station.errors
             }"
             autocomplete="off"
-            placeholder="Select the role at station"
-          >
-            <option></option>
+            placeholder="Select station"
+            >
+            <option   *ngFor="let station of stations">
+              {{station.name}}
+            </option>
           </select>
       </div>
           <div
@@ -479,13 +454,11 @@
             The station is required!
           </div>
         </div>
-        </div>
-
       <div class="d-flex my-2 py-2 mx-auto">
         <button
           type="submit"
           class="btn btn-info col-5 mx-auto"
-          [disabled]="!userForm.valid"
+          
         >
           Register
         </button>
@@ -494,6 +467,7 @@
           type="button"
           class="btn btn-info col-5 mx-auto"
           (click)="returnHome()"
+          routerLink = "/authpage/login"
         >
           Cancel
         </button>

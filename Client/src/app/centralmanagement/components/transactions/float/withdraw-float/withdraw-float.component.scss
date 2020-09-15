@@ -1,0 +1,173 @@
+.jumbotron-fluid {
+    height: inherit !important;
+}
+
+.rub-head4 {
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+    margin-right: 0px !important;
+    contain: auto;
+}
+
+.card-body {
+    width: 100%;
+    height: 100%;
+    max-width: 320px;
+    min-width: 260px;
+    border-radius: 8px;
+    contain: auto;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+button.btn {
+    border-radius: 15px;
+}
+
+.text-info {
+    color: #17aae0ee !important
+}
+
+a.text-info:focus,
+a.text-info:hover {
+    color: #48bae4f5 !important
+}
+
+.btn-info {
+    color: #17aae0ee;
+    background-color: transparent;
+    border-color: #17aae0ee
+}
+
+.btn-info:hover,
+.btn-info:focus {
+    color: #d9dbdd;
+    background-color: #17aae0ee;
+    border-color: #17aae0ee
+}
+
+.btn-info.focus,
+.btn-info:focus {
+    box-shadow: 0 0 0 .2rem #0e99ccee
+}
+
+.btn-info.disabled,
+.btn-info:disabled {
+    color: #1b9eceec;
+    background-color: transparent;
+    border-color: #1b9eceec
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+//media queries
+@media (min-width: 320px) {
+    .card-body {
+        max-width: 320px;
+        min-width: 290px;
+        max-height: 275px;
+        min-height: 230px;
+    }
+    .jumbotron-fluid {
+        padding-top: 0px !important;
+        padding-bottom: 10px !important;
+    }
+}
+
+@media (min-width: 360px) {
+    .card-body {
+        max-width: 360px;
+        min-width: 330px;
+        padding-top: 22px !important;
+        margin-bottom: 25px !important;
+    }
+    .jumbotron-fluid {
+        padding-bottom: 20px !important;
+    }
+}
+
+@media (min-width: 375px) {
+    .card-body {
+        max-width: 370px;
+        min-width: 345px;
+        margin-bottom: 10px !important;
+    }
+}
+
+@media (min-width: 410px) {
+    h4 {
+        font-size: 18px;
+    }
+    .card-body {
+        max-width: 370px;
+        min-width: 350px;
+        margin-bottom: 30px !important;
+    }
+    .jumbotron-fluid {
+        padding-top: 18px !important;
+        padding-bottom: 30px !important;
+    }
+}
+
+@media (min-width: 445px) {
+    h4 {
+        font-size: 20px !important;
+    }
+    .card-body {
+        max-width: 410px;
+        min-width: 390px;
+    }
+}
+
+@media (min-width: 568px) {
+    .jumbotron-fluid {
+        padding-bottom: 20px !important;
+    }
+}
+
+@media (min-width: 640px) {
+    .container {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    h4 {
+        font-size: 22px !important;
+    }
+    .card-body {
+        max-height: 275px;
+        min-height: 230px;
+    }
+}
+
+@media (min-width: 812px) {}
+
+@media (min-width: 1024px) {
+    .container {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    .card-body {
+        margin-bottom: 30px !important;
+    }
+}
+
+@media (min-width: 1100px) {}
+
+@media (min-width: 1280px) {
+    h4 {
+        font-size: 24px !important;
+    }
+}
+
+@media (min-width: 1320px) {}

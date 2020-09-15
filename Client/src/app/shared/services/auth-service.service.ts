@@ -3,18 +3,14 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Observable, throwError, of } from 'rxjs';
-
 import { HttpHeaders, HttpErrorResponse, HttpClient, HttpParams, HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
-
 import { Tokens } from '../models/tokens';
-
 import { map, tap, catchError, mapTo } from 'rxjs/operators';
-import { CountryRegions } from '../models/country-regions';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService implements HttpInterceptor{
+export class AuthServiceService {
 
 
 
@@ -22,6 +18,7 @@ export class AuthServiceService implements HttpInterceptor{
     private loggedInUser: string;
     private readonly JWT_TOKEN = 'JWT_TOKEN';
     private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
+    
     httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -29,11 +26,7 @@ export class AuthServiceService implements HttpInterceptor{
     };
 
     constructor(private http: HttpClient, private router: Router) { }
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    throw new Error('Method not implemented.');
-  }
-
-
+  
     loginNormalUser(postData: FormGroup): Observable<boolean> {
 
       return this.http.post<any>(`${this.API_URL}/api/auth/login`, postData.value, this.httpOptions)
@@ -42,137 +35,45 @@ export class AuthServiceService implements HttpInterceptor{
           // tap(tokens => console.log(`${tokens}`)),
           tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
           mapTo(true),
-
           catchError(this.handleLoginError)
 
         );
     }
 
-
-
-    getCounryRegions(): Observable<CountryRegions[]> {
-
-      return this.http.get<CountryRegions[]>(`${this.API_URL}/api/auth/getTheCountryRegions`, this.httpOptions)
-
+    logout() {
+      return this.http.post<any>(`${this.API_URL}/api/auth/logout`, { refreshToken: this.getRefreshToken() })
         .pipe(
-
-          tap(response => console.log(`${response}`)),
-
-          catchError(this.OtherErrors)
+          tap(() => this.doLogoutUser()),
+          mapTo(true),
+          catchError(error => {
+            this.handleLoginError(error);
+            return of(false);
+          }
+          )
         );
     }
-
-    testingTheTablePost(postData: FormGroup): Observable<string> {
-
-      return this.http.post<string>(`${this.API_URL}/api/auth/testTableData`, postData.value, this.httpOptions)
-
-        .pipe(
-          // tap(tokens => console.log(`${tokens}`)),
-          // tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
-          // mapTo(true),
-
-          catchError(this.handleLoginError)
-
-        );
-    }
-
-    isAgentRegistered(id: string): Observable<boolean> {
-          //  return of(true);
-      const options1 = { params: new HttpParams().set('id', id) };
-
-      return this.http.get<boolean>(`${this.API_URL}/api/auth/isAgentRegistered`, options1)
-
-        .pipe(
-          catchError(this.OtherErrors)
-        );
-
-
-    }
-
-
-
-
-    // logout() {
-
-    //   return this.http.post<any>(`${this.API_URL}/api/auth/logout`, { refreshToken: this.getRefreshToken() })
-
-    //     .pipe(
-    //       tap(() => this.doLogoutUser()),
-    //       mapTo(true),
-
-    //       catchError(error => {
-    //         this.handleLoginError(error);
-    //         return of(false);
-
-    //       }
-    //       )
-    //     );
-    // }
 
     registerUser(postData: FormGroup) {
-
       return this.http.post<string>(`${this.API_URL}/api/auth/register`, postData.value, this.httpOptions)
-
         .pipe(
           map((res: string) => res),
           tap(res => console.log(`AFTER MAP: ${res}`)),
           catchError(this.handleRegisterError)
         );
     }
-
-
-
-    registerSmartAgent(postData: FormGroup) {
-
-      return this.http.post<string>(`${this.API_URL}/api/auth/registerSmartAgent`, postData.value, this.httpOptions)
-
+    changePIN (postData: FormGroup):Observable<boolean>  {
+      return this.http.post<any>(`${this.API_URL}/api/auth/login`, postData.value, this.httpOptions)
         .pipe(
-          map((res: string) => res),
-          // tap(res => console.log(`AFTER MAP: ${res}`)),
-          catchError(this.handleRegisterError)
+          // tap(tokens => console.log(`${tokens}`)),
+          tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
+          mapTo(true),
+          catchError(this.handleLoginError)
+
         );
     }
-
-    registerSmartSaverAgent(postData: FormGroup) {
-
-      return this.http.post<string>(`${this.API_URL}/api/auth/registerSmartSaverAgent`, postData.value, this.httpOptions)
-
-        .pipe(
-          map((res: string) => res),
-          // tap(res => console.log(`AFTER MAP: ${res}`)),
-          catchError(this.handleRegisterError)
-        );
-    }
-
-
-
-    registerSmartSaverNoAgent(postData: FormGroup) {
-
-      return this.http.post<string>(`${this.API_URL}/api/auth/registerSmartSaver`, postData.value, this.httpOptions)
-
-        .pipe(
-          map((res: string) => res),
-          // tap(res => console.log(`AFTER MAP: ${res}`)),
-          catchError(this.handleRegisterError)
-        );
-    }
-
-
-    registerMobileNumberPasswordAdmin(postData: FormGroup) {
-
-      return this.http.post<string>(`${this.API_URL}/api/auth/registerAdmin`, postData.value, this.httpOptions)
-
-        .pipe(
-          map((res: string) => res),
-          tap(res => console.log(`AFTER MAP: ${res}`)),
-          catchError(this.handleRegisterError)
-        );
-    }
-
     doLoginUser(phoneNubmer: string, tokens: Tokens) {
       this.loggedInUser = phoneNubmer;
       this.storeTokens(tokens);
-
     }
 
     doLogoutUser() {
@@ -181,25 +82,18 @@ export class AuthServiceService implements HttpInterceptor{
     }
 
     private removeTokens() {
-
       console.log('In it');
-
       localStorage.removeItem(this.JWT_TOKEN);
-
       localStorage.removeItem(this.REFRESH_TOKEN);
     }
-
 
     isLoggedIn() {
       return !!this.getJwtToken();
     }
 
-
     getJwtToken() {
-
       return localStorage.getItem(this.JWT_TOKEN);
     }
-
 
     refreshToken() {
       console.log('am refreshing');
@@ -261,6 +155,7 @@ export class AuthServiceService implements HttpInterceptor{
           'The Back End was not able to Handle this Request' : errorResponse.error}
   !!`);
     }
+
     private OtherErrors(errorResponse: HttpErrorResponse) {
 
       if (errorResponse.error instanceof ErrorEvent) {

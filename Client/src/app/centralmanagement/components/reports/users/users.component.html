@@ -1,0 +1,90 @@
+<div>
+    <!-- imput section -->
+    <div class="pl-5 pt-5">
+        <form>
+            <div>
+                <label for="viewChoice">
+                    Select user type: 
+                </label>
+                <select name="userType" formControlName="userType" id="userType">
+                    <option value="All"  selected>All</option>
+                    <option value="Area Manager">Area Manager</option>
+                    <option value="Town Manager">Town Manager</option>
+                    <option value="Station Manager">Station Manager</option>
+                    <option value="Station Officer">Station Officer</option>
+                </select>
+            </div>
+            <label for="viewChoice" >
+                Select What to view: 
+            </label>
+            <label for="viewChoice" >
+                Area: 
+            </label>
+            <select name="Areas" id="areas" formControlName="areaLocation">
+                <option value="All" selected>All</option>
+            </select>
+            <label for="viewChoice" >
+                Town: 
+            </label>
+            <select name="stations" id="towns" formControlName="townLocation">
+                <option value="All" selected>All</option>
+            </select>
+            <label for="viewChoice" >
+                Station: 
+            </label>
+            <select name="station" id="stations" formControlName="stationLocation">
+                <option value="All" selected>All</option>
+            </select>
+            <input type="submit" value="Get">
+        </form>
+    </div>
+    <div class="pl-5">
+        <!-- the search section -->
+        <form>
+            <label for="Search">Search</label>
+            <input type="text" placeholder="search here"> 
+        </form>
+    </div>
+    <div class="pl-5">
+        <!-- this is foe titles -->
+        <div class="row">
+            <span class="col-1 p-1">User Id</span>
+            <span class="col-1 p-1">User's Name</span>
+            <span class="col-2 p-1">Position</span>
+            <span class="col-1 p-1">Contacts</span>
+            <span class="col-3 p-1">Location</span>
+            <span class="col-2 p-1">Status</span>
+            <span class="col-1 p-1">Login Status</span>
+        </div>
+        <div>
+            <!-- this is a container for all user cards -->
+            <div class="row">
+                <span class="col-1 p-1">12343</span>
+                <span class="col-1 p-1">King davis</span>
+                <span class="col-2 p-1">Area Manager</span>
+                <span class="col-1 p-1">Contacts</span>
+                <span class="col-3 p-1">Central Region</span>
+                <span class="col-2 p-1">Active</span>
+                <span class="col-1 p-1">Online</span>
+            </div>
+            <div class="row">
+                <span class="col-1 p-1">12343</span>
+                <span class="col-1 p-1">King Googo</span>
+                <span class="col-2 p-1">Station Manager</span>
+                <span class="col-1 p-1">Contacts</span>
+                <span class="col-3 p-1">Eastern Region, Mbale, katooke</span>
+                <span class="col-2 p-1">Deactivated</span>
+                <span class="col-1 p-1">Offline</span>
+            </div>
+            <div class="row">
+                <span class="col-1 p-1">12343</span>
+                <span class="col-1 p-1">King Rain</span>
+                <span class="col-2 p-1">Station Officer</span>
+                <span class="col-1 p-1">Contacts</span>
+                <span class="col-3 p-1">Western Region, Mbale, kibira</span>
+                <span class="col-2 p-1">Pending Approvals</span>
+                <span class="col-1 p-1">0ffline</span>
+            </div>
+        </div>
+    </div>
+</div>

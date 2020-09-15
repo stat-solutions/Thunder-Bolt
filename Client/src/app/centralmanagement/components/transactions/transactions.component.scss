@@ -1,0 +1,120 @@
+.jumbotron-fluid {
+    height: inherit !important;
+}
+
+.rub-head4 {
+    margin-top: 2px !important;
+    margin-bottom: 2px !important;
+    // margin-right: 0px !important;
+    // margin-left: 100px !important;
+    contain: auto;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+.text-info {
+    color: #17aae0ee !important;
+}
+
+a.text-info:focus,
+a.text-info:hover {
+    color: #48bae4f5 !important;
+}
+
+.pointerCursor {
+    cursor: pointer;
+}
+
+//media queries
+@media (min-width: 320px) {
+    .jumbotron-fluid {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+}
+
+@media (min-width: 360px) {}
+
+@media (min-width: 375px) {
+    .jumbotron-fluid {
+        padding-bottom: 10px !important;
+    }
+}
+
+@media (min-width: 410px) {
+    .jumbotron-fluid {
+        padding-bottom: 5px !important;
+    }
+}
+
+@media (min-width: 445px) {
+    h1 {
+        font-size: 26px;
+    }
+    .jumbotron-fluid {
+        padding-top: 8px !important;
+        padding-bottom: 5px !important;
+    }
+}
+
+@media (min-width: 568px) {
+    .jumbotron-fluid {
+        padding-top: 0px !important;
+    }
+}
+
+@media (min-width: 640px) {
+    .container {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    h1 {
+        font-size: 30px !important;
+    }
+    .jumbotron-fluid {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+}
+
+@media (min-width: 812px) {
+    .jumbotron-fluid {
+        padding-top: 0px !important;
+        padding-bottom: 5px !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .jumbotron-fluid {
+        padding-top: 10px !important;
+        padding-bottom: 20px !important;
+    }
+}
+
+@media (min-width: 1100px) {}
+
+@media (min-width: 1280px) {
+    .container {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    h1 {
+        font-size: 34px !important;
+    }
+    .jumbotron-fluid {
+        margin-top: 0px !important;
+        padding-top: 0px !important;
+        padding-bottom: 10px !important;
+    }
+}
+
+@media (min-width: 1320px) {}

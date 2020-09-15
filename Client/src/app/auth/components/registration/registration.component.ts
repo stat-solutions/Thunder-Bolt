@@ -8,22 +8,6 @@ import { AlertService } from 'ngx-alerts';
 // import { UserRole } from 'src/app/models/user-role';
 // import { CompanyPetroStations } from 'src/app/models/company-petro-stations';
 // import { TheStations } from 'src/app/models/the-stations';
-
-export interface AccountTypes {
-  accountType: string;
-}
-
-export interface Areas {
-  area: string;
-}
-
-export interface Towns {
-  town: string;
-}
-export interface Stations {
-  station: string;
-}
-
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -40,9 +24,38 @@ export class RegistrationComponent implements OnInit {
   fieldType: boolean;
   mySubscription: any;
   myDateValue: Date;
-  // userRoleInfo: UserRole[];
-  // theCompanyStations: CompanyPetroStations[];
-  // thePetrolStations: TheStations[];
+  positionValue: string;
+  areas: Array<string> = [
+    "Central Region",
+    "Western Region",
+    "Southern Region",
+    "Northern Region",
+    "Eastern Region"
+  ];
+  towns = [
+    {name:"Kampala", area: "Central Region"},
+    {name:"Wakiso", area: "Central Region"},
+    {name: "Mbale", area: "Eastern Region"},
+    {name:"Busia", area: "Eastern Region"},
+    {name:"Mbarara", area: "Western Region"},
+    {name:"Bushenyi", area: "Western Region"},
+    {name:"Kisoro", area: "Western Region"},
+    {name:"Kotido", area: "Northern Region"},
+    {name:"Moroto", area: "Northern Region"},
+    {name:"Arua", area: "Northern Region"},
+  ];
+  stations = [
+    {name: "ndeba", town:"Wakiso"},
+    {name: "ndejje", town: "Kampala"},
+    {name: "matugga", town:"Wakiso"},
+    {name: "kinawa", town:"Kampala"},
+    {name: "kitale", town:"Mbarara"},
+    {name: "katwe", town:"Kampala"},
+    {name: "sogga", town:"Mbale"},
+    {name: "kitwee", town:"Wakiso"},
+    {name: "busega", town:"Kampala"},
+    {name: "mbweera", town:"Arua"},
+  ];
 
   constructor(
     private authService: AuthServiceService,
@@ -54,8 +67,9 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
     this.myDateValue = new Date();
     this.userForm = this.createFormGroup();
+    localStorage.setItem("towns", JSON.stringify(this.towns));
+    localStorage.setItem("stations", JSON.stringify(this.stations));
   }
-
   createFormGroup() {
     return new FormGroup({
       full_name: new FormControl(
@@ -121,31 +135,6 @@ export class RegistrationComponent implements OnInit {
       date_of_birth: new FormControl(
         '',
         Validators.compose([Validators.required])
-      ),
-      // user_image: new FormControl('', Validators.compose([Validators.required])),
-      password: new FormControl(
-        '',
-        Validators.compose([
-          // 1. Password Field is Required
-
-          Validators.required,
-
-          // 2. check whether the entered password has a number
-          CustomValidator.patternValidator(/^(([1-9])([1-9])([1-9])([0-9]))$/, {
-            hasNumber: true
-          }),
-          // 3. check whether the entered password has upper case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-          // 4. check whether the entered password has a lower-case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
-          // 5. check whether the entered password has a special character
-          // CustomValidatorInitialCompanySetup.
-          //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
-
-          // 6. Has a minimum length of 8 characters
-          Validators.minLength(4),
-          Validators.maxLength(4)
-        ])
       )
     });
   }
@@ -154,90 +143,22 @@ export class RegistrationComponent implements OnInit {
     this.userForm.reset();
   }
 
-  revertPetrol() {
-    this.userForm.controls.petrol_station.reset();
-  }
-
   get fval() {
     return this.userForm.controls;
   }
-
-  // updateThePetrolStations(event) {
-  //   // console.log(event.target.value);
-  //   this.thePetrolSations(event.target.value);
-  // }
-
     //toggle visibility of password field
     toggleFieldType() {
       this.fieldType = !this.fieldType;
     }
 
-
-
-  // userRoleData() {
-
-  //   this.authService.getUserRoles().subscribe(
-  //     data => {
-  //       this.userRoleInfo = data;
-  //       this.alertService.success({
-  //         html: '<b> User Roles Updated</b>' + '<br/>'
-  //       });
-  //     },
-
-  //     (error: string) => {
-  //       this.errored = true;
-  //       this.serviceErrors = error;
-  //       this.alertService.danger({
-  //         html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-  //       });
-  //     }
-  //   );
-  // }
-
-  // companyPetrolStations() {
-  //   this.authService.getCompanyPetrolStations().subscribe(
-  //     data => {
-  //       // console.log(data);
-  //       this.theCompanyStations = data;
-  //       this.alertService.success({
-  //         html: 'Company Petrol Stations Updated' + '<br/>'
-  //       });
-  //     },
-
-  //     (error: string) => {
-  //       this.errored = true;
-  //       this.serviceErrors = error;
-  //       this.alertService.danger({
-  //         html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-  //       });
-  //     }
-  //   );
-
-
-
-  // thePetrolSations(theCompanyStation: string) {
-  //   this.revertPetrol();
-
-  //   this.authService.getThePetrolStations(theCompanyStation).subscribe(
-  //     data => {
-  //       this.thePetrolStations = data;
-
-  //       // console.log(this.thePetrolStations);
-
-  //       this.alertService.success({
-  //         html: '<b> The petrol stations were updated!!</b>' + '<br/>'
-  //       });
-  //     },
-
-  //     (error: string) => {
-  //       this.errored = true;
-  //       this.serviceErrors = error;
-  //       this.alertService.danger({
-  //         html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-  //       });
-  //     }
-  //   );
-  // }
+  setTownsSelection  (area: string) {
+    this.towns = JSON.parse(localStorage.getItem("towns"));
+    this.towns = this.towns.filter(town => town.area == area);
+  } 
+  setStationSelection  (town: string) {
+    this.stations = JSON.parse(localStorage.getItem("stations"));
+    this.stations = this.stations.filter(station => station.town == town);
+  }
 
   returnHome() {
     this.spinner.hide();
@@ -251,41 +172,35 @@ export class RegistrationComponent implements OnInit {
   register(){
     this.submitted = true;
     this.spinner.show();
-
     if (this.userForm.invalid === true) {
       return;
     } else {
+      
       this.authService.registerUser(this.userForm).subscribe(
         () => {
           this.posted = true;
           this.spinner.hide();
-
           this.alertService.success({
             html:
-              '<b>User Registration was Successful</b>' +
+              '<b>User Registration Was Successful</b>' +
               '</br>' +
-              'Please proceed to the login page'
+              'Your Can Login'
           });
-
           setTimeout(() => {
             this.router.navigate(['authpage/login']);
           }, 3000);
         },
-
         (error: string) => {
-          //       this.spinner.hide();
+          this.spinner.hide();
           this.errored = true;
           this.serviceErrors = error;
           this.alertService.danger({
             html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
           });
-                setTimeout(() => {
-
-                  location.reload();
-
-                }, 3000);
+          setTimeout(() => {
+            location.reload();
+          }, 3000);
           console.log(error);
-          this.spinner.hide();
         }
       );
 

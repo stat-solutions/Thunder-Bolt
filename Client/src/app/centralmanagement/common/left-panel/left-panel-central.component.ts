@@ -23,6 +23,7 @@ export class LeftPanelCentralComponent implements OnInit {
   menuList: any;
   selected: any;
   userName: any;
+
   constructor(private layoutService: LayoutService) {}
 
   isActive(item) {
@@ -50,41 +51,79 @@ export class LeftPanelCentralComponent implements OnInit {
 
     this.menuList = [
       {
-        name: this.userName,
-        icon: 'far fa-user-circle',
-        url: '/none',
-        image: this.imageurl
-      },
-      {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
         url: '/centralmanagement/dashboard'
       },
       {
-        name: 'Areas',
-        icon: 'fas fa-tachometer-alt',
-        url: '/centralmanagement/areas'
+        name: 'Create',
+        icon: 'fas fa-wrench',
+        url: '/centralmanagement/create'
       },
       {
-        name: 'Towns',
-        icon: 'fas fa-tachometer-alt',
-        url: '/centralmanagement/towns'
+        name: 'Approvals',
+        icon: 'fas fa-cogs',
+        url: '/centralmanagement/approve'
       },
       {
-        name: 'Stations',
-        icon: 'fas fa-tachometer-alt',
-        url: '/centralmanagement/stations'
+        name: 'Transactions',
+        icon: 'fas fa-tools',
+        url: '/centralmanagement/transactions',
+        subMenu: [
+          {
+            name: 'Loans',
+            icon: 'fas fa-credit-card',
+            url: '/centralmanagement/transactions/loans'
+         },
+         {
+          name: 'Approvals',
+          icon: 'fas fa-cogs',
+          url: '/centralmanagement/transactions/approve'
+        },
+        {
+          name: 'Float',
+          icon: 'fas fa-credit-card',
+          url: '/centralmanagement/transactions/float'
+        }
+          ]
+        },
+      {
+        name: 'Reports',
+        icon: 'fas fa-chart-line',
+        url: '/centralmanagement/reports',
+        subMenu: [
+          {
+            name: 'Areas',
+            icon: 'fas fa-user-cog',
+            url: '/centralmanagement/reports/areas'
+          },
+          {
+            name: 'Towns',
+            icon: 'fas fa-user-cog',
+            url: '/centralmanagement/reports/towns'
+          },
+          {
+            name: 'Stations',
+            icon: 'fas fa-user-cog',
+            url: '/centralmanagement/reports/stations'
+          },
+          {
+            name: 'Clients',
+            icon: 'fas fa-user-cog',
+            url: '/centralmanagement/reports/clients'
+          },
+          {
+            name: 'Users',
+            icon: 'fas fa-user-cog',
+            url: '/centralmanagement/reports/users'
+          }
+        ]
       },
       {
-        name: 'Clusters',
-        icon: 'fas fa-tachometer-alt',
-        url: '/centralmanagement/clusters'
-      },
-      {
-        name: 'Settings',
+        name: 'My Profile',
         icon: 'fas fa-user-cog',
         url: '/centralmanagement/profile'
       }
-    ];
-  }
+]
+};
 }

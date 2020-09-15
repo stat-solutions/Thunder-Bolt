@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import * as jwt_decode from 'jwt-decode';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
+import { ArrayType } from '@angular/compiler';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-export interface approvals {
-  areaCreation: number;
-  townCreation: number;
-  stationCreation: number;
-  clusterCreation: number;
-  stageCreation: number;
-  userCreation: number
+
+export interface Approvals {
+  name: string;
+  level: number;
 }
 
 @Component({
@@ -24,7 +21,7 @@ export interface approvals {
   styleUrls: ['./approval-setup.component.scss']
 })
 export class ApprovalSetupComponent implements OnInit {
-  userForm: FormGroup;
+  approvalForm: FormGroup;
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -33,173 +30,100 @@ export class ApprovalSetupComponent implements OnInit {
   checkedOk: boolean;
   station: string;
   theCompany: string;
+  approvals: Approvals[] =[
+    {name: "Area Creation", level: 3},
+    {name: "Town Creation", level: 1},
+    {name: "Stage Creation", level: 2},
+    {name: "Station Creation", level: 4},
+    {name: "Station Creation", level: 4}
+  ];
   constructor(
-    private authService: AuthServiceService,
+    private others: OthersService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private fb: FormBuilder
   ) {}
-
-  ngOnInit() {
-    this.station = jwt_decode(this.authService.getJwtToken()).user_station_name;
-    this.theCompany = jwt_decode(
-      this.authService.getJwtToken()
-    ).user_station_company;
-    this.userForm = this.createFormGroup();
-    this.checkedOk = false;
+ngOnInit () {
+    this.approvalForm = this.createFormGroup();
+    this.initialiseForm();
+    this.disableForms();
   }
-
   createFormGroup() {
-    return new FormGroup({
-      item_to_create: new FormControl(
+    return this.fb.group({
+      approvalItems: this.fb.array([this.approvalItem]),
+    })
+  }
+  get approvalItem () {
+    return this.fb.group({
+      name: this.fb.control({value: ''}),
+      level: this.fb.control(
         '',
         Validators.compose([
-          Validators.required
-        ])
-      ),
-
-      item_created: new FormControl('',
-         Validators.compose([
-          Validators.required        ])
-      ),
-      level: new FormControl('',
-         Validators.compose([
-          Validators.required        ])
-      )
-    });
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(1),
+        CustomValidator.maxValue(5),
+        CustomValidator.minValue(0)
+          ])
+        )
+    })
+  }
+  addItem () {
+    (this.fval.approvalItems as FormArray).push(this.approvalItem)
   }
 
+  removeItem (index: number) {
+    (this.fval.approvalItems as FormArray).removeAt(index);
+  }
+
+  initialiseForm () {
+    let n: number;
+    // this.others.getBussinessUnits().subscribe(
+    //   units => {
+    //     this.approvals = units;
+        this.approvals.forEach((item, i) => {
+          // console.log(item.name);
+          // console.log(i);
+          this.fval.approvalItems['controls'][i]['controls'].name.setValue(item.name);
+          this.fval.approvalItems['controls'][i]['controls'].level.setValue(item.level);
+          this.addItem();
+          n=i + 1;
+        })
+        this.removeItem(n);
+      // }
+    // )
+  }
   revert() {
-    this.userForm.reset();
+    this.approvalForm.reset();
   }
 
   refresh() {
     location.reload();
   }
-  revertPetrol() {
-    this.userForm.controls.petrol_station.reset();
-  }
-
 
   get fval() {
-    return this.userForm.controls;
+    return this.approvalForm.controls;
   }
-  // onKey(event: any) {
-  //   // without type info
-  //   this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
+ 
+  disableForms () {
+    this.approvals.forEach((itm, i) =>{
+     this.fval.approvalItems["controls"][i].disable();    
+    })
+  }
 
-  //   this.numberValue = this.values ? parseInt(this.values, 10) : 0;
-
-  //   // tslint:disable-next-line:no-unused-expression
-  //   this.values =
-  //     this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
-
-  //   this.userForm.controls.amount_to_borrow.setValue(this.values);
-  // }
-  // openModal() {
-  //   this.modalRef = this.modalServiceb.show(LendDialogComponent, {
-  //     initialState: {
-  //       title: 'Give Credit',
-  //       data: {
-  //         number_plate: this.userForm.controls.number_plate.value,
-  //         amount_to_borrow: this.userForm.controls.amount_to_borrow.value,
-  //         amount_due: this.amountDue,
-  //         txn_id: this.txnId
-  //       }
-  //     }
-  //   });
-  // }
-
-  // getTheNumberPlates() {
-  //   this.pumpService.theNumberPlates(this.station).subscribe(
-  //     data => {
-  //       this.numberPlates = data;
-  //     },
-
-  //     (error: string) => {
-  //       this.errored = true;
-  //       this.serviceErrors = error;
-  //       this.alertService.danger({
-  //         html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-  //       });
-  //     }
-  //   );
-  // }
-
-  // checkLoanbility() {
-  //   this.pumpService
-  //     .checkWhetherTheCLoanable(this.userForm.controls.number_plate.value)
-  //     .subscribe(
-  //       data => {
-  //         this.loanDetails = data[0];
-  //         // console.log(this.loanDetails);
-  //         this.checkedOk = true;
-  //         this.secretPin = this.loanDetails.secret_pin;
-  //         this.loanLimit = this.loanDetails.petrol_station_loan_limit;
-  //         this.userForm.controls.number_plate.disable();
-  //         this.userForm.controls.amount_to_borrow.enable();
-  //         this.userForm.controls.pin.enable();
-  //       },
-
-  //       (error: string) => {
-  //         this.errored = true;
-  //         this.serviceErrors = error;
-  //         this.alertService.danger({
-  //           html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-  //         });
-  //       }
-  //     );
-  // }
-
-
-
-  createOrApprove() {
-
-    // this.userForm.patchValue({
-    //   amount_to_borrow: parseInt( this.userForm.controls.amount_to_borrow.value.replace(/[\D\s\._\-]+/g, ''), 10 )
-    // });
-
-    // // tslint:disable-next-line:triple-equals
-    // if (!(this.secretPin == this.userForm.controls.pin.value)) {
-    //   this.alertService.danger({
-    //     html: '<b>Invalid PIN</b>'
-    //   });
-    //   return;
-    // } else {
-    //   if (this.userForm.controls.amount_to_borrow.value > this.loanLimit) {
-    //     this.alertService.warning({
-    //       html: '<b>Loan Limit Exceeded!!</b>' + '<br/>'
-    //     });
-    //     return;
-    //   } else {
-    //     this.userForm.controls.number_plate.enable();
-    //     this.userForm.patchValue({
-    //       user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-    //       user_id: jwt_decode(this.authService.getJwtToken()).user_id
-    //     });
-    //     // console.log(this.userForm.value);
-    //     this.posted = true;
-        this.spinner.show();
-        // this.pumpService.createLoan(this.userForm).subscribe(
-        //   result => {
-        //     this.amountDue = result[0].amount_due;
-        //     this.txnId = result[0].txn_id;
-        //     this.spinner.hide();
-        //     this.router.navigate(['dashboardpump/shiftmanagement']);
-        //     setTimeout(() => {
-        //       location.reload();
-        //     }, 3000);
-        //   },
-
-        //   (error: string) => {
-        //     this.spinner.hide();
-        //     this.errored = true;
-        //     this.serviceErrors = error;
-        //     this.alertService.danger({
-        //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-        //     });
-        //   }
-        // );
-      }
+  enableEdit(val: number) {
+    this.approvals.forEach((itm, i) =>{
+      if(i == val) {
+        this.fval.approvalItems["controls"][i].enable(); 
+      }   
+    })
+  }
+  saveLevel(index: any) {
+    if(this.fval.approvalItems["controls"][index]) {
+        this.fval.approvalItems["controls"][index].disable();
+      } else {
+        return;
     }
-
+  }
+}

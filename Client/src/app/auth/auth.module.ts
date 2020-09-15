@@ -26,8 +26,6 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     ReactiveFormsModule,
     BrowserModule,
     BsDropdownModule,
-    BsDatepickerModule,
-    BsDatepickerModule,
     BrowserAnimationsModule,
     DatepickerModule,
     BsDatepickerModule,

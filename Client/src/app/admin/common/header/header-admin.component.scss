@@ -58,8 +58,18 @@
   }
 }
 
-.text-primob{
-  color: #be6928;
+.dropdown-menu {
+  background-color: #141e27 !important;
+  color: #8099ad !important;
+}
+
+.dropdown-item:hover {
+  background-color: #0c1014 !important;
+  color: #17aae0ee !important;
+}
+
+.text-primo{
+  color: #9ab5cc !important;
 }
 
 .flux-header-navbar {
@@ -524,10 +534,10 @@
 }
 
 
-@include headerColorTheme(theme1, #ecf0f8, #354052, #FFF, #678098, #f5f5f5, #354052, #be6928,
-  #354052, #c63685f3, #364357, #007bff, #f2f2f2, #be6928, #be6928, #FFF, #FFF);
+@include headerColorTheme(theme1, #ecf0f8, #141e27, #FFF, #9ab5cc, #f5f5f5, #141e27, #8099ad,
+  #141e27, #17aae0ee, #364357, #007bff, #141e27, #8099ad, #141e27, #FFF, #17aae0ee);
 
-@include headerColorTheme(theme2, #1c232e, #354052, #354052, #b4bcc8, #485468, #1c232e, #b4bcc8,
+@include headerColorTheme(theme2, #1c232e, #141e27, #141e27, #b4bcc8, #485468, #1c232e, #b4bcc8,
   #b4bcc8, #1c232e, #b4bcc8, #FFFFFF, #1c232e, #b4bcc8, #b4bcc8, #1c232e, #1c232e);
 
 @include headerColorTheme(theme3, #2f4475, #3f5485, #3f5485, #d8e3fc, #4a5f90, #2f4475, #d8e3fc,
@@ -580,7 +590,7 @@
 }
 
 @include leftHeaderTheme(theme1, #ecf0f8, #FFFFFF, #FFFFFF, #678098, #f5f5f5);
-@include leftHeaderTheme(theme2, #1c232e, #354052, #354052, #b4bcc8, #485468);
+@include leftHeaderTheme(theme2, #1c232e, #141e27, #141e27, #b4bcc8, #485468);
 @include leftHeaderTheme(theme3, #2f4475, #3f5485, #3f5485, #d8e3fc, #4a5f90);
 @include leftHeaderTheme(theme4, #2b64a4, #3c75b5, #3c75b5, #b9d4f2, #4f82bc);
 @include leftHeaderTheme(theme5, #4b3154, #583a63, #583a63, #ccbad2, #5d4865);

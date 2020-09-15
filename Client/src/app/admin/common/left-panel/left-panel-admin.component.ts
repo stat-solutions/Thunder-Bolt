@@ -50,34 +50,28 @@ export class LeftPanelAdminComponent implements OnInit {
 
     this.menuList = [
       {
-        name: this.userName,
-        icon: 'far fa-user-circle',
-        url: '/none',
-        image: this.imageurl
-      },
-      {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
         url: '/admin/dashboard'
       },
       {
         name: 'Company',
-        icon: 'fas fa-cart-arrow-down',
+        icon: 'fas fa-briefcase',
         url: '/admin/companysetup'
       },
       {
         name: 'Business Units',
-        icon: 'fas fa-cart-arrow-down',
+        icon: 'fa fa-tools',
         url: '/admin/businessunits'
       },
       {
         name: 'Approvals',
-        icon: 'fas fa-cart-plus',
+        icon: 'fas fa-users-cog',
         url: '/admin/approvalsetup'
       },
       {
-        name: 'Settings',
-        icon: 'fas fa-user-cog',
+        name: 'Profile',
+        icon: 'fas fa-user',
         url: '/admin/profile'
       }
     ];

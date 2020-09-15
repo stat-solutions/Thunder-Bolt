@@ -15,6 +15,8 @@ import { RightPanelAdminComponent } from './common/right-panel/right-panel-admin
 import { HeaderAdminComponent } from './common/header/header-admin.component';
 import { ContentSectionAdminComponent } from './content-section/content-section-admin.component';
 import { BussinessunitsComponent } from './components/bussinessunits/bussinessunits.component';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 
 @NgModule({
@@ -36,7 +38,10 @@ import { BussinessunitsComponent } from './components/bussinessunits/bussinessun
     SharedModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
-    AlertModule.forRoot({maxMessages: 5, timeout: 7000})
+    DatepickerModule,
+    BsDatepickerModule,
+    AlertModule.forRoot({maxMessages: 5, timeout: 7000}),
+    TooltipModule.forRoot()
   ],
 })
 export class AdminModule { }

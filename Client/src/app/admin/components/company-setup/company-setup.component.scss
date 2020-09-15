@@ -1,0 +1,266 @@
+.jumbotron-fluid {
+  height: inherit !important;
+}
+
+.rub-head4 {
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+  // margin-right: 0px !important;
+  // margin-left: 100px !important;
+  contain: auto;
+}
+
+.card-body {
+  width: 100%;
+  height: 96%;
+  max-width: 300px;
+  min-width: 260px;
+  border-radius: 8px;
+  contain: auto;
+}
+
+.invest-card {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.list-card {
+  height: 75px;
+}
+.level-control {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  margin-right: 0px !important;
+  margin-left: 3px !important;
+  height: 35px;
+}
+
+
+h2 {
+  font-size: 16px;
+}
+h4 {
+  font-size: 16px;
+}
+
+button.btn {
+  border-radius: 15px;
+}
+
+.text-info {
+  color: #17aae0ee !important;
+}
+
+a.text-info:focus,
+a.text-info:hover {
+  color: #48bae4f5 !important;
+}
+.btn-info {
+  color: #17aae0ee;
+  background-color: transparent;
+  border-color: #17aae0ee;
+}
+.btn-info:hover,
+.btn-info:focus {
+  color: #d9dbdd;
+  background-color: #17aae0ee;
+  border-color: #17aae0ee;
+}
+.btn-info.focus,
+.btn-info:focus {
+  box-shadow: 0 0 0 0.2rem #0e99ccee;
+}
+.btn-info.disabled,
+.btn-info:disabled {
+  color: #1b9eceec;
+  background-color: transparent;
+  border-color: #1b9eceec;
+}
+
+.btn-primary {
+  color: #d9dbdd;
+  background-color: #169dceee;
+  border-color: #169dceee;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  color: #d9dbdd;
+  background-color: #17aae0ee;
+  border-color: #17aae0ee;
+}
+.btn-primary.focus,
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem #0e99ccee;
+}
+.btn-primary.disabled,
+.btn-primary:disabled {
+  color: #1b9eceec;
+  background-color: transparent;
+  border-color: #1b9eceec;
+}
+
+
+.pointerCursor {
+  cursor: pointer;
+}
+
+//styling of color of placeholder
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color:    rgb(187, 190, 192);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    rgb(187, 190, 192);
+  opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+ color:    rgb(187, 190, 192);
+ opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:    rgb(187, 190, 192);
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+  color:    rgb(187, 190, 192);
+}
+::placeholder { /* Most modern browsers support this now. */
+  color:    rgb(187, 190, 192);
+}
+
+
+
+//Media queries
+@media (min-width: 320px) {
+  .container-fluid {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 20px !important;
+  }
+  .jumbotron-fluid {
+    margin-top: 0px !important;
+    margin-bottom: 10px !important;
+    padding-bottom: 20px !important;
+    padding-top: 0px !important;
+  }
+}
+
+@media (min-width: 360px) {
+  .card-body {
+    max-width: 350px;
+    min-width: 320px;
+    margin-bottom: 0px !important;
+    padding-bottom: 10px !important;
+  }
+  .jumbotron-fluid {
+    margin-top: 10px !important;
+    margin-bottom: 17px !important;
+  }
+}
+
+@media (min-width: 375px) {
+  .card-body {
+    max-width: 360px;
+    min-width: 340px;
+    margin-top: 20px !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+  .jumbotron-fluid {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+  }
+}
+
+@media (min-width: 410px) {
+  .jumbotron-fluid {
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+  }
+}
+
+@media (min-width: 414px) {
+  .jumbotron-fluid {
+    margin-bottom: 5px !important;
+  }
+}
+
+@media (min-width: 440px) {
+  .jumbotron-fluid {
+    margin-bottom: 15px !important;
+  }
+  .card-body {
+    margin-bottom: 25px !important;
+    padding-bottom: 30px !important;
+  }
+}
+
+@media (min-width: 568px) {
+}
+
+@media (min-width: 768px) {
+  .card-body {
+    max-width: 750px;
+    min-width: 700px;
+    margin-bottom: 96px !important;
+    padding-top: 15px !important;
+  }
+  .jumbotron-fluid {
+    padding-top: 120px !important;
+    margin-bottom: 13px !important;
+  }
+  .text-light  {
+    font-size: 26px !important;
+  }
+  }
+
+@media (min-width: 812px) {
+  .card-body {
+    max-width: 750px;
+    min-width: 700px;
+    margin-bottom: 30px !important;
+    padding-top: 15px !important;
+  }
+  .jumbotron-fluid {
+    padding-top: 80px !important;
+    margin-bottom: 13px !important;
+  }
+}
+
+@media (min-width: 820px) {
+}
+
+@media (min-width: 1020px) {
+  .card-body {
+    margin-top: 25px !important;
+    margin-bottom: 300px !important;
+  }
+  .jumbotron-fluid {
+    padding-top: 210px !important;
+    margin-bottom: 20px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media (min-width: 1100px) {
+  .card-body {
+    margin-top: 0px !important;
+    padding-top: 15px !important;
+    margin-bottom: 50px !important;
+  }
+  .jumbotron-fluid {
+    margin-bottom: 40px !important;
+  }
+}
+
+@media (min-width: 1260px) {
+  .card-body {
+    margin-top: 20px !important;
+    margin-bottom: 40px !important;
+    padding-left: auto !important;
+    padding-right: auto !important;
+  }
+  .jumbotron-fluid {
+    padding-top: 70px !important;
+    margin-bottom: 20px !important;
+  }
+  }

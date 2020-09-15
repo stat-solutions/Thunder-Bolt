@@ -1,0 +1,93 @@
+<div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-md-0 pt-0 pb-0 shadow-lg col-xs-12 col-lg-8">
+    <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1">
+        <div class="container mt-3 mx-0 shadow-lg">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
+                        Set Loan Rate (%) </h4>
+                </div>
+            </div>
+        </div>
+        <div class="card-body mt-2 pt-3 mb-0 mx-auto pb-0 shadow-lg">
+            <form [formGroup]="userForm" (ngSubmit)="setRate()">
+                <div class="form-group text-primary">
+                    <label for="itemRate" [ngClass]="fval.itemRate.valid ? 'text-info' : ''">Rate<i *ngIf="fval.itemRate.valid" class="material-icons"
+              >check_circle</i
+            ></label
+          >
+          <div class="input-group mb-0">
+            <input
+            id="itemRate"
+            formControlName="itemRate"
+            type="number"
+            class="level-control form-control mx-0"
+            min="0"
+            max="100"
+            [ngClass]="{
+              'is-invalid':
+              (fval.itemRate.touched || fval.itemRate.dirty) &&
+              fval.itemRate.errors
+            }"
+            autocomplete="off"
+            /><i *ngIf="fval.itemRate.valid" class="material-icons"
+              >check_circle</i
+            >
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.itemRate.touched || fval.itemRate.dirty) &&
+              fval.itemRate.errors?.required
+            "
+          >
+            The loan rate is required!
+          </div>
+          <div
+          class="col"
+          *ngIf="
+            (fval.itemRate.touched || fval.itemRate.dirty) &&
+            fval.itemRate.invalid
+          "
+          [ngClass]="
+            fval.itemRate.errors?.required ||
+            fval.itemRate.errors?.maxlength
+              ? 'text-danger'
+              : 'text-info'
+          "
+        >
+          <i class="material-icons">{{
+            fval.itemRate.errors?.required ||
+            fval.itemRate.errors?.maxlength
+              ? "cancel"
+              : "check_circle"
+          }}</i>
+          The loan interest rate should be a maximum of 100
+        </div>
+        </div>
+
+        <div class="d-flex mt-3 mb-0 pt-1 pb-0 mx-auto">
+          <button
+            type="submit"
+            class="btn btn-info col-5 mx-auto"
+            [disabled]="!userForm.valid"
+          >
+            Set
+          </button>
+
+          <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+            <p class="text-light">Please wait...</p>
+          </ngx-spinner>
+          <label class="col" *ngIf="errored" class="text-danger">
+            <i class="material-icons">Cancel</i>
+
+            <!--ngx-alerts></ngx-alerts-->
+          </label>
+
+                    <button type="button" class="btn btn-info col-5 mx-auto" (click)="revert()">
+            Cancel
+          </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

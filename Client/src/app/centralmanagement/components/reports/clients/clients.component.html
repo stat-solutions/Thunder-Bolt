@@ -1,0 +1,233 @@
+<div class="container-fluid d-flex flex-row justify-content-center mt-1 pt-0 mt-md-1 pt-md-0 mb-0 pb-3 shadow-lg col-xs-12 col-lg-12">
+    <div class="jumbotron-fluid mb-0 pb-0">
+        <div class="container mt-3 mx-0 shadow-lg">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
+                        Client Reports
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body mt-1 pt-4 mb-0 pb-3 shadow-lg">
+            <form [formGroup]="userform" (ngSubmit)="save()">
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-5 mx-md-0">
+                        <label for="areas">
+                        Area: &nbsp;
+                    </label>
+                        <select name="Areas" id="areas" formControlName="areaLocation">
+                        <option value="All" selected>All</option>
+                        <option value="All">Alldsdsdsd</option>
+                        <option value="All">Allawawawdqw</option>
+                    </select>&nbsp;
+                        <label for="towns">
+                        Town:&nbsp;
+                        </label>
+                        <select name="towns" id="towns" formControlName="townLocation">
+                            <option value="All" selected>All</option>
+                        </select>&nbsp;
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-5 mx-md-0">
+                        <label for="stations">
+                            Station: &nbsp;
+                        </label>
+                        <select name="stations" id="stations" formControlName="stationLocation">
+                            <option value="All" selected>All</option>
+                        </select>&nbsp;
+                        <label for="viewChoice">
+                          Client type: &nbsp;
+                      </label>
+                        <select name="userType" formControlName="userType" id="userType">
+                          <option value="All"  selected="selected">All</option>
+                          <option value="Area Manager">Boda</option>
+                          <option value="Town Manager">Tax</option>
+                          <option value="Station Manager">General</option>
+                          <!--option value="Station Officer">Station Officer</option-->
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" class="btn btn-info" value="Search">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="invest-card card-body mt-2 pt-3 mb-3 mx-auto pb-4 shadow-lg">
+            <div class="item-header">
+                <div class="mb-2 pl-1">
+                    <!-- the search section -->
+                    <form>
+                        <input id="filterClient" type="text" class="col-5" placeholder="Search client" autocomplete="on" />
+                    </form>
+                </div>
+                <div class="row">
+                    <!--select all items-->
+                    <div class="col-3">
+                        <!--provide index of the results-->
+                        <h4 class="text-info mt-0 ml-1"># &nbsp;&nbsp;&nbsp;&nbsp; ID</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4 class="text-center text-info">Client</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4 class="text-center text-info">Station</h4>
+                    </div>
+                    <div class="col-3">
+                        <h4 class="text-center text-info mr-4">Loan Status</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="item-container mt-1">
+                <div class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" (click)="openModal(template)">
+                    <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
+                        <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
+                            <div class="col-3 mx-0 px-0 mx-lg-auto">
+                                <span class="itemCreated">1 &nbsp; TC20332</span>
+                            </div>
+                            <div class="col-3 mx-0 pr-0 pl-1">
+                                <span class="itemCreated">Byamugisha Achileo</span>
+                            </div>
+                            <div class="col-3 mx-0 pr-0 pl-1">
+                                <span class="itemCreated ml-1">Nansana</span>
+                            </div>
+                            <div class="col-3 mx-0 pr-0 pl-1">
+                                <span class="rate-selected ml-2">Running</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item-container mt-1">
+                <div class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" (click)="openModal(template)">
+                    <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
+                        <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
+                            <div class="col-3 mx-0 px-0 mx-lg-auto">
+                                <span class="itemCreated">1 &nbsp; TC20332</span>
+                            </div>
+                            <div class="col-3 mx-0 pr-0 pl-1">
+                                <span class="itemCreated">Byamugisha Achileo</span>
+                            </div>
+                            <div class="col-3 mx-0 pr-0 pl-1">
+                                <span class="itemCreated ml-1">Nansana</span>
+                            </div>
+                            <div class="col-3 mx-0 pr-0 pl-1">
+                                <span class="rate-selected ml-2">Running</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item-container mt-1">
+                <div class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" (click)="openModal(template)">
+                    <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
+                        <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
+                            <div class="col-3 mx-0 px-0 mx-lg-auto">
+                                <span class="itemCreated">1 &nbsp; TC20332</span>
+                            </div>
+                            <div class="col-3 mx-0 pr-0 pl-1">
+                                <span class="itemCreated">Byamugisha Achileo</span>
+                            </div>
+                            <div class="col-3 mx-0 pr-0 pl-1">
+                                <span class="itemCreated ml-1">Nansana</span>
+                            </div>
+                            <div class="col-3 mx-0 pr-0 pl-1">
+                                <span class="rate-selected ml-2">Running</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-template #template>
+                <div class="modal-header modal-lg bg-info">
+                    <h4 class="modal-title text-center text-info">Client Details</h4>
+                    <button type="button" class=" pull-right close" data-dismiss="modal" aria- label="Close" (click)="modalRef.hide()"><span aria-hidden="true">&times;</span>
+                     </button>
+                </div>
+                <div class="modal-body modal-lg">
+                    <div class="invest-card3 card mt-2 pt-2 mb-2 pb-0 shadow-lg">
+                        <div class="invest-body card-body mx-auto mb-0 pb-0">
+                            <div class="row">
+                                <div class="col-xs-12 col-lg-12">
+                                    <div class="list-card2 card mt-2 pt-1 mb-2 mx-auto px-0 pb-2 shadow-lg">
+                                        <div class="list-body card-body mt-0 pt-1 mb-0 pb-0 mx-auto px-auto">
+                                            <div class="row mt-0 pt-0 mb-0 pb-0 mx-auto px-auto">
+                                                <div class="col-12 col-sm-12 col-md-3 col-lg-1 mt-0 pt-4 mx-1 pl-lg-0 pr-lg-2">
+                                                    <!--add data from the database next to the span after &nbsp;-->
+                                                    <img class="border rounded-circle" [src]="user" width="75" height="75" />
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-6 col-lg-3 mt-0 pt-2 mx-0 mx-lg-1 px-lg-1">
+                                                    <!--add data from the database next to the span after &nbsp;-->
+                                                    <span class="itemCreated">ID: &nbsp;&nbsp;</span
+                                  ><span class="itemCreated text-info">TC20332</span
+                                  ><br />
+                                  <span class="itemCreated"
+                                    >Client Type: &nbsp;&nbsp;</span
+                                  ><span class="itemCreated text-info">Boda</span
+                                  ><br />
+                                  <span class="itemCreated"
+                                    >Number Plate: &nbsp;&nbsp;</span
+                                  ><span class="itemCreated text-info">UBA 821K</span
+                                  ><br />
+                                  <span class="itemCreated"
+                                    >Name: &nbsp;&nbsp;</span
+                                  ><span class="itemCreated text-info">Byamugisha Achileo</span
+                                  >
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-5 col-lg-3 mt-0 pt-2 mx-0 px-md-0 px-lg-1">
+                                  <span class="itemCreated"
+                                    >Contact: &nbsp;&nbsp;</span
+                                  ><span class="itemCreated text-info">0753454532</span
+                                  ><br />
+                                  <span class="itemCreated"
+                                    >Home Area: &nbsp;&nbsp;</span
+                                  ><span class="itemCreated text-info">Nansana</span
+                                  ><br />
+                                  <span class="itemCreated"
+                                    >Next of Kin: &nbsp;&nbsp;</span
+                                  ><span class="itemCreated text-info">Kabagambe Allan</span
+                                  ><br />
+                                  <span class="itemCreated"
+                                    >Station: &nbsp;&nbsp;</span
+                                  ><span class="itemCreated text-info">Nansana</span
+                                  ><br />
+                                  <span class="itemCreated">Saving(Yes/NO): &nbsp;&nbsp;</span
+                                    ><span class="itemCreated text-info"
+                                      >Yes</span
+                                    >
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-5 col-lg-3 mt-0 pt-2 mx-0 px-md-0 px-lg-1">
+                                  <span class="itemCreated">Last Loan: &nbsp;&nbsp;</span
+                                    ><span class="itemCreated text-info">30000</span
+                                    ><br />
+                                    <span class="itemCreated">Amount Paid: &nbsp;&nbsp;</span
+                                    ><span class="itemCreated text-info">30000</span
+                                    ><br />
+                                    <span class="itemCreated">Balance: &nbsp;&nbsp;</span
+                                      ><span class="itemCreated text-info">30000</span
+                                      ><br />
+                                    <span class="itemCreated">Loan Status: &nbsp;&nbsp;</span
+                                  ><span class="itemCreated text-info">Running</span
+                                  ><br />
+                                  <span class="itemCreated">Loan Interest: &nbsp;&nbsp;</span
+                                    ><span class="itemCreated text-info">3000</span
+                                    >
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                        </div>
+                                </ng-template>
+        </div>
+    </div>
+</div>
+<!--footer -->
+<div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-2 mx-auto">
+    <div class="small text-center text-info">
+        &copy; 2020 - ThunderBolt
+    </div>
+</div>
+<!--/ footer -->

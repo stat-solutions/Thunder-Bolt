@@ -62,62 +62,14 @@ export class LoginComponent implements OnInit {
         '',
         Validators.compose([
           // 1. Password Field is Required
-
+          CustomValidator.patternValidator(/\d/, { hasNumber: true }),
+          Validators.maxLength(4),
+          Validators.minLength(4),
           Validators.required
         ])
       )
     });
   }
-
-
-
-  // changeBranchValue(contactNumber: any) {
-
-    // this.authService.exitingInWhiteListed(contactNumber.target.value).subscribe(
-
-    //   whiteList => {
-
-    //     if (whiteList[0].whiteListed > 1) {
-    //       // console.log(roledata[0].roles);
-    //       this.whiteListedContact = true;
-    //       this.fval. service_points.enable();
-    //       this.userForm.patchValue({
-    //        contact_white_liested: this.whiteListedContact
-    //       });
-
-    //     } else {
-
-    //       // console.log(roledata[0].roles);
-
-    //       this.whiteListedContact = false;
-
-    //       this.fval. service_points.disable();
-    //     }
-
-    //   }, (error: string) => { }
-
-    //  );
-  //  }
-
-
-//      setTheServicePointId(event: any) {
-
-//        if (event.target.value === 'Select The User Role') {
-
-// this.fval.service_points.setErrors({required: true});
-
-//        } else {
-
-
-//       this.fval. service_points_id.enable();
-//       this.theServicePoints$.subscribe(
-//         servicePoints =>
-//           this.fval.service_points_id.setValue(servicePoints.find(
-//             theServicePoint => theServicePoint.service_point_name === event.target.value
-//           ).service_point_id) );
-//         }
-//      }
-
 
   get fval() {
     return this.userForm.controls;
@@ -128,9 +80,7 @@ export class LoginComponent implements OnInit {
       this.fieldType = !this.fieldType;
     }
 
-
-
-        login() {
+    login() {
     this.submitted = true;
 
     this.spinner.show();
@@ -145,23 +95,12 @@ export class LoginComponent implements OnInit {
           (success: boolean) => {
             if (success) {
               this.posted = true;
-
-              if (
-                jwt_decode(this.authService.getJwtToken()).user_status ===
-                'Created'
-              ) {
-                this.alertService.danger({
-                  html:
-                    '<strong>This account Requires Approval first, please contact system admin</strong>'
-                });
-                this.spinner.hide();
-                return;
-              } else if (
+            if (
                 jwt_decode(this.authService.getJwtToken()).user_status ===
                 'Approved'
               ) {
                 if (
-                  jwt_decode(this.authService.getJwtToken()).user_role === 1000
+                  jwt_decode(this.authService.getJwtToken()).user_role === "admin"
                 ) {
                   this.alertService.success({
                     html: '<strong>Signed In Successfully</strong>'
@@ -169,36 +108,42 @@ export class LoginComponent implements OnInit {
                   this.spinner.hide();
                   setTimeout(() => {
                     this.spinner.hide();
-
                     // this.layoutService.emitChangePumpUser(true);
                     // this.layoutService.emitLoginLogout(true);
-
-                    // this.router.navigate(['dashboardpump/shiftmanagement']);
-                    // location.reload();
+                    this.router.navigate(['admin']);
                   }, 1000);
-
-                  // }
                 } else if (
-                  jwt_decode(this.authService.getJwtToken()).user_role === 1001
+                  jwt_decode(this.authService.getJwtToken()).user_role === "Central User"
                 ) {
                   this.spinner.hide();
                   setTimeout(() => {
-                    // this.layoutService.emitChangeAdminUser(true);
-                    // this.layoutService.emitLoginLogout(true);
-                    this.router.navigate(['dashboarduser/loans']);
+                    this.router.navigate(['centralmanagement']);
                   }, 1000);
                 } else if (
-                  jwt_decode(this.authService.getJwtToken()).user_role === 1002
+                  jwt_decode(this.authService.getJwtToken()).user_role === "Area Manager"
                 ) {
                   this.spinner.hide();
                   setTimeout(() => {
-                    this.router.navigate([
-                      'superuserdashboard/thesuperuserdashboard'
-                    ]);
+                    this.router.navigate(['areamanagement']);
                   }, 1000);
-                } else {
+                } else if (
+                  jwt_decode(this.authService.getJwtToken()).user_role === "Station Manager"
+                ) {
+                  this.spinner.hide();
+                  setTimeout(() => {
+                    this.router.navigate(['stationmanagement']);
+                  }, 1000);
+                } else if (
+                  jwt_decode(this.authService.getJwtToken()).user_role === "Station Officer"
+                ) {
+                  this.spinner.hide();
+                  setTimeout(() => {
+                    this.router.navigate(['stationofficer']);
+                  }, 1000);
+                }
+                 else {
                   this.alertService.danger({
-                    html: '<strong>User not registered for this role!</strong>'
+                    html: '<strong>No User found with these details, Please register</strong>'
                   });
                   this.spinner.hide();
                 }

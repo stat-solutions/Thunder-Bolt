@@ -5,37 +5,55 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  margin-right: 0px !important;
-  margin-left: 100px !important;
+  // margin-right: 0px !important;
+  // margin-left: 100px !important;
   contain: auto;
 }
 
 .card-body {
   width: 100%;
-  height: 100%;
+  height: auto;
   max-width: 300px;
   min-width: 260px;
-  min-height: 420px !important;
-  max-height: 430px !important;
   border-radius: 8px;
   contain: auto;
 }
 
 .invest-card {
   height: 100%;
-  overflow-y: auto;
+  // overflow-y: auto;
 }
 
-h4 {
+.list-card {
+  height: 55px;
+}
+.col-4 h4 {
+  margin-right: 8px !important;
+}
+.level-control {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  margin-right: 0px !important;
+  margin-left: 3px !important;
+  height: 35px;
+}
+
+
+h2 {
   font-size: 16px;
 }
-h5 {
+h4 {
   font-size: 16px;
 }
 
 button.btn {
   border-radius: 15px;
 }
+button.btn-sm {
+  margin-right: -15px !important;
+  border-radius: 15px;
+}
+
 
 .text-info {
   color: #17aae0ee !important;
@@ -66,32 +84,60 @@ a.text-info:hover {
   background-color: transparent;
   border-color: #1b9eceec;
 }
+.btn-infob {
+  color: #7d8388;
+  background-color: transparent;
+  border-color: transparent;
+}
+.btn-infob:hover,
+.btn-infob:focus {
+  color: #17aae0ee;
+  background-color: transparent;
+  border-color: transparent;
+}
+.btn-infob.focus,
+.btn-infob:focus {
+  box-shadow: 0 0 0 0.2rem transparent;
+}
+.btn-infob.disabled,
+.btn-infob:disabled {
+  color: #89898a;
+  background-color: transparent;
+  border-color: transparent;
+}
 
 .pointerCursor {
   cursor: pointer;
 }
 
+.form-control.is-invalid{
+  background-image: none;
+  padding-right: inherit;
+}
+
+
 //media queries
 @media (min-width: 320px) {
-  .rub-head4 {
-    margin-left: 110px !important;
-  }
+  // .rub-head4 {
+  //   margin-left: 0px !important;
+  // }
   .card-body {
-    min-height: 420px !important;
-    max-height: 470px !important;
+    // min-height: 420px !important;
+    // max-height: 470px !important;
     padding-top: 4px;
-    margin-bottom: 15px !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 0px !important;
   }
   .jumbotron-fluid {
     padding-top: 0px !important;
-    padding-bottom: 40px !important;
+    padding-bottom: 0px !important;
   }
 }
 
 @media (min-width: 360px) {
-  .rub-head4 {
-    margin-left: 120px !important;
-  }
+  // .rub-head4 {
+  //   margin-left: 120px !important;
+  // }
   .card-body {
     max-width: 350px;
     min-width: 320px;
@@ -101,14 +147,14 @@ a.text-info:hover {
 }
 
 @media (min-width: 375px) {
-  .rub-head4 {
-    margin-left: 135px !important;
-  }
+  // .rub-head4 {
+  //   margin-left: 135px !important;
+  // }
   .card-body {
     max-width: 360px;
     min-width: 340px;
     min-height: 420px !important;
-    max-height: 490px !important;
+    // max-height: 490px !important;
     margin-bottom: 15px !important;
   }
   .jumbotron-fluid {
@@ -123,9 +169,9 @@ a.text-info:hover {
   h5 {
     font-size: 17px;
   }
-  .rub-head4 {
-    margin-left: 135px !important;
-  }
+  // .rub-head4 {
+  //   margin-left: 135px !important;
+  // }
   .card-body {
     max-width: 370px;
     min-width: 350px;
@@ -143,9 +189,9 @@ a.text-info:hover {
   h5 {
     font-size: 18px;
   }
-  .rub-head4 {
-    margin-left: 170px !important;
-  }
+  // .rub-head4 {
+  //   margin-left: 170px !important;
+  // }
   .card-body {
     max-width: 410px;
     min-width: 390px;
@@ -179,10 +225,10 @@ a.text-info:hover {
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
-  h4 {
+  h2 {
     font-size: 22px !important;
   }
-  h5 {
+  h4 {
     font-size: 20px !important;
   }
   .card-body {
@@ -200,7 +246,7 @@ a.text-info:hover {
 @media (min-width: 812px) {
   .card-body {
     min-height: 420px !important;
-    max-height: 430px !important;
+    // max-height: 430px !important;
     padding-top: 0px !important;
     margin-bottom: 0px !important;
   }

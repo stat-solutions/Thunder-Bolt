@@ -26,11 +26,9 @@ export class LayoutService {
   public toggleNavbar = 'expended';      // Value Should be 'expended', 'collapsed', 'offcanvas', 'compact'
   public navBarEffect = 'overlay';    // Value Should be 'shrink', 'push', 'overlay'
   public deviceType = 'desktop';       // Value should be mobile, tablet, desktop
-
   // defaultVerticalMenu[0] = Default menu on mobile
   // defaultVerticalMenu[1] = Default menu on tablet
   // defaultVerticalMenu[2] = Default menu on desktop
-
   public defaultVerticalMenu = ['offcanvas', 'collapsed', 'expanded'];
 
   // onToggleVerticalMenu[0] = Toggle menu on mobile
@@ -137,11 +135,11 @@ export class LayoutService {
       if (windowWidth >= 768 && windowWidth <= 1024) {
         this.defaultNavbar = this.defaultVerticalMenu[1];
         this.toggleNavbar = this.onToggleVerticalMenu[1];
-        this.navBarEffect = this.navBarMenuEffect[1];
+        this.navBarEffect = this.navBarMenuEffect[2];
         this.deviceType = this.defaultDeviceType[1];
       } else if (windowWidth < 768) {
         this.defaultNavbar = this.defaultVerticalMenu[0];
-        this.toggleNavbar = this.onToggleVerticalMenu[0];
+        this.toggleNavbar = this.onToggleVerticalMenu[2];
         this.navBarEffect = this.navBarMenuEffect[0];
         this.deviceType = this.defaultDeviceType[0];
       } else {
@@ -155,6 +153,7 @@ export class LayoutService {
         this.deviceType = this.defaultDeviceType[1];
       } else if (windowWidth < 768) {
         this.deviceType = this.defaultDeviceType[0];
+
       } else {
         this.deviceType = this.defaultDeviceType[2];
       }

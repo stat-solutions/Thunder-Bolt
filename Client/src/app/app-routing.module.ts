@@ -1,9 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './shared/services/other-services/route-guards/auth-guard.service';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/authpage/login', pathMatch: 'full' },
+  { path: 'authpage', redirectTo: '/authpage/login', pathMatch: 'full',},
+  { 
+    path: '', 
+    redirectTo: '/authpage/login', 
+    pathMatch: 'full',
+    canActivate: [AuthGuard] 
+  },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'centralmanagement', loadChildren: () => import('./centralmanagement/centralmanagement.module').then(m => m.CentralmanagementModule) },
+  { path: 'areamanagement', loadChildren: () => import('./areamanagement/areamanagement.module').then(m => m.AreamanagementModule) },
+  { path: 'townmanagement', loadChildren: () => import('./townmanagement/townmanagement.module').then(m => m.TownmanagementModule) },
+  { path: 'stationmanagement', loadChildren: () => import('./stationmanagement/stationmanagement.module').then(m => m.StationmanagementModule) },
   { path: 'stationofficer', loadChildren: () => import('./stationofficer/stationofficer.module').then(m => m.StationofficerModule) }
 ];
 

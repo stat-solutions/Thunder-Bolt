@@ -13,6 +13,8 @@ import { AuthServiceService } from './shared/services/auth-service.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { InterceptorService } from './shared/services/interceptor.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,11 +33,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CentralmanagementModule,
     TownmanagementModule,
     ReactiveFormsModule,
+    TooltipModule.forRoot()
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthServiceService,
+      useClass: InterceptorService,
       multi: true,
     },
   ],

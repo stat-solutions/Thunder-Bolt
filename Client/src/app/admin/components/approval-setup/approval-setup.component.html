@@ -4,133 +4,96 @@
   <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1">
     <div class="container mt-3 mx-0 shadow-lg">
       <div class="row">
-        <div class="col-10">
+        <div class="col-12">
           <h2
-            class="rub-head4 text-info align-right font-weight-bold pt-0 py-1"
+            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
           >
             Approval Setup
           </h2>
         </div>
       </div>
     </div>
-    <div class="invest-card card-body mt-2 pt-3 mb-0 mx-auto pb-0 shadow-lg">
-    <form [formGroup]="userForm" (ngSubmit)="createOrApprove()">
-      <div class="row">
-        <div class="col-8">
-          <div class="form-group text-primary">
-            <div class="input-group mb-0">
-              <select
-              formControlName="item_to_create"
-              class="form-control"
-              [ngClass]="{
-                'is-invalid':
-                  (fval.item_to_create.touched || fval.item_to_create.dirty) &&
-                  fval.item_to_create.errors
-              }"
-              autocomplete="off"
-              placeholder="Select the Item to set up"
-            >
-                        <option value="userCreation">User Creation</option>
-                        <option value="areaCreation">Area Creation</option>
-                        <option value="townCreation">Town Creation</option>
-                        <option value="stationCreation">Station Creation</option>
-                        <option value="clusterCreation">Cluster Creation</option>
-                        <option value="stageCreation">Stage Creation</option>
-            </select>
+    <div class="card-body mt-2 pt-3 mb-0 mx-auto pb-3 shadow-lg">
+      <form [formGroup]="approvalForm">
+        <div class="row">
+          <div class="col-5 mx-auto">
+            <h4 class="text-center text-info">Item</h4>
           </div>
-          <div
+          <div class="col-3 mx-auto">
+            <h4 class="text-center text-info">Levels</h4>
+          </div> 
+          <div class="col-3 mx-auto">
+            <h4 class="text-center text-info">Actions</h4>
+          </div>
+        </div>
+        <div formArrayName= "approvalItems">
+        <div class ="item-container" 
+        *ngFor="let items of fval.approvalItems['controls'];let idx = index"
+        >
+        <div>
+        <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"  [formGroupName]="idx">
+          <div class="card-body mt-0 pt-1 mb-0 pb-0 mx-0">
+            <div class="row mt-0 pt-0 mb-0 pb-0">
+              <!--div class="col-8 mr-0 pr-0"-->
+              <div class="col-6 mx-0">
+                <span class="itemCreated">{{fval.approvalItems["controls"][idx]["controls"].name.value}}</span>
+              </div>
+              <div class=" col-2 mx-0 px-0 align-items-center">
+                <input
+                  id="level"
+                  formControlName="approvalLevel"
+                  type="number"
+                  formControlName = "level"
+                  class="level-control form-control mx-0"
+                  min="0"
+                  max="5"
+                  autocomplete="off"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.approvalItems['controls'][idx]['controls']['level'].touched 
+                      || fval.approvalItems['controls'][idx]['controls']['level'].dirty) &&
+                      fval.approvalItems['controls'][idx]['controls']['level'].errors
+                  }"
+                />
+              </div>
+              <!--/div-->
+              <div class="col-4 ml-1 pl-2 mx-auto pr-0">
+                <button
+                  class="btn-sm btn-infob col-3 ml-2 py-1 px-2"
+                  (click)="enableEdit(idx)"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                &nbsp;
+                <button
+                  class="btn-sm btn-infob col-3 ml-3 mr-3 py-1 px-2"
+                  [disabled] = "fval.approvalItems['controls'][idx].pristine || fval.approvalItems['controls'][idx].invalid" 
+                  (click)="saveLevel(idx)"
+                >
+                  <i class="fas fa-save"></i>
+                </button>
+              </div> 
+            </div>
+            <div 
             class="text-danger col"
             *ngIf="
-              (fval.item_to_create.touched || fval.item_to_create.dirty) &&
-              fval.item_to_create.errors?.required
-            "
-          >
-            The item to setup is required!
+              (fval.approvalItems['controls'][idx]['controls']['level'].touched 
+              || fval.approvalItems['controls'][idx]['controls']['level'].dirty) &&
+              fval.approvalItems['controls'][idx]['controls']['level'].errors?.required
+            ">
+              levels range from 0 to 5
+            </div>
           </div>
         </div>
-</div>
-<div class="col-4 pt-0">
-        <button
-          [disabled]="!userForm.valid"
-          class="btn-sm btn-info col-12 mt-1"
->
-<i class="fas fa-plus"></i> Create</button>
-        <ngx-spinner class="bg-success" size="medium" type="line-spin-fade">
-          <p class="text-light">Please wait...</p>
-        </ngx-spinner>
-
-        <label class="col" *ngIf="errored" class="text-danger">
-          <i class="material-icons">cancel</i>
-          <ngx-alerts></ngx-alerts>
-        </label>
-
-        <label class="col" *ngIf="posted" class="text-info">
-          <i class="material-icons">check_circle</i>
-          <ngx-alerts></ngx-alerts>
-        </label>
-      </div>
-    </div>
-
-        <div class="row">
-          <div class="col-8 mx-auto">
-<h4 class="text-center text-info"> Item</h4>            </div>
-          <div class="col-4 mx-auto">
-            <h4 class="text-center text-info"> Level</h4>
-                    </div></div>
-                    <div class="invest-card card mt-2 pt-3 mb-0 mx-auto pb-0 shadow-lg">
-                      <div class="card-body shadow-lg">
-          <div class="row">
-            <div class="col-8 mx-auto">
-<p>User Gundi</p>              </div>
-<div class="col-4 mx-auto">
-  <p>User Gundi</p>              </div>
-              </div>
         </div>
-                    </div>
-                      <div class="d-flex mt-3 mb-0 pt-1 pb-0 mx-auto">
-      <button
-        type="submit"
-        class="btn btn-info col-5 mx-auto"
-        [disabled]="!userForm.valid"
-      >
-        Submit
-      </button>
-      <button
-        type="button"
-        class="btn btn-info col-5 mx-auto"
-        (click)="refresh()"
-      >
-        Cancel
-      </button>
-      <ngx-alerts></ngx-alerts>
-      <ngx-spinner class="bg-success" size="medium" type="line-spin-fade">
-        <p class="text-light">Please Wait...</p>
-      </ngx-spinner>
-
-      <label class="col" *ngIf="errored" class="text-danger">
-        <i class="material-icons">cancel</i>
-        <ngx-alerts></ngx-alerts>
-      </label>
-
-      <label class="col" *ngIf="posted" class="text-info">
-        <i class="material-icons">check_circle</i>
-        <ngx-alerts></ngx-alerts>
-      </label>
-</div>
-
+        </div>
+        </div>
       </form>
     </div>
-    <!-- <div
-      class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mx-auto px-0"
-    >
-      <div class="small text-center text-info mx-0 px-0">
-        Area Region:<span class="text-primary font-weight-bold"
-          ><strong> {{ theCompany }}</strong>
-        </span>&nbsp;
-        Service station:<span class="text-primary font-weight-bold"
-          ><strong> {{ station }}</strong>
-        </span>
-      </div>
-    </div> -->
   </div>
 </div>
+<!--footer -->
+<div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-3 mx-auto">
+  <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
+</div>
+<!--/ footer -->

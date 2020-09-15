@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AreamanagementComponent } from './areamanagement.component';
+import { TownsComponent } from './components/towns/towns.component';
 import { PagesCoreCentralComponent } from '../centralmanagement/pages-core/pages-core-central.component';
 import { DashboardComponent } from '../admin/components/dashboard/dashboard.component';
-import { AreasComponent } from '../centralmanagement/components/areas/areas.component';
 
 const routes: Routes = [{
     path: '',
@@ -20,8 +19,8 @@ const routes: Routes = [{
         component: DashboardComponent
       },
       {
-        path: 'areas',
-        component: AreasComponent
+        path: 'towns',
+        component: TownsComponent
       }]
     }];
 

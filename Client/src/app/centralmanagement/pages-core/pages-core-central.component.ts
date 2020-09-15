@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { LayoutService } from '../../shared/services/layout.service';
 
 @Component({
-  selector: 'app-pages-core-admin',
+  selector: 'app-pages-core-central',
   templateUrl: './pages-core-central.component.html',
   styleUrls: ['./pages-core-central.component.scss']
 })
