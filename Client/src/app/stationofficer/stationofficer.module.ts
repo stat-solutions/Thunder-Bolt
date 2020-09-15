@@ -16,8 +16,8 @@ import { ContentSectionOfficerComponent } from './content-section/content-sectio
 
 @NgModule({
   declarations: [
-    StationofficerComponent, 
-    DashboardComponent, 
+    StationofficerComponent,
+    DashboardComponent,
     ProfileComponent,
     PagesCoreOfficerComponent,
     RightPanelOfficerComponent,

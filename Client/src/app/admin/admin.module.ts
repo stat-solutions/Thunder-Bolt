@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './admin-routing.module';
-// import { AlertModule } from 'ngx-alerts';
+import { AlertModule } from 'ngx-alerts';
 import { SharedModule } from '../shared/shared.module';
 import { PagesCoreAdminComponent } from './pages-core/pages-core-admin.component';
-// import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ApprovalSetupComponent } from './components/approval-setup/approval-setup.component';
 import { CompanySetupComponent } from './components/company-setup/company-setup.component';
@@ -35,8 +35,8 @@ import { BussinessunitsComponent } from './components/bussinessunits/bussinessun
     AdminRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    // NgxSpinnerModule,
-    // AlertModule.forRoot({maxMessages: 5, timeout: 7000, position: 'right'})
+    NgxSpinnerModule,
+    AlertModule.forRoot({maxMessages: 5, timeout: 7000})
   ],
 })
 export class AdminModule { }
