@@ -10,30 +10,35 @@ import { StationofficerModule } from './stationofficer/stationofficer.module';
 import { StationmanagementModule } from './stationmanagement/stationmanagement.module';
 import { CentralmanagementModule } from './centralmanagement/centralmanagement.module';
 import { AuthServiceService } from './shared/services/auth-service.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     AdminModule,
     AuthModule,
+    HttpClientModule,
+    DatepickerModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     TownmanagementModule,
     StationofficerModule,
     StationmanagementModule,
     CentralmanagementModule,
     TownmanagementModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthServiceService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

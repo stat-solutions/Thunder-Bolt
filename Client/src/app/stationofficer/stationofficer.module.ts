@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { StationofficerRoutingModule } from './stationofficer-routing.module';
 import { StationofficerComponent } from './stationofficer.component';
-<<<<<<< HEAD
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -17,8 +16,8 @@ import { ContentSectionOfficerComponent } from './content-section/content-sectio
 
 @NgModule({
   declarations: [
-    StationofficerComponent, 
-    DashboardComponent, 
+    StationofficerComponent,
+    DashboardComponent,
     ProfileComponent,
     PagesCoreOfficerComponent,
     RightPanelOfficerComponent,
@@ -31,15 +30,6 @@ import { ContentSectionOfficerComponent } from './content-section/content-sectio
     StationofficerRoutingModule,
     SharedModule,
     ReactiveFormsModule
-=======
-
-
-@NgModule({
-  declarations: [StationofficerComponent],
-  imports: [
-    CommonModule,
-    StationofficerRoutingModule
->>>>>>> 85e5d843593549c6d547c157a5974187dc1836bd
   ]
 })
 export class StationofficerModule { }
