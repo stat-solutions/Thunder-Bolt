@@ -11,6 +11,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
 import { AuthpageComponent } from './authpage.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthRoutingModule,
     ReactiveFormsModule,
     BrowserModule,
+    BsDropdownModule,
+    BsDatepickerModule,
+    BsDatepickerModule,
     BrowserAnimationsModule,
     DatepickerModule,
     BsDatepickerModule,
