@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
@@ -7,7 +8,6 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { AlertService } from 'ngx-alerts';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 // import { BootstrapAlertService, BootstrapAlert } from 'ngx-bootstrap-alert';
 @Component({
   selector: 'app-change-password',

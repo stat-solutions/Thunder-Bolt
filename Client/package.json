@@ -26,7 +26,6 @@
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@popperjs/core": "^2.4.4",
     "bootstrap": "^4.5.2",
-    "dotenv": "^8.2.0",
     "jquery": "^3.5.1",
     "ngx-alerts": "^10.1.1",
     "ngx-bootstrap": "^6.1.0",
