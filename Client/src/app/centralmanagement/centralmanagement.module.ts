@@ -16,9 +16,13 @@ import { PagesCoreCentralComponent } from './pages-core/pages-core-central.compo
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ReportsComponent } from './components/reports/reports.component';
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { AreasComponent } from './components/reports/areas/areas.component';
 >>>>>>> d8fe00a... first commit of central module
+=======
+import { AreasComponent } from './components/reports/areas/areas.component';
+>>>>>>> ce04b8d... first commit of central module
 import { ClientsComponent } from './components/reports/clients/clients.component';
 import { TownsComponent } from './components/reports/towns/towns.component';
 import { StationsComponent } from './components/reports/stations/stations.component';
@@ -32,6 +36,7 @@ import { ApprovalsComponent } from './components/approvals/approvals.component';
 import { ApproveAreasComponent } from './components/approvals/approve-areas/approve-areas.component';
 import { ApproveTownsComponent } from './components/approvals/approve-towns/approve-towns.component';
 import { ApproveStationsComponent } from './components/approvals/approve-stations/approve-stations.component';
+<<<<<<< HEAD
 import { LoansComponent } from './components/transactions/loans/loans.component';
 import { FloatComponent } from './components/transactions/float/float.component';
 import { ApprovalComponent } from './components/transactions/approval/approval.component';
@@ -51,6 +56,8 @@ import { FloatApprovalComponent } from './components/transactions/approval/float
 import { ModalModule } from "ngx-bootstrap/modal";
 =======
 >>>>>>> d8fe00a... first commit of central module
+=======
+>>>>>>> ce04b8d... first commit of central module
 
 @NgModule({
   declarations: [
@@ -77,6 +84,7 @@ import { ModalModule } from "ngx-bootstrap/modal";
     ApproveAreasComponent,
     ApproveTownsComponent,
     ApproveStationsComponent,
+<<<<<<< HEAD
     LoansComponent,
     FloatComponent,
     ApprovalComponent,
@@ -97,6 +105,10 @@ import { ModalModule } from "ngx-bootstrap/modal";
 =======
 
 >>>>>>> d8fe00a... first commit of central module
+=======
+  ],
+
+>>>>>>> ce04b8d... first commit of central module
   imports: [
     CommonModule,
     CentralmanagementRoutingModule,
@@ -105,9 +117,12 @@ import { ModalModule } from "ngx-bootstrap/modal";
     NgxSpinnerModule,
     TooltipModule.forRoot(),
 <<<<<<< HEAD
+<<<<<<< HEAD
     ModalModule.forRoot(),
 =======
 >>>>>>> d8fe00a... first commit of central module
+=======
+>>>>>>> ce04b8d... first commit of central module
   ],
 })
 export class CentralmanagementModule {}

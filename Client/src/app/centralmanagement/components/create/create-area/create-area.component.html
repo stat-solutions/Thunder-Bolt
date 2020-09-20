@@ -13,7 +13,11 @@ Create Area        </h4>
     </div>
   </div>
   <div class="card-body mt-2 pt-4 mb-0 mx-auto pb-0 shadow-lg">
+<<<<<<< HEAD
       <form [formGroup]="userForm" (ngSubmit)="create()">
+=======
+      <form [formGroup]="userForm" (ngSubmit)="createItem()">
+>>>>>>> ce04b8d... first commit of central module
         <div class="form-group text-primary">
           <label
             for="itemCreate"
@@ -62,10 +66,17 @@ Create Area        </h4>
           <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
             <p class="text-light">Please wait...</p>
           </ngx-spinner>
+<<<<<<< HEAD
           <label class="col"  class="text-danger">
             <i class="material-icons"></i>
 
             <!--ngx-alerts></ngx-alerts-->
+=======
+          <label class="col" *ngIf="errored" class="text-danger">
+            <i class="material-icons">Cancel</i>
+
+            <ngx-alerts></ngx-alerts>
+>>>>>>> ce04b8d... first commit of central module
           </label>
 
           <button
@@ -73,9 +84,12 @@ Create Area        </h4>
             class="btn btn-info col-5 mx-auto"
             (click)="revert()"
 <<<<<<< HEAD
+<<<<<<< HEAD
             routerLink="/centralmanagement/dashboard"
 =======
 >>>>>>> d8fe00a... first commit of central module
+=======
+>>>>>>> ce04b8d... first commit of central module
           >
             Cancel
           </button>
@@ -83,8 +97,13 @@ Create Area        </h4>
       </form>
     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 </div>
 =======
 </div>
 </div>
 >>>>>>> d8fe00a... first commit of central module
+=======
+</div>
+</div>
+>>>>>>> ce04b8d... first commit of central module
