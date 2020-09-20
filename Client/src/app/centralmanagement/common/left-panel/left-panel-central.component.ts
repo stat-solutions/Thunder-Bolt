@@ -68,6 +68,11 @@ export class LeftPanelCentralComponent implements OnInit {
       {
         name: 'Transactions',
         icon: 'fas fa-tools',
+        url: '/centralmanagement/transactions'
+      },
+      {
+        name: 'Transactions',
+        icon: 'fas fa-tools',
         url: '/centralmanagement/transactions',
         subMenu: [
           {
