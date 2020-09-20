@@ -92,7 +92,7 @@ export class WriteOffComponent implements OnInit {
     if(val == true) {
       this.writeOffApprovals.forEach((item, i) => {
         this.fval.approveWriteOffs['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.writeOffApprovals.forEach((item, i) => {
         this.fval.approveWriteOffs['controls'][i]['controls'].approved.setValue(false);
@@ -170,7 +170,7 @@ export class WriteOffComponent implements OnInit {
       return
     }
 }
-  
+
 
     }
 

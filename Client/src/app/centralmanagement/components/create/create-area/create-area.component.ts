@@ -45,7 +45,7 @@ export class CreateAreaComponent implements OnInit {
 
   create() {
     // this.spinner.show();
-    
+
 
     }
   }

@@ -15,13 +15,13 @@
                     <div class="row">
                         <!--select all items-->
                         <div class="col-1 ml-0 pl-0">
-                            <input 
-                            id="allSelected" 
-                            formControlName="selectAll" 
+                            <input
+                            id="allSelected"
+                            formControlName="selectAll"
                             (click)="checkAllItems(!fval.selectAll.value)"
-                            type="checkbox" 
-                            value="" 
-                            class="ml-4 text-info" 
+                            type="checkbox"
+                            value=""
+                            class="ml-4 text-info"
                         />
                         </div>
                         <div class="col-3 ml-4">
@@ -35,21 +35,22 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
             <div formArrayName= "approveReduceRates">
-                <div 
+                <div
                     class="item-container mt-1"
-                    *ngFor="let items of fval.approveReduceRates['controls'];let idx = index"        
+                    *ngFor="let items of fval.approveReduceRates['controls'];let idx = index"
                 >
                     <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
                         <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
                             <div class="row mt-0 pt-0 mb-0 pb-0">
                                 <div class="col-1 ml-0 pl-0">
                                     <!--select an item-->
-                                    <input  
-                                    formControlName="approved" 
+                                    <input
+                                    formControlName="approved"
                                     (click)="deselectAll(idx)"
-                                    type="checkbox" 
-                                    value="" 
+                                    type="checkbox"
+                                    value=""
                                     class="ml-1 text-info"
                                 />
                                 </div>
@@ -67,27 +68,225 @@
                                     <span class="rate-selected align-self-center">
                                         {{fval.approveReduceRates["controls"][idx]["controls"].rate.value}}
                                     </span>
+=======
+                <div class="item-container mt-1">
+                    <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-2 shadow-lg">
+                        <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                            <div class="row mt-0 pt-0 mb-0 pb-0">
+                                <div class="col-1">
+                                    <!--select an item-->
+                                    <input id="itemSelected" formControlName="itemSelected" type="checkbox" value="" class="ml-1 text-info" />
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-2 ml-2 pl-4 mr-0 pr-0">
+                                    <span class="rate-selected align-self-center">4</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="item-container mt-1">
+                    <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-2 shadow-lg">
+                        <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                            <div class="row mt-0 pt-0 mb-0 pb-0">
+                                <div class="col-1">
+                                    <!--select an item-->
+                                    <input id="itemSelected" formControlName="itemSelected" type="checkbox" value="" class="ml-1 text-info" />
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-2 ml-2 pl-4 mr-0 pr-0">
+                                    <span class="rate-selected align-self-center">4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-container mt-1">
+                    <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-2 shadow-lg">
+                        <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                            <div class="row mt-0 pt-0 mb-0 pb-0">
+                                <div class="col-1">
+                                    <!--select an item-->
+                                    <input id="itemSelected" formControlName="itemSelected" type="checkbox" value="" class="ml-1 text-info" />
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-2 ml-2 pl-4 mr-0 pr-0">
+                                    <span class="rate-selected align-self-center">4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-container mt-1">
+                    <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-2 shadow-lg">
+                        <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                            <div class="row mt-0 pt-0 mb-0 pb-0">
+                                <div class="col-1">
+                                    <!--select an item-->
+                                    <input id="itemSelected" formControlName="itemSelected" type="checkbox" value="" class="ml-1 text-info" />
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-2 ml-2 pl-4 mr-0 pr-0">
+                                    <span class="rate-selected align-self-center">4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-container mt-1">
+                    <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-2 shadow-lg">
+                        <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                            <div class="row mt-0 pt-0 mb-0 pb-0">
+                                <div class="col-1">
+                                    <!--select an item-->
+                                    <input id="itemSelected" formControlName="itemSelected" type="checkbox" value="" class="ml-1 text-info" />
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-2 ml-2 pl-4 mr-0 pr-0">
+                                    <span class="rate-selected align-self-center">4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-container mt-1">
+                    <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-2 shadow-lg">
+                        <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                            <div class="row mt-0 pt-0 mb-0 pb-0">
+                                <div class="col-1">
+                                    <!--select an item-->
+                                    <input id="itemSelected" formControlName="itemSelected" type="checkbox" value="" class="ml-1 text-info" />
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-2 ml-2 pl-4 mr-0 pr-0">
+                                    <span class="rate-selected align-self-center">4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-container mt-1">
+                    <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-2 shadow-lg">
+                        <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                            <div class="row mt-0 pt-0 mb-0 pb-0">
+                                <div class="col-1">
+                                    <!--select an item-->
+                                    <input id="itemSelected" formControlName="itemSelected" type="checkbox" value="" class="ml-1 text-info" />
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-2 ml-2 pl-4 mr-0 pr-0">
+                                    <span class="rate-selected align-self-center">4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-container mt-1">
+                    <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-2 shadow-lg">
+                        <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                            <div class="row mt-0 pt-0 mb-0 pb-0">
+                                <div class="col-1">
+                                    <!--select an item-->
+                                    <input id="itemSelected" formControlName="itemSelected" type="checkbox" value="" class="ml-1 text-info" />
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-2 ml-2 pl-4 mr-0 pr-0">
+                                    <span class="rate-selected align-self-center">4</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item-container mt-1">
+                    <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-2 shadow-lg">
+                        <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                            <div class="row mt-0 pt-0 mb-0 pb-0">
+                                <div class="col-1">
+                                    <!--select an item-->
+                                    <input id="itemSelected" formControlName="itemSelected" type="checkbox" value="" class="ml-1 text-info" />
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-4 pl-3 mr-0 pr-0">
+                                    <span class="itemCreated">Nansana</span>
+                                </div>
+                                <div class="col-2 ml-2 pl-4 mr-0 pr-0">
+                                    <span class="rate-selected align-self-center">4</span>
+>>>>>>> d8fe00a... first commit of central module
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<<<<<<< HEAD
             </div>
             </form>
                 <div class="d-flex mt-3 mb-0 pt-2 pb-2 mx-auto">
-                <button 
+                <button
                     class="btn btn-info col-5 col-md-3 mx-auto px-0"
-                    (click)="approveItems()" 
+                    (click)="approveItems()"
                 >
                 <i class="fas fa-check"></i> Approve
                 </button>
-                <button 
+                <button
                     class="btn btn-info col-5 col-md-3 mx-auto px-0"
-                    (click)="rejectItems()" 
+                    (click)="rejectItems()"
                 >
                 <i class="fas fa-times"></i> Reject
                 </button>
                 </div>
+=======
+                <div class="d-flex mt-3 mb-0 pt-2 pb-2 mx-auto">
+                    <button class="btn btn-info col-5 col-md-3 mx-auto px-0">
+            <i class="fas fa-check"></i> Approve
+          </button>
+                    <button class="btn btn-info col-5 col-md-3 mx-auto px-0">
+            <i class="fas fa-times"></i> Reject
+          </button>
+                </div>
+            </form>
+>>>>>>> d8fe00a... first commit of central module
         </div>
     </div>
 </div>

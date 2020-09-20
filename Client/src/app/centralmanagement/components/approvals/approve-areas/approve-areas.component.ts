@@ -84,7 +84,7 @@ export class ApproveAreasComponent implements OnInit {
     if(val == true) {
       this.areaApproval.forEach((item, i) => {
         this.fval.approveAreas['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.areaApproval.forEach((item, i) => {
         this.fval.approveAreas['controls'][i]['controls'].approved.setValue(false);

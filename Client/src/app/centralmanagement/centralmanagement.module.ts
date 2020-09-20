@@ -15,6 +15,10 @@ import { RightPanelCentralComponent } from './common/right-panel/right-panel-cen
 import { PagesCoreCentralComponent } from './pages-core/pages-core-central.component';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ReportsComponent } from './components/reports/reports.component';
+<<<<<<< HEAD
+=======
+import { AreasComponent } from './components/reports/areas/areas.component';
+>>>>>>> d8fe00a... first commit of central module
 import { ClientsComponent } from './components/reports/clients/clients.component';
 import { TownsComponent } from './components/reports/towns/towns.component';
 import { StationsComponent } from './components/reports/stations/stations.component';
@@ -43,7 +47,10 @@ import { WaiveInterestComponent } from './components/transactions/approval/waive
 import { WriteOffComponent } from './components/transactions/approval/write-off/write-off.component';
 import { LoanLimitComponent } from './components/transactions/approval/loan-limit/loan-limit.component';
 import { FloatApprovalComponent } from './components/transactions/approval/float-approval/float-approval.component';
+<<<<<<< HEAD
 import { ModalModule } from "ngx-bootstrap/modal";
+=======
+>>>>>>> d8fe00a... first commit of central module
 
 @NgModule({
   declarations: [
@@ -86,6 +93,10 @@ import { ModalModule } from "ngx-bootstrap/modal";
     LoanLimitComponent,
     FloatApprovalComponent,
   ],
+<<<<<<< HEAD
+=======
+
+>>>>>>> d8fe00a... first commit of central module
   imports: [
     CommonModule,
     CentralmanagementRoutingModule,
@@ -93,7 +104,10 @@ import { ModalModule } from "ngx-bootstrap/modal";
     ReactiveFormsModule,
     NgxSpinnerModule,
     TooltipModule.forRoot(),
+<<<<<<< HEAD
     ModalModule.forRoot(),
+=======
+>>>>>>> d8fe00a... first commit of central module
   ],
 })
 export class CentralmanagementModule {}
