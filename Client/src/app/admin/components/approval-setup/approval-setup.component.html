@@ -21,13 +21,13 @@
           </div>
           <div class="col-3 mx-auto">
             <h4 class="text-center text-info">Levels</h4>
-          </div> 
+          </div>
           <div class="col-3 mx-auto">
             <h4 class="text-center text-info">Actions</h4>
           </div>
         </div>
         <div formArrayName= "approvalItems">
-        <div class ="item-container" 
+        <div class ="item-container"
         *ngFor="let items of fval.approvalItems['controls'];let idx = index"
         >
         <div>
@@ -50,7 +50,7 @@
                   autocomplete="off"
                   [ngClass]="{
                     'is-invalid':
-                      (fval.approvalItems['controls'][idx]['controls']['level'].touched 
+                      (fval.approvalItems['controls'][idx]['controls']['level'].touched
                       || fval.approvalItems['controls'][idx]['controls']['level'].dirty) &&
                       fval.approvalItems['controls'][idx]['controls']['level'].errors
                   }"
@@ -67,17 +67,17 @@
                 &nbsp;
                 <button
                   class="btn-sm btn-infob col-3 ml-3 mr-3 py-1 px-2"
-                  [disabled] = "fval.approvalItems['controls'][idx].pristine || fval.approvalItems['controls'][idx].invalid" 
+                  [disabled] = "fval.approvalItems['controls'][idx].pristine || fval.approvalItems['controls'][idx].invalid"
                   (click)="saveLevel(idx)"
                 >
                   <i class="fas fa-save"></i>
                 </button>
-              </div> 
+              </div>
             </div>
-            <div 
+            <div
             class="text-danger col"
             *ngIf="
-              (fval.approvalItems['controls'][idx]['controls']['level'].touched 
+              (fval.approvalItems['controls'][idx]['controls']['level'].touched
               || fval.approvalItems['controls'][idx]['controls']['level'].dirty) &&
               fval.approvalItems['controls'][idx]['controls']['level'].errors?.required
             ">
@@ -88,6 +88,51 @@
         </div>
         </div>
         </div>
+
+        <!-- <div class="col-xs-12" formArrayName="tradingProductVariants">
+          <div
+            class="card shadow mt-2 mb-3 d-flex flex-column col-offset-lg-6"
+          >
+            <div class="card-body p-2">
+         <div class="row"
+         *ngFor="let variantsX of tradingProductForm.get('tradingProductVariants')['controls'];let variantIndex = index"
+         [formGroupName]="variantIndex">
+                        <div class="col-xs-12 col-md-6 col-lg-4 ml-1">
+         <div class="form-group">
+         <label for="variantAttributes" [ngClass]="variantsX.valid ? 'text-info' : ''">Variant Description<i
+         *ngIf="variantsX.valid" class="material-icons">check_circle</i>
+         <div class="input-group mb-1">
+         <div class="input-group-prepend">
+         <div class="input-group-text">
+         <i class="fas fa-suitcase text-info mx-auto" style="size: 50px"></i>
+         </div>
+         </div>
+         <input
+                  id="variantAttributesValues"
+                  formControlName="variantAttributesValues"
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (variantsX.touched ||
+                      variantsX.dirty) &&
+                      variantsX.errors
+                  }"
+                  placeholder="Enter variants description"
+                  autocomplete="off"
+                />
+         </div>
+         </label>
+         <label class="text-danger col" *ngIf="
+         (variantsX['controls'].variantAttributesValues.touched || variantsX['controls'].variantAttributesValues.dirty) &&
+         variantsX['controls'].variantAttributesValues.errors?.required
+         ">
+         The product variant description is required
+         </label>
+         </div>
+        </div> -->
+
+
       </form>
     </div>
   </div>

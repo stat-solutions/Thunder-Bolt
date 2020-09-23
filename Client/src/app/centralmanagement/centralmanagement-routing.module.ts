@@ -18,7 +18,6 @@ import { ApprovalsComponent } from './components/approvals/approvals.component';
 import { ApproveAreasComponent } from './components/approvals/approve-areas/approve-areas.component';
 import { ApproveStationsComponent } from './components/approvals/approve-stations/approve-stations.component';
 import { ApproveTownsComponent } from './components/approvals/approve-towns/approve-towns.component';
-<<<<<<< HEAD
 import { ApprovalComponent } from './components/transactions/approval/approval.component';
 import { FloatComponent } from './components/transactions/float/float.component';
 import { LoansComponent } from './components/transactions/loans/loans.component';
@@ -34,8 +33,6 @@ import { ReversePrincipleComponent } from './components/transactions/approval/re
 import { WaiveInterestComponent } from './components/transactions/approval/waive-interest/waive-interest.component';
 import { WithdrawSavingsComponent } from './components/transactions/approval/withdraw-savings/withdraw-savings.component';
 import { WriteOffComponent } from './components/transactions/approval/write-off/write-off.component';
-=======
->>>>>>> ce04b8d... first commit of central module
 
 const routes: Routes = [
   { path: '',
@@ -67,118 +64,6 @@ const routes: Routes = [
             component: CreateStationComponent
           }
         ]
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-      },
-      {
-        path: 'approve',
-        component: ApprovalsComponent,
-        children: [
-          {
-            path: 'approvearea',
-            component: ApproveAreasComponent
-          },
-          {
-            path: 'approvetown',
-            component: ApproveTownsComponent
-          },
-          {
-            path: 'approvestation',
-            component: ApproveStationsComponent
-          }
-        ]
->>>>>>> ce04b8d... first commit of central module
-      },
-      {
-        path: 'approve',
-        component: ApprovalsComponent,
-        children: [
-          {
-            path: 'approvearea',
-            component: ApproveAreasComponent
-          },
-          {
-            path: 'approvetown',
-            component: ApproveTownsComponent
-          },
-          {
-            path: 'approvestation',
-            component: ApproveStationsComponent
-          }
-        ]
-      },
-      {
-        path: 'transactions',
-        component: TransactionsComponent,
-        children: [
-          {
-            path: 'loans',
-            component: LoansComponent,
-              children: [
-                {
-                  path: 'setloanlimit',
-                  component: SetLoanLimitComponent
-                },
-                {
-                  path: 'setloanrate',
-                  component: SetLoanRateComponent
-                }
-              ]
-          },
-          {
-            path: 'approve',
-            component: ApprovalComponent,
-            children: [
-              {
-                path: 'reducerate',
-                component: ReduceRateComponent
-              },
-              {
-                path: 'reverseprinciple',
-                component: ReversePrincipleComponent
-              },
-              {
-                path: 'interestrate',
-                component: InterestRateComponent
-              },
-              {
-                path: 'withdrawsavings',
-                component: WithdrawSavingsComponent
-              },
-              {
-                path: 'waiveinterest',
-                component: WaiveInterestComponent
-              },
-              {
-                path: 'writeoff',
-                component: WriteOffComponent
-              },
-              {
-                path: 'loanlimit',
-                component: LoanLimitComponent
-              },
-              {
-                path: 'floatapproval',
-                component: FloatApprovalComponent
-              }
-            ]
-        },
-          {
-            path: 'float',
-            component: FloatComponent,
-            children: [
-              {
-                path: 'withdrawfloat',
-                component: WithdrawFloatComponent,
-              },
-              {
-                path: 'depositfloat',
-                component: DepositFloatComponent,
-              },
-        ]
->>>>>>> d8fe00a... first commit of central module
       },
       {
         path: 'approve',
@@ -301,13 +186,7 @@ const routes: Routes = [
       }
     ]
 }
-<<<<<<< HEAD
 ]
-=======
-    ]}
-  ];
-
->>>>>>> d8fe00a... first commit of central module
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

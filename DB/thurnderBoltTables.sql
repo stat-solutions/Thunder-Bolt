@@ -25,6 +25,15 @@ DROP TABLE IF EXISTS  bodabodaStage ; -- 24
 DROP TABLE IF EXISTS  bodabodaCustomer;  -- 25 bodabodacustomer
 DROP TABLE IF EXISTS  savingsCustomer ; -- 26
 DROP TABLE IF EXISTS  microloanCustomer;  -- 27  microloancustomer
+DROP TABLE IF EXISTS loan;  -- 28  microloancustomer
+DROP TABLE IF EXISTS bodabodaLoan;  -- 29  microloancustomer
+DROP TABLE IF EXISTS taxiLoan;  -- 30  microloancustomer
+DROP TABLE IF EXISTS txnDetails;  -- 31  microloancustomer
+DROP TABLE IF EXISTS loanTxn;  -- 32  microloancustomer
+DROP TABLE IF EXISTS interest;  -- 33  microloancustomer
+DROP TABLE IF EXISTS interestTxn;  -- 34  microloancustomer
+DROP TABLE IF EXISTS commission;  -- 35  microloancustomer
+DROP TABLE IF EXISTS commissionDetails;  -- 36  microloancustomer
 
 
 /*==============PART ONE:COMPANY SETUP AND AUTHENTICATION=============*/
@@ -75,7 +84,7 @@ DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS accessRights (
     accessRightsId INT NOT NULL,
-    roleName VARCHAR(100), -- CENTRAL_MANAGER, AREA_MANAGER, TOWN_MANAGER, STATION_MANAGER, STATION_OFFICER,USER_REGISTRATION,
+    roleName VARCHAR(100), -- TOP_MANAGER, CENTRAL_MANAGER, AREA_MANAGER, TOWN_MANAGER, STATION_MANAGER, STATION_OFFICER
     PRIMARY KEY (accessRightsId)
 )
 ENGINE = InnoDB
@@ -87,9 +96,14 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS itemRequiringApprovalCreate (
-    itemRequiringApprovalId INT NOT NULL,
-    itemName VARCHAR(100), -- COMPANY_CREATION,BUSINESSUNIT_CREATION,AREA_CREATION,TOWN_CREATION,STAION_CREATION,
-    itemStatus INT,-- 1=FIRST_APPROVAL,2=SECOND_APPROVAL,3=THIRD_APPROVAL,4=FOURTH_APPROVAL,5=FIFTH_APPROVAL
+    itemRequiringApprovalId INT NOT NULL AUTO_INCREMENT ,
+    itemName VARCHAR(100), -- AREA_CREATION,TOWN_CREATION,STATION_CREATION,WAVING_INTEREST,SETTING_DEFAULT_STATION_INTERESTRATE,SETTING_DEFAULT_STATION_LOANLIMIT,REDUCING_INTEREST_ON_INDIVIDUALLOAN,INCREASING_INDIVIDUAL_LOANLIMIT,WRITTING_OFF_PRINCIPAL,REVERSING_PRINCIPAL,CREATING_CUSTOMER,CREATING_MICROLOAN,WITHDRAWAL_OF_SAVINGS,USER_REGISTRATION,
+    itemStatus INT,-- 0=BEFORE_APPROVAL, 1=FIRST_APPROVAL,2=SECOND_APPROVAL,3=THIRD_APPROVAL,4=FOURTH_APPROVAL,5=FIFTH_APPROVAL
+    firstApprovalBy INT,-- 1=STATION_MANAGER,2=TOWN_MANAGER ,3=AREA_MANAGER,  4= CENTRAL_MANAGER,5= TOP_MANAGER
+      secondApprovalBy INT,-- 1=STATION_MANAGER,2=TOWN_MANAGER ,3=AREA_MANAGER,  4= CENTRAL_MANAGER,5= TOP_MANAGER
+       thirdApprovalBy INT,-- 1=STATION_MANAGER,2=TOWN_MANAGER ,3=AREA_MANAGER,  4= CENTRAL_MANAGER,5= TOP_MANAGER
+        fourthApprovalBy INT,-- 1=STATION_MANAGER,2=TOWN_MANAGER ,3=AREA_MANAGER,  4= CENTRAL_MANAGER,5= TOP_MANAGER
+         fifthApprovalBy INT,-- 1=STATION_MANAGER,2=TOWN_MANAGER ,3=AREA_MANAGER,  4= CENTRAL_MANAGER,5= TOP_MANAGER
     PRIMARY KEY (itemRequiringApprovalId)
 )
 ENGINE = InnoDB
@@ -100,17 +114,21 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 -- Table itemRequiringApprovalUpdate
 -- -----------------------------------------------------
+
 CREATE TABLE IF NOT EXISTS itemRequiringApprovalUpdate (
-    itemRequiringApprovalId INT NOT NULL,
-    itemName VARCHAR(100), -- COMPANY_UPDATE,BUSINESSUNIT_UPDATE,
-    itemStatus INT,-- 1=FIRST_APPROVAL,2=SECOND_APPROVAL,3=THIRD_APPROVAL,4=FOURTH_APPROVAL,5=FIFTH_APPROVAL
+    itemRequiringApprovalId INT NOT NULL AUTO_INCREMENT ,
+    itemName VARCHAR(100), -- AREA_CREATION,TOWN_CREATION,STATION_CREATION,WAVING_INTEREST,SETTING_DEFAULT_STATION_INTERESTRATE,SETTING_DEFAULT_STATION_LOANLIMIT,REDUCING_INTEREST_ON_INDIVIDUALLOAN,INCREASING_INDIVIDUAL_LOANLIMIT,WRITTING_OFF_PRINCIPAL,REVERSING_PRINCIPAL,CREATING_CUSTOMER,CREATING_MICROLOAN,WITHDRAWAL_OF_SAVINGS,USER_REGISTRATION,
+    itemStatus INT,-- 0=BEFORE_APPROVAL, 1=FIRST_APPROVAL,2=SECOND_APPROVAL,3=THIRD_APPROVAL,4=FOURTH_APPROVAL,5=FIFTH_APPROVAL
+    firstApprovalBy INT,-- 1=STATION_MANAGER,2=TOWN_MANAGER ,3=AREA_MANAGER,  4= CENTRAL_MANAGER,5= TOP_MANAGER
+      secondApprovalBy INT,-- 1=STATION_MANAGER,2=TOWN_MANAGER ,3=AREA_MANAGER,  4= CENTRAL_MANAGER,5= TOP_MANAGER
+       thirdApprovalBy INT,-- 1=STATION_MANAGER,2=TOWN_MANAGER ,3=AREA_MANAGER,  4= CENTRAL_MANAGER,5= TOP_MANAGER
+        fourthApprovalBy INT,-- 1=STATION_MANAGER,2=TOWN_MANAGER ,3=AREA_MANAGER,  4= CENTRAL_MANAGER,5= TOP_MANAGER
+         fifthApprovalBy INT,-- 1=STATION_MANAGER,2=TOWN_MANAGER ,3=AREA_MANAGER,  4= CENTRAL_MANAGER,5= TOP_MANAGER
     PRIMARY KEY (itemRequiringApprovalId)
 )
 ENGINE = InnoDB
 AUTO_INCREMENT = 400
 DEFAULT CHARACTER SET = utf8;
-
-
 
 
 
@@ -184,7 +202,7 @@ CREATE TABLE IF NOT EXISTS theBusinessUnit (
    REFERENCES company (companyId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 1100
+AUTO_INCREMENT = 700
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkBusinnessUnitIdTheBusinessUnitIndex ON theBusinessUnit(fkBusinnessUnitIdTheBusinessUnit ASC ) VISIBLE;
@@ -207,7 +225,7 @@ CREATE TABLE IF NOT EXISTS areaRegion (
     REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 700
+AUTO_INCREMENT = 800
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkApprovalDetailsIdAreaRegionIndex ON areaRegion(fkApprovalDetailsIdAreaRegion ASC ) VISIBLE;
@@ -231,6 +249,7 @@ CREATE TABLE IF NOT EXISTS theAreaRegion (
     REFERENCES theBusinessUnit (theBusinessUnitId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
+AUTO_INCREMENT = 900
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -254,7 +273,7 @@ CREATE TABLE IF NOT EXISTS town (
     REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 700
+AUTO_INCREMENT = 1000
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkApprovalDetailsIdTownIndex ON town(fkApprovalDetailsIdTown ASC ) VISIBLE;
@@ -277,10 +296,11 @@ CREATE TABLE IF NOT EXISTS theTown (
     REFERENCES theAreaRegion (theAreaRegionId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
+AUTO_INCREMENT = 1100
 DEFAULT CHARACTER SET = utf8;
 
 
-CREATE INDEX fkTownIdTheTownIndex ON theTown(fkTownIdTheTownIndex ASC ) VISIBLE;
+CREATE INDEX fkTownIdTheTownIndex ON theTown(fkTownIdTheTown ASC ) VISIBLE;
 CREATE INDEX fkTheAreaRegionIdTheTownIndex ON theTown(fkTheAreaRegionIdTheTown ASC ) VISIBLE;
 
 
@@ -299,7 +319,7 @@ CREATE TABLE IF NOT EXISTS station (
     REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 700
+AUTO_INCREMENT = 1200
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkApprovalDetailsIdStationIndex ON station(fkApprovalDetailsIdStation ASC ) VISIBLE;
@@ -324,7 +344,7 @@ CREATE TABLE IF NOT EXISTS theStation (
 
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1300
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -368,7 +388,7 @@ CREATE TABLE IF NOT EXISTS user (
     REFERENCES accessRights (accessRightsId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1000000000
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -402,11 +422,11 @@ CREATE TABLE IF NOT EXISTS userNextOfKin (
     REFERENCES user (userId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 2000000000
 DEFAULT CHARACTER SET = utf8;
 
 
-CREATE INDEX fkUserIdUserNextOfKinIndex ON user(fkUserIdUserNextOfKin ASC ) VISIBLE;
+CREATE INDEX fkUserIdUserNextOfKinIndex ON userNextOfKin(fkUserIdUserNextOfKin ASC ) VISIBLE;
 
 
 -- -----------------------------------------------------
@@ -425,7 +445,7 @@ CREATE TABLE IF NOT EXISTS loggedInUsers (
     REFERENCES user (userId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 3000000000
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkUserIdloggedInUsersIndex ON user(fkUserIdloggedInUsers ASC ) VISIBLE;
@@ -464,7 +484,7 @@ CREATE TABLE IF NOT EXISTS customer (
     REFERENCES theStation (theStationId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 4000000000
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkApprovalDetailsIdCustomerIndex ON customer(fkApprovalDetailsIdCustomer ASC ) VISIBLE;
@@ -499,10 +519,10 @@ CREATE TABLE IF NOT EXISTS customerNextOfKin (
     REFERENCES customer (customerId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 5000000000
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX fkCustomerIdCustomerNextOfKinIndex ON user(fkCustomerIdCustomerNextOfKin ASC ) VISIBLE;
+CREATE INDEX fkCustomerIdCustomerNextOfKinIndex ON customerNextOfKin(fkCustomerIdCustomerNextOfKin ASC ) VISIBLE;
     
 
 
@@ -521,7 +541,7 @@ CREATE TABLE IF NOT EXISTS customerType (
     REFERENCES customer (customerId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 1000
+AUTO_INCREMENT = 1400
 DEFAULT CHARACTER SET = utf8; 
 
 CREATE INDEX fkCustomerIdCustomerTypeIndex ON customerType(fkCustomerIdCustomerType ASC ) VISIBLE;
@@ -542,7 +562,7 @@ CREATE TABLE IF NOT EXISTS taxiPark (
     REFERENCES approvalDetails (approvalDetailsId)ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1500
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkApprovalDetailsIdTaxiParkIndex ON taxiPark(fkApprovalDetailsIdTaxiPark ASC ) VISIBLE;
@@ -569,7 +589,7 @@ CREATE TABLE IF NOT EXISTS taxiStage (
     REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1600
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkTaxiParkIdTaxiStageIndex ON taxiStage(fkTaxiParkIdTaxiStage ASC ) VISIBLE;
@@ -604,7 +624,7 @@ CREATE TABLE IF NOT EXISTS taxiCustomer (
     REFERENCES taxiStage (taxiStageId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1700
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkCustomerTypeIdTaxiCustomerrIndex ON taxiCustomer(fkCustomerTypeIdTaxiCustomer ASC ) VISIBLE;
@@ -629,10 +649,13 @@ CREATE TABLE IF NOT EXISTS stageCluster (
     REFERENCES approvalDetails (approvalDetailsId)ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1800
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkApprovalDetailsIdstageClusterIndex ON stageCluster(fkApprovalDetailsIdstageCluster ASC ) VISIBLE;
+
+
+
 
 
 
@@ -658,7 +681,7 @@ CREATE TABLE IF NOT EXISTS bodabodaStage (
     REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1900
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkbodabodaStageClusterIdbodabodaStageIndex ON bodabodaStage(fkbodabodaStageClusterIdbodabodaStage ASC ) VISIBLE;
@@ -695,7 +718,7 @@ CREATE TABLE IF NOT EXISTS bodabodaCustomer (
     REFERENCES bodabodaStage (bodabodaStageId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 6000000000
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkCustomerIdBodabodaCustomerIndex ON bodabodaCustomer(fkCustomerIdBodabodaCustomer ASC ) VISIBLE;
@@ -725,7 +748,7 @@ CREATE TABLE IF NOT EXISTS savingsCustomer (
 
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 7000000000
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkCustomerTypeIdSavingsCustomerIndex ON savingsCustomer(fkCustomerTypeIdSavingsCustomer ASC ) VISIBLE;
@@ -760,7 +783,7 @@ CREATE TABLE IF NOT EXISTS microloanCustomer (
 
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 8000000000
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkCustomerTypeIdMicroloanCustomerIdIndex ON microloanCustomer(fkCustomerTypeIdMicroloanCustomerId ASC ) VISIBLE;
@@ -799,7 +822,7 @@ CREATE TABLE IF NOT EXISTS loan (
     REFERENCES approvalDetails (approvalDetailsId) ON DELETE CASCADE ON UPDATE NO ACTION
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 9000000000
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkCustomerIdLoanIndex ON loan(fkCustomerIdLoan ASC ) VISIBLE;
@@ -837,7 +860,7 @@ CREATE TABLE IF NOT EXISTS bodabodaLoan (
 
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1100000000
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkCustomerIdBodabodaLoanIndex ON bodabodaCustomer(fkCustomerIdBodabodaLoan ASC ) VISIBLE;
@@ -846,8 +869,9 @@ CREATE INDEX fkCustomerIdBodabodaLoanIndex ON bodabodaCustomer(fkCustomerIdBodab
 
 
 
+
 -- -----------------------------------------------------
--- Table bodabodaLoan
+-- Table taxiLoan
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS taxiLoan (
@@ -863,32 +887,31 @@ CREATE TABLE IF NOT EXISTS taxiLoan (
     PRIMARY KEY (taxiLoanId),
    
     CONSTRAINT fkCustomerIdTaxiLoan FOREIGN KEY (fkCustomerIdTaxiLoan) 
-    REFERENCES loan (loanId) ON DELETE CASCADE ON UPDATE NO ACTION,
+    REFERENCES loan (loanId) ON DELETE CASCADE ON UPDATE NO ACTION
 
 
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1200000000
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX fkCustomerIdTaxiLoanIndex ON bodabodaCustomer(fkCustomerIdTaxiLoan ASC ) VISIBLE;
+CREATE INDEX fkCustomerIdTaxiLoanIndex ON taxiLoan(fkCustomerIdTaxiLoan ASC ) VISIBLE;
+
 
 
 
 -- -----------------------------------------------------
--- Table accountTypes 
+-- Table txnDetails 
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS accountTypes (
-  accountTypesId INT NOT NULL AUTO_INCREMENT,
-  accountTypeName VARCHAR(100) NULL,
-   accountTypeNumber INT(11) NULL,
-  PRIMARY KEY (accountTypesId))
+CREATE TABLE IF NOT EXISTS txnDetails (
+ txnDetailsId INT NOT NULL AUTO_INCREMENT,
+ txnDetailsCat VARCHAR(100) NULL,--  LOAN,SAVING,FLOAT,EXPENSE
+ txnDetailsFamilyName VARCHAR(100) NULL,-- BODABODALOAN,TAXILOAN,MICROLOAN,STAFFLOAN,BOBABODASAVING,TAXISAVING,INDIVIDUALSAVING,FLOANTXN,EXPENSETXN
+ txnDetailsTypeName VARCHAR(100) NULL,-- LOANDISBURSEMENT,LOANPAYMENT,SAVINGWITHDRAWAL,SAVINGDEPOSIT,FLOATDEPOSIT,FLOATWITHDRAWAL,EXPENSETXN
+  PRIMARY KEY (txnDetailsId))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
+AUTO_INCREMENT = 2000
 DEFAULT CHARACTER SET=utf8;
-
-
-
 
 
 
@@ -911,16 +934,15 @@ CREATE TABLE IF NOT EXISTS loanTxn (
     PRIMARY KEY (loanTxnId),
    
     CONSTRAINT fkLoanIdLoanTxn FOREIGN KEY (fkLoanIdLoanTxn) 
-    REFERENCES loan (loanId) ON DELETE CASCADE ON UPDATE NO ACTION,
+    REFERENCES loan (loanId) ON DELETE CASCADE ON UPDATE NO ACTION
 
 
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1300000000
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX fkLoanIdLoanTxnIndex ON loanPayment(fkLoanIdLoanTxn ASC ) VISIBLE;
-
+CREATE INDEX fkLoanIdLoanTxnIndex ON loanTxn(fkLoanIdLoanTxn ASC ) VISIBLE;
 
 
 
@@ -941,12 +963,12 @@ CREATE TABLE IF NOT EXISTS interest (
     PRIMARY KEY (interestId),
    
     CONSTRAINT fkLoanIdInterest FOREIGN KEY (fkLoanIdInterest) 
-    REFERENCES loan (loanId) ON DELETE CASCADE ON UPDATE NO ACTION,
+    REFERENCES loan (loanId) ON DELETE CASCADE ON UPDATE NO ACTION
 
 
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1400000000
 DEFAULT CHARACTER SET = utf8;
 
 CREATE INDEX fkLoanIdInterestIndex ON interest(fkLoanIdInterest ASC ) VISIBLE;
@@ -964,18 +986,18 @@ CREATE TABLE IF NOT EXISTS interestTxn (
     interestPaid DOUBLE NULL,
      interestRemaining DOUBLE NULL,
     fkInterestIdInterestTxn  INT NULL,
-    PRIMARY KEY (interestId),
+    PRIMARY KEY (interestTxnId),
    
     CONSTRAINT fkInterestIdInterestTxn FOREIGN KEY (fkInterestIdInterestTxn) 
-    REFERENCES interest (interestId) ON DELETE CASCADE ON UPDATE NO ACTION,
+    REFERENCES interest (interestId) ON DELETE CASCADE ON UPDATE NO ACTION
 
 
 )
 ENGINE = InnoDB
-AUTO_INCREMENT = 900
+AUTO_INCREMENT = 1500000000
 DEFAULT CHARACTER SET = utf8;
 
-CREATE INDEX fkInterestIdInterestTxnIndex ON interest(fkInterestIdInterestTxn ASC ) VISIBLE;
+CREATE INDEX fkInterestIdInterestTxnIndex ON interestTxn(fkInterestIdInterestTxn ASC ) VISIBLE;
 
 
 
@@ -998,11 +1020,12 @@ CREATE TABLE IF NOT EXISTS commission (
     ON UPDATE NO ACTION
     )
 ENGINE = InnoDB
-AUTO_INCREMENT = 1300
+AUTO_INCREMENT = 1600000000
 DEFAULT CHARACTER SET = utf8;
 
 
 CREATE INDEX fkInterestIdCommisionIndx ON commission (fkInterestIdCommision ASC) VISIBLE;
+
 
 
 
@@ -1032,11 +1055,14 @@ CREATE TABLE IF NOT EXISTS commissionDetails (
     )
 
 ENGINE = InnoDB
-AUTO_INCREMENT = 6500
+AUTO_INCREMENT = 1700000000
 DEFAULT CHARACTER SET = utf8;
 
 
 CREATE INDEX fkCommissionIdCommissionDetailsIndx ON commissionDetails (fkCommissionIdCommissionDetails ASC) VISIBLE;
+
+
+
 
 
 
@@ -1048,13 +1074,12 @@ DROP TABLE IF EXISTS trnGeneralLedger;
 CREATE TABLE IF NOT EXISTS trnGeneralLedger (
   trnGeneralLedgerId INT(11) NOT NULL AUTO_INCREMENT,
   trnDate TIMESTAMP NULL DEFAULT NULL,
-  trn_type VARCHAR(50) NULL DEFAULT NULL,
-  trn_debit DOUBLE NULL DEFAULT NULL,
-  trn_credit DOUBLE NULL DEFAULT NULL,
-   fk_petrol_station_id_trn_general_ledger INT(11) NULL DEFAULT NULL,
-  fk_user_id_posted_by_trn_general_ledger_id INT(11) NULL DEFAULT NULL,
-  fk_user_id_belongs_to_trn_general_ledger_id INT(11) NULL DEFAULT NULL,
-   fk_shift_id_trn_general_ledger INT(11) NULL DEFAULT NULL,
+  narration1 VARCHAR(50) NULL DEFAULT NULL,
+  narration2 VARCHAR(50) NULL DEFAULT NULL,
+  trnDebit DOUBLE NULL DEFAULT NULL,
+  trnCredit DOUBLE NULL DEFAULT NULL,
+ fkTxnDetailsIdTrnGeneralLedger INT NULL,
+ fkTheStationIdTrnGeneralLedger INT NULL,
 
   PRIMARY KEY (trnGeneralLedgerId),
 
