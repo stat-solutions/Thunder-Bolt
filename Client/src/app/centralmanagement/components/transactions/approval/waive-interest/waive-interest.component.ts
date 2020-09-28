@@ -92,7 +92,7 @@ export class WaiveInterestComponent implements OnInit {
     if(val == true) {
       this.waveApprovals.forEach((item, i) => {
         this.fval.approveWave['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.waveApprovals.forEach((item, i) => {
         this.fval.approveWave['controls'][i]['controls'].approved.setValue(false);

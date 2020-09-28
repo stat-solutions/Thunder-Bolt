@@ -1,16 +1,66 @@
-<div class="container-fluid d-flex flex-row justify-content-center mt-1 pt-0 mt-md-1 pt-md-0 mb-0 pb-3 shadow-lg col-xs-12 col-lg-12">
-    <div class="jumbotron-fluid mb-0 pb-0">
-        <div class="container mt-3 mx-0 shadow-lg">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
-                        Client Reports
-                    </h2>
+<div
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-md-0 pt-0 pb-3 shadow-lg col-xs-12 col-lg-8"
+>
+  <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1">
+    <div class="container mt-3 mx-0 shadow-lg">
+      <div class="row">
+        <div class="col-12">
+          <h2
+            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          >
+            Areas
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="mt-2 pt-3 mb-2 mx-auto px-auto pb-1">
+      <form (ngSubmit)="createArea()">
+        <div class="row">
+          <div class="col-12 col-md-6 mx-auto">
+            <div class="form-group text-secondary">
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-map-marker fa-sm text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="areaCreate"
+                  formControlName="areaCreate"
+                  type="text"
+                  class="form-control col-9"
+                  placeholder="Enter area to create"
+                  autocomplete="off"
+                />
+                &nbsp;
+                <button
+                  type="submit"
+                  class="btn btn-info col-3"
+                  [disabled]="!userForm.valid"
+                >
+                  Create
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 mt-0">
+            <div class="form-group text-secondary">
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-search text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
                 </div>
             </div>
         </div>
         <div class="card-body mt-1 pt-4 mb-0 pb-3 shadow-lg">
-            <form [formGroup]="userform" (ngSubmit)="save()">
+            <form [formGroup]="userForm" (ngSubmit)="createArea()">
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-5 mx-md-0">
                         <label for="areas">

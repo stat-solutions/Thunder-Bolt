@@ -22,7 +22,7 @@ export interface clientInfo {
 })
 export class AreasComponent implements OnInit {
   public modalRef: BsModalRef;
-  userform: FormGroup;
+  userForm: FormGroup;
   clients: clientInfo;
   user = '/../../../assets/img/man.svg';
 
@@ -59,7 +59,7 @@ export class AreasComponent implements OnInit {
 
   }
 
-  save(){
-    
+  createArea(){
+
   }
 }

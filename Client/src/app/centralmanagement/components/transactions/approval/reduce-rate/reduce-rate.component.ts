@@ -94,7 +94,7 @@ export class ReduceRateComponent implements OnInit {
     if(val == true) {
       this.ratesApprovals.forEach((item, i) => {
         this.fval.approveReduceRates['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.ratesApprovals.forEach((item, i) => {
         this.fval.approveReduceRates['controls'][i]['controls'].approved.setValue(false);

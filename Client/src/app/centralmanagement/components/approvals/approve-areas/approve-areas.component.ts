@@ -29,7 +29,7 @@ export class ApproveAreasComponent implements OnInit {
     { area: "Northern", status: 0 },
     { area: "Nile region", status: 0 },
     { area: "Albertine", status: 0 }
-  ]
+  ];
   constructor(
     private authService: AuthServiceService,
     private router: Router,
@@ -84,7 +84,7 @@ export class ApproveAreasComponent implements OnInit {
     if(val == true) {
       this.areaApproval.forEach((item, i) => {
         this.fval.approveAreas['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.areaApproval.forEach((item, i) => {
         this.fval.approveAreas['controls'][i]['controls'].approved.setValue(false);

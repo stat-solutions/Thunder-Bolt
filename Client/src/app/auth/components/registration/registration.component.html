@@ -342,6 +342,32 @@
           The position is required!
         </div>
       </div>
+        <!--the divs below will appear depending on the position selected-->
+
+        <!--the div for central-->
+        <div class="form-group text-primary">
+          <label
+            for="central"
+            [ngClass]="fval.central.valid ? 'text-info' : ''"
+            ><i *ngIf="fval.central.valid" class="material-icons"
+              >check_circle</i
+            >Choose central role</label
+          >
+          <div class="input-group mb-2">
+            <select
+            formControlName="central"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.central.touched || fval.central.dirty) &&
+                fval.central.errors
+            }"
+            autocomplete="off"
+            placeholder="Select the role at central"
+          >
+            <option></option>
+          </select>
+      </div>
         <!--the div for area-->
         <div class="form-group text-primary" *ngIf="(positionValue == 'Area Manager'||positionValue=='Town Manager'||positionValue=='Station Manager'||positionValue=='Station Officer')">
           <label
@@ -364,7 +390,7 @@
             placeholder="Select Area"
             (change) = "setTownsSelection(fval.area.value)"
           >
-            <option  *ngFor="let area of areas"> 
+            <option  *ngFor="let area of areas">
               {{area}}
             </option>
           </select>
@@ -458,7 +484,7 @@
         <button
           type="submit"
           class="btn btn-info col-5 mx-auto"
-          
+
         >
           Register
         </button>
@@ -486,6 +512,7 @@
           <ngx-alerts></ngx-alerts>
         </label>
       </div>
+    </div>
     </form>
     <!-- </div>  -->
     <!-- </div>   -->

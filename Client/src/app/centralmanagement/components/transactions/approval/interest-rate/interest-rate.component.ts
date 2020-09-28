@@ -94,7 +94,7 @@ export class InterestRateComponent implements OnInit {
     if(val == true) {
       this.ratesApprovals.forEach((item, i) => {
         this.fval.approveRates['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.ratesApprovals.forEach((item, i) => {
         this.fval.approveRates['controls'][i]['controls'].approved.setValue(false);

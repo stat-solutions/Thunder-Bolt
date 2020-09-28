@@ -98,6 +98,10 @@ ngOnInit () {
     this.approvalForm.reset();
   }
 
+  // revert() {
+  //   this.approvalForm.reset();
+  // }
+
   refresh() {
     location.reload();
   }
@@ -105,18 +109,18 @@ ngOnInit () {
   get fval() {
     return this.approvalForm.controls;
   }
- 
+
   disableForms () {
     this.approvals.forEach((itm, i) =>{
-     this.fval.approvalItems["controls"][i].disable();    
+     this.fval.approvalItems["controls"][i].disable();
     })
   }
 
   enableEdit(val: number) {
     this.approvals.forEach((itm, i) =>{
       if(i == val) {
-        this.fval.approvalItems["controls"][i].enable(); 
-      }   
+        this.fval.approvalItems["controls"][i].enable();
+      }
     })
   }
   saveLevel(index: any) {
