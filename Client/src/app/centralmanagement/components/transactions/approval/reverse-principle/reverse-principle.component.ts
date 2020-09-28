@@ -93,7 +93,7 @@ export class ReversePrincipleComponent implements OnInit {
     if(val == true) {
       this.reverseApprovals.forEach((item, i) => {
         this.fval.approveReverse['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.reverseApprovals.forEach((item, i) => {
         this.fval.approveReverse['controls'][i]['controls'].approved.setValue(false);
@@ -171,6 +171,6 @@ export class ReversePrincipleComponent implements OnInit {
       return
     }
   }
-  
+
 }
 

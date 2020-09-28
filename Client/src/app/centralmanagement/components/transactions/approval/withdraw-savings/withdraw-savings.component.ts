@@ -94,7 +94,7 @@ export class WithdrawSavingsComponent implements OnInit {
     if(val == true) {
       this.withdrawApprovals.forEach((item, i) => {
         this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.withdrawApprovals.forEach((item, i) => {
         this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(false);

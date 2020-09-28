@@ -91,7 +91,7 @@ export class LoanLimitComponent implements OnInit {
     if(val == true) {
       this.loanLimitApprovals.forEach((item, i) => {
         this.fval.approveLoanLimits['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.loanLimitApprovals.forEach((item, i) => {
         this.fval.approveLoanLimits['controls'][i]['controls'].approved.setValue(false);

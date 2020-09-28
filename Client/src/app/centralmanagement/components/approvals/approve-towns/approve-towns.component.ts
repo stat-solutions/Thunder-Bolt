@@ -26,7 +26,7 @@ export class ApproveTownsComponent implements OnInit {
     {town: "masaka", status: 1},
     {town: "kawempe", status: 1},
     {town: "jinja", status: 1}
-  ]; 
+  ];
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -88,7 +88,7 @@ export class ApproveTownsComponent implements OnInit {
     if(val == true) {
       this.townApprovals.forEach((item, i) => {
         this.fval.approveTowns['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.townApprovals.forEach((item, i) => {
         this.fval.approveTowns['controls'][i]['controls'].approved.setValue(false);

@@ -18,7 +18,7 @@ export class AuthServiceService {
     private loggedInUser: string;
     private readonly JWT_TOKEN = 'JWT_TOKEN';
     private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
-    
+
     httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ export class AuthServiceService {
     };
 
     constructor(private http: HttpClient, private router: Router) { }
-  
+
     loginNormalUser(postData: FormGroup): Observable<boolean> {
 
       return this.http.post<any>(`${this.API_URL}/api/auth/login`, postData.value, this.httpOptions)
@@ -40,18 +40,38 @@ export class AuthServiceService {
         );
     }
 
-    logout() {
-      return this.http.post<any>(`${this.API_URL}/api/auth/logout`, { refreshToken: this.getRefreshToken() })
+
+    testingTheTablePost(postData: FormGroup): Observable<string> {
+      return this.http.post<string>(`${this.API_URL}/api/auth/testTableData`, postData.value, this.httpOptions)
         .pipe(
-          tap(() => this.doLogoutUser()),
-          mapTo(true),
-          catchError(error => {
-            this.handleLoginError(error);
-            return of(false);
-          }
-          )
+          // tap(tokens => console.log(`${tokens}`)),
+          // tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
+          // mapTo(true),
+          catchError(this.handleLoginError)
         );
     }
+
+    isAgentRegistered(id: string): Observable<boolean> {
+          //  return of(true);
+      const options1 = { params: new HttpParams().set('id', id) };
+      return this.http.get<boolean>(`${this.API_URL}/api/auth/isAgentRegistered`, options1)
+        .pipe(
+          catchError(this.OtherErrors)
+        );
+    }
+
+    // logout() {
+    //   return this.http.post<any>(`${this.API_URL}/api/auth/logout`, { refreshToken: this.getRefreshToken() })
+    //     .pipe(
+    //       tap(() => this.doLogoutUser()),
+    //       mapTo(true),
+    //       catchError(error => {
+    //         this.handleLoginError(error);
+    //         return of(false);
+    //       }
+    //       )
+    //     );
+    // }
 
     registerUser(postData: FormGroup) {
       return this.http.post<string>(`${this.API_URL}/api/auth/register`, postData.value, this.httpOptions)

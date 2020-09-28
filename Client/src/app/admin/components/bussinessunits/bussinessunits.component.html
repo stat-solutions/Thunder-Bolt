@@ -26,7 +26,7 @@
                   autocomplete="off"
                   [ngClass]="{
                     'is-invalid':
-                      (fval.bussinessUnitName.touched 
+                      (fval.bussinessUnitName.touched
                       || fval.bussinessUnitName.dirty) &&
                       fval.bussinessUnitName.errors
                   }"
@@ -51,14 +51,14 @@
             </div>
           </div>
         </div>
-        <div class="mt-1" 
+        <div class="mt-1"
         formArrayName= "bussinessUnits"
         >
-        <div class="item-container" 
+        <div class="item-container"
         *ngFor="let units of fval.bussinessUnits['controls'];let i = index"
             >
           <div
-            class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="i" 
+            class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="i"
           >
             <div class="card-body mt-0 pt-2 mb-0 pb-0 mx-0" >
               <div class="row mt-0 pt-0 mb-0 pb-0" >
@@ -71,7 +71,7 @@
                       autocomplete="off"
                       [ngClass]="{
                         'is-invalid':
-                          (fval.bussinessUnits['controls'][i]['controls']['unitName'].touched 
+                          (fval.bussinessUnits['controls'][i]['controls']['unitName'].touched
                           || fval.bussinessUnits['controls'][i]['controls']['unitName'].dirty) &&
                           fval.bussinessUnits['controls'][i]['controls']['unitName'].errors
                       }"

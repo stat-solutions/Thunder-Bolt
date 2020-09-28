@@ -44,6 +44,8 @@ import { WriteOffComponent } from './components/transactions/approval/write-off/
 import { LoanLimitComponent } from './components/transactions/approval/loan-limit/loan-limit.component';
 import { FloatApprovalComponent } from './components/transactions/approval/float-approval/float-approval.component';
 import { ModalModule } from "ngx-bootstrap/modal";
+import { NgChartjsModule } from 'ng-chartjs';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,10 @@ import { ModalModule } from "ngx-bootstrap/modal";
     NgxSpinnerModule,
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
+    NgChartjsModule,
+    NgChartjsModule.registerPlugin(['inlinePlugin']),
+    TabsModule.forRoot(),
+
   ],
 })
 export class CentralmanagementModule {}

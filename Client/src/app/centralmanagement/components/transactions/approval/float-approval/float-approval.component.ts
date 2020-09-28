@@ -44,7 +44,7 @@ export class FloatApprovalComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-  
+
   ngOnInit() {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
@@ -96,7 +96,7 @@ export class FloatApprovalComponent implements OnInit {
     if(val == true) {
       this.floatApprovals.forEach((item, i) => {
         this.fval.approveFloat['controls'][i]['controls'].approved.setValue(val);
-      }) 
+      })
     } else {
       this.floatApprovals.forEach((item, i) => {
         this.fval.approveFloat['controls'][i]['controls'].approved.setValue(false);
