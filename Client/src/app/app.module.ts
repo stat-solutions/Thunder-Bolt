@@ -16,7 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { InterceptorService } from './shared/services/interceptor.service';
 import { SharedModule } from './shared/shared.module';
-
+import { JwtModule } from "@auth0/angular-jwt";
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -34,7 +34,16 @@ import { SharedModule } from './shared/shared.module';
     CentralmanagementModule,
     TownmanagementModule,
     ReactiveFormsModule,
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+      //   tokenGetter: () => {
+      //   //   // ;
+      //   // },
+      //   allowedDomains: ["localhost:4200/"],
+      //   disallowedRoutes: ["http://example.com/examplebadroute/"],
+      },
+    })
   ],
   providers: [
     {

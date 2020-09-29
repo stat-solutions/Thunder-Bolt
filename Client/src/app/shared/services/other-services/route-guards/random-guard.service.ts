@@ -17,14 +17,17 @@ import {JwtHelperService} from '@auth0/angular-jwt';
   
     canActivateChild() {
       if (this.authService.isLoggedIn()) {
-          if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())){
-            if(this.jwtHelper.isTokenExpired(this.authService.getRefreshToken())){
-              return false;
-            }
-          }
+          // if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())){
+            // if(this.jwtHelper.isTokenExpired(this.authService.getRefreshToken())){
+              // return false;
+            // }
+          // }
+          return true;
       }
       else {
-        return true;
+        // return true;
+        this.router.navigate(["/authpage/login"])
+        return false;
       }
     }
   }

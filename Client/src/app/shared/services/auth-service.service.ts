@@ -109,7 +109,7 @@ export class AuthServiceService {
 
     isLoggedIn() {
       // return !!this.getJwtToken();
-      return false;
+      return true;
 
     }
 
