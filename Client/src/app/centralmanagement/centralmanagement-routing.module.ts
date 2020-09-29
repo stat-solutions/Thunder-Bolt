@@ -33,10 +33,12 @@ import { ReversePrincipleComponent } from './components/transactions/approval/re
 import { WaiveInterestComponent } from './components/transactions/approval/waive-interest/waive-interest.component';
 import { WithdrawSavingsComponent } from './components/transactions/approval/withdraw-savings/withdraw-savings.component';
 import { WriteOffComponent } from './components/transactions/approval/write-off/write-off.component';
+import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
 
 const routes: Routes = [
   { path: '',
     component: PagesCoreCentralComponent,
+    canActivateChild: [RandomGuard],
     children: [
       {
         path: '',

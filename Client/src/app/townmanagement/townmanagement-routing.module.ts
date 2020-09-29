@@ -4,10 +4,12 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { PagesCoreTownComponent } from './pages-core/pages-core-town.component';
+import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
 
 const routes: Routes = [
   { path: '',
     component: PagesCoreTownComponent,
+    canActivateChild: [RandomGuard],
     children: [
       {
         path: '',
