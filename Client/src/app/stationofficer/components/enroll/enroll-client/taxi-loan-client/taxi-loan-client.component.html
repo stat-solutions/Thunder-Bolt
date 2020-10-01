@@ -1,0 +1,498 @@
+<div
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-md-0 pt-0 pb-0 shadow-lg col-xs-12 col-lg-8"
+>
+  <div class="jumbotron-fluid">
+    <div class="container mt-2 mb-2 mx-0 shadow-lg">
+      <div class="row">
+        <div class="col-12">
+          <h2
+            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          >
+            Taxi Loan Info
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="card-body mt-0 pt-2 mb-0 pb-2 shadow-lg">
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerGaurantor1"
+                [ngClass]="
+                  fval.microloanCustomerGaurantor1.valid ? 'text-info' : ''
+                "
+                >Guarantor 1<i
+                  *ngIf="fval.microloanCustomerGaurantor1.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerGaurantor1"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.microloanCustomerGaurantor1.touched ||
+                        fval.microloanCustomerGaurantor1.dirty) &&
+                      fval.microloanCustomerGaurantor1.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="First guarantor's Name"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.microloanCustomerGaurantor1.touched ||
+                    fval.microloanCustomerGaurantor1.dirty) &&
+                  fval.microloanCustomerGaurantor1.errors?.required
+                "
+              >
+                The guarantor name is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerGaurantor2"
+                [ngClass]="
+                  fval.microloanCustomerGaurantor2.valid ? 'text-info' : ''
+                "
+                >Guarantor 2<i
+                  *ngIf="fval.microloanCustomerGaurantor2.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerGaurantor2"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.microloanCustomerGaurantor2.touched ||
+                        fval.microloanCustomerGaurantor2.dirty) &&
+                      fval.microloanCustomerGaurantor2.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Second guarantor's Name"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.microloanCustomerGaurantor2.touched ||
+                    fval.microloanCustomerGaurantor2.dirty) &&
+                  fval.microloanCustomerGaurantor2.errors?.required
+                "
+              >
+                The guarantor name is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerGaurantor3"
+                [ngClass]="
+                  fval.microloanCustomerGaurantor3.valid ? 'text-info' : ''
+                "
+                >Guarantor 3<i
+                  *ngIf="fval.microloanCustomerGaurantor3.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerGaurantor3"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.microloanCustomerGaurantor3.touched ||
+                        fval.microloanCustomerGaurantor3.dirty) &&
+                      fval.microloanCustomerGaurantor3.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Third guarantor's Name"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.microloanCustomerGaurantor3.touched ||
+                    fval.microloanCustomerGaurantor3.dirty) &&
+                  fval.microloanCustomerGaurantor3.errors?.required
+                "
+              >
+                The guarantor name is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurity1"
+                [ngClass]="
+                  fval.microloanCustomerSecurity1.valid ? 'text-info' : ''
+                "
+                >Security 1<i
+                  *ngIf="fval.microloanCustomerSecurity1.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerSecurity1"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.microloanCustomerSecurity1.touched ||
+                        fval.microloanCustomerSecurity1.dirty) &&
+                      fval.microloanCustomerSecurity1.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter first security"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.microloanCustomerSecurity1.touched ||
+                    fval.microloanCustomerSecurity1.dirty) &&
+                  fval.microloanCustomerSecurity1.errors?.required
+                "
+              >
+                The guarantor name is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurity2"
+                [ngClass]="
+                  fval.microloanCustomerSecurity2.valid ? 'text-info' : ''
+                "
+                >Security 2<i
+                  *ngIf="fval.microloanCustomerSecurity2.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerSecurity2"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.microloanCustomerSecurity2.touched ||
+                        fval.microloanCustomerSecurity2.dirty) &&
+                      fval.microloanCustomerSecurity2.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter second security"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.microloanCustomerSecurity2.touched ||
+                    fval.microloanCustomerSecurity2.dirty) &&
+                  fval.microloanCustomerSecurity2.errors?.required
+                "
+              >
+                The guarantor name is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurityLocation1"
+                [ngClass]="
+                  fval.microloanCustomerSecurityLocation1.valid
+                    ? 'text-info'
+                    : ''
+                "
+                >Security 1 Location<i
+                  *ngIf="fval.microloanCustomerSecurityLocation1.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerSecurityLocation1"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.microloanCustomerSecurityLocation1.touched ||
+                        fval.microloanCustomerSecurityLocation1.dirty) &&
+                      fval.microloanCustomerSecurityLocation1.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter first security's location"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.microloanCustomerSecurityLocation1.touched ||
+                    fval.microloanCustomerSecurityLocation1.dirty) &&
+                  fval.microloanCustomerSecurityLocation1.errors?.required
+                "
+              >
+                The guarantor name is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurityLocation2"
+                [ngClass]="
+                  fval.microloanCustomerSecurityLocation2.valid
+                    ? 'text-info'
+                    : ''
+                "
+                >Security 2 Location<i
+                  *ngIf="fval.microloanCustomerSecurityLocation2.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerSecurityLocation2"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.microloanCustomerSecurityLocation2.touched ||
+                        fval.microloanCustomerSecurityLocation2.dirty) &&
+                      fval.microloanCustomerSecurityLocation2.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter second security's location"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.microloanCustomerSecurityLocation2.touched ||
+                    fval.microloanCustomerSecurityLocation2.dirty) &&
+                  fval.microloanCustomerSecurityLocation2.errors?.required
+                "
+              >
+                The guarantor name is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurity1PhotoUrl"
+                [ngClass]="fval.microloanCustomerSecurity1PhotoUrl.valid ? 'text-info' : ''"
+                >Security 1 Image<i
+                  *ngIf="fval.microloanCustomerSecurity1PhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="microloanCustomerSecurity1PhotoUrl"
+                  formControlName="microloanCustomerSecurity1PhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.microloanCustomerSecurity1PhotoUrl.touched ||
+                        fval.microloanCustomerSecurity1PhotoUrl.dirty) &&
+                      fval.microloanCustomerSecurity1PhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.microloanCustomerSecurity1PhotoUrl.touched || fval.microloanCustomerSecurity1PhotoUrl.dirty) &&
+                  fval.microloanCustomerSecurity1PhotoUrl.errors?.required
+                "
+              >
+                Please upload an image of Security 1!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurity2PhotoUrl"
+                [ngClass]="fval.microloanCustomerSecurity2PhotoUrl.valid ? 'text-info' : ''"
+                >Security 2 Image<i
+                  *ngIf="fval.microloanCustomerSecurity2PhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="microloanCustomerSecurity2PhotoUrl"
+                  formControlName="microloanCustomerSecurity2PhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.microloanCustomerSecurity2PhotoUrl.touched ||
+                        fval.microloanCustomerSecurity2PhotoUrl.dirty) &&
+                      fval.microloanCustomerSecurity2PhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.microloanCustomerSecurity2PhotoUrl.touched || fval.microloanCustomerSecurity2PhotoUrl.dirty) &&
+                  fval.microloanCustomerSecurity2PhotoUrl.errors?.required
+                "
+              >
+                Please upload an image of Security 2!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mt-2 mb-3 pt-0 pb-3 mx-auto">
+          <button
+            type="submit"
+            class="btn btn-info col-5 mx-auto"
+            [disabled]="!userForm.valid"
+          >
+            Save
+          </button>
+
+          <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+            <p class="text-light">Please wait...</p>
+          </ngx-spinner>
+
+          <label class="col" *ngIf="errored" class="text-danger">
+            <i class="material-icons">Cancel</i>
+
+            <ngx-alerts></ngx-alerts>
+          </label>
+
+          <label class="col" *ngIf="posted" class="text-info">
+            <i class="material-icons">check_circle</i>
+            <ngx-alerts></ngx-alerts>
+          </label>
+
+          <button
+            type="button"
+            class="btn btn-info col-5 mx-auto"
+            (click)="resetStageNames()"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

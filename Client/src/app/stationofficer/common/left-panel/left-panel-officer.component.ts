@@ -50,18 +50,110 @@ export class LeftPanelOfficerComponent implements OnInit {
 
     this.menuList = [
       {
-        name: this.userName,
-        icon: 'far fa-user-circle',
-        url: '/none',
-        image: this.imageurl
-      },
-      {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
         url: '/stationofficer/dashboard'
       },
       {
-        name: 'Settings',
+        name: 'Lend',
+        icon: 'fas fa-balance-scale-left',
+        url: '/stationofficer/lend'
+      },
+      {
+        name: 'Pay',
+        icon: 'fas fa-exchange-alt',
+        url: '/stationofficer/pay'
+      },
+      {
+        name: 'Adjustments',
+        icon: 'fas fa-tools',
+        url: '/stationofficer/adjustments',
+        subMenu: [
+          {
+            name: 'Reduce Rate',
+            icon: 'fas fa-balance-scale',
+            url: '/stationofficer/adjustments/reduceinterestrate'
+          },
+          {
+            name: 'Reverse Principle',
+            icon: 'fas fa-balance-scale',
+            url: '/stationofficer/adjustments/reverse-principle'
+          },
+          {
+            name: 'Interest Rate',
+            icon: 'fas fa-balance-scale',
+            url: '/stationofficer/adjustments/setinterestrate'
+          },
+          {
+            name: 'Loan Limit',
+            icon: 'fas fa-balance-scale',
+            url: '/stationofficer/adjustments/setloanlimit'
+          },
+          {
+            name: 'Waive Interest',
+            icon: 'fas fa-balance-scale',
+            url: '/stationofficer/adjustments/waive-interest'
+          },
+          {
+            name: 'Writeoff Principle',
+            icon: 'fas fa-balance-scale',
+            url: '/stationofficer/adjustments/writeoffprinciple'
+          }
+        ]
+      },
+      {
+        name: 'Enroll',
+        icon: 'fas fa-user',
+        url: '/stationofficer/enroll',
+        subMenu: [
+          {
+            name: 'Enroll Client',
+            icon: 'fas fa-user',
+            url: '/stationofficer/enroll/enrollclient'
+          },
+          {
+            name: 'Enroll Stage',
+            icon: 'fas fa-parking',
+            url: '/stationofficer/enroll/enrollstage'
+          }
+        ]
+      },
+      {
+        name: 'Savings',
+        icon: 'fas fa-piggy-bank',
+        url: '/stationofficer/savings',
+        subMenu: [
+          {
+            name: 'Deposit',
+            icon: 'fas fa-piggy-bank',
+            url: '/stationofficer/savings/deposit'
+          },
+          {
+            name: 'Withdraw',
+            icon: 'fas fa-piggy-bank',
+            url: '/stationofficer/savings/withdraw'
+          }
+        ]
+      },
+      {
+        name: 'Reports',
+        icon: 'fas fa-chart-line',
+        url: '/stationofficer/reports',
+        subMenu: [
+          {
+            name: 'Cash Ledger',
+            icon: 'fas fa-clipboard-list',
+            url: '/stationofficer/reports/cashledger'
+          },
+          {
+            name: 'Loans Report',
+            icon: 'fas fa-clipboard-list',
+            url: '/stationofficer/reports/loansreport'
+          }
+        ]
+      },
+      {
+        name: 'Profile',
         icon: 'fas fa-user-cog',
         url: '/stationofficer/profile'
       }
