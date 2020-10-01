@@ -27,6 +27,7 @@ export class InterceptorService  implements HttpInterceptor {
     }));
   }
 
+  // tslint:disable-next-line: typedef
   private addToken(request: HttpRequest<any>, token: string) {
     return request.clone({
       setHeaders: {
@@ -34,7 +35,6 @@ export class InterceptorService  implements HttpInterceptor {
       }
     });
   }
-
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 

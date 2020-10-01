@@ -8,25 +8,24 @@ import {JwtHelperService} from '@auth0/angular-jwt';
     providedIn: 'root'
   })
   export class RandomGuard implements CanActivateChild {
-  
     constructor(
-      private authService: AuthServiceService, 
+      private authService: AuthServiceService,
       private router: Router,
       private jwtHelper: JwtHelperService
       ) { }
-  
-    canActivateChild() {
+    canActivateChild(): boolean {
       if (this.authService.isLoggedIn()) {
-          // if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())){
-            // if(this.jwtHelper.isTokenExpired(this.authService.getRefreshToken())){
-              // return false;
-            // }
-          // }
-          return true;
+          if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())){
+            if(this.jwtHelper.isTokenExpired(this.authService.getRefreshToken())){
+              return false;
+            } else {
+              this.authService.refreshToken();
+              return true;
+            }
+          }
       }
       else {
-        // return true;
-        this.router.navigate(["/authpage/login"])
+        this.router.navigate(['/authpage/login']);
         return false;
       }
     }

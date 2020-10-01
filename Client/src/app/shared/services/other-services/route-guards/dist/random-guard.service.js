@@ -17,16 +17,19 @@ var RandomGuard = /** @class */ (function () {
     }
     RandomGuard.prototype.canActivateChild = function () {
         if (this.authService.isLoggedIn()) {
-            // if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())){
-            // if(this.jwtHelper.isTokenExpired(this.authService.getRefreshToken())){
-            // return false;
-            // }
-            // }
+            if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())) {
+                if (this.jwtHelper.isTokenExpired(this.authService.getRefreshToken())) {
+                    return false;
+                }
+                else {
+                    this.authService.refreshToken();
+                    return true;
+                }
+            }
             return true;
         }
         else {
-            // return true;
-            this.router.navigate(["/authpage/login"]);
+            this.router.navigate(['/authpage/login']);
             return false;
         }
     };

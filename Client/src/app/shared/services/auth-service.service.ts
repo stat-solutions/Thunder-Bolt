@@ -73,7 +73,7 @@ export class AuthServiceService {
     //     );
     // }
 
-    registerUser(postData: FormGroup) {
+    registerUser(postData: FormGroup): any {
       return this.http.post<string>(`${this.API_URL}/api/auth/register`, postData.value, this.httpOptions)
         .pipe(
           map((res: string) => res),
@@ -81,7 +81,7 @@ export class AuthServiceService {
           catchError(this.handleRegisterError)
         );
     }
-    changePIN (postData: FormGroup):Observable<boolean>  {
+    changePIN(postData: FormGroup): Observable<boolean>  {
       return this.http.post<any>(`${this.API_URL}/api/auth/login`, postData.value, this.httpOptions)
         .pipe(
           // tap(tokens => console.log(`${tokens}`)),
@@ -91,6 +91,7 @@ export class AuthServiceService {
 
         );
     }
+    // tslint:disable-next-line: typedef
     doLoginUser(phoneNubmer: string, tokens: Tokens) {
       this.loggedInUser = phoneNubmer;
       this.storeTokens(tokens);
