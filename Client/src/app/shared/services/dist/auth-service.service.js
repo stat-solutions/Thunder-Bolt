@@ -69,6 +69,7 @@ var AuthServiceService = /** @class */ (function () {
         // tap(tokens => console.log(`${tokens}`)),
         operators_1.tap(function (tokens) { return _this.doLoginUser(postData.value.main_contact_number, tokens); }), operators_1.mapTo(true), operators_1.catchError(this.handleLoginError));
     };
+    // tslint:disable-next-line: typedef
     AuthServiceService.prototype.doLoginUser = function (phoneNubmer, tokens) {
         this.loggedInUser = phoneNubmer;
         this.storeTokens(tokens);

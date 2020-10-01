@@ -16,22 +16,15 @@ var RandomGuard = /** @class */ (function () {
         this.jwtHelper = jwtHelper;
     }
     RandomGuard.prototype.canActivateChild = function () {
-        if (this.authService.isLoggedIn()) {
-            if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())) {
-                if (this.jwtHelper.isTokenExpired(this.authService.getRefreshToken())) {
-                    return false;
-                }
-                else {
-                    this.authService.refreshToken();
-                    return true;
-                }
-            }
-            return true;
-        }
-        else {
-            this.router.navigate(['/authpage/login']);
-            return false;
-        }
+        // if (this.authService.isLoggedIn()) {
+        // if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())){
+        // if(this.jwtHelper.isTokenExpired(this.authService.getRefreshToken())){
+        // return false;
+        // } else {
+        // this.authService.refreshToken();
+        return true;
+        // }
+        // }
     };
     RandomGuard = __decorate([
         core_1.Injectable({
@@ -41,3 +34,7 @@ var RandomGuard = /** @class */ (function () {
     return RandomGuard;
 }());
 exports.RandomGuard = RandomGuard;
+{
+    this.router.navigate(['/authpage/login']);
+    return false;
+}

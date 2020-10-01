@@ -123,7 +123,11 @@ export class LendComponent implements OnInit {
   }
 
   public openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg modal-dialog-centered' }));
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign(
+        {},
+      { class: 'modal-lg modal-dialog-centered' }));
 
   }
 
