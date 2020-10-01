@@ -50,18 +50,17 @@ export class LeftPanelStationComponent implements OnInit {
 
     this.menuList = [
       {
-        name: this.userName,
-        icon: 'far fa-user-circle',
-        url: '/none',
-        image: this.imageurl
-      },
-      {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
         url: '/stationmanagement/dashboard'
       },
       {
-        name: 'Settings',
+        name: 'reports',
+        icon: 'fas fa-chart-line',
+        url: '/stationmanagement/reports'
+      },
+      {
+        name: 'Profile',
         icon: 'fas fa-user-cog',
         url: '/stationmanagement/profile'
       }
