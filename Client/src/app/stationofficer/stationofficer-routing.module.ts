@@ -7,6 +7,7 @@ import { SetInterestRateComponent } from './components/adjustments/set-interest-
 import { SetLoanLimitComponent } from './components/adjustments/set-loan-limit/set-loan-limit.component';
 import { WaiveInterestComponent } from './components/adjustments/waive-interest/waive-interest.component';
 import { WriteOffComponent } from './components/adjustments/write-off/write-off.component';
+import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BodaLoanClientComponent } from './components/enroll/enroll-client/boda-loan-client/boda-loan-client.component';
 import { EnrollClientComponent } from './components/enroll/enroll-client/enroll-client.component';
@@ -31,6 +32,7 @@ import { PagesCoreOfficerComponent } from './pages-core/pages-core-officer.compo
 const routes: Routes = [
   { path: '',
     component: PagesCoreOfficerComponent,
+    canActivateChild: [RandomGuard],
     children: [
       {
         path: '',

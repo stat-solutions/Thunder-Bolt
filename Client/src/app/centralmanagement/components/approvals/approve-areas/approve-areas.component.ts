@@ -29,7 +29,7 @@ export class ApproveAreasComponent implements OnInit {
     { area: "Northern", status: 0 },
     { area: "Nile region", status: 0 },
     { area: "Albertine", status: 0 }
-  ]
+  ];
   constructor(
     private authService: AuthServiceService,
     private router: Router,

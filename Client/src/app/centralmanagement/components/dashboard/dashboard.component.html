@@ -12,7 +12,7 @@
                 <div class="row">
                   <div class="col-auto">
                     <div class="text-primary font-weight-bold h5 mb-0 pb-0">
-                      <span class="pl-3 pb-0">30</span>
+                      <span class="pl-3 pb-0">{{totals[0].areas}}</span>
                     </div>
                   </div>
                 </div>
@@ -36,7 +36,7 @@
                 <div class="row">
                   <div class="col-auto">
                     <div class="text-primary font-weight-bold h5 mb-0 pb-0">
-                      <span class="pl-3 pb-0">30</span>
+                      <span class="pl-3 pb-0">{{totals[0].towns}}</span>
                     </div>
                   </div>
                 </div>
@@ -59,7 +59,7 @@
                 <div class="row">
                   <div class="col-auto">
                     <div class="text-primary font-weight-bold h5 mb-0 pb-0">
-                      <span class="pl-3 pb-0">30</span>
+                      <span class="pl-3 pb-0">{{totals[0].stations}}</span>
                     </div>
                   </div>
                 </div>
@@ -82,7 +82,7 @@
                 <div class="row">
                   <div class="col-auto">
                     <div class="text-primary font-weight-bold h5 mb-0 pb-0">
-                      <span class="pl-3 pb-0">30</span>
+                      <span class="pl-3 pb-0">{{totals[0].clients}}</span>
                     </div>
                   </div>
                 </div>
@@ -111,27 +111,20 @@
         <div class="big-card-1 card shadow-lg mb-3 pb-0">
           <div class="big-card-body-1 card-body px-auto mb-0 pb-0">
             <tabset>
-              <tab heading="Creations">
+              <tab heading="Creation Approovals">
                 <div class="big-card-1b card shadow-lg mt-2 mb-0">
                   <div class="big-card-body-1b card-body px-auto">
                     <div class="item-header">
                       <div class="row">
-                        <!--select all items-->
-                        <div class="col-4">
-                          <!--provide index of the results-->
-                          <h4 class="text-info mt-0 ml-1">
-                            # &nbsp;&nbsp;&nbsp;&nbsp; ID
-                          </h4>
-                        </div>
-                        <div class="col-8">
+                        <div class="col-6">
                           <h4 class="text-center text-info">Type</h4>
                         </div>
-                        <!-- <div class="col-3 ">
-                                                    <h4 class="text-center text-info mr-4 ">Loan Status</h4>
-                                                </div> -->
+                        <div class="col-4 ">
+                          <h4 class="text-center text-info mr-4 ">Total</h4>
+                        </div>
                       </div>
                     </div>
-                    <div class="item-container mt-1">
+                    <div class="item-container mt-1" *ngFor="let item of creationApprovals">
                       <div
                         class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
                       >
@@ -139,11 +132,14 @@
                           class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto"
                         >
                           <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                            <div class="col-4 mx-0 px-0 mx-lg-auto">
+                            <!--div class="col-4 mx-0 px-0 mx-lg-auto">
                               <span class="itemCreated">1 &nbsp; TC20332</span>
+                            </div-->
+                            <div class="col-6 mx-0 pr-0 pl-1 text-center">
+                              <span class="itemCreated ml-1">{{item.type}}</span>
                             </div>
-                            <div class="col-8 mx-0 pr-0 pl-1">
-                              <span class="itemCreated ml-1">Nansana</span>
+                            <div class="col-4 mx-0 pr-0 pl-1 text-center">
+                              <span class="itemCreated ml-1">{{item.total}}</span>
                             </div>
                           </div>
                         </div>
@@ -152,91 +148,24 @@
                   </div>
                 </div>
               </tab>
-              <tab heading="Approvals">
+              <tab heading="Transaction Approvals">
                 <div class="big-card-1b card shadow-lg mt-2 mb-0">
                   <div class="big-card-body-1b card-body px-auto">
                     <div class="item-header">
                       <div class="row">
-                        <!--select all items-->
-                        <div class="col-4">
-                          <!--provide index of the results-->
-                          <h4 class="text-info mt-0 ml-1">
-                            # &nbsp;&nbsp;&nbsp;&nbsp; ID
-                          </h4>
-                        </div>
-                        <div class="col-8">
-                          <h4 class="text-center text-info">Type</h4>
-                        </div>
-                        <!-- <div class="col-3 ">
-                                                    <h4 class="text-center text-info mr-4 ">Loan Status</h4>
-                                                </div> -->
-                      </div>
-                    </div>
-                    <div class="item-container mt-1">
-                      <div
-                        class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-                      >
-                        <div
-                          class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto"
-                        >
-                          <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                            <div class="col-4 mx-0 px-0 mx-lg-auto">
-                              <span class="itemCreated">1 &nbsp; TC20332</span>
-                            </div>
-                            <div class="col-8 mx-0 pr-0 pl-1">
-                              <span class="itemCreated ml-1">Nansana</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </tab>
-              <tab heading="Transactions">
-                <div class="big-card-1b card shadow-lg mt-2 mb-0">
-                  <div class="big-card-body-1b card-body px-auto">
-                    <div class="item-header">
-                      <div class="row">
-                        <!--select all items-->
-                        <div class="col-2">
-                          <!--provide index of the results-->
-                          <h4 class="text-info mt-0 ml-1">
-                            #
-                          </h4>
-                        </div>
-                        <div class="col-5">
-                          <h4 class="text-center text-info">Station</h4>
-                        </div>
-                        <div class="col-5">
-                          <h4 class="text-center text-info mr-4">
+                        <div class="text-center col-6">
+                          <h4 class="text-info">
                             Type
                           </h4>
                         </div>
-                      </div>
-                    </div>
-                    <div class="item-container mt-1">
-                      <div
-                        class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-                      >
-                        <div
-                          class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto"
-                        >
-                          <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                            <div class="col-2 mx-0 px-0 mx-lg-auto">
-                              <span class="itemCreated">1 </span>
-                            </div>
-                            <div class="col-5 mx-0 pr-0 pl-1">
-                              <span class="itemCreated ml-1">Nansana</span>
-                            </div>
-                            <div class="col-5 mx-0 pr-0 pl-1">
-                              <span class="rate-selected ml-2">Running</span>
-                            </div>
-                          </div>
+                        <div class="col-4">
+                          <h4 class="text-center text-info mr-4">
+                            Total
+                          </h4>
                         </div>
                       </div>
                     </div>
-                    <div class="item-container mt-1">
+                    <div class="item-container mt-1" *ngFor="let itm of transactionApprovals">
                       <div
                         class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
                       >
@@ -244,35 +173,11 @@
                           class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto"
                         >
                           <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                            <div class="col-2 mx-0 px-0 mx-lg-auto">
-                              <span class="itemCreated">1 </span>
+                            <div class="col-6 mx-0 pr-0 pl-1 text-center">
+                              <span class="itemCreated ml-1">{{itm.type}}</span>
                             </div>
-                            <div class="col-5 mx-0 pr-0 pl-1">
-                              <span class="itemCreated ml-1">Nansana</span>
-                            </div>
-                            <div class="col-5 mx-0 pr-0 pl-1">
-                              <span class="rate-selected ml-2">Running</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="item-container mt-1">
-                      <div
-                        class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-                      >
-                        <div
-                          class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto"
-                        >
-                          <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                            <div class="col-2 mx-0 px-0 mx-lg-auto">
-                              <span class="itemCreated">1 </span>
-                            </div>
-                            <div class="col-5 mx-0 pr-0 pl-1">
-                              <span class="itemCreated ml-1">Nansana</span>
-                            </div>
-                            <div class="col-5 mx-0 pr-0 pl-1">
-                              <span class="rate-selected ml-2">Running</span>
+                            <div class="col-4 mx-0 pr-0 pl-1 text-center">
+                              <span class="rate-selected ml-2">{{itm.total}}</span>
                             </div>
                           </div>
                         </div>
@@ -333,93 +238,28 @@
         <div class="big-card-3 card shadow-lg mb-3 pb-0">
           <div class="big-card-body-3 card-body px-auto mb-0 pb-0">
             <div class="item-header">
-              <div class="row">
-                <!--select all items-->
-                <div class="col-4">
-                  <!--provide index of the results-->
-                  <h4 class="text-info mt-0 ml-1">
-                    # &nbsp;&nbsp;&nbsp;&nbsp; ID
+              <div class="row">       
+                <div class="text-center col-5">
+                  <h4 class="text-info mt-0">
+                    ID
                   </h4>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                   <h4 class="text-center text-info">Name</h4>
                 </div>
-                <div class="col-4">
-                  <h4 class="text-center text-info">No. Plate</h4>
-                </div>
               </div>
             </div>
-            <div class="item-container mt-1">
+            <div class="item-container mt-1" *ngFor="let client of topClients">
               <div
                 class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
               >
                 <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
                   <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                    <div class="col-4 mx-0 px-0 mx-lg-auto">
-                      <span class="itemCreated">1 &nbsp; TC20332</span>
+                    <div class="col-5 mx-0 px-0 mx-lg-auto">
+                      <span class="itemCreated">{{client.ID}}</span>
                     </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Kuliiba George</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">UFB 425G</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item-container mt-1">
-              <div
-                class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-              >
-                <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
-                  <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                    <div class="col-4 mx-0 px-0 mx-lg-auto">
-                      <span class="itemCreated">1 &nbsp; TC20332</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Kuliiba George</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">UFB 425G</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item-container mt-1">
-              <div
-                class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-              >
-                <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
-                  <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                    <div class="col-4 mx-0 px-0 mx-lg-auto">
-                      <span class="itemCreated">1 &nbsp; TC20332</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Kuliiba George</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">UFB 425G</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item-container mt-1">
-              <div
-                class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-              >
-                <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
-                  <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                    <div class="col-4 mx-0 px-0 mx-lg-auto">
-                      <span class="itemCreated">1 &nbsp; TC20332</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Kuliiba George</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">UFB 425G</span>
+                    <div class="col-6 mx-0 pr-0 pl-1">
+                      <span class="itemCreated ml-1">{{client.name}}</span>
                     </div>
                   </div>
                 </div>
@@ -444,54 +284,25 @@
           <div class="big-card-body-3 card-body px-auto mb-0 pb-0">
             <div class="item-header">
               <div class="row">
-                <!--select all items-->
-                <div class="col-4">
-                  <!--provide index of the results-->
-                  <h4 class="text-info mt-0 ml-1">
-                    # &nbsp;&nbsp;&nbsp;&nbsp; ID
-                  </h4>
-                </div>
-                <div class="col-4">
+                <div class="col-5">
                   <h4 class="text-center text-info">Name</h4>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                   <h4 class="text-center text-info">Jurisdiction</h4>
                 </div>
               </div>
             </div>
-            <div class="item-container mt-1">
+            <div class="item-container mt-1" *ngFor="let user of topUsers">
               <div
                 class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
               >
                 <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
                   <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                    <div class="col-4 mx-0 px-0 mx-lg-auto">
-                      <span class="itemCreated">1 &nbsp; TC20332</span>
+                    <div class="col-7 mx-0 pr-0 pl-1">
+                      <span class="itemCreated ml-1">{{user.name}}</span>
                     </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Kibalama Andrew</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Bushenyi</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item-container mt-1">
-              <div
-                class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-              >
-                <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
-                  <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                    <div class="col-4 mx-0 px-0 mx-lg-auto">
-                      <span class="itemCreated">1 &nbsp; TC20332</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Kibalama Andrew</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Bushenyi</span>
+                    <div class="col-5 mx-0 pr-0 pl-1">
+                      <span class="itemCreated ml-1">{{user.place}}</span>
                     </div>
                   </div>
                 </div>
@@ -516,13 +327,6 @@
           <div class="big-card-body-4 card-body px-auto mb-0 pb-0">
             <div class="item-header">
               <div class="row">
-                <!--select all items-->
-                <div class="col-2">
-                  <!--provide index of the results-->
-                  <h4 class="text-info mt-0 ml-1">
-                    #
-                  </h4>
-                </div>
                 <div class="col-4">
                   <h4 class="text-center text-info">Station</h4>
                 </div>
@@ -534,45 +338,20 @@
                 </div>
               </div>
             </div>
-            <div class="item-container mt-1">
+            <div class="item-container mt-1" *ngFor="let station of topStations">
               <div
                 class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
               >
                 <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
                   <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                    <div class="col-2 mx-0 px-0 mx-lg-auto">
-                      <span class="itemCreated">1</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Kobil</span>
+                    <div class="col-3 mx-0 pr-0 pl-1">
+                      <span class="itemCreated ml-1">{{station.name}}</span>
                     </div>
                     <div class="col-3 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Entebbe</span>
+                      <span class="itemCreated ml-1">{{station.town}}</span>
                     </div>
-                    <div class="col-3 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Wakiso East</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="item-container mt-1">
-              <div
-                class="list-card card mt-0 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-              >
-                <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0 mx-md-auto">
-                  <div class="row mt-0 pt-0 mb-0 pb-0 mx-md-auto">
-                    <div class="col-2 mx-0 px-0 mx-lg-auto">
-                      <span class="itemCreated">1</span>
-                    </div>
-                    <div class="col-4 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Kobil</span>
-                    </div>
-                    <div class="col-3 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Entebbe</span>
-                    </div>
-                    <div class="col-3 mx-0 pr-0 pl-1">
-                      <span class="itemCreated ml-1">Wakiso East</span>
+                    <div class="col-5 mx-0 pr-0 pl-1">
+                      <span class="itemCreated ml-1">{{station.area}}</span>
                     </div>
                   </div>
                 </div>

@@ -108,7 +108,9 @@ export class AuthServiceService {
     }
 
     isLoggedIn() {
-      return !!this.getJwtToken();
+      // return !!this.getJwtToken();
+      return true;
+
     }
 
     getJwtToken() {
