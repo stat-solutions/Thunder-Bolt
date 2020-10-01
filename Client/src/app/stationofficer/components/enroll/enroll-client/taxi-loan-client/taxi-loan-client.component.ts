@@ -41,39 +41,43 @@ export class TaxiLoanClientComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
-      microloanCustomerGaurantor1: new FormControl(
+      taxiCustomerNumberPlate: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(8),
+          CustomValidator.patternValidator(
+            /^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/,
+            { beUgandanNumberPlate: true }
+          )
+        ])
+      ),
+      taxiCustomerColour: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerGaurantor2: new FormControl(
+      taxiCustomerModel: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerGaurantor3: new FormControl(
+      taxiCustomerYearOfManufacture: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurity1: new FormControl(
+      taxiCustomerEngineNumber: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurity2: new FormControl(
+      taxiCustomerFrontPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurityLocation1: new FormControl(
+      taxiCustomerRearPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurityLocation2: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      microloanCustomerSecurity1PhotoUrl: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      microloanCustomerSecurity2PhotoUrl: new FormControl(
+      taxiCustomerTheBodabodaRearPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       )

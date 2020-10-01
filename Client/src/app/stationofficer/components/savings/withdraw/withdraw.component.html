@@ -192,7 +192,7 @@
                   fval.amount_to_pay.errors
               }"
               autocomplete="off"
-              placeholder="Enter Amount to withdraw"
+              placeholder="Enter amount to withdraw"
               (keyup)="onKey($event)"
             />
           </div>
@@ -203,7 +203,7 @@
               fval.amount_to_pay.errors?.required
             "
           >
-            The amount to pay is required!
+            The amount to withdraw is required!
           </div>
           <div
             class="text-danger col"
@@ -212,7 +212,7 @@
               fval.amount_to_pay.errors?.maxLength
             "
           >
-            Please enter valid amount to pay!
+            Please enter valid amount to withdraw!
           </div>
           <div
             class="text-danger col"
@@ -221,7 +221,7 @@
               fval.amount_to_pay.errors?.minlength
             "
           >
-            Please enter valid amount to pay!
+            Please enter valid amount to withdraw!
           </div>
           <div
             class="text-danger col"
@@ -230,7 +230,7 @@
               fval.amount_to_pay.errors?.hasNumber
             "
           >
-            Please enter valid amount to pay!
+            Please enter valid amount to withdraw!
           </div>
         </div>
 
@@ -392,7 +392,9 @@
                     <span class="itemCreated">Monthly Income: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">30000</span><br />
                     <span class="itemCreated">Withdraw Frequency: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">3</span>
+                    ><span class="itemCreated text-info">3</span><br />
+                    <span class="itemCreated">Comment: &nbsp;&nbsp;</span
+                      ><span class="itemCreated text-info">Active</span>
                     <!-- <span class="itemCreated">Amount Paid: &nbsp;&nbsp;</span
                           ><span class="itemCreated text-info">30000</span
                           ><br />
