@@ -23,10 +23,8 @@ import {JwtHelperService} from '@auth0/angular-jwt';
               return true;
             }
           }
-          return true;
       }
       else {
-        // return true;
         this.router.navigate(['/authpage/login']);
         return false;
       }

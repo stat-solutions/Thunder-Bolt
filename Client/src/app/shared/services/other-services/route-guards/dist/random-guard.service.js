@@ -29,7 +29,6 @@ var RandomGuard = /** @class */ (function () {
             return true;
         }
         else {
-            // return true;
             this.router.navigate(['/authpage/login']);
             return false;
         }

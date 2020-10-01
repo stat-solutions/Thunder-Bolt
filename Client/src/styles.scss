@@ -52,6 +52,29 @@ Created by: @LogicalStack
 }
 
 
+//styling of color of placeholder
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color:    rgb(187, 190, 192);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    rgb(187, 190, 192);
+  opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+ color:    rgb(187, 190, 192);
+ opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:    rgb(187, 190, 192);
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+  color:    rgb(187, 190, 192);
+}
+::placeholder { /* Most modern browsers support this now. */
+  color:    rgb(187, 190, 192);
+}
+
+
 /*!
  * Start Bootstrap - Creative v5.1.8 (https://startbootstrap.com/template-overviews/creative)
  * Copyright 2013-2019 Start Bootstrap
@@ -231,13 +254,13 @@ sup {
 }
 
 a {
-    color: #51a416e0;
+    color: #7d8388;
     text-decoration: none;
     background-color: transparent
 }
 
-a:hover {
-    color: #00162dbb;
+a:hover, a:focus, a:active {
+    color: #17aae0ee;
     text-decoration: none
 }
 
@@ -447,6 +470,11 @@ progress {
 
 ::-webkit-file-upload-button {
     font: inherit;
+    color: #17aae0ee;
+    background-color: #ffffff;
+    border-color: #17aae0ee;
+    line-height: 1;
+    border-radius: 15px;
     -webkit-appearance: button
 }
 
@@ -4208,7 +4236,7 @@ input[type=submit].btn-block {
 
 .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:hover {
-    border-color: #51a416e0 #51a416e0 #dee2e6
+    border-color: #17aae0ee #17aae0ee #dee2e6
 }
 
 .nav-tabs .nav-link.disabled {
@@ -4219,7 +4247,7 @@ input[type=submit].btn-block {
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-    color: #495057;
+    color: #17aae0ee;
     background-color: #fff;
     border-color: #dee2e6 #dee2e6 #fff
 }

@@ -46,6 +46,7 @@ import { FloatApprovalComponent } from './components/transactions/approval/float
 import { ModalModule } from "ngx-bootstrap/modal";
 import { NgChartjsModule } from 'ng-chartjs';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     NgChartjsModule,
     NgChartjsModule.registerPlugin(['inlinePlugin']),
     TabsModule.forRoot(),
-
-  ],
+    DatepickerModule,
+    BsDatepickerModule
+    ],
 })
 export class CentralmanagementModule {}
