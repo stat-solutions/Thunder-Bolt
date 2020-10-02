@@ -41,39 +41,43 @@ export class BodaLoanClientComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
-      microloanCustomerGaurantor1: new FormControl(
+      bodabodaCustomerNumberPlate: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(8),
+          CustomValidator.patternValidator(
+            /^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/,
+            { beUgandanNumberPlate: true }
+          )
+        ])
+      ),
+      bodabodaCustomerColour: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerGaurantor2: new FormControl(
+      bodabodaCustomerModel: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerGaurantor3: new FormControl(
+      bodabodaCustomerYearOfManufacture: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurity1: new FormControl(
+      bodabodaCustomerEngineNumber: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurity2: new FormControl(
+      bodabodaCustomerFrontPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurityLocation1: new FormControl(
+      bodabodaCustomerRearPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurityLocation2: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      microloanCustomerSecurity1PhotoUrl: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      microloanCustomerSecurity2PhotoUrl: new FormControl(
+      bodabodaCustomerTheBodabodaRearPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       )

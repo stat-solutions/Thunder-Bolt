@@ -35,7 +35,7 @@ export class SetLoanLimitComponent implements OnInit {
       itemLimit: new FormControl('', Validators.compose([Validators.required,
         CustomValidator.minValue(5000),
         Validators.minLength(4)
-])),
+]))
     });
   }
 
