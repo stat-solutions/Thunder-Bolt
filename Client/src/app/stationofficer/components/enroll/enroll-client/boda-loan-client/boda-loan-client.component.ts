@@ -34,69 +34,72 @@ export class BodaLoanClientComponent implements OnInit {
     private alertService: AlertService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.stageNames();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
-      microloanCustomerGaurantor1: new FormControl(
+      bodabodaCustomerNumberPlate: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(8),
+          CustomValidator.patternValidator(
+            /^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/,
+            { beUgandanNumberPlate: true }
+          )
+        ])
+      ),
+      bodabodaCustomerColour: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerGaurantor2: new FormControl(
+      bodabodaCustomerModel: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerGaurantor3: new FormControl(
+      bodabodaCustomerYearOfManufacture: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurity1: new FormControl(
+      bodabodaCustomerEngineNumber: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurity2: new FormControl(
+      bodabodaCustomerFrontPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurityLocation1: new FormControl(
+      bodabodaCustomerRearPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurityLocation2: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      microloanCustomerSecurity1PhotoUrl: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      microloanCustomerSecurity2PhotoUrl: new FormControl(
+      bodabodaCustomerTheBodabodaRearPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       )
     });
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  resetStageNames() {
+  resetStageNames(): any {
     this.userForm.controls.stage_name.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  stageNames() {
-    
+  stageNames(): any {
   }
 
-  onSubmit() {
+  onSubmit(): any {
     this.submitted = true;
     this.spinner.show();
 

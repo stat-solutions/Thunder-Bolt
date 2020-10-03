@@ -9,21 +9,6 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 import { CompanyInfo } from 'src/app/shared/models/company';
 import { Observable } from 'rxjs';
 
-const companyInfo = {
-  companyname: "",
-  companyEmail: "",
-  companyEmail2: "",
-  companyBOxNumber: "",
-  companyCountryLoaction: "",
-  companyRegionLoaction: "",
-  companyCityLoaction: "",
-  companyPlotNumber: "",
-  companyStreetName: "",
-  companyBuilding: "",
-  companyOfficeFloor: "",
-  companyPhoneContact1: "",
-  companyPhoneContact2: "",
-}
 @Component({
   selector: 'app-company-setup',
   templateUrl: './company-setup.component.html',
@@ -40,7 +25,7 @@ export class CompanySetupComponent implements OnInit {
   fieldType: boolean;
   mySubscription: any;
   myDateValue: Date;
-  companyInfo: CompanyInfo;
+  companyInfo: CompanyInfo[];
 
   constructor(
     private others: OthersService,
@@ -49,13 +34,13 @@ export class CompanySetupComponent implements OnInit {
     private alertService: AlertService,
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.companyForm = this.createFormGroup();
     this.setCompanyValues();
     this.disableForm();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
       companyName: new FormControl(
         '',
@@ -144,20 +129,20 @@ export class CompanySetupComponent implements OnInit {
     });
   }
 
-  revert() {
+  revert(): any {
     this.companyForm.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.companyForm.controls;
   }
 
-  //toggle visibility of password field
-    toggleFieldType() {
+  // toggle visibility of password field
+    toggleFieldType(): any {
       this.fieldType = !this.fieldType;
     }
 
-  returnHome() {
+  returnHome(): any {
     this.spinner.hide();
     this.revert();
 
@@ -166,28 +151,28 @@ export class CompanySetupComponent implements OnInit {
     }, 2000);
   }
 
-  disableForm () {
-    return this.companyForm.disable()
+  disableForm(): any {
+    return this.companyForm.disable();
   }
 
-  enableEdit() {
-    return this.companyForm.enable()
+  enableEdit(): any {
+    return this.companyForm.enable();
   }
 
-  setCompanyValues () {
+  setCompanyValues(): any {
 
-      this.others.getCompanyInfo().subscribe(
-        item => {
-          this.companyInfo = item; 
-          this.companyForm.get('companyName').setValue('thunder Bolt')
-        },
-        (error: string)=>{
-          // 
-        }
-      );
+      // this.others.getCompanyInfo().subscribe(
+      //   item => {
+      //     this.companyInfo = item;
+      //     this.companyForm.get('companyName').setValue('thunder Bolt');
+      //   },
+      //   (error: string) => {
+      //     //
+      //   }
+      // );
   }
 
-  createCompany(){
+  createCompany(): any {
     this.submitted = true;
     this.spinner.show();
 
@@ -225,8 +210,7 @@ export class CompanySetupComponent implements OnInit {
         }
       );
 
-        this.companyCreated = true;
+      this.companyCreated = true;
     }
   }
 }
-

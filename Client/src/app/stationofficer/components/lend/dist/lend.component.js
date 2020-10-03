@@ -25,6 +25,7 @@ var LendComponent = /** @class */ (function () {
         this.getTheNumberPlates();
         this.userForm = this.createFormGroup();
         this.checkedOk = false;
+        console.log(this.numberPlates);
     };
     LendComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
@@ -53,6 +54,10 @@ var LendComponent = /** @class */ (function () {
             ]))
         });
     };
+    LendComponent.prototype.checkLoanType = function (value) {
+        // console.log(value);
+        this.loanType = value;
+    };
     LendComponent.prototype.revert = function () {
         this.userForm.reset();
     };
@@ -79,6 +84,18 @@ var LendComponent = /** @class */ (function () {
         this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-centered' }));
     };
     LendComponent.prototype.getTheNumberPlates = function () {
+        this.numberPlates = [
+            'UAB4566',
+            'UAB4555',
+            'UAB4564',
+            'UAB4345',
+            'UAB4999',
+            'UAB4577',
+            'UAB4334',
+            'UAB4098',
+            'UAB4453',
+            'UAB4123'
+        ];
         // this.pumpService.theNumberPlates(this.station).subscribe(
         //   data => {
         //     this.numberPlates = data;
@@ -142,26 +159,6 @@ var LendComponent = /** @class */ (function () {
                 // console.log(this.userForm.value);
                 this.posted = true;
                 this.spinner.show();
-                // this.pumpService.createLoan(this.userForm).subscribe(
-                //   result => {
-                //     this.amountDue = result[0].amount_due;
-                //     this.txnId = result[0].txn_id;
-                //     this.spinner.hide();
-                //     this.openModal();
-                //     this.router.navigate(['dashboardpump/shiftmanagement']);
-                //     setTimeout(() => {
-                //       location.reload();
-                //     }, 3000);
-                //   },
-                //   (error: string) => {
-                //     this.spinner.hide();
-                //     this.errored = true;
-                //     this.serviceErrors = error;
-                //     this.alertService.danger({
-                //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-                //     });
-                //   }
-                // );
             }
         }
     };

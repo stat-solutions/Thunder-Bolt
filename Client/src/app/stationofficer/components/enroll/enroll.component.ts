@@ -9,6 +9,6 @@ export class EnrollComponent implements OnInit {
   constructor(
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 }

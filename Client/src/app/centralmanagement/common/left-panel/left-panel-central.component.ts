@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { LayoutService } from '../../../shared/services/layout.service';
 
+    // tslint:disable: deprecation
+
 @Component({
   selector: 'app-left-panel',
   templateUrl: './left-panel-central.component.html',
@@ -23,26 +25,25 @@ export class LeftPanelCentralComponent implements OnInit {
   menuList: any;
   selected: any;
   userName: any;
-
   constructor(private layoutService: LayoutService) {}
 
-  isActive(item) {
+  isActive(item): any  {
     return this.selected === item;
   }
-  onItemSelect(item) {
+  onItemSelect(item): any  {
     this.selected = this.selected === item ? item : item;
   }
-  onSubItemSelect(item) {
+  onSubItemSelect(item): any  {
     event.stopPropagation();
     this.selected = this.selected === item ? item : item;
   }
 
   @HostListener('window:resize', ['$event'])
-  onResizeHeight(event: any) {
+  onResizeHeight(event: any): any {
     this.asidebarHeight = window.innerHeight;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.layoutService.setAsidebarHeightCast.subscribe(
       setSidebarHeight => (this.asidebarHeight = setSidebarHeight)
     );
@@ -124,6 +125,6 @@ export class LeftPanelCentralComponent implements OnInit {
         icon: 'fas fa-user-cog',
         url: '/centralmanagement/profile'
       }
-]
-};
+ ];
+}
 }

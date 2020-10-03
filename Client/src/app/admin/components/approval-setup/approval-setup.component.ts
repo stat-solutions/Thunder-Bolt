@@ -30,12 +30,12 @@ export class ApprovalSetupComponent implements OnInit {
   checkedOk: boolean;
   station: string;
   theCompany: string;
-  approvals: Approvals[] =[
-    {name: "Area Creation", level: 3},
-    {name: "Town Creation", level: 1},
-    {name: "Stage Creation", level: 2},
-    {name: "Station Creation", level: 4},
-    {name: "Station Creation", level: 4}
+  approvals: Approvals[] = [
+    {name: 'Area Creation', level: 3},
+    {name: 'Town Creation', level: 1},
+    {name: 'Stage Creation', level: 2},
+    {name: 'Station Creation', level: 4},
+    {name: 'Station Creation', level: 4}
   ];
   constructor(
     private others: OthersService,
@@ -44,17 +44,17 @@ export class ApprovalSetupComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-ngOnInit () {
+ngOnInit(): void {
     this.approvalForm = this.createFormGroup();
     this.initialiseForm();
     this.disableForms();
   }
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
       approvalItems: this.fb.array([this.approvalItem]),
-    })
+    });
   }
-  get approvalItem () {
+  get approvalItem(): any {
     return this.fb.group({
       name: this.fb.control({value: ''}),
       level: this.fb.control(
@@ -67,34 +67,34 @@ ngOnInit () {
         CustomValidator.minValue(0)
           ])
         )
-    })
+    });
   }
-  addItem () {
-    (this.fval.approvalItems as FormArray).push(this.approvalItem)
+  addItem(): any {
+    (this.fval.approvalItems as FormArray).push(this.approvalItem);
   }
 
-  removeItem (index: number) {
+  removeItem(index: number): any {
     (this.fval.approvalItems as FormArray).removeAt(index);
   }
 
-  initialiseForm () {
+  initialiseForm(): any {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
     //   units => {
     //     this.approvals = units;
-        this.approvals.forEach((item, i) => {
+    this.approvals.forEach((item, i) => {
           // console.log(item.name);
           // console.log(i);
-          this.fval.approvalItems['controls'][i]['controls'].name.setValue(item.name);
-          this.fval.approvalItems['controls'][i]['controls'].level.setValue(item.level);
+          this.fval.approvalItems.controls[i].controls.name.setValue(item.name);
+          this.fval.approvalItems.controls[i].controls.level.setValue(item.level);
           this.addItem();
-          n=i + 1;
-        })
-        this.removeItem(n);
+          n = i + 1;
+        });
+    this.removeItem(n);
       // }
     // )
   }
-  revert() {
+  revert(): any {
     this.approvalForm.reset();
   }
 
@@ -102,30 +102,30 @@ ngOnInit () {
   //   this.approvalForm.reset();
   // }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.approvalForm.controls;
   }
 
-  disableForms () {
-    this.approvals.forEach((itm, i) =>{
-     this.fval.approvalItems["controls"][i].disable();
-    })
+  disableForms(): any {
+    this.approvals.forEach((itm, i) => {
+     this.fval.approvalItems.controls[i].disable();
+    });
   }
 
-  enableEdit(val: number) {
-    this.approvals.forEach((itm, i) =>{
-      if(i == val) {
-        this.fval.approvalItems["controls"][i].enable();
+  enableEdit(val: number): any {
+    this.approvals.forEach((itm, i) => {
+      if (i === val) {
+        this.fval.approvalItems.controls[i].enable();
       }
-    })
+    });
   }
-  saveLevel(index: any) {
-    if(this.fval.approvalItems["controls"][index]) {
-        this.fval.approvalItems["controls"][index].disable();
+  saveLevel(index: any): any {
+    if (this.fval.approvalItems.controls[index]) {
+        this.fval.approvalItems.controls[index].disable();
       } else {
         return;
     }

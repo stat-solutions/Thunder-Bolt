@@ -20,19 +20,22 @@
           <div class="input-group mb-0">
             <input
               type="radio"
-              value="Boda loan"
+              value="Boda Loan"
               formControlName="loanType"
+              (change)="checkLoanType(fval.loanType.value)"
               checked required
             />&nbsp; Boda Loan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input
               type="radio"
-              value="Taxi loan"
+              value="Taxi Loan"
               formControlName="loanType" required
+              (change)="checkLoanType(fval.loanType.value)"
             />&nbsp; Taxi Loan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input
               type="radio"
-              value="Micro loan"
+              value="Micro Loan"
               formControlName="loanType" required
+              (change)="checkLoanType(fval.loanType.value)"
             />&nbsp; Micro Loan
           </div>
           <div
@@ -48,7 +51,10 @@
 
         <!--start-->
         <!--on select of loan type display either number plate or micro loan -->
-        <div class="form-group text-primary">
+        <div 
+          class="form-group text-primary"
+          *ngIf="loanType == 'Boda Loan'|| loanType == 'Taxi Loan'" 
+        >
           <label
             for="number_plate"
             [ngClass]="fval.number_plate.valid ? 'text-info' : ''"
@@ -71,12 +77,12 @@
               }"
               autocomplete="off"
               placeholder="Select Number Plate"
-              (click)="openModal(template)"
+              (blur)="openModal(template)"
             />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="number_plate">
               <option *ngFor="let item of numberPlates">
-                {{ item.customers_number_plate }}
+                {{ item}}
               </option>
             </datalist>
           </div>
@@ -109,7 +115,10 @@
           </div>
         </div>
 
-        <div class="form-group text-primary">
+        <div 
+          class="form-group text-primary" 
+          *ngIf="loanType == 'Micro Loan'" 
+        >
           <label
             for="user_contact_number"
             [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''"
@@ -141,8 +150,7 @@
               }"
               autocomplete="off"
               placeholder="Select Phone number"
-              (click)="openModal(template)"
-            />
+              />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="user_contact_number">
               <option *ngFor="let item of phoneNumbers">
@@ -184,7 +192,6 @@
           <div class="input-group mb-0">
             <input
               type="text"
-              list="amount_to_borrow"
               formControlName="amount_to_borrow"
               class="form-control"
               [ngClass]="{
@@ -405,9 +412,6 @@
                   <div
                     class="col-12 col-sm-12 col-md-7 col-lg-7 mt-0 pt-2"
                   >
-                    <!--add data from the database next to the span after &nbsp;-->
-
-                    <!--display either phone number or number plate depending on the type of loan selected-->
                     <span class="itemCreated">Phone Number: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">0752425815</span><br />
                     <span class="itemCreated">Number Plate: &nbsp;&nbsp;</span
@@ -418,18 +422,15 @@
                       >Byamugisha Achileo</span
                     ><br />
                     <span class="itemCreated">Loan Limit: &nbsp;&nbsp;</span
+                      ><span class="itemCreated text-info">30000</span><br />
+                      <span class="itemCreated">Last Paid: &nbsp;&nbsp;</span
+                        ><span class="itemCreated text-info">30000</span><br />
+                          <span class="itemCreated">Outstanding: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">30000</span><br />
                     <span class="itemCreated">Loan Status: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">Running</span>
-                    <!-- <span class="itemCreated">Amount Paid: &nbsp;&nbsp;</span
-                          ><span class="itemCreated text-info">30000</span
-                          ><br />
-                          <span class="itemCreated">Balance: &nbsp;&nbsp;</span
-                            ><span class="itemCreated text-info">30000</span
-                            ><br />
-                    <span class="itemCreated">Loan Interest: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">3000</span
-                      > -->
+                    ><span class="itemCreated text-info">Running</span><br />
+                    <span class="itemCreated">Comment: &nbsp;&nbsp;</span
+                      ><span class="itemCreated text-info">Active</span>
                   </div>
                 </div>
               </div>
@@ -440,11 +441,10 @@
     </div>
   </div>
   <div class="modal-footer">
-    <!-- <div class="d-flex mb-0 pt-1 pb-0"> -->
       <button
         type="button"
         class="btn btn-info col-3 pull-right"
-        (click)="revert()"
+        (click)="modalRef.hide()"
       >
         Ok
       </button>

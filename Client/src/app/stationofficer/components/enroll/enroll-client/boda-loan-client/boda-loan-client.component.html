@@ -8,7 +8,7 @@
           <h2
             class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
           >
-            Boda Loan Info
+            Boda Client Info
           </h2>
         </div>
       </div>
@@ -16,15 +16,15 @@
     <div class="card-body mt-0 pt-2 mb-0 pb-2 shadow-lg">
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div class="row">
-          <div class="col-12 col-md-6 col-lg-4">
+          <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
-                for="microloanCustomerGaurantor1"
+                for="bodabodaCustomerNumberPlate"
                 [ngClass]="
-                  fval.microloanCustomerGaurantor1.valid ? 'text-info' : ''
+                  fval.bodabodaCustomerNumberPlate.valid ? 'text-info' : ''
                 "
-                >Guarantor 1<i
-                  *ngIf="fval.microloanCustomerGaurantor1.valid"
+                >Number Plate<i
+                  *ngIf="fval.bodabodaCustomerNumberPlate.valid"
                   class="material-icons"
                   >check_circle</i
                 ></label
@@ -33,7 +33,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">
                     <i
-                      class="fas fa-user-alt text-primary mx-auto"
+                      class="fas fa-motorcycle text-primary mx-auto"
                       style="size: 50px"
                     >
                     </i>
@@ -41,125 +41,67 @@
                 </div>
                 <input
                   type="text"
-                  formControlName="microloanCustomerGaurantor1"
+                  formControlName="bodabodaCustomerNumberPlate"
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      (fval.microloanCustomerGaurantor1.touched ||
-                        fval.microloanCustomerGaurantor1.dirty) &&
-                      fval.microloanCustomerGaurantor1.errors
+                      (fval.bodabodaCustomerNumberPlate.touched ||
+                        fval.bodabodaCustomerNumberPlate.dirty) &&
+                      fval.bodabodaCustomerNumberPlate.errors
                   }"
                   autocomplete="off"
-                  placeholder="First guarantor's Name"
+                  placeholder="Enter Bodaboda number plate"
                 />
               </div>
               <div
                 class="text-danger col"
                 *ngIf="
-                  (fval.microloanCustomerGaurantor1.touched ||
-                    fval.microloanCustomerGaurantor1.dirty) &&
-                  fval.microloanCustomerGaurantor1.errors?.required
+                  (fval.bodabodaCustomerNumberPlate.touched ||
+                    fval.bodabodaCustomerNumberPlate.dirty) &&
+                  fval.bodabodaCustomerNumberPlate.errors?.required
                 "
               >
-                The guarantor name is required!
+                The Bodaboda number plate is required!
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6 col-lg-4">
+          <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
-                for="microloanCustomerGaurantor2"
+                for="bodabodaCustomerColour"
                 [ngClass]="
-                  fval.microloanCustomerGaurantor2.valid ? 'text-info' : ''
+                  fval.bodabodaCustomerColour.valid ? 'text-info' : ''
                 "
-                >Guarantor 2<i
-                  *ngIf="fval.microloanCustomerGaurantor2.valid"
+                >Bodaboda color<i
+                  *ngIf="fval.bodabodaCustomerColour.valid"
                   class="material-icons"
                   >check_circle</i
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
-                  formControlName="microloanCustomerGaurantor2"
+                  formControlName="bodabodaCustomerColour"
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      (fval.microloanCustomerGaurantor2.touched ||
-                        fval.microloanCustomerGaurantor2.dirty) &&
-                      fval.microloanCustomerGaurantor2.errors
+                      (fval.bodabodaCustomerColour.touched ||
+                        fval.bodabodaCustomerColour.dirty) &&
+                      fval.bodabodaCustomerColour.errors
                   }"
                   autocomplete="off"
-                  placeholder="Second guarantor's Name"
+                  placeholder="Enter bodaboda's color"
                 />
               </div>
               <div
                 class="text-danger col"
                 *ngIf="
-                  (fval.microloanCustomerGaurantor2.touched ||
-                    fval.microloanCustomerGaurantor2.dirty) &&
-                  fval.microloanCustomerGaurantor2.errors?.required
+                  (fval.bodabodaCustomerColour.touched ||
+                    fval.bodabodaCustomerColour.dirty) &&
+                  fval.bodabodaCustomerColour.errors?.required
                 "
               >
-                The guarantor name is required!
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group text-primary">
-              <label
-                for="microloanCustomerGaurantor3"
-                [ngClass]="
-                  fval.microloanCustomerGaurantor3.valid ? 'text-info' : ''
-                "
-                >Guarantor 3<i
-                  *ngIf="fval.microloanCustomerGaurantor3.valid"
-                  class="material-icons"
-                  >check_circle</i
-                ></label
-              >
-              <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
-                <input
-                  type="text"
-                  formControlName="microloanCustomerGaurantor3"
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid':
-                      (fval.microloanCustomerGaurantor3.touched ||
-                        fval.microloanCustomerGaurantor3.dirty) &&
-                      fval.microloanCustomerGaurantor3.errors
-                  }"
-                  autocomplete="off"
-                  placeholder="Third guarantor's Name"
-                />
-              </div>
-              <div
-                class="text-danger col"
-                *ngIf="
-                  (fval.microloanCustomerGaurantor3.touched ||
-                    fval.microloanCustomerGaurantor3.dirty) &&
-                  fval.microloanCustomerGaurantor3.errors?.required
-                "
-              >
-                The guarantor name is required!
+                The bodaboda color is required!
               </div>
             </div>
           </div>
@@ -168,98 +110,80 @@
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
-                for="microloanCustomerSecurity1"
+                for="bodabodaCustomerModel"
                 [ngClass]="
-                  fval.microloanCustomerSecurity1.valid ? 'text-info' : ''
+                  fval.bodabodaCustomerModel.valid ? 'text-info' : ''
                 "
-                >Security 1<i
-                  *ngIf="fval.microloanCustomerSecurity1.valid"
+                >Model<i
+                  *ngIf="fval.bodabodaCustomerModel.valid"
                   class="material-icons"
                   >check_circle</i
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
-                  formControlName="microloanCustomerSecurity1"
+                  formControlName="bodabodaCustomerModel"
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      (fval.microloanCustomerSecurity1.touched ||
-                        fval.microloanCustomerSecurity1.dirty) &&
-                      fval.microloanCustomerSecurity1.errors
+                      (fval.bodabodaCustomerModel.touched ||
+                        fval.bodabodaCustomerModel.dirty) &&
+                      fval.bodabodaCustomerModel.errors
                   }"
                   autocomplete="off"
-                  placeholder="Enter first security"
+                  placeholder="Enter model of bodaboda"
                 />
               </div>
               <div
                 class="text-danger col"
                 *ngIf="
-                  (fval.microloanCustomerSecurity1.touched ||
-                    fval.microloanCustomerSecurity1.dirty) &&
-                  fval.microloanCustomerSecurity1.errors?.required
+                  (fval.bodabodaCustomerModel.touched ||
+                    fval.bodabodaCustomerModel.dirty) &&
+                  fval.bodabodaCustomerModel.errors?.required
                 "
               >
-                The guarantor name is required!
+                The bodaboda model is required!
               </div>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
-                for="microloanCustomerSecurity2"
+                for="bodabodaCustomerYearOfManufacture"
                 [ngClass]="
-                  fval.microloanCustomerSecurity2.valid ? 'text-info' : ''
+                  fval.bodabodaCustomerYearOfManufacture.valid ? 'text-info' : ''
                 "
-                >Security 2<i
-                  *ngIf="fval.microloanCustomerSecurity2.valid"
+                >Year of Manufacture<i
+                  *ngIf="fval.bodabodaCustomerYearOfManufacture.valid"
                   class="material-icons"
                   >check_circle</i
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
-                  formControlName="microloanCustomerSecurity2"
+                  formControlName="bodabodaCustomerYearOfManufacture"
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      (fval.microloanCustomerSecurity2.touched ||
-                        fval.microloanCustomerSecurity2.dirty) &&
-                      fval.microloanCustomerSecurity2.errors
+                      (fval.bodabodaCustomerYearOfManufacture.touched ||
+                        fval.bodabodaCustomerYearOfManufacture.dirty) &&
+                      fval.bodabodaCustomerYearOfManufacture.errors
                   }"
                   autocomplete="off"
-                  placeholder="Enter second security"
+                  placeholder="Enter Year of Manufacture"
                 />
               </div>
               <div
                 class="text-danger col"
                 *ngIf="
-                  (fval.microloanCustomerSecurity2.touched ||
-                    fval.microloanCustomerSecurity2.dirty) &&
-                  fval.microloanCustomerSecurity2.errors?.required
+                  (fval.bodabodaCustomerYearOfManufacture.touched ||
+                    fval.bodabodaCustomerYearOfManufacture.dirty) &&
+                  fval.bodabodaCustomerYearOfManufacture.errors?.required
                 "
               >
-                The guarantor name is required!
+                The Year of Manufacture is required!
               </div>
             </div>
           </div>
@@ -268,114 +192,52 @@
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
-                for="microloanCustomerSecurityLocation1"
+                for="bodabodaCustomerEngineNumber"
                 [ngClass]="
-                  fval.microloanCustomerSecurityLocation1.valid
+                  fval.bodabodaCustomerEngineNumber.valid
                     ? 'text-info'
                     : ''
                 "
-                >Security 1 Location<i
-                  *ngIf="fval.microloanCustomerSecurityLocation1.valid"
+                >Engine number<i
+                  *ngIf="fval.bodabodaCustomerEngineNumber.valid"
                   class="material-icons"
                   >check_circle</i
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
-                  formControlName="microloanCustomerSecurityLocation1"
+                  formControlName="bodabodaCustomerEngineNumber"
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      (fval.microloanCustomerSecurityLocation1.touched ||
-                        fval.microloanCustomerSecurityLocation1.dirty) &&
-                      fval.microloanCustomerSecurityLocation1.errors
+                      (fval.bodabodaCustomerEngineNumber.touched ||
+                        fval.bodabodaCustomerEngineNumber.dirty) &&
+                      fval.bodabodaCustomerEngineNumber.errors
                   }"
                   autocomplete="off"
-                  placeholder="Enter first security's location"
+                  placeholder="Enter bodaboda engine number"
                 />
               </div>
               <div
                 class="text-danger col"
                 *ngIf="
-                  (fval.microloanCustomerSecurityLocation1.touched ||
-                    fval.microloanCustomerSecurityLocation1.dirty) &&
-                  fval.microloanCustomerSecurityLocation1.errors?.required
+                  (fval.bodabodaCustomerEngineNumber.touched ||
+                    fval.bodabodaCustomerEngineNumber.dirty) &&
+                  fval.bodabodaCustomerEngineNumber.errors?.required
                 "
               >
-                The guarantor name is required!
+                The bodaboda engine number is required!
               </div>
             </div>
           </div>
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
-                for="microloanCustomerSecurityLocation2"
-                [ngClass]="
-                  fval.microloanCustomerSecurityLocation2.valid
-                    ? 'text-info'
-                    : ''
-                "
-                >Security 2 Location<i
-                  *ngIf="fval.microloanCustomerSecurityLocation2.valid"
-                  class="material-icons"
-                  >check_circle</i
-                ></label
-              >
-              <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
-                <input
-                  type="text"
-                  formControlName="microloanCustomerSecurityLocation2"
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid':
-                      (fval.microloanCustomerSecurityLocation2.touched ||
-                        fval.microloanCustomerSecurityLocation2.dirty) &&
-                      fval.microloanCustomerSecurityLocation2.errors
-                  }"
-                  autocomplete="off"
-                  placeholder="Enter second security's location"
-                />
-              </div>
-              <div
-                class="text-danger col"
-                *ngIf="
-                  (fval.microloanCustomerSecurityLocation2.touched ||
-                    fval.microloanCustomerSecurityLocation2.dirty) &&
-                  fval.microloanCustomerSecurityLocation2.errors?.required
-                "
-              >
-                The guarantor name is required!
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-md-6">
-            <div class="form-group text-primary">
-              <label
-                for="microloanCustomerSecurity1PhotoUrl"
-                [ngClass]="fval.microloanCustomerSecurity1PhotoUrl.valid ? 'text-info' : ''"
-                >Security 1 Image<i
-                  *ngIf="fval.microloanCustomerSecurity1PhotoUrl.valid"
+                for="bodabodaCustomerFrontPhotoUrl"
+                [ngClass]="fval.bodabodaCustomerFrontPhotoUrl.valid ? 'text-info' : ''"
+                >Front Image<i
+                  *ngIf="fval.bodabodaCustomerFrontPhotoUrl.valid"
                   class="material-icons"
                   >check_circle</i
                 ></label
@@ -390,37 +252,39 @@
                   </div>
                 </div>
                 <input
-                  id="microloanCustomerSecurity1PhotoUrl"
-                  formControlName="microloanCustomerSecurity1PhotoUrl"
+                  id="bodabodaCustomerFrontPhotoUrl"
+                  formControlName="bodabodaCustomerFrontPhotoUrl"
                   type="file"
                   src="image/*"
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      (fval.microloanCustomerSecurity1PhotoUrl.touched ||
-                        fval.microloanCustomerSecurity1PhotoUrl.dirty) &&
-                      fval.microloanCustomerSecurity1PhotoUrl.errors
+                      (fval.bodabodaCustomerFrontPhotoUrl.touched ||
+                        fval.bodabodaCustomerFrontPhotoUrl.dirty) &&
+                      fval.bodabodaCustomerFrontPhotoUrl.errors
                   }"
                 />
               </div>
               <div
                 class="text-danger col"
                 *ngIf="
-                  (fval.microloanCustomerSecurity1PhotoUrl.touched || fval.microloanCustomerSecurity1PhotoUrl.dirty) &&
-                  fval.microloanCustomerSecurity1PhotoUrl.errors?.required
+                  (fval.bodabodaCustomerFrontPhotoUrl.touched || fval.bodabodaCustomerFrontPhotoUrl.dirty) &&
+                  fval.bodabodaCustomerFrontPhotoUrl.errors?.required
                 "
               >
-                Please upload an image of Security 1!
+                Please upload a front image of bodaboda!
               </div>
             </div>
           </div>
+        </div>
+        <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
-                for="microloanCustomerSecurity2PhotoUrl"
-                [ngClass]="fval.microloanCustomerSecurity2PhotoUrl.valid ? 'text-info' : ''"
-                >Security 2 Image<i
-                  *ngIf="fval.microloanCustomerSecurity2PhotoUrl.valid"
+                for="bodabodaCustomerRearPhotoUrl"
+                [ngClass]="fval.bodabodaCustomerRearPhotoUrl.valid ? 'text-info' : ''"
+                >Rear Image<i
+                  *ngIf="fval.bodabodaCustomerRearPhotoUrl.valid"
                   class="material-icons"
                   >check_circle</i
                 ></label
@@ -435,27 +299,72 @@
                   </div>
                 </div>
                 <input
-                  id="microloanCustomerSecurity2PhotoUrl"
-                  formControlName="microloanCustomerSecurity2PhotoUrl"
+                  id="bodabodaCustomerRearPhotoUrl"
+                  formControlName="bodabodaCustomerRearPhotoUrl"
                   type="file"
                   src="image/*"
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      (fval.microloanCustomerSecurity2PhotoUrl.touched ||
-                        fval.microloanCustomerSecurity2PhotoUrl.dirty) &&
-                      fval.microloanCustomerSecurity2PhotoUrl.errors
+                      (fval.bodabodaCustomerRearPhotoUrl.touched ||
+                        fval.bodabodaCustomerRearPhotoUrl.dirty) &&
+                      fval.bodabodaCustomerRearPhotoUrl.errors
                   }"
                 />
               </div>
               <div
                 class="text-danger col"
                 *ngIf="
-                  (fval.microloanCustomerSecurity2PhotoUrl.touched || fval.microloanCustomerSecurity2PhotoUrl.dirty) &&
-                  fval.microloanCustomerSecurity2PhotoUrl.errors?.required
+                  (fval.bodabodaCustomerRearPhotoUrl.touched || fval.bodabodaCustomerRearPhotoUrl.dirty) &&
+                  fval.bodabodaCustomerRearPhotoUrl.errors?.required
                 "
               >
-                Please upload an image of Security 2!
+              Please upload a rear image of bodaboda!
+            </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerTheBodabodaRearPhotoUrl"
+                [ngClass]="fval.bodabodaCustomerTheBodabodaRearPhotoUrl.valid ? 'text-info' : ''"
+                >Bodaboda Rear Image<i
+                  *ngIf="fval.bodabodaCustomerTheBodabodaRearPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="bodabodaCustomerTheBodabodaRearPhotoUrl"
+                  formControlName="bodabodaCustomerTheBodabodaRearPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.bodabodaCustomerTheBodabodaRearPhotoUrl.touched ||
+                        fval.bodabodaCustomerTheBodabodaRearPhotoUrl.dirty) &&
+                      fval.bodabodaCustomerTheBodabodaRearPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.bodabodaCustomerTheBodabodaRearPhotoUrl.touched || fval.bodabodaCustomerTheBodabodaRearPhotoUrl.dirty) &&
+                  fval.bodabodaCustomerTheBodabodaRearPhotoUrl.errors?.required
+                "
+              >
+              Please upload a rear image of bodaboda!
               </div>
             </div>
           </div>

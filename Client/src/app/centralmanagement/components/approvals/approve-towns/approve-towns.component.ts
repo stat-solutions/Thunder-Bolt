@@ -9,8 +9,8 @@ import { AlertService } from 'ngx-alerts';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 export interface TownApprovals {
-  town: string,
-  status: number
+  town: string;
+  status: number;
 }
 
 @Component({
@@ -21,11 +21,11 @@ export interface TownApprovals {
 export class ApproveTownsComponent implements OnInit {
   userForm: FormGroup;
   townApprovals: TownApprovals[] = [
-    {town: "kampala", status: 1},
-    {town: "mbale", status: 1},
-    {town: "masaka", status: 1},
-    {town: "kawempe", status: 1},
-    {town: "jinja", status: 1}
+    {town: 'kampala', status: 1},
+    {town: 'mbale', status: 1},
+    {town: 'masaka', status: 1},
+    {town: 'kawempe', status: 1},
+    {town: 'jinja', status: 1}
   ];
   posted = false;
   actionButton: string;
@@ -40,96 +40,96 @@ export class ApproveTownsComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
       approveTowns: this.fb.array([this.townApproval]),
       selectAll: this.fb.control({})
-    })
+    });
   }
-  get townApproval () {
+  get townApproval(): any {
     return this.fb.group({
       town: this.fb.control({value: ''}),
       approved: this.fb.control({})
-    })
+    });
   }
-  addItem () {
+  addItem(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.approveTowns as FormArray).push(this.townApproval)
+    (this.fval.approveTowns as FormArray).push(this.townApproval);
   }
 
-  removeItem (index: number) {
+  removeItem(index: number): any {
     (this.fval.approveTowns as FormArray).removeAt(index);
   }
-  initialiseForm () {
+  initialiseForm(): any {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
     //   units => {
     //     this.approvals = units;
-        this.townApprovals.forEach((item, i) => {
+    this.townApprovals.forEach((item, i) => {
           // console.log(item.town);
           // console.log(i);
-          this.fval.approveTowns['controls'][i]['controls'].town.setValue(item.town);
-          this.fval.approveTowns['controls'][i]['controls'].approved.setValue(false);
+          this.fval.approveTowns.controls[i].controls.town.setValue(item.town);
+          this.fval.approveTowns.controls[i].controls.approved.setValue(false);
           this.addItem();
-          n=i + 1;
-        })
-        this.removeItem(n);
+          n = i + 1;
+        });
+    this.removeItem(n);
       // }
     // )
   }
 
-  checkAllItems(val: boolean) {
-    if(val == true) {
+  checkAllItems(val: boolean): any {
+    if (val === true) {
       this.townApprovals.forEach((item, i) => {
-        this.fval.approveTowns['controls'][i]['controls'].approved.setValue(val);
-      })
+        this.fval.approveTowns.controls[i].controls.approved.setValue(val);
+      });
     } else {
       this.townApprovals.forEach((item, i) => {
-        this.fval.approveTowns['controls'][i]['controls'].approved.setValue(false);
-      })
+        this.fval.approveTowns.controls[i].controls.approved.setValue(false);
+      });
     }
   }
-  deselectAll(val: boolean){
+  deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-    if(this.fval.approveTowns["controls"][val]["controls"].approved.value == true) {
+    if (this.fval.approveTowns.controls[val].controls.approved.value === true) {
       this.fval.selectAll.setValue(false);
     }
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  disableForm () {
-    return this.userForm.disable()
+  disableForm(): any {
+    return this.userForm.disable();
   }
-  approveItems () {
+  approveItems(): any {
     const itemsApproved = [];
     this.townApprovals.forEach((item, i) => {
-      if(
-        this.fval.approveTowns['controls'][i]['controls'].approved.value == true
+      if (
+        this.fval.approveTowns.controls[i].controls.approved.value === true
       ) {
         item.status = 2;
-        itemsApproved.push(item)
+        itemsApproved.push(item);
       }
-    })
+    });
 
     // console.log(itemsApproved)
-    if(itemsApproved.length > 0) {
+    if (itemsApproved.length > 0) {
       setTimeout(() => {
         this.router.navigate([
           'centralmanagement/dashboard'
@@ -137,21 +137,21 @@ export class ApproveTownsComponent implements OnInit {
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
-  rejectItems () {
+  rejectItems(): any {
     const itemsRejected = [];
     this.townApprovals.forEach((item, i) => {
-      if(
-        this.fval.approveTowns['controls'][i]['controls'].approved.value == true
+      if (
+        this.fval.approveTowns.controls[i].controls.approved.value === true
       ) {
         item.status = 1;
-        itemsRejected.push(item)
+        itemsRejected.push(item);
       }
-    })
+    });
     // console.log(itemsRejected.length)
-    if(itemsRejected.length > 0) {
+    if (itemsRejected.length > 0) {
       setTimeout(() => {
         this.router.navigate([
           'centralmanagement/dashboard'
@@ -159,7 +159,7 @@ export class ApproveTownsComponent implements OnInit {
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
 

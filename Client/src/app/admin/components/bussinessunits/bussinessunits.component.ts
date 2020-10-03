@@ -10,7 +10,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 export interface BussinessUnits {
-  unitName: string
+  unitName: string;
 }
 
 @Component({
@@ -21,9 +21,9 @@ export interface BussinessUnits {
 export class BussinessunitsComponent implements OnInit {
   unitForm: FormGroup;
   bussinessUnits: BussinessUnits[] = [
-    {unitName: "fuel busiinesss"},
-    {unitName: "hospital busiinesss"},
-    {unitName: "furniture busiinesss"}
+    {unitName: 'fuel busiinesss'},
+    {unitName: 'hospital busiinesss'},
+    {unitName: 'furniture busiinesss'}
   ];
   constructor(
     private others: OthersService,
@@ -32,90 +32,90 @@ export class BussinessunitsComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-  ngOnInit() {
+  ngOnInit(): void {
     this.unitForm = this.createFormGroup();
     this.initialiseForm();
     this.disableForms();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
       bussinessUnits: this.fb.array([this.unit]),
       bussinessUnitName: this.fb.control('', Validators.compose([
         Validators.minLength(5)
       ]))
-    })
+    });
   }
 
-  get unit () {
+  get unit(): any {
     return this.fb.group({
       unitName: this.fb.control({value: ''}, Validators.compose([
         Validators.required,
         Validators.minLength(6)
       ]))
-    })
+    });
   }
-  addUnit () {
+  addUnit(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.bussinessUnits as FormArray).push(this.unit)
+    (this.fval.bussinessUnits as FormArray).push(this.unit);
   }
 
-  removeUnit (index: number) {
+  removeUnit(index: number): any {
     (this.fval.bussinessUnits as FormArray).removeAt(index);
   }
 
-  initialiseForm () {
+  initialiseForm(): any {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
       // units => {
         // this.bussinessUnits = units;
-        this.bussinessUnits.forEach((item, i) => {
-          this.fval.bussinessUnits['controls'][i]['controls'].unitName.setValue(item.unitName);
+    this.bussinessUnits.forEach((item, i) => {
+          this.fval.bussinessUnits.controls[i].controls.unitName.setValue(item.unitName);
           this.addUnit();
-          n=i + 1;
-        })
-        this.removeUnit(n);
+          n = i + 1;
+        });
+    this.removeUnit(n);
       // }
     // )
   }
-  revert() {
+  revert(): any {
     this.unitForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.unitForm.controls;
   }
-  
-  disableForms () {
-    this.bussinessUnits.forEach((itm, i) =>{
+
+  disableForms(): any {
+    this.bussinessUnits.forEach((itm, i) => {
       // console.log(i)
-     this.fval.bussinessUnits["controls"][i].disable();    
-    })
+     this.fval.bussinessUnits.controls[i].disable();
+    });
   }
 
-  enableEdit(val: number) {
-    this.bussinessUnits.forEach((itm, i) =>{
+  enableEdit(val: number): any {
+    this.bussinessUnits.forEach((itm, i) => {
       // console.log(i)
-      if(i == val) {
-        this.fval.bussinessUnits["controls"][i].enable(); 
-      }   
-    })
+      if (i === val) {
+        this.fval.bussinessUnits.controls[i].enable();
+      }
+    });
   }
-  
-  createUnit() {
-    
+
+  createUnit(): any {
+
     }
 
-  editUnit (index: number) {
+  editUnit(index: number): any {
     console.log(index);
     this.enableEdit(index);
   }
 
-  saveUnit(index: number) {
-    this.fval.bussinessUnits["controls"][index].disable();
+  saveUnit(index: number): any {
+    this.fval.bussinessUnits.controls[index].disable();
   }
 }

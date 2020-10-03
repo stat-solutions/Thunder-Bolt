@@ -34,12 +34,12 @@ export class MicroLoanClientComponent implements OnInit {
     private alertService: AlertService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.stageNames();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
       microloanCustomerGaurantor1: new FormControl(
         '',
@@ -80,23 +80,22 @@ export class MicroLoanClientComponent implements OnInit {
     });
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  resetStageNames() {
+  resetStageNames(): any {
     this.userForm.controls.stage_name.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  stageNames() {
-    
+  stageNames(): any {
   }
 
-  onSubmit() {
+  onSubmit(): any {
     this.submitted = true;
     this.spinner.show();
 

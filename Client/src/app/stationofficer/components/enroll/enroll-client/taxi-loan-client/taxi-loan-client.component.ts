@@ -34,65 +34,69 @@ export class TaxiLoanClientComponent implements OnInit {
     private alertService: AlertService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.stageNames();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
-      microloanCustomerGaurantor1: new FormControl(
+      taxiCustomerNumberPlate: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(8),
+          CustomValidator.patternValidator(
+            /^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/,
+            { beUgandanNumberPlate: true }
+          )
+        ])
+      ),
+      taxiCustomerColour: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerGaurantor2: new FormControl(
+      taxiCustomerModel: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerGaurantor3: new FormControl(
+      taxiCustomerYearOfManufacture: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurity1: new FormControl(
+      taxiCustomerEngineNumber: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurity2: new FormControl(
+      taxiCustomerFrontPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurityLocation1: new FormControl(
+      taxiCustomerRearPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      microloanCustomerSecurityLocation2: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      microloanCustomerSecurity1PhotoUrl: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      microloanCustomerSecurity2PhotoUrl: new FormControl(
+      taxiCustomerTheBodabodaRearPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       )
     });
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  resetStageNames() {
+  resetStageNames(): any {
     this.userForm.controls.stage_name.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  stageNames() {
+  stageNames(): any {
     // this.adminUserService.getStageNames(jwt_decode(this.authService.getJwtToken()).user_station).subscribe(
     //   data => {
     //     this.userForm.controls.stage_name.reset();
@@ -110,7 +114,7 @@ export class TaxiLoanClientComponent implements OnInit {
     // );
   }
 
-  onSubmit() {
+  onSubmit(): any {
     this.submitted = true;
     this.spinner.show();
 

@@ -49,13 +49,13 @@ export class WithdrawComponent implements OnInit {
     private modalService: BsModalService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getTheNumberPlates();
     this.userForm = this.createFormGroup();
     this.checkedOk = false;
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
       loanType: new FormControl(['',
         Validators.required]),
@@ -98,18 +98,18 @@ export class WithdrawComponent implements OnInit {
     });
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
-  onKey(event: any) {
+  onKey(event: any): any {
     // without type info
     this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
 
@@ -122,12 +122,12 @@ export class WithdrawComponent implements OnInit {
     this.userForm.controls.amount_to_borrow.setValue(this.values);
   }
 
-  public openModal(template: TemplateRef<any>) {
+  public openModal(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg modal-dialog-centered' }));
 
   }
 
-  getTheNumberPlates() {
+  getTheNumberPlates(): any {
     // this.pumpService.theNumberPlates(this.station).subscribe(
     //   data => {
     //     this.numberPlates = data;
@@ -143,7 +143,7 @@ export class WithdrawComponent implements OnInit {
     // );
   }
 
-  checkLoanbility() {
+  checkLoanbility(): any {
     // this.pumpService
     //   .checkWhetherTheCLoanable(this.userForm.controls.number_plate.value)
     //   .subscribe(
@@ -170,7 +170,7 @@ export class WithdrawComponent implements OnInit {
 
 
 
-  withdraw() {
+  withdraw(): any {
 
     this.userForm.patchValue({
       amount_to_borrow: parseInt( this.userForm.controls.amount_to_borrow.value.replace(/[\D\s\._\-]+/g, ''), 10 )

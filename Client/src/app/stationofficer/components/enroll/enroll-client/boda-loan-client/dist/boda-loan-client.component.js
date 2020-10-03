@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.BodaLoanClientComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var custom_validator_1 = require("src/app/validators/custom-validator");
 // import { DashboardUserService } from 'src/app/services/dashboard-user.service';
 // import { StageNames } from 'src/app/models/stage-names';
 var jwt_decode = require("jwt-decode");
@@ -33,15 +34,19 @@ var BodaLoanClientComponent = /** @class */ (function () {
     };
     BodaLoanClientComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
-            microloanCustomerGaurantor1: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            microloanCustomerGaurantor2: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            microloanCustomerGaurantor3: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            microloanCustomerSecurity1: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            microloanCustomerSecurity2: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            microloanCustomerSecurityLocation1: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            microloanCustomerSecurityLocation2: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            microloanCustomerSecurity1PhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            microloanCustomerSecurity2PhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
+            bodabodaCustomerNumberPlate: new forms_1.FormControl('', forms_1.Validators.compose([
+                forms_1.Validators.required,
+                forms_1.Validators.minLength(8),
+                forms_1.Validators.maxLength(8),
+                custom_validator_1.CustomValidator.patternValidator(/^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/, { beUgandanNumberPlate: true })
+            ])),
+            bodabodaCustomerColour: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerModel: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerYearOfManufacture: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerEngineNumber: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerFrontPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerTheBodabodaRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
         });
     };
     BodaLoanClientComponent.prototype.revert = function () {

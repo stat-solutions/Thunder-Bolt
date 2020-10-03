@@ -192,7 +192,7 @@
                   fval.amount_to_pay.errors
               }"
               autocomplete="off"
-              placeholder="Enter Amount to deposit"
+              placeholder="Enter amount to deposit"
               (keyup)="onKey($event)"
             />
           </div>
@@ -203,7 +203,7 @@
               fval.amount_to_pay.errors?.required
             "
           >
-            The amount to pay is required!
+            The amount to deposit is required!
           </div>
           <div
             class="text-danger col"
@@ -212,7 +212,7 @@
               fval.amount_to_pay.errors?.maxLength
             "
           >
-            Please enter valid amount to pay!
+            Please enter valid amount to deposit!
           </div>
           <div
             class="text-danger col"
@@ -221,7 +221,7 @@
               fval.amount_to_pay.errors?.minlength
             "
           >
-            Please enter valid amount to pay!
+            Please enter valid amount to deposit!
           </div>
           <div
             class="text-danger col"
@@ -230,7 +230,7 @@
               fval.amount_to_pay.errors?.hasNumber
             "
           >
-            Please enter valid amount to pay!
+            Please enter valid amount to deposit!
           </div>
         </div>
 
@@ -379,12 +379,8 @@
                   >
                     <!--add data from the database next to the span after &nbsp;-->
 
-                    <!--display either phone number or number plate depending on the type of loan selected-->
                     <span class="itemCreated">Phone Number: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">0752425815</span><br />
-                    <span class="itemCreated">Number Plate: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">UBA 821K</span><br />
-
                     <span class="itemCreated">Name: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info"
                       >Byamugisha Achileo</span
@@ -392,8 +388,10 @@
                     <span class="itemCreated">Monthly Income: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">30000</span><br />
                     <span class="itemCreated">Withdraw Frequency: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">3</span>
-                    <!-- <span class="itemCreated">Amount Paid: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">3</span><br />
+                    <span class="itemCreated">Comment: &nbsp;&nbsp;</span
+                      ><span class="itemCreated text-info">Active</span>
+                      <!-- <span class="itemCreated">Amount Paid: &nbsp;&nbsp;</span
                           ><span class="itemCreated text-info">30000</span
                           ><br />
                           <span class="itemCreated">Balance: &nbsp;&nbsp;</span
