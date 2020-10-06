@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ValueProvider } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -30,12 +30,12 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.myDateValue = new Date();
     this.userForm = this.createFormGroup();
     this.disableForm();
   }
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
       full_name: new FormControl(
         '',
@@ -166,26 +166,26 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
-  disableForm () {
-    return this.userForm.disable()
+  disableForm(): any {
+    return this.userForm.disable();
   }
 
-  enableEdit() {
-    return this.userForm.enable()
+  enableEdit(): any {
+    return this.userForm.enable();
   }
 
-  //toggle visibility of password field
-    toggleFieldType() {
+  // toggle visibility of password field
+    toggleFieldType(): any {
       this.fieldType = !this.fieldType;
     }
-  returnHome() {
+  returnHome(): any {
     this.spinner.hide();
     this.revert();
 
@@ -194,10 +194,10 @@ export class ProfileComponent implements OnInit {
     }, 2000);
   }
 
-  setProfileValues () {
+  setProfileValues(): any {
 
   }
-  save () {
+  save(): any {
 
   }
 

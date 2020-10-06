@@ -18,6 +18,7 @@ var townmanagement_module_1 = require("./townmanagement/townmanagement.module");
 var stationofficer_module_1 = require("./stationofficer/stationofficer.module");
 var stationmanagement_module_1 = require("./stationmanagement/stationmanagement.module");
 var centralmanagement_module_1 = require("./centralmanagement/centralmanagement.module");
+// import { AuthServiceService } from './shared/services/auth-service.service';
 var http_1 = require("@angular/common/http");
 var datepicker_1 = require("ngx-bootstrap/datepicker");
 var animations_1 = require("@angular/platform-browser/animations");

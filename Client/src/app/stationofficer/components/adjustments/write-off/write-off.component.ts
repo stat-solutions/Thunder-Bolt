@@ -32,6 +32,7 @@ export class WriteOffComponent implements OnInit {
   numberPlates: [];
   phoneNumbers: [];
   loanDetails: any;
+  loanType: string;
   secretPin: number;
   loanLimit: number;
   amountDue: number;
@@ -49,13 +50,13 @@ export class WriteOffComponent implements OnInit {
     private modalService: BsModalService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getTheNumberPlates();
     this.userForm = this.createFormGroup();
     this.checkedOk = false;
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
       loanType: new FormControl(['',
         Validators.required]),
@@ -97,19 +98,22 @@ export class WriteOffComponent implements OnInit {
       )
     });
   }
-
-  revert() {
+  checkLoanType(value: string): any{
+    // console.log(value);
+    this.loanType = value;
+  }
+  revert(): any {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
-  onKey(event: any) {
+  onKey(event: any): any {
     // without type info
     this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
 
@@ -122,12 +126,12 @@ export class WriteOffComponent implements OnInit {
     this.userForm.controls.amount_to_pay.setValue(this.values);
   }
 
-  public openModal(template: TemplateRef<any>) {
+  public openModal(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg modal-dialog-centered' }));
 
   }
 
-  getTheNumberPlates() {
+  getTheNumberPlates(): any {
     // this.pumpService.theNumberPlates(this.station).subscribe(
     //   data => {
     //     this.numberPlates = data;
@@ -142,35 +146,7 @@ export class WriteOffComponent implements OnInit {
     //   }
     // );
   }
-
-  checkLoanbility() {
-    // this.pumpService
-    //   .checkWhetherTheCLoanable(this.userForm.controls.number_plate.value)
-    //   .subscribe(
-    //     data => {
-    //       this.loanDetails = data[0];
-    //       // console.log(this.loanDetails);
-    //       this.checkedOk = true;
-    //       this.secretPin = this.loanDetails.secret_pin;
-    //       this.loanLimit = this.loanDetails.petrol_station_loan_limit;
-    //       this.userForm.controls.number_plate.disable();
-    //       this.userForm.controls.amount_to_pay.enable();
-    //       this.userForm.controls.pin.enable();
-    //     },
-
-    //     (error: string) => {
-    //       this.errored = true;
-    //       this.serviceErrors = error;
-    //       this.alertService.danger({
-    //         html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-    //       });
-    //     }
-    //   );
-  }
-
-
-
-  writeOff() {
+  writeOff(): any {
 
     this.userForm.patchValue({
       amount_to_pay: parseInt( this.userForm.controls.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''), 10 )

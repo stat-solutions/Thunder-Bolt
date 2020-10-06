@@ -9,10 +9,10 @@ import { AlertService } from 'ngx-alerts';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 export interface FloatApprovals {
-  station: string,
-  type: string,
-  ammount: number,
-  status: number
+  station: string;
+  type: string;
+  ammount: number;
+  status: number;
 }
 
 @Component({
@@ -23,12 +23,12 @@ export interface FloatApprovals {
 export class FloatApprovalComponent implements OnInit {
   userForm: FormGroup;
   floatApprovals: FloatApprovals[] = [
-    {station: "ndeeba", type: "withdraw", ammount: 405000, status: 0},
-    {station: "kibuye", type: "deposit", ammount: 4000000, status: 0},
-    {station: "matugga", type: "deposit", ammount: 6000000, status: 0},
-    {station: "ndejje", type: "withdraw", ammount: 300000, status: 0},
-    {station: "gabba", type: "deposit", ammount: 700000, status: 0},
-    {station: "nansans", type: "withdraw", ammount: 600000, status: 0}
+    {station: 'ndeeba', type: 'withdraw', ammount: 405000, status: 0},
+    {station: 'kibuye', type: 'deposit', ammount: 4000000, status: 0},
+    {station: 'matugga', type: 'deposit', ammount: 6000000, status: 0},
+    {station: 'ndejje', type: 'withdraw', ammount: 300000, status: 0},
+    {station: 'gabba', type: 'deposit', ammount: 700000, status: 0},
+    {station: 'nansans', type: 'withdraw', ammount: 600000, status: 0}
   ];
   posted = false;
   actionButton: string;
@@ -45,103 +45,102 @@ export class FloatApprovalComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): any {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
   }
 
-  createFormGroup() {
+  createFormGroup(): any  {
     return this.fb.group({
       approveFloat: this.fb.array([this.floatApproval]),
       selectAll: this.fb.control({})
-    })
+    });
   }
-  get floatApproval () {
+  get floatApproval(): any  {
     return this.fb.group({
       station: this.fb.control({value: ''}),
       floattype: this.fb.control({value: ''}),
       ammount: this.fb.control({value: ''}),
       approved: this.fb.control({})
-    })
+    });
   }
-  addItem () {
+  addItem(): any  {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.approveFloat as FormArray).push(this.floatApproval)
+    (this.fval.approveFloat as FormArray).push(this.floatApproval);
   }
 
-  removeItem (index: number) {
+  removeItem(index: number): any  {
     (this.fval.approveFloat as FormArray).removeAt(index);
   }
-  initialiseForm () {
+  initialiseForm(): any  {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
     //   units => {
     //     this.approvals = units;
-        this.floatApprovals.forEach((item, i) => {
+    this.floatApprovals.forEach((item, i) => {
           // console.log(item.name);
           // console.log(i);
-          this.fval.approveFloat['controls'][i]['controls'].station.setValue(item.station);
-          this.fval.approveFloat['controls'][i]['controls'].floattype.setValue(item.type);
-          this.fval.approveFloat['controls'][i]['controls'].ammount.setValue(item.ammount);
-          this.fval.approveFloat['controls'][i]['controls'].approved.setValue(false);
+          this.fval.approveFloat.controls[i].controls.station.setValue(item.station);
+          this.fval.approveFloat.controls[i].controls.floattype.setValue(item.type);
+          this.fval.approveFloat.controls[i].controls.ammount.setValue(item.ammount);
+          this.fval.approveFloat.controls[i].controls.approved.setValue(false);
           this.addItem();
-          n=i + 1;
-        })
-        this.removeItem(n);
+          n = i + 1;
+        });
+    this.removeItem(n);
       // }
     // )
   }
-  checkAllItems(val: boolean) {
-    if(val == true) {
+  checkAllItems(val: boolean): any  {
+    if (val === true) {
       this.floatApprovals.forEach((item, i) => {
-        this.fval.approveFloat['controls'][i]['controls'].approved.setValue(val);
-      })
+        this.fval.approveFloat.controls[i].controls.approved.setValue(val);
+      });
     } else {
       this.floatApprovals.forEach((item, i) => {
-        this.fval.approveFloat['controls'][i]['controls'].approved.setValue(false);
-      })
+        this.fval.approveFloat.controls[i].controls.approved.setValue(false);
+      });
     }
   }
-  deselectAll(val: boolean){
+  deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-    if(this.fval.approveFloat["controls"][val]["controls"].approved.value == true) {
+    if (this.fval.approveFloat.controls[val].controls.approved.value === true) {
       this.fval.selectAll.setValue(false);
     }
   }
-  revert() {
+  revert(): any  {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any  {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any  {
     return this.userForm.controls;
   }
 
-  disableForm () {
-    return this.userForm.disable()
+  disableForm(): any  {
+    return this.userForm.disable();
   }
 
-  enableEdit() {
-    return this.userForm.enable()
+  enableEdit(): any  {
+    return this.userForm.enable();
   }
 
-  approveItems () {
+  approveItems(): any  {
     const itemsApproved = [];
     this.floatApprovals.forEach((item, i) => {
-      if(
-        this.fval.approveFloat['controls'][i]['controls'].approved.value == true
+      if (
+        this.fval.approveFloat.controls[i].controls.approved.value === true
       ) {
         item.status = 2;
-        itemsApproved.push(item)
+        itemsApproved.push(item);
       }
-    })
-
-    console.log(itemsApproved.length)
-    if(itemsApproved.length > 0) {
+    });
+    console.log(itemsApproved.length);
+    if (itemsApproved.length > 0) {
       setTimeout(() => {
         this.router.navigate([
           'centralmanagement/dashboard'
@@ -149,21 +148,21 @@ export class FloatApprovalComponent implements OnInit {
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
-  rejectItems () {
+  rejectItems(): any  {
     const itemsRejected = [];
     this.floatApprovals.forEach((item, i) => {
-      if(
-        this.fval.approveFloat['controls'][i]['controls'].approved.value == true
+      if (
+        this.fval.approveFloat.controls[i].controls.approved.value === true
       ) {
         item.status = 1;
-        itemsRejected.push(item)
+        itemsRejected.push(item);
       }
-    })
-    console.log(itemsRejected.length)
-    if(itemsRejected.length > 0) {
+    });
+    console.log(itemsRejected.length);
+    if (itemsRejected.length > 0) {
       setTimeout(() => {
         this.router.navigate([
           'centralmanagement/dashboard'
@@ -171,7 +170,7 @@ export class FloatApprovalComponent implements OnInit {
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
 }

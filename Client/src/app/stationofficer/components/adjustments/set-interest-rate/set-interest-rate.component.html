@@ -57,24 +57,28 @@
             The Category is required!
           </div>
         </div>
-    <div class="form-group text-primary">
+        <div *ngIf="(fval.category.value == 'Individual')">
+        <div class="form-group text-primary">
           <label for="loanType">Loan Type</label>
           <div class="input-group mb-0">
             <input
               type="radio"
-              value="Boda loan"
+              value="Boda Loan"
               formControlName="loanType"
               checked required
+              (change)="checkLoanType(fval.loanType.value)"
             />&nbsp; Boda Loan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input
               type="radio"
-              value="Taxi loan"
+              value="Taxi Loan"
               formControlName="loanType" required
+              (change)="checkLoanType(fval.loanType.value)"
             />&nbsp; Taxi Loan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input
               type="radio"
-              value="Micro loan"
+              value="Micro Loan"
               formControlName="loanType" required
+              (change)="checkLoanType(fval.loanType.value)" 
             />&nbsp; Micro Loan
           </div>
           <div
@@ -90,7 +94,10 @@
 
         <!--start-->
         <!--on select of loan type display either number plate or micro loan -->
-        <div class="form-group text-primary">
+        <div 
+          class="form-group text-primary"
+          *ngIf="loanType == 'Boda Loan'|| loanType == 'Taxi Loan'"   
+        >
           <label
             for="number_plate"
             [ngClass]="fval.number_plate.valid ? 'text-info' : ''"
@@ -113,7 +120,6 @@
               }"
               autocomplete="off"
               placeholder="Select Number Plate"
-              (click)="openModal(template)"
             />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="number_plate">
@@ -151,7 +157,10 @@
           </div>
         </div>
 
-        <div class="form-group text-primary">
+        <div 
+          class="form-group text-primary"
+          *ngIf="loanType == 'Micro Loan'" 
+        >
           <label
             for="user_contact_number"
             [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''"
@@ -183,7 +192,6 @@
               }"
               autocomplete="off"
               placeholder="Select Phone number"
-              (click)="openModal(template)"
             />
             <datalist id="user_contact_number">
               <option *ngFor="let item of phoneNumbers">
@@ -212,6 +220,7 @@
             The phone number should be equal to 10 "digits"!
           </div>
         </div>
+      </div>
         <!--/end-->
 
         <!--/end-->

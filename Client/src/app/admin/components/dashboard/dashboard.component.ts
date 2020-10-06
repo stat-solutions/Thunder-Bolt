@@ -20,8 +20,8 @@ export class DashboardComponent implements OnInit {
     {unitName: 'Hospital Bussiness'}
   ];
   approvals: Approvals[] = [
-    {name: "Area Creation", level: 3},
-    {name: "Town Creation", level: 1},
+    {name: 'Area Creation', level: 3},
+    {name: 'Town Creation', level: 1},
     // {name: "Town Creation", level: 1},
     // {name: "Town Creation", level: 1},
     // {name: "Town Creation", level: 1},
@@ -31,16 +31,16 @@ export class DashboardComponent implements OnInit {
     // {name: "Town Creation", level: 1},
     // {name: "Town Creation", level: 1},
     // {name: "Town Creation", level: 1},
-    {name: "Stage Creation", level: 2},
-    {name: "Station Creation", level: 4},
+    {name: 'Stage Creation', level: 2},
+    {name: 'Station Creation', level: 4},
   ];
   constructor(private fb: FormBuilder) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.toggleSideBar();
   }
 
-  toggleSideBar() {
+  toggleSideBar(): any {
     this.sideBarChanged = !this.sideBarChanged;
     // this.sharedService.emitChange(this.sideBarChanged);
   }
