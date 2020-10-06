@@ -541,12 +541,16 @@ a.text-info:hover {
 }
 
 @media (min-width:1280px) {
+  .global-container{
+    max-width: 1410px !important;
+    min-width: 1320px !important;
+  }
   h5 {
       font-size: 20px !important;
       margin-left: 210px !important;
       padding-left: 80px !important;
   }
-  .thunder-col-1 {
+    .thunder-col-1 {
       margin-bottom: 0px !important;
   }
   .thunder-col-2 {

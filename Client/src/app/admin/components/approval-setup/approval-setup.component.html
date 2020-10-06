@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div class="card-body mt-2 pt-3 mb-0 mx-auto pb-3 shadow-lg">
+    <div class="card-body mt-2 pt-3 mb-0 mx-auto pb-1 shadow-lg">
       <form [formGroup]="approvalForm">
         <div class="row">
           <div class="col-5 mx-auto">
@@ -32,7 +32,7 @@
         >
         <div>
         <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"  [formGroupName]="idx">
-          <div class="card-body mt-0 pt-1 mb-0 pb-0 mx-0">
+          <div class="list-card-body card-body mt-0 pt-1 mb-0 pb-0 mx-0">
             <div class="row mt-0 pt-0 mb-0 pb-0">
               <!--div class="col-8 mr-0 pr-0"-->
               <div class="col-6 mx-0">
@@ -83,56 +83,195 @@
             ">
               levels range from 0 to 5
             </div>
-          </div>
-        </div>
-        </div>
-        </div>
-        </div>
 
-        <!-- <div class="col-xs-12" formArrayName="tradingProductVariants">
-          <div
-            class="card shadow mt-2 mb-3 d-flex flex-column col-offset-lg-6"
-          >
-            <div class="card-body p-2">
-         <div class="row"
-         *ngFor="let variantsX of tradingProductForm.get('tradingProductVariants')['controls'];let variantIndex = index"
-         [formGroupName]="variantIndex">
-                        <div class="col-xs-12 col-md-6 col-lg-4 ml-1">
-         <div class="form-group">
-         <label for="variantAttributes" [ngClass]="variantsX.valid ? 'text-info' : ''">Variant Description<i
-         *ngIf="variantsX.valid" class="material-icons">check_circle</i>
-         <div class="input-group mb-1">
-         <div class="input-group-prepend">
-         <div class="input-group-text">
-         <i class="fas fa-suitcase text-info mx-auto" style="size: 50px"></i>
-         </div>
-         </div>
-         <input
-                  id="variantAttributesValues"
-                  formControlName="variantAttributesValues"
-                  type="text"
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid':
-                      (variantsX.touched ||
-                      variantsX.dirty) &&
-                      variantsX.errors
-                  }"
-                  placeholder="Enter variants description"
-                  autocomplete="off"
-                />
-         </div>
-         </label>
-         <label class="text-danger col" *ngIf="
-         (variantsX['controls'].variantAttributesValues.touched || variantsX['controls'].variantAttributesValues.dirty) &&
-         variantsX['controls'].variantAttributesValues.errors?.required
-         ">
-         The product variant description is required
-         </label>
-         </div>
-        </div> -->
+                </div>
+        </div>
+                        <!--require entry of approval persons per level depending on the number of levels set-->
+                        <div class="text-primary" *ngIf="
+                        (fval.approvalItems['controls'][idx]['controls']['level'].touched)">
+                          <label
+                            for="firstApproval"
+                            [ngClass]="fval.firstApproval.valid ? 'text-info' : ''"
+                            ><i *ngIf="fval.firstApproval.valid" class="material-icons"
+                              >check_circle</i
+                            >First Approval</label
+                          >
+                            <select
+                            formControlName="firstApproval"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid':
+                                (fval.firstApproval.touched || fval.firstApproval.dirty) &&
+                                fval.firstApproval.errors
+                            }"
+                            autocomplete="off"
+                            placeholder="Select required approval"
+                          >
+                            <option>Central</option>
+                            <option>Top</option>
+                            <option>Area</option>
+                            <option>Area 2</option>
+                            <option>Town</option>
+                          </select>
+                          <div
+                            class="text-danger col"
+                            *ngIf="
+                              (fval.firstApproval.touched || fval.firstApproval.dirty) &&
+                              fval.firstApproval.errors?.required
+                            "
+                          >
+                            The first approval level is required!
+                          </div>
+                        </div>
+                        <div class="text-primary" *ngIf="
+                        (fval.approvalItems['controls'][idx]['controls']['level'].touched)">
+                          <label
+                            for="secondApproval"
+                            [ngClass]="fval.secondApproval.valid ? 'text-info' : ''"
+                            ><i *ngIf="fval.secondApproval.valid" class="material-icons"
+                              >check_circle</i
+                            >Second Approval</label
+                          >
+                            <select
+                            formControlName="secondApproval"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid':
+                                (fval.secondApproval.touched || fval.secondApproval.dirty) &&
+                                fval.secondApproval.errors
+                            }"
+                            autocomplete="off"
+                            placeholder="Select required approval"
+                          >
+                            <option>Central</option>
+                            <option>Top</option>
+                            <option>Area</option>
+                            <option>Area 2</option>
+                            <option>Town</option>
+                          </select>
+                          <div
+                            class="text-danger col"
+                            *ngIf="
+                              (fval.secondApproval.touched || fval.secondApproval.dirty) &&
+                              fval.secondApproval.errors?.required
+                            "
+                          >
+                            The second approval level is required!
+                          </div>
+                        </div>
+                        <div class="text-primary" *ngIf="
+                        (fval.approvalItems['controls'][idx]['controls']['level'].touched)">
+                          <label
+                            for="thirdApproval"
+                            [ngClass]="fval.thirdApproval.valid ? 'text-info' : ''"
+                            ><i *ngIf="fval.thirdApproval.valid" class="material-icons"
+                              >check_circle</i
+                            >Third Approval</label
+                          >
+                            <select
+                            formControlName="thirdApproval"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid':
+                                (fval.thirdApproval.touched || fval.thirdApproval.dirty) &&
+                                fval.thirdApproval.errors
+                            }"
+                            autocomplete="off"
+                            placeholder="Select required approval"
+                          >
+                            <option>Central</option>
+                            <option>Top</option>
+                            <option>Area</option>
+                            <option>Area 2</option>
+                            <option>Town</option>
+                          </select>
+                          <div
+                            class="text-danger col"
+                            *ngIf="
+                              (fval.thirdApproval.touched || fval.thirdApproval.dirty) &&
+                              fval.thirdApproval.errors?.required
+                            "
+                          >
+                            The third approval level is required!
+                          </div>
+                        </div>
+                        <div class="text-primary" *ngIf="
+                        (fval.approvalItems['controls'][idx]['controls']['level'].touched)">
+                          <label
+                            for="fourthApproval"
+                            [ngClass]="fval.fourthApproval.valid ? 'text-info' : ''"
+                            ><i *ngIf="fval.fourthApproval.valid" class="material-icons"
+                              >check_circle</i
+                            >Fourth Approval</label
+                          >
+                            <select
+                            formControlName="fourthApproval"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid':
+                                (fval.fourthApproval.touched || fval.fourthApproval.dirty) &&
+                                fval.fourthApproval.errors
+                            }"
+                            autocomplete="off"
+                            placeholder="Select required approval"
+                          >
+                            <option>Central</option>
+                            <option>Top</option>
+                            <option>Area</option>
+                            <option>Area 2</option>
+                            <option>Town</option>
+                          </select>
+                          <div
+                            class="text-danger col"
+                            *ngIf="
+                              (fval.fourthApproval.touched || fval.fourthApproval.dirty) &&
+                              fval.fourthApproval.errors?.required
+                            "
+                          >
+                            The fourth approval level is required!
+                          </div>
+                        </div>
+                        <div class="text-primary" *ngIf="
+                        (fval.approvalItems['controls'][idx]['controls']['level'].touched)">
+                          <label
+                            for="fifthApproval"
+                            [ngClass]="fval.fifthApproval.valid ? 'text-info' : ''"
+                            ><i *ngIf="fval.fifthApproval.valid" class="material-icons"
+                              >check_circle</i
+                            >Fifth Approval</label
+                          >
+                            <select
+                            formControlName="fifthApproval"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid':
+                                (fval.fifthApproval.touched || fval.fifthApproval.dirty) &&
+                                fval.fifthApproval.errors
+                            }"
+                            autocomplete="off"
+                            placeholder="Select required approval"
+                          >
+                            <option>Central</option>
+                            <option>Top</option>
+                            <option>Area</option>
+                            <option>Area 2</option>
+                            <option>Town</option>
+                          </select>
+                          <div
+                            class="text-danger col"
+                            *ngIf="
+                              (fval.fifthApproval.touched || fval.fifthApproval.dirty) &&
+                              fval.fifthApproval.errors?.required
+                            "
+                          >
+                            The fifth approval level is required!
+                          </div>
+                        </div>
 
 
+      </div>
+        </div>
+        </div>
       </form>
     </div>
   </div>

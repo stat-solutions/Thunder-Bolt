@@ -4,9 +4,13 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PagesCoreStationComponent } from './pages-core/pages-core-station.component';
 import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
+import { ReportsComponent } from './components/reports/reports.component';
+import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
+import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledger.component';
+import { BorrowedLedgerComponent } from './components/reports/borrowed-ledger/borrowed-ledger.component';
 
 const routes: Routes = [
-  { path: '', 
+  { path: '',
     component: PagesCoreStationComponent,
     canActivateChild: [RandomGuard],
     children: [
@@ -20,10 +24,29 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
+        path: 'reports',
+        component: ReportsComponent,
+children: [
+  {
+    path: 'cashledger',
+    component: CashLedgerComponent
+  },
+  {
+    path: 'paidledger',
+    component: PaidLedgerComponent
+  },
+  {
+    path: 'borrowedledger',
+    component: BorrowedLedgerComponent
+  }
+
+]
+      },
+      {
         path: 'profile',
         component: ProfileComponent
       }
-    ] 
+    ]
 }];
 
 @NgModule({

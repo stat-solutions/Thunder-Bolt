@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-import { TabsetComponent } from "ngx-bootstrap/tabs";
 
 export interface Totals {
   areas: number,

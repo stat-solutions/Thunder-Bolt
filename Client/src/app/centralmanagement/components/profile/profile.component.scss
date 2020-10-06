@@ -5,8 +5,6 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  // margin-right: 0px !important;
-  // margin-left: 100px !important;
   contain: auto;
 }
 
@@ -244,8 +242,8 @@ a.text-info:hover {
 @media (min-width: 1100px) {
   .card-body {
     margin-top: 0px !important;
-    padding-top: 15px !important;
-    margin-bottom: 50px !important;
+    padding-top: 20px !important;
+    margin-bottom: 0px !important;
   }
   .jumbotron-fluid {
     margin-bottom: 40px !important;
@@ -254,13 +252,13 @@ a.text-info:hover {
 
 @media (min-width: 1260px) {
   .card-body {
-    margin-top: 20px !important;
-    margin-bottom: 40px !important;
+    margin-top: 10px !important;
+    margin-bottom: 0px !important;
     padding-left: auto !important;
     padding-right: auto !important;
   }
   .jumbotron-fluid {
-    padding-top: 70px !important;
+    padding-top: 0px !important;
     margin-bottom: 20px !important;
   }
   }
