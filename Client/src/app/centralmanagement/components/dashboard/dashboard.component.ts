@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
       pointRadius: 1,
       pointHitRadius: 10,
       data: [10, 39, 53, 31, 36, 40, 50]
-    }, 
+    },
     {
       label: 'Loans',
       fill: false,
@@ -111,14 +111,14 @@ export class DashboardComponent implements OnInit {
     {ID: "AD110", name: "Musoke John"},
     {ID: "AD020", name: "Muwonge Mahd"},
     {ID: "AD123", name: "Tom Giraka"}
-  ]; 
+  ];
   topUsers: Array<any> = [
     {name: "Kiwanuka Mahd", place: "Wakiso East"},
     {name: "Katumba Mark" , place: "Central East"},
     {name: "Musoke John"  , place: "Wakiso West"},
     {name: "Muwonge Mahd" , place: "Gomba East"},
     {name: "Tom Giraka"   , place: "Kyagwe East"}
-  ]; 
+  ];
   topStations: Array<any> = [
     {name: "Ndeba", town: "kampala", area: "Central Region"},
     {name: "Matugga", town: "Mbale", area: "Eastern Region"},
@@ -141,7 +141,7 @@ this.textPlugin = [{
     const fontSize = (height / 114).toFixed(2);
     ctx.font = `${fontSize}em sans-serif`;
     ctx.textBaseline = 'middle';
-    const text = 'Text Plugin';
+    const text = '';
     const textX = Math.round((width - ctx.measureText(text).width) / 2);
     const textY = height / 2;
     ctx.fillText(text, textX, textY);

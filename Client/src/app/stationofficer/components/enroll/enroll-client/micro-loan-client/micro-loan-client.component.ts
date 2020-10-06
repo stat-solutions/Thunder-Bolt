@@ -41,6 +41,10 @@ export class MicroLoanClientComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
+      clientName: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
       microloanCustomerGaurantor1: new FormControl(
         '',
         Validators.compose([Validators.required])

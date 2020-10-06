@@ -57,6 +57,11 @@ ngOnInit () {
   get approvalItem () {
     return this.fb.group({
       name: this.fb.control({value: ''}),
+      firstApproval: this.fb.control({value: ''}),
+      secondApproval: this.fb.control({value: ''}),
+      thirdApproval: this.fb.control({value: ''}),
+      fourthApproval: this.fb.control({value: ''}),
+      fifthApproval: this.fb.control({value: ''}),
       level: this.fb.control(
         '',
         Validators.compose([

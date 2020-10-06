@@ -41,6 +41,10 @@ export class BodaLoanClientComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
+      clientName: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
       bodabodaCustomerNumberPlate: new FormControl(
         '',
         Validators.compose([

@@ -41,6 +41,10 @@ export class TaxiLoanClientComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
+      clientName: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
       taxiCustomerNumberPlate: new FormControl(
         '',
         Validators.compose([
