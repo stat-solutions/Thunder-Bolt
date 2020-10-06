@@ -17,6 +17,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { InterceptorService } from './shared/services/interceptor.service';
 import { SharedModule } from './shared/shared.module';
 import { JwtModule } from "@auth0/angular-jwt";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

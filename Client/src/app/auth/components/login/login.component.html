@@ -1,6 +1,6 @@
 
 <div
-class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-md-0 pt-0 pb-3 shadow-lg col-xs-12 col-lg-8"
+class="container-fluid d-flex flex-row justify-content-center mb-0 mt-0 pt-4 pb-3 shadow-lg col-xs-12 col-lg-8"
 >
 <div class="jumbotron-fluid">
   <div class="head-icon d-flex justify-content-center mt-3 mb-3 pb-0">
@@ -18,8 +18,8 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
     <form [formGroup]="userForm" (ngSubmit)="login()">
 
       <div class="form-group text-primary">
-        <label for="user_contact_number" [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''">Mobile Number<i  *ngIf="fval.user_contact_number.valid" class="material-icons">check_circle</i></label>
-         <div class="input-group mb-2">
+        <label for="user_contact_number" [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''">Phone Number<i  *ngIf="fval.user_contact_number.valid" class="material-icons">check_circle</i></label>
+         <div class="input-group mb-0">
          <div class="input-group-prepend">
           <div class="input-group-text">
             <i class="fas fa-phone text-primary mx-auto" style="size: 50px">
@@ -129,7 +129,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
             </a>
           </div>
         </div>
-        <div class="col-6 d-flex flex-row justify-content-start mt-2 pt-0">
+        <div class="col-6 d-flex flex-row justify-content-start mt-0 pt-0">
           <div class="form-group">
             <a class="text-info mr-0" routerLink="../changepassword">
               Forgot PIN?
@@ -140,13 +140,13 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
 
     </form>
   </div>
-  <!--footer -->
-  <div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mx-auto">
-    <div class="small text-center text-info">
-     &copy; 2020 - ThunderBolt
-    </div>
+</div>
+</div>
+<!--footer -->
+<div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mx-auto">
+  <div class="small text-center text-info">
+   &copy; 2020 - ThunderBolt
   </div>
-  <!--/ footer -->
 </div>
-</div>
+<!--/ footer -->
 

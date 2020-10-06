@@ -28,6 +28,8 @@ import { DepositComponent } from './components/savings/deposit/deposit.component
 import { SavingsComponent } from './components/savings/savings.component';
 import { WithdrawComponent } from './components/savings/withdraw/withdraw.component';
 import { PagesCoreOfficerComponent } from './pages-core/pages-core-officer.component';
+import { PersonalProfileComponent } from '../townmanagement/components/profile/personal-profile/personal-profile.component';
+import { SetPasswordComponent } from '../townmanagement/components/profile/set-password/set-password.component';
 
 const routes: Routes = [
   { path: '',
@@ -153,7 +155,17 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        component:ProfileComponent
+        component: ProfileComponent,
+        children: [
+          {
+            path: 'personalprofile',
+            component: PersonalProfileComponent
+          },
+          {
+            path: 'setpassword',
+            component: SetPasswordComponent
+          }
+        ]
       }
     ]
 }];

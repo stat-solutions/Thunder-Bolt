@@ -120,9 +120,21 @@ export class LeftPanelCentralComponent implements OnInit {
         ]
       },
       {
-        name: 'My Profile',
+        name: 'Profile',
         icon: 'fas fa-user-cog',
-        url: '/centralmanagement/profile'
+        url: '/centralmanagement/profile',
+        subMenu: [
+          {
+            name: 'Personal Info',
+            icon: 'fas fa-user',
+            url: '/centralmanagement/profile/personalprofile'
+          },
+          {
+            name: 'Set PIN',
+            icon: 'fas fa-lock',
+            url: '/centralmanagement/profile/setpassword'
+          }
+                        ]
       }
 ]
 };

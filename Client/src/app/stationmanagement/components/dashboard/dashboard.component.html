@@ -1,1 +1,153 @@
-<p>dashboard works!</p>
+<div class="jumbotron-fluid pt-2 pt-md-3 mb-0 pb-0 mx-auto px-lg-0">
+  <div class="container">
+    <div class="row">
+      <div class="thunder-col-1 col-6 col-md-3 col-xl-3 mb-4">
+        <div class="sm-card-1 card shadow py-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mx-0">
+                <div class="text-uppercase text-gray font-weight-bold mb-1">
+                  <span class="sm-card-title-1">Float Balance</span>
+                </div>
+                <div class="row">
+                  <div class="col-auto">
+                    <div class="text-primary font-weight-bold h5 mb-0 pb-0">
+                      <span class="pl-3 pb-0">{{totals[0].areas}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto align-self-baseline">
+                <i class="fas fa-coins fa-2x text-secondary"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="thunder-col-2 col-6 col-md-3 col-xl-3 mb-4">
+        <div class="sm-card-2 card shadow py-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mx-0 px-0">
+                <div class="text-uppercase text-gray font-weight-bold mb-1">
+                  <span class="sm-card-title-2">Payments</span>
+                </div>
+                <div class="row">
+                  <div class="col-auto">
+                    <div class="text-primary font-weight-bold h5 mb-0 pb-0 ml-2">
+                      <span class="text-dark">No. of Clients</span><br />
+                      <span class="pl-3 pb-0">{{totals[0].towns}}</span>
+                    </div>
+                    <div class="text-primary font-weight-bold h5 mb-0 pb-0 ml-2">
+                      <span class="text-dark">Amount Paid</span><br />
+                      <span class="pl-3 pb-0">{{totals[0].towns}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto align-self-bottom">
+                <i class="fas fa-exchange-alt fa-2x text-secondary"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="thunder-col-3 col-6 col-md-3 col-xl-3 mb-4">
+        <div class="sm-card-3 card shadow py-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mx-0 px-0">
+                <div class="text-uppercase text-gray font-weight-bold mb-1">
+                  <span class="sm-card-title-3">Loans Taken</span>
+                </div>
+                <div class="row">
+                  <div class="col-auto">
+                    <div class="text-primary font-weight-bold h5 mb-0 pb-0 ml-2">
+                      <span class="text-info">No. of Clients</span><br />
+                      <span class="pl-3 pb-0">{{totals[0].towns}}</span>
+                    </div>
+                    <div class="text-primary font-weight-bold h5 mb-0 pb-0 ml-2">
+                      <span class="text-info">Amount Loaned</span><br />
+                      <span class="pl-3 pb-0">{{totals[0].towns}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto align-self-baseline">
+                <i class="fas fa-balance-scale-left fa-2x text-secondary"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="thunder-col-4 col-6 col-md-3 col-xl-3 mb-4">
+        <div class="sm-card-4 card shadow py-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mx-0 px-0">
+                <div class="text-uppercase text-gray font-weight-bold mb-1">
+                  <span class="sm-card-title-4">Unpaid</span>
+                </div>
+                <div class="row">
+                  <div class="col-auto">
+                    <div class="text-primary font-weight-bold h5 mb-0 pb-0 ml-2">
+                      <span class="text-dark">No. of Clients</span><br />
+                      <span class="pl-3 pb-0">{{totals[0].towns}}</span>
+                    </div>
+                    <div class="text-primary font-weight-bold h5 mb-0 pb-0 ml-2">
+                      <span class="text-dark">Amount Unpaid</span><br />
+                      <span class="pl-3 pb-0">{{totals[0].towns}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto align-self-baseline">
+                <i class="fas fa-balance-scale-right fa-2x text-secondary"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container mt-2 mt-md-4 mb-2 mx-0 shadow-lg">
+      <div class="row">
+        <div class="col-12">
+          <h2
+            class="rub-head4 text-info text-center font-weight-bold py-1"
+          >
+            Analysis
+          </h2>
+        </div>
+      </div>
+    </div>
+<div class="components row mt-2 mt-md-2 pt-0 pt-md-2">
+  <div class="col-12">
+  <div class="big-card-2 card shadow-lg mb-3 pb-0 mx-auto">
+    <div class="big-card-body-2 card-body mx-auto px-auto mt-3 mb-0 pb-0">
+      <div class="row">
+        <div class="col-xs-12 col-lg-9 d-flex justify-content-between align-items-center">
+          <canvas
+            ngChartjs
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [inlinePlugins]="inlinePlugin"
+            real-time
+          >
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--footer -->
+<div
+  class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-3 mx-auto"
+>
+  <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
+</div>
+<!--/ footer -->
