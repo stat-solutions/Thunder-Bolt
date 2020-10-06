@@ -190,7 +190,7 @@ export class ProfileComponent implements OnInit {
     this.revert();
 
     setTimeout(() => {
-      this.router.navigate(['authpage/loginpage']);
+      this.router.navigate(['authpage/login']);
     }, 2000);
   }
 

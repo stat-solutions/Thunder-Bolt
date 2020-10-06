@@ -69,7 +69,7 @@ a.text-info:hover {
     .card-body {
         max-width: 320px;
         min-width: 290px;
-        max-height: 275px;
+        max-height: 260px;
         min-height: 230px;
     }
     .jumbotron-fluid {
@@ -145,9 +145,9 @@ a.text-info:hover {
         font-size: 22px !important;
     }
     .card-body {
-        max-height: 275px;
-        min-height: 230px;
-    }
+      max-height: 260px;
+      min-height: 230px;
+  }
 }
 
 @media (min-width: 812px) {}

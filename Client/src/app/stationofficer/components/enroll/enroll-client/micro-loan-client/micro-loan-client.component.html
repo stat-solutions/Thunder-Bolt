@@ -16,56 +16,105 @@
     <div class="card-body mt-0 pt-2 mb-0 pb-2 shadow-lg">
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div class="row">
-          <div class="col-12 col-md-6 col-lg-4">
-            <div class="form-group text-primary">
-              <label
-                for="microloanCustomerGaurantor1"
-                [ngClass]="
-                  fval.microloanCustomerGaurantor1.valid ? 'text-info' : ''
-                "
-                >Guarantor 1<i
-                  *ngIf="fval.microloanCustomerGaurantor1.valid"
-                  class="material-icons"
-                  >check_circle</i
-                ></label
-              >
-              <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
+          <div class="col-12 col-md-6">
+        <div class="form-group text-primary">
+            <label
+              for="clientName"
+              [ngClass]="fval.clientName.valid ? 'text-info' : ''"
+              ><i *ngIf="fval.clientName.valid" class="material-icons"
+                >check_circle</i
+              >Client Name</label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-user-alt text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
                 </div>
-                <input
-                  type="text"
-                  formControlName="microloanCustomerGaurantor1"
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid':
-                      (fval.microloanCustomerGaurantor1.touched ||
-                        fval.microloanCustomerGaurantor1.dirty) &&
-                      fval.microloanCustomerGaurantor1.errors
-                  }"
-                  autocomplete="off"
-                  placeholder="First guarantor's Name"
-                />
               </div>
-              <div
-                class="text-danger col"
-                *ngIf="
-                  (fval.microloanCustomerGaurantor1.touched ||
-                    fval.microloanCustomerGaurantor1.dirty) &&
-                  fval.microloanCustomerGaurantor1.errors?.required
-                "
+              <select
+                formControlName="clientName"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (fval.clientName.touched || fval.clientName.dirty) &&
+                    fval.clientName.errors
+                }"
+                autocomplete="off"
+                placeholder="Select Client name"
               >
-                The guarantor 1 name is required!
-              </div>
+                <option>James Kibuuka</option>
+                <option>Charles Kibuuka</option>
+                <option>Allan Kibuuka</option>
+                <option>Gordon Kibuuka</option>
+              </select>
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.clientName.touched || fval.clientName.dirty) &&
+                fval.clientName.errors?.required
+              "
+            >
+              The client name is required!
             </div>
           </div>
-          <div class="col-12 col-md-6 col-lg-4">
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group text-primary">
+            <label
+              for="microloanCustomerGaurantor1"
+              [ngClass]="
+                fval.microloanCustomerGaurantor1.valid ? 'text-info' : ''
+              "
+              >Guarantor 1<i
+                *ngIf="fval.microloanCustomerGaurantor1.valid"
+                class="material-icons"
+                >check_circle</i
+              ></label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-user-alt text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
+              <input
+                type="text"
+                formControlName="microloanCustomerGaurantor1"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (fval.microloanCustomerGaurantor1.touched ||
+                      fval.microloanCustomerGaurantor1.dirty) &&
+                    fval.microloanCustomerGaurantor1.errors
+                }"
+                autocomplete="off"
+                placeholder="First guarantor's Name"
+              />
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.microloanCustomerGaurantor1.touched ||
+                  fval.microloanCustomerGaurantor1.dirty) &&
+                fval.microloanCustomerGaurantor1.errors?.required
+              "
+            >
+              The guarantor 1 name is required!
+            </div>
+          </div>
+        </div>
+    </div>
+          <div class="row">
+          <div class="col-12 col-md-6 col-lg-6">
             <div class="form-group text-primary">
               <label
                 for="microloanCustomerGaurantor2"
@@ -114,7 +163,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6 col-lg-4">
+          <div class="col-12 col-md-6 col-lg-6">
             <div class="form-group text-primary">
               <label
                 for="microloanCustomerGaurantor3"
@@ -463,10 +512,10 @@
         <div class="d-flex mt-2 mb-3 pt-0 pb-3 mx-auto">
           <button
             type="submit"
-            class="btn btn-info col-5 mx-auto"
+            class="btn btn-info col-5 col-md-4 mx-auto"
             [disabled]="!userForm.valid"
           >
-            Save
+            Back
           </button>
 
           <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
@@ -486,13 +535,45 @@
 
           <button
             type="button"
-            class="btn btn-info col-5 mx-auto"
+            class="btn btn-info col-5 col-md-4 mx-auto"
             (click)="resetStageNames()"
           >
-            Cancel
+            Next
           </button>
         </div>
       </form>
+    </div>
+    <div class="d-flex mt-0 mb-2 pt-0 pb-2 mx-auto">
+      <button
+        type="submit"
+        class="btn btn-info col-5 col-md-4 mx-auto"
+        [disabled]="!userForm.valid"
+      >
+        Save
+      </button>
+
+      <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+        <p class="text-light">Please wait...</p>
+      </ngx-spinner>
+
+      <label class="col" *ngIf="errored" class="text-danger">
+        <i class="material-icons">Cancel</i>
+
+        <ngx-alerts></ngx-alerts>
+      </label>
+
+      <label class="col" *ngIf="posted" class="text-info">
+        <i class="material-icons">check_circle</i>
+        <ngx-alerts></ngx-alerts>
+      </label>
+
+      <button
+        type="button"
+        class="btn btn-info col-5 col-md-4 mx-auto"
+        (click)="resetStageNames()"
+      >
+        Cancel
+      </button>
     </div>
   </div>
 </div>

@@ -52,23 +52,61 @@ export class LeftPanelAreaComponent implements OnInit {
 
     this.menuList = [
       {
-        name: this.userName,
-        icon: 'far fa-user-circle',
-        url: '/none',
-        image: this.imageurl
-      },
-      {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
         url: '/areamanagement/dashboard'
       },
       {
-        name: 'Towns',
-        icon: 'fas fa-cart-arrow-down',
-        url: '/areamanagement/towns'
+        name: 'Creation',
+        icon: 'fas fa-wrench',
+        url: '/areamanagement/create'
       },
       {
-        name: 'Settings',
+        name: 'Approvals',
+        icon: 'fas fa-cogs',
+        url: '/areamanagement/approvals',
+        subMenu: [
+          {
+            name: 'Loan Approvals',
+            icon: 'fas fa-credit-card',
+            url: '/areamanagement/approvals/loansapprovals'
+         },
+         {
+          name: 'Creation Approvals',
+          icon: 'fas fa-wrench',
+          url: '/areamanagement/approvals/createapprovals'
+        }
+          ]
+        },
+      {
+        name: 'Reports',
+        icon: 'fas fa-chart-line',
+        url: '/areamanagement/reports',
+        subMenu: [
+          {
+            name: 'Towns',
+            icon: 'fas fa-clipboard-list',
+            url: '/areamanagement/reports/townsreports'
+          },
+          {
+            name: 'Stations',
+            icon: 'fas fa-clipboard-list',
+            url: '/areamanagement/reports/stationsreports'
+          },
+          {
+            name: 'Clients',
+            icon: 'fas fa-clipboard-list',
+            url: '/areamanagement/reports/clientsreports'
+          },
+          {
+            name: 'Users',
+            icon: 'fas fa-user-cog',
+            url: '/areamanagement/reports/usersreports'
+          }
+        ]
+      },
+      {
+        name: 'Profile',
         icon: 'fas fa-user-cog',
         url: '/areamanagement/profile'
       }

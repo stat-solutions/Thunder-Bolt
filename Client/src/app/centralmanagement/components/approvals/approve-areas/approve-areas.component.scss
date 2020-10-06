@@ -5,8 +5,6 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  // margin-right: 0px !important;
-  // margin-left: 100px !important;
   contain: auto;
 }
 
@@ -71,7 +69,10 @@ h4 {
   font-size: 16px;
 }
 
-button.btn {
+.btn {
+  padding: .340rem .35rem;
+  font-size: .8rem;
+  line-height: 1.0;
   border-radius: 15px;
 }
 
@@ -297,7 +298,7 @@ a.text-info:hover {
     font-size: 20px !important;
   }
   .card-body {
-    min-height: 430px !important;
+    min-height: 410px !important;
     max-height: 500px !important;
     padding-top: 10px !important;
     margin-top: 8px !important;

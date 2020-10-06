@@ -86,13 +86,13 @@ import { TaxiLoanClientComponent } from './components/enroll/enroll-client/taxi-
     SharedModule,
     ReactiveFormsModule,
     NgxSpinnerModule,
-    TooltipModule.forRoot(),
-    ModalModule.forRoot(),
-    NgChartjsModule,
-    NgChartjsModule.registerPlugin(['inlinePlugin']),
     TabsModule.forRoot(),
     DatepickerModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    ModalModule.forRoot(),
+    TooltipModule.forRoot(),
+    NgChartjsModule,
+    NgChartjsModule.registerPlugin(['inlinePlugin'])
   ]
 })
 export class StationofficerModule { }

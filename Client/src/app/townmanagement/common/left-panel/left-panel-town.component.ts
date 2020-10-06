@@ -52,20 +52,75 @@ export class LeftPanelTownComponent implements OnInit {
 
     this.menuList = [
       {
-        name: this.userName,
-        icon: 'far fa-user-circle',
-        url: '/none',
-        image: this.imageurl
-      },
-      {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
         url: '/townmanagement/dashboard'
       },
       {
-        name: 'Settings',
+        name: 'Create Station',
+        icon: 'fas fa-fuel-pump',
+        url: '/townmanagement/createstation'
+      },
+      {
+        name: 'Enroll',
+        icon: 'fas fa-user',
+        url: '/townmanagement/enroll',
+        subMenu: [
+          {
+            name: 'Enroll Client',
+            icon: 'fas fa-user',
+            url: '/townmanagement/enroll/enrollclient'
+          },
+          {
+            name: 'Enroll Stage',
+            icon: 'fas fa-parking',
+            url: '/townmanagement/enroll/enrollstage'
+          },
+          {
+            name: 'Cluster & Taxi Park',
+            icon: 'fas fa-parking',
+            url: '/townmanagement/enroll/clustertaxipark'
+          }
+        ]
+      },
+      {
+        name: 'Reports',
+        icon: 'fas fa-chart-line',
+        url: '/townmanagement/reports',
+        subMenu: [
+          {
+            name: 'Cash Ledger',
+            icon: 'fas fa-clipboard-list',
+            url: '/townmanagement/reports/cashledger'
+          },
+          {
+            name: 'Loans Ledger',
+            icon: 'fas fa-clipboard-list',
+            url: '/townmanagement/reports/loansledger'
+          },
+          {
+            name: 'Payments Ledger',
+            icon: 'fas fa-clipboard-list',
+            url: '/townmanagement/reports/paidledger'
+          }
+                ]
+      },
+      {
+        name: 'Profile',
         icon: 'fas fa-user-cog',
-        url: '/townmanagement/profile'
+        url: '/townmanagement/profile',
+        subMenu: [
+          {
+            name: 'Personal Info',
+            icon: 'fas fa-user',
+            url: '/townmanagement/reports/personalinfo'
+          },
+          {
+            name: 'Loans Ledger',
+            icon: 'fas fa-lock',
+            url: '/townmanagement/reports/setpassword'
+          }
+                        ]
       }
     ];
   }
