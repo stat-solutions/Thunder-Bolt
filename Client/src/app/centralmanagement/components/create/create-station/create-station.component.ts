@@ -26,24 +26,24 @@ export class CreateStationComponent implements OnInit {
     private alertService: AlertService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
       itemCreate: new FormControl('', Validators.compose([Validators.required])),
     });
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  createItem() {
+  createItem(): any {
 
     this.spinner.show();
 

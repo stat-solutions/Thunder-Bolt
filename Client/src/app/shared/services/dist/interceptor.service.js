@@ -12,9 +12,9 @@ var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
 var InterceptorService = /** @class */ (function () {
-    function InterceptorService(authService, router) {
-        this.authService = authService;
+    function InterceptorService(router, authService) {
         this.router = router;
+        this.authService = authService;
         this.isRefreshing = false;
         this.refreshTokenSubject = new rxjs_1.BehaviorSubject(null);
     }

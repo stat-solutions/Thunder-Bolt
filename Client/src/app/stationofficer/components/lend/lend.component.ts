@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import * as jwt_decode from 'jwt-decode';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -29,9 +29,10 @@ export class LendComponent implements OnInit {
   station: string;
   theCompany: string;
   closingBal: string;
-  numberPlates: [];
+  numberPlates: Array<string>;
   phoneNumbers: [];
   loanDetails: any;
+  loanType: string;
   secretPin: number;
   loanLimit: number;
   amountDue: number;
@@ -49,13 +50,14 @@ export class LendComponent implements OnInit {
     private modalService: BsModalService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getTheNumberPlates();
     this.userForm = this.createFormGroup();
     this.checkedOk = false;
+    console.log(this.numberPlates);
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
       loanType: new FormControl(['',
         Validators.required]),
@@ -97,19 +99,22 @@ export class LendComponent implements OnInit {
       )
     });
   }
-
-  revert() {
+  checkLoanType(value: string): any{
+    // console.log(value);
+    this.loanType = value;
+  }
+  revert(): any {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
-  onKey(event: any) {
+  onKey(event: any): any {
     // without type info
     this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
 
@@ -122,12 +127,28 @@ export class LendComponent implements OnInit {
     this.userForm.controls.amount_to_borrow.setValue(this.values);
   }
 
-  public openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg modal-dialog-centered' }));
+  public openModal(template: TemplateRef<any>): any {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign(
+        {},
+      { class: 'modal-lg modal-dialog-centered' }));
 
   }
 
-  getTheNumberPlates() {
+  getTheNumberPlates(): any {
+    this.numberPlates = [
+      'UAB4566',
+      'UAB4555',
+      'UAB4564',
+      'UAB4345',
+      'UAB4999',
+      'UAB4577',
+      'UAB4334',
+      'UAB4098',
+      'UAB4453',
+      'UAB4123'
+    ];
     // this.pumpService.theNumberPlates(this.station).subscribe(
     //   data => {
     //     this.numberPlates = data;
@@ -143,7 +164,7 @@ export class LendComponent implements OnInit {
     // );
   }
 
-  checkLoanbility() {
+  checkLoanbility(): any {
     // this.pumpService
     //   .checkWhetherTheCLoanable(this.userForm.controls.number_plate.value)
     //   .subscribe(
@@ -170,7 +191,7 @@ export class LendComponent implements OnInit {
 
 
 
-  lend() {
+  lend(): any {
 
     this.userForm.patchValue({
       amount_to_borrow: parseInt( this.userForm.controls.amount_to_borrow.value.replace(/[\D\s\._\-]+/g, ''), 10 )
@@ -197,27 +218,7 @@ export class LendComponent implements OnInit {
         // console.log(this.userForm.value);
         this.posted = true;
         this.spinner.show();
-        // this.pumpService.createLoan(this.userForm).subscribe(
-        //   result => {
-        //     this.amountDue = result[0].amount_due;
-        //     this.txnId = result[0].txn_id;
-        //     this.spinner.hide();
-        //     this.openModal();
-        //     this.router.navigate(['dashboardpump/shiftmanagement']);
-        //     setTimeout(() => {
-        //       location.reload();
-        //     }, 3000);
-        //   },
 
-        //   (error: string) => {
-        //     this.spinner.hide();
-        //     this.errored = true;
-        //     this.serviceErrors = error;
-        //     this.alertService.danger({
-        //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-        //     });
-        //   }
-        // );
       }
     }
   }

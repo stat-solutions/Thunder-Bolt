@@ -6,8 +6,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 
 export interface AreaApprovals {
-  area: string
-  status: number
+  area: string;
+  status: number;
 }
 
 @Component({
@@ -23,12 +23,12 @@ export class ApproveAreasComponent implements OnInit {
   status: boolean;
   checkedOk: boolean;
   areaApproval: AreaApprovals[] = [
-    { area: "central", status: 0 },
-    { area: "Eastern", status: 0 },
-    { area: "Western", status: 0 },
-    { area: "Northern", status: 0 },
-    { area: "Nile region", status: 0 },
-    { area: "Albertine", status: 0 }
+    { area: 'central', status: 0 },
+    { area: 'Eastern', status: 0 },
+    { area: 'Western', status: 0 },
+    { area: 'Northern', status: 0 },
+    { area: 'Nile region', status: 0 },
+    { area: 'Albertine', status: 0 }
   ];
   constructor(
     private authService: AuthServiceService,
@@ -37,95 +37,95 @@ export class ApproveAreasComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
       approveAreas: this.fb.array([this.areaApprovals]),
       selectAll: this.fb.control({})
-    })
+    });
   }
-  get areaApprovals () {
+  get areaApprovals(): any {
     return this.fb.group({
       area: this.fb.control({value: ''}),
       approved: this.fb.control({})
-    })
+    });
   }
-  addItem () {
+  addItem(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.approveAreas as FormArray).push(this.areaApprovals)
+    (this.fval.approveAreas as FormArray).push(this.areaApprovals);
   }
 
-  removeItem (index: number) {
+  removeItem(index: number): any {
     (this.fval.approveAreas as FormArray).removeAt(index);
   }
-  initialiseForm () {
+  initialiseForm(): any {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
     //   units => {
     //     this.approvals = units;
-        this.areaApproval.forEach((item, i) => {
+    this.areaApproval.forEach((item, i) => {
           // console.log(item.name);
           // console.log(i);
-          this.fval.approveAreas['controls'][i]['controls'].area.setValue(item.area);
-          this.fval.approveAreas['controls'][i]['controls'].approved.setValue(false);
+          this.fval.approveAreas.controls[i].controls.area.setValue(item.area);
+          this.fval.approveAreas.controls[i].controls.approved.setValue(false);
           this.addItem();
-          n=i + 1;
-        })
-        this.removeItem(n);
+          n = i + 1;
+        });
+    this.removeItem(n);
       // }
     // )
   }
-  checkAllItems(val: boolean) {
-    if(val == true) {
+  checkAllItems(val: boolean): any {
+    if (val === true) {
       this.areaApproval.forEach((item, i) => {
-        this.fval.approveAreas['controls'][i]['controls'].approved.setValue(val);
-      })
+        this.fval.approveAreas.controls[i].controls.approved.setValue(val);
+      });
     } else {
       this.areaApproval.forEach((item, i) => {
-        this.fval.approveAreas['controls'][i]['controls'].approved.setValue(false);
-      })
+        this.fval.approveAreas.controls[i].controls.approved.setValue(false);
+      });
     }
   }
-  deselectAll(val: boolean){
+  deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-    if(this.fval.approveAreas["controls"][val]["controls"].approved.value == true) {
+    if (this.fval.approveAreas.controls[val].controls.approved.value === true) {
       this.fval.selectAll.setValue(false);
     }
   }
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  disableForm () {
-    return this.userForm.disable()
+  disableForm(): any {
+    return this.userForm.disable();
   }
 
-  approveItems () {
+  approveItems(): any {
     const itemsApproved = [];
     this.areaApproval.forEach((item, i) => {
-      if(
-        this.fval.approveAreas['controls'][i]['controls'].approved.value == true
+      if (
+        this.fval.approveAreas.controls[i].controls.approved.value === true
       ) {
         item.status = 2;
-        itemsApproved.push(item)
+        itemsApproved.push(item);
       }
-    })
+    });
 
     // console.log(itemsApproved)
-    if(itemsApproved.length > 0) {
+    if (itemsApproved.length > 0) {
       setTimeout(() => {
         this.router.navigate([
           'centralmanagement/dashboard'
@@ -133,21 +133,21 @@ export class ApproveAreasComponent implements OnInit {
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
-  rejectItems () {
+  rejectItems(): any {
     const itemsRejected = [];
     this.areaApproval.forEach((item, i) => {
-      if(
-        this.fval.approveAreas['controls'][i]['controls'].approved.value == true
+      if (
+        this.fval.approveAreas.controls[i].controls.approved.value === true
       ) {
         item.status = 1;
-        itemsRejected.push(item)
+        itemsRejected.push(item);
       }
-    })
+    });
     // console.log(itemsRejected.length)
-    if(itemsRejected.length > 0) {
+    if (itemsRejected.length > 0) {
       setTimeout(() => {
         this.router.navigate([
           'centralmanagement/dashboard'
@@ -155,7 +155,7 @@ export class ApproveAreasComponent implements OnInit {
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
 

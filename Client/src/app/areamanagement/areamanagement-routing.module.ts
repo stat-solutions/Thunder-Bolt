@@ -5,9 +5,6 @@ import { PagesCoreAreaComponent } from './pages-core/pages-core-area.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ClientsComponent } from './components/reports/clients/clients.component';
-import { ReportsComponent } from './components/reports/reports.component';
-import { UsersComponent } from './components/reports/users/users.component';
 import { CreateComponent } from './components/create/create.component';
 import { CreateTownsComponent } from './components/create/create-towns/create-towns.component';
 import { CreateStationsComponent } from './components/create/create-stations/create-stations.component';
@@ -21,13 +18,23 @@ import { ReduceRateComponent } from './components/approvals/loans-approvals/redu
 import { ReversePrincipleComponent } from './components/approvals/loans-approvals/reverse-principle/reverse-principle.component';
 import { WaiveInterestComponent } from './components/approvals/loans-approvals/waive-interest/waive-interest.component';
 import { WriteOffComponent } from './components/approvals/loans-approvals/write-off/write-off.component';
-import { CashLedgerComponent } from '../townmanagement/components/reports/cash-ledger/cash-ledger.component';
-import { LoansLedgerComponent } from '../townmanagement/components/reports/loans-ledger/loans-ledger.component';
-import { PaidLedgerComponent } from '../townmanagement/components/reports/paid-ledger/paid-ledger.component';
 import { CreateApprovalsComponent } from './components/approvals/create-approvals/create-approvals.component';
 import { LoansApprovalsComponent } from './components/approvals/loans-approvals/loans-approvals.component';
-import { PersonalProfileComponent } from '../townmanagement/components/profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from '../townmanagement/components/profile/set-password/set-password.component';
+import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
+import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
+import { StationsReportsComponent } from './components/reports/stations-reports/stations-reports.component';
+import { TownsReportsComponent } from './components/reports/towns-reports/towns-reports.component';
+import { ClientsComponent } from './components/reports/clients/clients.component';
+import { ReportsComponent } from './components/reports/reports.component';
+import { UsersComponent } from './components/reports/users/users.component';
+// import { UsersReportsComponent } from './components/reports/users-reports/users-reports.component';
+// import { ClientsReportsComponent } from './components/reports/clients-reports/clients-reports.component';
+import { TownsCashLedgerComponent } from './components/reports/towns-reports/towns-cash-ledger/towns-cash-ledger.component';
+import { TownsLoansLedgerComponent } from './components/reports/towns-reports/towns-loans-ledger/towns-loans-ledger.component';
+import { TownsPaidLedgerComponent } from './components/reports/towns-reports/towns-paid-ledger/towns-paid-ledger.component';
+import { StationsCashLedgerComponent } from './components/reports/stations-reports/stations-cash-ledger/stations-cash-ledger.component';
+import { StationsLoansLedgerComponent } from './components/reports/stations-reports/stations-loans-ledger/stations-loans-ledger.component';
+import { StationsPaidLedgerComponent } from './components/reports/stations-reports/stations-paid-ledger/stations-paid-ledger.component';
 
 const routes: Routes = [{
     path: '',
@@ -117,37 +124,37 @@ const routes: Routes = [{
     children: [
       {
         path: 'stationsreports',
-        component: StationsComponent,
+        component: StationsReportsComponent,
         children: [
           {
-            path: 'cashledger',
-            component: CashLedgerComponent
+            path: 'stationscashledger',
+            component: StationsCashLedgerComponent
           },
           {
-            path: 'loansledger',
-            component: LoansLedgerComponent
+            path: 'stationsledger',
+            component: StationsLoansLedgerComponent
           },
           {
-            path: 'paymentsledger',
-            component: PaidLedgerComponent
+            path: 'stationspaymentsledger',
+            component: StationsPaidLedgerComponent
           }
         ]
       },
       {
         path: 'townsreports',
-        component: TownsComponent,
+        component: TownsReportsComponent,
         children: [
           {
-            path: 'cashledger',
-            component: CashLedgerComponent
+            path: 'townscashledger',
+            component: TownsCashLedgerComponent
           },
           {
-            path: 'loansledger',
-            component: LoansLedgerComponent
+            path: 'townsloansledger',
+            component: TownsLoansLedgerComponent
           },
           {
-            path: 'paymentsledger',
-            component: PaidLedgerComponent
+            path: 'townspaymentsledger',
+            component: TownsPaidLedgerComponent
           }
         ]
           },

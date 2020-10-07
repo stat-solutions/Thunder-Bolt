@@ -27,10 +27,8 @@ export class AuthServiceService {
 
     constructor(private http: HttpClient, private router: Router) { }
 
-    loginNormalUser(postData: FormGroup): Observable<boolean> {
-
+    loginNormalUser(postData: FormGroup): any {
       return this.http.post<any>(`${this.API_URL}/api/auth/login`, postData.value, this.httpOptions)
-
         .pipe(
           // tap(tokens => console.log(`${tokens}`)),
           tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
@@ -41,8 +39,8 @@ export class AuthServiceService {
     }
 
 
-    testingTheTablePost(postData: FormGroup): Observable<string> {
-      return this.http.post<string>(`${this.API_URL}/api/auth/testTableData`, postData.value, this.httpOptions)
+    testingTheTablePost(postData: FormGroup): any {
+      return this.http.post<any>(`${this.API_URL}/api/auth/testTableData`, postData.value, this.httpOptions)
         .pipe(
           // tap(tokens => console.log(`${tokens}`)),
           // tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
@@ -51,10 +49,10 @@ export class AuthServiceService {
         );
     }
 
-    isAgentRegistered(id: string): Observable<boolean> {
+    isAgentRegistered(id: string): any {
           //  return of(true);
       const options1 = { params: new HttpParams().set('id', id) };
-      return this.http.get<boolean>(`${this.API_URL}/api/auth/isAgentRegistered`, options1)
+      return this.http.get<any>(`${this.API_URL}/api/auth/isAgentRegistered`, options1)
         .pipe(
           catchError(this.OtherErrors)
         );
@@ -74,51 +72,50 @@ export class AuthServiceService {
     // }
 
     registerUser(postData: FormGroup): any {
-      return this.http.post<string>(`${this.API_URL}/api/auth/register`, postData.value, this.httpOptions)
+      return this.http.post<any>(`${this.API_URL}/api/auth/register`, postData.value, this.httpOptions)
         .pipe(
           map((res: string) => res),
           tap(res => console.log(`AFTER MAP: ${res}`)),
           catchError(this.handleRegisterError)
         );
     }
-    changePIN(postData: FormGroup): Observable<boolean>  {
+    changePIN(postData: FormGroup): any {
       return this.http.post<any>(`${this.API_URL}/api/auth/login`, postData.value, this.httpOptions)
         .pipe(
           // tap(tokens => console.log(`${tokens}`)),
           tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
           mapTo(true),
           catchError(this.handleLoginError)
-
         );
     }
     // tslint:disable-next-line: typedef
-    doLoginUser(phoneNubmer: string, tokens: Tokens) {
+    doLoginUser(phoneNubmer: string, tokens: Tokens): any {
       this.loggedInUser = phoneNubmer;
       this.storeTokens(tokens);
     }
 
-    doLogoutUser() {
+    doLogoutUser(): any {
       this.loggedInUser = null;
       this.removeTokens();
     }
 
-    private removeTokens() {
+    private removeTokens(): any {
       console.log('In it');
       localStorage.removeItem(this.JWT_TOKEN);
       localStorage.removeItem(this.REFRESH_TOKEN);
     }
 
-    isLoggedIn() {
+    isLoggedIn(): any {
       // return !!this.getJwtToken();
       return true;
 
     }
 
-    getJwtToken() {
+    getJwtToken(): any {
       return localStorage.getItem(this.JWT_TOKEN);
     }
 
-    refreshToken() {
+    refreshToken(): any {
       console.log('am refreshing');
       return this.http.post<any>(`${this.API_URL}/api/auth/refresh`, {
         refreshToken: this.getRefreshToken()
@@ -127,20 +124,20 @@ export class AuthServiceService {
       }));
     }
 
-    storeJwtToken(jwt: string) {
+    storeJwtToken(jwt: string): any {
       localStorage.setItem(this.JWT_TOKEN, jwt);
     }
 
-    getRefreshToken() {
+    getRefreshToken(): any {
       return localStorage.getItem(this.REFRESH_TOKEN);
     }
 
-    private storeTokens(tokens: Tokens) {
+    private storeTokens(tokens: Tokens): any {
       localStorage.setItem(this.JWT_TOKEN, tokens.jwt);
       localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
     }
 
-    private handleLoginError(errorResponse: HttpErrorResponse) {
+    private handleLoginError(errorResponse: HttpErrorResponse): any {
 
       if (errorResponse.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.
@@ -160,7 +157,7 @@ export class AuthServiceService {
     }
 
 
-    private handleRegisterError(errorResponse: HttpErrorResponse) {
+    private handleRegisterError(errorResponse: HttpErrorResponse): any {
 
       if (errorResponse.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.
@@ -179,7 +176,7 @@ export class AuthServiceService {
   !!`);
     }
 
-    private OtherErrors(errorResponse: HttpErrorResponse) {
+    private OtherErrors(errorResponse: HttpErrorResponse): any {
 
       if (errorResponse.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.

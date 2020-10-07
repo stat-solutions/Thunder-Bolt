@@ -8,8 +8,8 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
 import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledger.component';
 import { BorrowedLedgerComponent } from './components/reports/borrowed-ledger/borrowed-ledger.component';
-import { PersonalProfileComponent } from '../townmanagement/components/profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from '../townmanagement/components/profile/set-password/set-password.component';
+import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
+import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 
 const routes: Routes = [
   { path: '',
