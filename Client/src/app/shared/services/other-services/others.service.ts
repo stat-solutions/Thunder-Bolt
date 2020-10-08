@@ -16,6 +16,7 @@ import { StationApprovals } from 'src/app/centralmanagement/components/approvals
 import { AreaInfo } from '../../models/area-ifo';
 import { TownInfo } from '../../models/town-info';
 import { StationInfo } from '../../models/station-info';
+import { Client } from '../../models/client';
 
 
 @Injectable({
@@ -32,94 +33,112 @@ export class OthersService {
     private http: HttpClient, private router: Router) { }
 //  create company section
     createCompany(postData: FormGroup): Observable<any>{
-      return this.http.post<any>(`${this.API_URL}/api/admin/companysetup`, postData.value, this.httpOptions)
+      return this.http.post<any>(`${this.API_URL}/api/business/companysetup`, postData.value, this.httpOptions)
         .pipe(
           tap(res => console.log(`AFTER MAP: ${res}`)),
           catchError(this.handleCompanySetupError)
         );
     }
-
-
     getCompanyInfo(): Observable<CompanyInfo[]> {
-      return this.http.get<CompanyInfo[]>(`${this.API_URL}/api/admin/companyDetails`)
+      return this.http.get<CompanyInfo[]>(`${this.API_URL}/api/business/companyDetails`)
           .pipe(
           catchError(this.OtherErrors)
         ) as Observable<CompanyInfo[]>;
   }
 // users and set user profile
   getUsers(): Observable<UserInfo> {
-    return this.http.get<UserInfo>(`${this.API_URL}/api/users`);
+    return this.http.get<UserInfo>(`${this.API_URL}/api/business/users`);
   }
   getUserProfile(userId: number): Observable<UserInfo> {
-    return this.http.get<UserInfo>(`${this.API_URL}/api/users/${userId}`);
+    return this.http.get<UserInfo>(`${this.API_URL}/api/business/users/${userId}`);
   }
   setUserProfile(postData: FormGroup, userId: number ): any {
-    return this.http.put(`${this.API_URL}/api/users/${userId}`, postData.value, this.httpOptions);
+    return this.http.put(`${this.API_URL}/api/business/users/${userId}`, postData.value, this.httpOptions);
+  }
+  setNewPassword(postData: string, userId: number ): any{
+    return this.http.put(`${this.API_URL}/api/business/users/${userId}`, postData, this.httpOptions);
+  }
+  // top results
+  getTopUsers(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/business/topusers`);
+  }
+  getTopClients(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/bussiness/topclients`);
+  }
+  getTopStations(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/business/topstations`);
   }
 
 // approvals and business unit
-    getApprovalDetails(): Observable<Approvals[]> {
-      // const option = { params: new HttpParams().set("id", "approval details")};
-      return this.http.get<Approvals[]>(`${this.API_URL}/api/admin/approvals`);
+    getApprovalLevels(): Observable<Approvals[]> {
+      return this.http.get<Approvals[]>(`${this.API_URL}/api/business/approvalslevels`);
     }
-    setApprovals(postData: FormGroup): any {
-      return this.http.post(`${this.API_URL}/api/admin/setapprovallevel`, postData.value, this.httpOptions);
+    setApprovalLevel(postData: FormGroup): any {
+      return this.http.post(`${this.API_URL}/api/business/setapprovallevel`, postData.value, this.httpOptions);
     }
 
     getBussinessUnits(): Observable<BussinessUnits[]> {
-      return this.http.get<BussinessUnits[]>(`${this.API_URL}/api/admin/bussinessunits`);
+      return this.http.get<BussinessUnits[]>(`${this.API_URL}/api/business/bussinessunits`);
     }
     setBussinessUnits(postData: string): any {
-      return this.http.post(`${this.API_URL}/api/admin/setbusinessunit`, postData, this.httpOptions);
-    }
-//  creating area town and station
-    createArea(postData: string): any {
-      return this.http.post(`${this.API_URL}/api/central/createarea`, postData, this.httpOptions);
-    }
-    createTown(postData: string): any {
-      return this.http.post(`${this.API_URL}/api/central/createtown`, postData, this.httpOptions);
-    }
-    createStaion(postData: string): any {
-      return this.http.post(`${this.API_URL}/api/central/createstation`, postData, this.httpOptions);
+      return this.http.post(`${this.API_URL}/api/business/setbusinessunit`, postData, this.httpOptions);
     }
 
+//  creating area town and station
+    createArea(postData: string): any {
+      return this.http.post(`${this.API_URL}/api/business/createarea`, postData, this.httpOptions);
+    }
+    createTown(postData: string): any {
+      return this.http.post(`${this.API_URL}/api/business/createtown`, postData, this.httpOptions);
+    }
+    createStaion(postData: string): any {
+      return this.http.post(`${this.API_URL}/api/business/createstation`, postData, this.httpOptions);
+    }
+// client section
+    enrollClient(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/business/enrollclient`, postData, this.httpOptions);
+    }
+
+    getClients(): Observable<Client> {
+      return this.http.get<Client>(`${this.API_URL}/api/business/clients`);
+    }
 // get areas towns and stations
      getAreas(): Observable<AreaInfo[]> {
-      return this.http.get<AreaInfo[]>(`${this.API_URL}/api/areas`);
+      return this.http.get<AreaInfo[]>(`${this.API_URL}/api/business/areas`);
     }
     getTowns(): Observable<TownInfo[]> {
-      return this.http.get<TownInfo[]>(`${this.API_URL}/api/towns`);
+      return this.http.get<TownInfo[]>(`${this.API_URL}/api/business/towns`);
     }
     getStations(): Observable<StationInfo[]> {
-      return this.http.get<StationInfo[]>(`${this.API_URL}/api/stations`);
+      return this.http.get<StationInfo[]>(`${this.API_URL}/api/business/stations`);
     }
-// approve items
+
     getAreasToApprove(): Observable<AreaApprovals[]> {
-      return this.http.get<AreaApprovals[]>(`${this.API_URL}/api/approvalareas`);
+      return this.http.get<AreaApprovals[]>(`${this.API_URL}/api/business/approvalareas`);
     }
     getTownsToApprove(): Observable<TownApprovals[]> {
-      return this.http.get<TownApprovals[]>(`${this.API_URL}/api/approvaltowns`);
+      return this.http.get<TownApprovals[]>(`${this.API_URL}/api/business/approvaltowns`);
     }
     getStationsToApprove(): Observable<StationApprovals[]> {
-      return this.http.get<StationApprovals[]>(`${this.API_URL}/api/approvalstations`);
+      return this.http.get<StationApprovals[]>(`${this.API_URL}/api/business/approvalstations`);
     }
     approvedAreas(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/central/approvedareas`, postData, this.httpOptions);
+      return this.http.post(`${this.API_URL}/api/business/approvedareas`, postData, this.httpOptions);
     }
     approvedTowns(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/central/approvedtowns`, postData, this.httpOptions);
+      return this.http.post(`${this.API_URL}/api/business/approvedtowns`, postData, this.httpOptions);
     }
     approvedStations(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/central/approvedstations`, postData, this.httpOptions);
+      return this.http.post(`${this.API_URL}/api/business/approvedstations`, postData, this.httpOptions);
     }
     rejectedApprovalsArea(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/central/rejectedareas`, postData, this.httpOptions);
+      return this.http.post(`${this.API_URL}/api/business/rejectedareas`, postData, this.httpOptions);
     }
     rejectedApprovalsTown(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/central/rejectedtowns`, postData, this.httpOptions);
+      return this.http.post(`${this.API_URL}/api/business/rejectedtowns`, postData, this.httpOptions);
     }
     rejectedApprovalsStation(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/central/rejectedstations`, postData, this.httpOptions);
+      return this.http.post(`${this.API_URL}/api/business/rejectedstations`, postData, this.httpOptions);
     }
 
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
@@ -156,4 +175,3 @@ export class OthersService {
       return throwError('The backend was not able to handle this request. Please contact system admin 0781331616.');
     }
 }
-

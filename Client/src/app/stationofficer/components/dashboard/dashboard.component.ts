@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-import { TabsetComponent } from 'ngx-bootstrap/tabs';
+import { MessagingService } from 'src/app/shared/services/other-services/messaging.service';
 
 export interface StationTotals {
   float: number;
@@ -44,10 +44,15 @@ export class DashboardComponent implements OnInit {
       ammountRecovered: 6000000
     }
   ];
-  constructor() { }
+  title = 'push-notification';
+  message: any;
+  constructor(private messagingService: MessagingService) { }
 
   ngOnInit(): void {
-// inline plugin
+  // inline plugin
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
+    this.message = this.messagingService.currentMessage;
   }
 }
 

@@ -357,6 +357,7 @@
             <select
             formControlName="central"
             class="form-control"
+            *ngIf="(positionValue == 'Central User')"
             [ngClass]="{
               'is-invalid':
                 (fval.central.touched || fval.central.dirty) &&
@@ -365,7 +366,8 @@
             autocomplete="off"
             placeholder="Select the role at central"
           >
-            <option></option>
+            <option>Top User</option>
+            <option>Other</option>
           </select>
       </div>
         <!--the div for area-->
@@ -528,4 +530,3 @@
     <!--/ footer -->
   </div>
 </div>
-

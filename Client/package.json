@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --open",
-    "build": "ng build",
+    "config": "ts-node ./scripts/setenv.ts",
+    "start": "npm run config -- --environment=dev && ng serve --open --port 4800",
+    "build": "npm run config -- --environment=dev && ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -15,6 +16,7 @@
     "@angular/common": "~10.1.0",
     "@angular/compiler": "~10.1.0",
     "@angular/core": "~10.1.0",
+    "@angular/fire": "^6.0.3",
     "@angular/forms": "~10.1.0",
     "@angular/material": "^10.2.0",
     "@angular/platform-browser": "~10.1.0",
@@ -48,6 +50,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.12.58",
     "codelyzer": "^6.0.0",
+    "firebase": "^7.23.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",

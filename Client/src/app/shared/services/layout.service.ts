@@ -94,43 +94,43 @@ export class LayoutService {
 
   constructor() {
   }
-  getToggleStatus() {
+  getToggleStatus(): any {
     this.toggleStatus = !this.toggleStatus;
     this.tStatus.next(this.toggleStatus);
   }
-  getDefaultNavbar(defaultNavbar: string) {
+  getDefaultNavbar(defaultNavbar: string): any {
     this.dfNavbar.next(defaultNavbar);
   }
-  getToggleNavbar(toggleNavbar: string) {
+  getToggleNavbar(toggleNavbar: string): any {
     this.tNavbar.next(toggleNavbar);
   }
-  getNavBarEffect(navbarEffect: string) {
+  getNavBarEffect(navbarEffect: string): any {
     this.nvEffect.next(navbarEffect);
   }
-  getDeviceType(dt: string) {
+  getDeviceType(dt: string): any {
     this.appDeviceType.next(dt);
   }
-  getThemeLayout(tl: string) {
+  getThemeLayout(tl: string): any {
     this.SetThemeLayout.next(tl);
   }
-  getCollapsedLeftHeader(clh: boolean) {
+  getCollapsedLeftHeader(clh: boolean): any {
     this.setCollapsedLeftHeader.next(clh);
   }
-  getNavLayout(nl: string) {
+  getNavLayout(nl: string): any {
     this.setNavLayout.next(nl);
   }
-  getLeftHeaderThemeOnChange(themeName: string) {
+  getLeftHeaderThemeOnChange(themeName: string): any {
     this.setLeftHeaderTheme.next(themeName);
   }
-  getHeaderThemeOnChange(themeName: string) {
+  getHeaderThemeOnChange(themeName: string): any {
     this.setHeaderTheme.next(themeName);
   }
-  getAsidebarThemeOnChange(themeName: string) {
+  getAsidebarThemeOnChange(themeName: string): any {
     this.setNavbarTheme.next(themeName);
   }
 
 // This function called from page Core component load and resize
-  checkWindowWidth(windowWidth: number) {
+  checkWindowWidth(windowWidth: number): any {
     if (this.navLayout === 'vertical') {
       if (windowWidth >= 768 && windowWidth <= 1024) {
         this.defaultNavbar = this.defaultVerticalMenu[1];
@@ -164,8 +164,7 @@ export class LayoutService {
     this.getDeviceType(this.deviceType);
   }
 
-  getVerticalNavbarOnWindowResize(windowWidth: number) {
+  getVerticalNavbarOnWindowResize(windowWidth: number): any {
     this.checkWindowWidth(windowWidth);
   }
-
 }

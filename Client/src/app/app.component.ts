@@ -15,8 +15,8 @@ export class AppComponent {
 
   title = 'thunder-bolt-app';
 
-  updateME(){
+  updateME(): any{
 
-    this.title="Code 11 class";
+    this.title='Code 11 class';
   }
 }

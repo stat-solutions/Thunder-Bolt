@@ -17,6 +17,13 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { InterceptorService } from './shared/services/interceptor.service';
 import { SharedModule } from './shared/shared.module';
 import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AsyncPipe } from '@angular/common';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -35,6 +42,10 @@ import { JwtModule } from '@auth0/angular-jwt';
     TownmanagementModule,
     ReactiveFormsModule,
     TooltipModule.forRoot(),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     JwtModule.forRoot({
       config: {
       //   tokenGetter: () => {
@@ -51,7 +62,8 @@ import { JwtModule } from '@auth0/angular-jwt';
       useClass: InterceptorService,
       multi: true,
     },
-    SharedModule
+    SharedModule,
+    AsyncPipe
   ],
   bootstrap: [AppComponent],
 })

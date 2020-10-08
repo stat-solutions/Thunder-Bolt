@@ -80,7 +80,17 @@ export class LeftPanelTownComponent implements OnInit {
             name: 'Cluster & Taxi Park',
             icon: 'fas fa-parking',
             url: '/townmanagement/enroll/clustertaxipark'
-          }
+          },
+          {
+            name: 'Edit Client',
+            icon: 'fas fa-user',
+            url: '/townmanagement/enroll/editclient'
+          },
+          {
+            name: 'Edit Stage',
+            icon: 'fas fa-parking',
+            url: '/townmanagement/enroll/editstage'
+          },
         ]
       },
       {
@@ -113,12 +123,12 @@ export class LeftPanelTownComponent implements OnInit {
           {
             name: 'Personal Info',
             icon: 'fas fa-user',
-            url: '/townmanagement/reports/personalinfo'
+            url: '/townmanagement/profile/personalprofile'
           },
           {
-            name: 'Loans Ledger',
+            name: 'Set PIN',
             icon: 'fas fa-lock',
-            url: '/townmanagement/reports/setpassword'
+            url: '/townmanagement/profile/setpassword'
           }
                         ]
       }

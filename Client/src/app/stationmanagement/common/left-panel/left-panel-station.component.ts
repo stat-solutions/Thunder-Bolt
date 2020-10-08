@@ -81,7 +81,19 @@ export class LeftPanelStationComponent implements OnInit {
       {
         name: 'Profile',
         icon: 'fas fa-user-cog',
-        url: '/stationmanagement/profile'
+        url: '/stationmanagement/profile',
+        subMenu: [
+          {
+            name: 'Personal Info',
+            icon: 'fas fa-user',
+            url: '/stationmanagement/profile/personalprofile'
+          },
+          {
+            name: 'Set PIN',
+            icon: 'fas fa-lock',
+            url: '/stationmanagement/profile/setpassword'
+          }
+                        ]
       }
     ];
   }
