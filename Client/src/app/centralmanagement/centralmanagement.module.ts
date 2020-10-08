@@ -47,6 +47,8 @@ import { ModalModule } from "ngx-bootstrap/modal";
 import { NgChartjsModule } from 'ng-chartjs';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
+import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +90,8 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     WriteOffComponent,
     LoanLimitComponent,
     FloatApprovalComponent,
+    PersonalProfileComponent,
+    SetPasswordComponent,
   ],
   imports: [
     CommonModule,

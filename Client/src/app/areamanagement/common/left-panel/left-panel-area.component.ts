@@ -108,7 +108,19 @@ export class LeftPanelAreaComponent implements OnInit {
       {
         name: 'Profile',
         icon: 'fas fa-user-cog',
-        url: '/areamanagement/profile'
+        url: '/areamanagement/profile',
+        subMenu: [
+          {
+            name: 'Personal Info',
+            icon: 'fas fa-user',
+            url: '/areamanagement/profile/personalprofile'
+          },
+          {
+            name: 'Set PIN',
+            icon: 'fas fa-lock',
+            url: '/areamanagement/profile/setpassword'
+          }
+                        ]
       }
     ];
   }

@@ -36,6 +36,8 @@ import { ClientsComponent } from './components/reports/clients/clients.component
 import { UsersComponent } from './components/reports/users/users.component';
 import { CreateApprovalsComponent } from './components/approvals/create-approvals/create-approvals.component';
 import { LoansApprovalsComponent } from './components/approvals/loans-approvals/loans-approvals.component';
+import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
+import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { LoansApprovalsComponent } from './components/approvals/loans-approvals/
     ClientsComponent,
     UsersComponent,
     CreateApprovalsComponent,
-    LoansApprovalsComponent
+    LoansApprovalsComponent,
+    SetPasswordComponent,
+    PersonalProfileComponent
   ],
   imports: [
     CommonModule,

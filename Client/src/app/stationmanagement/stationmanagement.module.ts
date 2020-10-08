@@ -22,6 +22,8 @@ import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledge
 import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledger.component';
 import { BorrowedLedgerComponent } from './components/reports/borrowed-ledger/borrowed-ledger.component';
 import { NgChartjsModule } from 'ng-chartjs';
+import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
+import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { NgChartjsModule } from 'ng-chartjs';
     CashLedgerComponent,
     PaidLedgerComponent,
     BorrowedLedgerComponent,
+    PersonalProfileComponent,
+    SetPasswordComponent,
   ],
   imports: [
     CommonModule,

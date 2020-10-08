@@ -42,6 +42,8 @@ import { PersonalInfoComponent } from './components/enroll/enroll-client/persona
 import { MicroLoanClientComponent } from './components/enroll/enroll-client/micro-loan-client/micro-loan-client.component';
 import { BodaLoanClientComponent } from './components/enroll/enroll-client/boda-loan-client/boda-loan-client.component';
 import { TaxiLoanClientComponent } from './components/enroll/enroll-client/taxi-loan-client/taxi-loan-client.component';
+import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
+import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 
 
 @NgModule({
@@ -78,6 +80,8 @@ import { TaxiLoanClientComponent } from './components/enroll/enroll-client/taxi-
     MicroLoanClientComponent,
     BodaLoanClientComponent,
     TaxiLoanClientComponent,
+    PersonalProfileComponent,
+    SetPasswordComponent,
   ],
 
   imports: [

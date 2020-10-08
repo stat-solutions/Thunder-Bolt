@@ -157,7 +157,19 @@ export class LeftPanelOfficerComponent implements OnInit {
       {
         name: 'Profile',
         icon: 'fas fa-user-cog',
-        url: '/stationofficer/profile'
+        url: '/stationofficer/profile',
+        subMenu: [
+          {
+            name: 'Personal Info',
+            icon: 'fas fa-user',
+            url: '/stationofficer/profile/personalprofile'
+          },
+          {
+            name: 'Set PIN',
+            icon: 'fas fa-lock',
+            url: '/stationofficer/profile/setpassword'
+          }
+                        ]
       }
     ];
   }
