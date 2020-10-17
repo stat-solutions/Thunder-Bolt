@@ -1,8 +1,8 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-md-0 pt-0 pb-0 shadow-lg col-xs-12 col-lg-8"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-1 pb-0 shadow-lg col-xs-12 col-lg-10"
 >
-  <div class="jumbotron-fluid">
-    <div class="container mt-2 mb-2 mx-0 shadow-lg">
+  <div class="jumbotron-fluid mb-0 pb-0">
+    <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
           <h2
@@ -13,7 +13,7 @@
         </div>
       </div>
     </div>
-    <div class="card-body mt-0 pt-2 mb-0 pb-2 shadow-lg">
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-0 pb-md-1 shadow-lg">
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-12 col-md-6">
@@ -421,7 +421,7 @@
         <div class="mt-2 mb-3 pt-0 pb-3 mx-auto">
           <button
             type="submit"
-            class="btn btn-info col-5 col-md-4 pull-left"
+            class="btn btn-info col-5 col-md-3 pull-left"
             [disabled]="!userForm.valid"
           >
             Back
@@ -444,10 +444,10 @@
         </div>
       </form>
     </div>
-    <div class="d-flex mt-0 mb-2 pt-0 pb-2 mx-auto">
+        <div class="d-flex mt-2 mt-md-3 mb-3 mb-xl-1 pt-0 pb-3 pb-xl-1 mx-auto">
       <button
         type="submit"
-        class="btn btn-info col-5 col-md-4 mx-auto"
+        class="btn btn-info col-5 col-md-3 mx-auto"
         [disabled]="!userForm.valid"
       >
         Save
@@ -470,7 +470,7 @@
 
       <button
         type="button"
-        class="btn btn-info col-5 col-md-4 mx-auto"
+        class="btn btn-info col-5 col-md-3 mx-auto"
         (click)="resetStageNames()"
       >
         Cancel

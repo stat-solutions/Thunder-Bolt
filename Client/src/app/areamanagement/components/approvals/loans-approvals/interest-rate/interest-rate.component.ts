@@ -18,16 +18,35 @@ export interface IntRateApprovals {
 @Component({
   selector: 'app-interest-rate',
   templateUrl: './interest-rate.component.html',
-  styleUrls: ['./interest-rate.component.scss']
+  styleUrls: ['./interest-rate.component.scss'],
 })
 export class InterestRateComponent implements OnInit {
   userForm: FormGroup;
   ratesApprovals: IntRateApprovals[] = [
-    {station: "nsambya", client: "Kasule Joseph", rate: 5, status: 0},
-    {station: "kyengera", client: "mukasa rony", rate: 8, status: 0},
-    {station: "ndeeba", client: "kasozi med", rate: 3, status: 0},
-    {station: "kibuye", client: "Kasule Joseph", rate: 4, status: 0},
-    {station: "bwayise", client: "Kasule Jose", rate: 2, status: 0},
+    { station: 'nsambya', client: 'Kasule Joseph', rate: 5, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', rate: 2, status: 0 },
   ];
   posted = false;
   actionButton: string;
@@ -52,58 +71,72 @@ export class InterestRateComponent implements OnInit {
   createFormGroup() {
     return this.fb.group({
       approveRates: this.fb.array([this.rateApproval]),
-      selectAll: this.fb.control({})
-    })
+      selectAll: this.fb.control({}),
+    });
   }
-  get rateApproval () {
+  get rateApproval() {
     return this.fb.group({
-      station: this.fb.control({value: ''}),
-      client: this.fb.control({value: ''}),
-      rate: this.fb.control({value: ''}),
-      approved: this.fb.control({})
-    })
+      station: this.fb.control({ value: '' }),
+      client: this.fb.control({ value: '' }),
+      rate: this.fb.control({ value: '' }),
+      approved: this.fb.control({}),
+    });
   }
-  addItem () {
+  addItem() {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.approveRates as FormArray).push(this.rateApproval)
+    (this.fval.approveRates as FormArray).push(this.rateApproval);
   }
 
-  removeItem (index: number) {
+  removeItem(index: number) {
     (this.fval.approveRates as FormArray).removeAt(index);
   }
-  initialiseForm () {
+  initialiseForm() {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
     //   units => {
     //     this.approvals = units;
-        this.ratesApprovals.forEach((item, i) => {
-          // console.log(item.name);
-          // console.log(i);
-          this.fval.approveRates['controls'][i]['controls'].station.setValue(item.station);
-          this.fval.approveRates['controls'][i]['controls'].client.setValue(item.client);
-          this.fval.approveRates['controls'][i]['controls'].rate.setValue(item.rate);
-          this.fval.approveRates['controls'][i]['controls'].approved.setValue(false);
-          this.addItem();
-          n=i + 1;
-        })
-        this.removeItem(n);
-      // }
+    this.ratesApprovals.forEach((item, i) => {
+      // console.log(item.name);
+      // console.log(i);
+      this.fval.approveRates['controls'][i]['controls'].station.setValue(
+        item.station
+      );
+      this.fval.approveRates['controls'][i]['controls'].client.setValue(
+        item.client
+      );
+      this.fval.approveRates['controls'][i]['controls'].rate.setValue(
+        item.rate
+      );
+      this.fval.approveRates['controls'][i]['controls'].approved.setValue(
+        false
+      );
+      this.addItem();
+      n = i + 1;
+    });
+    this.removeItem(n);
+    // }
     // )
   }
   checkAllItems(val: boolean) {
-    if(val == true) {
+    if (val == true) {
       this.ratesApprovals.forEach((item, i) => {
-        this.fval.approveRates['controls'][i]['controls'].approved.setValue(val);
-      })
+        this.fval.approveRates['controls'][i]['controls'].approved.setValue(
+          val
+        );
+      });
     } else {
       this.ratesApprovals.forEach((item, i) => {
-        this.fval.approveRates['controls'][i]['controls'].approved.setValue(false);
-      })
+        this.fval.approveRates['controls'][i]['controls'].approved.setValue(
+          false
+        );
+      });
     }
   }
-  deselectAll(val: boolean){
+  deselectAll(val: boolean) {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-    if(this.fval.approveRates["controls"][val]["controls"].approved.value == true) {
+    if (
+      this.fval.approveRates['controls'][val]['controls'].approved.value == true
+    ) {
       this.fval.selectAll.setValue(false);
     }
   }
@@ -119,57 +152,53 @@ export class InterestRateComponent implements OnInit {
     return this.userForm.controls;
   }
 
-  disableForm () {
-    return this.userForm.disable()
+  disableForm() {
+    return this.userForm.disable();
   }
 
   enableEdit() {
-    return this.userForm.enable()
+    return this.userForm.enable();
   }
 
-  approveItems () {
+  approveItems() {
     const itemsApproved = [];
     this.ratesApprovals.forEach((item, i) => {
-      if(
+      if (
         this.fval.approveRates['controls'][i]['controls'].approved.value == true
       ) {
         item.status = 2;
-        itemsApproved.push(item)
+        itemsApproved.push(item);
       }
-    })
+    });
 
-    console.log(itemsApproved.length)
-    if(itemsApproved.length > 0) {
+    console.log(itemsApproved.length);
+    if (itemsApproved.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
-  rejectItems () {
+  rejectItems() {
     const itemsRejected = [];
     this.ratesApprovals.forEach((item, i) => {
-      if(
+      if (
         this.fval.approveRates['controls'][i]['controls'].approved.value == true
       ) {
         item.status = 1;
-        itemsRejected.push(item)
+        itemsRejected.push(item);
       }
-    })
-    console.log(itemsRejected.length)
-    if(itemsRejected.length > 0) {
+    });
+    console.log(itemsRejected.length);
+    if (itemsRejected.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
 }

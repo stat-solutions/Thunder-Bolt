@@ -22,11 +22,11 @@
   position: absolute;
   left: 0px;
   top: 0px;
-  height: 50px;
+  height: 58px;
   bottom: 0px;
   line-height: 49px;
   z-index: 1025;
-  padding-left: 15px;
+  padding-left: 10px;
   border-bottom: 1px solid;
 
   .flux-brand-logo {
@@ -43,7 +43,7 @@
   }
 
   .flux-brand-text {
-    font-size: 16px;
+    font-size: 20px;
     text-transform: capitalize;
     font-weight: 700;
     position: absolute;
@@ -149,6 +149,46 @@
     }
   }
 }
+
+//########  media queries  ########
+@media (min-width: 445px) {
+  .text-primo {
+    font-size: 22px;
+  }
+}
+@media (min-width: 730px) {
+  .text-primo {
+    font-size: 22px;
+  }
+  .flux-brand-text {
+    font-size: 22px !important;
+  }
+    .sidebarToggle {
+      font-size: 19px;
+      padding-right: 25px !important;
+      padding-left: 25px !important;
+    }
+}
+@media (min-width: 1030px) {
+  .text-primo {
+    font-size: 23px;
+  }
+  .flux-brand-text {
+    font-size: 23px !important;
+  }
+    .sidebarToggle {
+      font-size: 19px;
+      padding-right: 35px !important;
+      padding-left: 30px !important;
+    }
+}
+@media (min-width: 1260px) {
+    .sidebarToggle {
+      padding-right: 40px !important;
+      padding-left: 30px !important;
+    }
+}
+
 
 // #################### expanded Header Style ######################################
 .flux-header[nav-layout="vertical"][navbar-type="expanded"] {

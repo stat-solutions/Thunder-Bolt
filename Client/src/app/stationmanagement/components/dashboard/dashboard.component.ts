@@ -88,7 +88,7 @@ export class DashboardComponent implements OnInit {
   inlinePlugin: any;
   textPlugin: any;
   totals: Totals[] = [
-    {areas: 24, towns: 40, stations: 136, clients: 200}
+    {areas: 24, towns: 40, stations: 136, clients: 1340}
   ];
   creationApprovals: Array<any> = [
     {type: "Area Creation", total: 17},

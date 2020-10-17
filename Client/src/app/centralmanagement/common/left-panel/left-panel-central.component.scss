@@ -4,7 +4,7 @@
   top: 0px;
   bottom: 0px;
   left: 0px;
-  padding-top: 50px;
+  padding-top: 58px;
   z-index: 1024;
   font-size: 13px;
   font-weight: 300;
@@ -403,12 +403,12 @@
 
     li.menu-item.hasMenu {
       ul {
-        li.active>a {
-          color: $subMenuItem-link-color-onActive !important;
+        li.active a {
+          color: $subMenuItem-link-color-onActive;
 
           .flux-micon i {
             background: $sub-micon-bg-onActive;
-            color: $sub-micon-color-onActive !important;
+            color: $sub-micon-color-onActive;
           }
         }
       }
@@ -423,8 +423,8 @@
 @include navbarColorTheme(theme1, #ffffff, #678098, #f5f5f5, #ecf0f8, #f2f6f9, #17aae0ee, #141e27, #9ab5cc, #e4eaf5 , #666669,
   #9ab5cc, #9ab5cc, #9ab5cc, #678098, #9ab5cc, #f2f6f9, #9ab5cc, #141e27, #17aae0ee, #9ab5cc, #9ab5cc, #9ab5cc, #9ab5cc);
 
-@include navbarColorTheme(theme2, #141e27, #8099ad, #485468, #141e27, #0c1014, #17aae0ee, #0c1014, #17aae0ee, #141e27, #8099ad,
-  #ffffff, #0c1014, #ffffff, #b4bcc8, #17aae0ee, #0c1014, #17aae0ee, #0c1014, #17aae0ee, #17aae0ee, #17aae0ee, #17aae0ee, #17aae0ee);
+@include navbarColorTheme(theme2, #141e27, #8099ad, #485468, #141e27, #0c1014, #17aae0ee, #0c1014, #17aae0ee, #2a3444, #b4bcc8,
+  #FFFFFF, #FFFFFF, #FFFFFF, #b4bcc8, #FFFFFF, #0c1014, #17aae0ee, #0c1014, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
 
   @include navbarColorTheme(theme3, #3f5485, #d8e3fc, #4a5f90, #2f4475, #2f4475, #17aae0ee, #141e27, #FFFFFF, #2f4475, #90a2cc,
   #FFFFFF, #FFFFFF, #FFFFFF, #d8e3fc, #FFFFFF, #2f4475, #FFFFFF, #141e27, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);

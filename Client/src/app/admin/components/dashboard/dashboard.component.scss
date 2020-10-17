@@ -1,112 +1,109 @@
-.jumbotron-fluid {
-  height: inherit !important;
-}
-
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  // margin-right: 0px !important;
-  // margin-left: 100px !important;
   contain: auto;
 }
 
 .card-body {
   width: 100%;
   height: auto;
-  max-width: 300px;
-  min-width: 260px;
-  border-radius: 8px;
-  contain: auto;
 }
 
-.invest-card {
-  height: 100%;
-    min-height: 230px !important;
-    max-height: 300px !important;
+.big-card-4 {
+  position: relative;
+height: 250px !important;
     margin-bottom: 20px !important;
-  z-index: 1;
-  // overflow-y: auto;
-  // overflow-x: hidden;
+    contain: auto;
 }
-.invest-card2 {
+.big-card-body-4 {
+  width: 100%;
+  height: auto;
+  margin-bottom: 0px;
+    padding-bottom: 10px;
+  overflow-y: auto;
+}
+.big-card-3 {
+  position: relative;
+height: 290px !important;
+    margin-bottom: 20px !important;
+    contain: auto;
+}
+.big-card-body-3 {
+  width: 100%;
+  height: auto;
+  margin-bottom: 0px;
+    padding-bottom: 10px;
+  overflow-y: auto;
+}
+.big-card-1 {
+  position: relative;
   height: auto;
   min-height: 150px !important;
   max-height: 220px !important;
   margin-bottom: 20px !important;
+    contain: auto;
   z-index: 1;
-  // overflow-y: auto;
-  // overflow-x: hidden;
 }
-.invest-card3 {
-  height: 100%;
-    min-height: 350px !important;
-    max-height: 440px !important;
+.big-card-body-1 {
+  margin-left: 3.6rem !important;
+  margin-right: 3.6rem !important;
+  align-items: center;
+}
+
+.big-card-2 {
+  position: relative;
+  height: auto;
     margin-bottom: 20px !important;
+    contain: auto;
   z-index: 1;
-  // overflow-y: auto;
-  // overflow-x: hidden;
 }
-
-
-// div.item-header {
-//   background-color: #e9ecef !important;
-//   position: fixed;
-//   z-index: 1;
-// }
-// .item-header .col-7{
-//   position: relative;
-//   left: 60px;
-// }
-// .item-header .col-5{
-//   position: relative;
-//   left: 112px;
-// }
-// .item-header, .item-header .col-5, .item-header .col-7 {
-//   background-color: #e9ecef;
-// }
+.big-card-body-2 {
+  margin-bottom: 0px;
+}
 
 .item-container {
-  height: 100%;
-  // overflow-y: auto;
-  // overflow-x: hidden;
+  position: relative;
+  height: 35px;
 }
 
 .list-card {
+  position: relative;
   width: 100%;
-  height: 30px !important;
-  margin-left: -15px !important;
-  margin-right: 30px !important;
+  height: 100% !important;
+  margin-left: -5px !important;
+  margin-right: 0px !important;
+    contain: auto;
 }
+.list-card-3 {
+  position: relative;
+  height: 100% !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+    contain: auto;
+}
+.list-card-4 {
+  position: relative;
+  height: 100% !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+    contain: auto;
+}
+
 .list-card2 {
-  width: 100%;
-  height: 350px !important;
-  margin-left: -15px !important;
-  margin-right: 30px !important;
+  position: relative;
+  height: auto;
+  margin-left: -5px !important;
+    contain: auto;
+    // margin-bottom: 0px !important;
 }
-// .col-4 h4 {
-//   margin-right: 8px !important;
-// }
 .levelSet {
   position: relative;
   margin-left: 50px !important;
   margin-right: 10px !important;
 }
 .itemCreated {
+  position: relative;
   margin-left: 5px !important;
-}
-
-
-h2 {
-  font-size: 16px;
-}
-h4 {
-  font-size: 16px;
-}
-.invest-card2 .col-12 h4 {
- margin-left: auto !important;
-  margin-right: auto !important;
-  padding-right: 70px !important;
-  padding-left: 40px !important;
 }
 
 button.btn {
@@ -173,96 +170,82 @@ a.text-info:hover {
 //media queries
 @media (min-width: 320px) {
   .card-body {
-
-    // min-height: 420px !important;
-    // max-height: 470px !important;
     padding-top: 4px;
-    margin-bottom: 15px !important;
-  }
-  .jumbotron-fluid {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
   }
 }
 
 @media (min-width: 360px) {
-  // .rub-head4 {
-  //   margin-left: 120px !important;
-  // }
-  .card-body {
-    max-width: 350px;
-    min-width: 320px;
-    padding-top: 4px;
-    // padding-bottom: 0px !important;
+  .list-card {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+.list-card2 {
+  margin-left: 0px !important;
     margin-bottom: 0px !important;
-  }
+.list-card-3 {
+  margin-left: 0px !important;
+    margin-bottom: 0px !important;
+}
+.list-card-4 {
+  margin-left: 0px !important;
+    margin-bottom: 0px !important;
+}
+}
+.levelSet {
+  margin-left: 60px !important;
+}
 }
 
 @media (min-width: 375px) {
-  // .rub-head4 {
-  //   margin-left: 135px !important;
-  // }
-  .card-body {
-    max-width: 360px;
-    min-width: 340px;
-    min-height: 420px !important;
-    // max-height: 490px !important;
-    margin-bottom: 15px !important;
-  }
-  .jumbotron-fluid {
-    padding-bottom: 60px !important;
-  }
+.big-card-body-1 {
+  margin-left: 4.0rem !important;
+  margin-right: 4.0rem !important;
+}
 }
 
 @media (min-width: 410px) {
-  h4 {
-    font-size: 18px;
-  }
-  h5 {
-    font-size: 17px;
-  }
-  // .rub-head4 {
-  //   margin-left: 135px !important;
-  // }
-  .card-body {
-    max-width: 370px;
-    min-width: 350px;
-    margin-bottom: 5px !important;
-  }
-  .jumbotron-fluid {
-    padding-bottom: 5px !important;
-  }
+.big-card-body-1 {
+  margin-left: 4.6rem !important;
+  margin-right: 4.6rem !important;
+}
+.levelSet {
+  margin-left: 60px !important;
+}
 }
 
 @media (min-width: 445px) {
-  h4 {
-    font-size: 20px;
-  }
-  h5 {
-    font-size: 18px;
-  }
-  // .rub-head4 {
-  //   margin-left: 170px !important;
-  // }
-  .card-body {
-    max-width: 410px;
-    min-width: 390px;
-    padding-top: 4px !important;
-    margin-bottom: 0px !important;
-  }
-  .jumbotron-fluid {
-    padding-top: 8px !important;
-    padding-bottom: 5px !important;
-  }
+.big-card-1 {
+  min-height: 170px !important;
+  max-height: 230px !important;
+}
+.big-card-body-1 {
+  margin-left: 7.3rem !important;
+  margin-right: 7.3rem !important;
+}
+.itemCreated-3 {
+  position: relative;
+  margin-left: 30px !important;
+}
+.levelSet {
+  margin-left: 100px !important;
+}
+.itemCreated {
+  margin-left: 1.3rem !important;
+}
 }
 
 @media (min-width: 568px) {
-  .card-body {
-    padding-top: 4px !important;
-  }
-  .jumbotron-fluid {
-    padding-top: 0px !important;
-  }
+.big-card-1 {
+  min-height: 180px !important;
+  max-height: 250px !important;
+}
+.big-card-body-1 {
+  margin-left: 7.0rem !important;
+  margin-right: 7.0rem !important;
+}
+.levelSet {
+  margin-left: 110px !important;
+}
 }
 
 @media (min-width: 640px) {
@@ -270,6 +253,10 @@ a.text-info:hover {
     margin-left: auto !important;
     margin-right: auto !important;
   }
+.big-card-body-1 {
+  margin-left: 7.3rem !important;
+  margin-right: 7.3rem !important;
+}
 }
 
 @media (min-width: 768px) {
@@ -277,49 +264,79 @@ a.text-info:hover {
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
-  h2 {
-    font-size: 22px !important;
-  }
-  h4 {
-    font-size: 20px !important;
-  }
-  .card-body {
-    min-height: 590px !important;
-    // max-height: 630px !important;
-    padding-top: 14px !important;
-    margin-bottom: 10px !important;
-  }
-  .jumbotron-fluid {
-    padding-top: 10px !important;
-    padding-bottom: 30px !important;
-  }
+.big-card-body-1 {
+  margin-left: 13.3rem !important;
+  margin-right: 13.3rem !important;
+}
+.big-card-body-1 img{
+  position: relative;
+  width: 30%;
+height: 30%;
+}
+.itemCreated-1 {
+  position: relative;
+  margin-left: 0px;
+}
+.itemCreated-2 {
+  position: relative;
+  margin-left: -3px !important;
+}
+.itemCreated-3 {
+  margin-left: 4.8rem !important
+}
+.levelSet {
+  margin-left: 10.6rem !important;
+}
+.itemCreated {
+  margin-left: 4.8rem !important;
+}
 }
 
 @media (min-width: 812px) {
-  .card-body {
-    min-height: 420px !important;
-    // max-height: 430px !important;
-    padding-top: 0px !important;
-    margin-bottom: 0px !important;
+  .container {
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
-  .jumbotron-fluid {
-    padding-top: 0px !important;
-    padding-bottom: 5px !important;
-  }
+.big-card-body-1 {
+  margin-left: 14.2rem !important;
+  margin-right: 14.2rem !important;
+}
+.itemCreated-3 {
+  margin-left: 5.4rem !important
+}
+.levelSet {
+  margin-left: 10.8rem !important;
+}
+.itemCreated {
+  margin-left: 5.4rem !important;
+}
 }
 
 @media (min-width: 1024px) {
-  .card-body {
-    min-height: 630px !important;
-    // max-height: 690px !important;
-    padding-top: 14px !important;
-    margin-top: 8px !important;
-    margin-bottom: 130px !important;
-  }
-  .jumbotron-fluid {
-    padding-top: 10px !important;
-    padding-bottom: 200px !important;
-  }
+  .big-card-3 {
+height: 290px !important;
+}
+  .big-card-4 {
+height: 290px !important;
+}
+
+.big-card-body-1 {
+  margin-left: 2.2rem !important;
+  margin-right: 2.2rem !important;
+}
+.big-card-body-1 img{
+  width: 72%;
+height: 72%;
+}
+.itemCreated-3 {
+  margin-left: 4.4rem !important
+}
+.levelSet {
+  margin-left: 9.8rem !important;
+}
+.itemCreated {
+  margin-left: 2.8rem !important;
+}
 }
 
 @media (min-width: 1100px) {
@@ -330,25 +347,35 @@ a.text-info:hover {
     margin-left: auto !important;
     margin-right: auto !important;
   }
-  h4 {
-    font-size: 22px !important;
-  }
-  h5 {
-    font-size: 20px !important;
-  }
-  .card-body {
-    min-height: 430px !important;
-    max-height: 500px !important;
-    padding-top: 10px !important;
-    margin-top: 8px !important;
-    margin-bottom: 15px !important;
-  }
-  .jumbotron-fluid {
-    margin-top: 0px !important;
-    padding-top: 0px !important;
-    padding-bottom: 60px !important;
-  }
+.big-card-1 {
+  min-height: 160px !important;
+  max-height: 220px !important;
 }
+.big-card-body-1 {
+  margin-left: 4.8rem !important;
+  margin-right: 4.8rem !important;
+}
+.big-card-body-1 img{
+  width: 46.5%;
+height: 46.5%;
+}
+  .big-card-3 {
+height: 240px !important;
+}
+  .big-card-4 {
+height: 240px !important;
+  }
+.itemCreated-3 {
+  margin-left: 6.2rem !important
+}
+.levelSet {
+  margin-left: 11.5rem !important;
+}
+.itemCreated {
+  margin-left: 3.8rem !important;
+}
+}
+
 
 @media (min-width: 1320px) {
 }

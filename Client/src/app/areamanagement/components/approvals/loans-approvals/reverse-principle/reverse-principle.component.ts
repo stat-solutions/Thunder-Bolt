@@ -18,16 +18,37 @@ export interface ReverseP_Approvals {
 @Component({
   selector: 'app-reverse-principle',
   templateUrl: './reverse-principle.component.html',
-  styleUrls: ['./reverse-principle.component.scss']
+  styleUrls: ['./reverse-principle.component.scss'],
 })
 export class ReversePrincipleComponent implements OnInit {
   userForm: FormGroup;
   reverseApprovals: ReverseP_Approvals[] = [
-    {station: "ndeeba", client: "kasozi med", ammount: 600000, status: 0},
-    {station: "kibuye", client: "Kasule Joseph", ammount: 400000, status: 0},
-    {station: "bwayise", client: "Kasule Jose", ammount: 250000, status: 0},
-    {station: "nsambya", client: "Kasule Joseph", ammount: 500000, status: 0},
-    {station: "kyengera", client: "mukasa rony", ammount: 850000, status: 0}
+    { station: 'ndeeba', client: 'kasozi med', ammount: 600000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
   ];
   posted = false;
   actionButton: string;
@@ -51,58 +72,73 @@ export class ReversePrincipleComponent implements OnInit {
   createFormGroup() {
     return this.fb.group({
       approveReverse: this.fb.array([this.reverseApproval]),
-      selectAll: this.fb.control({})
-    })
+      selectAll: this.fb.control({}),
+    });
   }
-  get reverseApproval () {
+  get reverseApproval() {
     return this.fb.group({
-      station: this.fb.control({value: ''}),
-      client: this.fb.control({value: ''}),
-      ammount: this.fb.control({value: ''}),
-      approved: this.fb.control({})
-    })
+      station: this.fb.control({ value: '' }),
+      client: this.fb.control({ value: '' }),
+      ammount: this.fb.control({ value: '' }),
+      approved: this.fb.control({}),
+    });
   }
-  addItem () {
+  addItem() {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.approveReverse as FormArray).push(this.reverseApproval)
+    (this.fval.approveReverse as FormArray).push(this.reverseApproval);
   }
 
-  removeItem (index: number) {
+  removeItem(index: number) {
     (this.fval.approveReverse as FormArray).removeAt(index);
   }
-  initialiseForm () {
+  initialiseForm() {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
     //   units => {
     //     this.approvals = units;
-        this.reverseApprovals.forEach((item, i) => {
-          // console.log(item.name);
-          // console.log(i);
-          this.fval.approveReverse['controls'][i]['controls'].station.setValue(item.station);
-          this.fval.approveReverse['controls'][i]['controls'].client.setValue(item.client);
-          this.fval.approveReverse['controls'][i]['controls'].ammount.setValue(item.ammount);
-          this.fval.approveReverse['controls'][i]['controls'].approved.setValue(false);
-          this.addItem();
-          n=i + 1;
-        })
-        this.removeItem(n);
-      // }
+    this.reverseApprovals.forEach((item, i) => {
+      // console.log(item.name);
+      // console.log(i);
+      this.fval.approveReverse['controls'][i]['controls'].station.setValue(
+        item.station
+      );
+      this.fval.approveReverse['controls'][i]['controls'].client.setValue(
+        item.client
+      );
+      this.fval.approveReverse['controls'][i]['controls'].ammount.setValue(
+        item.ammount
+      );
+      this.fval.approveReverse['controls'][i]['controls'].approved.setValue(
+        false
+      );
+      this.addItem();
+      n = i + 1;
+    });
+    this.removeItem(n);
+    // }
     // )
   }
   checkAllItems(val: boolean) {
-    if(val == true) {
+    if (val == true) {
       this.reverseApprovals.forEach((item, i) => {
-        this.fval.approveReverse['controls'][i]['controls'].approved.setValue(val);
-      })
+        this.fval.approveReverse['controls'][i]['controls'].approved.setValue(
+          val
+        );
+      });
     } else {
       this.reverseApprovals.forEach((item, i) => {
-        this.fval.approveReverse['controls'][i]['controls'].approved.setValue(false);
-      })
+        this.fval.approveReverse['controls'][i]['controls'].approved.setValue(
+          false
+        );
+      });
     }
   }
-  deselectAll(val: boolean){
+  deselectAll(val: boolean) {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-    if(this.fval.approveReverse["controls"][val]["controls"].approved.value == true) {
+    if (
+      this.fval.approveReverse['controls'][val]['controls'].approved.value ==
+      true
+    ) {
       this.fval.selectAll.setValue(false);
     }
   }
@@ -118,59 +154,56 @@ export class ReversePrincipleComponent implements OnInit {
     return this.userForm.controls;
   }
 
-  disableForm () {
-    return this.userForm.disable()
+  disableForm() {
+    return this.userForm.disable();
   }
 
   enableEdit() {
-    return this.userForm.enable()
+    return this.userForm.enable();
   }
 
-  approveItems () {
+  approveItems() {
     const itemsApproved = [];
     this.reverseApprovals.forEach((item, i) => {
-      if(
-        this.fval.approveReverse['controls'][i]['controls'].approved.value == true
+      if (
+        this.fval.approveReverse['controls'][i]['controls'].approved.value ==
+        true
       ) {
         item.status = 2;
-        itemsApproved.push(item)
+        itemsApproved.push(item);
       }
-    })
+    });
 
-    console.log(itemsApproved.length)
-    if(itemsApproved.length > 0) {
+    console.log(itemsApproved.length);
+    if (itemsApproved.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
-  rejectItems () {
+  rejectItems() {
     const itemsRejected = [];
     this.reverseApprovals.forEach((item, i) => {
-      if(
-        this.fval.approveReverse['controls'][i]['controls'].approved.value == true
+      if (
+        this.fval.approveReverse['controls'][i]['controls'].approved.value ==
+        true
       ) {
         item.status = 1;
-        itemsRejected.push(item)
+        itemsRejected.push(item);
       }
-    })
-    console.log(itemsRejected.length)
-    if(itemsRejected.length > 0) {
+    });
+    console.log(itemsRejected.length);
+    if (itemsRejected.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
-
 }
 
