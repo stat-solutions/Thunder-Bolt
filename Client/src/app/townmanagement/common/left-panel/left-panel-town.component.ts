@@ -58,7 +58,7 @@ export class LeftPanelTownComponent implements OnInit {
       },
       {
         name: 'Create Station',
-        icon: 'fas fa-fuel-pump',
+        icon: 'fas fa-gas-pump',
         url: '/townmanagement/createstation'
       },
       {

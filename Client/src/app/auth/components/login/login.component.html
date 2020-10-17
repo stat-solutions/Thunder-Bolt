@@ -1,11 +1,11 @@
 
 <div
-class="container-fluid d-flex flex-row justify-content-center mb-0 mt-0 pt-4 pb-3 shadow-lg col-xs-12 col-lg-8"
+class="container-fluid d-flex flex-row justify-content-center mb-0 mt-0 pt-4 pt-lg-1 pb-1 shadow-lg col-xs-12 col-lg-8"
 >
 <div class="jumbotron-fluid">
-  <div class="head-icon d-flex justify-content-center mt-3 mb-3 pb-0">
+  <div class="head-icon d-flex justify-content-center mt-3 mb-2 mt-lg-1 pb-0">
       <img
-        class="mx-auto mb-0 pb-0"
+        class="mx-auto mb-1 pb-0"
         src="assets/img/mafuta-logo-2b.svg"
         width="35"
         height="35"
@@ -26,10 +26,10 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-0 pt-4 pb-
            </i></div> </div>
                          <input id="user_contact_number" formControlName="user_contact_number" type="text" class="form-control"  [ngClass]=" { 'is-invalid': (fval.user_contact_number.touched||fval.user_contact_number.dirty) && fval.user_contact_number.errors }" placeholder="e.g. 07XXXXXXXX" autocomplete="off"/>
                        </div>
-                     <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.required">The main mobile number is required</div>
-                     <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.hasNumber">The main mobile number should be in digits/numbers</div>
-                             <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.maxlength">The main mobile number should not exceed 10 digits</div>
-                             <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.minlength">The main mobile number  should have atleast 10 digits</div>
+                     <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.required">The phone number is required</div>
+                     <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.hasNumber">The phone number should be in digits/numbers</div>
+                             <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.maxlength">The phone number should not exceed 10 digits</div>
+                             <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.minlength">The phone number  should have atleast 10 digits</div>
                      </div>
 
       <div class="form-group text-primary">
@@ -143,7 +143,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-0 pt-4 pb-
 </div>
 </div>
 <!--footer -->
-<div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mx-auto">
+<div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-2 mx-auto">
   <div class="small text-center text-info">
    &copy; 2020 - ThunderBolt
   </div>

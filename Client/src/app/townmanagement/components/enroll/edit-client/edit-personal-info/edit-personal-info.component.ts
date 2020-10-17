@@ -52,7 +52,7 @@ export class EditPersonalInfoComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
       main_contact_number2: new FormControl(
@@ -62,7 +62,7 @@ export class EditPersonalInfoComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
       id_type: new FormControl('', Validators.compose([Validators.required])),
@@ -73,14 +73,18 @@ export class EditPersonalInfoComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([a-zA-Z])([a-zA-Z])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z]))$/,
             { nationalIdCheck: true }
-          )
+          ),
         ])
-    ),
+      ),
       homeDetails: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
       clientPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      idPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
@@ -92,12 +96,9 @@ export class EditPersonalInfoComponent implements OnInit {
           Validators.required,
 
           // 2. check whether the entered password has a number
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9]))$/,
-            {
-              hasNumber: true,
-            }
-          ),
+          CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9]))$/, {
+            hasNumber: true,
+          }),
           // 3. check whether the entered password has upper case letter
           // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
           // 4. check whether the entered password has a lower-case letter
@@ -114,7 +115,7 @@ export class EditPersonalInfoComponent implements OnInit {
       clientComment: new FormControl(
         '',
         Validators.compose([Validators.required])
-      )
+      ),
       // number_plate: new FormControl(
       //   '',
       //   Validators.compose([

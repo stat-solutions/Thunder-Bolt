@@ -16,14 +16,15 @@ export interface BussinessUnits {
 @Component({
   selector: 'app-bussinessunits',
   templateUrl: './bussinessunits.component.html',
-  styleUrls: ['./bussinessunits.component.scss']
+  styleUrls: ['./bussinessunits.component.scss'],
 })
 export class BussinessunitsComponent implements OnInit {
   unitForm: FormGroup;
   bussinessUnits: BussinessUnits[] = [
-    {unitName: 'fuel busiinesss'},
-    {unitName: 'hospital busiinesss'},
-    {unitName: 'furniture busiinesss'}
+    { unitName: 'fuel busiinesss' },
+    { unitName: 'hospital busiinesss' },
+    { unitName: 'fuel busiinesss' },
+    { unitName: 'hospital busiinesss' },
   ];
   constructor(
     private others: OthersService,
@@ -41,18 +42,19 @@ export class BussinessunitsComponent implements OnInit {
   createFormGroup(): any {
     return this.fb.group({
       bussinessUnits: this.fb.array([this.unit]),
-      bussinessUnitName: this.fb.control('', Validators.compose([
-        Validators.minLength(5)
-      ]))
+      bussinessUnitName: this.fb.control(
+        '',
+        Validators.compose([Validators.minLength(5)])
+      ),
     });
   }
 
   get unit(): any {
     return this.fb.group({
-      unitName: this.fb.control({value: ''}, Validators.compose([
-        Validators.required,
-        Validators.minLength(6)
-      ]))
+      unitName: this.fb.control(
+        { value: '' },
+        Validators.compose([Validators.required, Validators.minLength(6)])
+      ),
     });
   }
   addUnit(): any {
@@ -67,15 +69,17 @@ export class BussinessunitsComponent implements OnInit {
   initialiseForm(): any {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
-      // units => {
-        // this.bussinessUnits = units;
+    // units => {
+    // this.bussinessUnits = units;
     this.bussinessUnits.forEach((item, i) => {
-          this.fval.bussinessUnits.controls[i].controls.unitName.setValue(item.unitName);
-          this.addUnit();
-          n = i + 1;
-        });
+      this.fval.bussinessUnits.controls[i].controls.unitName.setValue(
+        item.unitName
+      );
+      this.addUnit();
+      n = i + 1;
+    });
     this.removeUnit(n);
-      // }
+    // }
     // )
   }
   revert(): any {
@@ -93,7 +97,7 @@ export class BussinessunitsComponent implements OnInit {
   disableForms(): any {
     this.bussinessUnits.forEach((itm, i) => {
       // console.log(i)
-     this.fval.bussinessUnits.controls[i].disable();
+      this.fval.bussinessUnits.controls[i].disable();
     });
   }
 
@@ -106,9 +110,7 @@ export class BussinessunitsComponent implements OnInit {
     });
   }
 
-  createUnit(): any {
-
-    }
+  createUnit(): any {}
 
   editUnit(index: number): any {
     console.log(index);

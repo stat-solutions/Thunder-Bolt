@@ -42,6 +42,29 @@ h3 {
   font-size: 13px !important;
 }
 
+//styling of color of placeholder
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color:    rgb(187, 190, 192);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    rgb(187, 190, 192);
+  opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+ color:    rgb(187, 190, 192);
+ opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:    rgb(187, 190, 192);
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+  color:    rgb(187, 190, 192);
+}
+::placeholder { /* Most modern browsers support this now. */
+  color:    rgb(187, 190, 192);
+}
+
+
 
 //media queries
 @media (min-width: 320px) {
@@ -93,7 +116,7 @@ h3 {
     font-size: 24px !important;
   }
   .card-body {
-    margin-bottom: 20px !important;
+    margin-bottom: 60px !important;
   }
 
 }
@@ -108,7 +131,14 @@ h3 {
 
 @media (min-width: 1024px) {
   .card-body {
-    margin-bottom: 220px !important;
+    margin-bottom: 190px !important;
+  }
+  .head-icon {
+    margin-top: 130px !important;
+    margin-bottom: 30px !important;
+  }
+  .jumbotron-fluid {
+    margin-bottom: 40px !important;
   }
 }
 
@@ -120,8 +150,12 @@ h3 {
 }
 
 @media (min-width: 1280px) {
+  .head-icon {
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+  }
   .card-body {
-    margin-bottom: 20px !important;
+    margin-bottom: 10px !important;
   }
 
 }

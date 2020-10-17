@@ -18,16 +18,34 @@ export interface WaveIntApprovals {
 @Component({
   selector: 'app-waive-interest',
   templateUrl: './waive-interest.component.html',
-  styleUrls: ['./waive-interest.component.scss']
+  styleUrls: ['./waive-interest.component.scss'],
 })
 export class WaiveInterestComponent implements OnInit {
   userForm: FormGroup;
   waveApprovals: WaveIntApprovals[] = [
-    {station: "bwayise", client: "Kasule Jose", ammount: 250000, status: 0},
-    {station: "nsambya", client: "Kasule Joseph", ammount: 500000, status: 0},
-    {station: "kibuye", client: "Kasule Joseph", ammount: 400000, status: 0},
-    {station: "kyengera", client: "mukasa rony", ammount: 850000, status: 0},
-    {station: "ndeeba", client: "kasozi med", ammount: 600000, status: 0}
+    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', ammount: 600000, status: 0 },
   ];
   posted = false;
   actionButton: string;
@@ -50,58 +68,68 @@ export class WaiveInterestComponent implements OnInit {
   createFormGroup() {
     return this.fb.group({
       approveWave: this.fb.array([this.waveApproval]),
-      selectAll: this.fb.control({})
-    })
+      selectAll: this.fb.control({}),
+    });
   }
-  get waveApproval () {
+  get waveApproval() {
     return this.fb.group({
-      station: this.fb.control({value: ''}),
-      client: this.fb.control({value: ''}),
-      ammount: this.fb.control({value: ''}),
-      approved: this.fb.control({})
-    })
+      station: this.fb.control({ value: '' }),
+      client: this.fb.control({ value: '' }),
+      ammount: this.fb.control({ value: '' }),
+      approved: this.fb.control({}),
+    });
   }
-  addItem () {
+  addItem() {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.approveWave as FormArray).push(this.waveApproval)
+    (this.fval.approveWave as FormArray).push(this.waveApproval);
   }
 
-  removeItem (index: number) {
+  removeItem(index: number) {
     (this.fval.approveWave as FormArray).removeAt(index);
   }
-  initialiseForm () {
+  initialiseForm() {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
     //   units => {
     //     this.approvals = units;
-        this.waveApprovals.forEach((item, i) => {
-          // console.log(item.name);
-          // console.log(i);
-          this.fval.approveWave['controls'][i]['controls'].station.setValue(item.station);
-          this.fval.approveWave['controls'][i]['controls'].client.setValue(item.client);
-          this.fval.approveWave['controls'][i]['controls'].ammount.setValue(item.ammount);
-          this.fval.approveWave['controls'][i]['controls'].approved.setValue(false);
-          this.addItem();
-          n=i + 1;
-        })
-        this.removeItem(n);
-      // }
+    this.waveApprovals.forEach((item, i) => {
+      // console.log(item.name);
+      // console.log(i);
+      this.fval.approveWave['controls'][i]['controls'].station.setValue(
+        item.station
+      );
+      this.fval.approveWave['controls'][i]['controls'].client.setValue(
+        item.client
+      );
+      this.fval.approveWave['controls'][i]['controls'].ammount.setValue(
+        item.ammount
+      );
+      this.fval.approveWave['controls'][i]['controls'].approved.setValue(false);
+      this.addItem();
+      n = i + 1;
+    });
+    this.removeItem(n);
+    // }
     // )
   }
   checkAllItems(val: boolean) {
-    if(val == true) {
+    if (val == true) {
       this.waveApprovals.forEach((item, i) => {
         this.fval.approveWave['controls'][i]['controls'].approved.setValue(val);
-      })
+      });
     } else {
       this.waveApprovals.forEach((item, i) => {
-        this.fval.approveWave['controls'][i]['controls'].approved.setValue(false);
-      })
+        this.fval.approveWave['controls'][i]['controls'].approved.setValue(
+          false
+        );
+      });
     }
   }
-  deselectAll(val: boolean){
+  deselectAll(val: boolean) {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-    if(this.fval.approveWave["controls"][val]["controls"].approved.value == true) {
+    if (
+      this.fval.approveWave['controls'][val]['controls'].approved.value == true
+    ) {
       this.fval.selectAll.setValue(false);
     }
   }
@@ -117,57 +145,53 @@ export class WaiveInterestComponent implements OnInit {
     return this.userForm.controls;
   }
 
-  disableForm () {
-    return this.userForm.disable()
+  disableForm() {
+    return this.userForm.disable();
   }
 
   enableEdit() {
-    return this.userForm.enable()
+    return this.userForm.enable();
   }
 
-  approveItems () {
+  approveItems() {
     const itemsApproved = [];
     this.waveApprovals.forEach((item, i) => {
-      if(
+      if (
         this.fval.approveWave['controls'][i]['controls'].approved.value == true
       ) {
         item.status = 2;
-        itemsApproved.push(item)
+        itemsApproved.push(item);
       }
-    })
+    });
 
-    console.log(itemsApproved.length)
-    if(itemsApproved.length > 0) {
+    console.log(itemsApproved.length);
+    if (itemsApproved.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
-  rejectItems () {
+  rejectItems() {
     const itemsRejected = [];
     this.waveApprovals.forEach((item, i) => {
-      if(
+      if (
         this.fval.approveWave['controls'][i]['controls'].approved.value == true
       ) {
         item.status = 1;
-        itemsRejected.push(item)
+        itemsRejected.push(item);
       }
-    })
-    console.log(itemsRejected.length)
-    if(itemsRejected.length > 0) {
+    });
+    console.log(itemsRejected.length);
+    if (itemsRejected.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
 }

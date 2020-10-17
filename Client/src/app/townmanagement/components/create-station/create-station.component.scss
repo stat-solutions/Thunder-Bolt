@@ -18,10 +18,6 @@
 contain: auto;
 }
 
-h4 {
-  font-size: 16px;
-}
-
 button.btn {
   border-radius: 15px;
 }
@@ -59,6 +55,28 @@ a.text-info:hover {
   cursor: pointer;
 }
 
+//styling of color of placeholder
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color:    rgb(187, 190, 192);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:    rgb(187, 190, 192);
+  opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+ color:    rgb(187, 190, 192);
+ opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:    rgb(187, 190, 192);
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+  color:    rgb(187, 190, 192);
+}
+::placeholder { /* Most modern browsers support this now. */
+  color:    rgb(187, 190, 192);
+}
+
 
 
 //media queries
@@ -68,13 +86,11 @@ a.text-info:hover {
     min-width: 290px;
     max-height: 180px;
     min-height: 150px;
-    padding-top: 22px !important;
-    padding-bottom: 20px !important;
-    margin-bottom: 25px !important;
+    margin-bottom: 6.5rem !important;
   }
   .jumbotron-fluid {
     padding-top: 0px !important;
-    padding-bottom: 10px !important;
+    padding-bottom: 2rem !important;
   }
   }
 
@@ -82,50 +98,36 @@ a.text-info:hover {
   .card-body {
     max-width: 360px;
     min-width: 330px;
+    margin-bottom: 7rem !important;
   }
   .jumbotron-fluid {
-    padding-bottom: 20px !important;
+    padding-bottom: 5.5rem !important;
   }
 }
 
 @media (min-width: 375px) {
-    .card-body {
-      max-width: 370px;
-      min-width: 345px;
-      margin-bottom: 10px !important;
-    }
+  .jumbotron-fluid {
+    padding-bottom: 7.8rem !important;
+  }
 
     }
 
 @media (min-width: 410px) {
-  h4 {
-    font-size: 18px;
+  .jumbotron-fluid {
+    padding-bottom: 11rem !important;
   }
-    .card-body {
-      max-width: 370px;
-      min-width: 350px;
-      margin-bottom: 30px !important;
-    }
-    .jumbotron-fluid {
-      padding-top: 18px !important;
-      padding-bottom: 30px !important;
-    }
 }
 
 @media (min-width: 445px) {
-  h4 {
-    font-size: 20px !important;
-  }
-    .card-body {
-      max-width: 410px;
-      min-width: 390px;
-    }
 }
 
 @media (min-width: 568px) {
-    .jumbotron-fluid {
-      padding-bottom: 20px !important;
-    }
+  .card-body {
+    margin-bottom: 0rem !important;
+  }
+  .jumbotron-fluid {
+    padding-bottom: 0rem !important;
+  }
 }
 
 @media (min-width: 640px) {
@@ -140,28 +142,59 @@ a.text-info:hover {
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
-  h4 {
-    font-size: 22px !important;
+  .card-body {
+    margin-bottom: 8rem !important;
   }
+    .jumbotron-fluid {
+      padding-bottom: 17rem !important;
+    }
 }
 
 @media (min-width: 812px) {
+    .card-body {
+      margin-bottom: 0rem !important;
+    }
+    .container-fluid {
+      padding-top: 0rem !important;
+      padding-bottom: 0rem !important;
+    }
+    .jumbotron-fluid {
+      padding-top: 0rem !important;
+      padding-bottom: 3rem !important;
+    }
 }
 
 @media (min-width: 1024px) {
+    .container-fluid {
+      padding-top: 6.5rem !important;
+      padding-bottom: 4rem !important;
+    }
   .container {
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
+    .card-body {
+      margin-bottom: 10rem !important;
+    }
+    .jumbotron-fluid {
+      padding-bottom: 18rem !important;
+    }
 }
 
 @media (min-width: 1100px) {
 }
 
 @media (min-width: 1280px) {
-  h4 {
-    font-size: 24px !important;
-  }
+    .container-fluid {
+      padding-top: 1rem !important;
+      padding-bottom: 0rem !important;
+    }
+    .card-body {
+      margin-bottom: 7rem !important;
+    }
+    .jumbotron-fluid {
+      padding-bottom: 10rem !important;
+    }
 }
 
 @media (min-width: 1320px) {

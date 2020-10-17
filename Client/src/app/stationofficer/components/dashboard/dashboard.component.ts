@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
       float: 12000000,
       payments: 400000,
       loans: 300000,
-      clients: 340,
+      clients: 1340,
       newClients: 60,
       stages: 27,
       fuelClients: 35,

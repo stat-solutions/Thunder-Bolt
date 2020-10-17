@@ -1,5 +1,5 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-md-0 pt-0 pb-3 shadow-lg col-xs-12 col-lg-8"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-md-0 pt-0 pb-0 shadow-lg col-xs-12 col-lg-8"
 >
   <div class="jumbotron-fluid mb-0 pb-0">
     <div class="head-icon d-flex justify-content-center mt-3 mb-3 pb-0">
@@ -23,7 +23,7 @@
             >check_circle</i
           >Full Name</label
         >
-        <div class="input-group mb-2">
+        <div class="input-group mb-0">
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i class="fas fa-user text-primary mx-auto" style="size: 50px;">
@@ -64,7 +64,7 @@
           >Date Of Birth</label
         >
 
-        <div class="input-group mb-2">
+        <div class="input-group mb-0">
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i
@@ -110,7 +110,7 @@
             >check_circle</i
           >ID Type</label
         >
-        <div class="input-group mb-2">
+        <div class="input-group mb-0">
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i class="fas fa-user-tag text-primary mx-auto" style="size: 50px;">
@@ -154,7 +154,7 @@
             >check_circle</i
           ></label
         >
-        <div class="input-group mb-1">
+        <div class="input-group mb-0">
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i
@@ -202,7 +202,7 @@
             >check_circle</i
           ></label
         >
-        <div class="input-group mb-1">
+        <div class="input-group mb-0">
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i
@@ -247,13 +247,13 @@
         <label
           for="user_contact_number"
           [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''"
-          >Mobile Number<i
+          >Phone Number<i
             *ngIf="fval.user_contact_number.valid"
             class="material-icons"
             >check_circle</i
           ></label
         >
-        <div class="input-group mb-2">
+        <div class="input-group mb-0">
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i
@@ -285,7 +285,7 @@
             fval.user_contact_number.errors?.required
           "
         >
-          The mobile number is required!
+          The phone number is required!
         </div>
         <div
           class="text-danger col"
@@ -295,7 +295,7 @@
             fval.user_contact_number.errors?.hasNumber
           "
         >
-          The mobile number should be equal to 10 "digits"!
+          The phone number should be equal to 10 "digits"!
         </div>
       </div>
       <div class="form-group text-primary">
@@ -345,7 +345,8 @@
         <!--the divs below will appear depending on the position selected-->
 
         <!--the div for central-->
-        <div class="form-group text-primary">
+        <div class="form-group text-primary" *ngIf="(positionValue == 'Central User')"
+>
           <label
             for="central"
             [ngClass]="fval.central.valid ? 'text-info' : ''"
@@ -370,7 +371,7 @@
             <option>Other</option>
           </select>
       </div>
-        <!--the div for area-->
+        </div>
         <div class="form-group text-primary" *ngIf="(positionValue == 'Area Manager'||positionValue=='Town Manager'||positionValue=='Station Manager'||positionValue=='Station Officer')">
           <label
             for="area"
@@ -379,7 +380,7 @@
               >check_circle</i
             >Choose Area</label
           >
-          <div class="input-group mb-2">
+          <div class="input-group mb-0">
             <select
             formControlName="area"
             class="form-control"
@@ -417,7 +418,7 @@
               >check_circle</i
             >Choose Town</label
           >
-          <div class="input-group mb-2">
+          <div class="input-group mb-0">
             <select
             formControlName="town"
             class="form-control"
@@ -513,20 +514,19 @@
           <i class="material-icons">check_circle</i>
           <ngx-alerts></ngx-alerts>
         </label>
-      </div>
     </div>
     </form>
     <!-- </div>  -->
     <!-- </div>   -->
   </div>
-  <!--footer -->
-    <div
-      class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-2 mx-auto"
-    >
-      <div class="small text-center text-primo">
-       &copy; 2020 - ThunderBolt
-      </div>
-    </div>
-    <!--/ footer -->
-  </div>
 </div>
+</div>
+<!--footer -->
+  <div
+    class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-2 mx-auto"
+  >
+    <div class="small text-center text-primo">
+     &copy; 2020 - ThunderBolt
+    </div>
+</div>
+
