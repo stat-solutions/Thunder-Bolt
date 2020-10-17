@@ -57,296 +57,297 @@
             The Category is required!
           </div>
         </div>
-        <div *ngIf="(fval.category.value == 'Individual')">
-        <div class="form-group text-primary">
-          <label for="loanType">Loan Type</label>
-          <div class="input-group mb-0">
-            <input
-              type="radio"
-              value="Boda Loan"
-              formControlName="loanType"
-              checked required
-              (change)="checkLoanType(fval.loanType.value)"
-            />&nbsp; Boda Loan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input
-              type="radio"
-              value="Taxi Loan"
-              formControlName="loanType" required
-              (change)="checkLoanType(fval.loanType.value)"
-            />&nbsp; Taxi Loan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input
-              type="radio"
-              value="Micro Loan"
-              formControlName="loanType" required
-              (change)="checkLoanType(fval.loanType.value)" 
-            />&nbsp; Micro Loan
+        <div *ngIf="fval.category.value == 'Individual'">
+          <div class="form-group text-primary">
+            <label for="loanType">Loan Type</label>
+            <div class="input-group mb-0">
+              <input
+                type="radio"
+                value="Boda Loan"
+                formControlName="loanType"
+                checked
+                required
+                (change)="checkLoanType(fval.loanType.value)"
+              />&nbsp; Boda Loan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input
+                type="radio"
+                value="Taxi Loan"
+                formControlName="loanType"
+                required
+                (change)="checkLoanType(fval.loanType.value)"
+              />&nbsp; Taxi Loan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <input
+                type="radio"
+                value="Micro Loan"
+                formControlName="loanType"
+                required
+                (change)="checkLoanType(fval.loanType.value)"
+              />&nbsp; Micro Loan
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.loanType.touched || fval.loanType.dirty) &&
+                fval.loanType.errors?.required
+              "
+            >
+              The Loan type is required!
+            </div>
           </div>
+
+          <!--start-->
+          <!--on select of loan type display either number plate or micro loan -->
           <div
-            class="text-danger col"
-            *ngIf="
-              (fval.loanType.touched || fval.loanType.dirty) &&
-              fval.loanType.errors?.required
-            "
+            class="form-group text-primary"
+            *ngIf="loanType == 'Boda Loan' || loanType == 'Taxi Loan'"
           >
-            The Loan type is required!
+            <label
+              for="number_plate"
+              [ngClass]="fval.number_plate.valid ? 'text-info' : ''"
+              >Number Plate<i
+                *ngIf="fval.number_plate.valid"
+                class="material-icons"
+                >check_circle</i
+              ></label
+            >
+            <div class="input-group mb-0">
+              <input
+                type="text"
+                list="number_plate"
+                formControlName="number_plate"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (fval.number_plate.touched || fval.number_plate.dirty) &&
+                    fval.number_plate.errors
+                }"
+                autocomplete="off"
+                placeholder="Select Number Plate"
+                (click)="openModal(template)"
+              />
+              <!-- numberPlates: NumberPlates[]; -->
+              <datalist id="number_plate">
+                <option *ngFor="let item of numberPlates">
+                  {{ item.customers_number_plate }}
+                </option>
+              </datalist>
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.number_plate.touched || fval.number_plate.dirty) &&
+                fval.number_plate.errors?.required
+              "
+            >
+              The number plate is required!
+            </div>
+            <div
+              class="text-warning col"
+              *ngIf="
+                (fval.number_plate.touched || fval.number_plate.dirty) &&
+                fval.number_plate.errors?.minlength
+              "
+            >
+              The number plate should have a minimum of 8 characters!
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.number_plate.touched || fval.number_plate.dirty) &&
+                fval.number_plate.errors?.maxLength
+              "
+            >
+              The number plate should have a maximum of 8 characters!
+            </div>
+          </div>
+
+          <div class="form-group text-primary" *ngIf="loanType == 'Micro Loan'">
+            <label
+              for="user_contact_number"
+              [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''"
+              >Phone Number<i
+                *ngIf="fval.user_contact_number.valid"
+                class="material-icons"
+                >check_circle</i
+              ></label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-phone text-primary mx-auto"
+                    style="size: 50px"
+                  ></i>
+                </div>
+              </div>
+              <input
+                type="text"
+                list="user_contact_number"
+                formControlName="user_contact_number"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (fval.user_contact_number.touched ||
+                      fval.user_contact_number.dirty) &&
+                    fval.user_contact_number.errors
+                }"
+                autocomplete="off"
+                placeholder="Select Phone number"
+                (click)="openModal(template)"
+              />
+              <datalist id="user_contact_number">
+                <option *ngFor="let item of phoneNumbers">
+                  {{ item.customers_number_plate }}
+                </option>
+              </datalist>
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.user_contact_number.touched ||
+                  fval.user_contact_number.dirty) &&
+                fval.user_contact_number.errors?.required
+              "
+            >
+              The phone number is required!
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.user_contact_number.touched ||
+                  fval.user_contact_number.dirty) &&
+                fval.user_contact_number.errors?.hasNumber
+              "
+            >
+              The phone number should be equal to 10 "digits"!
+            </div>
           </div>
         </div>
+        <!--/end-->
 
-        <!--start-->
-        <!--on select of loan type display either number plate or micro loan -->
-        <div 
-          class="form-group text-primary"
-          *ngIf="loanType == 'Boda Loan'|| loanType == 'Taxi Loan'"   
-        >
+        <!--/end-->
+
+        <div class="form-group text-primary">
           <label
-            for="number_plate"
-            [ngClass]="fval.number_plate.valid ? 'text-info' : ''"
-            >Number Plate<i
-              *ngIf="fval.number_plate.valid"
-              class="material-icons"
+            for="itemRate"
+            [ngClass]="fval.itemRate.valid ? 'text-info' : ''"
+            >Rate<i *ngIf="fval.itemRate.valid" class="material-icons"
               >check_circle</i
             ></label
           >
           <div class="input-group mb-0">
             <input
-              type="text"
-              list="number_plate"
-              formControlName="number_plate"
-              class="form-control"
+              id="itemRate"
+              formControlName="itemRate"
+              type="number"
+              class="level-control form-control mx-0"
+              min="0"
+              max="100"
               [ngClass]="{
                 'is-invalid':
-                  (fval.number_plate.touched || fval.number_plate.dirty) &&
-                  fval.number_plate.errors
+                  (fval.itemRate.touched || fval.itemRate.dirty) &&
+                  fval.itemRate.errors
               }"
               autocomplete="off"
-              placeholder="Select Number Plate"
-            />
-            <!-- numberPlates: NumberPlates[]; -->
-            <datalist id="number_plate">
-              <option *ngFor="let item of numberPlates">
-                {{ item.customers_number_plate }}
-              </option>
-            </datalist>
+            /><i *ngIf="fval.itemRate.valid" class="material-icons"
+              >check_circle</i
+            >
           </div>
           <div
             class="text-danger col"
             *ngIf="
-              (fval.number_plate.touched || fval.number_plate.dirty) &&
-              fval.number_plate.errors?.required
+              (fval.itemRate.touched || fval.itemRate.dirty) &&
+              fval.itemRate.errors?.required
             "
           >
-            The number plate is required!
+            The loan rate is required!
           </div>
           <div
-            class="text-warning col"
+            class="col"
             *ngIf="
-              (fval.number_plate.touched || fval.number_plate.dirty) &&
-              fval.number_plate.errors?.minlength
+              (fval.itemRate.touched || fval.itemRate.dirty) &&
+              fval.itemRate.invalid
+            "
+            [ngClass]="
+              fval.itemRate.errors?.required || fval.itemRate.errors?.maxlength
+                ? 'text-danger'
+                : 'text-info'
             "
           >
-            The number plate should have a minimum of 8 characters!
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.number_plate.touched || fval.number_plate.dirty) &&
-              fval.number_plate.errors?.maxLength
-            "
-          >
-            The number plate should have a maximum of 8 characters!
+            <i class="material-icons">{{
+              fval.itemRate.errors?.required || fval.itemRate.errors?.maxlength
+                ? "cancel"
+                : "check_circle"
+            }}</i>
+            The loan interest rate should be a maximum of 100
           </div>
         </div>
 
-        <div 
-          class="form-group text-primary"
-          *ngIf="loanType == 'Micro Loan'" 
-        >
-          <label
-            for="user_contact_number"
-            [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''"
-            >Phone Number<i
-              *ngIf="fval.user_contact_number.valid"
-              class="material-icons"
+        <!--request pin if setting interest rate for individual-->
+        <div class="form-group text-primary">
+          <label for="pin" [ngClass]="fval.pin.valid ? 'text-info' : ''"
+            >PIN<i *ngIf="fval.pin.valid" class="material-icons"
               >check_circle</i
             ></label
           >
+
           <div class="input-group mb-0">
             <div class="input-group-prepend">
               <div class="input-group-text">
                 <i
-                  class="fas fa-phone text-primary mx-auto"
+                  class="fas fa-lock text-primary mx-auto"
                   style="size: 50px"
                 ></i>
               </div>
             </div>
             <input
-              type="text"
-              list="user_contact_number"
-              formControlName="user_contact_number"
+              type="password"
+              formControlName="pin"
               class="form-control"
               [ngClass]="{
                 'is-invalid':
-                  (fval.user_contact_number.touched ||
-                    fval.user_contact_number.dirty) &&
-                  fval.user_contact_number.errors
+                  (fval.pin.touched || fval.pin.dirty) && fval.pin.errors
               }"
+              placeholder="Enter your PIN"
               autocomplete="off"
-              placeholder="Select Phone number"
             />
-            <datalist id="user_contact_number">
-              <option *ngFor="let item of phoneNumbers">
-                {{ item.customers_number_plate }}
-              </option>
-            </datalist>
           </div>
           <div
             class="text-danger col"
             *ngIf="
-              (fval.user_contact_number.touched ||
-                fval.user_contact_number.dirty) &&
-              fval.user_contact_number.errors?.required
+              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.required
             "
           >
-            The phone number is required!
+            The PIN is required!
+          </div>
+
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.maxlength
+            "
+          >
+            Please enter a valid pin!
           </div>
           <div
             class="text-danger col"
             *ngIf="
-              (fval.user_contact_number.touched ||
-                fval.user_contact_number.dirty) &&
-              fval.user_contact_number.errors?.hasNumber
+              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.hasNumber
             "
           >
-            The phone number should be equal to 10 "digits"!
+            Only digits are allowed!
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.minlength
+            "
+          >
+            Please enter a valid pin!
           </div>
         </div>
-      </div>
-        <!--/end-->
 
-        <!--/end-->
-
-
-        <div class="form-group text-primary">
-          <label for="itemRate" [ngClass]="fval.itemRate.valid ? 'text-info' : ''">Rate<i *ngIf="fval.itemRate.valid" class="material-icons"
-    >check_circle</i
-  ></label
->
-<div class="input-group mb-0">
-  <input
-  id="itemRate"
-  formControlName="itemRate"
-  type="number"
-  class="level-control form-control mx-0"
-  min="0"
-  max="100"
-  [ngClass]="{
-    'is-invalid':
-    (fval.itemRate.touched || fval.itemRate.dirty) &&
-    fval.itemRate.errors
-  }"
-  autocomplete="off"
-  /><i *ngIf="fval.itemRate.valid" class="material-icons"
-    >check_circle</i
-  >
-</div>
-<div
-  class="text-danger col"
-  *ngIf="
-    (fval.itemRate.touched || fval.itemRate.dirty) &&
-    fval.itemRate.errors?.required
-  "
->
-  The loan rate is required!
-</div>
-<div
-class="col"
-*ngIf="
-  (fval.itemRate.touched || fval.itemRate.dirty) &&
-  fval.itemRate.invalid
-"
-[ngClass]="
-  fval.itemRate.errors?.required ||
-  fval.itemRate.errors?.maxlength
-    ? 'text-danger'
-    : 'text-info'
-"
->
-<i class="material-icons">{{
-  fval.itemRate.errors?.required ||
-  fval.itemRate.errors?.maxlength
-    ? "cancel"
-    : "check_circle"
-}}</i>
-The loan interest rate should be a maximum of 100
-</div>
-</div>
-
-<!--request pin if setting interest rate for individual-->
-<div class="form-group text-primary">
-  <label for="pin" [ngClass]="fval.pin.valid ? 'text-info' : ''"
-    >PIN<i *ngIf="fval.pin.valid" class="material-icons"
-      >check_circle</i
-    ></label
-  >
-
-  <div class="input-group mb-0">
-    <div class="input-group-prepend">
-      <div class="input-group-text">
-        <i
-          class="fas fa-lock text-primary mx-auto"
-          style="size: 50px"
-        ></i>
-      </div>
-    </div>
-    <input
-      type="password"
-      formControlName="pin"
-      class="form-control"
-      [ngClass]="{
-        'is-invalid':
-          (fval.pin.touched || fval.pin.dirty) && fval.pin.errors
-      }"
-      placeholder="Enter your PIN"
-      autocomplete="off"
-    />
-  </div>
-  <div
-    class="text-danger col"
-    *ngIf="
-      (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.required
-    "
-  >
-    The PIN is required!
-  </div>
-
-  <div
-    class="text-danger col"
-    *ngIf="
-      (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.maxlength
-    "
-  >
-    Please enter a valid pin!
-  </div>
-  <div
-    class="text-danger col"
-    *ngIf="
-      (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.hasNumber
-    "
-  >
-    Only digits are allowed!
-  </div>
-  <div
-    class="text-danger col"
-    *ngIf="
-      (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.minlength
-    "
-  >
-    Please enter a valid pin!
-  </div>
-</div>
-
-
-<div class="d-flex mt-3 mb-3 pt-2 pb-3 mx-auto">
+        <div class="d-flex mt-3 mb-3 pt-2 pb-3 mx-auto">
           <button
             type="submit"
             class="btn btn-info col-5 mx-auto"
@@ -381,15 +382,19 @@ The loan interest rate should be a maximum of 100
   </div>
 </div>
 <!--footer -->
-<div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-3 mx-auto">
+<div
+  class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-3 mx-auto"
+>
   <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
 </div>
 <!--/ footer -->
 <ng-template #template>
   <div class="modal-header modal-lg bg-info">
-    <h4 class="modal-title text-center text-info">
-      {{ clientName }}'s Loan Details
-    </h4>
+    <span class="d-flex justify-content-center">
+      <h4 class="modal-title text-center text-white">
+        {{ checkedClient.name }}'s Loan Details
+      </h4>
+    </span>
     <button
       type="button"
       class="pull-right close"
@@ -402,62 +407,82 @@ The loan interest rate should be a maximum of 100
     </button>
   </div>
   <div class="modal-body modal-lg">
-    <div class="invest-card3 card mt-2 pt-2 mb-2 pb-0 mx-auto shadow-lg">
-      <div class="invest-body card-body mx-0 mb-0 pb-0">
-        <div class="row">
-          <div class="col-xs-12 col-lg-12">
+    <div class="row">
+      <div class="col-xs-12 col-lg-12">
             <div
-              class="list-card2 card mt-2 pt-1 mb-2 mx-auto px-2 pb-0 shadow-lg"
+              class="list-card card mt-2 pt-1 mb-1 mx-auto px-auto pb-0 shadow-lg"
             >
               <div
-                class="list-body card-body mt-0 pt-1 mb-0 pb-0 mx-auto px-0"
+                class="list-card-body card-body mt-0 pt-1 mb-0 pb-0 mx-auto px-0 px-xl-4"
               >
-                <div class="row mt-0 pt-0 mb-0 pb-0 mx-auto px-auto">
+                <div class="row mt-0 pt-3 mb-0 pb-0 mx-auto px-auto">
                   <div
-                    class="col-12 col-sm-12 col-md-4 col-lg-4 mt-0 mb-0 pt-0 pt-md-4 pb-0"
+                    class="d-flex col-12 col-md-4 col-xl-3 mt-0 mb-0 pt-0 pt-md-4 pt-xl-3 pb-0"
                   >
-                    <!--add data from the database next to the span after &nbsp;-->
-                    <img
-                      class="border rounded-circle"
-                      [src]="user"
-                      width="75"
-                      height="75"
-                    />
-                  </div>
+                <!--add data from the database next to the span after &nbsp;-->
+                <img
+                  class="details-img img-rounded"
+                  [src]="checkedClient.photoUrl"
+                />
+              </div>
                   <div
-                    class="col-12 col-sm-12 col-md-7 col-lg-7 mt-0 pt-2"
+                    class="col-12 col-md-8 col-xl-9 mt-0 mb-0 pt-2 pt-md-5 pt-xl-4 pb-0"
                   >
-                    <!--add data from the database next to the span after &nbsp;-->
-
-                    <!--display either phone number or number plate depending on the type of loan selected-->
+                <div class="row my-0 py-0">
+                  <div
+                    class="col-12 col-lg-6 mt-2 mb-0 py-0"
+                  >
                     <span class="itemCreated">Phone Number: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">0752425815</span><br />
+                    ><span class="itemCreated text-info">{{
+                      checkedClient.phone
+                    }}</span
+                    ><br />
                     <span class="itemCreated">Number Plate: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">UBA 821K</span><br />
+                    ><span class="itemCreated text-info">{{
+                      checkedClient.plate
+                    }}</span
+                    ><br />
 
                     <span class="itemCreated">Name: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info"
-                      >Byamugisha Achileo</span
+                    ><span class="itemCreated text-info">{{
+                      checkedClient.name
+                    }}</span
                     ><br />
                     <span class="itemCreated">Loan Limit: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">30000</span><br />
-                      <span class="itemCreated">Last Paid: &nbsp;&nbsp;</span
-                        ><span class="itemCreated text-info">30000</span><br />
-                          <span class="itemCreated">Outstanding: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">30000</span><br />
+                    ><span class="itemCreated text-info">{{
+                      checkedClient.loanLimit
+                    }}</span>
+                  </div>
+                  <div
+                    class="col-12 col-lg-6 mt-2 mb-0 py-0"
+                  >
+                    <span class="itemCreated">Loan Taken: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">{{
+                      checkedClient.loanAmount
+                    }}</span
+                    ><br />
+                    <span class="itemCreated">Last Paid: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">{{
+                      checkedClient.loanPaid
+                    }}</span
+                    ><br />
+                    <span class="itemCreated">Outstanding: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info">{{
+                      checkedClient.loanBalance
+                    }}</span
+                    ><br />
                     <span class="itemCreated">Loan Status: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">Running</span><br />
+                    ><span class="itemCreated text-info">{{
+                      checkedClient.loanStatus
+                    }}</span>
+                  </div>
+                  <div
+                    class="col-12 mt-2 mb-0 py-0"
+                  >
                     <span class="itemCreated">Comment: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">Active</span>
-                    <!-- <span class="itemCreated">Amount Paid: &nbsp;&nbsp;</span
-                          ><span class="itemCreated text-info">30000</span
-                          ><br />
-                          <span class="itemCreated">Balance: &nbsp;&nbsp;</span
-                            ><span class="itemCreated text-info">30000</span
-                            ><br />
-                    <span class="itemCreated">Loan Interest: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">3000</span
-                      > -->
+                    ><span class="itemCreated text-info">{{
+                      checkedClient.comment
+                    }}</span>
                   </div>
                 </div>
               </div>
@@ -468,14 +493,12 @@ The loan interest rate should be a maximum of 100
     </div>
   </div>
   <div class="modal-footer">
-    <!-- <div class="d-flex mb-0 pt-1 pb-0"> -->
-      <button
-        type="button"
-        class="btn btn-info col-3 pull-right"
-        (click)="revert()"
-      >
-        Ok
-      </button>
-    <!-- </div> -->
-</div>
+    <button
+      type="button"
+      class="btn btn-info col-3 col-xl-2 pull-right"
+      (click)="modalRef.hide()"
+    >
+      Ok
+    </button>
+  </div>
 </ng-template>

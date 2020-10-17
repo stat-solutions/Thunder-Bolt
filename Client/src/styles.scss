@@ -5927,7 +5927,7 @@ a.close.disabled {
     flex-direction: column;
     width: 100%;
     pointer-events: auto;
-    background-color: #fff;
+    background-color: #f8f7f7;
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, .2);
     border-radius: .3rem;
@@ -5955,21 +5955,23 @@ a.close.disabled {
 .modal-header {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
-    padding: 1rem 1rem;
-    border-bottom: 1px solid #dee2e6;
+    justify-content: space-evenly;
+    padding: .7rem .7rem;
+    border-bottom: 1px solid #17aae0;
     border-top-left-radius: .3rem;
     border-top-right-radius: .3rem
 }
 
 .modal-header .close {
-    padding: 1rem 1rem;
-    margin: -1rem -1rem -1rem auto
+    padding: 0.5rem .5rem;
+    border: 0px;
+    margin: -0.5rem -0.5rem -0.5rem auto
 }
 
 .modal-title {
+  align-self: center;
     margin-bottom: 0;
-    line-height: 1.5
+    line-height: 1.0
 }
 
 .modal-body {
@@ -5982,7 +5984,7 @@ a.close.disabled {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 1rem;
+    padding: .5rem;
     border-top: 1px solid #dee2e6;
     border-bottom-right-radius: .3rem;
     border-bottom-left-radius: .3rem
@@ -6654,7 +6656,7 @@ button.bg-success:hover {
 }
 
 .bg-info {
-    background-color: #17a2b8 !important
+    background-color: #148ebb !important
 }
 
 a.bg-info:focus,

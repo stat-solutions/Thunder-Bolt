@@ -8,7 +8,7 @@
           <h2
             class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
           >
-            Reduce Interest Rate (%)
+            Reduce Interest (%)
           </h2>
         </div>
       </div>
@@ -51,9 +51,9 @@
 
         <!--start-->
         <!--on select of loan type display either number plate or micro loan -->
-        <div 
+        <div
           class="form-group text-primary"
-          *ngIf="loanType == 'Boda Loan'|| loanType == 'Taxi Loan'" 
+          *ngIf="loanType == 'Boda Loan'|| loanType == 'Taxi Loan'"
         >
           <label
             for="number_plate"
@@ -115,9 +115,9 @@
           </div>
         </div>
 
-        <div 
+        <div
           class="form-group text-primary"
-          *ngIf="loanType == 'Micro Loan'" 
+          *ngIf="loanType == 'Micro Loan'"
         >
           <label
             for="user_contact_number"
@@ -341,9 +341,11 @@ The loan interest rate should be a maximum of 100
 <!--/ footer -->
 <ng-template #template>
   <div class="modal-header modal-lg bg-info">
-    <h4 class="modal-title text-center text-info">
-      {{ clientName }}'s Loan Details
+<span class="d-flex justify-content-center">
+    <h4 class="modal-title text-center text-white">
+      {{ checkedClient.name }}'s Loan Details
     </h4>
+</span>
     <button
       type="button"
       class="pull-right close"
@@ -356,71 +358,76 @@ The loan interest rate should be a maximum of 100
     </button>
   </div>
   <div class="modal-body modal-lg">
-    <div class="invest-card3 card mt-2 pt-2 mb-2 pb-0 mx-auto shadow-lg">
-      <div class="invest-body card-body mx-0 mb-0 pb-0">
         <div class="row">
           <div class="col-xs-12 col-lg-12">
             <div
-              class="list-card2 card mt-2 pt-1 mb-2 mx-auto px-2 pb-0 shadow-lg"
+              class="list-card card mt-2 pt-1 mb-1 mx-auto px-auto pb-0 shadow-lg"
             >
               <div
-                class="list-body card-body mt-0 pt-1 mb-0 pb-0 mx-auto px-0"
+                class="list-card-body card-body mt-0 pt-1 mb-0 pb-0 mx-auto px-0 px-xl-4"
               >
-                <div class="row mt-0 pt-0 mb-0 pb-0 mx-auto px-auto">
+                <div class="row mt-0 pt-3 mb-0 pb-0 mx-auto px-auto">
                   <div
-                    class="col-12 col-sm-12 col-md-4 col-lg-4 mt-0 mb-0 pt-0 pt-md-4 pb-0"
+                    class="d-flex col-12 col-md-4 col-xl-3 mt-0 mb-0 pt-0 pt-md-4 pt-xl-3 pb-0"
                   >
                     <!--add data from the database next to the span after &nbsp;-->
                     <img
-                      class="border rounded-circle"
-                      [src]="user"
-                      width="75"
-                      height="75"
+                      class="details-img img-rounded"
+                      [src]=" checkedClient.photoUrl"
                     />
                   </div>
                   <div
-                    class="col-12 col-sm-12 col-md-7 col-lg-7 mt-0 pt-2"
+                    class="col-12 col-md-8 col-xl-9 mt-0 mb-0 pt-2 pt-md-5 pt-xl-4 pb-0"
                   >
-                    <!--add data from the database next to the span after &nbsp;-->
-
-                    <!--display either phone number or number plate depending on the type of loan selected-->
+                <div class="row my-0 py-0">
+                  <div
+                    class="col-12 col-lg-6 mt-2 mb-0 py-0"
+                  >
                     <span class="itemCreated">Phone Number: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">0752425815</span><br />
+                    ><span class="itemCreated text-info">{{ checkedClient.phone}}</span><br />
                     <span class="itemCreated">Number Plate: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">UBA 821K</span><br />
+                    ><span class="itemCreated text-info">{{ checkedClient.plate}}</span><br />
 
                     <span class="itemCreated">Name: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info"
-                      >Byamugisha Achileo</span
+                      >{{ checkedClient.name}}</span
                     ><br />
                     <span class="itemCreated">Loan Limit: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">30000</span><br />
+                      ><span class="itemCreated text-info">{{ checkedClient.loanLimit}}</span>
+</div>
+                  <div
+                    class="col-12 col-lg-6 mt-2 mb-0 py-0"
+                  >
+                    <span class="itemCreated">Loan Taken: &nbsp;&nbsp;</span
+                      ><span class="itemCreated text-info">{{ checkedClient.loanAmount}}</span><br />
                       <span class="itemCreated">Last Paid: &nbsp;&nbsp;</span
-                        ><span class="itemCreated text-info">30000</span><br />
+                        ><span class="itemCreated text-info">{{ checkedClient.loanPaid}}</span><br />
                           <span class="itemCreated">Outstanding: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">30000</span><br />
+                    ><span class="itemCreated text-info">{{ checkedClient.loanBalance}}</span><br />
                     <span class="itemCreated">Loan Status: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">Running</span><br />
+                    ><span class="itemCreated text-info">{{ checkedClient.loanStatus}}</span>
+</div>
+                  <div
+                    class="col-12 mt-2 mb-0 py-0"
+                  >
                     <span class="itemCreated">Comment: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">Active</span>
-                    </div>
+                      ><span class="itemCreated text-info">{{ checkedClient.comment}}</span>
+                  </div>
                 </div>
+                </div>
+                              </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
   </div>
   <div class="modal-footer">
-    <!-- <div class="d-flex mb-0 pt-1 pb-0"> -->
       <button
         type="button"
-        class="btn btn-info col-3 pull-right"
-        (click)="revert()"
+        class="btn btn-info col-3 col-xl-2 pull-right"
+        (click)="modalRef.hide()"
       >
         Ok
       </button>
-    <!-- </div> -->
 </div>
 </ng-template>

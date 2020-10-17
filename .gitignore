@@ -9,6 +9,7 @@ Client/bazel-out
 
 # dependencies
 Client/node_modules
+Client/.env
 /node_modules
 # profiling files
 chrome-profiler-events*.json
@@ -46,4 +47,6 @@ Client/typings
 Thumbs.db
 
 #environment variables
+/Client/.env
+.env
 Client/.env

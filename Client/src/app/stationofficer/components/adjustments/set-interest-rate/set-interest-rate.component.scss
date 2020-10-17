@@ -23,52 +23,34 @@
   contain: auto;
 }
 
-.invest-card3 {
+.list-card {
+  width: 100%!important;
+  max-width: 920px !important;
+  min-width: 290px !important;
   height: auto;
-  margin-bottom: 0px !important;
-  // padding-left: 0px !important;
-  // padding-right: 0px !important;
+  border-radius: 8px;
   contain: auto;
 }
-.invest-body {
-  width: 100%;
-  height: auto !important;
-  margin-left: 0px !important;
-  margin-right: 0px !important;
-  // padding-left: 0px !important;
-  // padding-right: 0px !important;
-  contain: auto;
+.list-card-body {
+  width: 100% !important;
+  max-width: 880px !important;
+  min-width: 260px !important;
+  height: auto;
 }
 
-.list-card2 {
-  width: 100%;
-  height: auto !important;
-  // margin-left: 0px !important;
-  // margin-right: 0px !important;
-  contain: auto;
-}
-.list-body {
-  width: 100%;
-  height: auto !important;
-  // margin-left: 0px !important;
-  // margin-right: 0px !important;
-  contain: auto;
-}
-
-.bg-info {
-  background-color: #141e27 !important;
-}
-
-h2 {
-  font-size: 20px;
-}
-
-button.btn {
+.btn {
   border-radius: 15px;
 }
 
 .text-info {
   color: #17aae0ee !important;
+}
+
+.details-img {
+  width: 100%;
+  height: 100%;
+  margin-left: 3.6rem !important;
+  margin-right: 3.6rem !important;
 }
 
 a.text-info:focus,
@@ -105,17 +87,17 @@ a.text-info:hover {
   cursor: pointer;
 }
 
+
+
 //media queries
 @media (min-width: 320px) {
   .card-body {
     max-width: 320px;
     min-width: 290px;
-    // max-height: 275px;
-    // min-height: 230px;
   }
   .jumbotron-fluid {
     padding-top: 0px !important;
-    padding-bottom: 10px !important;
+    padding-bottom: .7rem !important;
   }
 }
 
@@ -124,10 +106,10 @@ a.text-info:hover {
     max-width: 360px;
     min-width: 310px;
     padding-top: 22px !important;
-    margin-bottom: 25px !important;
+    margin-bottom: 6rem !important;
   }
   .jumbotron-fluid {
-    padding-bottom: 20px !important;
+    padding-bottom: 1.8rem !important;
   }
 }
 
@@ -135,36 +117,47 @@ a.text-info:hover {
   .card-body {
     max-width: 370px;
     min-width: 315px;
-    margin-bottom: 10px !important;
+    margin-bottom: 7.0rem !important;
   }
 }
 
 @media (min-width: 410px) {
   .card-body {
-    max-width: 370px;
-    min-width: 350px;
-    margin-bottom: 30px !important;
+    margin-bottom: 11rem !important;
   }
   .jumbotron-fluid {
-    padding-top: 18px !important;
-    padding-bottom: 30px !important;
+    padding-top: 1.2rem !important;
+    padding-bottom: 1.0rem !important;
   }
 }
 
 @media (min-width: 445px) {
-  h2 {
-    font-size: 22px !important;
-  }
   .card-body {
     max-width: 410px;
-    min-width: 390px;
+    margin-bottom: 11rem !important;
   }
+  .jumbotron-fluid {
+    padding-top: .8rem !important;
+    padding-bottom: 1.0rem !important;
+  }
+.details-img {
+  margin-left: 6rem !important;
+  margin-right: 6rem !important;
+}
 }
 
 @media (min-width: 568px) {
-  .jumbotron-fluid {
-    padding-bottom: 20px !important;
+  .card-body {
+    margin-bottom: .5rem !important;
   }
+  .jumbotron-fluid {
+    padding-top: 0rem !important;
+    padding-bottom: 1.0rem !important;
+  }
+.details-img {
+  margin-left: 8rem !important;
+  margin-right: 8rem !important;
+}
 }
 
 @media (min-width: 640px) {
@@ -179,31 +172,27 @@ a.text-info:hover {
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
-  h2 {
-    font-size: 26px !important;
-  }
-  .invest-card3 {
-    max-width: 600px;
-    // min-width: 690px;
-  }
-  .list-card2 {
-    width: 74%;
-    margin-left: -10px !important;
-    margin-right: 15px !important;
-  }
   .card-body {
-    // max-width: 680px;
-    // min-width: 640px;
+    margin-bottom: 10rem !important;
   }
-  .invest-body {
-    max-width: 550px;
+  .jumbotron-fluid {
+    padding-top: 5rem !important;
+    padding-bottom: 16.2rem !important;
   }
-  .list-body {
-    max-width: 550px;
-  }
+.details-img {
+  margin-left: 1rem !important;
+  margin-right: 1rem !important;
+}
 }
 
 @media (min-width: 812px) {
+  .card-body {
+    margin-bottom: .5rem !important;
+  }
+  .jumbotron-fluid {
+    padding-top: 0rem !important;
+    padding-bottom: 1.0rem !important;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -211,36 +200,29 @@ a.text-info:hover {
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
-  h2 {
-    font-size: 28px !important;
-  }
   .card-body {
-    // max-width: 970px;
-    // min-width: 890px;
+    margin-bottom: 11rem !important;
   }
-  .invest-card3 {
-    max-width: 940px;
-    // min-width: 690px;
+  .jumbotron-fluid {
+    padding-top: 6rem !important;
+    padding-bottom: 26rem !important;
   }
-  .list-card2 {
-    width: 85%;
-    margin-left: 0px !important;
-    margin-right: 15px !important;
-  }
-  .invest-body {
-    max-width: 890px;
-  }
-  .list-body {
-    max-width: 810px;
-  }
+.details-img {
+  margin-left: 0rem !important;
+  margin-right: 0rem !important;
+}
 }
 
 @media (min-width: 1100px) {
 }
 
 @media (min-width: 1280px) {
-  h4 {
-    font-size: 24px !important;
+  .card-body {
+    margin-bottom: 3rem !important;
+  }
+  .jumbotron-fluid {
+    padding-top: .6rem !important;
+    padding-bottom: 5.5rem !important;
   }
 }
 

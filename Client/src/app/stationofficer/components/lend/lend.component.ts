@@ -12,9 +12,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 @Component({
   selector: 'app-lend',
   templateUrl: './lend.component.html',
-  styleUrls: ['./lend.component.scss']
+  styleUrls: ['./lend.component.scss'],
 })
-
 export class LendComponent implements OnInit {
   modalRef: BsModalRef;
   userForm: FormGroup;
@@ -45,6 +44,7 @@ export class LendComponent implements OnInit {
     photoUrl: string;
     phone: any;
     plate: any;
+    loanAmount: number;
     loanLimit: number;
     loanPaid: number;
     loanBalance: number;
@@ -69,14 +69,13 @@ export class LendComponent implements OnInit {
 
   createFormGroup(): any {
     return new FormGroup({
-      loanType: new FormControl(['',
-        Validators.required]),
+      loanType: new FormControl(['', Validators.required]),
       number_plate: new FormControl(
         '',
         Validators.compose([
           Validators.required,
           Validators.minLength(8),
-          Validators.maxLength(8)
+          Validators.maxLength(8),
         ])
       ),
       user_contact_number: new FormControl(
@@ -86,7 +85,7 @@ export class LendComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
       amount_to_borrow: new FormControl(
@@ -95,7 +94,7 @@ export class LendComponent implements OnInit {
           Validators.required,
           CustomValidator.patternValidator(/\d/, { hasNumber: true }),
           Validators.maxLength(6),
-          Validators.minLength(3)
+          Validators.minLength(3),
         ])
       ),
       pin: new FormControl(
@@ -104,12 +103,12 @@ export class LendComponent implements OnInit {
           Validators.required,
           CustomValidator.patternValidator(/\d/, { hasNumber: true }),
           Validators.maxLength(4),
-          Validators.minLength(4)
+          Validators.minLength(4),
         ])
-      )
+      ),
     });
   }
-  checkLoanType(value: string): any{
+  checkLoanType(value: string): any {
     // console.log(value);
     this.loanType = value;
   }
@@ -141,22 +140,22 @@ export class LendComponent implements OnInit {
     // ND ASSIGN IT TO THE CHECKED CLIENT
     console.log(this.fval.number_plate.value);
     this.checkedClient = {
-      name: 'mukwaya',
+      name: 'Mukwaya',
       photoUrl: this.user,
       phone: '0788883887',
       plate: 'UAB456Z',
+      loanAmount: 50000,
       loanLimit: 58000,
       loanPaid: 7000,
       loanBalance: 4500,
       loanStatus: 'RUNNING',
-      comment: 'User prommised to pay',
+      comment: 'User promised to pay',
     };
     this.modalRef = this.modalService.show(
       template,
-      Object.assign(
-        {},
-      { class: 'modal-lg modal-dialog-centered' }));
-    }
+      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
+    );
+  }
 
   getTheNumberPlatesPhoneNumers(): any {
     this.numberPlates = [
@@ -169,7 +168,7 @@ export class LendComponent implements OnInit {
       'UAB4334C',
       'UAB4098C',
       'UAB4453C',
-      'UAB4123C'
+      'UAB4123C',
     ];
     this.phoneNumbers = [
       '0786737733',
@@ -195,7 +194,6 @@ export class LendComponent implements OnInit {
     //       this.userForm.controls.amount_to_borrow.enable();
     //       this.userForm.controls.pin.enable();
     //     },
-
     //     (error: string) => {
     //       this.errored = true;
     //       this.serviceErrors = error;
@@ -206,36 +204,38 @@ export class LendComponent implements OnInit {
     //   );
   }
 
-
-
   lend(): any {
-
     this.userForm.patchValue({
-      amount_to_borrow: parseInt( this.userForm.controls.amount_to_borrow.value.replace(/[\D\s\._\-]+/g, ''), 10 )
+      amount_to_borrow: parseInt(
+        this.userForm.controls.amount_to_borrow.value.replace(
+          /[\D\s\._\-]+/g,
+          ''
+        ),
+        10
+      ),
     });
 
     // tslint:disable-next-line:triple-equals
     if (!(this.secretPin == this.userForm.controls.pin.value)) {
       this.alertService.danger({
-        html: '<b>Invalid PIN!</b>'
+        html: '<b>Invalid PIN!</b>',
       });
       return;
     } else {
       if (this.userForm.controls.amount_to_borrow.value > this.loanLimit) {
         this.alertService.warning({
-          html: '<b>Loan Limit Exceeded!</b>' + '<br/>'
+          html: '<b>Loan Limit Exceeded!</b>' + '<br/>',
         });
         return;
       } else {
         this.userForm.controls.number_plate.enable();
         this.userForm.patchValue({
           user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-          user_id: jwt_decode(this.authService.getJwtToken()).user_id
+          user_id: jwt_decode(this.authService.getJwtToken()).user_id,
         });
         // console.log(this.userForm.value);
         this.posted = true;
         this.spinner.show();
-
       }
     }
   }
