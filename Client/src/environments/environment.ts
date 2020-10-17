@@ -1,27 +1,15 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:3088',
-  //  firebaseConfig : {
-  //   apiKey: process.env.CLIENT_API_KEY ,
-  //   authDomain: process.env.CLIENT_AUTHDOMAIN,
-  //   databaseURL: process.env.CLIENT_DATABASE_URL,
-  //   projectId: process.env.CLIENT_PROJECT_ID,
-  //   storageBucket: process.env.CLIENT_STORAGE_BUCKET,
-  //   messagingSenderId: process.env.CLIENT_MESSAGING_SENDER_ID,
-  //   appId: process.env.CLIENT_APP_ID,
-  //   measurementId: process.env.CLIENT_MEASUREMENT_ID
-  // }
-};
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+   production: 'false',
+   apiUrl: 'http://localhost:3088',
+    firebaseConfig : {
+     apiKey: 'AIzaSyAOs-wndIMpwXD_rs2F3iVXdHg5dlAYqhc',
+     authDomain: 'thunder-bolt-44c4d.firebaseapp.com',
+     databaseURL: 'https://thunder-bolt-44c4d.firebaseio.com',
+     projectId: 'thunder-bolt-44c4d',
+     storageBucket: 'thunder-bolt-44c4d.appspot.com',
+     messagingSenderId: '182784916030',
+     appId: '1:182784916030:web:f165f866a5371a7992af6f',
+     measurementId: 'G-Q94X5ERBGV'
+   }
+ };

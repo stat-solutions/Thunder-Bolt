@@ -9,7 +9,8 @@ exports.__esModule = true;
 exports.DashboardComponent = void 0;
 var core_1 = require("@angular/core");
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent() {
+    function DashboardComponent(messagingService) {
+        this.messagingService = messagingService;
         this.totals = [
             {
                 float: 12000000,
@@ -28,9 +29,13 @@ var DashboardComponent = /** @class */ (function () {
                 ammountRecovered: 6000000
             }
         ];
+        this.title = 'push-notification';
     }
     DashboardComponent.prototype.ngOnInit = function () {
         // inline plugin
+        this.messagingService.requestPermission();
+        this.messagingService.receiveMessage();
+        this.message = this.messagingService.currentMessage;
     };
     DashboardComponent = __decorate([
         core_1.Component({

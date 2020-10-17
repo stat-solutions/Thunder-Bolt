@@ -6,6 +6,9 @@ import { MenudropdownDirective } from './directives/menudropdown.directive';
 import { AuthGuard } from './services/other-services/route-guards/auth-guard.service';
 import { RandomGuard } from './services/other-services/route-guards/random-guard.service';
 import { AuthServiceService } from './services/auth-service.service';
+import { MessagingService } from './services/other-services/messaging.service';
+import { OthersService } from './services/other-services/others.service';
+
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ export class SharedModule {
       providers: [
         LayoutService,
         AuthServiceService,
+        MessagingService,
+        OthersService,
         AuthGuard,
         RandomGuard
       ]

@@ -26,6 +26,12 @@ var tooltip_1 = require("ngx-bootstrap/tooltip");
 var interceptor_service_1 = require("./shared/services/interceptor.service");
 var shared_module_1 = require("./shared/shared.module");
 var angular_jwt_1 = require("@auth0/angular-jwt");
+var environment_1 = require("src/environments/environment");
+var fire_1 = require("@angular/fire");
+var messaging_1 = require("@angular/fire/messaging");
+var database_1 = require("@angular/fire/database");
+var auth_1 = require("@angular/fire/auth");
+var common_1 = require("@angular/common");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -48,6 +54,10 @@ var AppModule = /** @class */ (function () {
                 townmanagement_module_1.TownmanagementModule,
                 forms_1.ReactiveFormsModule,
                 tooltip_1.TooltipModule.forRoot(),
+                database_1.AngularFireDatabaseModule,
+                auth_1.AngularFireAuthModule,
+                messaging_1.AngularFireMessagingModule,
+                fire_1.AngularFireModule.initializeApp(environment_1.environment.firebaseConfig),
                 angular_jwt_1.JwtModule.forRoot({
                     config: {
                     //   tokenGetter: () => {
@@ -64,7 +74,8 @@ var AppModule = /** @class */ (function () {
                     useClass: interceptor_service_1.InterceptorService,
                     multi: true
                 },
-                shared_module_1.SharedModule
+                shared_module_1.SharedModule,
+                common_1.AsyncPipe
             ],
             bootstrap: [app_component_1.AppComponent]
         })

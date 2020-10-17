@@ -30,7 +30,7 @@ export class LendComponent implements OnInit {
   theCompany: string;
   closingBal: string;
   numberPlates: Array<string>;
-  phoneNumbers: [];
+  phoneNumbers: Array<string>;
   loanDetails: any;
   loanType: string;
   secretPin: number;
@@ -40,7 +40,17 @@ export class LendComponent implements OnInit {
   numberValue: number;
   values: any;
   user = '/../../../assets/img/man.svg';
-  clientName: string;
+  checkedClient: {
+    name: string;
+    photoUrl: string;
+    phone: any;
+    plate: any;
+    loanLimit: number;
+    loanPaid: number;
+    loanBalance: number;
+    loanStatus: string;
+    comment: string;
+  };
 
   constructor(
     private authService: AuthServiceService,
@@ -51,10 +61,10 @@ export class LendComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getTheNumberPlates();
+    this.getTheNumberPlatesPhoneNumers();
     this.userForm = this.createFormGroup();
     this.checkedOk = false;
-    console.log(this.numberPlates);
+    // console.log(this.numberPlates);
   }
 
   createFormGroup(): any {
@@ -106,7 +116,6 @@ export class LendComponent implements OnInit {
   revert(): any {
     this.userForm.reset();
   }
-
   refresh(): any {
     location.reload();
   }
@@ -128,40 +137,48 @@ export class LendComponent implements OnInit {
   }
 
   public openModal(template: TemplateRef<any>): any {
+    //  FIRST SEARCH THE CLIENT DETAILS USING THE PASSED IN USERID A
+    // ND ASSIGN IT TO THE CHECKED CLIENT
+    console.log(this.fval.number_plate.value);
+    this.checkedClient = {
+      name: 'mukwaya',
+      photoUrl: this.user,
+      phone: '0788883887',
+      plate: 'UAB456Z',
+      loanLimit: 58000,
+      loanPaid: 7000,
+      loanBalance: 4500,
+      loanStatus: 'RUNNING',
+      comment: 'User prommised to pay',
+    };
     this.modalRef = this.modalService.show(
       template,
       Object.assign(
         {},
       { class: 'modal-lg modal-dialog-centered' }));
+    }
 
-  }
-
-  getTheNumberPlates(): any {
+  getTheNumberPlatesPhoneNumers(): any {
     this.numberPlates = [
-      'UAB4566',
-      'UAB4555',
-      'UAB4564',
-      'UAB4345',
-      'UAB4999',
-      'UAB4577',
-      'UAB4334',
-      'UAB4098',
-      'UAB4453',
-      'UAB4123'
+      'UAB4566C',
+      'UAB4555C',
+      'UAB4564C',
+      'UAB4345C',
+      'UAB4999C',
+      'UAB4577C',
+      'UAB4334C',
+      'UAB4098C',
+      'UAB4453C',
+      'UAB4123C'
     ];
-    // this.pumpService.theNumberPlates(this.station).subscribe(
-    //   data => {
-    //     this.numberPlates = data;
-    //   },
-
-    //   (error: string) => {
-    //     this.errored = true;
-    //     this.serviceErrors = error;
-    //     this.alertService.danger({
-    //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-    //     });
-    //   }
-    // );
+    this.phoneNumbers = [
+      '0786737733',
+      '0786737733',
+      '0786737733',
+      '0786737733',
+      '0786737733',
+      '0786737733',
+    ];
   }
 
   checkLoanbility(): any {

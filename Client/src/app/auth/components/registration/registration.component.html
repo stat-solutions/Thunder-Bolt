@@ -358,6 +358,7 @@
             <select
             formControlName="central"
             class="form-control"
+            *ngIf="(positionValue == 'Central User')"
             [ngClass]="{
               'is-invalid':
                 (fval.central.touched || fval.central.dirty) &&
@@ -527,6 +528,5 @@
     <div class="small text-center text-primo">
      &copy; 2020 - ThunderBolt
     </div>
-  </div>
-  <!--/ footer -->
+</div>
 

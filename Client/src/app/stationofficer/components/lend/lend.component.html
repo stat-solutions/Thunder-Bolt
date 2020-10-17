@@ -150,11 +150,12 @@
               }"
               autocomplete="off"
               placeholder="Select Phone number"
+              (blur)="openModal(template)"
               />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="user_contact_number">
               <option *ngFor="let item of phoneNumbers">
-                {{ item.customers_number_plate }}
+                {{ item }}
               </option>
             </datalist>
           </div>
@@ -305,32 +306,6 @@
             Please enter a valid pin!
           </div>
         </div>
-        <!-- <div class="d-flex mt-3 mb-0 pt-1 pb-0 mx-auto">
-          <button
-          *ngIf="!checkedOk"
-          type="button"
-          class="btn btn-info col-12"
-          [disabled]="!userForm.valid"
-          (click)="checkLoanbility()"
-        >
-          Check
-        </button>
-
-        <ngx-spinner class="bg-success" size="medium" type="line-spin-fade">
-          <p class="text-light">Please wait...</p>
-        </ngx-spinner>
-
-        <label class="col" *ngIf="errored" class="text-danger">
-          <i class="material-icons">cancel</i>
-          <ngx-alerts></ngx-alerts>
-        </label>
-
-        <label class="col" *ngIf="posted" class="text-info">
-          <i class="material-icons">check_circle</i>
-          <ngx-alerts></ngx-alerts>
-        </label>
-
-        </div> -->
         <div class="d-flex mt-3 mb-3 pt-2 pb-3 mx-auto">
           <button
             type="submit"
@@ -373,7 +348,7 @@
 <ng-template #template>
   <div class="modal-header modal-lg bg-info">
     <h4 class="modal-title text-center text-info">
-      {{ clientName }}'s Loan Details
+      {{ checkedClient.name }}'s Loan Details
     </h4>
     <button
       type="button"
@@ -404,7 +379,7 @@
                     <!--add data from the database next to the span after &nbsp;-->
                     <img
                       class="border rounded-circle"
-                      [src]="user"
+                      [src]=" checkedClient.photoUrl"
                       width="75"
                       height="75"
                     />
@@ -413,24 +388,24 @@
                     class="col-12 col-sm-12 col-md-7 col-lg-7 mt-0 pt-2"
                   >
                     <span class="itemCreated">Phone Number: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">0752425815</span><br />
+                    ><span class="itemCreated text-info">{{ checkedClient.phone}}</span><br />
                     <span class="itemCreated">Number Plate: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">UBA 821K</span><br />
+                    ><span class="itemCreated text-info">{{ checkedClient.plate}}</span><br />
 
                     <span class="itemCreated">Name: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info"
                       >Byamugisha Achileo</span
                     ><br />
                     <span class="itemCreated">Loan Limit: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">30000</span><br />
+                      ><span class="itemCreated text-info">{{ checkedClient.loanLimit}}</span><br />
                       <span class="itemCreated">Last Paid: &nbsp;&nbsp;</span
-                        ><span class="itemCreated text-info">30000</span><br />
+                        ><span class="itemCreated text-info">{{ checkedClient.loanPaid}}</span><br />
                           <span class="itemCreated">Outstanding: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">30000</span><br />
+                    ><span class="itemCreated text-info">{{ checkedClient.loanBalance}}</span><br />
                     <span class="itemCreated">Loan Status: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">Running</span><br />
+                    ><span class="itemCreated text-info">{{ checkedClient.loanStatus}}</span><br />
                     <span class="itemCreated">Comment: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">Active</span>
+                      ><span class="itemCreated text-info">{{ checkedClient.comment}}</span>
                   </div>
                 </div>
               </div>

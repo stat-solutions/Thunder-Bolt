@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-import { TabsetComponent } from "ngx-bootstrap/tabs";
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { AreaApprovals } from '../approvals/approve-areas/approve-areas.component';
+import { MessagingService } from 'src/app/shared/services/other-services/messaging.service';
+
 
 export interface Totals {
-  areas: number,
-  towns: number,
-  stations: number,
-  clients: number
+  areas: number;
+  towns: number;
+  stations: number;
+  clients: number;
 }
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +17,7 @@ export interface Totals {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  message: any;
   lineChartData: Chart.ChartDataSets[] = [
     {
       label: 'Savings',
@@ -92,64 +95,67 @@ export class DashboardComponent implements OnInit {
     {areas: 24, towns: 40, stations: 136, clients: 200}
   ];
   creationApprovals: Array<any> = [
-    {type: "Area Creation", total: 17},
-    {type: "Town Creation", total: 10},
-    {type: "Station Creation", total: 23},
-    {type: "Cluster Creation", total: 15},
+    {type: 'Area Creation', total: 17},
+    {type: 'Town Creation', total: 10},
+    {type: 'Station Creation', total: 23},
+    {type: 'Cluster Creation', total: 15},
   ];
   transactionApprovals: Array<any> = [
-    {type: "Floats", total: 23},
-    {type: "Interests Rates", total: 8},
-    {type: "Reversing", total: 7},
-    {type: "Waiving", total: 15},
-    {type: "Withdraws", total: 15},
-    {type: "Writing Off", total: 6}
+    {type: 'Floats', total: 23},
+    {type: 'Interests Rates', total: 8},
+    {type: 'Reversing', total: 7},
+    {type: 'Waiving', total: 15},
+    {type: 'Withdraws', total: 15},
+    {type: 'Writing Off', total: 6}
   ];
   topClients: Array<any> = [
-    {ID: "AD120", name: "Kiwanuka Mahd"},
-    {ID: "AD010", name: "Katumba Mark"},
-    {ID: "AD110", name: "Musoke John"},
-    {ID: "AD020", name: "Muwonge Mahd"},
-    {ID: "AD123", name: "Tom Giraka"}
+    {ID: 'AD120', name: 'Kiwanuka Mahd'},
+    {ID: 'AD010', name: 'Katumba Mark'},
+    {ID: 'AD110', name: 'Musoke John'},
+    {ID: 'AD020', name: 'Muwonge Mahd'},
+    {ID: 'AD123', name: 'Tom Giraka'}
   ];
   topUsers: Array<any> = [
-    {name: "Kiwanuka Mahd", place: "Wakiso East"},
-    {name: "Katumba Mark" , place: "Central East"},
-    {name: "Musoke John"  , place: "Wakiso West"},
-    {name: "Muwonge Mahd" , place: "Gomba East"},
-    {name: "Tom Giraka"   , place: "Kyagwe East"}
+    {name: 'Kiwanuka Mahd', place: 'Wakiso East'},
+    {name: 'Katumba Mark' , place: 'Central East'},
+    {name: 'Musoke John'  , place: 'Wakiso West'},
+    {name: 'Muwonge Mahd' , place: 'Gomba East'},
+    {name: 'Tom Giraka'   , place: 'Kyagwe East'}
   ];
   topStations: Array<any> = [
-    {name: "Ndeba", town: "kampala", area: "Central Region"},
-    {name: "Matugga", town: "Mbale", area: "Eastern Region"},
-    {name: "Kiira", town: "Jinja", area: "Central Region"},
-    {name: "Katwe", town: "Kisoro", area: "Western Region"},
-    {name: "Kibuye", town: "kampala", area: "Central Region"},
+    {name: 'Ndeba', town: 'kampala', area: 'Central Region'},
+    {name: 'Matugga', town: 'Mbale', area: 'Eastern Region'},
+    {name: 'Kiira', town: 'Jinja', area: 'Central Region'},
+    {name: 'Katwe', town: 'Kisoro', area: 'Western Region'},
+    {name: 'Kibuye', town: 'kampala', area: 'Central Region'},
   ];
 
-  constructor() { }
+  constructor(private messagingService: MessagingService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
 // inline plugin
-this.textPlugin = [{
-  id: 'textPlugin',
-  beforeDraw(chart: any): any {
-    const width = chart.chart.width;
-    const height = chart.chart.height;
-    const ctx = chart.chart.ctx;
-    ctx.restore();
-    const fontSize = (height / 114).toFixed(2);
-    ctx.font = `${fontSize}em sans-serif`;
-    ctx.textBaseline = 'middle';
-    const text = '';
-    const textX = Math.round((width - ctx.measureText(text).width) / 2);
-    const textY = height / 2;
-    ctx.fillText(text, textX, textY);
-    ctx.save();
-  }
+    this.messagingService.requestPermission();
+    this.messagingService.receiveMessage();
+    this.message = this.messagingService.currentMessage;
+    this.textPlugin = [{
+    id: 'textPlugin',
+    beforeDraw(chart: any): any {
+      const width = chart.chart.width;
+      const height = chart.chart.height;
+      const ctx = chart.chart.ctx;
+      ctx.restore();
+      const fontSize = (height / 114).toFixed(2);
+      ctx.font = `${fontSize}em sans-serif`;
+      ctx.textBaseline = 'middle';
+      const text = '';
+      const textX = Math.round((width - ctx.measureText(text).width) / 2);
+      const textY = height / 2;
+      ctx.fillText(text, textX, textY);
+      ctx.save();
+    }
 }];
 
-this.inlinePlugin = this.textPlugin;
+    this.inlinePlugin = this.textPlugin;
 }
 
 }
