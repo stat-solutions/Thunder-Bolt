@@ -1,6 +1,6 @@
-<div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-md-0 pt-0 pb-0 shadow-lg col-xs-12 col-lg-8">
+<div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-0 pt-md-1 pt-xl-0 pb-3 shadow-lg col-xs-12 col-lg-10">
   <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1">
-      <div class="container mt-3 mx-0 shadow-lg">
+      <div class="container mt-3 mt-xl-2 mx-0 shadow-lg">
           <div class="row">
               <div class="col-12">
                   <h4 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
@@ -9,9 +9,9 @@
               </div>
           </div>
       </div>
-      <div class="invest-card card-body mt-2 pt-3 mb-3 mx-auto pb-4 shadow-lg">
+      <div class="invest-card card-body mt-2 pt-3 pt-md-4 mb-5 mx-auto pb-4 pb-md-5 pb-xl-4 shadow-lg">
           <form [formGroup]="userForm">
-              <div class="item-header">
+              <div class="item-header mb-2">
                   <div class="row">
                       <!--select all items-->
                       <div class="col-1 ml-0 pl-0">
@@ -26,24 +26,24 @@
                               />
                           </div>
                       </div>
-                      <div class="col-3 ml-3">
+                      <div class="col-3 ml-2">
                           <h4 class="text-center text-info">Station</h4>
                       </div>
-                      <div class="col-3 ml-3">
+                      <div class="col-4">
                           <h4 class="text-center text-info">Client</h4>
                       </div>
-                      <div class="col-3 ml-3">
+                      <div class="col-3 ml-0">
                           <h4 class="text-center text-info">Amount</h4>
                       </div>
                   </div>
               </div>
-              <div formArrayName= "approveReverse">
+              <div class="iteration" formArrayName= "approveReverse">
               <div
                   class="item-container mt-1"
                   *ngFor="let items of fval.approveReverse['controls'];let idx = index"
               >
-                  <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
-                      <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                  <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
+                      <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
                           <div class="row mt-0 pt-0 mb-0 pb-0">
                               <div class="col-1 ml-0 pl-0">
                                   <!--select an item-->
@@ -65,7 +65,7 @@
                                       {{fval.approveReverse["controls"][idx]["controls"].client.value}}
                                   </span>
                               </div>
-                              <div class="col-2 ml-2 pl-0 mr-0 pr-0">
+                              <div class="col-2 ml-2 ml-lg-4 pl-0 mr-0 pr-0">
                                   <span class="rate-selected align-self-center">
                                       {{fval.approveReverse["controls"][idx]["controls"].ammount.value}}
                                   </span>
