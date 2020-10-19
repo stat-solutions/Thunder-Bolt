@@ -12,6 +12,9 @@ var DashboardComponent = /** @class */ (function () {
     function DashboardComponent(fb) {
         this.fb = fb;
         this.sideBarChanged = true;
+        this.company = { created: false };
+        this.setApproval = { set: false };
+        this.unit = { created: false };
         this.bussinessUnits = [
             { unitName: 'Fuel Bussiness' },
             { unitName: 'Hospital Bussiness' },

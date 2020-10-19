@@ -47,12 +47,12 @@ export class SetPasswordComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.checkedOk = false;
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
       currentPassword: new FormControl(
         '',
@@ -68,15 +68,7 @@ export class SetPasswordComponent implements OnInit {
               hasNumber: true,
             }
           ),
-          // 3. check whether the entered password has upper case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-          // 4. check whether the entered password has a lower-case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
-          // 5. check whether the entered password has a special character
-          // CustomValidatorInitialCompanySetup.
-          //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
 
-          // 6. Has a length of exactly 4 digits
           Validators.minLength(4),
           Validators.maxLength(4),
         ])
@@ -95,15 +87,7 @@ export class SetPasswordComponent implements OnInit {
               hasNumber: true,
             }
           ),
-          // 3. check whether the entered password has upper case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-          // 4. check whether the entered password has a lower-case letter
-          // CustomValidatorInitialCompanySetup.patternValidator(/[a-z]/, { hasSmallCase: true }),
-          // 5. check whether the entered password has a special character
-          // CustomValidatorInitialCompanySetup.
-          //   patternValidator(/[!@#$%^&*_+-=;':"|,.<>/?/<mailto:!@#$%^&*_+-=;':"|,.<>/?]/, { hasSpecialCharacters: true }),
 
-          // 6. Has a length of exactly 4 digits
           Validators.minLength(4),
           Validators.maxLength(4),
         ])
@@ -132,18 +116,18 @@ export class SetPasswordComponent implements OnInit {
     );
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
-  onKey(event: any) {
+  onKey(event: any): any {
     // without type info
     this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
 
@@ -156,13 +140,13 @@ export class SetPasswordComponent implements OnInit {
     this.userForm.controls.amount_to_borrow.setValue(this.values);
   }
 
-  //toggle visibility of password field
-  toggleFieldType() {
+  // toggle visibility of password field
+  toggleFieldType(): any {
     this.fieldType = !this.fieldType;
   }
 
 
-  setPassword() {
+  setPassword(): any {
 
     this.userForm.patchValue({
       amount_to_borrow: parseInt( this.userForm.controls.amount_to_borrow.value.replace(/[\D\s\._\-]+/g, ''), 10 )

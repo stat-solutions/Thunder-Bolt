@@ -1,1 +1,0 @@
-http://www.apilayer.net/api/live?access_key=34a01179f558167bdb4b292f42db9b5e&source=USD&currencies=UGX,AUD,CAD,PLN,MXN&format=1

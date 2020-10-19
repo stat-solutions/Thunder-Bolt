@@ -52,7 +52,16 @@
           "
         >
           The full name is required!
-        </div>
+        </div>   
+        <!--div
+          class="text-danger col"
+          *ngIf="
+            (fval.full_name.touched || fval.full_name.dirty) &&
+            fval.full_name.errors?.pattern
+          "
+        >
+          Please enter a valid full name!
+        </div-->
       </div>
 
       <div class="form-group text-primary">
@@ -186,22 +195,21 @@
         >
           The ID number is required!
         </div>
-        <div
+        <!--div
           class="text-danger col"
           *ngIf="
             (fval.id_number.touched || fval.id_number.dirty) &&
-            fval.id_number.errors?.nationalIdCheck
+            fval.id_number.errors?.minLength && fval.id_type.value === 'National ID'
           "
         >
-          Please enter valid ID number!
-        </div>
+          Please enter valid National ID number!
+        </div-->
       </div>
 <div class="form-group text-primary">
         <label for="email" [ngClass]="fval.email.valid ? 'text-info' : ''"
           >Email<i *ngIf="fval.email.valid" class="material-icons"
             >check_circle</i
-          ></label
-        >
+          ></label>
         <div class="input-group mb-0">
           <div class="input-group-prepend">
             <div class="input-group-text">
@@ -236,8 +244,9 @@
         <div
           class="text-danger col"
           *ngIf="
-            (fval.email.touched || fval.email.dirty) &&
-            fval.email.errors?.email
+            (fval.email.touched ||
+            fval.email.dirty) &&
+          fval.email.errors?.pattern
           "
         >
           Please enter valid email address!
@@ -330,6 +339,7 @@
           <option>Town Manager</option>
           <option>Station Manager</option>
           <option>Station Officer</option>
+          <option>Admin</option>
         </select>
     </div>
         <div
@@ -372,7 +382,7 @@
           </select>
       </div>
         </div>
-        <div class="form-group text-primary" *ngIf="(positionValue == 'Area Manager'||positionValue=='Town Manager'||positionValue=='Station Manager'||positionValue=='Station Officer')">
+        <div class="form-group text-primary" *ngIf="(positionValue == 'Area Manager')">
           <label
             for="area"
             [ngClass]="fval.area.valid ? 'text-info' : ''"
@@ -391,7 +401,7 @@
             }"
             autocomplete="off"
             placeholder="Select Area"
-            (change) = "setTownsSelection(fval.area.value)"
+            
           >
             <option  *ngFor="let area of areas">
               {{area}}
@@ -408,9 +418,8 @@
             The area is required!
           </div>
         </div>
-
         <!--the div for town-->
-        <div class="form-group text-primary" *ngIf="(positionValue=='Town Manager'||positionValue=='Station Manager'||positionValue=='Station Officer')">
+        <div class="form-group text-primary" *ngIf="(positionValue=='Town Manager')">
           <label
             for="town"
             [ngClass]="fval.town.valid ? 'text-info' : ''"
@@ -429,7 +438,6 @@
             }"
             autocomplete="off"
             placeholder="Select town"
-            (change) = "setStationSelection(fval.town.value)"
           >
             <option *ngFor="let town of towns">
               {{town.name}}
@@ -483,11 +491,174 @@
             The station is required!
           </div>
         </div>
+        <div class="form-group text-primary">
+          <label
+            for="password"
+            [ngClass]="fval.password.valid ? 'text-info' : ''"
+            >Create PIN<i *ngIf="fval.password.valid" class="material-icons"
+              >check_circle</i
+            ></label
+          >
+
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i
+                  class="fas fa-lock text-primary mx-auto"
+                  style="size: 50px"
+                ></i>
+              </div>
+            </div>
+            <input
+              id="password"
+              formControlName="password"
+              [type]="fieldType ? 'text' : 'password'"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.password.touched || fval.password.dirty) &&
+                  fval.password.errors
+              }"
+              placeholder="Enter your PIN"
+              autocomplete="off"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i
+                  class="fas"
+                  [ngClass]="{
+                    'fa-eye-slash': !fieldType,
+                    'fa-eye': fieldType
+                  }"
+                  (click)="toggleFieldType()"
+                ></i>
+              </span>
+            </div>
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.password.touched || fval.password.dirty) &&
+              fval.password.errors?.required
+            "
+          >
+          Your PIN is required!
+          </div>
+
+          <div
+            class="col"
+            *ngIf="
+              (fval.password.touched || fval.password.dirty) &&
+              fval.password.invalid
+            "
+            [ngClass]="
+              fval.password.errors?.required ||
+              fval.password.errors?.minlength ||
+              fval.password.errors?.maxlength
+                ? 'text-danger'
+                : 'text-info'
+            "
+          >
+            <i class="material-icons">{{
+              fval.password.errors?.required ||
+              fval.password.errors?.minlength ||
+              fval.password.errors?.maxlength
+                ? "cancel"
+                : "check_circle"
+            }}</i>
+            PIN should have exactly four digits!
+          </div>
+          <div
+            class="col"
+            *ngIf="
+              (fval.password.touched || fval.password.dirty) &&
+              fval.password.invalid
+            "
+            [ngClass]="
+              fval.password.hasError('required') ||
+              fval.password.hasError('hasNumber')
+                ? 'text-danger'
+                : 'text-info'
+            "
+          >
+            <i class="material-icons">{{
+              fval.password.hasError("required") ||
+              fval.password.hasError("hasNumber")
+                ? "cancel"
+                : "check_circle"
+            }}</i>
+            Only digits are allowed!
+          </div>
+        </div>
+        <div class="form-group text-primary">
+          <label
+            for="confirmPassword"
+            [ngClass]="fval.confirmPassword.valid ? 'text-info' : ''"
+            >Confirm PIN<i
+              *ngIf="fval.confirmPassword.valid"
+              class="fas fa-approved"
+              ></i
+            ></label
+          >
+
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i
+                  class="fas fa-lock text-primary mx-auto"
+                  style="size: 50px"
+                ></i>
+              </div>
+            </div>
+            <input
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              [type]="fieldType ? 'text' : 'password'"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.confirmPassword.touched ||
+                    fval.confirmPassword.dirty) &&
+                  fval.confirmPassword.errors
+              }"
+              placeholder="Confirm your PIN"
+              autocomplete="off"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i
+                  class="fas"
+                  [ngClass]="{
+                    'fa-eye-slash': !fieldType,
+                    'fa-eye': fieldType
+                  }"
+                  (click)="toggleFieldType()"
+                ></i>
+              </span>
+            </div>
+          </div>
+
+          <div
+            class="text-danger col"
+            *ngIf="fval.confirmPassword.errors?.NoPasswordMatch"
+          >
+            PINs do not match!
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              fval.confirmPassword.errors?.required &&
+              (fval.confirmPassword.touched || fval.confirmPassword.dirty)
+            "
+          >
+            Please confirm your PIN!
+          </div>
+        </div>
       <div class="d-flex my-2 py-2 mx-auto">
         <button
           type="submit"
           class="btn btn-info col-5 mx-auto"
-
+          [disabled]="!userForm.valid"
         >
           Register
         </button>

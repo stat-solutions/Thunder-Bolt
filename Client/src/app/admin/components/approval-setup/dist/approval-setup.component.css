@@ -10,14 +10,11 @@
 
 .card-body {
   width: 100%;
-  // height: 100%;
   border-radius: 8px;
-  // contain: auto;
 }
 
 .list-card-body {
   width: 100%;
-  // max-height: 90%;
 }
 
 .invest-card {
@@ -34,6 +31,7 @@
   max-height: 135px !important;
   min-height: 25px !important;
 }
+
 .level-control {
   margin-top: 0px !important;
   margin-bottom: 0px !important;
@@ -49,6 +47,7 @@
   margin-right: 0px !important;
   margin-left: 18px !important;
 }
+
 .save-button {
   margin-right: 0px !important;
   margin-left: 0px !important;
@@ -64,47 +63,55 @@ a.text-info:hover {
 }
 
 .btn {
-  padding: .38rem .35rem;
-  font-size: .8rem;
+  padding: 0.38rem 0.35rem;
+  font-size: 0.8rem;
   border-radius: 15px;
-  line-height: .7;
+  line-height: 0.7;
 }
+
 .btn-info {
   color: #17aae0ee;
   background-color: transparent;
   border-color: #17aae0ee;
 }
+
 .btn-info:hover,
 .btn-info:focus {
   color: #d9dbdd;
   background-color: #17aae0ee;
   border-color: #17aae0ee;
 }
+
 .btn-info.focus,
 .btn-info:focus {
   box-shadow: 0 0 0 0.2rem #0e99ccee;
 }
+
 .btn-info.disabled,
 .btn-info:disabled {
   color: #1b9eceec;
   background-color: transparent;
   border-color: #1b9eceec;
 }
+
 .btn-infob {
   color: #7d8388;
   background-color: transparent;
   border-color: transparent;
 }
+
 .btn-infob:hover,
 .btn-infob:focus {
   color: #17aae0ee;
   background-color: transparent;
   border-color: transparent;
 }
+
 .btn-infob.focus,
 .btn-infob:focus {
   box-shadow: 0 0 0 0.2rem transparent;
 }
+
 .btn-infob.disabled,
 .btn-infob:disabled {
   color: #89898a;
@@ -116,131 +123,132 @@ a.text-info:hover {
   cursor: pointer;
 }
 
-
-
-//media queries
 @media (min-width: 320px) {
   .card-body {
     padding-top: 4px;
   }
+
   .jumbotron-fluid {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
   }
 }
-
 @media (min-width: 360px) {
   .card-body {
     margin-bottom: 50px !important;
   }
 }
-
 @media (min-width: 375px) {
   .card-body {
     margin-bottom: 40px !important;
   }
+
   .jumbotron-fluid {
     padding-bottom: 40px !important;
   }
 }
-
 @media (min-width: 410px) {
   .card-body {
     margin-bottom: 5px !important;
   }
+
   .jumbotron-fluid {
     padding-bottom: 90px !important;
   }
-.edit-button {
-  margin-left: 10px !important;
-}
-}
 
+  .edit-button {
+    margin-left: 10px !important;
+  }
+}
 @media (min-width: 445px) {
   .jumbotron-fluid {
     padding-top: 8px !important;
   }
 }
-
 @media (min-width: 568px) {
   .jumbotron-fluid {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
   }
 }
-
 @media (min-width: 640px) {
   .container {
     margin-left: auto !important;
     margin-right: auto !important;
   }
 }
-
 @media (min-width: 768px) {
   .container {
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
+
   .card-body {
-            max-width: 620px;
-            min-width: 530px;
+    max-width: 620px;
+    min-width: 530px;
     margin-bottom: 70px !important;
   }
+
   .jumbotron-fluid {
     padding-top: 80px !important;
     padding-bottom: 260px !important;
   }
-.itemCreated {
-  margin-left: 1.2rem !important;
-}
-.edit-button {
-  margin-left: 70px !important;
-}
-}
 
+  .itemCreated {
+    margin-left: 1.2rem !important;
+  }
+
+  .edit-button {
+    margin-left: 70px !important;
+  }
+}
 @media (min-width: 812px) {
   .card-body {
     margin-bottom: 0px !important;
   }
+
   .jumbotron-fluid {
     padding-top: 0px !important;
     padding-bottom: 5px !important;
   }
 }
-
 @media (min-width: 1024px) {
   .jumbotron-fluid {
     padding-top: 80px !important;
     padding-bottom: 450px !important;
   }
-          .card-body {
-            max-width: 700px;
-            min-width: 600px;
-           margin-bottom: 70px !important;
-          }
-.edit-button {
-  margin-left: 60px !important;
-}
-}
 
+  .card-body {
+    max-width: 700px;
+    min-width: 600px;
+    margin-bottom: 70px !important;
+  }
 
+  .edit-button {
+    margin-left: 60px !important;
+  }
+}
 @media (min-width: 1280px) {
   .container {
     margin-left: auto !important;
     margin-right: auto !important;
   }
+
   .jumbotron-fluid {
     margin-top: 10px !important;
     padding-top: 0px !important;
     padding-bottom: 110px !important;
   }
+
   .card-body {
     margin-bottom: 15px !important;
   }
-.itemCreated {
-  margin-left: 1.6rem !important;
-}
-.edit-button {
-  margin-left: 80px !important;
-}
+
+  .itemCreated {
+    margin-left: 1.6rem !important;
+  }
+
+  .edit-button {
+    margin-left: 80px !important;
+  }
 }
