@@ -1,7 +1,3 @@
-.pointerCursor {
-  cursor: pointer;
-}
-
 .jumbotron-fluid {
   height: inherit !important;
 }
@@ -17,98 +13,26 @@
   width: 100%;
   height: 100%;
   border-radius: 8px;
-  contain: auto;
 }
 
 .big-card-1 {
   height: 90px !important;
   margin-bottom: 0px !important;
   contain: auto;
-  // overflow-y: auto;
-  // overflow-x: hidden;
 }
 .big-card-body-1 {
 height: 100% !important;
 margin-bottom: 0px !important;
-contain: auto;
-// overflow-y: hidden;
-}
-
-.big-card-1b {
-  height: 260px !important;
-  margin-bottom: 0px !important;
-  contain: auto;
-  // overflow-y: auto;
-}
-
-.big-card-body-1b {
-height: auto !important;
-margin-bottom: 0px !important;
-contain: auto;
-overflow-y: auto;
-}
-
-.big-card-2 {
-height: 340px !important;
-margin-bottom: 0px !important;
-contain: auto;
-// overflow-y: auto;
-// overflow-x: hidden;
-}
-.big-card-body-2 {
-height: 100% !important;
-margin-bottom: 0px !important;
-contain: auto;
-// overflow-y: hidden;
 }
 
 .big-card-3 {
 height: 340px !important;
 margin-bottom: 0px !important;
 contain: auto;
-// overflow-y: auto;
-// overflow-x: hidden;
 }
 .big-card-body-3 {
 height: 100% !important;
 margin-bottom: 0px !important;
-contain: auto;
-// overflow-y: hidden;
-}
-
-.big-card-4 {
-height: 340px !important;
-margin-bottom: 0px !important;
-contain: auto;
-// overflow-y: auto;
-// overflow-x: hidden;
-}
-.big-card-body-4 {
-height: 100% !important;
-margin-bottom: 0px !important;
-contain: auto;
-// overflow-y: hidden;
-}
-
-.item-container {
-  min-height: 35px !important;
-  contain: auto;
-}
-
-.list-card {
-  height: auto !important;
-}
-
-.list-card2 {
-  width: 100%;
-  height: auto !important;
-  margin-left: 0px !important;
-  margin-right: 15px !important;
-  contain: auto;
-}
-
-h4 {
-  font-size: 16px;
 }
 
 button.btn {
@@ -116,6 +40,9 @@ button.btn {
 }
 
 .text-info {
+  color: #17aae0ee !important
+}
+.text-danger{
   color: #17aae0ee !important
 }
 
@@ -154,24 +81,12 @@ a.text-info:hover {
   cursor: pointer;
 }
 
-.text-dark {
-  color: rgb(168, 18, 106) !important;
-}
-
-.text-warning {
-  color: #eee206ef !important;
-}
-
 .text-gray {
   color: #f7f5f5;
 }
 
 .text-info {
   color: #17aae0ee;
-}
-
-.bg-danger {
-  background-color: #c63685 !important;
 }
 
 .sm-card-1 {
@@ -194,17 +109,10 @@ a.text-info:hover {
   border: 0rem;
 }
 
-// .big-card-body-1 {
-//     height: 100%;
-//     max-height: 250px;
-//     overflow-y: auto;
-// }
 
+
+//media queries
 @media (min-width:360px) {
-  .links {
-      margin-top: 10px !important;
-      margin-bottom: 8px !important;
-  }
   .thunder-col-1 {
       margin-bottom: 5px !important;
   }
@@ -219,19 +127,29 @@ a.text-info:hover {
       padding-left: 0px !important;
       margin-bottom: 5px !important;
   }
+  .sm-card-1 {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+  }
+  .sm-card-title-1 {
+      font-size: 11px !important;
+      margin-left: 0px !important;
+      padding-left: 2px !important;
+      padding-right: 0px !important;
+  }
   .sm-card-2 {
-      padding-left: 3px !important;
-      padding-right: 3px !important;
+      padding-left: 0px !important;
+      padding-right: 0px !important;
   }
   .sm-card-title-2 {
       font-size: 11px !important;
       margin-left: 0px !important;
-      padding-left: 3px !important;
-      padding-right: 3px !important;
+      padding-left: 2px !important;
+      padding-right: 0px !important;
   }
   .sm-card-3 {
-      padding-left: 3px !important;
-      padding-right: 3px !important;
+      padding-left: 0px !important;
+      padding-right: 0px !important;
   }
   .sm-card-title-3 {
       font-size: 11px !important;
@@ -246,24 +164,30 @@ a.text-info:hover {
   .sm-card-title-4 {
       font-size: 11px !important;
       margin-left: 0px !important;
-      padding-left: 3px !important;
-      padding-right: 3px !important;
+      padding-left: 2px !important;
+      padding-right: 0px !important;
   }
   .components {
       margin-top: 8px !important;
   }
-  .components h6 {
-      font-size: 14px !important;
-  }
+.fas{
+font-size: 20px;
+}
+.fa-coins{
+font-size: 14px;
+}
 }
 
-@media (min-width:375px) {}
+@media (min-width:410px) {
+.fa-coins{
+font-size: 17px;
+}
+}
 
-@media (min-width:400px) {
-  h5 {
-      margin-left: 10px !important;
-      padding-left: 20px !important;
-  }
+@media (min-width:440px) {
+}
+
+@media (min-width:568px) {
 }
 
 @media (min-width: 768px) {
@@ -272,87 +196,8 @@ a.text-info:hover {
       margin-right: 0px !important;
   }
   .big-card-1 {
-      height: 270px;
+      height: 120px;
       padding-bottom: 15px !important;
-  }
-  .big-card-2 {
-      height: 300px;
-  }
-  .big-card-2b {
-      height: 214px !important;
-      margin-top: 3px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 10px !important;
-  }
-  .big-card-2b .table {
-      height: 160px !important;
-      margin-top: 3px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-2b .btn {
-      margin-top: 0px !important;
-      margin-bottom: 5px !important;
-  }
-  .big-card-2b .card-tools {
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 5px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-2b .card-tools .pagination {
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 12px !important;
-      padding-bottom: 3px !important;
-  }
-  .big-card-3 {
-      height: 320px;
-  }
-  .big-card-3b {
-      height: 230px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 10px !important;
-  }
-  .big-card-3b .table {
-      height: 165px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 6px !important;
-  }
-  .big-card-3b .btn {
-      width: 80px !important;
-      margin-top: 3px !important;
-      margin-left: 13px !important;
-      margin-bottom: 0px !important;
-      font-size: 10px;
-  }
-  .big-card-3b .card-tools {
-      margin-top: 3px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-3b .card-tools .pagination {
-      width: 50px !important;
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 3px !important;
-  }
-  .big-card-4 {
-      height: 250px;
-  }
-  .big-card-5 {
-      height: 250px;
-  }
-  h5 {
-      font-size: 20px !important;
-      margin-left: 120px !important;
-      padding-left: 80px !important;
-  }
-  .links {
-      margin-top: 14px !important;
-      margin-bottom: 12px !important;
   }
 }
 
@@ -361,200 +206,19 @@ a.text-info:hover {
       margin-left: auto !important;
       margin-right: auto !important;
   }
-  .big-card-1 {
-      height: 280px;
-      padding-bottom: 15px !important;
-  }
-  .big-card-2 {
-      height: 320px;
-  }
-  .big-card-2b {
-      height: 225px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 10px !important;
-  }
-  .big-card-2b .table {
-      height: 165px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-2b .btn {
-      margin-top: 0px !important;
-      margin-bottom: 7px !important;
-  }
-  .big-card-2b .card-tools {
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-2b .card-tools .pagination {
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 12px !important;
-      padding-bottom: 3px !important;
-  }
-  .big-card-3 {
-      height: 330px;
-  }
-  .big-card-3b {
-      height: 240px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 10px !important;
-  }
-  .big-card-3b .table {
-      height: 175px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 6px !important;
-  }
-  .big-card-3b .btn {
-      width: 80px !important;
-      margin-top: 3px !important;
-      margin-left: 13px !important;
-      margin-bottom: 0px !important;
-      font-size: 10px;
-  }
-  .big-card-3b .card-tools {
-      margin-top: 3px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-3b .card-tools .pagination {
-      width: 50px !important;
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 3px !important;
-  }
-  .big-card-4 {
-      height: 270px;
-  }
-  .big-card-5 {
-      height: 250px;
-  }
 }
 
 @media (min-width: 1024px) {
+  .jumbotron-fluid{
+      margin-bottom: 19rem !important;
+  }
   .container {
       margin-left: 0px !important;
       margin-right: 0px !important;
   }
-  .big-card-1 {
-      height: 90px !important;
-      padding-bottom: 5px !important;
-  }
-  .big-card-2 {
-      height: 400px;
-  }
-  .big-card-2b {
-      height: 284px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 14px !important;
-  }
-  .big-card-2b .table {
-      height: 217px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-2b .btn {
-      margin-top: 5px !important;
-      margin-bottom: 12px !important;
-  }
-  .big-card-2b .card-tools {
-      margin-top: 5px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-2b .card-tools .pagination {
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 12px !important;
-      padding-bottom: 3px !important;
-  }
-  .big-card-3 {
-      height: 380px;
-  }
-  .big-card-3b {
-      height: 270px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 10px !important;
-  }
-  .big-card-3b .table {
-      height: 195px !important;
-      margin-bottom: 12px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-3b .btn {
-      width: 100px !important;
-      margin-top: 3px !important;
-      margin-left: 1px !important;
-      margin-bottom: 10px !important;
-      font-size: 14px;
-  }
-  .big-card-3b .card-tools {
-      margin-top: 3px !important;
-      padding-top: 0px !important;
-      margin-bottom: 10px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-3b .card-tools .pagination {
-      width: 50px !important;
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 3px !important;
-  }
-  .big-card-4 {
-      height: 320px;
-  }
-  .big-card-5 {
-      height: 270px;
-  }
-  h5 {
-      font-size: 20px !important;
-      margin-left: 180px !important;
-      padding-left: 80px !important;
-  }
-  .links {
-      margin-top: 14px !important;
-      margin-bottom: 12px !important;
-  }
-  .components {
-      margin-top: 10px !important;
-  }
 }
 
 @media (min-width:1100px) {
-  .thunder-col-1 {
-      margin-bottom: 15px !important;
-  }
-  .thunder-col-2 {
-      margin-bottom: 15px !important;
-  }
-  h5 {
-      font-size: 20px !important;
-      margin-left: 200px !important;
-      padding-left: 80px !important;
-  }
-}
-
-@media (min-width:1280px) {
-.jumbotron-fluid{
-  // max-width: 1360px !important;
-  // min-width: 1240px !important;
-}
-.container{
-    max-width: 1100px !important;
-    min-width: 1050px !important;
-}
-
-  h5 {
-      font-size: 20px !important;
-      margin-left: 210px !important;
-      padding-left: 80px !important;
-  }
   .thunder-col-1 {
       margin-bottom: 0px !important;
   }
@@ -567,14 +231,26 @@ a.text-info:hover {
   .thunder-col-4 {
       margin-bottom: 0px !important;
   }
-  .fa-clipboard-list {
-      font-size: 25px !important;
+}
+
+@media (min-width:1280px) {
+.global-container{
+    max-width: 1100px !important;
+    min-width: 1050px !important;
+  }
+
+  .jumbotron-fluid{
+      margin-bottom: 2rem !important;
   }
   .sm-card-1 {
-      padding-bottom: 0px !important;
+      padding-left: 8px !important;
+      padding-right: 3px !important;
   }
   .sm-card-title-1 {
       font-size: 14px !important;
+      margin-left: 0px !important;
+      padding-left: 0px !important;
+      padding-right: 3px !important;
   }
   .sm-card-2 {
       padding-left: 8px !important;
@@ -586,9 +262,6 @@ a.text-info:hover {
       padding-left: 0px !important;
       padding-right: 3px !important;
   }
-  .fa-coins {
-      font-size: 25px !important;
-  }
   .sm-card-3 {
       padding-left: 8px !important;
       padding-right: 3px !important;
@@ -597,14 +270,11 @@ a.text-info:hover {
       font-size: 14px !important;
       margin-left: 0px !important;
       padding-left: 0px !important;
-      padding-right: 0px !important;
-  }
-  .fa-warehouse {
-      font-size: 18px !important;
+      padding-right: 3px !important;
   }
   .sm-card-4 {
       padding-left: 8px !important;
-      padding-right: 0px !important;
+      padding-right: 3px !important;
   }
   .sm-card-title-4 {
       font-size: 14px !important;
@@ -612,14 +282,8 @@ a.text-info:hover {
       padding-left: 0px !important;
       padding-right: 3px !important;
   }
-  .fa-truck {
-      font-size: 20px !important;
-  }
   .components {
       margin-top: 10px !important;
-  }
-  .components h6 {
-      font-size: 14px !important;
   }
 }
 
@@ -627,17 +291,5 @@ a.text-info:hover {
   .container {
       margin-left: auto !important;
       margin-right: auto !important;
-  }
-  h5 {
-      font-size: 20px !important;
-      margin-left: 260px !important;
-      padding-left: 80px !important;
-  }
-  .links {
-      margin-top: 14px !important;
-      margin-bottom: 12px !important;
-  }
-  .components {
-      margin-top: 15px !important;
   }
 }

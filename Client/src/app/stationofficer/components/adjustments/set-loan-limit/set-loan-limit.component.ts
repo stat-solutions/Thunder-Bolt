@@ -12,9 +12,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 @Component({
   selector: 'app-set-loan-limit',
   templateUrl: './set-loan-limit.component.html',
-  styleUrls: ['./set-loan-limit.component.scss']
+  styleUrls: ['./set-loan-limit.component.scss'],
 })
-
 export class SetLoanLimitComponent implements OnInit {
   modalRef: BsModalRef;
   userForm: FormGroup;
@@ -40,7 +39,18 @@ export class SetLoanLimitComponent implements OnInit {
   numberValue: number;
   values: any;
   user = '/../../../assets/img/man.svg';
-  clientName: string;
+  checkedClient: {
+    name: string;
+    photoUrl: string;
+    phone: any;
+    plate: any;
+    loanAmount: number;
+    loanLimit: number;
+    loanPaid: number;
+    loanBalance: number;
+    loanStatus: string;
+    comment: string;
+  };
 
   constructor(
     private authService: AuthServiceService,
@@ -58,16 +68,14 @@ export class SetLoanLimitComponent implements OnInit {
 
   createFormGroup(): any {
     return new FormGroup({
-      category: new FormControl(['',
-        Validators.required]),
-      loanType: new FormControl(['',
-        Validators.required]),
+      category: new FormControl(['', Validators.required]),
+      loanType: new FormControl(['', Validators.required]),
       number_plate: new FormControl(
         '',
         Validators.compose([
           Validators.required,
           Validators.minLength(8),
-          Validators.maxLength(8)
+          Validators.maxLength(8),
         ])
       ),
       user_contact_number: new FormControl(
@@ -77,27 +85,29 @@ export class SetLoanLimitComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
       itemLimit: new FormControl(
         { value: '', disabled: true },
-        Validators.compose([Validators.required,
-        CustomValidator.minValue(5000),
-        Validators.minLength(4)
-      ])),
+        Validators.compose([
+          Validators.required,
+          CustomValidator.minValue(5000),
+          Validators.minLength(4),
+        ])
+      ),
       pin: new FormControl(
         { value: '', disabled: true },
         Validators.compose([
           Validators.required,
           CustomValidator.patternValidator(/\d/, { hasNumber: true }),
           Validators.maxLength(4),
-          Validators.minLength(4)
+          Validators.minLength(4),
         ])
-      )
-      });
+      ),
+    });
   }
-  checkLoanType(value: string): any{
+  checkLoanType(value: string): any {
     // console.log(value);
     this.loanType = value;
   }
@@ -126,8 +136,25 @@ export class SetLoanLimitComponent implements OnInit {
   }
 
   public openModal(template: TemplateRef<any>): any {
-    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg modal-dialog-centered' }));
-
+    //  FIRST SEARCH THE CLIENT DETAILS USING THE PASSED IN USERID A
+    // ND ASSIGN IT TO THE CHECKED CLIENT
+    console.log(this.fval.number_plate.value);
+    this.checkedClient = {
+      name: 'Mukwaya',
+      photoUrl: this.user,
+      phone: '0788883887',
+      plate: 'UAB456Z',
+      loanAmount: 50000,
+      loanLimit: 58000,
+      loanPaid: 7000,
+      loanBalance: 4500,
+      loanStatus: 'RUNNING',
+      comment: 'User promised to pay',
+    };
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
+    );
   }
 
   getTheNumberPlates(): any {
@@ -135,7 +162,6 @@ export class SetLoanLimitComponent implements OnInit {
     //   data => {
     //     this.numberPlates = data;
     //   },
-
     //   (error: string) => {
     //     this.errored = true;
     //     this.serviceErrors = error;
@@ -147,28 +173,30 @@ export class SetLoanLimitComponent implements OnInit {
   }
 
   setLoanLimit(): any {
-
     this.userForm.patchValue({
-      amount_to_pay: parseInt( this.userForm.controls.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''), 10 )
+      amount_to_pay: parseInt(
+        this.userForm.controls.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''),
+        10
+      ),
     });
 
     // tslint:disable-next-line:triple-equals
     if (!(this.secretPin == this.userForm.controls.pin.value)) {
       this.alertService.danger({
-        html: '<b>Invalid PIN!</b>'
+        html: '<b>Invalid PIN!</b>',
       });
       return;
     } else {
       if (this.userForm.controls.amount_to_pay.value > this.loanLimit) {
         this.alertService.warning({
-          html: '<b>Loan Limit Exceeded!</b>' + '<br/>'
+          html: '<b>Loan Limit Exceeded!</b>' + '<br/>',
         });
         return;
       } else {
         this.userForm.controls.number_plate.enable();
         this.userForm.patchValue({
           user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-          user_id: jwt_decode(this.authService.getJwtToken()).user_id
+          user_id: jwt_decode(this.authService.getJwtToken()).user_id,
         });
         // console.log(this.userForm.value);
         this.posted = true;

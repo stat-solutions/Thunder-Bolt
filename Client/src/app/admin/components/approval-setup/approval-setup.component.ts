@@ -18,7 +18,7 @@ export interface Approvals {
 @Component({
   selector: 'app-approval-setup',
   templateUrl: './approval-setup.component.html',
-  styleUrls: ['./approval-setup.component.scss']
+  styleUrls: ['./approval-setup.component.scss'],
 })
 export class ApprovalSetupComponent implements OnInit {
   approvalForm: FormGroup;
@@ -31,11 +31,32 @@ export class ApprovalSetupComponent implements OnInit {
   station: string;
   theCompany: string;
   approvals: Approvals[] = [
-    {name: 'Area Creation', level: 3},
-    {name: 'Town Creation', level: 1},
-    {name: 'Stage Creation', level: 2},
-    {name: 'Station Creation', level: 4},
-    {name: 'Station Creation', level: 4}
+    { name: 'Area Creation', level: 3 },
+    { name: 'Town Creation', level: 1 },
+    { name: 'Stage Creation', level: 2 },
+    { name: 'Station Creation', level: 4 },
+    { name: 'Town Creation', level: 1 },
+    { name: 'Stage Creation', level: 2 },
+    { name: 'Station Creation', level: 4 },
+    { name: 'Town Creation', level: 1 },
+    { name: 'Stage Creation', level: 2 },
+    { name: 'Station Creation', level: 4 },
+    { name: 'Town Creation', level: 1 },
+    { name: 'Stage Creation', level: 2 },
+    { name: 'Station Creation', level: 4 },
+    { name: 'Town Creation', level: 1 },
+    { name: 'Stage Creation', level: 2 },
+    { name: 'Station Creation', level: 4 },
+    { name: 'Town Creation', level: 1 },
+    { name: 'Stage Creation', level: 2 },
+    { name: 'Station Creation', level: 4 },
+    { name: 'Town Creation', level: 1 },
+    { name: 'Stage Creation', level: 2 },
+    { name: 'Station Creation', level: 4 },
+    { name: 'Town Creation', level: 1 },
+    { name: 'Stage Creation', level: 2 },
+    { name: 'Station Creation', level: 4 },
+    { name: 'Station Creation', level: 4 },
   ];
   constructor(
     private others: OthersService,
@@ -44,7 +65,7 @@ export class ApprovalSetupComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-ngOnInit(): void {
+  ngOnInit(): void {
     this.approvalForm = this.createFormGroup();
     this.initialiseForm();
     this.disableForms();
@@ -56,22 +77,22 @@ ngOnInit(): void {
   }
   get approvalItem(): any {
     return this.fb.group({
-      name: this.fb.control({value: ''}),
-      firstApproval: this.fb.control({value: ''}),
-      secondApproval: this.fb.control({value: ''}),
-      thirdApproval: this.fb.control({value: ''}),
-      fourthApproval: this.fb.control({value: ''}),
-      fifthApproval: this.fb.control({value: ''}),
+      name: this.fb.control({ value: '' }),
+      firstApproval: this.fb.control({ value: '' }),
+      secondApproval: this.fb.control({ value: '' }),
+      thirdApproval: this.fb.control({ value: '' }),
+      fourthApproval: this.fb.control({ value: '' }),
+      fifthApproval: this.fb.control({ value: '' }),
       level: this.fb.control(
         '',
         Validators.compose([
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(1),
-        CustomValidator.maxValue(5),
-        CustomValidator.minValue(0)
-          ])
-        )
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(1),
+          CustomValidator.maxValue(5),
+          CustomValidator.minValue(0),
+        ])
+      ),
     });
   }
   addItem(): any {
@@ -88,15 +109,15 @@ ngOnInit(): void {
     //   units => {
     //     this.approvals = units;
     this.approvals.forEach((item, i) => {
-          // console.log(item.name);
-          // console.log(i);
-          this.fval.approvalItems.controls[i].controls.name.setValue(item.name);
-          this.fval.approvalItems.controls[i].controls.level.setValue(item.level);
-          this.addItem();
-          n = i + 1;
-        });
+      // console.log(item.name);
+      // console.log(i);
+      this.fval.approvalItems.controls[i].controls.name.setValue(item.name);
+      this.fval.approvalItems.controls[i].controls.level.setValue(item.level);
+      this.addItem();
+      n = i + 1;
+    });
     this.removeItem(n);
-      // }
+    // }
     // )
   }
   revert(): any {
@@ -117,7 +138,7 @@ ngOnInit(): void {
 
   disableForms(): any {
     this.approvals.forEach((itm, i) => {
-     this.fval.approvalItems.controls[i].disable();
+      this.fval.approvalItems.controls[i].disable();
     });
   }
 
@@ -130,9 +151,9 @@ ngOnInit(): void {
   }
   saveLevel(index: any): any {
     if (this.fval.approvalItems.controls[index]) {
-        this.fval.approvalItems.controls[index].disable();
-      } else {
-        return;
+      this.fval.approvalItems.controls[index].disable();
+    } else {
+      return;
     }
   }
 }

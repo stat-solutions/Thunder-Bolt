@@ -1,19 +1,19 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-md-0 pt-0 pb-0 shadow-lg col-xs-12 col-lg-8"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-2 pt-1 pb-0 shadow-lg col-xs-12 col-lg-10"
 >
-  <div class="jumbotron-fluid">
-    <div class="container mt-2 mb-2 mx-0 shadow-lg">
+  <div class="jumbotron-fluid mb-0 pb-0">
+    <div class="container mt-0 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
-          <h2
+          <h3
             class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
           >
             Personal Info
-          </h2>
+          </h3>
         </div>
       </div>
     </div>
-    <div class="card-body mt-0 pt-2 mb-0 pb-2 shadow-lg">
+    <div class="card-body mt-1 pt-4 mb-0 pb-3 pb-md-1 shadow-lg">
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-12 col-md-6">
@@ -460,23 +460,59 @@
                   fval.clientPhotoUrl.errors?.required
                 "
               >
-                Please upload a passport-size photo!
+                Please upload a passport-size photo of the client!
               </div>
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-12 col-md-8">
+          <div class="col-12 col-md-6">
             <div class="form-group text-primary">
-              <!-- <label
-for="clientComment"
-[ngClass]="fval.clientComment.valid ? 'text-info' : ''"
->Client Comment<i
-  *ngIf="fval.clientComment.valid"
-  class="material-icons"
-  >check_circle</i
-></label
-> -->
+              <label
+                for="idPhotoUrl"
+                [ngClass]="fval.idPhotoUrl.valid ? 'text-info' : ''"
+                >ID Upload<i
+                  *ngIf="fval.idPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="idPhotoUrl"
+                  formControlName="idPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.idPhotoUrl.touched ||
+                        fval.idPhotoUrl.dirty) &&
+                      fval.idPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.idPhotoUrl.touched || fval.idPhotoUrl.dirty) &&
+                  fval.idPhotoUrl.errors?.required
+                "
+              >
+                Please upload a photo of the client's ID'!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
               <div class="input-group mb-0">
                 <textarea
                   id="clientComment"
@@ -498,15 +534,15 @@ for="clientComment"
                   fval.clientComment.errors?.required
                 "
               >
-                Client Comment is required!
+                Comment on the client is required!
               </div>
             </div>
           </div>
         </div>
-        <div class="d-flex mt-2 mb-3 pt-0 pb-3 mx-auto">
+        <div class="d-flex mt-2 mb-2 pt-0 pb-1 pb-md-0 mx-auto">
           <button
             type="submit"
-            class="btn btn-info col-5 col-md-4 mx-auto"
+            class="btn btn-info col-5 col-md-3 mx-auto"
             [disabled]="!userForm.valid"
           >
             Next
@@ -529,7 +565,7 @@ for="clientComment"
 
           <button
             type="button"
-            class="btn btn-info col-5 col-md-4 mx-auto"
+            class="btn btn-info col-5 col-md-3 mx-auto"
             (click)="resetStageNames()"
           >
             Cancel

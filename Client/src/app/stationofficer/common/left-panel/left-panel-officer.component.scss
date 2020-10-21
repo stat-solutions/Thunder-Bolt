@@ -330,7 +330,7 @@
 @mixin navbarColorTheme($theme-name, $nav-bg, $menuItem-color, $menuItem-border-color, $micon-bg, $micon-bg-onHover, $micon-color-onHover, $menuItem-bg-onHover,
   $menuItem-color-onHover, $subMenu-bg, $sunMenuItem-link-color, $sunMenuItem-link-onHover, $sub-micon-bg-onhover,
   $sub-micon-color-onhover, $mcaret-bg, $mcaret-bg-onHover, $menuItem-bg-onActive, $menuItem-color-onActive, $micon-bg-onActive, $micon-color-onActive, $subMenuItem-link-color-onActive,
-  $sub-micon-bg-onActive, $sub-micon-color-onActive, $mcaret-bg-onActive) {
+  $sub-micon-bg-onActive, $sub-micon-color-onActive, $mcaret-bg-onActive, $sunMenuItem-link-onActive) {
   .flux-left-panel[navbar-theme=#{$theme-name}] {
     background: $nav-bg;
     color: $menuItem-color;
@@ -369,7 +369,7 @@
             color: $sunMenuItem-link-color;
           }
 
-          a:hover {
+          a:hover,a:focus, a:active {
             color: $sunMenuItem-link-onHover;
 
             .flux-micon i {
@@ -406,6 +406,9 @@
         li.active a {
           color: $subMenuItem-link-color-onActive;
 
+          a:active {
+          color: $subMenuItem-link-color-onActive;
+        }
           .flux-micon i {
             background: $sub-micon-bg-onActive;
             color: $sub-micon-color-onActive;
@@ -421,25 +424,25 @@
 
 
 @include navbarColorTheme(theme1, #ffffff, #678098, #f5f5f5, #ecf0f8, #f2f6f9, #17aae0ee, #141e27, #9ab5cc, #e4eaf5 , #666669,
-  #9ab5cc, #9ab5cc, #9ab5cc, #678098, #9ab5cc, #f2f6f9, #9ab5cc, #141e27, #17aae0ee, #9ab5cc, #9ab5cc, #9ab5cc, #9ab5cc);
+  #9ab5cc, #9ab5cc, #9ab5cc, #678098, #9ab5cc, #f2f6f9, #9ab5cc, #141e27, #17aae0ee, #9ab5cc, #9ab5cc, #9ab5cc, #9ab5cc, #FFFFFF);
 
 @include navbarColorTheme(theme2, #141e27, #8099ad, #485468, #141e27, #0c1014, #17aae0ee, #0c1014, #17aae0ee, #2a3444, #b4bcc8,
-  #FFFFFF, #FFFFFF, #FFFFFF, #b4bcc8, #FFFFFF, #0c1014, #17aae0ee, #0c1014, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
+  #FFFFFF, #FFFFFF, #FFFFFF, #b4bcc8, #FFFFFF, #0c1014, #17aae0ee, #0c1014, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
 
   @include navbarColorTheme(theme3, #3f5485, #d8e3fc, #4a5f90, #2f4475, #2f4475, #17aae0ee, #141e27, #FFFFFF, #2f4475, #90a2cc,
-  #FFFFFF, #FFFFFF, #FFFFFF, #d8e3fc, #FFFFFF, #2f4475, #FFFFFF, #141e27, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
+  #FFFFFF, #FFFFFF, #FFFFFF, #d8e3fc, #FFFFFF, #2f4475, #FFFFFF, #141e27, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
 
   @include navbarColorTheme(theme4, #3c75b5, #b9d4f2, #4f82bc, #2b64a4, #2b64a4, #17aae0ee, #141e27, #FFFFFF, #2b64a4, #b9d4f2,
-  #FFFFFF, #FFFFFF, #FFFFFF, #b9d4f2, #FFFFFF, #2b64a4, #FFFFFF, #141e27, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
+  #FFFFFF, #FFFFFF, #FFFFFF, #b9d4f2, #FFFFFF, #2b64a4, #FFFFFF, #141e27, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
 
   @include navbarColorTheme(theme5, #583a63, #ccbad2, #5d4865, #4b3154, #4b3154, #17aae0ee, #141e27, #FFFFFF, #4b3154, #a492aa,
-  #FFFFFF, #FFFFFF, #FFFFFF, #ccbad2, #FFFFFF, #4b3154, #FFFFFF, #141e27, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
+  #FFFFFF, #FFFFFF, #FFFFFF, #ccbad2, #FFFFFF, #4b3154, #FFFFFF, #141e27, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
 
   @include navbarColorTheme(theme6, #ededed, #787878, #e4e5e5, #e1e1e1, #e1e1e1, #17aae0ee, #141e27, #000000, #e1e1e1, #787878,
-  #000000, #787878, #787878, #787878, #000000, #e1e1e1, #000000, #141e27, #17aae0ee, #000000, #787878, #787878, #000000);
+  #000000, #787878, #787878, #787878, #000000, #e1e1e1, #000000, #141e27, #17aae0ee, #000000, #787878, #787878, #000000, #FFFFFF);
 
   @include navbarColorTheme(theme7, #0aa699, #FFFFFF, #1ab0a3, #0b9c8f, #0b9c8f, #17aae0ee, #141e27, #FFFFFF, #0b9c8f, #10e3d0,
-  #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #0b9c8f, #FFFFFF, #141e27, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
+  #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #0b9c8f, #FFFFFF, #141e27, #17aae0ee, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF, #FFFFFF);
 
 
 
