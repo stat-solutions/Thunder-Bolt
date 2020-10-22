@@ -37,22 +37,10 @@ export class PersonalProfileComponent implements OnInit {
   }
   createFormGroup() {
     return this.fb.group({
-      full_name: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      email1: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      email2: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      nxtOfKin: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      full_name: new FormControl('', Validators.compose([Validators.required])),
+      email1: new FormControl('', Validators.compose([Validators.required])),
+      email2: new FormControl('', Validators.compose([Validators.required])),
+      nxtOfKin: new FormControl('', Validators.compose([Validators.required])),
       customerNextOfKinPhone1: new FormControl(
         '',
         Validators.compose([
@@ -60,7 +48,7 @@ export class PersonalProfileComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
       user_contact_number1: new FormControl(
@@ -70,17 +58,17 @@ export class PersonalProfileComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
-             user_contact_number2: new FormControl(
+      user_contact_number2: new FormControl(
         '',
         Validators.compose([
           Validators.required,
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
       id_type: new FormControl('', Validators.compose([Validators.required])),
@@ -91,15 +79,15 @@ export class PersonalProfileComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([a-zA-Z])([a-zA-Z])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z]))$/,
             { nationalIdCheck: true }
-          )
+          ),
         ])
-    ),
+      ),
+      idPhotoUrl: new FormControl('', Validators.compose([Validators.required])),
       date_of_birth: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-
-    }    );
+    });
   }
 
   revert() {

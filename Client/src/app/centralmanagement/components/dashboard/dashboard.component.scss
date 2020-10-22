@@ -1,7 +1,3 @@
-.pointerCursor {
-  cursor: pointer;
-}
-
 .jumbotron-fluid {
   height: inherit !important;
 }
@@ -10,7 +6,6 @@
   margin-top: 2px !important;
   margin-bottom: 2px !important;
   margin-right: 0px !important;
-  contain: auto;
 }
 
 .card-body {
@@ -21,104 +16,84 @@
 }
 
 .big-card-1 {
-  height: 340px !important;
+  height: 310px !important;
   margin-bottom: 0px !important;
   contain: auto;
-  // overflow-y: auto;
-  // overflow-x: hidden;
 }
 .big-card-body-1 {
 height: 100% !important;
 margin-bottom: 0px !important;
-contain: auto;
-// overflow-y: hidden;
 }
 
 .big-card-1b {
-  height: 240px !important;
+  height: 220px !important;
   margin-bottom: 0px !important;
   contain: auto;
-  // overflow-y: auto;
 }
 
 .big-card-body-1b {
 height: auto !important;
 margin-bottom: 0px !important;
-contain: auto;
 overflow-y: auto;
 }
 
 .big-card-2 {
-height: 340px !important;
+height: 190px !important;
 margin-bottom: 0px !important;
 contain: auto;
-// overflow-y: auto;
-// overflow-x: hidden;
 }
 .big-card-body-2 {
 height: 100% !important;
 margin-bottom: 0px !important;
-contain: auto;
-// overflow-y: hidden;
 }
 
 .big-card-3 {
-height: 340px !important;
+height: 250px !important;
 margin-bottom: 0px !important;
 contain: auto;
-// overflow-y: auto;
-// overflow-x: hidden;
 }
 .big-card-body-3 {
 height: 100% !important;
 margin-bottom: 0px !important;
-contain: auto;
-// overflow-y: hidden;
+overflow-y: hidden;
 }
 
 .big-card-4 {
-height: 340px !important;
+height: 250px !important;
 margin-bottom: 0px !important;
 contain: auto;
-// overflow-y: auto;
-// overflow-x: hidden;
 }
 .big-card-body-4 {
 height: 100% !important;
 margin-bottom: 0px !important;
-contain: auto;
-// overflow-y: hidden;
+overflow-y: hidden;
 }
 
 .item-container {
-  min-height: 35px !important;
+  min-height: 30px !important;
   contain: auto;
 }
 
 .list-card {
   height: auto !important;
+  contain: auto;
+}
+.list-card:hover, .list-card:focus {
+border-color: #17aee0
 }
 
-.list-card2 {
-  width: 100%;
+.list-card-2 {
   height: auto !important;
-  margin-left: 0px !important;
-  margin-right: 15px !important;
   contain: auto;
 }
 
-h4 {
-  font-size: 16px;
-}
-
-button.btn {
+.btn {
   border-radius: 15px;
 }
 
-.text-info {
-  color: #17aae0ee !important
+.text-gray {
+  color: #f7f5f5;
 }
-
 
 a.text-info:focus,
 a.text-info:hover {
@@ -154,26 +129,6 @@ a.text-info:hover {
   cursor: pointer;
 }
 
-.text-dark {
-  color: rgb(168, 18, 106) !important;
-}
-
-.text-warning {
-  color: #eee206ef !important;
-}
-
-.text-gray {
-  color: #f7f5f5;
-}
-
-.text-info {
-  color: #17aae0ee;
-}
-
-.bg-danger {
-  background-color: #c63685 !important;
-}
-
 .sm-card-1 {
   background-image: linear-gradient(to bottom right, rgb(168, 18, 106, 1), rgba(189, 192, 194, 0.7));
   border: 0rem;
@@ -194,17 +149,14 @@ a.text-info:hover {
   border: 0rem;
 }
 
-// .big-card-body-1 {
-//     height: 100%;
-//     max-height: 250px;
-//     overflow-y: auto;
-// }
+.fas{
+  font-size: 1.0rem;
+}
 
+
+
+//media queries
 @media (min-width:360px) {
-  .links {
-      margin-top: 10px !important;
-      margin-bottom: 8px !important;
-  }
   .thunder-col-1 {
       margin-bottom: 5px !important;
   }
@@ -219,19 +171,23 @@ a.text-info:hover {
       padding-left: 0px !important;
       margin-bottom: 5px !important;
   }
+  .sm-card-1 {
+      padding-left: 2px !important;
+      padding-right: 2px !important;
+  }
   .sm-card-2 {
-      padding-left: 3px !important;
-      padding-right: 3px !important;
+      padding-left: 2px !important;
+      padding-right: 2px !important;
   }
   .sm-card-title-2 {
       font-size: 11px !important;
       margin-left: 0px !important;
       padding-left: 3px !important;
-      padding-right: 3px !important;
+      padding-right: 0px !important;
   }
   .sm-card-3 {
-      padding-left: 3px !important;
-      padding-right: 3px !important;
+      padding-left: 0px !important;
+      padding-right: 0px !important;
   }
   .sm-card-title-3 {
       font-size: 11px !important;
@@ -246,113 +202,200 @@ a.text-info:hover {
   .sm-card-title-4 {
       font-size: 11px !important;
       margin-left: 0px !important;
-      padding-left: 3px !important;
-      padding-right: 3px !important;
+      padding-left: 2px !important;
+      padding-right: 0px !important;
   }
   .components {
       margin-top: 8px !important;
-  }
-  .components h6 {
-      font-size: 14px !important;
   }
 }
 
 @media (min-width:375px) {}
 
-@media (min-width:400px) {
-  h5 {
-      margin-left: 10px !important;
-      padding-left: 20px !important;
+@media (min-width:411px) {
+}
+
+@media (min-width:445px) {
+  .sm-card-1 {
+      padding-left: .2rem !important;
+      padding-right: .2rem !important;
+  }
+  .sm-card-2 {
+      padding-left: .2rem !important;
+      padding-right: .2rem !important;
+  }
+  .sm-card-title-2 {
+      font-size: .8rem !important;
+      padding-left: .35rem !important;
+  }
+  .sm-card-3 {
+      padding-left: .2rem !important;
+      padding-right: .2rem !important;
+  }
+  .sm-card-title-3 {
+      font-size: .8rem !important;
+      padding-left: .35rem !important;
+  }
+  .sm-card-4 {
+      padding-left: .2rem !important;
+      padding-right: .2rem !important;
+  }
+  .sm-card-title-4 {
+      font-size: .8rem !important;
+      padding-left: .35rem !important;
+  }
+  .fas{
+    font-size: 1.3rem;
+  }
+.big-card-2 {
+height: 260px !important;
+}
+  .itemCreated-a {
+      padding-left: 2.1rem !important;
+      padding-right: 0rem !important;
+  }
+  .rate-selected {
+      padding-left: 2.1rem !important;
+      padding-right: 0rem !important;
+  }
+  .itemCreated-1 {
+      padding-left: 2rem !important;
+      padding-right: 0rem !important;
+  }
+  .itemCreated-2 {
+      padding-left: .9rem !important;
+      padding-right: 0rem !important;
+  }
+  .itemCreated-3 {
+      padding-left: .9rem !important;
+      padding-right: 0rem !important;
+  }
+  .itemCreated-4 {
+      padding-left: 1rem !important;
+      padding-right: 0rem !important;
+  }
+  .itemCreated-5 {
+      padding-left: .5rem !important;
+      padding-right: 0rem !important;
+  }
+  .itemCreated-6 {
+      padding-left: 1.3rem !important;
+      padding-right: 0rem !important;
+  }
+  .itemCreated-7 {
+      padding-left: 1.2rem !important;
+      padding-right: 0rem !important;
   }
 }
+
+
+@media (min-width: 568px) {
+.big-card-2 {
+height: 280px !important;
+}
+}
+
+
+@media (min-width: 640px) {
+  .sm-card-1 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-2 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-title-2 {
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
+  }
+  .sm-card-3 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-title-3 {
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
+  }
+  .sm-card-4 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-title-4 {
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
+  }
+  .fas{
+    font-size: 1.4rem;
+  }
+}
+
 
 @media (min-width: 768px) {
   .container {
       margin-left: 0px !important;
       margin-right: 0px !important;
   }
-  .big-card-1 {
-      height: 270px;
-      padding-bottom: 15px !important;
+  .sm-card-1 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-2 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-title-2 {
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
+  }
+  .sm-card-3 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-title-3 {
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
+  }
+  .sm-card-4 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-title-4 {
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
+  }
+  .fas{
+    font-size: 1.4rem;
   }
   .big-card-2 {
-      height: 300px;
+      height: 330px !important;
   }
-  .big-card-2b {
-      height: 214px !important;
-      margin-top: 3px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 10px !important;
+  .itemCreated-a {
+      padding-left: 4.6rem !important;
   }
-  .big-card-2b .table {
-      height: 160px !important;
-      margin-top: 3px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
+  .rate-selected {
+      padding-left: 4.6rem !important;
   }
-  .big-card-2b .btn {
-      margin-top: 0px !important;
-      margin-bottom: 5px !important;
+  .itemCreated-1 {
+      padding-left: 2.8rem !important;
   }
-  .big-card-2b .card-tools {
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 5px !important;
-      padding-bottom: 0px !important;
+  .itemCreated-2 {
+      padding-left: 3rem !important;
   }
-  .big-card-2b .card-tools .pagination {
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 12px !important;
-      padding-bottom: 3px !important;
+  .itemCreated-3 {
+      padding-left: 3.2rem !important;
   }
-  .big-card-3 {
-      height: 320px;
+  .itemCreated-4 {
+      padding-left: 3.2rem !important;
   }
-  .big-card-3b {
-      height: 230px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 10px !important;
+  .itemCreated-5 {
+      padding-left: 1.1rem !important;
   }
-  .big-card-3b .table {
-      height: 165px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 6px !important;
+  .itemCreated-6 {
+      padding-left: 3.6rem !important;
   }
-  .big-card-3b .btn {
-      width: 80px !important;
-      margin-top: 3px !important;
-      margin-left: 13px !important;
-      margin-bottom: 0px !important;
-      font-size: 10px;
-  }
-  .big-card-3b .card-tools {
-      margin-top: 3px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-3b .card-tools .pagination {
-      width: 50px !important;
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 3px !important;
-  }
-  .big-card-4 {
-      height: 250px;
-  }
-  .big-card-5 {
-      height: 250px;
-  }
-  h5 {
-      font-size: 20px !important;
-      margin-left: 120px !important;
-      padding-left: 80px !important;
-  }
-  .links {
-      margin-top: 14px !important;
-      margin-bottom: 12px !important;
+  .itemCreated-7 {
+      padding-left: 2.8rem !important;
   }
 }
 
@@ -361,78 +404,6 @@ a.text-info:hover {
       margin-left: auto !important;
       margin-right: auto !important;
   }
-  .big-card-1 {
-      height: 280px;
-      padding-bottom: 15px !important;
-  }
-  .big-card-2 {
-      height: 320px;
-  }
-  .big-card-2b {
-      height: 225px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 10px !important;
-  }
-  .big-card-2b .table {
-      height: 165px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-2b .btn {
-      margin-top: 0px !important;
-      margin-bottom: 7px !important;
-  }
-  .big-card-2b .card-tools {
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-2b .card-tools .pagination {
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 12px !important;
-      padding-bottom: 3px !important;
-  }
-  .big-card-3 {
-      height: 330px;
-  }
-  .big-card-3b {
-      height: 240px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 10px !important;
-  }
-  .big-card-3b .table {
-      height: 175px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 6px !important;
-  }
-  .big-card-3b .btn {
-      width: 80px !important;
-      margin-top: 3px !important;
-      margin-left: 13px !important;
-      margin-bottom: 0px !important;
-      font-size: 10px;
-  }
-  .big-card-3b .card-tools {
-      margin-top: 3px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-3b .card-tools .pagination {
-      width: 50px !important;
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 3px !important;
-  }
-  .big-card-4 {
-      height: 270px;
-  }
-  .big-card-5 {
-      height: 250px;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -440,115 +411,76 @@ a.text-info:hover {
       margin-left: 0px !important;
       margin-right: 0px !important;
   }
-  .big-card-1 {
-      height: 320px !important;
-      padding-bottom: 5px !important;
+  .sm-card-1 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-2 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-title-2 {
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
+  }
+  .sm-card-3 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-title-3 {
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
+  }
+  .sm-card-4 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-title-4 {
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
+  }
+  .fas{
+    font-size: 1.4rem;
   }
   .big-card-2 {
-      height: 320px !important;
+      height: 450px !important;
   }
-  .big-card-2b {
-      height: 284px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 14px !important;
+  .itemCreated-a {
+      padding-left: 4.6rem !important;
   }
-  .big-card-2b .table {
-      height: 217px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
+  .rate-selected {
+      padding-left: 4.6rem !important;
   }
-  .big-card-2b .btn {
-      margin-top: 5px !important;
-      margin-bottom: 12px !important;
+  .itemCreated-1 {
+      padding-left: 2.8rem !important;
   }
-  .big-card-2b .card-tools {
-      margin-top: 5px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 0px !important;
+  .itemCreated-2 {
+      padding-left: 3rem !important;
   }
-  .big-card-2b .card-tools .pagination {
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 12px !important;
-      padding-bottom: 3px !important;
+  .itemCreated-3 {
+      padding-left: 3.2rem !important;
   }
-  .big-card-3 {
-      height: 380px;
+  .itemCreated-4 {
+      padding-left: 3.2rem !important;
   }
-  .big-card-3b {
-      height: 270px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 10px !important;
+  .itemCreated-5 {
+      padding-left: 1.1rem !important;
   }
-  .big-card-3b .table {
-      height: 195px !important;
-      margin-bottom: 12px !important;
-      padding-bottom: 0px !important;
+  .itemCreated-6 {
+      padding-left: 3.6rem !important;
   }
-  .big-card-3b .btn {
-      width: 100px !important;
-      margin-top: 3px !important;
-      margin-left: 1px !important;
-      margin-bottom: 10px !important;
-      font-size: 14px;
-  }
-  .big-card-3b .card-tools {
-      margin-top: 3px !important;
-      padding-top: 0px !important;
-      margin-bottom: 10px !important;
-      padding-bottom: 0px !important;
-  }
-  .big-card-3b .card-tools .pagination {
-      width: 50px !important;
-      margin-top: 0px !important;
-      padding-top: 0px !important;
-      margin-bottom: 0px !important;
-      padding-bottom: 3px !important;
-  }
-  .big-card-4 {
-      height: 320px;
-  }
-  .big-card-5 {
-      height: 270px;
-  }
-  h5 {
-      font-size: 20px !important;
-      margin-left: 180px !important;
-      padding-left: 80px !important;
-  }
-  .links {
-      margin-top: 14px !important;
-      margin-bottom: 12px !important;
-  }
-  .components {
-      margin-top: 10px !important;
+  .itemCreated-7 {
+      padding-left: 2.8rem !important;
   }
 }
 
 @media (min-width:1100px) {
-  .thunder-col-1 {
-      margin-bottom: 15px !important;
-  }
-  .thunder-col-2 {
-      margin-bottom: 15px !important;
-  }
-  h5 {
-      font-size: 20px !important;
-      margin-left: 200px !important;
-      padding-left: 80px !important;
-  }
 }
 
 @media (min-width:1280px) {
   .global-container{
     max-width: 1100px !important;
     min-width: 1050px !important;
-  }
-  h5 {
-      font-size: 20px !important;
-      margin-left: 210px !important;
-      padding-left: 80px !important;
   }
     .thunder-col-1 {
       margin-bottom: 0px !important;
@@ -562,77 +494,81 @@ a.text-info:hover {
   .thunder-col-4 {
       margin-bottom: 0px !important;
   }
-  .fa-clipboard-list {
-      font-size: 25px !important;
-  }
   .sm-card-1 {
-      padding-bottom: 0px !important;
-  }
-  .sm-card-title-1 {
-      font-size: 14px !important;
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
   }
   .sm-card-2 {
-      padding-left: 8px !important;
-      padding-right: 3px !important;
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
   }
   .sm-card-title-2 {
-      font-size: 14px !important;
-      margin-left: 0px !important;
-      padding-left: 0px !important;
-      padding-right: 3px !important;
-  }
-  .fa-coins {
-      font-size: 25px !important;
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
   }
   .sm-card-3 {
-      padding-left: 8px !important;
-      padding-right: 3px !important;
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
   }
   .sm-card-title-3 {
-      font-size: 14px !important;
-      margin-left: 0px !important;
-      padding-left: 0px !important;
-      padding-right: 0px !important;
-  }
-  .fa-warehouse {
-      font-size: 18px !important;
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
   }
   .sm-card-4 {
-      padding-left: 8px !important;
-      padding-right: 0px !important;
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
   }
   .sm-card-title-4 {
-      font-size: 14px !important;
-      margin-left: 0px !important;
-      padding-left: 0px !important;
-      padding-right: 3px !important;
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
   }
-  .fa-truck {
-      font-size: 20px !important;
+  .fas{
+    font-size: 1.4rem;
   }
-  .components {
-      margin-top: 10px !important;
+  .big-card-1 {
+      height: 280px !important;
   }
-  .components h6 {
-      font-size: 14px !important;
+  .big-card-1b {
+      height: 210px !important;
+  }
+  .big-card-2 {
+      height: 280px !important;
+  }
+  .big-card-3 {
+      height: 240px !important;
+  }
+  .big-card-4 {
+      height: 240px !important;
+  }
+
+  .itemCreated-a {
+      padding-left: 2.8rem !important;
+  }
+  .rate-selected {
+      padding-left: 2.8rem !important;
+  }
+  .itemCreated-1 {
+      padding-left: 0rem !important;
+  }
+  .itemCreated-2 {
+      padding-left: 0rem !important;
+  }
+  .itemCreated-3 {
+      padding-left: 0rem !important;
+  }
+  .itemCreated-4 {
+      padding-left: 0rem !important;
+  }
+  .itemCreated-5 {
+      padding-left: 0rem !important;
+  }
+  .itemCreated-6 {
+      padding-left: 0rem !important;
+  }
+  .itemCreated-7 {
+      padding-left: 0rem !important;
   }
 }
 
 @media (min-width:1320px) {
-  .container {
-      margin-left: auto !important;
-      margin-right: auto !important;
-  }
-  h5 {
-      font-size: 20px !important;
-      margin-left: 260px !important;
-      padding-left: 80px !important;
-  }
-  .links {
-      margin-top: 14px !important;
-      margin-bottom: 12px !important;
-  }
-  .components {
-      margin-top: 15px !important;
-  }
 }

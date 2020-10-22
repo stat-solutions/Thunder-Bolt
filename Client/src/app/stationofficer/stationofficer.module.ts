@@ -81,7 +81,7 @@ import { SetPasswordComponent } from './components/profile/set-password/set-pass
     BodaLoanClientComponent,
     TaxiLoanClientComponent,
     PersonalProfileComponent,
-    SetPasswordComponent,
+    SetPasswordComponent
   ],
 
   imports: [

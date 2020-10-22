@@ -5,7 +5,6 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  contain: auto;
 }
 
 .btn {
@@ -86,7 +85,7 @@ a.text-info:hover {
 
 @media (min-width: 360px) {
 .the-footer {
-    margin-top: 2.0rem !important;
+    margin-top: .6rem !important;
     padding-top: 0px !important;
   }
 }
@@ -95,17 +94,11 @@ a.text-info:hover {
   .jumbotron-fluid {
     padding-bottom: 10px !important;
   }
-.the-footer {
-    margin-top: 2.6rem !important;
-  }
 }
 
 @media (min-width: 410px) {
   .jumbotron-fluid {
     padding-bottom: 5px !important;
-  }
-.the-footer {
-    margin-top: 1.6rem !important;
   }
 }
 
@@ -122,9 +115,6 @@ a.text-info:hover {
   }
   .jumbotron-fluid {
     padding-top: 0px !important;
-  }
-.the-footer {
-    margin-top: .7rem !important;
   }
 }
 
@@ -145,7 +135,7 @@ a.text-info:hover {
     padding-bottom: 10px !important;
   }
 .the-footer {
-    margin-top: 5rem !important;
+    margin-top: 1rem !important;
   }
 }
 
@@ -155,7 +145,7 @@ a.text-info:hover {
     padding-bottom: 5px !important;
   }
 .the-footer {
-    margin-top: 2.6rem !important;
+    margin-top: .6rem !important;
   }
 }
 
@@ -165,7 +155,7 @@ a.text-info:hover {
     padding-bottom: 20px !important;
   }
 .the-footer {
-    margin-top: 1.6rem !important;
+    margin-top: 1rem !important;
   }
 }
 
@@ -181,6 +171,9 @@ a.text-info:hover {
     margin-top: 0px !important;
     padding-top: 0px !important;
     padding-bottom: 10px !important;
+  }
+.the-footer {
+    margin-top: .6rem !important;
   }
 }
 

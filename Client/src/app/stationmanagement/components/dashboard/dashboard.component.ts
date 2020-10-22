@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 
 export interface Totals {
-  areas: number,
-  towns: number,
-  stations: number,
-  clients: number
+  clients: number,
+  floatBalance: number,
+amountLoaned: number,
+  amountPaid: number,
+  amountUnpaid: number
+
 }
 @Component({
   selector: 'app-dashboard',
@@ -88,7 +90,7 @@ export class DashboardComponent implements OnInit {
   inlinePlugin: any;
   textPlugin: any;
   totals: Totals[] = [
-    {areas: 24, towns: 40, stations: 136, clients: 1340}
+    { clients: 1340, floatBalance: 400000, amountPaid: 123000, amountLoaned: 110000, amountUnpaid: 250000}
   ];
   creationApprovals: Array<any> = [
     {type: "Area Creation", total: 17},

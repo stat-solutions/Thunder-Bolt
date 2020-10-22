@@ -54,22 +54,27 @@ export class LeftPanelAdminComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/admin/dashboard'
+        url: '/admin/dashboard',
       },
       {
         name: 'Company',
         icon: 'fas fa-briefcase',
-        url: '/admin/companysetup'
+        url: '/admin/companysetup',
       },
       {
         name: 'Business Units',
         icon: 'fa fa-tools',
-        url: '/admin/businessunits'
+        url: '/admin/businessunits',
       },
       {
         name: 'Approvals',
         icon: 'fas fa-users-cog',
-        url: '/admin/approvalsetup'
+        url: '/admin/approvalsetup',
+      },
+      {
+        name: 'Approve Users',
+        icon: 'fas fa-user-check',
+        url: '/admin/approveusers',
       },
       {
         name: 'Profile',
@@ -79,15 +84,15 @@ export class LeftPanelAdminComponent implements OnInit {
           {
             name: 'Personal Info',
             icon: 'fas fa-user',
-            url: '/admin/adminprofile/personalprofile'
+            url: '/admin/adminprofile/personalprofile',
           },
           {
             name: 'Set PIN',
             icon: 'fas fa-lock',
-            url: '/admin/adminprofile/setpassword'
-          }
-                        ]
-      }
+            url: '/admin/adminprofile/setpassword',
+          },
+        ],
+      },
     ];
   }
 }

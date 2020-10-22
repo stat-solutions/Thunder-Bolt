@@ -32,6 +32,7 @@ import { EditTaxiClientInfoComponent } from './components/enroll/edit-client/edi
 import { EditBodaStageComponent } from './components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component';
 import { EditStageComponent } from './components/enroll/edit-stage/edit-stage.component';
 import { EditTaxiStageComponent } from './components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component';
+import { ApproveTownUsersComponent } from './components/approve-town-users/approve-town-users.component';
 
 const routes: Routes = [
   { path: '',
@@ -161,6 +162,11 @@ const routes: Routes = [
           }
         ]
           },
+          {
+            path: 'approveusers',
+            component: ApproveTownUsersComponent
+          }
+,
 {
         path: 'profile',
         component: ProfileComponent,

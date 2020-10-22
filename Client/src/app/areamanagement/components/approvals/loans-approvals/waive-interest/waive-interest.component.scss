@@ -5,7 +5,6 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  contain: auto;
 }
 
 .card-body {
@@ -132,7 +131,7 @@ a.text-info:hover {
 
 @media (min-width: 410px) {
   .jumbotron-fluid {
-      padding-bottom: 10px !important;
+      padding-bottom: 0px !important;
   }
 }
 
@@ -196,13 +195,18 @@ a.text-info:hover {
   .container {
       margin-left: auto !important;
       margin-right: auto !important;
+            max-width: 1000px;
+            min-width: 900px;
   }
   .jumbotron-fluid {
       padding-bottom: .4rem !important;
   }
+  .card-body {
+            max-width: 900px;
+            min-width: 680px;
+  }
 .iteration {
-  min-height: 150px;
-  max-height: 200px;
+  max-height: 230px;
 }
 }
 

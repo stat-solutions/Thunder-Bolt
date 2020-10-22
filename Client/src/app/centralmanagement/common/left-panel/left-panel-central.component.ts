@@ -54,17 +54,17 @@ export class LeftPanelCentralComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/centralmanagement/dashboard'
+        url: '/centralmanagement/dashboard',
       },
       {
-        name: 'Create',
+        name: 'Creations',
         icon: 'fas fa-wrench',
-        url: '/centralmanagement/create'
+        url: '/centralmanagement/create',
       },
       {
-        name: 'Approvals',
+        name: 'Creation Approvals',
         icon: 'fas fa-cogs',
-        url: '/centralmanagement/approve'
+        url: '/centralmanagement/approve',
       },
       {
         name: 'Transactions',
@@ -74,20 +74,20 @@ export class LeftPanelCentralComponent implements OnInit {
           {
             name: 'Loans',
             icon: 'fas fa-credit-card',
-            url: '/centralmanagement/transactions/loans'
-         },
-         {
-          name: 'Approvals',
-          icon: 'fas fa-cogs',
-          url: '/centralmanagement/transactions/approve'
-        },
-        {
-          name: 'Float',
-          icon: 'fas fa-credit-card',
-          url: '/centralmanagement/transactions/float'
-        }
-          ]
-        },
+            url: '/centralmanagement/transactions/loans',
+          },
+          {
+            name: 'Approvals',
+            icon: 'fas fa-cogs',
+            url: '/centralmanagement/transactions/approve',
+          },
+          {
+            name: 'Float',
+            icon: 'fas fa-credit-card',
+            url: '/centralmanagement/transactions/float',
+          },
+        ],
+      },
       {
         name: 'Reports',
         icon: 'fas fa-chart-line',
@@ -95,30 +95,35 @@ export class LeftPanelCentralComponent implements OnInit {
         subMenu: [
           {
             name: 'Areas',
-            icon: 'fas fa-user-cog',
-            url: '/centralmanagement/reports/areas'
+            icon: 'fas fa-file',
+            url: '/centralmanagement/reports/areas',
           },
           {
             name: 'Towns',
-            icon: 'fas fa-user-cog',
-            url: '/centralmanagement/reports/towns'
+            icon: 'fas fa-file',
+            url: '/centralmanagement/reports/towns',
           },
           {
             name: 'Stations',
-            icon: 'fas fa-user-cog',
-            url: '/centralmanagement/reports/stations'
+            icon: 'fas fa-file',
+            url: '/centralmanagement/reports/stations',
           },
           {
             name: 'Clients',
-            icon: 'fas fa-user-cog',
-            url: '/centralmanagement/reports/clients'
+            icon: 'fas fa-file',
+            url: '/centralmanagement/reports/clients',
           },
           {
             name: 'Users',
-            icon: 'fas fa-user-cog',
-            url: '/centralmanagement/reports/users'
-          }
-        ]
+            icon: 'fas fa-file',
+            url: '/centralmanagement/reports/users',
+          },
+        ],
+      },
+      {
+        name: 'Approve Users',
+        icon: 'fas fa-user-check',
+        url: '/centralmanagement/approveusers',
       },
       {
         name: 'Profile',
@@ -128,15 +133,15 @@ export class LeftPanelCentralComponent implements OnInit {
           {
             name: 'Personal Info',
             icon: 'fas fa-user',
-            url: '/centralmanagement/profile/personalprofile'
+            url: '/centralmanagement/profile/personalprofile',
           },
           {
             name: 'Set PIN',
             icon: 'fas fa-lock',
-            url: '/centralmanagement/profile/setpassword'
-          }
-                        ]
-      }
- ];
+            url: '/centralmanagement/profile/setpassword',
+          },
+        ],
+      },
+    ];
 }
 }

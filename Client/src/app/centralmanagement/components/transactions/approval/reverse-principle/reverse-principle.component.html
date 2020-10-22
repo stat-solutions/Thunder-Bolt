@@ -1,95 +1,95 @@
-<div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-md-0 pt-0 pb-0 shadow-lg col-xs-12 col-lg-8">
+<div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-0 pb-0 shadow-lg col-xs-12 col-lg-10">
     <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1">
-        <div class="container mt-3 mx-0 shadow-lg">
-            <div class="row">
-                <div class="col-12">
-                    <h4 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
-                        Reverse Principle
-                    </h4>
-                </div>
-            </div>
-        </div>
-        <div class="invest-card card-body mt-2 pt-3 mb-3 mx-auto pb-4 shadow-lg">
-            <form [formGroup]="userForm">
-                <div class="item-header">
-                    <div class="row">
-                        <!--select all items-->
-                        <div class="col-1 ml-0 pl-0">
-                            <div class="col-1 ml-0 pl-0">
-                                <input
-                                id="allSelected"
-                                formControlName="selectAll"
-                                (click)="checkAllItems(!fval.selectAll.value)"
-                                type="checkbox"
-                                value=""
-                                class="ml-4 text-info"
-                                />
-                            </div>
-                        </div>
-                        <div class="col-3 ml-3">
-                            <h4 class="text-center text-info">Station</h4>
-                        </div>
-                        <div class="col-3 ml-3">
-                            <h4 class="text-center text-info">Client</h4>
-                        </div>
-                        <div class="col-3 ml-3">
-                            <h4 class="text-center text-info">Amount</h4>
-                        </div>
-                    </div>
-                </div>
-                <div formArrayName= "approveReverse">
-                <div
-                    class="item-container mt-1"
-                    *ngFor="let items of fval.approveReverse['controls'];let idx = index"
-                >
-                    <div class="list-card card mt-2 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
-                        <div class="card-body mt-0 pt-0 mb-0 pb-0 mx-0">
-                            <div class="row mt-0 pt-0 mb-0 pb-0">
-                                <div class="col-1 ml-0 pl-0">
-                                    <!--select an item-->
-                                    <input
-                                    formControlName="approved"
-                                    (click)="deselectAll(idx)"
-                                    type="checkbox"
-                                    value=""
-                                    class="ml-1 text-info"
-                                />
-                                </div>
-                                <div class="col-4 pl-2 mr-0 pr-0">
-                                    <span class="itemCreated text-wrap">
-                                        {{fval.approveReverse["controls"][idx]["controls"].station.value}}
-                                    </span>
-                                </div>
-                                <div class="col-4 pl-2 mr-0 pr-0">
-                                    <span class="itemCreated">
-                                        {{fval.approveReverse["controls"][idx]["controls"].client.value}}
-                                    </span>
-                                </div>
-                                <div class="col-2 ml-2 pl-0 mr-0 pr-0">
-                                    <span class="rate-selected align-self-center">
-                                        {{fval.approveReverse["controls"][idx]["controls"].ammount.value}}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </form>
-            <div class="d-flex mt-3 mb-0 pt-2 pb-2 mx-auto">
-            <button
-                class="btn btn-info col-5 col-md-4 mx-auto px-0"
-                (click)="approveItems()"
-            >
-            <i class="fas fa-check"></i> Approve
-            </button>
-            <button
-                class="btn btn-info col-5 col-md-4 mx-auto px-0"
-                (click)="rejectItems()"
-            >
-            <i class="fas fa-times"></i> Reject
-            </button>
-            </div>
-        </div>
-    </div>
+      <div class="container mt-3 mt-xl-2 mx-0 shadow-lg">
+          <div class="row">
+              <div class="col-12">
+                  <h3 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
+                      Reverse Principle
+                  </h3>
+              </div>
+          </div>
+      </div>
+      <div class="invest-card card-body mt-2 pt-3 pt-md-4 mb-5 mx-auto pb-4 pb-md-5 pb-xl-4 shadow-lg">
+          <form [formGroup]="userForm">
+              <div class="item-header mb-2">
+                  <div class="row">
+                      <!--select all items-->
+                      <div class="col-1 ml-0 pl-0">
+                          <div class="col-1 ml-0 pl-0">
+                              <input
+                              id="allSelected"
+                              formControlName="selectAll"
+                              (click)="checkAllItems(!fval.selectAll.value)"
+                              type="checkbox"
+                              value=""
+                              class="ml-4 text-info"
+                              />
+                          </div>
+                      </div>
+                      <div class="col-3 ml-2 ml-xl-3">
+                          <h5 class="text-center text-info">Station</h5>
+                      </div>
+                      <div class="col-4 ml-xl-1">
+                          <h5 class="text-center text-info">Client</h5>
+                      </div>
+                      <div class="col-3 ml-0 ml-xl-1">
+                          <h5 class="text-center text-info">Amount</h5>
+                      </div>
+                  </div>
+              </div>
+              <div class="iteration" formArrayName= "approveReverse">
+              <div
+                  class="item-container mt-1"
+                  *ngFor="let items of fval.approveReverse['controls'];let idx = index"
+              >
+                  <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
+                      <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                          <div class="row mt-0 pt-0 mb-0 pb-0">
+                              <div class="col-1 ml-0 pl-0">
+                                  <!--select an item-->
+                                  <input
+                                  formControlName="approved"
+                                  (click)="deselectAll(idx)"
+                                  type="checkbox"
+                                  value=""
+                                  class="ml-1 text-info"
+                              />
+                              </div>
+                              <div class="col-4 pl-2 mr-0 pr-0 px-xl-4">
+                                  <span class="itemCreated text-wrap">
+                                      {{fval.approveReverse["controls"][idx]["controls"].station.value}}
+                                  </span>
+                              </div>
+                              <div class="col-4 pl-2 mr-0 pr-0">
+                                  <span class="itemCreated">
+                                      {{fval.approveReverse["controls"][idx]["controls"].client.value}}
+                                  </span>
+                              </div>
+                              <div class="col-2 ml-2 ml-lg-4 mr-0 px-0 px-xl-4">
+                                  <span class="rate-selected align-self-center">
+                                      {{fval.approveReverse["controls"][idx]["controls"].ammount.value}}
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          </form>
+          <div class="d-flex mt-3 mb-0 pt-2 pb-2 mx-auto">
+          <button
+              class="btn btn-info col-4 col-md-3 mx-auto px-0"
+              (click)="approveItems()"
+          >
+          <i class="fas fa-check"></i> Approve
+          </button>
+          <button
+              class="btn btn-info col-4 col-md-3 mx-auto px-0"
+              (click)="rejectItems()"
+          >
+          <i class="fas fa-times"></i> Reject
+          </button>
+          </div>
+      </div>
+  </div>
 </div>

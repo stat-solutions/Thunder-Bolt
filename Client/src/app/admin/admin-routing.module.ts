@@ -9,6 +9,7 @@ import { BussinessunitsComponent } from './components/bussinessunits/bussinessun
 import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
 import { PersonalProfileComponent } from './components/admin-profile/personal-profile/personal-profile.component';
 import { SetPasswordComponent } from './components/admin-profile/set-password/set-password.component';
+import { ApproveAdminUsersComponent } from './components/approve-admin-users/approve-admin-users.component';
 
 const routes: Routes = [
   {
@@ -19,17 +20,17 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'dashboard',
       },
 
       {
         path: 'dashboard',
-       component: DashboardComponent,
+        component: DashboardComponent,
       },
 
       {
         path: 'companysetup',
-       component: CompanySetupComponent,
+        component: CompanySetupComponent,
       },
       {
         path: 'businessunits',
@@ -37,7 +38,11 @@ const routes: Routes = [
       },
       {
         path: 'approvalsetup',
-       component: ApprovalSetupComponent,
+        component: ApprovalSetupComponent,
+      },
+      {
+        path: 'approveusers',
+        component: ApproveAdminUsersComponent,
       },
       {
         path: 'adminprofile',
@@ -45,15 +50,15 @@ const routes: Routes = [
         children: [
           {
             path: 'personalprofile',
-            component: PersonalProfileComponent
+            component: PersonalProfileComponent,
           },
           {
             path: 'setpassword',
-            component: SetPasswordComponent
-          }
-        ]
-      }
-    ]
+            component: SetPasswordComponent,
+          },
+        ],
+      },
+    ],
   },
 ];
 

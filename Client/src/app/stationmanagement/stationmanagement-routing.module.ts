@@ -10,39 +10,44 @@ import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledge
 import { BorrowedLedgerComponent } from './components/reports/borrowed-ledger/borrowed-ledger.component';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
 import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
+import { ApproveStationUsersComponent } from './components/approve-station-users/approve-station-users.component';
 
 const routes: Routes = [
-  { path: '',
+  {
+    path: '',
     component: PagesCoreStationComponent,
     canActivateChild: [RandomGuard],
     children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'dashboard',
       },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
       },
       {
         path: 'reports',
         component: ReportsComponent,
-children: [
-  {
-    path: 'cashledger',
-    component: CashLedgerComponent
-  },
-  {
-    path: 'paidledger',
-    component: PaidLedgerComponent
-  },
-  {
-    path: 'borrowedledger',
-    component: BorrowedLedgerComponent
-  }
-
-]
+        children: [
+          {
+            path: 'cashledger',
+            component: CashLedgerComponent,
+          },
+          {
+            path: 'paidledger',
+            component: PaidLedgerComponent,
+          },
+          {
+            path: 'borrowedledger',
+            component: BorrowedLedgerComponent,
+          },
+        ],
+      },
+      {
+        path: 'approveusers',
+        component: ApproveStationUsersComponent,
       },
       {
         path: 'profile',
@@ -50,16 +55,17 @@ children: [
         children: [
           {
             path: 'personalprofile',
-            component: PersonalProfileComponent
+            component: PersonalProfileComponent,
           },
           {
             path: 'setpassword',
-            component: SetPasswordComponent
-          }
-        ]
-      }
-    ]
-}];
+            component: SetPasswordComponent,
+          },
+        ],
+      },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
