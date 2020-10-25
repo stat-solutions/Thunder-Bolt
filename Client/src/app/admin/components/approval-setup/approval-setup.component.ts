@@ -23,6 +23,7 @@ export interface Approvals {
 export class ApprovalSetupComponent implements OnInit {
   approvalForm: FormGroup;
   posted = false;
+  showLevels: number;
   actionButton: string;
   errored: boolean;
   serviceErrors: string;
@@ -34,29 +35,29 @@ export class ApprovalSetupComponent implements OnInit {
     { name: 'Area Creation', level: 3 },
     { name: 'Town Creation', level: 1 },
     { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 4 },
+    { name: 'Station Creation', level: 2 },
     { name: 'Town Creation', level: 1 },
     { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 4 },
+    { name: 'Station Creation', level: 1 },
     { name: 'Town Creation', level: 1 },
     { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 4 },
+    { name: 'Station Creation', level: 3 },
     { name: 'Town Creation', level: 1 },
     { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 4 },
+    { name: 'Station Creation', level: 0 },
     { name: 'Town Creation', level: 1 },
     { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 4 },
+    { name: 'Station Creation', level: 0 },
     { name: 'Town Creation', level: 1 },
     { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 4 },
+    { name: 'Station Creation', level: 0 },
     { name: 'Town Creation', level: 1 },
     { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 4 },
+    { name: 'Station Creation', level: 1 },
     { name: 'Town Creation', level: 1 },
     { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 4 },
-    { name: 'Station Creation', level: 4 },
+    { name: 'Station Creation', level: 2 },
+    { name: 'Station Creation', level: 3 },
   ];
   constructor(
     private others: OthersService,
@@ -81,15 +82,13 @@ export class ApprovalSetupComponent implements OnInit {
       firstApproval: this.fb.control({ value: '' }),
       secondApproval: this.fb.control({ value: '' }),
       thirdApproval: this.fb.control({ value: '' }),
-      fourthApproval: this.fb.control({ value: '' }),
-      fifthApproval: this.fb.control({ value: '' }),
       level: this.fb.control(
         '',
         Validators.compose([
           Validators.required,
           Validators.minLength(1),
           Validators.maxLength(1),
-          CustomValidator.maxValue(5),
+          CustomValidator.maxValue(3),
           CustomValidator.minValue(0),
         ])
       ),
@@ -113,6 +112,7 @@ export class ApprovalSetupComponent implements OnInit {
       // console.log(i);
       this.fval.approvalItems.controls[i].controls.name.setValue(item.name);
       this.fval.approvalItems.controls[i].controls.level.setValue(item.level);
+      this.fval.approvalItems.controls[i].controls.firstApproval.setValue('Town');
       this.addItem();
       n = i + 1;
     });
@@ -143,15 +143,18 @@ export class ApprovalSetupComponent implements OnInit {
   }
 
   enableEdit(val: number): any {
+    this.showLevels = val;
     this.approvals.forEach((itm, i) => {
       if (i === val) {
         this.fval.approvalItems.controls[i].enable();
       }
     });
   }
+
   saveLevel(index: any): any {
     if (this.fval.approvalItems.controls[index]) {
       this.fval.approvalItems.controls[index].disable();
+      this.showLevels = null;
     } else {
       return;
     }

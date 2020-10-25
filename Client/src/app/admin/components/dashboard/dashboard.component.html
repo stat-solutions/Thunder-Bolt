@@ -3,7 +3,26 @@
 >
   <div class="d-flex shadow-lg">
     <div class="container mb-3 mb-lg-5 pb-lg-5 mb-xl-0 pb-xl-0">
-      <div class="row">
+      <div class="row" *ngIf="!company.created">
+        <div class="col-12 mt-2 mb-0  d-flex  flex-column justify-content-center">
+          <!-- <div class="col-12"> -->
+            <h2 class="rub-head3 text-info text-center font-weight-bold pt-0 py-0">
+              You have no company set up
+            </h2>
+            <h2
+              class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+            > 
+              Please setting up a company to explore more
+            </h2>
+            <button
+            type="button"
+            class="btn btn-info col-5 mt-4 mb-4 align-self-center"
+            routerLink="/admin/companysetup">
+            Create company
+          </button>
+        </div>
+      </div>
+      <div class="row" *ngIf="company.created">
         <div class="col-xs-12 col-lg-4 mt-2 mb-0">
           <div class="container mt-0 mt-lg-3 mt-xl-2 mx-0 shadow-lg">
             <div class="row">
@@ -110,7 +129,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" *ngIf="!company.created">
         <div class="col-xs-12 col-lg-8 mt-lg-2 mt-xl-0 mb-0">
           <div class="container mt-0 mt-lg-0 mx-0 shadow-lg">
             <div class="row">
@@ -125,7 +144,23 @@
           </div>
           <div class="big-card-4 card mt-2 mt-lg-3 mt-xl-2 pt-2 mb-0 shadow-lg">
             <div class="big-card-body-4 card-body mx-auto px-auto pb-3">
-              <div class="row">
+              <div class="row" *ngIf="!company.created && !setApproval.set">
+                <div class="col-12 mt-2 mb-0  d-flex  flex-column justify-content-center">
+                  <!-- <div class="col-12"> -->
+                    <h2
+                      class="list-head-2 text-info text-center font-weight-bold pt-0 py-0"
+                    > 
+                      Your have no approval levels set, <br/>please set an...
+                    </h2>
+                    <button
+                    type="button"
+                    class="btn btn-info col-5 mt-1 mb-1 align-self-center"
+                    routerLink="/admin/approvalsetup">
+                    approval level
+                  </button>
+                </div>
+              </div>
+              <div class="row" *ngIf="company.created && setApproval.set">
                 <div class="col-xs-12 col-lg-12">
                   <div class="row">
                     <div class="col-6 col-md-6">
@@ -174,12 +209,28 @@
             </div>
           </div>
           <div class="big-card-3 card mt-2 mt-lg-3 mt-xl-2 pt-2 mb-0 shadow-lg">
-                  <div class="row">
-                    <div class="col-12">
-                      <h4 class="list-head-3 text-info text-center">Unit</h4>
-                    </div>
-                  </div>
-            <div class="big-card-body-3 card-body mx-0 px-auto pb-3 mb-3 shadow-lg">
+            <div class="row" *ngIf="!company.created && !unit.created">
+              <div class="col-12 mt-2 mb-0  d-flex  flex-column justify-content-center">
+                <!-- <div class="col-12"> -->
+                  <h2
+                    class="list-head-2 text-info text-center font-weight-bold pt-0 py-0"
+                  > 
+                    Your have no bussiness units created, <br/>please ...
+                  </h2>
+                  <button
+                  type="button"
+                  class="btn btn-info col-5 mt-1 mb-1 align-self-center"
+                  routerLink="/admin/businessunits">
+                  create a unit
+                </button>
+              </div>
+            </div>
+            <div class="row" *ngIf="company.created && unit.created">
+              <div class="col-12">
+                  <h4 class="list-head-3 text-info text-center">Unit</h4>
+              </div>
+            </div>
+            <div class="big-card-body-3 card-body mx-0 px-auto pb-3 mb-3 shadow-lg" *ngIf="company.created && unit.created">
               <div class="row">
                 <div class="col-xs-12 col-lg-12">
                   <div

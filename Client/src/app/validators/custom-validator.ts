@@ -15,7 +15,7 @@ export class CustomValidator {
     };
   }
 
-  static passwordMatchValidator(control: AbstractControl) {
+  static passwordMatchValidator(control: AbstractControl): any {
     const password: string = control.get('password').value; // get password from our password form control
     const confirmPassword: string = control.get('confirmPassword').value; // get password from our confirmPassword form control
     // compare is the password math
@@ -24,24 +24,30 @@ export class CustomValidator {
       control.get('confirmPassword').setErrors({ NoPassswordMatch: true });
     }
   }
-  static minValue(min: Number): ValidatorFn {
+  static minValue(min: number): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      // tslint:disable-next-line: one-variable-per-declaration
       const input = control.value,
             isValid = input < min;
-      if(isValid) 
-          return { 'minValue': {min} }
-      else 
+      if (isValid) {
+          return { minValue: {min} };
+      }
+      else {
           return null;
+      }
     };
   }
-  static maxValue(max: Number): ValidatorFn {
+  static maxValue(max: number): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {
+      // tslint:disable-next-line: one-variable-per-declaration
       const input = control.value,
             isValid = input > max;
-      if(isValid) 
-          return { 'maxValue': {max} }
-      else 
+      if (isValid) {
+          return { maxValue: {max} };
+      }
+      else {
           return null;
+      }
     };
   }
 }
