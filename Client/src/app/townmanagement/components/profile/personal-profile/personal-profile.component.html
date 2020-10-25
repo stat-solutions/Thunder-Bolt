@@ -1,12 +1,12 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-1 pb-3 shadow-lg col-xs-12 col-lg-10"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 mt-lg-0 pt-0 pb-3 shadow-lg col-xs-12 col-lg-10"
 >
   <div class="jumbotron-fluid mb-0 pb-0">
     <div class="container mt-0 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
           <h2
-            class="rub-head4 text-info text-center font-weight-bold py-1"
+            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
           >
             My Profile
           </h2>
@@ -211,6 +211,52 @@
                 "
               >
                 Please enter valid ID number!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-7">
+            <div class="form-group text-primary">
+              <label
+                for="idPhotoUrl"
+                [ngClass]="fval.idPhotoUrl.valid ? 'text-info' : ''"
+                >ID Upload<i
+                  *ngIf="fval.idPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="idPhotoUrl"
+                  formControlName="idPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.idPhotoUrl.touched || fval.idPhotoUrl.dirty) &&
+                      fval.idPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.idPhotoUrl.touched || fval.idPhotoUrl.dirty) &&
+                  fval.idPhotoUrl.errors?.required
+                "
+              >
+                Please upload a photo of the client's ID'!
               </div>
             </div>
           </div>
@@ -460,7 +506,9 @@
             <div class="form-group text-primary">
               <label
                 for="customerNextOfKinPhone1"
-                [ngClass]="fval.customerNextOfKinPhone1.valid ? 'text-info' : ''"
+                [ngClass]="
+                  fval.customerNextOfKinPhone1.valid ? 'text-info' : ''
+                "
                 >Phone Number<i
                   *ngIf="fval.customerNextOfKinPhone1.valid"
                   class="material-icons"

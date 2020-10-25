@@ -18,16 +18,19 @@ export interface IntRateApprovals {
 @Component({
   selector: 'app-interest-rate',
   templateUrl: './interest-rate.component.html',
-  styleUrls: ['./interest-rate.component.scss']
+  styleUrls: ['./interest-rate.component.scss'],
 })
 export class InterestRateComponent implements OnInit {
   userForm: FormGroup;
   ratesApprovals: IntRateApprovals[] = [
-    {station: 'nsambya', client: 'Kasule Joseph', rate: 5, status: 0},
-    {station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0},
-    {station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0},
-    {station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0},
-    {station: 'bwayise', client: 'Kasule Jose', rate: 2, status: 0},
+    { station: 'nsambya', client: 'Kasule Joseph', rate: 5, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', rate: 2, status: 0 },
   ];
   posted = false;
   actionButton: string;
@@ -52,15 +55,15 @@ export class InterestRateComponent implements OnInit {
   createFormGroup(): any {
     return this.fb.group({
       approveRates: this.fb.array([this.rateApproval]),
-      selectAll: this.fb.control({})
+      selectAll: this.fb.control({}),
     });
   }
   get rateApproval(): any {
     return this.fb.group({
-      station: this.fb.control({value: ''}),
-      client: this.fb.control({value: ''}),
-      rate: this.fb.control({value: ''}),
-      approved: this.fb.control({})
+      station: this.fb.control({ value: '' }),
+      client: this.fb.control({ value: '' }),
+      rate: this.fb.control({ value: '' }),
+      approved: this.fb.control({}),
     });
   }
   addItem(): any {
@@ -77,17 +80,19 @@ export class InterestRateComponent implements OnInit {
     //   units => {
     //     this.approvals = units;
     this.ratesApprovals.forEach((item, i) => {
-          // console.log(item.name);
-          // console.log(i);
-          this.fval.approveRates.controls[i].controls.station.setValue(item.station);
-          this.fval.approveRates.controls[i].controls.client.setValue(item.client);
-          this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
-          this.fval.approveRates.controls[i].controls.approved.setValue(false);
-          this.addItem();
-          n = i + 1;
-        });
+      // console.log(item.name);
+      // console.log(i);
+      this.fval.approveRates.controls[i].controls.station.setValue(
+        item.station
+      );
+      this.fval.approveRates.controls[i].controls.client.setValue(item.client);
+      this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
+      this.fval.approveRates.controls[i].controls.approved.setValue(false);
+      this.addItem();
+      n = i + 1;
+    });
     this.removeItem(n);
-      // }
+    // }
     // )
   }
   checkAllItems(val: boolean): any {
@@ -130,9 +135,7 @@ export class InterestRateComponent implements OnInit {
   approveItems(): any {
     const itemsApproved = [];
     this.ratesApprovals.forEach((item, i) => {
-      if (
-        this.fval.approveRates.controls[i].controls.approved.value === true
-      ) {
+      if (this.fval.approveRates.controls[i].controls.approved.value === true) {
         item.status = 2;
         itemsApproved.push(item);
       }
@@ -141,9 +144,7 @@ export class InterestRateComponent implements OnInit {
     console.log(itemsApproved.length);
     if (itemsApproved.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
@@ -153,9 +154,7 @@ export class InterestRateComponent implements OnInit {
   rejectItems(): any {
     const itemsRejected = [];
     this.ratesApprovals.forEach((item, i) => {
-      if (
-        this.fval.approveRates.controls[i].controls.approved.value === true
-      ) {
+      if (this.fval.approveRates.controls[i].controls.approved.value === true) {
         item.status = 1;
         itemsRejected.push(item);
       }
@@ -163,9 +162,7 @@ export class InterestRateComponent implements OnInit {
     console.log(itemsRejected.length);
     if (itemsRejected.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")

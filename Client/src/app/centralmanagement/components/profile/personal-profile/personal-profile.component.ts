@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
@@ -9,7 +14,7 @@ import { AlertService } from 'ngx-alerts';
 @Component({
   selector: 'app-personal-profile',
   templateUrl: './personal-profile.component.html',
-  styleUrls: ['./personal-profile.component.scss']
+  styleUrls: ['./personal-profile.component.scss'],
 })
 export class PersonalProfileComponent implements OnInit {
   registered = false;
@@ -37,22 +42,10 @@ export class PersonalProfileComponent implements OnInit {
   }
   createFormGroup() {
     return this.fb.group({
-      full_name: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      email1: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      email2: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      nxtOfKin: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      full_name: new FormControl('', Validators.compose([Validators.required])),
+      email1: new FormControl('', Validators.compose([Validators.required])),
+      email2: new FormControl('', Validators.compose([Validators.required])),
+      nxtOfKin: new FormControl('', Validators.compose([Validators.required])),
       customerNextOfKinPhone1: new FormControl(
         '',
         Validators.compose([
@@ -60,7 +53,7 @@ export class PersonalProfileComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
       user_contact_number1: new FormControl(
@@ -70,17 +63,17 @@ export class PersonalProfileComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
-             user_contact_number2: new FormControl(
+      user_contact_number2: new FormControl(
         '',
         Validators.compose([
           Validators.required,
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
       id_type: new FormControl('', Validators.compose([Validators.required])),
@@ -91,15 +84,18 @@ export class PersonalProfileComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([a-zA-Z])([a-zA-Z])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z]))$/,
             { nationalIdCheck: true }
-          )
+          ),
         ])
-    ),
+      ),
+      idPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
       date_of_birth: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-
-    }    );
+    });
   }
 
   revert() {
@@ -109,18 +105,18 @@ export class PersonalProfileComponent implements OnInit {
   get fval() {
     return this.userForm.controls;
   }
-  disableForm () {
-    return this.userForm.disable()
+  disableForm() {
+    return this.userForm.disable();
   }
 
   enableEdit() {
-    return this.userForm.enable()
+    return this.userForm.enable();
   }
 
   //toggle visibility of password field
-    toggleFieldType() {
-      this.fieldType = !this.fieldType;
-    }
+  toggleFieldType() {
+    this.fieldType = !this.fieldType;
+  }
   returnHome() {
     this.spinner.hide();
     this.revert();
@@ -130,12 +126,6 @@ export class PersonalProfileComponent implements OnInit {
     }, 2000);
   }
 
-  setProfileValues () {
-
-  }
-  save () {
-
-  }
-
+  setProfileValues() {}
+  save() {}
 }
-

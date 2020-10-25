@@ -97,8 +97,8 @@ export class DashboardComponent implements OnInit {
   creationApprovals: Array<any> = [
     {type: 'Area Creation', total: 17},
     {type: 'Town Creation', total: 10},
-    {type: 'Station Creation', total: 23},
-    {type: 'Cluster Creation', total: 15},
+    {type: 'Station Creation', total: 2376},
+    {type: 'Cluster Creation', total: 155},
   ];
   transactionApprovals: Array<any> = [
     {type: 'Floats', total: 23},

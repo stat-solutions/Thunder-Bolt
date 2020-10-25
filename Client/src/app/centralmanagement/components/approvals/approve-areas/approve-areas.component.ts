@@ -13,7 +13,7 @@ export interface AreaApprovals {
 @Component({
   selector: 'app-approve-areas',
   templateUrl: './approve-areas.component.html',
-  styleUrls: ['./approve-areas.component.scss']
+  styleUrls: ['./approve-areas.component.scss'],
 })
 export class ApproveAreasComponent implements OnInit {
   userForm: FormGroup;
@@ -28,7 +28,19 @@ export class ApproveAreasComponent implements OnInit {
     { area: 'Western', status: 0 },
     { area: 'Northern', status: 0 },
     { area: 'Nile region', status: 0 },
-    { area: 'Albertine', status: 0 }
+    { area: 'Western', status: 0 },
+    { area: 'Northern', status: 0 },
+    { area: 'Nile region', status: 0 },
+    { area: 'Western', status: 0 },
+    { area: 'Northern', status: 0 },
+    { area: 'Nile region', status: 0 },
+    { area: 'Western', status: 0 },
+    { area: 'Northern', status: 0 },
+    { area: 'Nile region', status: 0 },
+    { area: 'Western', status: 0 },
+    { area: 'Northern', status: 0 },
+    { area: 'Nile region', status: 0 },
+    { area: 'Albertine', status: 0 },
   ];
   constructor(
     private authService: AuthServiceService,
@@ -46,13 +58,13 @@ export class ApproveAreasComponent implements OnInit {
   createFormGroup(): any {
     return this.fb.group({
       approveAreas: this.fb.array([this.areaApprovals]),
-      selectAll: this.fb.control({})
+      selectAll: this.fb.control({}),
     });
   }
   get areaApprovals(): any {
     return this.fb.group({
-      area: this.fb.control({value: ''}),
-      approved: this.fb.control({})
+      area: this.fb.control({ value: '' }),
+      approved: this.fb.control({}),
     });
   }
   addItem(): any {
@@ -69,15 +81,15 @@ export class ApproveAreasComponent implements OnInit {
     //   units => {
     //     this.approvals = units;
     this.areaApproval.forEach((item, i) => {
-          // console.log(item.name);
-          // console.log(i);
-          this.fval.approveAreas.controls[i].controls.area.setValue(item.area);
-          this.fval.approveAreas.controls[i].controls.approved.setValue(false);
-          this.addItem();
-          n = i + 1;
-        });
+      // console.log(item.name);
+      // console.log(i);
+      this.fval.approveAreas.controls[i].controls.area.setValue(item.area);
+      this.fval.approveAreas.controls[i].controls.approved.setValue(false);
+      this.addItem();
+      n = i + 1;
+    });
     this.removeItem(n);
-      // }
+    // }
     // )
   }
   checkAllItems(val: boolean): any {
@@ -116,9 +128,7 @@ export class ApproveAreasComponent implements OnInit {
   approveItems(): any {
     const itemsApproved = [];
     this.areaApproval.forEach((item, i) => {
-      if (
-        this.fval.approveAreas.controls[i].controls.approved.value === true
-      ) {
+      if (this.fval.approveAreas.controls[i].controls.approved.value === true) {
         item.status = 2;
         itemsApproved.push(item);
       }
@@ -127,9 +137,7 @@ export class ApproveAreasComponent implements OnInit {
     // console.log(itemsApproved)
     if (itemsApproved.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
@@ -139,9 +147,7 @@ export class ApproveAreasComponent implements OnInit {
   rejectItems(): any {
     const itemsRejected = [];
     this.areaApproval.forEach((item, i) => {
-      if (
-        this.fval.approveAreas.controls[i].controls.approved.value === true
-      ) {
+      if (this.fval.approveAreas.controls[i].controls.approved.value === true) {
         item.status = 1;
         itemsRejected.push(item);
       }
@@ -149,15 +155,12 @@ export class ApproveAreasComponent implements OnInit {
     // console.log(itemsRejected.length)
     if (itemsRejected.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
       return;
     }
   }
-
 }
 

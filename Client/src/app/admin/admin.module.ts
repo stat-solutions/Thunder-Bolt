@@ -19,6 +19,7 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { SetPasswordComponent } from './components/admin-profile/set-password/set-password.component';
 import { PersonalProfileComponent } from './components/admin-profile/personal-profile/personal-profile.component';
+import { ApproveAdminUsersComponent } from './components/approve-admin-users/approve-admin-users.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { PersonalProfileComponent } from './components/admin-profile/personal-pr
     BussinessunitsComponent,
     SetPasswordComponent,
     PersonalProfileComponent,
+    ApproveAdminUsersComponent,
   ],
   imports: [
     CommonModule,

@@ -38,6 +38,7 @@ import { CreateApprovalsComponent } from './components/approvals/create-approval
 import { LoansApprovalsComponent } from './components/approvals/loans-approvals/loans-approvals.component';
 import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
+import { ApproveAreaUsersComponent } from './components/approve-area-users/approve-area-users.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { PersonalProfileComponent } from './components/profile/personal-profile/
     CreateApprovalsComponent,
     LoansApprovalsComponent,
     SetPasswordComponent,
-    PersonalProfileComponent
+    PersonalProfileComponent,
+    ApproveAreaUsersComponent
   ],
   imports: [
     CommonModule,

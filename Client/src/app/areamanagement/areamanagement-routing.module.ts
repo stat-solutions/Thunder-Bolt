@@ -35,8 +35,10 @@ import { TownsPaidLedgerComponent } from './components/reports/towns-reports/tow
 import { StationsCashLedgerComponent } from './components/reports/stations-reports/stations-cash-ledger/stations-cash-ledger.component';
 import { StationsLoansLedgerComponent } from './components/reports/stations-reports/stations-loans-ledger/stations-loans-ledger.component';
 import { StationsPaidLedgerComponent } from './components/reports/stations-reports/stations-paid-ledger/stations-paid-ledger.component';
+import { ApproveAreaUsersComponent } from './components/approve-area-users/approve-area-users.component';
 
-const routes: Routes = [{
+const routes: Routes = [
+  {
     path: '',
     component: PagesCoreAreaComponent,
     canActivateChild: [RandomGuard],
@@ -44,11 +46,11 @@ const routes: Routes = [{
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'dashboard',
       },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
       },
       {
         path: 'create',
@@ -56,134 +58,138 @@ const routes: Routes = [{
         children: [
           {
             path: 'createstations',
-            component: CreateStationsComponent
+            component: CreateStationsComponent,
           },
           {
             path: 'createtowns',
-            component: CreateTownsComponent
-          }
-        ]
-        },
+            component: CreateTownsComponent,
+          },
+        ],
+      },
       {
         path: 'approvals',
         component: ApprovalsComponent,
         children: [
-      {
-        path: 'loansapprovals',
-        component: LoansApprovalsComponent,
-        children: [
           {
-            path: 'reducerate',
-            component: ReduceRateComponent
+            path: 'loansapprovals',
+            component: LoansApprovalsComponent,
+            children: [
+              {
+                path: 'reducerate',
+                component: ReduceRateComponent,
+              },
+              {
+                path: 'reverseprinciple',
+                component: ReversePrincipleComponent,
+              },
+              {
+                path: 'interestrate',
+                component: InterestRateComponent,
+              },
+              {
+                path: 'withdrawsavings',
+                component: WithdrawSavingsComponent,
+              },
+              {
+                path: 'waiveinterest',
+                component: WaiveInterestComponent,
+              },
+              {
+                path: 'writeoff',
+                component: WriteOffComponent,
+              },
+              {
+                path: 'loanlimit',
+                component: LoanLimitComponent,
+              },
+            ],
           },
           {
-            path: 'reverseprinciple',
-            component: ReversePrincipleComponent
+            path: 'createapprovals',
+            component: CreateApprovalsComponent,
+            children: [
+              {
+                path: 'approvestations',
+                component: StationsComponent,
+              },
+              {
+                path: 'approvetowns',
+                component: TownsComponent,
+              },
+            ],
           },
-          {
-            path: 'interestrate',
-            component: InterestRateComponent
-          },
-          {
-            path: 'withdrawsavings',
-            component: WithdrawSavingsComponent
-          },
-          {
-            path: 'waiveinterest',
-            component: WaiveInterestComponent
-          },
-          {
-            path: 'writeoff',
-            component: WriteOffComponent
-          },
-          {
-            path: 'loanlimit',
-            component: LoanLimitComponent
-          }
-        ]
-    },
-    {
-      path: 'createapprovals',
-      component: CreateApprovalsComponent,
-      children: [
-        {
-          path: 'approvestations',
-          component: StationsComponent
-        },
-        {
-          path: 'approvetowns',
-          component: TownsComponent
-        }
-      ]
-    }
-    ]
-  },
-  {
-    path: 'reports',
-    component: ReportsComponent,
-    children: [
-      {
-        path: 'stationsreports',
-        component: StationsReportsComponent,
-        children: [
-          {
-            path: 'stationscashledger',
-            component: StationsCashLedgerComponent
-          },
-          {
-            path: 'stationsledger',
-            component: StationsLoansLedgerComponent
-          },
-          {
-            path: 'stationspaymentsledger',
-            component: StationsPaidLedgerComponent
-          }
-        ]
+        ],
       },
       {
-        path: 'townsreports',
-        component: TownsReportsComponent,
+        path: 'reports',
+        component: ReportsComponent,
         children: [
           {
-            path: 'townscashledger',
-            component: TownsCashLedgerComponent
+            path: 'stationsreports',
+            component: StationsReportsComponent,
+            children: [
+              {
+                path: 'stationscashledger',
+                component: StationsCashLedgerComponent,
+              },
+              {
+                path: 'stationsledger',
+                component: StationsLoansLedgerComponent,
+              },
+              {
+                path: 'stationspaymentsledger',
+                component: StationsPaidLedgerComponent,
+              },
+            ],
           },
           {
-            path: 'townsloansledger',
-            component: TownsLoansLedgerComponent
-          },
-          {
-            path: 'townspaymentsledger',
-            component: TownsPaidLedgerComponent
-          }
-        ]
+            path: 'townsreports',
+            component: TownsReportsComponent,
+            children: [
+              {
+                path: 'townscashledger',
+                component: TownsCashLedgerComponent,
+              },
+              {
+                path: 'townsloansledger',
+                component: TownsLoansLedgerComponent,
+              },
+              {
+                path: 'townspaymentsledger',
+                component: TownsPaidLedgerComponent,
+              },
+            ],
           },
           {
             path: 'clientsreports',
-            component: ClientsComponent
+            component: ClientsComponent,
           },
           {
             path: 'usersreports',
-            component: UsersComponent
-          }
-    ]
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    children: [
-      {
-        path: 'personalprofile',
-        component: PersonalProfileComponent
+            component: UsersComponent,
+          },
+        ],
       },
       {
-        path: 'setpassword',
-        component: SetPasswordComponent
-      }
-    ]
-  }
-]
-}
+        path: 'approveusers',
+        component: ApproveAreaUsersComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        children: [
+          {
+            path: 'personalprofile',
+            component: PersonalProfileComponent,
+          },
+          {
+            path: 'setpassword',
+            component: SetPasswordComponent,
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 @NgModule({

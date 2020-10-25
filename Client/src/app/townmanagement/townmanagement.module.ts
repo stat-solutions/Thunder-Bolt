@@ -44,6 +44,7 @@ import { EditTaxiClientInfoComponent } from './components/enroll/edit-client/edi
 import { EditStageComponent } from './components/enroll/edit-stage/edit-stage.component';
 import { EditBodaStageComponent } from './components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component';
 import { EditTaxiStageComponent } from './components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component';
+import { ApproveTownUsersComponent } from './components/approve-town-users/approve-town-users.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { EditTaxiStageComponent } from './components/enroll/edit-stage/edit-taxi
     EditTaxiClientInfoComponent,
     EditStageComponent,
     EditBodaStageComponent,
-    EditTaxiStageComponent
+    EditTaxiStageComponent,
+    ApproveTownUsersComponent
     ],
   imports: [
     CommonModule,

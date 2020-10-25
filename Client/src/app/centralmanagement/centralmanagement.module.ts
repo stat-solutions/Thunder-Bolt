@@ -49,6 +49,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
 import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
+import { ApproveCentralUsersComponent } from './components/approve-central-users/approve-central-users.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { SetPasswordComponent } from './components/profile/set-password/set-pass
     FloatApprovalComponent,
     PersonalProfileComponent,
     SetPasswordComponent,
+    ApproveCentralUsersComponent,
   ],
   imports: [
     CommonModule,

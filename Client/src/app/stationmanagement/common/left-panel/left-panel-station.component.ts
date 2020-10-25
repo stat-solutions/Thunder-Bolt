@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { LayoutService } from '../../../shared/services/layout.service';
 
-    // tslint:disable: deprecation
+// tslint:disable: deprecation
 
 @Component({
   selector: 'app-left-panel',
   templateUrl: './left-panel-station.component.html',
-  styleUrls: ['./left-panel-station.component.scss']
+  styleUrls: ['./left-panel-station.component.scss'],
 })
 export class LeftPanelStationComponent implements OnInit {
   asidebarHeight: number;
@@ -27,13 +27,13 @@ export class LeftPanelStationComponent implements OnInit {
   userName: any;
   constructor(private layoutService: LayoutService) {}
 
-  isActive(item): any  {
+  isActive(item): any {
     return this.selected === item;
   }
-  onItemSelect(item): any  {
+  onItemSelect(item): any {
     this.selected = this.selected === item ? item : item;
   }
-  onSubItemSelect(item): any  {
+  onSubItemSelect(item): any {
     event.stopPropagation();
     this.selected = this.selected === item ? item : item;
   }
@@ -45,7 +45,7 @@ export class LeftPanelStationComponent implements OnInit {
 
   ngOnInit(): void {
     this.layoutService.setAsidebarHeightCast.subscribe(
-      setSidebarHeight => (this.asidebarHeight = setSidebarHeight)
+      (setSidebarHeight) => (this.asidebarHeight = setSidebarHeight)
     );
 
     this.title = 'Navigation';
@@ -54,7 +54,7 @@ export class LeftPanelStationComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/stationmanagement/dashboard'
+        url: '/stationmanagement/dashboard',
       },
       {
         name: 'Reports',
@@ -75,8 +75,13 @@ export class LeftPanelStationComponent implements OnInit {
             name: 'Paid Ledger',
             icon: 'fas fa-chart-line',
             url: '/stationmanagement/reports/paidledger',
-          }
-        ]
+          },
+        ],
+      },
+      {
+        name: 'Approve Users',
+        icon: 'fas fa-user-check',
+        url: '/stationmanagement/approveusers',
       },
       {
         name: 'Profile',
@@ -86,15 +91,15 @@ export class LeftPanelStationComponent implements OnInit {
           {
             name: 'Personal Info',
             icon: 'fas fa-user',
-            url: '/stationmanagement/profile/personalprofile'
+            url: '/stationmanagement/profile/personalprofile',
           },
           {
             name: 'Set PIN',
             icon: 'fas fa-lock',
-            url: '/stationmanagement/profile/setpassword'
-          }
-                        ]
-      }
+            url: '/stationmanagement/profile/setpassword',
+          },
+        ],
+      },
     ];
   }
 }

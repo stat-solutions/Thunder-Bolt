@@ -18,16 +18,22 @@ export interface WithdrawApprovals {
 @Component({
   selector: 'app-withdraw-savings',
   templateUrl: './withdraw-savings.component.html',
-  styleUrls: ['./withdraw-savings.component.scss']
+  styleUrls: ['./withdraw-savings.component.scss'],
 })
 export class WithdrawSavingsComponent implements OnInit {
   userForm: FormGroup;
   withdrawApprovals: WithdrawApprovals[] = [
-    {station: "ndejje", client: "kasozi med", ammount: 600000, status: 0},
-    {station: "nsambya", client: "Kasule Joseph", ammount: 500000, status: 0},
-    {station: "kyengera", client: "mukasa rony", ammount: 850000, status: 0},
-    {station: "kibuye", client: "Kasule Joseph", ammount: 400000, status: 0},
-    {station: "bwayise", client: "Kasule Jose", ammount: 250000, status: 0}
+    { station: 'ndejje', client: 'kasozi med', ammount: 600000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
+    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
+    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
+    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
   ];
   posted = false;
   actionButton: string;
@@ -52,58 +58,73 @@ export class WithdrawSavingsComponent implements OnInit {
   createFormGroup() {
     return this.fb.group({
       approveWithdraws: this.fb.array([this.withdrawApproval]),
-      selectAll: this.fb.control({})
-    })
+      selectAll: this.fb.control({}),
+    });
   }
-  get withdrawApproval () {
+  get withdrawApproval() {
     return this.fb.group({
-      station: this.fb.control({value: ''}),
-      client: this.fb.control({value: ''}),
-      ammount: this.fb.control({value: ''}),
-      approved: this.fb.control({})
-    })
+      station: this.fb.control({ value: '' }),
+      client: this.fb.control({ value: '' }),
+      ammount: this.fb.control({ value: '' }),
+      approved: this.fb.control({}),
+    });
   }
-  addItem () {
+  addItem() {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.approveWithdraws as FormArray).push(this.withdrawApproval)
+    (this.fval.approveWithdraws as FormArray).push(this.withdrawApproval);
   }
 
-  removeItem (index: number) {
+  removeItem(index: number) {
     (this.fval.approveWithdraws as FormArray).removeAt(index);
   }
-  initialiseForm () {
+  initialiseForm() {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
     //   units => {
     //     this.approvals = units;
-        this.withdrawApprovals.forEach((item, i) => {
-          // console.log(item.name);
-          // console.log(i);
-          this.fval.approveWithdraws['controls'][i]['controls'].station.setValue(item.station);
-          this.fval.approveWithdraws['controls'][i]['controls'].client.setValue(item.client);
-          this.fval.approveWithdraws['controls'][i]['controls'].ammount.setValue(item.ammount);
-          this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(false);
-          this.addItem();
-          n=i + 1;
-        })
-        this.removeItem(n);
-      // }
+    this.withdrawApprovals.forEach((item, i) => {
+      // console.log(item.name);
+      // console.log(i);
+      this.fval.approveWithdraws['controls'][i]['controls'].station.setValue(
+        item.station
+      );
+      this.fval.approveWithdraws['controls'][i]['controls'].client.setValue(
+        item.client
+      );
+      this.fval.approveWithdraws['controls'][i]['controls'].ammount.setValue(
+        item.ammount
+      );
+      this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(
+        false
+      );
+      this.addItem();
+      n = i + 1;
+    });
+    this.removeItem(n);
+    // }
     // )
   }
   checkAllItems(val: boolean) {
-    if(val == true) {
+    if (val == true) {
       this.withdrawApprovals.forEach((item, i) => {
-        this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(val);
-      })
+        this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(
+          val
+        );
+      });
     } else {
       this.withdrawApprovals.forEach((item, i) => {
-        this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(false);
-      })
+        this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(
+          false
+        );
+      });
     }
   }
-  deselectAll(val: boolean){
+  deselectAll(val: boolean) {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-    if(this.fval.approveWithdraws["controls"][val]["controls"].approved.value == true) {
+    if (
+      this.fval.approveWithdraws['controls'][val]['controls'].approved.value ==
+      true
+    ) {
       this.fval.selectAll.setValue(false);
     }
   }
@@ -119,57 +140,55 @@ export class WithdrawSavingsComponent implements OnInit {
     return this.userForm.controls;
   }
 
-  disableForm () {
-    return this.userForm.disable()
+  disableForm() {
+    return this.userForm.disable();
   }
 
   enableEdit() {
-    return this.userForm.enable()
+    return this.userForm.enable();
   }
 
-  approveItems () {
+  approveItems() {
     const itemsApproved = [];
     this.withdrawApprovals.forEach((item, i) => {
-      if(
-        this.fval.approveWithdraws['controls'][i]['controls'].approved.value == true
+      if (
+        this.fval.approveWithdraws['controls'][i]['controls'].approved.value ==
+        true
       ) {
         item.status = 2;
-        itemsApproved.push(item)
+        itemsApproved.push(item);
       }
-    })
+    });
 
-    console.log(itemsApproved.length)
-    if(itemsApproved.length > 0) {
+    console.log(itemsApproved.length);
+    if (itemsApproved.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
-  rejectItems () {
+  rejectItems() {
     const itemsRejected = [];
     this.withdrawApprovals.forEach((item, i) => {
-      if(
-        this.fval.approveWithdraws['controls'][i]['controls'].approved.value == true
+      if (
+        this.fval.approveWithdraws['controls'][i]['controls'].approved.value ==
+        true
       ) {
         item.status = 1;
-        itemsRejected.push(item)
+        itemsRejected.push(item);
       }
-    })
-    console.log(itemsRejected.length)
-    if(itemsRejected.length > 0) {
+    });
+    console.log(itemsRejected.length);
+    if (itemsRejected.length > 0) {
       setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
+        this.router.navigate(['centralmanagement/dashboard']);
       }, 3000);
     } else {
       // alert("Please select something")
-      return
+      return;
     }
   }
 }

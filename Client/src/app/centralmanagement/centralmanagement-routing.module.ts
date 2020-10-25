@@ -34,22 +34,24 @@ import { WaiveInterestComponent } from './components/transactions/approval/waive
 import { WithdrawSavingsComponent } from './components/transactions/approval/withdraw-savings/withdraw-savings.component';
 import { WriteOffComponent } from './components/transactions/approval/write-off/write-off.component';
 import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
-import { PersonalProfileComponent } from '../townmanagement/components/profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from '../townmanagement/components/profile/set-password/set-password.component';
+import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
+import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
+import { ApproveCentralUsersComponent } from './components/approve-central-users/approve-central-users.component';
 
 const routes: Routes = [
-  { path: '',
+  {
+    path: '',
     component: PagesCoreCentralComponent,
     canActivateChild: [RandomGuard],
     children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'dashboard',
       },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
       },
       {
         path: 'create',
@@ -57,17 +59,17 @@ const routes: Routes = [
         children: [
           {
             path: 'createarea',
-            component: CreateAreaComponent
+            component: CreateAreaComponent,
           },
           {
             path: 'createtown',
-            component: CreateTownComponent
+            component: CreateTownComponent,
           },
           {
             path: 'createstation',
-            component: CreateStationComponent
-          }
-        ]
+            component: CreateStationComponent,
+          },
+        ],
       },
       {
         path: 'approve',
@@ -75,17 +77,21 @@ const routes: Routes = [
         children: [
           {
             path: 'approvearea',
-            component: ApproveAreasComponent
+            component: ApproveAreasComponent,
           },
           {
             path: 'approvetown',
-            component: ApproveTownsComponent
+            component: ApproveTownsComponent,
           },
           {
             path: 'approvestation',
-            component: ApproveStationsComponent
-          }
-        ]
+            component: ApproveStationsComponent,
+          },
+        ],
+      },
+      {
+        path: 'approveusers',
+        component: ApproveCentralUsersComponent,
       },
       {
         path: 'transactions',
@@ -94,16 +100,16 @@ const routes: Routes = [
           {
             path: 'loans',
             component: LoansComponent,
-              children: [
-                {
-                  path: 'setloanlimit',
-                  component: SetLoanLimitComponent
-                },
-                {
-                  path: 'setloanrate',
-                  component: SetLoanRateComponent
-                }
-              ]
+            children: [
+              {
+                path: 'setloanlimit',
+                component: SetLoanLimitComponent,
+              },
+              {
+                path: 'setloanrate',
+                component: SetLoanRateComponent,
+              },
+            ],
           },
           {
             path: 'approve',
@@ -111,38 +117,38 @@ const routes: Routes = [
             children: [
               {
                 path: 'reducerate',
-                component: ReduceRateComponent
+                component: ReduceRateComponent,
               },
               {
                 path: 'reverseprinciple',
-                component: ReversePrincipleComponent
+                component: ReversePrincipleComponent,
               },
               {
                 path: 'interestrate',
-                component: InterestRateComponent
+                component: InterestRateComponent,
               },
               {
                 path: 'withdrawsavings',
-                component: WithdrawSavingsComponent
+                component: WithdrawSavingsComponent,
               },
               {
                 path: 'waiveinterest',
-                component: WaiveInterestComponent
+                component: WaiveInterestComponent,
               },
               {
                 path: 'writeoff',
-                component: WriteOffComponent
+                component: WriteOffComponent,
               },
               {
                 path: 'loanlimit',
-                component: LoanLimitComponent
+                component: LoanLimitComponent,
               },
               {
                 path: 'floatapproval',
-                component: FloatApprovalComponent
-              }
-            ]
-        },
+                component: FloatApprovalComponent,
+              },
+            ],
+          },
           {
             path: 'float',
             component: FloatComponent,
@@ -154,35 +160,36 @@ const routes: Routes = [
               {
                 path: 'depositfloat',
                 component: DepositFloatComponent,
-              }
-        ]
-      }
-      ]},
+              },
+            ],
+          },
+        ],
+      },
       {
         path: 'reports',
         component: ReportsComponent,
         children: [
           {
             path: 'areas',
-            component: AreasComponent
+            component: AreasComponent,
           },
           {
             path: 'towns',
-            component: TownsComponent
+            component: TownsComponent,
           },
           {
             path: 'stations',
-            component: StationsComponent
+            component: StationsComponent,
           },
           {
             path: 'clients',
-            component: ClientsComponent
+            component: ClientsComponent,
           },
           {
             path: 'users',
-            component: UsersComponent
-          }
-        ]
+            component: UsersComponent,
+          },
+        ],
       },
       {
         path: 'profile',
@@ -190,19 +197,19 @@ const routes: Routes = [
         children: [
           {
             path: 'personalprofile',
-            component: PersonalProfileComponent
+            component: PersonalProfileComponent,
           },
           {
             path: 'setpassword',
-            component: SetPasswordComponent
-          }
-        ]
-      }
-    ]
-}
+            component: SetPasswordComponent,
+          },
+        ],
+      },
+    ],
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CentralmanagementRoutingModule { }
+export class CentralmanagementRoutingModule {}
