@@ -22,8 +22,29 @@ var ApprovalSetupComponent = /** @class */ (function () {
             { name: 'Area Creation', level: 3 },
             { name: 'Town Creation', level: 1 },
             { name: 'Stage Creation', level: 2 },
-            { name: 'Station Creation', level: 4 },
-            { name: 'Station Creation', level: 4 }
+            { name: 'Station Creation', level: 2 },
+            { name: 'Town Creation', level: 1 },
+            { name: 'Stage Creation', level: 2 },
+            { name: 'Station Creation', level: 1 },
+            { name: 'Town Creation', level: 1 },
+            { name: 'Stage Creation', level: 2 },
+            { name: 'Station Creation', level: 3 },
+            { name: 'Town Creation', level: 1 },
+            { name: 'Stage Creation', level: 2 },
+            { name: 'Station Creation', level: 0 },
+            { name: 'Town Creation', level: 1 },
+            { name: 'Stage Creation', level: 2 },
+            { name: 'Station Creation', level: 0 },
+            { name: 'Town Creation', level: 1 },
+            { name: 'Stage Creation', level: 2 },
+            { name: 'Station Creation', level: 0 },
+            { name: 'Town Creation', level: 1 },
+            { name: 'Stage Creation', level: 2 },
+            { name: 'Station Creation', level: 1 },
+            { name: 'Town Creation', level: 1 },
+            { name: 'Stage Creation', level: 2 },
+            { name: 'Station Creation', level: 2 },
+            { name: 'Station Creation', level: 3 },
         ];
     }
     ApprovalSetupComponent.prototype.ngOnInit = function () {
@@ -40,12 +61,15 @@ var ApprovalSetupComponent = /** @class */ (function () {
         get: function () {
             return this.fb.group({
                 name: this.fb.control({ value: '' }),
+                firstApproval: this.fb.control({ value: '' }),
+                secondApproval: this.fb.control({ value: '' }),
+                thirdApproval: this.fb.control({ value: '' }),
                 level: this.fb.control('', forms_1.Validators.compose([
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(1),
                     forms_1.Validators.maxLength(1),
-                    custom_validator_1.CustomValidator.maxValue(5),
-                    custom_validator_1.CustomValidator.minValue(0)
+                    custom_validator_1.CustomValidator.maxValue(3),
+                    custom_validator_1.CustomValidator.minValue(0),
                 ]))
             });
         },
@@ -69,6 +93,7 @@ var ApprovalSetupComponent = /** @class */ (function () {
             // console.log(i);
             _this.fval.approvalItems.controls[i].controls.name.setValue(item.name);
             _this.fval.approvalItems.controls[i].controls.level.setValue(item.level);
+            _this.fval.approvalItems.controls[i].controls.firstApproval.setValue('Town');
             _this.addItem();
             n = i + 1;
         });
@@ -100,6 +125,7 @@ var ApprovalSetupComponent = /** @class */ (function () {
     };
     ApprovalSetupComponent.prototype.enableEdit = function (val) {
         var _this = this;
+        this.showLevels = val;
         this.approvals.forEach(function (itm, i) {
             if (i === val) {
                 _this.fval.approvalItems.controls[i].enable();
@@ -109,6 +135,7 @@ var ApprovalSetupComponent = /** @class */ (function () {
     ApprovalSetupComponent.prototype.saveLevel = function (index) {
         if (this.fval.approvalItems.controls[index]) {
             this.fval.approvalItems.controls[index].disable();
+            this.showLevels = null;
         }
         else {
             return;

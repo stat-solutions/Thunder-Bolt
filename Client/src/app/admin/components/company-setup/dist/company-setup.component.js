@@ -92,13 +92,15 @@ var CompanySetupComponent = /** @class */ (function () {
         return this.companyForm.enable();
     };
     CompanySetupComponent.prototype.setCompanyValues = function () {
-        var _this = this;
-        this.others.getCompanyInfo().subscribe(function (item) {
-            _this.companyInfo = item;
-            _this.companyForm.get('companyName').setValue('thunder Bolt');
-        }, function (error) {
-            //
-        });
+        // this.others.getCompanyInfo().subscribe(
+        //   item => {
+        //     this.companyInfo = item;
+        //     this.companyForm.get('companyName').setValue('thunder Bolt');
+        //   },
+        //   (error: string) => {
+        //     //
+        //   }
+        // );
     };
     CompanySetupComponent.prototype.createCompany = function () {
         var _this = this;

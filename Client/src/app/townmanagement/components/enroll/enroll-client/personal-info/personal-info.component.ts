@@ -34,12 +34,12 @@ export class PersonalInfoComponent implements OnInit {
     private alertService: AlertService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.stageNames();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
       customer_name: new FormControl(
         '',
@@ -131,24 +131,25 @@ export class PersonalInfoComponent implements OnInit {
     });
   }
 
-  //toggle visibility of password field
-  toggleFieldType() {
+  // toggle visibility of password field
+  toggleFieldType(): any {
     this.fieldType = !this.fieldType;
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  resetStageNames() {
+  resetStageNames(): any {
     this.userForm.controls.stage_name.reset();
+    this.revert();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  stageNames() {
+  stageNames(): any {
     // this.adminUserService.getStageNames(jwt_decode(this.authService.getJwtToken()).user_station).subscribe(
     //   data => {
     //     this.userForm.controls.stage_name.reset();
@@ -166,7 +167,7 @@ export class PersonalInfoComponent implements OnInit {
     // );
   }
 
-  onSubmit() {
+  onSubmit(): any {
     this.submitted = true;
     this.spinner.show();
 

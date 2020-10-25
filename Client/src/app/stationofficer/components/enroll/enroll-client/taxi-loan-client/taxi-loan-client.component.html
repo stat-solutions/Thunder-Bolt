@@ -421,25 +421,25 @@
         <div class="mt-2 mb-3 pt-0 pb-3 mx-auto">
           <button
             type="submit"
-            class="btn btn-info col-5 col-md-3 pull-left"
-            [disabled]="!userForm.valid"
+            class="btn btn-info col-5 col-md-4 pull-left"
+            routerLink="/stationofficer/enroll/enrollclient/bodaloanclient"
           >
             Back
           </button>
 
-          <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+          <!-- <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
             <p class="text-light">Please wait...</p>
-          </ngx-spinner>
+          </ngx-spinner> -->
 
           <label class="col" *ngIf="errored" class="text-danger">
             <i class="material-icons">Cancel</i>
 
-            <ngx-alerts></ngx-alerts>
+            <!-- <ngx-alerts></ngx-alerts> -->
           </label>
 
           <label class="col" *ngIf="posted" class="text-info">
             <i class="material-icons">check_circle</i>
-            <ngx-alerts></ngx-alerts>
+            <!-- <ngx-alerts></ngx-alerts> -->
           </label>
         </div>
       </form>
@@ -460,12 +460,12 @@
       <label class="col" *ngIf="errored" class="text-danger">
         <i class="material-icons">Cancel</i>
 
-        <ngx-alerts></ngx-alerts>
+        <!-- <ngx-alerts></ngx-alerts> -->
       </label>
 
       <label class="col" *ngIf="posted" class="text-info">
         <i class="material-icons">check_circle</i>
-        <ngx-alerts></ngx-alerts>
+        <!-- <ngx-alerts></ngx-alerts> -->
       </label>
 
       <button

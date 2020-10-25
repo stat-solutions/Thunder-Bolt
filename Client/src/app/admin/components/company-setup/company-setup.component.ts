@@ -25,7 +25,7 @@ export class CompanySetupComponent implements OnInit {
   fieldType: boolean;
   mySubscription: any;
   myDateValue: Date;
-  companyInfo: CompanyInfo[];
+  companyInfo: CompanyInfo;
 
   constructor(
     private others: OthersService,

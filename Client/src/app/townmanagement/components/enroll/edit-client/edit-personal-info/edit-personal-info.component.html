@@ -544,23 +544,24 @@
             type="submit"
             class="btn btn-info col-5 col-md-4 mx-auto"
             [disabled]="!userForm.valid"
+            routerLink="/townmanagement/enroll/enrollclient/editmicroloanclient"
           >
             Next
           </button>
 
-          <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+          <!-- <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
             <p class="text-light">Please wait...</p>
-          </ngx-spinner>
+          </ngx-spinner> -->
 
           <label class="col" *ngIf="errored" class="text-danger">
             <i class="material-icons">Cancel</i>
 
-            <ngx-alerts></ngx-alerts>
+            <!-- <ngx-alerts></ngx-alerts> -->
           </label>
 
           <label class="col" *ngIf="posted" class="text-info">
             <i class="material-icons">check_circle</i>
-            <ngx-alerts></ngx-alerts>
+            <!-- <ngx-alerts></ngx-alerts> -->
           </label>
 
           <button

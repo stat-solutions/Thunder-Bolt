@@ -216,7 +216,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-12 col-sm-7">
+          <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
                 for="idPhotoUrl"
@@ -247,6 +247,7 @@
                       (fval.idPhotoUrl.touched || fval.idPhotoUrl.dirty) &&
                       fval.idPhotoUrl.errors
                   }"
+                  (change)="onFileSelected($event)"
                 />
               </div>
               <div

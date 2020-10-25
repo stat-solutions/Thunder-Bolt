@@ -62,6 +62,11 @@ const routes: Routes = [
             component: EnrollClientComponent,
             children: [
               {
+              path: '',
+              pathMatch: 'full',
+              redirectTo: 'personalinfo'
+              },
+              {
                 path: 'personalinfo',
                 component: PersonalInfoComponent
               },

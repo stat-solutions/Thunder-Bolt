@@ -69,11 +69,12 @@ export class EditPersonalInfoComponent implements OnInit {
       id_number: new FormControl(
         '',
         Validators.compose([
-          Validators.required,
-          CustomValidator.patternValidator(
-            /^(([a-zA-Z])([a-zA-Z])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z]))$/,
-            { nationalIdCheck: true }
-          ),
+          // Validators.required,
+          // CustomValidator.patternValidator(
+          // tslint:disable-next-line: max-line-length
+          //   /^(([a-zA-Z])([a-zA-Z])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z]))$/,
+          //   { nationalIdCheck: true }
+          // ),
         ])
       ),
       homeDetails: new FormControl(
