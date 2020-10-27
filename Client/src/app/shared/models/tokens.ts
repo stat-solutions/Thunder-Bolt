@@ -1,5 +1,5 @@
 export interface Tokens {
 
-  jwt: string;
+  accessToken: string;
   refreshToken: string;
 }

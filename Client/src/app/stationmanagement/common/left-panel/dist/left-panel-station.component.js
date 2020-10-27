@@ -38,15 +38,49 @@ var LeftPanelStationComponent = /** @class */ (function () {
                 url: '/stationmanagement/dashboard'
             },
             {
-                name: 'reports',
+                name: 'Reports',
                 icon: 'fas fa-chart-line',
-                url: '/stationmanagement/reports'
+                url: '/stationmanagement/reports',
+                subMenu: [
+                    {
+                        name: 'Borrowed Ledger',
+                        icon: 'fas fa-chart-line',
+                        url: '/stationmanagement/reports/borrowedledger'
+                    },
+                    {
+                        name: 'Cash Ledger',
+                        icon: 'fas fa-chart-line',
+                        url: '/stationmanagement/reports/cashledger'
+                    },
+                    {
+                        name: 'Paid Ledger',
+                        icon: 'fas fa-chart-line',
+                        url: '/stationmanagement/reports/paidledger'
+                    },
+                ]
             },
+            // {
+            //   name: 'Approve Users',
+            //   icon: 'fas fa-user-check',
+            //   url: '/stationmanagement/approveusers',
+            // },
             {
                 name: 'Profile',
                 icon: 'fas fa-user-cog',
-                url: '/stationmanagement/profile'
-            }
+                url: '/stationmanagement/profile',
+                subMenu: [
+                    {
+                        name: 'Personal Info',
+                        icon: 'fas fa-user',
+                        url: '/stationmanagement/profile/personalprofile'
+                    },
+                    {
+                        name: 'Set PIN',
+                        icon: 'fas fa-lock',
+                        url: '/stationmanagement/profile/setpassword'
+                    },
+                ]
+            },
         ];
     };
     __decorate([

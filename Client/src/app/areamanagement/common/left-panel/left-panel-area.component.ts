@@ -105,11 +105,11 @@ export class LeftPanelAreaComponent implements OnInit {
           }
         ]
       },
-      {
-        name: 'Approve Users',
-        icon: 'fas fa-user-check',
-        url: '/areamanagement/approveusers',
-            },
+      // {
+      //   name: 'Approve Users',
+      //   icon: 'fas fa-user-check',
+      //   url: '/areamanagement/approveusers',
+      //       },
                   {
         name: 'Profile',
         icon: 'fas fa-user-cog',

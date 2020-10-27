@@ -334,12 +334,8 @@
           placeholder="Select the Position"
           [(ngModel)] = positionValue
         >
-          <option>Central User</option>
-          <option>Area Manager</option>
-          <option>Town Manager</option>
-          <option>Station Manager</option>
-          <option>Station Officer</option>
-          <option>Admin</option>
+          <option></option>
+          <option *ngFor="let role of roles; let i = index">{{role.roleName}}</option>
         </select>
     </div>
         <div
@@ -352,37 +348,8 @@
           The position is required!
         </div>
       </div>
-        <!--the divs below will appear depending on the position selected-->
-
-        <!--the div for central-->
-        <div class="form-group text-primary" *ngIf="(positionValue == 'Central User')"
->
-          <label
-            for="central"
-            [ngClass]="fval.central.valid ? 'text-info' : ''"
-            ><i *ngIf="fval.central.valid" class="material-icons"
-              >check_circle</i
-            >Choose central role</label
-          >
-          <div class="input-group mb-2">
-            <select
-            formControlName="central"
-            class="form-control"
-            *ngIf="(positionValue == 'Central User')"
-            [ngClass]="{
-              'is-invalid':
-                (fval.central.touched || fval.central.dirty) &&
-                fval.central.errors
-            }"
-            autocomplete="off"
-            placeholder="Select the role at central"
-          >
-            <option>Top User</option>
-            <option>Other</option>
-          </select>
-      </div>
-        </div>
-        <div class="form-group text-primary" *ngIf="(positionValue == 'Area Manager')">
+        <!--the divs below will appear depending on the position selected-->        
+        <div class="form-group text-primary" *ngIf="(positionValue === 'AREA MANAGER')">
           <label
             for="area"
             [ngClass]="fval.area.valid ? 'text-info' : ''"
@@ -419,7 +386,7 @@
           </div>
         </div>
         <!--the div for town-->
-        <div class="form-group text-primary" *ngIf="(positionValue=='Town Manager')">
+        <div class="form-group text-primary" *ngIf="(positionValue=='TOWN MANAGER')">
           <label
             for="town"
             [ngClass]="fval.town.valid ? 'text-info' : ''"
@@ -456,7 +423,42 @@
         </div>
 
         <!--the div for station-->
-        <div class="form-group text-primary" *ngIf="(positionValue  == 'Station Manager'||positionValue=='Station Officer')">
+        <div class="form-group text-primary" *ngIf="(positionValue  == 'STATION MANAGER')">
+          <label
+            for="station"
+            [ngClass]="fval.station.valid ? 'text-info' : ''"
+            ><i *ngIf="fval.station.valid" class="material-icons"
+              >check_circle</i
+            >Choose station</label
+          >
+          <div class="input-group mb-2">
+            <select
+            formControlName="station"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.station.touched || fval.station.dirty) &&
+                fval.station.errors
+            }"
+            autocomplete="off"
+            placeholder="Select station"
+            >
+            <option   *ngFor="let station of stations">
+              {{station.name}}
+            </option>
+          </select>
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.station.touched || fval.station.dirty) &&
+              fval.station.errors?.required
+            "
+          >
+            The station is required!
+          </div>
+        </div>
+        <div class="form-group text-primary" *ngIf="(positionValue =='STATION OFFICER')">
           <label
             for="station"
             [ngClass]="fval.station.valid ? 'text-info' : ''"
@@ -676,13 +678,13 @@
         </ngx-spinner>
 
         <label class="col" *ngIf="errored" class="text-danger">
-          <i class="material-icons">Cancel</i>
+          <!-- <i class="material-icons">Cancel</i> -->
 
           <ngx-alerts></ngx-alerts>
         </label>
 
         <label class="col" *ngIf="posted" class="text-info">
-          <i class="material-icons">check_circle</i>
+          <!-- <i class="material-icons">check_circle</i> -->
           <ngx-alerts></ngx-alerts>
         </label>
     </div>

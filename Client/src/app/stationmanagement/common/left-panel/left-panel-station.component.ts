@@ -78,11 +78,11 @@ export class LeftPanelStationComponent implements OnInit {
           },
         ],
       },
-      {
-        name: 'Approve Users',
-        icon: 'fas fa-user-check',
-        url: '/stationmanagement/approveusers',
-      },
+      // {
+      //   name: 'Approve Users',
+      //   icon: 'fas fa-user-check',
+      //   url: '/stationmanagement/approveusers',
+      // },
       {
         name: 'Profile',
         icon: 'fas fa-user-cog',

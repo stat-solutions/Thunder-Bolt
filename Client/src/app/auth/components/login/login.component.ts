@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
-import * as jwt_decode from 'jwt-decode';
+// import * as jwt_decode from 'jwt-decode';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { AlertService } from 'ngx-alerts';
 import { LayoutService } from 'src/app/shared/services/layout.service';
 import { Observable } from 'rxjs';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 // import { BootstrapAlertService, BootstrapAlert } from 'ngx-bootstrap-alert';
 @Component({
   selector: 'app-login',
@@ -27,25 +29,35 @@ export class LoginComponent implements OnInit {
   stationBalanceExits: boolean;
   mySubscription: any;
   serviceErrors: any = {};
-
+  numberOfSms: any;
 
   constructor(
     private authService: AuthServiceService,
-
+    private Other: OthersService,
     private router: Router,
     private alertService: AlertService,
     private spinner: NgxSpinnerService,
+    private jwtHelper: JwtHelperService,
     private layoutService: LayoutService
   ) {}
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
+    this.getSms();
   }
 
+  getSms(): any {
+    this.Other.testApi().subscribe(
+      x => {
+        this.numberOfSms = x;
+        console.log(this.numberOfSms);
+      }
+    );
+  }
   createFormGroup(): any {
     return new FormGroup({
 
-      user_contact_number: new FormControl(
+      userPhone1: new FormControl(
         '',
         Validators.compose([
           Validators.required,
@@ -54,7 +66,7 @@ export class LoginComponent implements OnInit {
           Validators.minLength(10)
         ])
       ),
-      password: new FormControl(
+      userPassword: new FormControl(
         '',
         Validators.compose([
           // 1. Password Field is Required
@@ -78,123 +90,139 @@ export class LoginComponent implements OnInit {
 
     login(): any {
     this.submitted = true;
-
-    // this.spinner.show();
-
-    // if (this.userForm.invalid === true) {
-      // return;
-    // } else {
-    const data = {
-        phone: '0704853125',
-        pin: '1234'
+    this.spinner.show();
+    if (this.userForm.invalid === true) {
+      return;
+    } else {
+      const data = {
+        userPhone1: this.fval.userPhone1.value,
+        userPassword: Number(this.fval.userPassword.value)
       };
-    if (this.fval.user_contact_number.value === data.phone && this.fval.password.value === data.pin){
-        // this.spinner.hide();
-        setTimeout(() => {
-          // this.spinner.hide();
-          // this.layoutService.emitChangePumpUser(true);
-          // this.layoutService.emitLoginLogout(true);
-          this.router.navigate(['/centralmanagement']);
-        }, 1000);
-      }
-    //   this.authService
-    //     .loginNormalUser(this.userForm)
+      this.authService
+        .loginNormalUser(data)
 
-    //     .subscribe(
-    //       (success: boolean) => {
-    //         if (success) {
-    //           this.posted = true;
-    //           if (
-    //             jwt_decode(this.authService.getJwtToken()).user_status ===
-    //             'Approved'
-    //           ) {
-    //             if (
-    //               jwt_decode(this.authService.getJwtToken()).user_role === 'admin'
-    //             ) {
-    //               this.alertService.success({
-    //                 html: '<strong>Signed In Successfully</strong>'
-    //               });
-    //               this.spinner.hide();
-    //               setTimeout(() => {
-    //                 this.spinner.hide();
-    //                 // this.layoutService.emitChangePumpUser(true);
-    //                 // this.layoutService.emitLoginLogout(true);
-    //                 this.router.navigate(['/admin']);
-    //               }, 1000);
-    //             } else if (
-    //               jwt_decode(this.authService.getJwtToken()).user_role === 'Central User'
-    //             ) {
-    //               this.spinner.hide();
-    //               setTimeout(() => {
-    //                 this.router.navigate(['centralmanagement']);
-    //               }, 1000);
-    //             } else if (
-    //               jwt_decode(this.authService.getJwtToken()).user_role === 'Area Manager'
-    //             ) {
-    //               this.spinner.hide();
-    //               setTimeout(() => {
-    //                 this.router.navigate(['/areamanagement']);
-    //               }, 1000);
-    //             } else if (
-    //               jwt_decode(this.authService.getJwtToken()).user_role === 'Station Manager'
-    //             ) {
-    //               this.spinner.hide();
-    //               setTimeout(() => {
-    //                 this.router.navigate(['/stationmanagement']);
-    //               }, 1000);
-    //             } else if (
-    //               jwt_decode(this.authService.getJwtToken()).user_role === 'Station Officer'
-    //             ) {
-    //               this.spinner.hide();
-    //               setTimeout(() => {
-    //                 this.router.navigate(['/stationofficer']);
-    //               }, 1000);
-    //             }
-    //              else {
-    //               this.alertService.danger({
-    //                 html: '<strong>No User found with these details, Please register</strong>'
-    //               });
-    //               this.spinner.hide();
-    //             }
-    //           } else if (
-    //             jwt_decode(this.authService.getJwtToken()).user_status ===
-    //             'Deactivated'
-    //           ) {
-    //             this.alertService.danger({
-    //               html:
-    //                 '<strong>This account has been deactivated!, please contact system admin!</strong>'
-    //             });
-    //             this.spinner.hide();
-    //             return;
-    //           }
-    //         } else {
-    //           this.spinner.hide();
-    //           this.errored = true;
-    //         }
-    //       },
+        .subscribe(
+          (success: boolean) => {
+            if (success) {
+              this.posted = true;
+              if (
+                this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 2
+              ) {
+                if (
+                  this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 600
+                ) {
+                  this.alertService.success({
+                    html: '<strong>Signed In Successfully</strong>'
+                  });
+                  this.spinner.hide();
+                  setTimeout(() => {
+                    this.spinner.hide();
+                    this.router.navigate(['/admin']);
+                  }, 1000);
+                } else if (
+                  this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 100
+                ) {
+                  this.spinner.hide();
+                  this.alertService.success({
+                    html: '<strong>Signed In Successfully</strong>'
+                  });
+                  setTimeout(() => {
+                    this.router.navigate(['centralmanagement']);
+                  }, 1000);
+                } else if (
+                  this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 200
+                ) {
+                  this.spinner.hide();
+                  this.alertService.success({
+                    html: '<strong>Signed In Successfully</strong>'
+                  });
+                  setTimeout(() => {
+                    this.router.navigate(['/areamanagement']);
+                  }, 1000);
+                } else if (
+                  this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 300
+                ) {
+                  this.spinner.hide();
+                  this.alertService.success({
+                    html: '<strong>Signed In Successfully</strong>'
+                  });
+                  setTimeout(() => {
+                    this.router.navigate(['/townmanagement']);
+                  }, 1000);
+                } else if (
+                  this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 400
+                ) {
+                  this.spinner.hide();
+                  this.alertService.success({
+                    html: '<strong>Signed In Successfully</strong>'
+                  });
+                  setTimeout(() => {
+                    this.router.navigate(['/stationmanagement']);
+                  }, 1000);
+                } else if (
+                  this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 500
+                ) {
+                  this.spinner.hide();
+                  this.alertService.success({
+                    html: '<strong>Signed In Successfully</strong>'
+                  });
+                  setTimeout(() => {
+                    this.router.navigate(['/stationofficer']);
+                  }, 1000);
+                }
+                 else {
+                  this.alertService.danger({
+                    html: '<strong>No User found with these details, Please register</strong>'
+                  });
+                  this.spinner.hide();
+                }
+              } else if (
+                this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 3
+              ) {
+                this.alertService.danger({
+                  html:
+                    '<strong>This account has been deactivated!, please contact system admin!</strong>'
+                });
+                this.spinner.hide();
+                return;
+              } else if (
+                this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1
+              ) {
+                this.alertService.danger({
+                  html:
+                    '<strong>This account recquires approval, please contact system admin!</strong>'
+                });
+                this.spinner.hide();
+                return;
+              }
+            } else {
+              this.spinner.hide();
+              this.errored = true;
+            }
+          },
 
-    //       (error: string) => {
-    //         this.spinner.hide();
-    //         this.errored = true;
-    //         this.loginStatus = error;
-    //         // this.alertService.danger(this.loginStatus);
-    //         this.alertService.danger({
-    //           html: '<b>' + this.loginStatus + '</b>' + '<br/>'
-    //         });
-    //         // this.alertService.warning({html: '<b>Signed In Successfully</b>'});
-    //         if (
-    //           this.loginStatus === 'Authorisation Failed! User Not Registered'
-    //         ) {
-    //           setTimeout(() => {
-    //             this.router.navigate(['authpage/register']);
-    //           }, 1000);
-    //         }
-    //         this.spinner.hide();
+          (error: string) => {
+            this.spinner.hide();
+            this.errored = true;
+            this.loginStatus = error;
+            // this.alertService.danger(this.loginStatus);
+            this.alertService.danger({
+              html: '<b>' + this.loginStatus + '</b>' + '<br/>'
+            });
+            // this.alertService.warning({html: '<b>Signed In Successfully</b>'});
+            if (
+              this.loginStatus === 'Authorisation Failed! User Not Registered'
+            ) {
+              setTimeout(() => {
+                this.router.navigate(['authpage/register']);
+              }, 1000);
+            }
+            this.spinner.hide();
 
-    //       }
-    //     );
+          }
+        );
     }
-  // }
+  }
 }
 
 

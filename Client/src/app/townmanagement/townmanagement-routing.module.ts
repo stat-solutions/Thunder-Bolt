@@ -172,11 +172,11 @@ const routes: Routes = [
           }
         ]
           },
-          {
-            path: 'approveusers',
-            component: ApproveTownUsersComponent
-          }
-,
+//           {
+//             path: 'approveusers',
+//             component: ApproveTownUsersComponent
+//           }
+// ,
 {
         path: 'profile',
         component: ProfileComponent,

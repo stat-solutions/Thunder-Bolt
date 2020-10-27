@@ -18,25 +18,25 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-0 pt-4 pt-
     <form [formGroup]="userForm" (ngSubmit)="login()">
 
       <div class="form-group text-primary">
-        <label for="user_contact_number" [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''">Phone Number<i  *ngIf="fval.user_contact_number.valid" class="material-icons">check_circle</i></label>
+        <label for="userPhone1" [ngClass]="fval.userPhone1.valid ? 'text-info' : ''">Phone Number<i  *ngIf="fval.userPhone1.valid" class="material-icons">check_circle</i></label>
          <div class="input-group mb-0">
          <div class="input-group-prepend">
           <div class="input-group-text">
             <i class="fas fa-phone text-primary mx-auto" style="size: 50px">
            </i></div> </div>
-                         <input id="user_contact_number" formControlName="user_contact_number" type="text" class="form-control"  [ngClass]=" { 'is-invalid': (fval.user_contact_number.touched||fval.user_contact_number.dirty) && fval.user_contact_number.errors }" placeholder="e.g. 07XXXXXXXX" autocomplete="off"/>
+                         <input id="userPhone1" formControlName="userPhone1" type="text" class="form-control"  [ngClass]=" { 'is-invalid': (fval.userPhone1.touched||fval.userPhone1.dirty) && fval.userPhone1.errors }" placeholder="e.g. 07XXXXXXXX" autocomplete="off"/>
                        </div>
-                     <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.required">The phone number is required</div>
-                     <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.hasNumber">The phone number should be in digits/numbers</div>
-                             <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.maxlength">The phone number should not exceed 10 digits</div>
-                             <div class="text-danger col" *ngIf="(fval.user_contact_number.touched||fval.user_contact_number.dirty)  && fval.user_contact_number.errors?.minlength">The phone number  should have atleast 10 digits</div>
+                     <div class="text-danger col" *ngIf="(fval.userPhone1.touched||fval.userPhone1.dirty)  && fval.userPhone1.errors?.required">The phone number is required</div>
+                     <div class="text-danger col" *ngIf="(fval.userPhone1.touched||fval.userPhone1.dirty)  && fval.userPhone1.errors?.hasNumber">The phone number should be in digits/numbers</div>
+                             <div class="text-danger col" *ngIf="(fval.userPhone1.touched||fval.userPhone1.dirty)  && fval.userPhone1.errors?.maxlength">The phone number should not exceed 10 digits</div>
+                             <div class="text-danger col" *ngIf="(fval.userPhone1.touched||fval.userPhone1.dirty)  && fval.userPhone1.errors?.minlength">The phone number  should have atleast 10 digits</div>
                      </div>
 
       <div class="form-group text-primary">
         <label
-          for="password"
-          [ngClass]="fval.password.valid ? 'text-info' : ''"
-          >PIN<i *ngIf="fval.password.valid" class="material-icons"
+          for="userPassword"
+          [ngClass]="fval.userPassword.valid ? 'text-info' : ''"
+          >PIN<i *ngIf="fval.userPassword.valid" class="material-icons"
             >check_circle</i
           ></label
         >
@@ -52,13 +52,13 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-0 pt-4 pt-
           </div>
           <input
           [type]="fieldType ? 'text' : 'password'"
-          id="password"
-          formControlName="password"
+          id="userPassword"
+          formControlName="userPassword"
             class="form-control"
             [ngClass]="{
               'is-invalid':
-                (fval.password.touched || fval.password.dirty) &&
-                fval.password.errors
+                (fval.userPassword.touched || fval.userPassword.dirty) &&
+                fval.userPassword.errors
             }"
             placeholder="Enter your PIN"
             autocomplete="off"
@@ -79,8 +79,8 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-0 pt-4 pt-
         <div
           class="text-danger col"
           *ngIf="
-            (fval.password.touched || fval.password.dirty) &&
-            fval.password.errors?.required
+            (fval.userPassword.touched || fval.userPassword.dirty) &&
+            fval.userPassword.errors?.required
           "
         >
           PIN is required!

@@ -6,6 +6,9 @@ import { Observable, throwError, of } from 'rxjs';
 import { HttpHeaders, HttpErrorResponse, HttpClient, HttpParams, HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Tokens } from '../models/tokens';
 import { map, tap, catchError, mapTo } from 'rxjs/operators';
+import { UserRole } from '../models/user-role';
+import { RegisterUser } from '../models/register';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +19,7 @@ export class AuthServiceService {
 
     private API_URL = environment.apiUrl;
     private loggedInUser: string;
-    private readonly JWT_TOKEN = 'JWT_TOKEN';
+    private readonly ACCESS_TOKEN = 'ACCESS TOKEN';
     private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
 
     httpOptions = {
@@ -25,13 +28,13 @@ export class AuthServiceService {
       })
     };
 
-    constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService) { }
 
-    loginNormalUser(postData: FormGroup): any {
-      return this.http.post<any>(`${this.API_URL}/api/auth/login`, postData.value, this.httpOptions)
+    loginNormalUser(postData: any): any {
+      return this.http.post<any>(`${this.API_URL}/api/user/loginUser`, postData, this.httpOptions)
         .pipe(
           // tap(tokens => console.log(`${tokens}`)),
-          tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
+          tap(tokens => this.doLoginUser(postData.userPhone1, tokens)),
           mapTo(true),
           catchError(this.handleLoginError)
 
@@ -57,8 +60,11 @@ export class AuthServiceService {
           catchError(this.OtherErrors)
         );
     }
+    getRoles(): Observable<UserRole[]> {
+      return this.http.get<any[]>(`${this.API_URL}/api/auth/userRoles`);
+    }
 
-    // logout() {
+    // logout(): any {
     //   return this.http.post<any>(`${this.API_URL}/api/auth/logout`, { refreshToken: this.getRefreshToken() })
     //     .pipe(
     //       tap(() => this.doLogoutUser()),
@@ -71,16 +77,16 @@ export class AuthServiceService {
     //     );
     // }
 
-    registerUser(postData: FormGroup): any {
-      return this.http.post<any>(`${this.API_URL}/api/auth/register`, postData.value, this.httpOptions)
+    registerUser(postData: RegisterUser): any {
+      return this.http.post<any>(`${this.API_URL}/api/user/registerUser`, postData, this.httpOptions)
         .pipe(
           map((res: string) => res),
           tap(res => console.log(`AFTER MAP: ${res}`)),
           catchError(this.handleRegisterError)
         );
     }
-    changePIN(postData: FormGroup): any {
-      return this.http.post<any>(`${this.API_URL}/api/auth/login`, postData.value, this.httpOptions)
+    changePIN(postData: any): any {
+      return this.http.post<any>(`${this.API_URL}/api/user/registerUser`, postData.value, this.httpOptions)
         .pipe(
           // tap(tokens => console.log(`${tokens}`)),
           tap(tokens => this.doLoginUser(postData.value.main_contact_number, tokens)),
@@ -100,8 +106,7 @@ export class AuthServiceService {
     }
 
     private removeTokens(): any {
-      console.log('In it');
-      localStorage.removeItem(this.JWT_TOKEN);
+      localStorage.removeItem(this.ACCESS_TOKEN);
       localStorage.removeItem(this.REFRESH_TOKEN);
     }
 
@@ -110,22 +115,30 @@ export class AuthServiceService {
       return true;
 
     }
+    loggedInUserInfo(): any {
+      return {
+        userName: this.jwtHelper.decodeToken(this.getJwtToken()).userName,
+        userId: this.jwtHelper.decodeToken(this.getJwtToken()).userId,
+        userPhone: this.jwtHelper.decodeToken(this.getJwtToken()).userPhone1,
+        accessRights: this.jwtHelper.decodeToken(this.getJwtToken()).fkAccessRightsIdUser,
+      };
+    }
 
     getJwtToken(): any {
-      return localStorage.getItem(this.JWT_TOKEN);
+      return localStorage.getItem(this.ACCESS_TOKEN);
     }
 
     refreshToken(): any {
       console.log('am refreshing');
-      return this.http.post<any>(`${this.API_URL}/api/auth/refresh`, {
+      return this.http.post<any>(`${this.API_URL}/api/user/userRefreshToken`, {
         refreshToken: this.getRefreshToken()
       }).pipe(tap((tokens: Tokens) => {
-        this.storeJwtToken(tokens.jwt);
+        this.storeJwtToken(tokens.accessToken);
       }));
     }
 
-    storeJwtToken(jwt: string): any {
-      localStorage.setItem(this.JWT_TOKEN, jwt);
+    storeJwtToken(accessToken: string): any {
+      localStorage.setItem(this.ACCESS_TOKEN, accessToken);
     }
 
     getRefreshToken(): any {
@@ -133,7 +146,7 @@ export class AuthServiceService {
     }
 
     private storeTokens(tokens: Tokens): any {
-      localStorage.setItem(this.JWT_TOKEN, tokens.jwt);
+      localStorage.setItem(this.ACCESS_TOKEN, tokens.accessToken);
       localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
     }
 

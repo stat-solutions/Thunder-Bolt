@@ -6,9 +6,9 @@ import { Router } from '@angular/router';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { AlertService } from 'ngx-alerts';
 import { FormBuilder } from '@angular/forms';
-// import { UserRole } from 'src/app/models/user-role';
-// import { CompanyPetroStations } from 'src/app/models/company-petro-stations';
-// import { TheStations } from 'src/app/models/the-stations';
+import { UserRole } from 'src/app/shared/models/user-role';
+import { RegisterUser } from 'src/app/shared/models/register';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -57,6 +57,8 @@ export class RegistrationComponent implements OnInit {
     {name: 'busega', town: 'Kampala'},
     {name: 'mbweera', town: 'Arua'},
   ];
+  roles: UserRole[];
+  registerUser: RegisterUser;
 
   constructor(
     private authService: AuthServiceService,
@@ -67,10 +69,9 @@ export class RegistrationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.myDateValue = new Date();
+    this.getRoles();
     this.userForm = this.createFormGroup();
-    localStorage.setItem('towns', JSON.stringify(this.towns));
-    localStorage.setItem('stations', JSON.stringify(this.stations));
+    this.myDateValue = new Date();
   }
   createFormGroup(): any {
     return this.fb.group(
@@ -182,25 +183,79 @@ returnHome(): any {
       this.router.navigate(['authpage/loginpage']);
     }, 2000);
   }
-
+getRoles(): any{
+  this.authService.getRoles().subscribe(
+    x => {
+      this.roles = x;
+      // tslint:disable-next-line: only-arrow-functions
+      this.roles = this.roles.map(function(role: any): any {
+                    return {
+                      accessRightsId: role.accessRightsId,
+                      roleName: role.roleName.replace(/_/g, ' ')
+                    };
+          });
+     }
+  );
+}
 register(): any {
     this.submitted = true;
     this.spinner.show();
     if (this.userForm.invalid === true) {
       return;
+    } else if (this.fval.position.value === 'AREA MANAGER' && this.fval.area === ''){
+      this.alertService.success({
+        html:
+          '<b>Area was not selected</b>'
+      });
+      return;
+    } else if (this.fval.position.value === 'TOWN MANAGER' && this.fval.town === ''){
+      this.alertService.success({
+        html:
+          '<b>Town was not selected</b>'
+      });
+      return;
+    } else if (
+        (this.fval.position.value === 'STATION MANAGER'
+        || this.fval.position.value === 'STATION MANAGER')
+        && this.fval.station === ''
+      ){
+      this.alertService.success({
+        html:
+          '<b>Station was not selected</b>'
+      });
+      return;
     } else {
-      if (
-        this.fval.position.value === 'stationOfficer'
-        && this.fval.station.value === ''
-        && this.fval.town.value === ''
-        && this.fval.area.value === ''
-        ){
-          this.alertService.danger({
-            html:
-                '<b>Please choose area, town and station</b>'
-          });
+
+      let selectedRole;
+      let selectedLocation;
+      this.roles.forEach(role => {
+        if (this.fval.position.value === role.roleName) {
+          selectedRole = role.accessRightsId;
         }
-      this.authService.registerUser(this.userForm).subscribe(
+      });
+      if (this.fval.position.value === 'AREA MANAGER'){
+          selectedLocation = this.fval.area.value;
+      } else  if (this.fval.position.value === 'TOWN MANAGER'){
+        selectedLocation = this.fval.town.value;
+      }  else  if (this.fval.position.value === 'STATION MANAGER' || this.fval.position.value === 'STATION OFFICER' ){
+        selectedLocation = this.fval.station.value;
+      } else {
+        selectedLocation = '';
+      }
+      this.registerUser = {
+        userName: this.fval.full_name.value,
+        userEmail1: this.fval.email.value,
+        userPhone1: `${this.fval.user_contact_number.value}`,
+        userIdType: this.fval.id_type.value,
+        userIdNumber: `${this.fval.id_number.value}`,
+        userDateOfBirth: `${this.fval.date_of_birth.value.getFullYear()}-${this.fval.date_of_birth.value.getMonth() + 1}-${this.fval.date_of_birth.value.getDate()}`,
+        userPassword: Number(this.fval.password.value),
+        fkAccessRightsIdUser: selectedRole,
+        userLocation: selectedLocation
+      };
+
+      // console.log(this.registerUser);
+      this.authService.registerUser(this.registerUser).subscribe(
         () => {
           this.posted = true;
           this.spinner.hide();
@@ -208,7 +263,7 @@ register(): any {
             html:
               '<b>User Registration Was Successful</b>' +
               '</br>' +
-              'Your Can Login'
+              'Wait for verification'
           });
           setTimeout(() => {
             this.router.navigate(['authpage/login']);
@@ -222,12 +277,12 @@ register(): any {
             html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
           });
           setTimeout(() => {
-            location.reload();
-          }, 3000);
+            // location.reload();
+          }, 5000);
           console.log(error);
         }
       );
-
+      this.spinner.hide();
       this.registered = true;
     }
   }

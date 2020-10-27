@@ -13,11 +13,12 @@ var rxjs_1 = require("rxjs");
 var http_1 = require("@angular/common/http");
 var operators_1 = require("rxjs/operators");
 var AuthServiceService = /** @class */ (function () {
-    function AuthServiceService(http, router) {
+    function AuthServiceService(http, router, jwtHelper) {
         this.http = http;
         this.router = router;
+        this.jwtHelper = jwtHelper;
         this.API_URL = environment_1.environment.apiUrl;
-        this.JWT_TOKEN = 'JWT_TOKEN';
+        this.ACCESS_TOKEN = 'ACCESS TOKEN';
         this.REFRESH_TOKEN = 'REFRESH_TOKEN';
         this.httpOptions = {
             headers: new http_1.HttpHeaders({
@@ -27,10 +28,10 @@ var AuthServiceService = /** @class */ (function () {
     }
     AuthServiceService.prototype.loginNormalUser = function (postData) {
         var _this = this;
-        return this.http.post(this.API_URL + "/api/auth/login", postData.value, this.httpOptions)
+        return this.http.post(this.API_URL + "/api/user/loginUser", postData, this.httpOptions)
             .pipe(
         // tap(tokens => console.log(`${tokens}`)),
-        operators_1.tap(function (tokens) { return _this.doLoginUser(postData.value.main_contact_number, tokens); }), operators_1.mapTo(true), operators_1.catchError(this.handleLoginError));
+        operators_1.tap(function (tokens) { return _this.doLoginUser(postData.userPhone1, tokens); }), operators_1.mapTo(true), operators_1.catchError(this.handleLoginError));
     };
     AuthServiceService.prototype.testingTheTablePost = function (postData) {
         return this.http.post(this.API_URL + "/api/auth/testTableData", postData.value, this.httpOptions)
@@ -46,7 +47,10 @@ var AuthServiceService = /** @class */ (function () {
         return this.http.get(this.API_URL + "/api/auth/isAgentRegistered", options1)
             .pipe(operators_1.catchError(this.OtherErrors));
     };
-    // logout() {
+    AuthServiceService.prototype.getRoles = function () {
+        return this.http.get(this.API_URL + "/api/auth/userRoles");
+    };
+    // logout(): any {
     //   return this.http.post<any>(`${this.API_URL}/api/auth/logout`, { refreshToken: this.getRefreshToken() })
     //     .pipe(
     //       tap(() => this.doLogoutUser()),
@@ -59,12 +63,12 @@ var AuthServiceService = /** @class */ (function () {
     //     );
     // }
     AuthServiceService.prototype.registerUser = function (postData) {
-        return this.http.post(this.API_URL + "/api/auth/register", postData.value, this.httpOptions)
+        return this.http.post(this.API_URL + "/api/user/registerUser", postData, this.httpOptions)
             .pipe(operators_1.map(function (res) { return res; }), operators_1.tap(function (res) { return console.log("AFTER MAP: " + res); }), operators_1.catchError(this.handleRegisterError));
     };
     AuthServiceService.prototype.changePIN = function (postData) {
         var _this = this;
-        return this.http.post(this.API_URL + "/api/auth/login", postData.value, this.httpOptions)
+        return this.http.post(this.API_URL + "/api/user/registerUser", postData.value, this.httpOptions)
             .pipe(
         // tap(tokens => console.log(`${tokens}`)),
         operators_1.tap(function (tokens) { return _this.doLoginUser(postData.value.main_contact_number, tokens); }), operators_1.mapTo(true), operators_1.catchError(this.handleLoginError));
@@ -79,34 +83,41 @@ var AuthServiceService = /** @class */ (function () {
         this.removeTokens();
     };
     AuthServiceService.prototype.removeTokens = function () {
-        console.log('In it');
-        localStorage.removeItem(this.JWT_TOKEN);
+        localStorage.removeItem(this.ACCESS_TOKEN);
         localStorage.removeItem(this.REFRESH_TOKEN);
     };
     AuthServiceService.prototype.isLoggedIn = function () {
         // return !!this.getJwtToken();
         return true;
     };
+    AuthServiceService.prototype.loggedInUserInfo = function () {
+        return {
+            userName: this.jwtHelper.decodeToken(this.getJwtToken()).userName,
+            userId: this.jwtHelper.decodeToken(this.getJwtToken()).userId,
+            userPhone: this.jwtHelper.decodeToken(this.getJwtToken()).userPhone1,
+            accessRights: this.jwtHelper.decodeToken(this.getJwtToken()).fkAccessRightsIdUser
+        };
+    };
     AuthServiceService.prototype.getJwtToken = function () {
-        return localStorage.getItem(this.JWT_TOKEN);
+        return localStorage.getItem(this.ACCESS_TOKEN);
     };
     AuthServiceService.prototype.refreshToken = function () {
         var _this = this;
         console.log('am refreshing');
-        return this.http.post(this.API_URL + "/api/auth/refresh", {
+        return this.http.post(this.API_URL + "/api/user/userRefreshToken", {
             refreshToken: this.getRefreshToken()
         }).pipe(operators_1.tap(function (tokens) {
-            _this.storeJwtToken(tokens.jwt);
+            _this.storeJwtToken(tokens.accessToken);
         }));
     };
-    AuthServiceService.prototype.storeJwtToken = function (jwt) {
-        localStorage.setItem(this.JWT_TOKEN, jwt);
+    AuthServiceService.prototype.storeJwtToken = function (accessToken) {
+        localStorage.setItem(this.ACCESS_TOKEN, accessToken);
     };
     AuthServiceService.prototype.getRefreshToken = function () {
         return localStorage.getItem(this.REFRESH_TOKEN);
     };
     AuthServiceService.prototype.storeTokens = function (tokens) {
-        localStorage.setItem(this.JWT_TOKEN, tokens.jwt);
+        localStorage.setItem(this.ACCESS_TOKEN, tokens.accessToken);
         localStorage.setItem(this.REFRESH_TOKEN, tokens.refreshToken);
     };
     AuthServiceService.prototype.handleLoginError = function (errorResponse) {

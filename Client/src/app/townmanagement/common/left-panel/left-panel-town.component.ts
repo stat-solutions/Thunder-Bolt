@@ -115,11 +115,11 @@ export class LeftPanelTownComponent implements OnInit {
           }
                 ]
       },
-      {
-        name: 'Approve Users',
-        icon: 'fas fa-user-check',
-        url: '/townmanagement/approveusers',
-            },
+      // {
+      //   name: 'Approve Users',
+      //   icon: 'fas fa-user-check',
+      //   url: '/townmanagement/approveusers',
+      //       },
                   {
         name: 'Profile',
         icon: 'fas fa-user-cog',

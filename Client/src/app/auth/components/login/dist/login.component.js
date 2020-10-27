@@ -9,29 +9,40 @@ exports.__esModule = true;
 exports.LoginComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+// import * as jwt_decode from 'jwt-decode';
 var custom_validator_1 = require("src/app/validators/custom-validator");
 // import { BootstrapAlertService, BootstrapAlert } from 'ngx-bootstrap-alert';
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(authService, router, alertService, spinner, layoutService) {
+    function LoginComponent(authService, Other, router, alertService, spinner, jwtHelper, layoutService) {
         this.authService = authService;
+        this.Other = Other;
         this.router = router;
         this.alertService = alertService;
         this.spinner = spinner;
+        this.jwtHelper = jwtHelper;
         this.layoutService = layoutService;
         this.serviceErrors = {};
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
+        this.getSms();
+    };
+    LoginComponent.prototype.getSms = function () {
+        var _this = this;
+        this.Other.testApi().subscribe(function (x) {
+            _this.numberOfSms = x;
+            console.log(_this.numberOfSms);
+        });
     };
     LoginComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
-            user_contact_number: new forms_1.FormControl('', forms_1.Validators.compose([
+            userPhone1: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
                 custom_validator_1.CustomValidator.patternValidator(/\d/, { hasNumber: true }),
                 forms_1.Validators.maxLength(10),
                 forms_1.Validators.minLength(10)
             ])),
-            password: new forms_1.FormControl('', forms_1.Validators.compose([
+            userPassword: new forms_1.FormControl('', forms_1.Validators.compose([
                 // 1. Password Field is Required
                 custom_validator_1.CustomValidator.patternValidator(/\d/, { hasNumber: true }),
                 forms_1.Validators.maxLength(4),
@@ -54,116 +65,119 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent.prototype.login = function () {
         var _this = this;
         this.submitted = true;
-        // this.spinner.show();
-        // if (this.userForm.invalid === true) {
-        // return;
-        // } else {
-        var data = {
-            phone: '0704853125',
-            pin: '1234'
-        };
-        if (this.fval.user_contact_number.value === data.phone && this.fval.password.value === data.pin) {
-            // this.spinner.hide();
-            setTimeout(function () {
-                // this.spinner.hide();
-                // this.layoutService.emitChangePumpUser(true);
-                // this.layoutService.emitLoginLogout(true);
-                _this.router.navigate(['/centralmanagement']);
-            }, 1000);
+        this.spinner.show();
+        if (this.userForm.invalid === true) {
+            return;
         }
-        //   this.authService
-        //     .loginNormalUser(this.userForm)
-        //     .subscribe(
-        //       (success: boolean) => {
-        //         if (success) {
-        //           this.posted = true;
-        //           if (
-        //             jwt_decode(this.authService.getJwtToken()).user_status ===
-        //             'Approved'
-        //           ) {
-        //             if (
-        //               jwt_decode(this.authService.getJwtToken()).user_role === 'admin'
-        //             ) {
-        //               this.alertService.success({
-        //                 html: '<strong>Signed In Successfully</strong>'
-        //               });
-        //               this.spinner.hide();
-        //               setTimeout(() => {
-        //                 this.spinner.hide();
-        //                 // this.layoutService.emitChangePumpUser(true);
-        //                 // this.layoutService.emitLoginLogout(true);
-        //                 this.router.navigate(['/admin']);
-        //               }, 1000);
-        //             } else if (
-        //               jwt_decode(this.authService.getJwtToken()).user_role === 'Central User'
-        //             ) {
-        //               this.spinner.hide();
-        //               setTimeout(() => {
-        //                 this.router.navigate(['centralmanagement']);
-        //               }, 1000);
-        //             } else if (
-        //               jwt_decode(this.authService.getJwtToken()).user_role === 'Area Manager'
-        //             ) {
-        //               this.spinner.hide();
-        //               setTimeout(() => {
-        //                 this.router.navigate(['/areamanagement']);
-        //               }, 1000);
-        //             } else if (
-        //               jwt_decode(this.authService.getJwtToken()).user_role === 'Station Manager'
-        //             ) {
-        //               this.spinner.hide();
-        //               setTimeout(() => {
-        //                 this.router.navigate(['/stationmanagement']);
-        //               }, 1000);
-        //             } else if (
-        //               jwt_decode(this.authService.getJwtToken()).user_role === 'Station Officer'
-        //             ) {
-        //               this.spinner.hide();
-        //               setTimeout(() => {
-        //                 this.router.navigate(['/stationofficer']);
-        //               }, 1000);
-        //             }
-        //              else {
-        //               this.alertService.danger({
-        //                 html: '<strong>No User found with these details, Please register</strong>'
-        //               });
-        //               this.spinner.hide();
-        //             }
-        //           } else if (
-        //             jwt_decode(this.authService.getJwtToken()).user_status ===
-        //             'Deactivated'
-        //           ) {
-        //             this.alertService.danger({
-        //               html:
-        //                 '<strong>This account has been deactivated!, please contact system admin!</strong>'
-        //             });
-        //             this.spinner.hide();
-        //             return;
-        //           }
-        //         } else {
-        //           this.spinner.hide();
-        //           this.errored = true;
-        //         }
-        //       },
-        //       (error: string) => {
-        //         this.spinner.hide();
-        //         this.errored = true;
-        //         this.loginStatus = error;
-        //         // this.alertService.danger(this.loginStatus);
-        //         this.alertService.danger({
-        //           html: '<b>' + this.loginStatus + '</b>' + '<br/>'
-        //         });
-        //         // this.alertService.warning({html: '<b>Signed In Successfully</b>'});
-        //         if (
-        //           this.loginStatus === 'Authorisation Failed! User Not Registered'
-        //         ) {
-        //           setTimeout(() => {
-        //             this.router.navigate(['authpage/register']);
-        //           }, 1000);
-        //         }
-        //         this.spinner.hide();
-        //       }
-        //     );
+        else {
+            var data = {
+                userPhone1: this.fval.userPhone1.value,
+                userPassword: Number(this.fval.userPassword.value)
+            };
+            this.authService
+                .loginNormalUser(data)
+                .subscribe(function (success) {
+                if (success) {
+                    _this.posted = true;
+                    if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 2) {
+                        if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 600) {
+                            _this.alertService.success({
+                                html: '<strong>Signed In Successfully</strong>'
+                            });
+                            _this.spinner.hide();
+                            setTimeout(function () {
+                                _this.spinner.hide();
+                                _this.router.navigate(['/admin']);
+                            }, 1000);
+                        }
+                        else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 100) {
+                            _this.spinner.hide();
+                            _this.alertService.success({
+                                html: '<strong>Signed In Successfully</strong>'
+                            });
+                            setTimeout(function () {
+                                _this.router.navigate(['centralmanagement']);
+                            }, 1000);
+                        }
+                        else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 200) {
+                            _this.spinner.hide();
+                            _this.alertService.success({
+                                html: '<strong>Signed In Successfully</strong>'
+                            });
+                            setTimeout(function () {
+                                _this.router.navigate(['/areamanagement']);
+                            }, 1000);
+                        }
+                        else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 300) {
+                            _this.spinner.hide();
+                            _this.alertService.success({
+                                html: '<strong>Signed In Successfully</strong>'
+                            });
+                            setTimeout(function () {
+                                _this.router.navigate(['/townmanagement']);
+                            }, 1000);
+                        }
+                        else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 400) {
+                            _this.spinner.hide();
+                            _this.alertService.success({
+                                html: '<strong>Signed In Successfully</strong>'
+                            });
+                            setTimeout(function () {
+                                _this.router.navigate(['/stationmanagement']);
+                            }, 1000);
+                        }
+                        else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 500) {
+                            _this.spinner.hide();
+                            _this.alertService.success({
+                                html: '<strong>Signed In Successfully</strong>'
+                            });
+                            setTimeout(function () {
+                                _this.router.navigate(['/stationofficer']);
+                            }, 1000);
+                        }
+                        else {
+                            _this.alertService.danger({
+                                html: '<strong>No User found with these details, Please register</strong>'
+                            });
+                            _this.spinner.hide();
+                        }
+                    }
+                    else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 3) {
+                        _this.alertService.danger({
+                            html: '<strong>This account has been deactivated!, please contact system admin!</strong>'
+                        });
+                        _this.spinner.hide();
+                        return;
+                    }
+                    else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 1) {
+                        _this.alertService.danger({
+                            html: '<strong>This account recquires approval, please contact system admin!</strong>'
+                        });
+                        _this.spinner.hide();
+                        return;
+                    }
+                }
+                else {
+                    _this.spinner.hide();
+                    _this.errored = true;
+                }
+            }, function (error) {
+                _this.spinner.hide();
+                _this.errored = true;
+                _this.loginStatus = error;
+                // this.alertService.danger(this.loginStatus);
+                _this.alertService.danger({
+                    html: '<b>' + _this.loginStatus + '</b>' + '<br/>'
+                });
+                // this.alertService.warning({html: '<b>Signed In Successfully</b>'});
+                if (_this.loginStatus === 'Authorisation Failed! User Not Registered') {
+                    setTimeout(function () {
+                        _this.router.navigate(['authpage/register']);
+                    }, 1000);
+                }
+                _this.spinner.hide();
+            });
+        }
     };
     LoginComponent = __decorate([
         core_1.Component({

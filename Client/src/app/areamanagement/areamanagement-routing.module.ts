@@ -56,9 +56,14 @@ const routes: Routes = [
         path: 'create',
         component: CreateComponent,
         children: [
+          // {
+          //   path: 'createstations',
+          //   component: CreateStationsComponent,
+          // },
           {
-            path: 'createstations',
-            component: CreateStationsComponent,
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'createtowns',
           },
           {
             path: 'createtowns',
@@ -170,10 +175,10 @@ const routes: Routes = [
           },
         ],
       },
-      {
-        path: 'approveusers',
-        component: ApproveAreaUsersComponent,
-      },
+      // {
+      //   path: 'approveusers',
+      //   component: ApproveAreaUsersComponent,
+      // },
       {
         path: 'profile',
         component: ProfileComponent,

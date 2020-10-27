@@ -31,19 +31,26 @@ export class OthersService {
   };
   constructor(
     private http: HttpClient, private router: Router) { }
+    testApi(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/auth/getSms`)
+        .pipe(
+          tap(res => console.log()),
+          catchError(async (err) => console.log(err))
+        );
+    }
 //  create company section
-    createCompany(postData: FormGroup): Observable<any>{
-      return this.http.post<any>(`${this.API_URL}/api/business/companysetup`, postData.value, this.httpOptions)
+    createCompany(postData: CompanyInfo): Observable<any>{
+      return this.http.post<any>(`${this.API_URL}/api/adminUser/setUpCompany`, postData, this.httpOptions)
         .pipe(
           tap(res => console.log(`AFTER MAP: ${res}`)),
           catchError(this.handleCompanySetupError)
         );
     }
-    getCompanyInfo(): Observable<CompanyInfo[]> {
-      return this.http.get<CompanyInfo[]>(`${this.API_URL}/api/business/companyDetails`)
+    getCompanyInfo(): Observable<CompanyInfo> {
+      return this.http.get<CompanyInfo>(`${this.API_URL}/api/adminUser/getTheCompanyDetails`)
           .pipe(
           catchError(this.OtherErrors)
-        ) as Observable<CompanyInfo[]>;
+        ) as Observable<CompanyInfo>;
   }
 // users and set user profile
   getUsers(): Observable<UserInfo> {
@@ -80,8 +87,8 @@ export class OthersService {
     getBussinessUnits(): Observable<BussinessUnits[]> {
       return this.http.get<BussinessUnits[]>(`${this.API_URL}/api/business/bussinessunits`);
     }
-    setBussinessUnits(postData: string): any {
-      return this.http.post(`${this.API_URL}/api/business/setbusinessunit`, postData, this.httpOptions);
+    setBussinessUnits(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/adminUser/setupBusinessUnit`, postData, this.httpOptions);
     }
 
 //  creating area town and station

@@ -40,10 +40,10 @@ const routes: Routes = [
         path: 'approvalsetup',
         component: ApprovalSetupComponent,
       },
-      {
-        path: 'approveusers',
-        component: ApproveAdminUsersComponent,
-      },
+      // {
+      //   path: 'approveusers',
+      //   component: ApproveAdminUsersComponent,
+      // },
       {
         path: 'adminprofile',
         component: AdminProfileComponent,

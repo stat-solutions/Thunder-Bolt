@@ -25,13 +25,14 @@ export class CompanySetupComponent implements OnInit {
   fieldType: boolean;
   mySubscription: any;
   myDateValue: Date;
-  companyInfo: CompanyInfo;
-
+  // companyInfo: CompanyInfo;
+  // User = this.authService.loggedInUserInfo();
   constructor(
     private others: OthersService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService,
+    private authService: AuthServiceService
   ) {}
 
   ngOnInit(): void {
@@ -48,27 +49,31 @@ export class CompanySetupComponent implements OnInit {
       ),
       companyEmail1: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ])
       ),
       companyEmail2: new FormControl(
         '',
-        Validators.compose([])
+        Validators.compose([
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ])
       ),
       companyBoxNumber: new FormControl(
         '',
         Validators.compose([
           Validators.required,
-
-          // 2. check whether the entered box number has a number
-          CustomValidator.patternValidator(
-            /^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])$/,
-            {
-              hasNumber: true,
-            }
-          ),
+          // // 2. check whether the entered box number has a number
+          // CustomValidator.patternValidator(
+          //   /^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])$/,
+          //   {
+          //     hasNumber: true,
+          //   }
+          // ),
           // 6. Has a length of exactly 4 digits
-          Validators.minLength(4),
-          Validators.maxLength(7),
+          // Validators.minLength(4),
+          // Validators.maxLength(7),
         ])
       ),
     companyCityLocation: new FormControl(
@@ -114,16 +119,16 @@ export class CompanySetupComponent implements OnInit {
           )
         ])
       ),
-      companyLogo: new FormControl(
-        '',
-        Validators.compose([
-          Validators.required
-        ])
-      ),
+      // companyLogo: new FormControl(
+      //   '',
+      //   Validators.compose([
+      //     Validators.required
+      //   ])
+      // ),
       companyStreetName: new FormControl(
         '',
         Validators.compose([
-          Validators.required
+          // Validators.required
         ])
       )
     });
@@ -161,15 +166,27 @@ export class CompanySetupComponent implements OnInit {
 
   setCompanyValues(): any {
 
-      // this.others.getCompanyInfo().subscribe(
-      //   item => {
-      //     this.companyInfo = item;
-      //     this.companyForm.get('companyName').setValue('thunder Bolt');
-      //   },
-      //   (error: string) => {
-      //     //
-      //   }
-      // );
+      this.others.getCompanyInfo().subscribe(
+        item => {
+          this.companyCreated = true;
+          // this.companyInfo = item;
+          this.fval.companyName.setValue(item.companyName);
+          this.fval.companyBoxNumber.setValue(item.companyBoxNumber);
+          this.fval.companyCityLocation.setValue(item.companyCityLocation);
+          this.fval.companyCountryLocation.setValue(item.companyCountryLocation);
+          this.fval.companyRegionLocation.setValue(item.companyRegionLocation);
+          this.fval.companyOfficeFloor.setValue(item.companyOfficeFloor);
+          this.fval.companyPlotNumber.setValue(item.companyPlotNumber);
+          this.fval.companyStreetBuilding.setValue(item.companyStreetBuilding);
+          this.fval.companyEmail1.setValue(item.companyEmail1);
+          this.fval.companyEmail2.setValue(item.companyEmail2);
+          this.fval.companyPhoneContact1.setValue(item.companyPhoneContact1);
+          this.fval.companyPhoneContact2.setValue(item.companyPhoneContact2);
+        },
+        (error: string) => {
+          //
+        }
+      );
   }
 
   createCompany(): any {
@@ -180,7 +197,24 @@ export class CompanySetupComponent implements OnInit {
       return;
     } else {
       // have to edit
-      this.others.createCompany(this.companyForm).subscribe(
+      const companyDetails = {
+        companyName: this.fval.companyName.value.toUpperCase(),
+        companyBoxNumber: this.fval.companyBoxNumber.value.toUpperCase(),
+        companyCityLocation: this.fval.companyCityLocation.value.toUpperCase(),
+        companyCountryLocation: this.fval.companyCountryLocation.value.toUpperCase(),
+        companyRegionLocation: this.fval.companyRegionLocation.value.toUpperCase(),
+        companyOfficeFloor: this.fval.companyOfficeFloor.value.toUpperCase(),
+        companyPlotNumber: this.fval.companyPlotNumber.value.toUpperCase(),
+        companyStreetBuilding: this.fval.companyStreetBuilding.value.toUpperCase(),
+        companyEmail1: this.fval.companyEmail1.value,
+        companyEmail2: this.fval.companyEmail2.value,
+        companyPhoneContact1: this.fval.companyPhoneContact1.value,
+        companyPhoneContact2: this.fval.companyPhoneContact2.value,
+        userId: 8899999,
+        // userId: this.User.userId,
+      };
+      console.log(companyDetails);
+      this.others.createCompany(companyDetails).subscribe(
         () => {
           this.posted = true;
           this.spinner.hide();
@@ -191,9 +225,9 @@ export class CompanySetupComponent implements OnInit {
               '</br>'
           });
 
-          setTimeout(() => {
-            this.router.navigate(['admin/dashboard']);
-          }, 3000);
+          // setTimeout(() => {
+          //   this.router.navigate(['admin/dashboard']);
+          // }, 3000);
         },
 
         (error: string) => {
@@ -202,14 +236,14 @@ export class CompanySetupComponent implements OnInit {
           this.alertService.danger({
             html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
           });
-          setTimeout(() => {
-                  location.reload();
-                }, 3000);
+          // setTimeout(() => {
+          //         location.reload();
+          //       }, 3000);
           console.log(error);
           this.spinner.hide();
         }
       );
-
+      this.spinner.hide();
       this.companyCreated = true;
     }
   }

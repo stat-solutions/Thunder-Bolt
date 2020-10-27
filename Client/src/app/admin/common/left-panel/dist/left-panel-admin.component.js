@@ -52,11 +52,28 @@ var LeftPanelAdminComponent = /** @class */ (function () {
                 icon: 'fas fa-users-cog',
                 url: '/admin/approvalsetup'
             },
+            // {
+            //   name: 'Approve Users',
+            //   icon: 'fas fa-user-check',
+            //   url: '/admin/approveusers',
+            // },
             {
                 name: 'Profile',
-                icon: 'fas fa-user',
-                url: '/admin/profile'
-            }
+                icon: 'fas fa-user-cog',
+                url: '/admin/adminprofile',
+                subMenu: [
+                    {
+                        name: 'Personal Info',
+                        icon: 'fas fa-user',
+                        url: '/admin/adminprofile/personalprofile'
+                    },
+                    {
+                        name: 'Set PIN',
+                        icon: 'fas fa-lock',
+                        url: '/admin/adminprofile/setpassword'
+                    },
+                ]
+            },
         ];
     };
     __decorate([

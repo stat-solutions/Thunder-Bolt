@@ -413,7 +413,7 @@
                 class="text-danger col"
                 *ngIf="
                   (fval.companyEmail1.touched || fval.companyEmail1.dirty) &&
-                  fval.companyEmail1.errors?.companyEmail1
+                  fval.companyEmail1.errors?.pattern
                 "
               >
                 Please enter valid email address!
@@ -463,7 +463,7 @@
                 class="text-danger col"
                 *ngIf="
                   (fval.companyEmail2.touched || fval.companyEmail2.dirty) &&
-                  fval.companyEmail2.errors?.companyEmail2
+                  fval.companyEmail2.errors?.pattern
                 "
               >
                 Please enter valid email address!
@@ -619,51 +619,6 @@
                 "
               >
                 The company box number is required!
-              </div>
-
-              <div
-                class="col"
-                *ngIf="
-                  (fval.companyBoxNumber.touched || fval.companyBoxNumber.dirty) &&
-                  fval.companyBoxNumber.invalid
-                "
-                [ngClass]="
-                  fval.companyBoxNumber.errors?.required ||
-                  fval.companyBoxNumber.errors?.minlength ||
-                  fval.companyBoxNumber.errors?.maxlength
-                    ? 'text-danger'
-                    : 'text-info'
-                "
-              >
-                <i class="material-icons">{{
-                  fval.companyBoxNumber.errors?.required ||
-                  fval.companyBoxNumber.errors?.minlength ||
-                  fval.companyBoxNumber.errors?.maxlength
-                    ? "cancel"
-                    : "check_circle"
-                }}</i>
-                Company box number should have atleast 1 and a maximum of 7 digits!
-              </div>
-              <div
-                class="col"
-                *ngIf="
-                  (fval.companyBoxNumber.touched || fval.companyBoxNumber.dirty) &&
-                  fval.companyBoxNumber.invalid
-                "
-                [ngClass]="
-                  fval.companyBoxNumber.hasError('required') ||
-                  fval.companyBoxNumber.hasError('hasNumber')
-                    ? 'text-danger'
-                    : 'text-info'
-                "
-              >
-                <i class="material-icons">{{
-                  fval.companyBoxNumber.hasError("required") ||
-                  fval.companyBoxNumber.hasError("hasNumber")
-                    ? "cancel"
-                    : "check_circle"
-                }}</i>
-                Only digits are allowed!
               </div>
             </div>
           </div>

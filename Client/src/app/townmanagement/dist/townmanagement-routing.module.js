@@ -178,6 +178,11 @@ var routes = [
                     }
                 ]
             },
+            //           {
+            //             path: 'approveusers',
+            //             component: ApproveTownUsersComponent
+            //           }
+            // ,
             {
                 path: 'profile',
                 component: profile_component_1.ProfileComponent,

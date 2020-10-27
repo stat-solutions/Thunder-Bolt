@@ -71,11 +71,11 @@ export class LeftPanelAdminComponent implements OnInit {
         icon: 'fas fa-users-cog',
         url: '/admin/approvalsetup',
       },
-      {
-        name: 'Approve Users',
-        icon: 'fas fa-user-check',
-        url: '/admin/approveusers',
-      },
+      // {
+      //   name: 'Approve Users',
+      //   icon: 'fas fa-user-check',
+      //   url: '/admin/approveusers',
+      // },
       {
         name: 'Profile',
         icon: 'fas fa-user-cog',

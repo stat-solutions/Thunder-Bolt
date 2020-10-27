@@ -11,11 +11,14 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
 var CompanySetupComponent = /** @class */ (function () {
-    function CompanySetupComponent(others, spinner, router, alertService) {
+    // companyInfo: CompanyInfo;
+    // User = this.authService.loggedInUserInfo();
+    function CompanySetupComponent(others, spinner, router, alertService, authService) {
         this.others = others;
         this.spinner = spinner;
         this.router = router;
         this.alertService = alertService;
+        this.authService = authService;
         this.companyCreated = false;
         this.submitted = false;
         this.errored = false;
@@ -30,17 +33,15 @@ var CompanySetupComponent = /** @class */ (function () {
     CompanySetupComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
             companyName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            companyEmail1: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            companyEmail2: new forms_1.FormControl('', forms_1.Validators.compose([])),
+            companyEmail1: new forms_1.FormControl('', forms_1.Validators.compose([
+                forms_1.Validators.required,
+                forms_1.Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+            ])),
+            companyEmail2: new forms_1.FormControl('', forms_1.Validators.compose([
+                forms_1.Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+            ])),
             companyBoxNumber: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
-                // 2. check whether the entered box number has a number
-                custom_validator_1.CustomValidator.patternValidator(/^([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])$/, {
-                    hasNumber: true
-                }),
-                // 6. Has a length of exactly 4 digits
-                forms_1.Validators.minLength(4),
-                forms_1.Validators.maxLength(7),
             ])),
             companyCityLocation: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             companyCountryLocation: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
@@ -55,11 +56,14 @@ var CompanySetupComponent = /** @class */ (function () {
             companyPhoneContact2: new forms_1.FormControl('', forms_1.Validators.compose([
                 custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true })
             ])),
-            companyLogo: new forms_1.FormControl('', forms_1.Validators.compose([
-                forms_1.Validators.required
-            ])),
+            // companyLogo: new FormControl(
+            //   '',
+            //   Validators.compose([
+            //     Validators.required
+            //   ])
+            // ),
             companyStreetName: new forms_1.FormControl('', forms_1.Validators.compose([
-                forms_1.Validators.required
+            // Validators.required
             ]))
         });
     };
@@ -92,15 +96,25 @@ var CompanySetupComponent = /** @class */ (function () {
         return this.companyForm.enable();
     };
     CompanySetupComponent.prototype.setCompanyValues = function () {
-        // this.others.getCompanyInfo().subscribe(
-        //   item => {
-        //     this.companyInfo = item;
-        //     this.companyForm.get('companyName').setValue('thunder Bolt');
-        //   },
-        //   (error: string) => {
-        //     //
-        //   }
-        // );
+        var _this = this;
+        this.others.getCompanyInfo().subscribe(function (item) {
+            _this.companyCreated = true;
+            // this.companyInfo = item;
+            _this.fval.companyName.setValue(item.companyName);
+            _this.fval.companyBoxNumber.setValue(item.companyBoxNumber);
+            _this.fval.companyCityLocation.setValue(item.companyCityLocation);
+            _this.fval.companyCountryLocation.setValue(item.companyCountryLocation);
+            _this.fval.companyRegionLocation.setValue(item.companyRegionLocation);
+            _this.fval.companyOfficeFloor.setValue(item.companyOfficeFloor);
+            _this.fval.companyPlotNumber.setValue(item.companyPlotNumber);
+            _this.fval.companyStreetBuilding.setValue(item.companyStreetBuilding);
+            _this.fval.companyEmail1.setValue(item.companyEmail1);
+            _this.fval.companyEmail2.setValue(item.companyEmail2);
+            _this.fval.companyPhoneContact1.setValue(item.companyPhoneContact1);
+            _this.fval.companyPhoneContact2.setValue(item.companyPhoneContact2);
+        }, function (error) {
+            //
+        });
     };
     CompanySetupComponent.prototype.createCompany = function () {
         var _this = this;
@@ -111,28 +125,45 @@ var CompanySetupComponent = /** @class */ (function () {
         }
         else {
             // have to edit
-            this.others.createCompany(this.companyForm).subscribe(function () {
+            var companyDetails = {
+                companyName: this.fval.companyName.value.toUpperCase(),
+                companyBoxNumber: this.fval.companyBoxNumber.value.toUpperCase(),
+                companyCityLocation: this.fval.companyCityLocation.value.toUpperCase(),
+                companyCountryLocation: this.fval.companyCountryLocation.value.toUpperCase(),
+                companyRegionLocation: this.fval.companyRegionLocation.value.toUpperCase(),
+                companyOfficeFloor: this.fval.companyOfficeFloor.value.toUpperCase(),
+                companyPlotNumber: this.fval.companyPlotNumber.value.toUpperCase(),
+                companyStreetBuilding: this.fval.companyStreetBuilding.value.toUpperCase(),
+                companyEmail1: this.fval.companyEmail1.value,
+                companyEmail2: this.fval.companyEmail2.value,
+                companyPhoneContact1: this.fval.companyPhoneContact1.value,
+                companyPhoneContact2: this.fval.companyPhoneContact2.value,
+                userId: 8899999
+            };
+            console.log(companyDetails);
+            this.others.createCompany(companyDetails).subscribe(function () {
                 _this.posted = true;
                 _this.spinner.hide();
                 _this.alertService.success({
                     html: '<b>User Company setup was Successful</b>' +
                         '</br>'
                 });
-                setTimeout(function () {
-                    _this.router.navigate(['admin/dashboard']);
-                }, 3000);
+                // setTimeout(() => {
+                //   this.router.navigate(['admin/dashboard']);
+                // }, 3000);
             }, function (error) {
                 _this.spinner.hide();
                 _this.serviceErrors = error;
                 _this.alertService.danger({
                     html: '<b>' + _this.serviceErrors + '</b>' + '<br/>'
                 });
-                setTimeout(function () {
-                    location.reload();
-                }, 3000);
+                // setTimeout(() => {
+                //         location.reload();
+                //       }, 3000);
                 console.log(error);
                 _this.spinner.hide();
             });
+            this.spinner.hide();
             this.companyCreated = true;
         }
     };

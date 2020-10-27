@@ -10,9 +10,6 @@ exports.RegistrationComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
-// import { UserRole } from 'src/app/models/user-role';
-// import { CompanyPetroStations } from 'src/app/models/company-petro-stations';
-// import { TheStations } from 'src/app/models/the-stations';
 var RegistrationComponent = /** @class */ (function () {
     function RegistrationComponent(authService, spinner, router, alertService, fb) {
         this.authService = authService;
@@ -58,10 +55,9 @@ var RegistrationComponent = /** @class */ (function () {
         ];
     }
     RegistrationComponent.prototype.ngOnInit = function () {
-        this.myDateValue = new Date();
+        this.getRoles();
         this.userForm = this.createFormGroup();
-        localStorage.setItem('towns', JSON.stringify(this.towns));
-        localStorage.setItem('stations', JSON.stringify(this.stations));
+        this.myDateValue = new Date();
     };
     RegistrationComponent.prototype.createFormGroup = function () {
         return this.fb.group({
@@ -133,6 +129,19 @@ var RegistrationComponent = /** @class */ (function () {
             _this.router.navigate(['authpage/loginpage']);
         }, 2000);
     };
+    RegistrationComponent.prototype.getRoles = function () {
+        var _this = this;
+        this.authService.getRoles().subscribe(function (x) {
+            _this.roles = x;
+            // tslint:disable-next-line: only-arrow-functions
+            _this.roles = _this.roles.map(function (role) {
+                return {
+                    accessRightsId: role.accessRightsId,
+                    roleName: role.roleName.replace(/_/g, ' ')
+                };
+            });
+        });
+    };
     RegistrationComponent.prototype.register = function () {
         var _this = this;
         this.submitted = true;
@@ -140,22 +149,65 @@ var RegistrationComponent = /** @class */ (function () {
         if (this.userForm.invalid === true) {
             return;
         }
+        else if (this.fval.position.value === 'AREA MANAGER' && this.fval.area === '') {
+            this.alertService.success({
+                html: '<b>Area was not selected</b>'
+            });
+            return;
+        }
+        else if (this.fval.position.value === 'TOWN MANAGER' && this.fval.town === '') {
+            this.alertService.success({
+                html: '<b>Town was not selected</b>'
+            });
+            return;
+        }
+        else if ((this.fval.position.value === 'STATION MANAGER'
+            || this.fval.position.value === 'STATION MANAGER')
+            && this.fval.station === '') {
+            this.alertService.success({
+                html: '<b>Station was not selected</b>'
+            });
+            return;
+        }
         else {
-            if (this.fval.position.value === 'stationOfficer'
-                && this.fval.station.value === ''
-                && this.fval.town.value === ''
-                && this.fval.area.value === '') {
-                this.alertService.danger({
-                    html: '<b>Please choose area, town and station</b>'
-                });
+            var selectedRole_1;
+            var selectedLocation = void 0;
+            this.roles.forEach(function (role) {
+                if (_this.fval.position.value === role.roleName) {
+                    selectedRole_1 = role.accessRightsId;
+                }
+            });
+            if (this.fval.position.value === 'AREA MANAGER') {
+                selectedLocation = this.fval.area.value;
             }
-            this.authService.registerUser(this.userForm).subscribe(function () {
+            else if (this.fval.position.value === 'TOWN MANAGER') {
+                selectedLocation = this.fval.town.value;
+            }
+            else if (this.fval.position.value === 'STATION MANAGER' || this.fval.position.value === 'STATION OFFICER') {
+                selectedLocation = this.fval.station.value;
+            }
+            else {
+                selectedLocation = '';
+            }
+            this.registerUser = {
+                userName: this.fval.full_name.value,
+                userEmail1: this.fval.email.value,
+                userPhone1: "" + this.fval.user_contact_number.value,
+                userIdType: this.fval.id_type.value,
+                userIdNumber: "" + this.fval.id_number.value,
+                userDateOfBirth: this.fval.date_of_birth.value.getFullYear() + "-" + (this.fval.date_of_birth.value.getMonth() + 1) + "-" + this.fval.date_of_birth.value.getDate(),
+                userPassword: Number(this.fval.password.value),
+                fkAccessRightsIdUser: selectedRole_1,
+                userLocation: selectedLocation
+            };
+            // console.log(this.registerUser);
+            this.authService.registerUser(this.registerUser).subscribe(function () {
                 _this.posted = true;
                 _this.spinner.hide();
                 _this.alertService.success({
                     html: '<b>User Registration Was Successful</b>' +
                         '</br>' +
-                        'Your Can Login'
+                        'Wait for verification'
                 });
                 setTimeout(function () {
                     _this.router.navigate(['authpage/login']);
@@ -168,10 +220,11 @@ var RegistrationComponent = /** @class */ (function () {
                     html: '<b>' + _this.serviceErrors + '</b>' + '<br/>'
                 });
                 setTimeout(function () {
-                    location.reload();
-                }, 3000);
+                    // location.reload();
+                }, 5000);
                 console.log(error);
             });
+            this.spinner.hide();
             this.registered = true;
         }
     };
