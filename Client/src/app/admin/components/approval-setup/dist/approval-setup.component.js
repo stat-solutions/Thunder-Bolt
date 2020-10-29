@@ -36,6 +36,7 @@ var ApprovalSetupComponent = /** @class */ (function () {
         get: function () {
             return this.fb.group({
                 name: this.fb.control({ value: '' }),
+                id: this.fb.control({ value: '' }),
                 firstApproval: this.fb.control({ value: '' }),
                 secondApproval: this.fb.control({ value: '' }),
                 thirdApproval: this.fb.control({ value: '' }),
@@ -69,11 +70,12 @@ var ApprovalSetupComponent = /** @class */ (function () {
                 });
                 // console.log(this.approvals);
                 _this.approvals.forEach(function (item, i) {
-                    _this.fval.approvalItems.controls[i].controls.name.setValue(item.itemName);
+                    _this.fval.approvalItems.controls[i].controls.name.setValue(item.itemName.replace(/_/g, ' '));
+                    _this.fval.approvalItems.controls[i].controls.id.setValue(item.itemRequiringApprovalId);
                     _this.fval.approvalItems.controls[i].controls.level.setValue(item.approvalLevel);
-                    _this.fval.approvalItems.controls[i].controls.firstApproval.setValue(item.firstApprovalBy);
-                    _this.fval.approvalItems.controls[i].controls.secondApproval.setValue(item.secondApprovalBy);
-                    _this.fval.approvalItems.controls[i].controls.thirdApproval.setValue(item.thirdApprovalBy);
+                    _this.fval.approvalItems.controls[i].controls.firstApproval.setValue(item.firstApprovalBy === 1 ? 'TOWN' : item.firstApprovalBy === 2 ? 'AREA' : 'CENTRAL');
+                    _this.fval.approvalItems.controls[i].controls.secondApproval.setValue(item.secondApprovalBy === 1 ? 'TOWN' : item.secondApprovalBy === 2 ? 'AREA' : 'CENTRAL');
+                    _this.fval.approvalItems.controls[i].controls.thirdApproval.setValue(item.thirdApprovalBy === 1 ? 'TOWN' : item.thirdApprovalBy === 2 ? 'AREA' : 'CENTRAL');
                     _this.addItem();
                     n = i + 1;
                 });
@@ -81,8 +83,6 @@ var ApprovalSetupComponent = /** @class */ (function () {
                 _this.disableForms();
             }, function (error) { return console.log(error); });
         }, function (err) { return console.log(err); });
-        // }
-        // )
     };
     ApprovalSetupComponent.prototype.revert = function () {
         this.approvalForm.reset();
@@ -120,6 +120,21 @@ var ApprovalSetupComponent = /** @class */ (function () {
         if (this.fval.approvalItems.controls[index]) {
             this.fval.approvalItems.controls[index].disable();
             this.showLevels = null;
+            var levels = this.fval.approvalItems.controls[index].controls.level.value;
+            var fist = this.fval.approvalItems.controls[index].controls.firstApproval.value;
+            var second = this.fval.approvalItems.controls[index].controls.secondApproval.value;
+            var third = this.fval.approvalItems.controls[index].controls.thirdApproval.value;
+            var data = {
+                itemRequiringApprovalId: this.fval.approvalItems.controls[index].controls.id.value,
+                approvalLevel: levels,
+                firstApprovalBy: levels === 0 ? 0 : fist === 'TOWN' ? 1 : fist === 'AREA' ? 2 : 3,
+                secondApprovalBy: levels === 0 ? 0 : levels === 1 ? 0 : second === 'TOWN' ? 1 : second === 'AREA' ? 2 : 3,
+                thirdApprovalBy: levels === 0 ? 0 : levels === 1 ? 0 : levels === 2 ? 0 : third === 'TOWN' ? 1 : third === 'AREA' ? 2 : 3
+            };
+            // console.log(data);
+            this.others.setApprovalLevel(data).subscribe(function (res) {
+                // console.log(res);
+            }, function (err) { return console.log(err); });
         }
         else {
             return;

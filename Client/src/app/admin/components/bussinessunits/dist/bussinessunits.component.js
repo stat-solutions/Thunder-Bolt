@@ -10,6 +10,8 @@ exports.BussinessunitsComponent = void 0;
 var core_1 = require("@angular/core");
 // import * as jwt_decode from 'jwt-decode';
 var forms_1 = require("@angular/forms");
+// import { BsModalService } from 'ngx-bootstrap/modal';
+// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 var BussinessunitsComponent = /** @class */ (function () {
     function BussinessunitsComponent(others, authService, router, spinner, alertService, fb) {
         this.others = others;
@@ -19,14 +21,10 @@ var BussinessunitsComponent = /** @class */ (function () {
         this.alertService = alertService;
         this.fb = fb;
         this.User = this.authService.loggedInUserInfo();
-        this.bussinessUnits = [
-            { unitName: 'fuel busiinesss', unitId: 102 },
-        ];
     }
     BussinessunitsComponent.prototype.ngOnInit = function () {
         this.unitForm = this.createFormGroup();
         this.initialiseForm();
-        this.disableForms();
     };
     BussinessunitsComponent.prototype.createFormGroup = function () {
         return this.fb.group({
@@ -37,6 +35,7 @@ var BussinessunitsComponent = /** @class */ (function () {
     Object.defineProperty(BussinessunitsComponent.prototype, "unit", {
         get: function () {
             return this.fb.group({
+                unitId: this.fb.control({ value: '' }),
                 unitName: this.fb.control({ value: '' }, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(6)]))
             });
         },
@@ -53,17 +52,18 @@ var BussinessunitsComponent = /** @class */ (function () {
     BussinessunitsComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        // this.others.getBussinessUnits().subscribe(
-        // units => {
-        // this.bussinessUnits = units;
-        this.bussinessUnits.forEach(function (item, i) {
-            _this.fval.bussinessUnits.controls[i].controls.unitName.setValue(item.unitName);
-            _this.addUnit();
-            n = i + 1;
-        });
-        this.removeUnit(n);
-        // }
-        // )
+        this.others.getBussinessUnits().subscribe(function (units) {
+            _this.bussinessUnits = units;
+            _this.bussinessUnits.forEach(function (item, i) {
+                // console.log(item);
+                _this.fval.bussinessUnits.controls[i].controls.unitId.setValue(item.businnessUnitId);
+                _this.fval.bussinessUnits.controls[i].controls.unitName.setValue(item.bussinessUnitName);
+                _this.addUnit();
+                n = i + 1;
+            });
+            _this.removeUnit(n);
+            _this.disableForms();
+        }, function (err) { return console.log(err); });
     };
     BussinessunitsComponent.prototype.revert = function () {
         this.unitForm.reset();
@@ -95,6 +95,7 @@ var BussinessunitsComponent = /** @class */ (function () {
         });
     };
     BussinessunitsComponent.prototype.createUnit = function () {
+        var _this = this;
         var data = {
             bussinessUnitName: this.fval.bussinessUnitName.value.toUpperCase(),
             userId: this.User.userId
@@ -102,6 +103,7 @@ var BussinessunitsComponent = /** @class */ (function () {
         console.log(data);
         this.others.setBussinessUnits(data).subscribe(function (res) {
             // console.log(res);
+            _this.refresh();
         }, function (error) {
             //
         });
@@ -113,18 +115,14 @@ var BussinessunitsComponent = /** @class */ (function () {
     BussinessunitsComponent.prototype.saveUnit = function (index) {
         this.fval.bussinessUnits.controls[index].disable();
         var data = {
+            businnessUnitId: this.fval.bussinessUnits.controls[index].controls.unitId.value,
             bussinessUnitName: this.fval.bussinessUnits.controls[index].controls.unitName.value.toUpperCase(),
             userId: this.User.userId
         };
-        console.log(data);
-        // this.others.setBussinessUnits(data).subscribe(
-        //   res => {
-        // console.log(res);
-        //   },
-        //   error => {
-        //     //
-        //   }
-        // );
+        // console.log(data);
+        this.others.editBussinessUnits(data).subscribe(function (res) {
+            // console.log(res);
+        }, function (error) { return console.log(error); });
     };
     BussinessunitsComponent = __decorate([
         core_1.Component({

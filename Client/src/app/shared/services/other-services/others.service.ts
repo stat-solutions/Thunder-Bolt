@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { HttpHeaders, HttpErrorResponse, HttpClient, HttpParams, HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Approvals } from 'src/app/admin/components/approval-setup/approval-setup.component';
-import { BussinessUnits } from 'src/app/admin/components/bussinessunits/bussinessunits.component';
 import { CompanyInfo } from '../../models/company';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
@@ -17,8 +16,6 @@ import { AreaInfo } from '../../models/area-ifo';
 import { TownInfo } from '../../models/town-info';
 import { StationInfo } from '../../models/station-info';
 import { Client } from '../../models/client';
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -59,6 +56,27 @@ export class OthersService {
           catchError(this.OtherErrors)
         ) as Observable<CompanyInfo>;
   }
+  // approvals and business unit
+  getApprovalLevelsCreate(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/adminUser/itemsRequiringApprovalCreate`);
+  }
+  getApprovalLevelsUpdate(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/adminUser/itemsRequiringApprovalUpdate`);
+  }
+  setApprovalLevel(postData: any): any {
+    return this.http.post(`${this.API_URL}/api/adminUser/putItemsRequiringApprovalCreate`, postData, this.httpOptions);
+  }
+
+  getBussinessUnits(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/adminUser/getAllBusinessUnits`);
+  }
+  setBussinessUnits(postData: any): any {
+    return this.http.post(`${this.API_URL}/api/adminUser/postBusinessUnit`, postData, this.httpOptions);
+  }
+  editBussinessUnits(postData: any): any {
+    return this.http.post(`${this.API_URL}/api/adminUser/putTheBusinessUnit`, postData, this.httpOptions);
+  }
+
 // users and set user profile
   getUsers(): Observable<UserInfo> {
     return this.http.get<UserInfo>(`${this.API_URL}/api/business/users`);
@@ -82,24 +100,6 @@ export class OthersService {
   getTopStations(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/business/topstations`);
   }
-
-// approvals and business unit
-    getApprovalLevelsCreate(): Observable<any> {
-      return this.http.get<any>(`${this.API_URL}/api/adminUser/itemsRequiringApprovalCreate`);
-    }
-    getApprovalLevelsUpdate(): Observable<any> {
-      return this.http.get<any>(`${this.API_URL}/api/adminUser/itemsRequiringApprovalUpdate`);
-    }
-    setApprovalLevel(postData: FormGroup): any {
-      return this.http.post(`${this.API_URL}/`, postData.value, this.httpOptions);
-    }
-
-    getBussinessUnits(): Observable<BussinessUnits[]> {
-      return this.http.get<BussinessUnits[]>(`${this.API_URL}/api/business/bussinessunits`);
-    }
-    setBussinessUnits(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/adminUser/setupBusinessUnit`, postData, this.httpOptions);
-    }
 
 //  creating area town and station
     createArea(postData: string): any {

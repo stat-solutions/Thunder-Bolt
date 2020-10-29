@@ -6,7 +6,6 @@ import { CompanyInfo } from 'src/app/shared/models/company';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 import { Approvals } from '../approval-setup/approval-setup.component';
-import { BussinessUnits } from '../bussinessunits/bussinessunits.component';
 
 export interface CompanyCreated {
   created: boolean;
@@ -25,17 +24,9 @@ export interface BussinessUnitCreated {
 export class DashboardComponent implements OnInit {
   sideBarChanged = true;
   company: CompanyCreated = {created: false};
-  bussinessUnits: BussinessUnits[] = [
-    {unitName: 'Fuel Bussiness', unitId: 104},
-    {unitName: 'Hospital Bussiness', unitId: 120},
-  ];
+  bussinessUnits: any;
   Company: CompanyInfo;
-  approvals: Approvals[] = [
-    {name: 'Area Creation', level: 3},
-    {name: 'Town Creation', level: 1},
-    {name: 'Stage Creation', level: 2},
-    {name: 'Station Creation', level: 4},
-  ];
+  approvals: any;
   companyInfo: CompanyInfo;
   showInput =  false;
   downloadURL: any;
@@ -52,6 +43,32 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.toggleSideBar();
     this.setCompanyDetails();
+    this.others.getBussinessUnits().subscribe(
+      units => this.bussinessUnits = units,
+      err => console.log(err)
+    );
+    this.others.getApprovalLevelsCreate().subscribe(
+      res => {
+        this.approvals = res;
+        this.others.getApprovalLevelsUpdate().subscribe(
+          response => {
+            // console.log(response);
+            response.forEach((itm, index) => {
+              this.approvals.push(itm);
+            });
+            // tslint:disable-next-line: only-arrow-functions
+            this.approvals = this.approvals.map( function(x: any): any {
+              return {
+                itemName: x.itemName.replace(/_/g, ' '),
+                approvalLevel: x.approvalLevel,
+              };
+            });
+          },
+          error => console.log(error)
+        );
+      },
+      err => console.log(err)
+    );
   }
 
   toggleSideBar(): any {

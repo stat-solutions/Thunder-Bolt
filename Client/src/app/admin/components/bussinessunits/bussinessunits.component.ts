@@ -9,11 +9,6 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-export interface BussinessUnits {
-  unitName: string;
-  unitId: number;
-}
-
 @Component({
   selector: 'app-bussinessunits',
   templateUrl: './bussinessunits.component.html',
@@ -22,13 +17,8 @@ export interface BussinessUnits {
 export class BussinessunitsComponent implements OnInit {
   unitForm: FormGroup;
   User = this.authService.loggedInUserInfo();
-  bussinessUnits: BussinessUnits[] =
-  [
-    { unitName: 'fuel busiinesss', unitId: 102 },
-    // { unitName: 'hospital busiinesss' },
-    // { unitName: 'fuel busiinesss' },
-    // { unitName: 'hospital busiinesss' },
-  ];
+  bussinessUnits: any;
+
   constructor(
     private others: OthersService,
     private authService: AuthServiceService,
@@ -40,7 +30,6 @@ export class BussinessunitsComponent implements OnInit {
   ngOnInit(): void {
     this.unitForm = this.createFormGroup();
     this.initialiseForm();
-    this.disableForms();
   }
 
   createFormGroup(): any {
@@ -55,6 +44,7 @@ export class BussinessunitsComponent implements OnInit {
 
   get unit(): any {
     return this.fb.group({
+      unitId: this.fb.control({ value: '' }),
       unitName: this.fb.control(
         { value: '' },
         Validators.compose([Validators.required, Validators.minLength(6)])
@@ -72,20 +62,21 @@ export class BussinessunitsComponent implements OnInit {
 
   initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    // units => {
-    // this.bussinessUnits = units;
+    this.others.getBussinessUnits().subscribe(
+    units => {
+    this.bussinessUnits = units;
     this.bussinessUnits.forEach((item, i) => {
-    this.fval.bussinessUnits.controls[i].controls.unitName.setValue(
-        item.unitName
-    );
+    // console.log(item);
+    this.fval.bussinessUnits.controls[i].controls.unitId.setValue(item.businnessUnitId);
+    this.fval.bussinessUnits.controls[i].controls.unitName.setValue(item.bussinessUnitName);
     this.addUnit();
     n = i + 1;
     });
     this.removeUnit(n);
-    // }
-    // )
-
+    this.disableForms();
+  },
+    err => console.log(err)
+    );
   }
   revert(): any {
     this.unitForm.reset();
@@ -124,6 +115,7 @@ export class BussinessunitsComponent implements OnInit {
     this.others.setBussinessUnits(data).subscribe(
       res => {
         // console.log(res);
+        this.refresh();
       },
       error => {
         //
@@ -139,17 +131,16 @@ export class BussinessunitsComponent implements OnInit {
   saveUnit(index: number): any {
     this.fval.bussinessUnits.controls[index].disable();
     const data = {
+      businnessUnitId: this.fval.bussinessUnits.controls[index].controls.unitId.value,
       bussinessUnitName: this.fval.bussinessUnits.controls[index].controls.unitName.value.toUpperCase(),
       userId: this.User.userId
     };
-    console.log(data);
-    // this.others.setBussinessUnits(data).subscribe(
-    //   res => {
+    // console.log(data);
+    this.others.editBussinessUnits(data).subscribe(
+      res => {
         // console.log(res);
-    //   },
-    //   error => {
-    //     //
-    //   }
-    // );
+      },
+      error => console.log(error)
+    );
   }
 }

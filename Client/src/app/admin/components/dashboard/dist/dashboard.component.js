@@ -17,22 +17,30 @@ var DashboardComponent = /** @class */ (function () {
         this.storage = storage;
         this.sideBarChanged = true;
         this.company = { created: false };
-        this.bussinessUnits = [
-            { unitName: 'Fuel Bussiness', unitId: 104 },
-            { unitName: 'Hospital Bussiness', unitId: 120 },
-        ];
-        this.approvals = [
-            { name: 'Area Creation', level: 3 },
-            { name: 'Town Creation', level: 1 },
-            { name: 'Stage Creation', level: 2 },
-            { name: 'Station Creation', level: 4 },
-        ];
         this.showInput = false;
         this.User = this.authService.loggedInUserInfo();
     }
     DashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.toggleSideBar();
         this.setCompanyDetails();
+        this.others.getBussinessUnits().subscribe(function (units) { return _this.bussinessUnits = units; }, function (err) { return console.log(err); });
+        this.others.getApprovalLevelsCreate().subscribe(function (res) {
+            _this.approvals = res;
+            _this.others.getApprovalLevelsUpdate().subscribe(function (response) {
+                // console.log(response);
+                response.forEach(function (itm, index) {
+                    _this.approvals.push(itm);
+                });
+                // tslint:disable-next-line: only-arrow-functions
+                _this.approvals = _this.approvals.map(function (x) {
+                    return {
+                        itemName: x.itemName.replace(/_/g, ' '),
+                        approvalLevel: x.approvalLevel
+                    };
+                });
+            }, function (error) { return console.log(error); });
+        }, function (err) { return console.log(err); });
     };
     DashboardComponent.prototype.toggleSideBar = function () {
         this.sideBarChanged = !this.sideBarChanged;
