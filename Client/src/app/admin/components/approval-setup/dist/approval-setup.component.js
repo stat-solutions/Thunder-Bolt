@@ -11,6 +11,10 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
 var ApprovalSetupComponent = /** @class */ (function () {
+    // [
+    // { name: 'Area Creation', level: 3 },
+    // { name: 'Town Creation', level: 1 },
+    // ];
     function ApprovalSetupComponent(others, router, spinner, alertService, fb) {
         this.others = others;
         this.router = router;
@@ -18,39 +22,10 @@ var ApprovalSetupComponent = /** @class */ (function () {
         this.alertService = alertService;
         this.fb = fb;
         this.posted = false;
-        this.approvals = [
-            { name: 'Area Creation', level: 3 },
-            { name: 'Town Creation', level: 1 },
-            { name: 'Stage Creation', level: 2 },
-            { name: 'Station Creation', level: 2 },
-            { name: 'Town Creation', level: 1 },
-            { name: 'Stage Creation', level: 2 },
-            { name: 'Station Creation', level: 1 },
-            { name: 'Town Creation', level: 1 },
-            { name: 'Stage Creation', level: 2 },
-            { name: 'Station Creation', level: 3 },
-            { name: 'Town Creation', level: 1 },
-            { name: 'Stage Creation', level: 2 },
-            { name: 'Station Creation', level: 0 },
-            { name: 'Town Creation', level: 1 },
-            { name: 'Stage Creation', level: 2 },
-            { name: 'Station Creation', level: 0 },
-            { name: 'Town Creation', level: 1 },
-            { name: 'Stage Creation', level: 2 },
-            { name: 'Station Creation', level: 0 },
-            { name: 'Town Creation', level: 1 },
-            { name: 'Stage Creation', level: 2 },
-            { name: 'Station Creation', level: 1 },
-            { name: 'Town Creation', level: 1 },
-            { name: 'Stage Creation', level: 2 },
-            { name: 'Station Creation', level: 2 },
-            { name: 'Station Creation', level: 3 },
-        ];
     }
     ApprovalSetupComponent.prototype.ngOnInit = function () {
         this.approvalForm = this.createFormGroup();
         this.initialiseForm();
-        this.disableForms();
     };
     ApprovalSetupComponent.prototype.createFormGroup = function () {
         return this.fb.group({
@@ -85,19 +60,27 @@ var ApprovalSetupComponent = /** @class */ (function () {
     ApprovalSetupComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        // this.others.getBussinessUnits().subscribe(
-        //   units => {
-        //     this.approvals = units;
-        this.approvals.forEach(function (item, i) {
-            // console.log(item.name);
-            // console.log(i);
-            _this.fval.approvalItems.controls[i].controls.name.setValue(item.name);
-            _this.fval.approvalItems.controls[i].controls.level.setValue(item.level);
-            _this.fval.approvalItems.controls[i].controls.firstApproval.setValue('Town');
-            _this.addItem();
-            n = i + 1;
-        });
-        this.removeItem(n);
+        this.others.getApprovalLevelsCreate().subscribe(function (res) {
+            _this.approvals = res;
+            _this.others.getApprovalLevelsUpdate().subscribe(function (response) {
+                // console.log(response);
+                response.forEach(function (itm, index) {
+                    _this.approvals.push(itm);
+                });
+                // console.log(this.approvals);
+                _this.approvals.forEach(function (item, i) {
+                    _this.fval.approvalItems.controls[i].controls.name.setValue(item.itemName);
+                    _this.fval.approvalItems.controls[i].controls.level.setValue(item.approvalLevel);
+                    _this.fval.approvalItems.controls[i].controls.firstApproval.setValue(item.firstApprovalBy);
+                    _this.fval.approvalItems.controls[i].controls.secondApproval.setValue(item.secondApprovalBy);
+                    _this.fval.approvalItems.controls[i].controls.thirdApproval.setValue(item.thirdApprovalBy);
+                    _this.addItem();
+                    n = i + 1;
+                });
+                _this.removeItem(n);
+                _this.disableForms();
+            }, function (error) { return console.log(error); });
+        }, function (err) { return console.log(err); });
         // }
         // )
     };
@@ -119,6 +102,7 @@ var ApprovalSetupComponent = /** @class */ (function () {
     });
     ApprovalSetupComponent.prototype.disableForms = function () {
         var _this = this;
+        // console.log(this.approvals);
         this.approvals.forEach(function (itm, i) {
             _this.fval.approvalItems.controls[i].disable();
         });

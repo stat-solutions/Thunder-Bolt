@@ -50,3 +50,6 @@ Thumbs.db
 /Client/.env
 .env
 Client/.env
+
+Client/environment/environment.ts
+Client/firebase-messaging-sw.js

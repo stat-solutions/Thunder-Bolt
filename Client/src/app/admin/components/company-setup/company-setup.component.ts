@@ -26,7 +26,7 @@ export class CompanySetupComponent implements OnInit {
   mySubscription: any;
   myDateValue: Date;
   // companyInfo: CompanyInfo;
-  // User = this.authService.loggedInUserInfo();
+  User = this.authService.loggedInUserInfo();
   constructor(
     private others: OthersService,
     private spinner: NgxSpinnerService,
@@ -168,20 +168,21 @@ export class CompanySetupComponent implements OnInit {
 
       this.others.getCompanyInfo().subscribe(
         item => {
-          this.companyCreated = true;
-          // this.companyInfo = item;
-          this.fval.companyName.setValue(item.companyName);
-          this.fval.companyBoxNumber.setValue(item.companyBoxNumber);
-          this.fval.companyCityLocation.setValue(item.companyCityLocation);
-          this.fval.companyCountryLocation.setValue(item.companyCountryLocation);
-          this.fval.companyRegionLocation.setValue(item.companyRegionLocation);
-          this.fval.companyOfficeFloor.setValue(item.companyOfficeFloor);
-          this.fval.companyPlotNumber.setValue(item.companyPlotNumber);
-          this.fval.companyStreetBuilding.setValue(item.companyStreetBuilding);
-          this.fval.companyEmail1.setValue(item.companyEmail1);
-          this.fval.companyEmail2.setValue(item.companyEmail2);
-          this.fval.companyPhoneContact1.setValue(item.companyPhoneContact1);
-          this.fval.companyPhoneContact2.setValue(item.companyPhoneContact2);
+          // this.companyCreated = true;
+          console.log(item);
+          // this.companyForm.value = item[0];
+          this.fval.companyName.setValue(item[0].companyName);
+          this.fval.companyBoxNumber.setValue(item[0].companyBoxNumber);
+          this.fval.companyCityLocation.setValue(item[0].companyCityLocation);
+          this.fval.companyCountryLocation.setValue(item[0].companyCountryLocation);
+          this.fval.companyRegionLocation.setValue(item[0].companyRegionLocation);
+          this.fval.companyOfficeFloor.setValue(item[0].companyOfficeFloor);
+          this.fval.companyPlotNumber.setValue(item[0].companyPlotNumber);
+          this.fval.companyStreetBuilding.setValue(item[0].companyStreetBuilding);
+          this.fval.companyEmail1.setValue(item[0].companyEmail1);
+          this.fval.companyEmail2.setValue(item[0].companyEmail2);
+          this.fval.companyPhoneContact1.setValue(item[0].companyPhoneContact1);
+          this.fval.companyPhoneContact2.setValue(item[0].companyPhoneContact2);
         },
         (error: string) => {
           //
@@ -210,8 +211,7 @@ export class CompanySetupComponent implements OnInit {
         companyEmail2: this.fval.companyEmail2.value,
         companyPhoneContact1: this.fval.companyPhoneContact1.value,
         companyPhoneContact2: this.fval.companyPhoneContact2.value,
-        userId: 8899999,
-        // userId: this.User.userId,
+        userId: this.User.userId,
       };
       console.log(companyDetails);
       this.others.createCompany(companyDetails).subscribe(
@@ -224,10 +224,9 @@ export class CompanySetupComponent implements OnInit {
               '<b>User Company setup was Successful</b>' +
               '</br>'
           });
-
-          // setTimeout(() => {
-          //   this.router.navigate(['admin/dashboard']);
-          // }, 3000);
+          setTimeout(() => {
+            this.router.navigate(['admin/dashboard']);
+          }, 3000);
         },
 
         (error: string) => {

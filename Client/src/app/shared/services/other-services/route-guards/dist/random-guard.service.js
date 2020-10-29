@@ -10,21 +10,26 @@ exports.RandomGuard = void 0;
 var core_1 = require("@angular/core");
 // import * as jwt_decode from 'jwt-decode';
 var RandomGuard = /** @class */ (function () {
-    function RandomGuard(authService, router, jwtHelper) {
+    function RandomGuard(authService, router, jwtHelper, alertService) {
         this.authService = authService;
         this.router = router;
         this.jwtHelper = jwtHelper;
+        this.alertService = alertService;
     }
     RandomGuard.prototype.canActivateChild = function () {
-        // if (this.authService.isLoggedIn()) {
-        // if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())){
-        // if(this.jwtHelper.isTokenExpired(this.authService.getRefreshToken())){
-        // return false;
-        // } else {
-        // this.authService.refreshToken();
-        return true;
-        // }
-        // }
+        if (this.authService.isLoggedIn()) {
+            if (this.jwtHelper.isTokenExpired(this.authService.getJwtToken())) {
+                this.authService.refreshToken();
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            this.router.navigate(['/authpage/login']);
+            return false;
+        }
     };
     RandomGuard = __decorate([
         core_1.Injectable({
@@ -34,7 +39,3 @@ var RandomGuard = /** @class */ (function () {
     return RandomGuard;
 }());
 exports.RandomGuard = RandomGuard;
-{
-    this.router.navigate(['/authpage/login']);
-    return false;
-}

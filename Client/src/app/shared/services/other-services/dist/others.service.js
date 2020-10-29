@@ -71,6 +71,10 @@ var OthersService = /** @class */ (function () {
         return this.http.post(this.API_URL + "/api/adminUser/setUpCompany", postData, this.httpOptions)
             .pipe(operators_1.tap(function (res) { return console.log("AFTER MAP: " + res); }), operators_1.catchError(this.handleCompanySetupError));
     };
+    OthersService.prototype.updateCompanyLogo = function (postData) {
+        return this.http.post(this.API_URL + "/api/adminUser/updateCompanyLogo", postData, this.httpOptions)
+            .pipe(operators_1.tap(function (res) { return console.log("AFTER MAP: " + res); }));
+    };
     OthersService.prototype.getCompanyInfo = function () {
         return this.http.get(this.API_URL + "/api/adminUser/getTheCompanyDetails")
             .pipe(operators_1.catchError(this.OtherErrors));
@@ -99,11 +103,14 @@ var OthersService = /** @class */ (function () {
         return this.http.get(this.API_URL + "/api/business/topstations");
     };
     // approvals and business unit
-    OthersService.prototype.getApprovalLevels = function () {
-        return this.http.get(this.API_URL + "/api/business/approvalslevels");
+    OthersService.prototype.getApprovalLevelsCreate = function () {
+        return this.http.get(this.API_URL + "/api/adminUser/itemsRequiringApprovalCreate");
+    };
+    OthersService.prototype.getApprovalLevelsUpdate = function () {
+        return this.http.get(this.API_URL + "/api/adminUser/itemsRequiringApprovalUpdate");
     };
     OthersService.prototype.setApprovalLevel = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/setapprovallevel", postData.value, this.httpOptions);
+        return this.http.post(this.API_URL + "/", postData.value, this.httpOptions);
     };
     OthersService.prototype.getBussinessUnits = function () {
         return this.http.get(this.API_URL + "/api/business/bussinessunits");

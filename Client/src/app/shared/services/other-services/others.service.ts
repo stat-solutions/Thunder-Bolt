@@ -46,6 +46,13 @@ export class OthersService {
           catchError(this.handleCompanySetupError)
         );
     }
+    updateCompanyLogo(postData: any): Observable<any>{
+      return this.http.post<any>(`${this.API_URL}/api/adminUser/updateCompanyLogo`, postData, this.httpOptions)
+        .pipe(
+          tap(res => console.log(`AFTER MAP: ${res}`)),
+          // catchError(this.handleCompanySetupError)
+        );
+    }
     getCompanyInfo(): Observable<CompanyInfo> {
       return this.http.get<CompanyInfo>(`${this.API_URL}/api/adminUser/getTheCompanyDetails`)
           .pipe(
@@ -77,11 +84,14 @@ export class OthersService {
   }
 
 // approvals and business unit
-    getApprovalLevels(): Observable<Approvals[]> {
-      return this.http.get<Approvals[]>(`${this.API_URL}/api/business/approvalslevels`);
+    getApprovalLevelsCreate(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/adminUser/itemsRequiringApprovalCreate`);
+    }
+    getApprovalLevelsUpdate(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/adminUser/itemsRequiringApprovalUpdate`);
     }
     setApprovalLevel(postData: FormGroup): any {
-      return this.http.post(`${this.API_URL}/api/business/setapprovallevel`, postData.value, this.httpOptions);
+      return this.http.post(`${this.API_URL}/`, postData.value, this.httpOptions);
     }
 
     getBussinessUnits(): Observable<BussinessUnits[]> {

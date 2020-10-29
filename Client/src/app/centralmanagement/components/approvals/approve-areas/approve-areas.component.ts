@@ -23,24 +23,9 @@ export class ApproveAreasComponent implements OnInit {
   status: boolean;
   checkedOk: boolean;
   areaApproval: AreaApprovals[] = [
-    { area: 'central', status: 0 },
-    { area: 'Eastern', status: 0 },
-    { area: 'Western', status: 0 },
-    { area: 'Northern', status: 0 },
-    { area: 'Nile region', status: 0 },
-    { area: 'Western', status: 0 },
-    { area: 'Northern', status: 0 },
-    { area: 'Nile region', status: 0 },
-    { area: 'Western', status: 0 },
-    { area: 'Northern', status: 0 },
-    { area: 'Nile region', status: 0 },
-    { area: 'Western', status: 0 },
-    { area: 'Northern', status: 0 },
-    { area: 'Nile region', status: 0 },
-    { area: 'Western', status: 0 },
-    { area: 'Northern', status: 0 },
-    { area: 'Nile region', status: 0 },
-    { area: 'Albertine', status: 0 },
+    // { area: 'central', status: 0 },
+    // { area: 'Eastern', status: 0 },
+    // { area: 'Western', status: 0 },
   ];
   constructor(
     private authService: AuthServiceService,

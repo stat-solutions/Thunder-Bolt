@@ -349,7 +349,7 @@
         </div>
       </div>
         <!--the divs below will appear depending on the position selected-->        
-        <div class="form-group text-primary" *ngIf="(positionValue === 'AREA MANAGER')">
+        <div class="form-group text-primary" *ngIf="(positionValue === 'AREA USER')">
           <label
             for="area"
             [ngClass]="fval.area.valid ? 'text-info' : ''"
@@ -386,7 +386,7 @@
           </div>
         </div>
         <!--the div for town-->
-        <div class="form-group text-primary" *ngIf="(positionValue=='TOWN MANAGER')">
+        <div class="form-group text-primary" *ngIf="(positionValue === 'TOWN USER')">
           <label
             for="town"
             [ngClass]="fval.town.valid ? 'text-info' : ''"
@@ -423,7 +423,7 @@
         </div>
 
         <!--the div for station-->
-        <div class="form-group text-primary" *ngIf="(positionValue  == 'STATION MANAGER')">
+        <div class="form-group text-primary" *ngIf="(positionValue  === 'STATION MANAGER USER')">
           <label
             for="station"
             [ngClass]="fval.station.valid ? 'text-info' : ''"
@@ -458,7 +458,7 @@
             The station is required!
           </div>
         </div>
-        <div class="form-group text-primary" *ngIf="(positionValue =='STATION OFFICER')">
+        <div class="form-group text-primary" *ngIf="(positionValue === 'STATION OFFICER USER')">
           <label
             for="station"
             [ngClass]="fval.station.valid ? 'text-info' : ''"

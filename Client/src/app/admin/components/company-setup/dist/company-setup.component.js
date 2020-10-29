@@ -11,8 +11,6 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
 var CompanySetupComponent = /** @class */ (function () {
-    // companyInfo: CompanyInfo;
-    // User = this.authService.loggedInUserInfo();
     function CompanySetupComponent(others, spinner, router, alertService, authService) {
         this.others = others;
         this.spinner = spinner;
@@ -24,6 +22,8 @@ var CompanySetupComponent = /** @class */ (function () {
         this.errored = false;
         this.posted = false;
         this.serviceErrors = {};
+        // companyInfo: CompanyInfo;
+        this.User = this.authService.loggedInUserInfo();
     }
     CompanySetupComponent.prototype.ngOnInit = function () {
         this.companyForm = this.createFormGroup();
@@ -98,20 +98,21 @@ var CompanySetupComponent = /** @class */ (function () {
     CompanySetupComponent.prototype.setCompanyValues = function () {
         var _this = this;
         this.others.getCompanyInfo().subscribe(function (item) {
-            _this.companyCreated = true;
-            // this.companyInfo = item;
-            _this.fval.companyName.setValue(item.companyName);
-            _this.fval.companyBoxNumber.setValue(item.companyBoxNumber);
-            _this.fval.companyCityLocation.setValue(item.companyCityLocation);
-            _this.fval.companyCountryLocation.setValue(item.companyCountryLocation);
-            _this.fval.companyRegionLocation.setValue(item.companyRegionLocation);
-            _this.fval.companyOfficeFloor.setValue(item.companyOfficeFloor);
-            _this.fval.companyPlotNumber.setValue(item.companyPlotNumber);
-            _this.fval.companyStreetBuilding.setValue(item.companyStreetBuilding);
-            _this.fval.companyEmail1.setValue(item.companyEmail1);
-            _this.fval.companyEmail2.setValue(item.companyEmail2);
-            _this.fval.companyPhoneContact1.setValue(item.companyPhoneContact1);
-            _this.fval.companyPhoneContact2.setValue(item.companyPhoneContact2);
+            // this.companyCreated = true;
+            console.log(item);
+            // this.companyForm.value = item[0];
+            _this.fval.companyName.setValue(item[0].companyName);
+            _this.fval.companyBoxNumber.setValue(item[0].companyBoxNumber);
+            _this.fval.companyCityLocation.setValue(item[0].companyCityLocation);
+            _this.fval.companyCountryLocation.setValue(item[0].companyCountryLocation);
+            _this.fval.companyRegionLocation.setValue(item[0].companyRegionLocation);
+            _this.fval.companyOfficeFloor.setValue(item[0].companyOfficeFloor);
+            _this.fval.companyPlotNumber.setValue(item[0].companyPlotNumber);
+            _this.fval.companyStreetBuilding.setValue(item[0].companyStreetBuilding);
+            _this.fval.companyEmail1.setValue(item[0].companyEmail1);
+            _this.fval.companyEmail2.setValue(item[0].companyEmail2);
+            _this.fval.companyPhoneContact1.setValue(item[0].companyPhoneContact1);
+            _this.fval.companyPhoneContact2.setValue(item[0].companyPhoneContact2);
         }, function (error) {
             //
         });
@@ -138,7 +139,7 @@ var CompanySetupComponent = /** @class */ (function () {
                 companyEmail2: this.fval.companyEmail2.value,
                 companyPhoneContact1: this.fval.companyPhoneContact1.value,
                 companyPhoneContact2: this.fval.companyPhoneContact2.value,
-                userId: 8899999
+                userId: this.User.userId
             };
             console.log(companyDetails);
             this.others.createCompany(companyDetails).subscribe(function () {
@@ -148,9 +149,9 @@ var CompanySetupComponent = /** @class */ (function () {
                     html: '<b>User Company setup was Successful</b>' +
                         '</br>'
                 });
-                // setTimeout(() => {
-                //   this.router.navigate(['admin/dashboard']);
-                // }, 3000);
+                setTimeout(function () {
+                    _this.router.navigate(['admin/dashboard']);
+                }, 3000);
             }, function (error) {
                 _this.spinner.hide();
                 _this.serviceErrors = error;

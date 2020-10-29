@@ -3,6 +3,7 @@ import { Chart } from 'chart.js';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { AreaApprovals } from '../approvals/approve-areas/approve-areas.component';
 import { MessagingService } from 'src/app/shared/services/other-services/messaging.service';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 
 export interface Totals {
@@ -19,6 +20,27 @@ export interface Totals {
 export class DashboardComponent implements OnInit {
   message: any;
   lineChartData: Chart.ChartDataSets[] = [
+    {
+      label: 'Clients',
+      fill: false,
+      lineTension: 0.1,
+      backgroundColor: 'rgba(75,192,192,0.4)',
+      borderColor: 'rgba(75,192,192,1)',
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'rgba(75,192,192,1)',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+      pointHoverBorderColor: 'rgba(220,220,220,1)',
+      pointHoverBorderWidth: 1,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: [44, 56, 55, 66, 33, 44, 66, 88, 98, 90, 67, 45]
+    },
     {
       label: 'Savings',
       fill: false,
@@ -38,7 +60,7 @@ export class DashboardComponent implements OnInit {
       pointHoverBorderWidth: 1,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [20, 59, 73, 61, 56, 40, 70]
+      data: [20, 59, 73, 61, 56, 40, 70, 23, 45, 67, 89, 98]
     },
     {
       label: 'Withdraws',
@@ -59,7 +81,7 @@ export class DashboardComponent implements OnInit {
       pointHoverBorderWidth: 1,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [10, 39, 53, 31, 36, 40, 50]
+      data: [10, 39, 53, 31, 36, 40, 50, 98, 76, 54, 32, 12]
     },
     {
       label: 'Loans',
@@ -80,10 +102,10 @@ export class DashboardComponent implements OnInit {
       pointHoverBorderWidth: 1,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [35, 79, 53, 31, 36, 40, 60]
+      data: [35, 79, 53, 31, 36, 40, 60, 56, 57, 24, 35, 78]
     },
   ];
-  lineChartLabels: Array<any> = [ 'SUN', 'MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
+  lineChartLabels: Array<any> = [ '7am', '8am', '9am', '10am', '11am', '12', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm'];
   lineChartOptions: any = {
     responsive: true
   };
@@ -129,8 +151,9 @@ export class DashboardComponent implements OnInit {
     {name: 'Katwe', town: 'Kisoro', area: 'Western Region'},
     {name: 'Kibuye', town: 'kampala', area: 'Central Region'},
   ];
+  numberOfSms: any;
 
-  constructor(private messagingService: MessagingService) { }
+  constructor(private messagingService: MessagingService, private others: OthersService) { }
 
   ngOnInit(): void {
 // inline plugin
@@ -156,6 +179,16 @@ export class DashboardComponent implements OnInit {
 }];
 
     this.inlinePlugin = this.textPlugin;
+    this.getSms();
+}
+
+getSms(): any {
+  this.others.testApi().subscribe(
+    x => {
+      this.numberOfSms = x;
+      console.log(this.numberOfSms);
+    }
+  );
 }
 
 }

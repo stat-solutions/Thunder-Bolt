@@ -11,6 +11,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 
 export interface BussinessUnits {
   unitName: string;
+  unitId: number;
 }
 
 @Component({
@@ -20,14 +21,17 @@ export interface BussinessUnits {
 })
 export class BussinessunitsComponent implements OnInit {
   unitForm: FormGroup;
-  bussinessUnits: BussinessUnits[] = [
-    { unitName: 'fuel busiinesss' },
-    { unitName: 'hospital busiinesss' },
-    { unitName: 'fuel busiinesss' },
-    { unitName: 'hospital busiinesss' },
+  User = this.authService.loggedInUserInfo();
+  bussinessUnits: BussinessUnits[] =
+  [
+    { unitName: 'fuel busiinesss', unitId: 102 },
+    // { unitName: 'hospital busiinesss' },
+    // { unitName: 'fuel busiinesss' },
+    // { unitName: 'hospital busiinesss' },
   ];
   constructor(
     private others: OthersService,
+    private authService: AuthServiceService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
@@ -72,15 +76,16 @@ export class BussinessunitsComponent implements OnInit {
     // units => {
     // this.bussinessUnits = units;
     this.bussinessUnits.forEach((item, i) => {
-      this.fval.bussinessUnits.controls[i].controls.unitName.setValue(
+    this.fval.bussinessUnits.controls[i].controls.unitName.setValue(
         item.unitName
-      );
-      this.addUnit();
-      n = i + 1;
+    );
+    this.addUnit();
+    n = i + 1;
     });
     this.removeUnit(n);
     // }
     // )
+
   }
   revert(): any {
     this.unitForm.reset();
@@ -110,14 +115,41 @@ export class BussinessunitsComponent implements OnInit {
     });
   }
 
-  createUnit(): any {}
+  createUnit(): any {
+    const data = {
+      bussinessUnitName: this.fval.bussinessUnitName.value.toUpperCase(),
+      userId: this.User.userId
+    };
+    console.log(data);
+    this.others.setBussinessUnits(data).subscribe(
+      res => {
+        // console.log(res);
+      },
+      error => {
+        //
+      }
+    );
+  }
 
   editUnit(index: number): any {
-    console.log(index);
+    // console.log(index);
     this.enableEdit(index);
   }
 
   saveUnit(index: number): any {
     this.fval.bussinessUnits.controls[index].disable();
+    const data = {
+      bussinessUnitName: this.fval.bussinessUnits.controls[index].controls.unitName.value.toUpperCase(),
+      userId: this.User.userId
+    };
+    console.log(data);
+    // this.others.setBussinessUnits(data).subscribe(
+    //   res => {
+        // console.log(res);
+    //   },
+    //   error => {
+    //     //
+    //   }
+    // );
   }
 }

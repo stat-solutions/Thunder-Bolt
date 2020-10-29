@@ -17,12 +17,9 @@ var ApproveAreasComponent = /** @class */ (function () {
         this.fb = fb;
         this.posted = false;
         this.areaApproval = [
-            { area: 'central', status: 0 },
-            { area: 'Eastern', status: 0 },
-            { area: 'Western', status: 0 },
-            { area: 'Northern', status: 0 },
-            { area: 'Nile region', status: 0 },
-            { area: 'Albertine', status: 0 }
+        // { area: 'central', status: 0 },
+        // { area: 'Eastern', status: 0 },
+        // { area: 'Western', status: 0 },
         ];
     }
     ApproveAreasComponent.prototype.ngOnInit = function () {
@@ -118,9 +115,7 @@ var ApproveAreasComponent = /** @class */ (function () {
         // console.log(itemsApproved)
         if (itemsApproved.length > 0) {
             setTimeout(function () {
-                _this.router.navigate([
-                    'centralmanagement/dashboard'
-                ]);
+                _this.router.navigate(['centralmanagement/dashboard']);
             }, 3000);
         }
         else {
@@ -140,9 +135,7 @@ var ApproveAreasComponent = /** @class */ (function () {
         // console.log(itemsRejected.length)
         if (itemsRejected.length > 0) {
             setTimeout(function () {
-                _this.router.navigate([
-                    'centralmanagement/dashboard'
-                ]);
+                _this.router.navigate(['centralmanagement/dashboard']);
             }, 3000);
         }
         else {

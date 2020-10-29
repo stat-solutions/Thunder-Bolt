@@ -31,34 +31,11 @@ export class ApprovalSetupComponent implements OnInit {
   checkedOk: boolean;
   station: string;
   theCompany: string;
-  approvals: Approvals[] = [
-    { name: 'Area Creation', level: 3 },
-    { name: 'Town Creation', level: 1 },
-    { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 2 },
-    { name: 'Town Creation', level: 1 },
-    { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 1 },
-    { name: 'Town Creation', level: 1 },
-    { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 3 },
-    { name: 'Town Creation', level: 1 },
-    { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 0 },
-    { name: 'Town Creation', level: 1 },
-    { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 0 },
-    { name: 'Town Creation', level: 1 },
-    { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 0 },
-    { name: 'Town Creation', level: 1 },
-    { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 1 },
-    { name: 'Town Creation', level: 1 },
-    { name: 'Stage Creation', level: 2 },
-    { name: 'Station Creation', level: 2 },
-    { name: 'Station Creation', level: 3 },
-  ];
+  approvals: any;
+  // [
+    // { name: 'Area Creation', level: 3 },
+    // { name: 'Town Creation', level: 1 },
+  // ];
   constructor(
     private others: OthersService,
     private router: Router,
@@ -69,7 +46,6 @@ export class ApprovalSetupComponent implements OnInit {
   ngOnInit(): void {
     this.approvalForm = this.createFormGroup();
     this.initialiseForm();
-    this.disableForms();
   }
   createFormGroup(): any {
     return this.fb.group({
@@ -104,23 +80,37 @@ export class ApprovalSetupComponent implements OnInit {
 
   initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    //   units => {
-    //     this.approvals = units;
-    this.approvals.forEach((item, i) => {
-      // console.log(item.name);
-      // console.log(i);
-      this.fval.approvalItems.controls[i].controls.name.setValue(item.name);
-      this.fval.approvalItems.controls[i].controls.level.setValue(item.level);
-      this.fval.approvalItems.controls[i].controls.firstApproval.setValue('Town');
-      this.addItem();
-      n = i + 1;
-    });
-    this.removeItem(n);
+    this.others.getApprovalLevelsCreate().subscribe(
+      res => {
+        this.approvals = res;
+        this.others.getApprovalLevelsUpdate().subscribe(
+          response => {
+            // console.log(response);
+            response.forEach((itm, index) => {
+              this.approvals.push(itm);
+            });
+            // console.log(this.approvals);
+            this.approvals.forEach((item, i) => {
+            this.fval.approvalItems.controls[i].controls.name.setValue(item.itemName);
+            this.fval.approvalItems.controls[i].controls.level.setValue(item.approvalLevel);
+            this.fval.approvalItems.controls[i].controls.firstApproval.setValue(item.firstApprovalBy);
+            this.fval.approvalItems.controls[i].controls.secondApproval.setValue(item.secondApprovalBy);
+            this.fval.approvalItems.controls[i].controls.thirdApproval.setValue(item.thirdApprovalBy);
+            this.addItem();
+            n = i + 1;
+          });
+            this.removeItem(n);
+            this.disableForms();
+          },
+          error => console.log(error)
+        );
+      },
+      err => console.log(err)
+    );
     // }
     // )
   }
-  revert(): any {
+revert(): any {
     this.approvalForm.reset();
   }
 
@@ -128,21 +118,22 @@ export class ApprovalSetupComponent implements OnInit {
   //   this.approvalForm.reset();
   // }
 
-  refresh(): any {
+refresh(): any {
     location.reload();
   }
 
-  get fval(): any {
+get fval(): any {
     return this.approvalForm.controls;
   }
 
-  disableForms(): any {
-    this.approvals.forEach((itm, i) => {
-      this.fval.approvalItems.controls[i].disable();
-    });
+disableForms(): any {
+  // console.log(this.approvals);
+  this.approvals.forEach((itm, i) => {
+    this.fval.approvalItems.controls[i].disable();
+  });
   }
 
-  enableEdit(val: number): any {
+enableEdit(val: number): any {
     this.showLevels = val;
     this.approvals.forEach((itm, i) => {
       if (i === val) {
@@ -151,7 +142,7 @@ export class ApprovalSetupComponent implements OnInit {
     });
   }
 
-  saveLevel(index: any): any {
+saveLevel(index: any): any {
     if (this.fval.approvalItems.controls[index]) {
       this.fval.approvalItems.controls[index].disable();
       this.showLevels = null;

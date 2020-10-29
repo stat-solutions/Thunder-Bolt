@@ -9,9 +9,7 @@ exports.__esModule = true;
 exports.DashboardComponent = void 0;
 var core_1 = require("@angular/core");
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent(messagingService, others) {
-        this.messagingService = messagingService;
-        this.others = others;
+    function DashboardComponent() {
         this.lineChartData = [
             {
                 label: 'Clients',
@@ -105,13 +103,13 @@ var DashboardComponent = /** @class */ (function () {
         this.lineChartLegend = true;
         this.lineChartType = 'line';
         this.totals = [
-            { areas: 24, towns: 40, stations: 136, clients: 200 }
+            { areas: 24, towns: 40, stations: 136, clients: 1000, stages: 324 }
         ];
         this.creationApprovals = [
             { type: 'Area Creation', total: 17 },
             { type: 'Town Creation', total: 10 },
-            { type: 'Station Creation', total: 2376 },
-            { type: 'Cluster Creation', total: 155 },
+            { type: 'Station Creation', total: 23 },
+            { type: 'Cluster Creation', total: 15 },
         ];
         this.transactionApprovals = [
             { type: 'Floats', total: 23 },
@@ -145,9 +143,6 @@ var DashboardComponent = /** @class */ (function () {
     }
     DashboardComponent.prototype.ngOnInit = function () {
         // inline plugin
-        this.messagingService.requestPermission();
-        this.messagingService.receiveMessage();
-        this.message = this.messagingService.currentMessage;
         this.textPlugin = [{
                 id: 'textPlugin',
                 beforeDraw: function (chart) {
@@ -166,14 +161,6 @@ var DashboardComponent = /** @class */ (function () {
                 }
             }];
         this.inlinePlugin = this.textPlugin;
-        this.getSms();
-    };
-    DashboardComponent.prototype.getSms = function () {
-        var _this = this;
-        this.others.testApi().subscribe(function (x) {
-            _this.numberOfSms = x;
-            console.log(_this.numberOfSms);
-        });
     };
     DashboardComponent = __decorate([
         core_1.Component({

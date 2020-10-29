@@ -29,11 +29,9 @@ export class LoginComponent implements OnInit {
   stationBalanceExits: boolean;
   mySubscription: any;
   serviceErrors: any = {};
-  numberOfSms: any;
 
   constructor(
     private authService: AuthServiceService,
-    private Other: OthersService,
     private router: Router,
     private alertService: AlertService,
     private spinner: NgxSpinnerService,
@@ -43,17 +41,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
-    this.getSms();
   }
 
-  getSms(): any {
-    this.Other.testApi().subscribe(
-      x => {
-        this.numberOfSms = x;
-        console.log(this.numberOfSms);
-      }
-    );
-  }
   createFormGroup(): any {
     return new FormGroup({
 
@@ -107,6 +96,7 @@ export class LoginComponent implements OnInit {
               this.posted = true;
               if (
                 this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 2
+                || this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1
               ) {
                 if (
                   this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 600
@@ -185,16 +175,17 @@ export class LoginComponent implements OnInit {
                 });
                 this.spinner.hide();
                 return;
-              } else if (
-                this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1
-              ) {
-                this.alertService.danger({
-                  html:
-                    '<strong>This account recquires approval, please contact system admin!</strong>'
-                });
-                this.spinner.hide();
-                return;
               }
+              // else if (
+              //   this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1
+              // ) {
+              //   this.alertService.danger({
+              //     html:
+              //       '<strong>This account recquires approval, please contact system admin!</strong>'
+              //   });
+              //   this.spinner.hide();
+              //   return;
+              // }
             } else {
               this.spinner.hide();
               this.errored = true;

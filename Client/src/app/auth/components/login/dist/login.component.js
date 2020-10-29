@@ -13,9 +13,8 @@ var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
 // import { BootstrapAlertService, BootstrapAlert } from 'ngx-bootstrap-alert';
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(authService, Other, router, alertService, spinner, jwtHelper, layoutService) {
+    function LoginComponent(authService, router, alertService, spinner, jwtHelper, layoutService) {
         this.authService = authService;
-        this.Other = Other;
         this.router = router;
         this.alertService = alertService;
         this.spinner = spinner;
@@ -25,14 +24,6 @@ var LoginComponent = /** @class */ (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
-        this.getSms();
-    };
-    LoginComponent.prototype.getSms = function () {
-        var _this = this;
-        this.Other.testApi().subscribe(function (x) {
-            _this.numberOfSms = x;
-            console.log(_this.numberOfSms);
-        });
     };
     LoginComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
@@ -79,7 +70,8 @@ var LoginComponent = /** @class */ (function () {
                 .subscribe(function (success) {
                 if (success) {
                     _this.posted = true;
-                    if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 2) {
+                    if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 2
+                        || _this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 1) {
                         if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 600) {
                             _this.alertService.success({
                                 html: '<strong>Signed In Successfully</strong>'
@@ -149,13 +141,16 @@ var LoginComponent = /** @class */ (function () {
                         _this.spinner.hide();
                         return;
                     }
-                    else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 1) {
-                        _this.alertService.danger({
-                            html: '<strong>This account recquires approval, please contact system admin!</strong>'
-                        });
-                        _this.spinner.hide();
-                        return;
-                    }
+                    // else if (
+                    //   this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1
+                    // ) {
+                    //   this.alertService.danger({
+                    //     html:
+                    //       '<strong>This account recquires approval, please contact system admin!</strong>'
+                    //   });
+                    //   this.spinner.hide();
+                    //   return;
+                    // }
                 }
                 else {
                     _this.spinner.hide();

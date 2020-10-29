@@ -87,8 +87,7 @@ var AuthServiceService = /** @class */ (function () {
         localStorage.removeItem(this.REFRESH_TOKEN);
     };
     AuthServiceService.prototype.isLoggedIn = function () {
-        // return !!this.getJwtToken();
-        return true;
+        return !!this.getJwtToken();
     };
     AuthServiceService.prototype.loggedInUserInfo = function () {
         return {

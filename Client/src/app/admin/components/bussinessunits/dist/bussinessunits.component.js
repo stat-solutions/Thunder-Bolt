@@ -11,16 +11,16 @@ var core_1 = require("@angular/core");
 // import * as jwt_decode from 'jwt-decode';
 var forms_1 = require("@angular/forms");
 var BussinessunitsComponent = /** @class */ (function () {
-    function BussinessunitsComponent(others, router, spinner, alertService, fb) {
+    function BussinessunitsComponent(others, authService, router, spinner, alertService, fb) {
         this.others = others;
+        this.authService = authService;
         this.router = router;
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
+        this.User = this.authService.loggedInUserInfo();
         this.bussinessUnits = [
-            { unitName: 'fuel busiinesss' },
-            { unitName: 'hospital busiinesss' },
-            { unitName: 'furniture busiinesss' }
+            { unitName: 'fuel busiinesss', unitId: 102 },
         ];
     }
     BussinessunitsComponent.prototype.ngOnInit = function () {
@@ -31,18 +31,13 @@ var BussinessunitsComponent = /** @class */ (function () {
     BussinessunitsComponent.prototype.createFormGroup = function () {
         return this.fb.group({
             bussinessUnits: this.fb.array([this.unit]),
-            bussinessUnitName: this.fb.control('', forms_1.Validators.compose([
-                forms_1.Validators.minLength(5)
-            ]))
+            bussinessUnitName: this.fb.control('', forms_1.Validators.compose([forms_1.Validators.minLength(5)]))
         });
     };
     Object.defineProperty(BussinessunitsComponent.prototype, "unit", {
         get: function () {
             return this.fb.group({
-                unitName: this.fb.control({ value: '' }, forms_1.Validators.compose([
-                    forms_1.Validators.required,
-                    forms_1.Validators.minLength(6)
-                ]))
+                unitName: this.fb.control({ value: '' }, forms_1.Validators.compose([forms_1.Validators.required, forms_1.Validators.minLength(6)]))
             });
         },
         enumerable: false,
@@ -100,13 +95,36 @@ var BussinessunitsComponent = /** @class */ (function () {
         });
     };
     BussinessunitsComponent.prototype.createUnit = function () {
+        var data = {
+            bussinessUnitName: this.fval.bussinessUnitName.value.toUpperCase(),
+            userId: this.User.userId
+        };
+        console.log(data);
+        this.others.setBussinessUnits(data).subscribe(function (res) {
+            // console.log(res);
+        }, function (error) {
+            //
+        });
     };
     BussinessunitsComponent.prototype.editUnit = function (index) {
-        console.log(index);
+        // console.log(index);
         this.enableEdit(index);
     };
     BussinessunitsComponent.prototype.saveUnit = function (index) {
         this.fval.bussinessUnits.controls[index].disable();
+        var data = {
+            bussinessUnitName: this.fval.bussinessUnits.controls[index].controls.unitName.value.toUpperCase(),
+            userId: this.User.userId
+        };
+        console.log(data);
+        // this.others.setBussinessUnits(data).subscribe(
+        //   res => {
+        // console.log(res);
+        //   },
+        //   error => {
+        //     //
+        //   }
+        // );
     };
     BussinessunitsComponent = __decorate([
         core_1.Component({
