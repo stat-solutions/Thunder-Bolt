@@ -6,13 +6,13 @@ import { CompanySetupComponent } from './components/company-setup/company-setup.
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BussinessunitsComponent } from './components/bussinessunits/bussinessunits.component';
-import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
+import { AdminGuard } from '../shared/services/other-services/route-guards/admin-guard.service';
 
 const routes: Routes = [
   {
     path: '',
     component: PagesCoreAdminComponent,
-    canActivateChild: [RandomGuard],
+    canActivateChild: [AdminGuard],
     children: [
       {
         path: '',
@@ -37,10 +37,6 @@ const routes: Routes = [
         path: 'approvalsetup',
         component: ApprovalSetupComponent,
       },
-      // {
-      //   path: 'approveusers',
-      //   component: ApproveAdminUsersComponent,
-      // },
       {
         path: 'adminprofile',
         component: AdminProfileComponent,

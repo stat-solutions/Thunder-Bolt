@@ -18,7 +18,8 @@ var routes = [
         pathMatch: 'full',
         canActivate: [auth_guard_service_1.AuthGuard]
     },
-    { path: 'admin', loadChildren: function () { return Promise.resolve().then(function () { return require('./admin/admin.module'); }).then(function (m) { return m.AdminModule; }); } },
+    { path: 'admin', loadChildren: function () { return Promise.resolve().then(function () { return require('./admin/admin.module'); }).then(function (m) { return m.AdminModule; }); }
+    },
     // tslint:disable-next-line: max-line-length
     { path: 'centralmanagement', loadChildren: function () { return Promise.resolve().then(function () { return require('./centralmanagement/centralmanagement.module'); }).then(function (m) { return m.CentralmanagementModule; }); } },
     { path: 'areamanagement', loadChildren: function () { return Promise.resolve().then(function () { return require('./areamanagement/areamanagement.module'); }).then(function (m) { return m.AreamanagementModule; }); } },

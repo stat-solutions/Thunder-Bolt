@@ -33,7 +33,7 @@ import { ReversePrincipleComponent } from './components/transactions/approval/re
 import { WaiveInterestComponent } from './components/transactions/approval/waive-interest/waive-interest.component';
 import { WithdrawSavingsComponent } from './components/transactions/approval/withdraw-savings/withdraw-savings.component';
 import { WriteOffComponent } from './components/transactions/approval/write-off/write-off.component';
-import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
+import { CentralGuard } from '../shared/services/other-services/route-guards/central-guard.service';
 import { ApproveCentralUsersComponent } from './components/approve-central-users/approve-central-users.component';
 import { SelectTheAreaComponent } from './components/select-the-Area/select-the-Area.component';
 import { SetManagersComponent } from './components/set-managers/set-managers.component';
@@ -45,7 +45,7 @@ const routes: Routes = [
   {
     path: '',
     component: PagesCoreCentralComponent,
-    canActivateChild: [RandomGuard],
+    canActivateChild: [CentralGuard],
     children: [
       {
         path: '',

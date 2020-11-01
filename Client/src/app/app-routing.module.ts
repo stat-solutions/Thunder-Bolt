@@ -8,11 +8,14 @@ const routes: Routes = [
     path: '',
     redirectTo: '/authpage/login',
     pathMatch: 'full',
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
   // tslint:disable-next-line: max-line-length
-  { path: 'centralmanagement', loadChildren: () => import('./centralmanagement/centralmanagement.module').then(m => m.CentralmanagementModule) },
+  { path: 'centralmanagement',
+    loadChildren: () => import('./centralmanagement/centralmanagement.module').then(m => m.CentralmanagementModule) },
   { path: 'areamanagement', loadChildren: () => import('./areamanagement/areamanagement.module').then(m => m.AreamanagementModule) },
   { path: 'townmanagement', loadChildren: () => import('./townmanagement/townmanagement.module').then(m => m.TownmanagementModule) },
   // tslint:disable-next-line: max-line-length

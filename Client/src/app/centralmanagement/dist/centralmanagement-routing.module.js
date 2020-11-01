@@ -42,7 +42,7 @@ var reverse_principle_component_1 = require("./components/transactions/approval/
 var waive_interest_component_1 = require("./components/transactions/approval/waive-interest/waive-interest.component");
 var withdraw_savings_component_1 = require("./components/transactions/approval/withdraw-savings/withdraw-savings.component");
 var write_off_component_1 = require("./components/transactions/approval/write-off/write-off.component");
-var random_guard_service_1 = require("../shared/services/other-services/route-guards/random-guard.service");
+var central_guard_service_1 = require("../shared/services/other-services/route-guards/central-guard.service");
 var approve_central_users_component_1 = require("./components/approve-central-users/approve-central-users.component");
 var select_the_Area_component_1 = require("./components/select-the-Area/select-the-Area.component");
 var set_managers_component_1 = require("./components/set-managers/set-managers.component");
@@ -53,7 +53,7 @@ var routes = [
     {
         path: '',
         component: pages_core_central_component_1.PagesCoreCentralComponent,
-        canActivateChild: [random_guard_service_1.RandomGuard],
+        canActivateChild: [central_guard_service_1.CentralGuard],
         children: [
             {
                 path: '',

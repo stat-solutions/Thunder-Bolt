@@ -12,7 +12,7 @@ var router_1 = require("@angular/router");
 var profile_component_1 = require("./components/profile/profile.component");
 var dashboard_component_1 = require("./components/dashboard/dashboard.component");
 var pages_core_station_component_1 = require("./pages-core/pages-core-station.component");
-var random_guard_service_1 = require("../shared/services/other-services/route-guards/random-guard.service");
+var stmanager_guard_service_1 = require("../shared/services/other-services/route-guards/stmanager-guard.service");
 var reports_component_1 = require("./components/reports/reports.component");
 var cash_ledger_component_1 = require("./components/reports/cash-ledger/cash-ledger.component");
 var paid_ledger_component_1 = require("./components/reports/paid-ledger/paid-ledger.component");
@@ -21,7 +21,7 @@ var routes = [
     {
         path: '',
         component: pages_core_station_component_1.PagesCoreStationComponent,
-        canActivateChild: [random_guard_service_1.RandomGuard],
+        canActivateChild: [stmanager_guard_service_1.StManagerGuard],
         children: [
             {
                 path: '',

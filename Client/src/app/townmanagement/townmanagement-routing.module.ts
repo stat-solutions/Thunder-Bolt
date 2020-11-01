@@ -4,7 +4,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { PagesCoreTownComponent } from './pages-core/pages-core-town.component';
-import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
+import { TownGuard } from '../shared/services/other-services/route-guards/town-guard.service';
 import { EnrollClientComponent } from './components/enroll/enroll-client/enroll-client.component';
 import { PersonalInfoComponent } from './components/enroll/enroll-client/personal-info/personal-info.component';
 import { EnrollBodaStageComponent } from './components/enroll/enroll-stage/enroll-boda-stage/enroll-boda-stage.component';
@@ -19,9 +19,7 @@ import { ReportsComponent } from '../centralmanagement/components/reports/report
 import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
 import { LoansLedgerComponent } from './components/reports/loans-ledger/loans-ledger.component';
 import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledger.component';
-import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
 import { EditClientComponent } from './components/enroll/edit-client/edit-client.component';
-import { EditPersonalInfoComponent } from './components/enroll/edit-client/edit-personal-info/edit-personal-info.component';
 import { EditBodaStageComponent } from './components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component';
 import { EditStageComponent } from './components/enroll/edit-stage/edit-stage.component';
 import { EditTaxiStageComponent } from './components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component';
@@ -29,7 +27,7 @@ import { EditTaxiStageComponent } from './components/enroll/edit-stage/edit-taxi
 const routes: Routes = [
   { path: '',
     component: PagesCoreTownComponent,
-    canActivateChild: [RandomGuard],
+    canActivateChild: [TownGuard],
     children: [
       {
         path: '',

@@ -114,12 +114,12 @@ var LoginComponent = /** @class */ (function () {
                             _this.alertService.success({
                                 html: '<strong>Signed In Successfully</strong>'
                             });
-                            if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).UserType.toUpperCase() === 1) {
+                            if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).UserType === 1) {
                                 setTimeout(function () {
                                     _this.router.navigate(['/stationmanagement']);
                                 }, 1000);
                             }
-                            else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).UserType.toUpperCase() === 2) {
+                            else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).UserType === 2) {
                                 setTimeout(function () {
                                     _this.router.navigate(['/stationofficer']);
                                 }, 1000);

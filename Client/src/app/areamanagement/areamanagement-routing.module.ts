@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PagesCoreAreaComponent } from './pages-core/pages-core-area.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
+import { AreaGuard } from '../shared/services/other-services/route-guards/area-guard.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CreateComponent } from './components/create/create.component';
 import { CreateTownsComponent } from './components/create/create-towns/create-towns.component';
@@ -34,7 +34,7 @@ const routes: Routes = [
   {
     path: '',
     component: PagesCoreAreaComponent,
-    canActivateChild: [RandomGuard],
+    canActivateChild: [AreaGuard],
     children: [
       {
         path: '',

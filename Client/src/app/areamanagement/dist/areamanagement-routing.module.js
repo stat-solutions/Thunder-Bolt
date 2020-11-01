@@ -11,7 +11,7 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var pages_core_area_component_1 = require("./pages-core/pages-core-area.component");
 var dashboard_component_1 = require("./components/dashboard/dashboard.component");
-var random_guard_service_1 = require("../shared/services/other-services/route-guards/random-guard.service");
+var area_guard_service_1 = require("../shared/services/other-services/route-guards/area-guard.service");
 var profile_component_1 = require("./components/profile/profile.component");
 var create_component_1 = require("./components/create/create.component");
 var create_towns_component_1 = require("./components/create/create-towns/create-towns.component");
@@ -41,7 +41,7 @@ var routes = [
     {
         path: '',
         component: pages_core_area_component_1.PagesCoreAreaComponent,
-        canActivateChild: [random_guard_service_1.RandomGuard],
+        canActivateChild: [area_guard_service_1.AreaGuard],
         children: [
             {
                 path: '',

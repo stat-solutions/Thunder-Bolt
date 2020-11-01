@@ -10,9 +10,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
   export class AuthGuard implements CanActivate {
     constructor(private authService: AuthServiceService, private router: Router, private jwtHelper: JwtHelperService) { }
     canActivate(): any {
-        console.log('this is authguard');
+      //   console.log('this is authguard');
         if (this.authService.isLoggedIn()) {
-          if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 600){
+          if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 500){
               this.router.navigate(['/admin']);
           }
           else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 100){
@@ -24,10 +24,16 @@ import { JwtHelperService } from '@auth0/angular-jwt';
           else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 300){
                 this.router.navigate(['/townmanagement']);
           }
-          else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 400){
+          else if (
+                this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 400
+                && this.jwtHelper.decodeToken(this.authService.getJwtToken()).UserType === 1
+                ){
                 this.router.navigate(['/stationmanagement']);
           }
-          else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 500){
+          else if (
+                this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 400
+                && this.jwtHelper.decodeToken(this.authService.getJwtToken()).UserType === 2
+                ){
                 this.router.navigate(['/stationofficer']);
           }
         }

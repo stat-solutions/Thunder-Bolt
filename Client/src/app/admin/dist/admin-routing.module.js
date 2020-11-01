@@ -15,12 +15,12 @@ var company_setup_component_1 = require("./components/company-setup/company-setu
 var admin_profile_component_1 = require("./components/admin-profile/admin-profile.component");
 var dashboard_component_1 = require("./components/dashboard/dashboard.component");
 var bussinessunits_component_1 = require("./components/bussinessunits/bussinessunits.component");
-var random_guard_service_1 = require("../shared/services/other-services/route-guards/random-guard.service");
+var admin_guard_service_1 = require("../shared/services/other-services/route-guards/admin-guard.service");
 var routes = [
     {
         path: '',
         component: pages_core_admin_component_1.PagesCoreAdminComponent,
-        canActivateChild: [random_guard_service_1.RandomGuard],
+        canActivateChild: [admin_guard_service_1.AdminGuard],
         children: [
             {
                 path: '',
@@ -43,10 +43,6 @@ var routes = [
                 path: 'approvalsetup',
                 component: approval_setup_component_1.ApprovalSetupComponent
             },
-            // {
-            //   path: 'approveusers',
-            //   component: ApproveAdminUsersComponent,
-            // },
             {
                 path: 'adminprofile',
                 component: admin_profile_component_1.AdminProfileComponent

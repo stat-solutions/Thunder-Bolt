@@ -7,10 +7,9 @@ import { SetInterestRateComponent } from './components/adjustments/set-interest-
 import { SetLoanLimitComponent } from './components/adjustments/set-loan-limit/set-loan-limit.component';
 import { WaiveInterestComponent } from './components/adjustments/waive-interest/waive-interest.component';
 import { WriteOffComponent } from './components/adjustments/write-off/write-off.component';
-import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
+import { OfficerGuard } from '../shared/services/other-services/route-guards/officer-guard.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EnrollClientComponent } from './components/enroll/enroll-client/enroll-client.component';
-import { PersonalInfoComponent } from './components/enroll/enroll-client/personal-info/personal-info.component';
 import { EnrollBodaStageComponent } from './components/enroll/enroll-stage/enroll-boda-stage/enroll-boda-stage.component';
 import { EnrollStageComponent } from './components/enroll/enroll-stage/enroll-stage.component';
 import { EnrollTaxiStageComponent } from './components/enroll/enroll-stage/enroll-taxi-stage/enroll-taxi-stage.component';
@@ -29,7 +28,7 @@ import { PagesCoreOfficerComponent } from './pages-core/pages-core-officer.compo
 const routes: Routes = [
   { path: '',
     component: PagesCoreOfficerComponent,
-    canActivateChild: [RandomGuard],
+    canActivateChild: [OfficerGuard],
     children: [
       {
         path: '',

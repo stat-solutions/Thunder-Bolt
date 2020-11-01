@@ -16,7 +16,7 @@ var set_interest_rate_component_1 = require("./components/adjustments/set-intere
 var set_loan_limit_component_1 = require("./components/adjustments/set-loan-limit/set-loan-limit.component");
 var waive_interest_component_1 = require("./components/adjustments/waive-interest/waive-interest.component");
 var write_off_component_1 = require("./components/adjustments/write-off/write-off.component");
-var random_guard_service_1 = require("../shared/services/other-services/route-guards/random-guard.service");
+var officer_guard_service_1 = require("../shared/services/other-services/route-guards/officer-guard.service");
 var dashboard_component_1 = require("./components/dashboard/dashboard.component");
 var enroll_client_component_1 = require("./components/enroll/enroll-client/enroll-client.component");
 var enroll_boda_stage_component_1 = require("./components/enroll/enroll-stage/enroll-boda-stage/enroll-boda-stage.component");
@@ -36,7 +36,7 @@ var pages_core_officer_component_1 = require("./pages-core/pages-core-officer.co
 var routes = [
     { path: '',
         component: pages_core_officer_component_1.PagesCoreOfficerComponent,
-        canActivateChild: [random_guard_service_1.RandomGuard],
+        canActivateChild: [officer_guard_service_1.OfficerGuard],
         children: [
             {
                 path: '',
