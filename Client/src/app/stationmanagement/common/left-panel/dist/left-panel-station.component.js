@@ -59,27 +59,10 @@ var LeftPanelStationComponent = /** @class */ (function () {
                     },
                 ]
             },
-            // {
-            //   name: 'Approve Users',
-            //   icon: 'fas fa-user-check',
-            //   url: '/stationmanagement/approveusers',
-            // },
             {
                 name: 'Profile',
                 icon: 'fas fa-user-cog',
-                url: '/stationmanagement/profile',
-                subMenu: [
-                    {
-                        name: 'Personal Info',
-                        icon: 'fas fa-user',
-                        url: '/stationmanagement/profile/personalprofile'
-                    },
-                    {
-                        name: 'Set PIN',
-                        icon: 'fas fa-lock',
-                        url: '/stationmanagement/profile/setpassword'
-                    },
-                ]
+                url: '/stationmanagement/profile'
             },
         ];
     };

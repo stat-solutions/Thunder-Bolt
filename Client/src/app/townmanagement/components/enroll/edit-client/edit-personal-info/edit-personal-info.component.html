@@ -2,6 +2,42 @@
   class="container-fluid d-flex flex-row justify-content-center mb-0 mt-2 pt-1 pb-0 shadow-lg col-xs-12 col-lg-10"
 >
   <div class="jumbotron-fluid mb-0 pb-0">
+    <div class="container mt-0 mb-2 mx-0 shadow-lg">
+      <div class="d-flex mt-3 mb-2 mb-xl-0 pt-2 pb-2 pb-xl-2 mx-auto">
+        <button
+          type="submit"
+          class="btn btn-info col-5 col-md-3 mx-auto"
+          [disabled]="!userForm.valid"
+        >
+          Save
+        </button>
+
+        <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+          <p class="text-light">Please wait...</p>
+        </ngx-spinner>
+
+        <label class="col" *ngIf="errored" class="text-danger">
+          <i class="material-icons">Cancel</i>
+
+          <!-- <ngx-alerts></ngx-alerts> -->
+        </label>
+
+        <label class="col" *ngIf="posted" class="text-info">
+          <i class="material-icons">check_circle</i>
+          <!-- <ngx-alerts></ngx-alerts> -->
+        </label>
+
+        <button
+          type="button"
+          class="btn btn-info col-5 col-md-3 mx-auto"
+          routerLink = '/townmanagement'
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  <!-- this is for personal info -->
+  <div *ngIf="showPersonalForm"> 
     <div class="container mt-0 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
@@ -14,7 +50,7 @@
       </div>
     </div>
     <div class="card-body mt-1 pt-4 mb-0 pb-3 pb-md-1 shadow-lg">
-      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="userForm">
         <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
@@ -541,10 +577,9 @@
         </div>
         <div class="d-flex mt-2 mb-2 pt-0 pb-1 pb-md-0 mx-auto">
           <button
-            type="submit"
             class="btn btn-info col-5 col-md-4 mx-auto"
-            [disabled]="!userForm.valid"
-            routerLink="/townmanagement/enroll/enrollclient/editmicroloanclient"
+            (click)="personalNext()"
+            [disabled]="userForm.valid"
           >
             Next
           </button>
@@ -566,13 +601,1430 @@
 
           <button
             type="button"
-            class="btn btn-info col-5 col-md-4 mx-auto"
-            (click)="resetStageNames()"
+            class="btn btn-info col-5 col-md-3 mx-auto"
+            routerLink = '/townmanagement'
           >
             Cancel
           </button>
         </div>
       </form>
     </div>
+  </div>
+
+  <!-- this is for boda client -->
+  <div *ngIf="showBodaForm">
+    <div class="container mt-0 mb-2 mx-0 shadow-lg">
+      <div class="row">
+        <div class="col-12">
+          <h3
+            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          >
+            Boda Client Info
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-0 pb-md-1 shadow-lg">
+      <form [formGroup]="bodaClientForm">
+        <div class="row">
+          <div class="col-12 col-md-6">
+        <div class="form-group text-primary">
+            <label
+              for="clientName"
+              [ngClass]="bodaFval.clientName.valid ? 'text-info' : ''"
+              ><i *ngIf="bodaFval.clientName.valid" class="material-icons"
+                >check_circle</i
+              >Client Name</label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-user-alt text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
+              <input
+              type="text"
+              formControlName="clientName"
+                class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (bodaFval.clientName.touched || bodaFval.clientName.dirty) &&
+                  bodaFval.clientName.errors
+              }"
+              autocomplete="off"
+              placeholder="Enter Customer Name"
+            />
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (bodaFval.clientName.touched || bodaFval.clientName.dirty) &&
+                bodaFval.clientName.errors?.required
+              "
+            >
+              The client name is required!
+            </div>
+          </div>
+        </div>
+      </div>
+          <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerNumberPlate"
+                [ngClass]="
+                bodaFval.bodabodaCustomerNumberPlate.valid ? 'text-info' : ''
+                "
+                >Number Plate<i
+                  *ngIf="bodaFval.bodabodaCustomerNumberPlate.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-motorcycle text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="bodabodaCustomerNumberPlate"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerNumberPlate.touched ||
+                      bodaFval.bodabodaCustomerNumberPlate.dirty) &&
+                      bodaFval.bodabodaCustomerNumberPlate.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter Bodaboda number plate"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerNumberPlate.touched ||
+                  bodaFval.bodabodaCustomerNumberPlate.dirty) &&
+                  bodaFval.bodabodaCustomerNumberPlate.errors?.required
+                "
+              >
+                The Bodaboda number plate is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerColour"
+                [ngClass]="
+                bodaFval.bodabodaCustomerColour.valid ? 'text-info' : ''
+                "
+                >Bodaboda color<i
+                  *ngIf="bodaFval.bodabodaCustomerColour.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <input
+                  type="text"
+                  formControlName="bodabodaCustomerColour"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerColour.touched ||
+                      bodaFval.bodabodaCustomerColour.dirty) &&
+                      bodaFval.bodabodaCustomerColour.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter bodaboda's color"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerColour.touched ||
+                  bodaFval.bodabodaCustomerColour.dirty) &&
+                  bodaFval.bodabodaCustomerColour.errors?.required
+                "
+              >
+                The bodaboda color is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerModel"
+                [ngClass]="
+                bodaFval.bodabodaCustomerModel.valid ? 'text-info' : ''
+                "
+                >Model<i
+                  *ngIf="bodaFval.bodabodaCustomerModel.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <input
+                  type="text"
+                  formControlName="bodabodaCustomerModel"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerModel.touched ||
+                      bodaFval.bodabodaCustomerModel.dirty) &&
+                      bodaFval.bodabodaCustomerModel.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter model of bodaboda"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerModel.touched ||
+                  bodaFval.bodabodaCustomerModel.dirty) &&
+                  bodaFval.bodabodaCustomerModel.errors?.required
+                "
+              >
+                The bodaboda model is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerYearOfManufacture"
+                [ngClass]="
+                bodaFval.bodabodaCustomerYearOfManufacture.valid ? 'text-info' : ''
+                "
+                >Year of Manufacture<i
+                  *ngIf="bodaFval.bodabodaCustomerYearOfManufacture.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <input
+                  type="text"
+                  formControlName="bodabodaCustomerYearOfManufacture"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerYearOfManufacture.touched ||
+                      bodaFval.bodabodaCustomerYearOfManufacture.dirty) &&
+                      bodaFval.bodabodaCustomerYearOfManufacture.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter Year of Manufacture"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerYearOfManufacture.touched ||
+                  bodaFval.bodabodaCustomerYearOfManufacture.dirty) &&
+                  bodaFval.bodabodaCustomerYearOfManufacture.errors?.required
+                "
+              >
+                The Year of Manufacture is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerEngineNumber"
+                [ngClass]="
+                bodaFval.bodabodaCustomerEngineNumber.valid
+                    ? 'text-info'
+                    : ''
+                "
+                >Engine number<i
+                  *ngIf="bodaFval.bodabodaCustomerEngineNumber.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <input
+                  type="text"
+                  formControlName="bodabodaCustomerEngineNumber"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerEngineNumber.touched ||
+                      bodaFval.bodabodaCustomerEngineNumber.dirty) &&
+                      bodaFval.bodabodaCustomerEngineNumber.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter bodaboda engine number"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerEngineNumber.touched ||
+                  bodaFval.bodabodaCustomerEngineNumber.dirty) &&
+                  bodaFval.bodabodaCustomerEngineNumber.errors?.required
+                "
+              >
+                The bodaboda engine number is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerFrontPhotoUrl"
+                [ngClass]="bodaFval.bodabodaCustomerFrontPhotoUrl.valid ? 'text-info' : ''"
+                >Front Image<i
+                  *ngIf="bodaFval.bodabodaCustomerFrontPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="bodabodaCustomerFrontPhotoUrl"
+                  formControlName="bodabodaCustomerFrontPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerFrontPhotoUrl.touched ||
+                      bodaFval.bodabodaCustomerFrontPhotoUrl.dirty) &&
+                      bodaFval.bodabodaCustomerFrontPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerFrontPhotoUrl.touched || bodaFval.bodabodaCustomerFrontPhotoUrl.dirty) &&
+                  bodaFval.bodabodaCustomerFrontPhotoUrl.errors?.required
+                "
+              >
+                Please upload a front image of bodaboda!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerRearPhotoUrl"
+                [ngClass]="bodaFval.bodabodaCustomerRearPhotoUrl.valid ? 'text-info' : ''"
+                >Rear Image<i
+                  *ngIf="bodaFval.bodabodaCustomerRearPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="bodabodaCustomerRearPhotoUrl"
+                  formControlName="bodabodaCustomerRearPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerRearPhotoUrl.touched ||
+                      bodaFval.bodabodaCustomerRearPhotoUrl.dirty) &&
+                      bodaFval.bodabodaCustomerRearPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerRearPhotoUrl.touched || bodaFval.bodabodaCustomerRearPhotoUrl.dirty) &&
+                  bodaFval.bodabodaCustomerRearPhotoUrl.errors?.required
+                "
+              >
+              Please upload a rear image of bodaboda!
+            </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerTheBodabodaRearPhotoUrl"
+                [ngClass]="bodaFval.bodabodaCustomerTheBodabodaRearPhotoUrl.valid ? 'text-info' : ''"
+                >Bodaboda Rear Image<i
+                  *ngIf="bodaFval.bodabodaCustomerTheBodabodaRearPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="bodabodaCustomerTheBodabodaRearPhotoUrl"
+                  formControlName="bodabodaCustomerTheBodabodaRearPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerTheBodabodaRearPhotoUrl.touched ||
+                      bodaFval.bodabodaCustomerTheBodabodaRearPhotoUrl.dirty) &&
+                      bodaFval.bodabodaCustomerTheBodabodaRearPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerTheBodabodaRearPhotoUrl.touched || bodaFval.bodabodaCustomerTheBodabodaRearPhotoUrl.dirty) &&
+                  bodaFval.bodabodaCustomerTheBodabodaRearPhotoUrl.errors?.required
+                "
+              >
+              Please upload a rear image of bodaboda!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mt-2 mb-3 pt-0 pb-3 mx-auto">
+          <button
+            type="button"
+            class="btn btn-info col-5 col-md-3 mx-auto"
+            (click)="bodaBack()"
+          >
+            Back
+          </button>
+
+          <label class="col" *ngIf="errored" class="text-danger">
+            <i class="material-icons">Cancel</i>
+
+            <!-- <ngx-alerts></ngx-alerts> -->
+          </label>
+
+          <label class="col" *ngIf="posted" class="text-info">
+            <i class="material-icons">check_circle</i>
+            <!-- <ngx-alerts></ngx-alerts> -->
+          </label>
+
+          <button
+            type="button"
+            class="btn btn-info col-5 col-md-3 mx-auto"
+            (click)="bodaNext()"
+          >
+            Next
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- this is for taxi client -->
+  <div *ngIf="showTaxiForm">
+    <div class="container mt-0 mb-2 mx-0 shadow-lg">
+      <div class="row">
+        <div class="col-12">
+          <h2
+            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          >
+            Taxi Client Info
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-0 pb-md-1 shadow-lg">
+      <form [formGroup]="taxiClientForm">
+      <div class="row">
+        <div class="col-12 col-md-6">
+      <div class="form-group text-primary">
+          <label
+            for="clientName"
+            [ngClass]="taxiFval.clientName.valid ? 'text-info' : ''"
+            ><i *ngIf="taxiFval.clientName.valid" class="material-icons"
+              >check_circle</i
+            >Client Name</label
+          >
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i
+                  class="fas fa-user-alt text-primary mx-auto"
+                  style="size: 50px"
+                >
+                </i>
+              </div>
+            </div>
+            <input
+              type="text"
+              formControlName="clientName"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (taxiFval.clientName.touched || taxiFval.clientName.dirty) &&
+                  taxiFval.clientName.errors
+              }"
+              autocomplete="off"
+              placeholder="Enter Customer Name"
+            />
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (taxiFval.clientName.touched || taxiFval.clientName.dirty) &&
+              taxiFval.clientName.errors?.required
+            "
+          >
+            The client name is required!
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="taxiCustomerNumberPlate"
+                [ngClass]="
+                taxiFval.taxiCustomerNumberPlate.valid ? 'text-info' : ''
+                "
+                >Number Plate<i
+                  *ngIf="taxiFval.taxiCustomerNumberPlate.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-motorcycle text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="taxiCustomerNumberPlate"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerNumberPlate.touched ||
+                      taxiFval.taxiCustomerNumberPlate.dirty) &&
+                      taxiFval.taxiCustomerNumberPlate.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter Taxi number plate"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerNumberPlate.touched ||
+                  taxiFval.taxiCustomerNumberPlate.dirty) &&
+                  taxiFval.taxiCustomerNumberPlate.errors?.required
+                "
+              >
+                The Taxi number plate is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="taxiCustomerColour"
+                [ngClass]="
+                taxiFval.taxiCustomerColour.valid ? 'text-info' : ''
+                "
+                >Taxi color<i
+                  *ngIf="taxiFval.taxiCustomerColour.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <input
+                  type="text"
+                  formControlName="taxiCustomerColour"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerColour.touched ||
+                      taxiFval.taxiCustomerColour.dirty) &&
+                      taxiFval.taxiCustomerColour.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter taxi's color"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerColour.touched ||
+                  taxiFval.taxiCustomerColour.dirty) &&
+                  taxiFval.taxiCustomerColour.errors?.required
+                "
+              >
+                The taxi color is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="taxiCustomerModel"
+                [ngClass]="
+                  fval.taxiCustomerModel.valid ? 'text-info' : ''
+                "
+                >Model<i
+                  *ngIf="fval.taxiCustomerModel.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <input
+                  type="text"
+                  formControlName="taxiCustomerModel"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerModel.touched ||
+                      taxiFval.taxiCustomerModel.dirty) &&
+                      taxiFval.taxiCustomerModel.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter model of taxi"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerModel.touched ||
+                  taxiFval.taxiCustomerModel.dirty) &&
+                  taxiFval.taxiCustomerModel.errors?.required
+                "
+              >
+                The taxi model is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="taxiCustomerYearOfManufacture"
+                [ngClass]="
+                taxiFval.taxiCustomerYearOfManufacture.valid ? 'text-info' : ''
+                "
+                >Year of Manufacture<i
+                  *ngIf="taxiFval.taxiCustomerYearOfManufacture.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <input
+                  type="text"
+                  formControlName="taxiCustomerYearOfManufacture"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerYearOfManufacture.touched ||
+                      taxiFval.taxiCustomerYearOfManufacture.dirty) &&
+                      taxiFval.taxiCustomerYearOfManufacture.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter Year of Manufacture"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerYearOfManufacture.touched ||
+                  taxiFval.taxiCustomerYearOfManufacture.dirty) &&
+                  taxiFval.taxiCustomerYearOfManufacture.errors?.required
+                "
+              >
+                The Year of Manufacture is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="taxiCustomerEngineNumber"
+                [ngClass]="
+                taxiFval.taxiCustomerEngineNumber.valid
+                    ? 'text-info'
+                    : ''
+                "
+                >Engine number<i
+                  *ngIf="taxiFval.taxiCustomerEngineNumber.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <input
+                  type="text"
+                  formControlName="taxiCustomerEngineNumber"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerEngineNumber.touched ||
+                      taxiFval.taxiCustomerEngineNumber.dirty) &&
+                      taxiFval.taxiCustomerEngineNumber.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter taxi engine number"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerEngineNumber.touched ||
+                  taxiFval.taxiCustomerEngineNumber.dirty) &&
+                  taxiFval.taxiCustomerEngineNumber.errors?.required
+                "
+              >
+                The taxi engine number is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="taxiCustomerFrontPhotoUrl"
+                [ngClass]="taxiFval.taxiCustomerFrontPhotoUrl.valid ? 'text-info' : ''"
+                >Front Image<i
+                  *ngIf="taxiFval.taxiCustomerFrontPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="taxiCustomerFrontPhotoUrl"
+                  formControlName="taxiCustomerFrontPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerFrontPhotoUrl.touched ||
+                      taxiFval.taxiCustomerFrontPhotoUrl.dirty) &&
+                      taxiFval.taxiCustomerFrontPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerFrontPhotoUrl.touched || taxiFval.taxiCustomerFrontPhotoUrl.dirty) &&
+                  taxiFval.taxiCustomerFrontPhotoUrl.errors?.required
+                "
+              >
+                Please upload a front image of taxi!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="taxiCustomerRearPhotoUrl"
+                [ngClass]="taxiFval.taxiCustomerRearPhotoUrl.valid ? 'text-info' : ''"
+                >Rear Image<i
+                  *ngIf="taxiFval.taxiCustomerRearPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="taxiCustomerRearPhotoUrl"
+                  formControlName="taxiCustomerRearPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerRearPhotoUrl.touched ||
+                      taxiFval.taxiCustomerRearPhotoUrl.dirty) &&
+                      taxiFval.taxiCustomerRearPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerRearPhotoUrl.touched || taxiFval.taxiCustomerRearPhotoUrl.dirty) &&
+                  taxiFval.taxiCustomerRearPhotoUrl.errors?.required
+                "
+              >
+              Please upload a rear image of taxi!
+            </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="taxiCustomerTheBodabodaRearPhotoUrl"
+                [ngClass]="taxiFval.taxiCustomerTheBodabodaRearPhotoUrl.valid ? 'text-info' : ''"
+                >Taxi Rear Image<i
+                  *ngIf="taxiFval.taxiCustomerTheBodabodaRearPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="taxiCustomerTheBodabodaRearPhotoUrl"
+                  formControlName="taxiCustomerTheBodabodaRearPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerTheBodabodaRearPhotoUrl.touched ||
+                      taxiFval.taxiCustomerTheBodabodaRearPhotoUrl.dirty) &&
+                      taxiFval.taxiCustomerTheBodabodaRearPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerTheBodabodaRearPhotoUrl.touched || taxiFval.taxiCustomerTheBodabodaRearPhotoUrl.dirty) &&
+                  taxiFval.taxiCustomerTheBodabodaRearPhotoUrl.errors?.required
+                "
+              >
+              Please upload a rear image of taxi!
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="d-flex mt-2 mb-3 pt-0 pb-3 mx-auto">
+            <button
+              type="button"
+              class="btn btn-info col-5 col-md-3 mx-auto"
+              (click)="taxiBack()"
+            >
+              Back
+            </button>
+  
+            <label class="col" *ngIf="errored" class="text-danger">
+              <i class="material-icons">Cancel</i>
+  
+              <!-- <ngx-alerts></ngx-alerts> -->
+            </label>
+  
+            <label class="col" *ngIf="posted" class="text-info">
+              <i class="material-icons">check_circle</i>
+              <!-- <ngx-alerts></ngx-alerts> -->
+            </label>
+  
+            <button
+              type="button"
+              class="btn btn-info col-5 col-md-3 mx-auto"
+              (click)="taxiNext()"
+            >
+              Next
+            </button>
+          </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- this is for micro client -->
+  <div *ngIf="showMicroForm">
+    <div class="container mt-0 mb-2 mx-0 shadow-lg">
+      <div class="row">
+        <div class="col-12">
+          <h3
+            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          >
+            Micro Client Info
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-0 pb-md-1 shadow-lg">
+      <form [formGroup]="microClientForm">
+        <div class="row">
+          <div class="col-12 col-md-6">
+        <div class="form-group text-primary">
+            <label
+              for="clientName"
+              [ngClass]="microFval.clientName.valid ? 'text-info' : ''"
+              ><i *ngIf="microFval.clientName.valid" class="material-icons"
+                >check_circle</i
+              >Client Name</label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-user-alt text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
+              <input
+              type="text"
+              formControlName="clientName"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (microFval.clientName.touched || microFval.clientName.dirty) &&
+                  microFval.clientName.errors
+              }"
+              autocomplete="off"
+              placeholder="Enter Customer Name"
+            />
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (microFval.clientName.touched || microFval.clientName.dirty) &&
+                microFval.clientName.errors?.required
+              "
+            >
+              The client name is required!
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6">
+          <div class="form-group text-primary">
+            <label
+              for="microloanCustomerGaurantor1"
+              [ngClass]="
+              microFval.microloanCustomerGaurantor1.valid ? 'text-info' : ''
+              "
+              >Guarantor 1<i
+                *ngIf="microFval.microloanCustomerGaurantor1.valid"
+                class="material-icons"
+                >check_circle</i
+              ></label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-user-alt text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
+              <input
+                type="text"
+                formControlName="microloanCustomerGaurantor1"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (microFval.microloanCustomerGaurantor1.touched ||
+                    microFval.microloanCustomerGaurantor1.dirty) &&
+                    microFval.microloanCustomerGaurantor1.errors
+                }"
+                autocomplete="off"
+                placeholder="First guarantor's Name"
+              />
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (microFval.microloanCustomerGaurantor1.touched ||
+                microFval.microloanCustomerGaurantor1.dirty) &&
+                microFval.microloanCustomerGaurantor1.errors?.required
+              "
+            >
+              The guarantor 1 name is required!
+            </div>
+          </div>
+        </div>
+    </div>
+          <div class="row">
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerGaurantor2"
+                [ngClass]="
+                microFval.microloanCustomerGaurantor2.valid ? 'text-info' : ''
+                "
+                >Guarantor 2<i
+                  *ngIf="microFval.microloanCustomerGaurantor2.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerGaurantor2"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (microFval.microloanCustomerGaurantor2.touched ||
+                      microFval.microloanCustomerGaurantor2.dirty) &&
+                      microFval.microloanCustomerGaurantor2.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Second guarantor's Name"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (microFval.microloanCustomerGaurantor2.touched ||
+                  microFval.microloanCustomerGaurantor2.dirty) &&
+                  microFval.microloanCustomerGaurantor2.errors?.required
+                "
+              >
+                The guarantor 2 name is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerGaurantor3"
+                [ngClass]="
+                microFval.microloanCustomerGaurantor3.valid ? 'text-info' : ''
+                "
+                >Guarantor 3<i
+                  *ngIf="microFval.microloanCustomerGaurantor3.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerGaurantor3"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (microFval.microloanCustomerGaurantor3.touched ||
+                      microFval.microloanCustomerGaurantor3.dirty) &&
+                      microFval.microloanCustomerGaurantor3.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Third guarantor's Name"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (microFval.microloanCustomerGaurantor3.touched ||
+                  microFval.microloanCustomerGaurantor3.dirty) &&
+                  microFval.microloanCustomerGaurantor3.errors?.required
+                "
+              >
+                The guarantor 3 name is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurity1"
+                [ngClass]="
+                microFval.microloanCustomerSecurity1.valid ? 'text-info' : ''
+                "
+                >Security 1<i
+                  *ngIf="microFval.microloanCustomerSecurity1.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-building text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerSecurity1"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (microFval.microloanCustomerSecurity1.touched ||
+                      microFval.microloanCustomerSecurity1.dirty) &&
+                      microFval.microloanCustomerSecurity1.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter first security"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (microFval.microloanCustomerSecurity1.touched ||
+                  microFval.microloanCustomerSecurity1.dirty) &&
+                  microFval.microloanCustomerSecurity1.errors?.required
+                "
+              >
+                Security 1 is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurity2"
+                [ngClass]="
+                microFval.microloanCustomerSecurity2.valid ? 'text-info' : ''
+                "
+                >Security 2<i
+                  *ngIf="microFval.microloanCustomerSecurity2.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-building text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerSecurity2"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (microFval.microloanCustomerSecurity2.touched ||
+                      microFval.microloanCustomerSecurity2.dirty) &&
+                      microFval.microloanCustomerSecurity2.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter second security"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (microFval.microloanCustomerSecurity2.touched ||
+                  microFval.microloanCustomerSecurity2.dirty) &&
+                  microFval.microloanCustomerSecurity2.errors?.required
+                "
+              >
+                Security 2 is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurityLocation1"
+                [ngClass]="
+                microFval.microloanCustomerSecurityLocation1.valid
+                    ? 'text-info'
+                    : ''
+                "
+                >Security 1 Location<i
+                  *ngIf="microFval.microloanCustomerSecurityLocation1.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-location-arrow text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerSecurityLocation1"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (microFval.microloanCustomerSecurityLocation1.touched ||
+                      microFval.microloanCustomerSecurityLocation1.dirty) &&
+                      microFval.microloanCustomerSecurityLocation1.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter first security's location"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (microFval.microloanCustomerSecurityLocation1.touched ||
+                  microFval.microloanCustomerSecurityLocation1.dirty) &&
+                  microFval.microloanCustomerSecurityLocation1.errors?.required
+                "
+              >
+                Security 1's location is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurityLocation2"
+                [ngClass]="
+                microFval.microloanCustomerSecurityLocation2.valid
+                    ? 'text-info'
+                    : ''
+                "
+                >Security 2 Location<i
+                  *ngIf="microFval.microloanCustomerSecurityLocation2.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-location-arrow text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="microloanCustomerSecurityLocation2"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (microFval.microloanCustomerSecurityLocation2.touched ||
+                      microFval.microloanCustomerSecurityLocation2.dirty) &&
+                      microFval.microloanCustomerSecurityLocation2.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter second security's location"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (microFval.microloanCustomerSecurityLocation2.touched ||
+                  microFval.microloanCustomerSecurityLocation2.dirty) &&
+                  microFval.microloanCustomerSecurityLocation2.errors?.required
+                "
+              >
+              Security 2's location is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurity1PhotoUrl"
+                [ngClass]="microFval.microloanCustomerSecurity1PhotoUrl.valid ? 'text-info' : ''"
+                >Security 1 Image<i
+                  *ngIf="microFval.microloanCustomerSecurity1PhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="microloanCustomerSecurity1PhotoUrl"
+                  formControlName="microloanCustomerSecurity1PhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (microFval.microloanCustomerSecurity1PhotoUrl.touched ||
+                      microFval.microloanCustomerSecurity1PhotoUrl.dirty) &&
+                      microFval.microloanCustomerSecurity1PhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (microFval.microloanCustomerSecurity1PhotoUrl.touched || microFval.microloanCustomerSecurity1PhotoUrl.dirty) &&
+                  microFval.microloanCustomerSecurity1PhotoUrl.errors?.required
+                "
+              >
+                Please upload an image of Security 1!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="microloanCustomerSecurity2PhotoUrl"
+                [ngClass]="microFval.microloanCustomerSecurity2PhotoUrl.valid ? 'text-info' : ''"
+                >Security 2 Image<i
+                  *ngIf="microFval.microloanCustomerSecurity2PhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="microloanCustomerSecurity2PhotoUrl"
+                  formControlName="microloanCustomerSecurity2PhotoUrl"
+                  type="file"
+                  src="image/*"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (microFval.microloanCustomerSecurity2PhotoUrl.touched ||
+                      microFval.microloanCustomerSecurity2PhotoUrl.dirty) &&
+                      microFval.microloanCustomerSecurity2PhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (microFval.microloanCustomerSecurity2PhotoUrl.touched || microFval.microloanCustomerSecurity2PhotoUrl.dirty) &&
+                  microFval.microloanCustomerSecurity2PhotoUrl.errors?.required
+                "
+              >
+                Please upload an image of Security 2!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mt-2 mb-3 pt-0 pb-3">
+          <button
+            type="button"
+            class="btn btn-info col-5 col-md-3 ml-3"
+            (click)="microBack()"
+          >
+            Back
+          </button>
+
+          <label class="col" *ngIf="errored" class="text-danger">
+            <i class="material-icons">Cancel</i>
+
+            <!-- <ngx-alerts></ngx-alerts> -->
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>
   </div>
 </div>

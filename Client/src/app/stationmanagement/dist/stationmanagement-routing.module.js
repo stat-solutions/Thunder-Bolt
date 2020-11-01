@@ -17,8 +17,6 @@ var reports_component_1 = require("./components/reports/reports.component");
 var cash_ledger_component_1 = require("./components/reports/cash-ledger/cash-ledger.component");
 var paid_ledger_component_1 = require("./components/reports/paid-ledger/paid-ledger.component");
 var borrowed_ledger_component_1 = require("./components/reports/borrowed-ledger/borrowed-ledger.component");
-var personal_profile_component_1 = require("./components/profile/personal-profile/personal-profile.component");
-var set_password_component_1 = require("./components/profile/set-password/set-password.component");
 var routes = [
     {
         path: '',
@@ -52,23 +50,9 @@ var routes = [
                     },
                 ]
             },
-            // {
-            //   path: 'approveusers',
-            //   component: ApproveStationUsersComponent,
-            // },
             {
                 path: 'profile',
-                component: profile_component_1.ProfileComponent,
-                children: [
-                    {
-                        path: 'personalprofile',
-                        component: personal_profile_component_1.PersonalProfileComponent
-                    },
-                    {
-                        path: 'setpassword',
-                        component: set_password_component_1.SetPasswordComponent
-                    },
-                ]
+                component: profile_component_1.ProfileComponent
             },
         ]
     },

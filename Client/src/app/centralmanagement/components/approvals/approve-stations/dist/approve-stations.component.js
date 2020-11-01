@@ -52,11 +52,9 @@ var ApproveStationsComponent = /** @class */ (function () {
         var n;
         this.others.getStationsToApprove(this.User.userId).subscribe(function (items) {
             _this.stationApproval = items;
-            console.log(_this.stationApproval);
+            // console.log(this.stationApproval);
             _this.stationApproval.forEach(function (item, i) {
-                // console.log(item.station);
-                // console.log(i);
-                // this.fval.approveStations.controls[i].controls.station.setValue(item.station);
+                _this.fval.approveStations.controls[i].controls.station.setValue(item.stationName);
                 _this.fval.approveStations.controls[i].controls.approved.setValue(false);
                 _this.addItem();
                 n = i + 1;
@@ -105,8 +103,8 @@ var ApproveStationsComponent = /** @class */ (function () {
         this.stationApproval.forEach(function (item, i) {
             if (_this.fval.approveStations.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
-                    // areaRegionId: item.areaRegionId,
-                    areaRegionStatus: 2,
+                    stationId: item.stationId,
+                    stationStatus: 3,
                     userId: _this.User.userId
                 });
             }
@@ -115,7 +113,9 @@ var ApproveStationsComponent = /** @class */ (function () {
         if (itemsApproved.length > 0) {
             this.others.approveStations(itemsApproved).subscribe(function (res) {
                 if (res) {
-                    _this.initialiseForm();
+                    setTimeout(function () {
+                        _this.refresh();
+                    }, 3000);
                 }
             }, function (err) { return console.log(err); });
         }
@@ -130,8 +130,8 @@ var ApproveStationsComponent = /** @class */ (function () {
         this.stationApproval.forEach(function (item, i) {
             if (_this.fval.approveStations.controls[i].controls.approved.value === true) {
                 itemsRejected.push({
-                    // areaRegionId: item.areaRegionId,
-                    areaRegionStatus: 3,
+                    stationId: item.stationId,
+                    stationStatus: 3,
                     userId: _this.User.userId
                 });
             }
@@ -140,7 +140,9 @@ var ApproveStationsComponent = /** @class */ (function () {
         if (itemsRejected.length > 0) {
             this.others.rejectStations(itemsRejected).subscribe(function (res) {
                 if (res) {
-                    _this.initialiseForm();
+                    setTimeout(function () {
+                        _this.refresh();
+                    }, 3000);
                 }
             }, function (err) { return console.log(err); });
         }

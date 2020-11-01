@@ -34,8 +34,6 @@ import { WaiveInterestComponent } from './components/transactions/approval/waive
 import { WithdrawSavingsComponent } from './components/transactions/approval/withdraw-savings/withdraw-savings.component';
 import { WriteOffComponent } from './components/transactions/approval/write-off/write-off.component';
 import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
-import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 import { ApproveCentralUsersComponent } from './components/approve-central-users/approve-central-users.component';
 import { SelectTheAreaComponent } from './components/select-the-Area/select-the-Area.component';
 import { SetManagersComponent } from './components/set-managers/set-managers.component';
@@ -221,16 +219,6 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
-        children: [
-          {
-            path: 'personalprofile',
-            component: PersonalProfileComponent,
-          },
-          {
-            path: 'setpassword',
-            component: SetPasswordComponent,
-          },
-        ],
       },
     ],
   },

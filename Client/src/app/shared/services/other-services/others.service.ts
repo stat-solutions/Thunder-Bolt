@@ -73,6 +73,9 @@ export class OthersService {
   getBussinessUnits(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/adminUser/getAllBusinessUnits`);
   }
+  getBussinessUnitLocations(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/adminUser/getAllBusinessUnitLocations`);
+  }
   setBussinessUnits(postData: any): any {
     return this.http.post(`${this.API_URL}/api/adminUser/postBusinessUnit`, postData, this.httpOptions);
   }
@@ -89,6 +92,9 @@ export class OthersService {
   }
   rejectUsers(postData: any): Observable<any> {
     return this.http.post<any>(`${this.API_URL}/api/user/putRejectUserApproval`, postData, this.httpOptions);
+  }
+  approveUsers(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/user/putApproveUser`, postData, this.httpOptions);
   }
   getUserProfile(userId: number): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/user/getUser/?id=${userId}`);
@@ -127,7 +133,7 @@ export class OthersService {
     getAllTheAreaLocations(): Observable<any> {
       return this.http.get<any>(`${this.API_URL}/api/areaUser/getAllAreaLocations`);
     }
-    getAllTheAreaLocationTotals(): Observable<any> {
+    getAllTheAreaLocationTotal(): Observable<any> {
       return this.http.get<any>(`${this.API_URL}/api/areaUser/getTotalAreaLocations`);
     }
     getTowns(): Observable<any> {
@@ -136,8 +142,9 @@ export class OthersService {
     getAllTheTownLocations(): Observable<any> {
       return this.http.get<any>(`${this.API_URL}/api/townUser/getAllTownLocations`);
     }
-    getAllTheTownLocationTotals(): Observable<any> {
-      return this.http.get<any>(`${this.API_URL}/api/townUser/getTotalTownLocations`);
+    getAllTheTownLocationTotal(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/townUser/getTotalTownLocations`).pipe(
+      );
     }
     getStations(): Observable<any> {
       return this.http.get<any>(`${this.API_URL}/api/stationUser/getAllStations`);

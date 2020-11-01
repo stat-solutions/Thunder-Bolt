@@ -47,6 +47,7 @@ export class ApproveAreasComponent implements OnInit {
   }
   get areaApprovals(): any {
     return this.fb.group({
+      areaId: this.fb.control({ value: '' }),
       area: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
@@ -66,29 +67,7 @@ export class ApproveAreasComponent implements OnInit {
         this.areaApproval = items;
         // console.log(this.areaApproval);
         this.areaApproval.forEach((item, i) => {
-        // approvalDetailsId: 117
-        // areaRegionId: 800
-        // areaRegionName: "Albert Region"
-        // areaRegionStatus: 1
-        // createdBy: 1000000001
-        // createdByAt: "2020-10-31T22:38:47.000Z"
-        // firstApprovedBy: 1000000000
-        // firstApprovedByAt: "2020-10-31T22:38:47.000Z"
-        // firstUpdateApprovedBy: 1000000000
-        // firstUpdateApprovedByAt: "2020-10-31T22:38:47.000Z"
-        // fkApprovalDetailsIdAreaRegion: 117
-        // secondApprovedBy: 1000000000
-        // secondApprovedByAt: "2020-10-31T22:38:47.000Z"
-        // secondUpdateApprovedBy: 1000000000
-        // secondUpdateApprovedByAt: "2020-10-31T22:38:47.000Z"
-        // thirdApprovedBy: 1000000000
-        // thirdApprovedByAt: "2020-10-31T22:38:47.000Z"
-        // thirdUpdateApprovedBy: 1000000000
-        // thirdUpdateApprovedByAt: "2020-10-31T22:38:47.000Z"
-        // updatedBy: 1000000000
-        // updatedByAt: "2020-10-31T22:38:47.000Z"
-        // console.log(item.name);
-        // console.log(i);
+        this.fval.approveAreas.controls[i].controls.areaId.setValue(item.areaRegionId);
         this.fval.approveAreas.controls[i].controls.area.setValue(item.areaRegionName);
         this.fval.approveAreas.controls[i].controls.approved.setValue(false);
         this.addItem();
@@ -149,7 +128,9 @@ export class ApproveAreasComponent implements OnInit {
       this.others.approveAreas(itemsApproved).subscribe(
         res => {
           if (res) {
-            this.initialiseForm();
+            // setTimeout(() => {
+            //   this.refresh();
+            // }, 3000);
           }
         },
         err => console.log(err)
@@ -175,7 +156,9 @@ export class ApproveAreasComponent implements OnInit {
       this.others.rejectAreas(itemsRejected).subscribe(
         res => {
           if (res) {
-            this.initialiseForm();
+            // setTimeout(() => {
+            //   this.refresh();
+            // }, 3000);
           }
         },
         err => console.log(err)

@@ -17,18 +17,13 @@ var create_component_1 = require("./components/create/create.component");
 var create_towns_component_1 = require("./components/create/create-towns/create-towns.component");
 var approvals_component_1 = require("./components/approvals/approvals.component");
 var withdraw_savings_component_1 = require("./components/approvals/loans-approvals/withdraw-savings/withdraw-savings.component");
-var stations_component_1 = require("./components/approvals/create-approvals/stations/stations.component");
-var towns_component_1 = require("./components/approvals/create-approvals/towns/towns.component");
 var interest_rate_component_1 = require("./components/approvals/loans-approvals/interest-rate/interest-rate.component");
 var loan_limit_component_1 = require("./components/approvals/loans-approvals/loan-limit/loan-limit.component");
 var reduce_rate_component_1 = require("./components/approvals/loans-approvals/reduce-rate/reduce-rate.component");
 var reverse_principle_component_1 = require("./components/approvals/loans-approvals/reverse-principle/reverse-principle.component");
 var waive_interest_component_1 = require("./components/approvals/loans-approvals/waive-interest/waive-interest.component");
 var write_off_component_1 = require("./components/approvals/loans-approvals/write-off/write-off.component");
-var create_approvals_component_1 = require("./components/approvals/create-approvals/create-approvals.component");
 var loans_approvals_component_1 = require("./components/approvals/loans-approvals/loans-approvals.component");
-var personal_profile_component_1 = require("./components/profile/personal-profile/personal-profile.component");
-var set_password_component_1 = require("./components/profile/set-password/set-password.component");
 var stations_reports_component_1 = require("./components/reports/stations-reports/stations-reports.component");
 var towns_reports_component_1 = require("./components/reports/towns-reports/towns-reports.component");
 var clients_component_1 = require("./components/reports/clients/clients.component");
@@ -61,10 +56,6 @@ var routes = [
                 path: 'create',
                 component: create_component_1.CreateComponent,
                 children: [
-                    // {
-                    //   path: 'createstations',
-                    //   component: CreateStationsComponent,
-                    // },
                     {
                         path: '',
                         pathMatch: 'full',
@@ -111,20 +102,6 @@ var routes = [
                             {
                                 path: 'loanlimit',
                                 component: loan_limit_component_1.LoanLimitComponent
-                            },
-                        ]
-                    },
-                    {
-                        path: 'createapprovals',
-                        component: create_approvals_component_1.CreateApprovalsComponent,
-                        children: [
-                            {
-                                path: 'approvestations',
-                                component: stations_component_1.StationsComponent
-                            },
-                            {
-                                path: 'approvetowns',
-                                component: towns_component_1.TownsComponent
                             },
                         ]
                     },
@@ -180,23 +157,9 @@ var routes = [
                     },
                 ]
             },
-            // {
-            //   path: 'approveusers',
-            //   component: ApproveAreaUsersComponent,
-            // },
             {
                 path: 'profile',
-                component: profile_component_1.ProfileComponent,
-                children: [
-                    {
-                        path: 'personalprofile',
-                        component: personal_profile_component_1.PersonalProfileComponent
-                    },
-                    {
-                        path: 'setpassword',
-                        component: set_password_component_1.SetPasswordComponent
-                    },
-                ]
+                component: profile_component_1.ProfileComponent
             },
         ]
     },

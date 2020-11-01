@@ -39,17 +39,12 @@ var reports_component_1 = require("./components/reports/reports.component");
 var cash_ledger_component_1 = require("./components/reports/cash-ledger/cash-ledger.component");
 var paid_ledger_component_1 = require("./components/reports/paid-ledger/paid-ledger.component");
 var loans_ledger_component_1 = require("./components/reports/loans-ledger/loans-ledger.component");
-var set_password_component_1 = require("./components/profile/set-password/set-password.component");
 var personal_profile_component_1 = require("./components/profile/personal-profile/personal-profile.component");
 var edit_client_component_1 = require("./components/enroll/edit-client/edit-client.component");
 var edit_personal_info_component_1 = require("./components/enroll/edit-client/edit-personal-info/edit-personal-info.component");
-var edit_micro_client_info_component_1 = require("./components/enroll/edit-client/edit-micro-client-info/edit-micro-client-info.component");
-var edit_boda_client_info_component_1 = require("./components/enroll/edit-client/edit-boda-client-info/edit-boda-client-info.component");
-var edit_taxi_client_info_component_1 = require("./components/enroll/edit-client/edit-taxi-client-info/edit-taxi-client-info.component");
 var edit_stage_component_1 = require("./components/enroll/edit-stage/edit-stage.component");
 var edit_boda_stage_component_1 = require("./components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component");
 var edit_taxi_stage_component_1 = require("./components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component");
-var approve_town_users_component_1 = require("./components/approve-town-users/approve-town-users.component");
 var TownmanagementModule = /** @class */ (function () {
     function TownmanagementModule() {
     }
@@ -78,17 +73,12 @@ var TownmanagementModule = /** @class */ (function () {
                 cash_ledger_component_1.CashLedgerComponent,
                 paid_ledger_component_1.PaidLedgerComponent,
                 loans_ledger_component_1.LoansLedgerComponent,
-                set_password_component_1.SetPasswordComponent,
                 personal_profile_component_1.PersonalProfileComponent,
                 edit_client_component_1.EditClientComponent,
                 edit_personal_info_component_1.EditPersonalInfoComponent,
-                edit_micro_client_info_component_1.EditMicroClientInfoComponent,
-                edit_boda_client_info_component_1.EditBodaClientInfoComponent,
-                edit_taxi_client_info_component_1.EditTaxiClientInfoComponent,
                 edit_stage_component_1.EditStageComponent,
                 edit_boda_stage_component_1.EditBodaStageComponent,
                 edit_taxi_stage_component_1.EditTaxiStageComponent,
-                approve_town_users_component_1.ApproveTownUsersComponent
             ],
             imports: [
                 common_1.CommonModule,

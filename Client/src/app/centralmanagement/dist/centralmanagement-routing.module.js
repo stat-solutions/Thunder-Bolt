@@ -43,8 +43,6 @@ var waive_interest_component_1 = require("./components/transactions/approval/wai
 var withdraw_savings_component_1 = require("./components/transactions/approval/withdraw-savings/withdraw-savings.component");
 var write_off_component_1 = require("./components/transactions/approval/write-off/write-off.component");
 var random_guard_service_1 = require("../shared/services/other-services/route-guards/random-guard.service");
-var personal_profile_component_1 = require("./components/profile/personal-profile/personal-profile.component");
-var set_password_component_1 = require("./components/profile/set-password/set-password.component");
 var approve_central_users_component_1 = require("./components/approve-central-users/approve-central-users.component");
 var select_the_Area_component_1 = require("./components/select-the-Area/select-the-Area.component");
 var set_managers_component_1 = require("./components/set-managers/set-managers.component");
@@ -228,17 +226,7 @@ var routes = [
             },
             {
                 path: 'profile',
-                component: profile_component_1.ProfileComponent,
-                children: [
-                    {
-                        path: 'personalprofile',
-                        component: personal_profile_component_1.PersonalProfileComponent
-                    },
-                    {
-                        path: 'setpassword',
-                        component: set_password_component_1.SetPasswordComponent
-                    },
-                ]
+                component: profile_component_1.ProfileComponent
             },
         ]
     },

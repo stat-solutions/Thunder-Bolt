@@ -5,6 +5,7 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 export interface ApproveCentralUsers {
@@ -22,65 +23,17 @@ export interface ApproveCentralUsers {
 })
 export class ApproveCentralUsersComponent implements OnInit {
   userForm: FormGroup;
-  centralUserApprovals: ApproveCentralUsers[] = [
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central User',
-      userLocation: 'Fuel Bussiness',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Area User',
-      userLocation: 'Central Region',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Area User',
-      userLocation: 'Eastern Region',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Town User',
-      userLocation: 'Kampala',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Town User',
-      userLocation: 'Kitugumu',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Station User',
-      userLocation: 'Don Petrol Station',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Station User',
-      userLocation: 'Don Petrol Station',
-      status: 0,
-    },
-  ];
+  centralUserApprovals: any;
   posted = false;
   actionButton: string;
   errored: boolean;
   serviceErrors: string;
   status: boolean;
   checkedOk: boolean;
+  User = this.authService.loggedInUserInfo();
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
@@ -102,6 +55,7 @@ export class ApproveCentralUsersComponent implements OnInit {
       userID: this.fb.control({ value: '' }),
       userName: this.fb.control({ value: '' }),
       userRole: this.fb.control({ value: '' }),
+      userLocation: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
   }
@@ -115,30 +69,24 @@ export class ApproveCentralUsersComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    //   units => {
-    //     this.approvals = units;
-    this.centralUserApprovals.forEach((item, i) => {
-      // console.log(item.name);
-      // console.log(i);
-      this.fval.approveUsers.controls[i].controls.userID.setValue(
-        item.userID
-      );
-      this.fval.approveUsers.controls[i].controls.userName.setValue(
-        item.userName
-      );
-      this.fval.approveUsers.controls[i].controls.userRole.setValue(
-        item.userRole
-      );
-      this.fval.approveUsers.controls[i].controls.approved.setValue(
-        false
-      );
-      this.addItem();
-      n = i + 1;
-    });
-    this.removeItem(n);
-    // }
-    // )
+    this.others.getUsersForApproval().subscribe(
+      units => {
+        this.centralUserApprovals = units;
+        // console.log(this.centralUserApprovals);
+        this.centralUserApprovals.forEach((item, i) => {
+        this.fval.approveUsers.controls[i].controls.userID.setValue(item.userId);
+        this.fval.approveUsers.controls[i].controls.userName.setValue(item.userName);
+        this.fval.approveUsers.controls[i].controls.userRole.setValue(item.roleName);
+        this.fval.approveUsers.controls[i].controls.userLocation.setValue(item.locationName);
+        this.fval.approveUsers.controls[i].controls.approved.setValue(
+          false
+        );
+        this.addItem();
+        n = i + 1;
+      });
+        this.removeItem(n);
+      }
+    );
   }
   checkAllItems(val: boolean): any {
     if (val === true) {
@@ -186,41 +134,52 @@ export class ApproveCentralUsersComponent implements OnInit {
   approveItems(): any {
     const itemsApproved = [];
     this.centralUserApprovals.forEach((item, i) => {
-      if (
-        this.fval.approveUsers.controls[i].controls.approved.value === true
-      ) {
-        item.status = 2;
-        itemsApproved.push(item);
+      if (this.fval.approveUsers.controls[i].controls.approved.value === true) {
+        itemsApproved.push({
+          userId: item.userId,
+          userStatus: 2,
+          userIdApprover: this.User.userId
+        });
       }
     });
 
-    console.log(itemsApproved.length);
+    // console.log(itemsApproved.length);
     if (itemsApproved.length > 0) {
-      setTimeout(() => {
-        this.router.navigate(['centralmanagement/dashboard']);
-      }, 3000);
+      this.others.approveUsers(itemsApproved).subscribe(
+        res => {
+          // setTimeout(() => {
+          //   this.refresh();
+          // }, 3000);
+        }, err => console.log(err)
+      );
     } else {
-      // alert("Please select something")
+      alert('Please select something');
       return;
     }
   }
   rejectItems(): any {
     const itemsRejected = [];
     this.centralUserApprovals.forEach((item, i) => {
-      if (
-        this.fval.approveUsers.controls[i].controls.approved.value === true
-      ) {
-        item.status = 1;
-        itemsRejected.push(item);
+      if (this.fval.approveUsers.controls[i].controls.approved.value === true) {
+        itemsRejected.push({
+            userId: item.userId,
+            userStatus: 3,
+            userIdApprover: this.User.userId
+          });
       }
     });
-    console.log(itemsRejected.length);
+    // console.log(itemsRejected.length);
     if (itemsRejected.length > 0) {
-      setTimeout(() => {
-        this.router.navigate(['centralmanagement/dashboard']);
-      }, 3000);
+      this.others.rejectUsers(itemsRejected).subscribe(
+        res => {
+          //
+          // setTimeout(() => {
+          //   this.refresh();
+          // }, 3000);
+        }, err => console.log(err)
+      );
     } else {
-      // alert("Please select something")
+      alert('Please select something');
       return;
     }
   }

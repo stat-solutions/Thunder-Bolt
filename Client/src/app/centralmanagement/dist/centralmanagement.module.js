@@ -57,7 +57,6 @@ var ng_chartjs_1 = require("ng-chartjs");
 var tabs_1 = require("ngx-bootstrap/tabs");
 var datepicker_1 = require("ngx-bootstrap/datepicker");
 var personal_profile_component_1 = require("./components/profile/personal-profile/personal-profile.component");
-var set_password_component_1 = require("./components/profile/set-password/set-password.component");
 var approve_central_users_component_1 = require("./components/approve-central-users/approve-central-users.component");
 var select_the_Area_component_1 = require("./components/select-the-Area/select-the-Area.component");
 var set_managers_component_1 = require("./components/set-managers/set-managers.component");
@@ -109,7 +108,6 @@ var CentralmanagementModule = /** @class */ (function () {
                 loan_limit_component_1.LoanLimitComponent,
                 float_approval_component_1.FloatApprovalComponent,
                 personal_profile_component_1.PersonalProfileComponent,
-                set_password_component_1.SetPasswordComponent,
                 approve_central_users_component_1.ApproveCentralUsersComponent,
                 select_the_Area_component_1.SelectTheAreaComponent,
                 set_managers_component_1.SetManagersComponent,

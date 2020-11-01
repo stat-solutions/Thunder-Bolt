@@ -23,41 +23,13 @@ var RegistrationComponent = /** @class */ (function () {
         this.errored = false;
         this.posted = false;
         this.serviceErrors = {};
-        this.areas = [
-            'Central Region',
-            'Western Region',
-            'Southern Region',
-            'Northern Region',
-            'Eastern Region'
-        ];
-        this.towns = [
-            { name: 'Kampala', area: 'Central Region' },
-            { name: 'Wakiso', area: 'Central Region' },
-            { name: 'Mbale', area: 'Eastern Region' },
-            { name: 'Busia', area: 'Eastern Region' },
-            { name: 'Mbarara', area: 'Western Region' },
-            { name: 'Bushenyi', area: 'Western Region' },
-            { name: 'Kisoro', area: 'Western Region' },
-            { name: 'Kotido', area: 'Northern Region' },
-            { name: 'Moroto', area: 'Northern Region' },
-            { name: 'Arua', area: 'Northern Region' },
-        ];
-        this.stations = [
-            { name: 'ndeba', town: 'Wakiso' },
-            { name: 'ndejje', town: 'Kampala' },
-            { name: 'matugga', town: 'Wakiso' },
-            { name: 'kinawa', town: 'Kampala' },
-            { name: 'kitale', town: 'Mbarara' },
-            { name: 'katwe', town: 'Kampala' },
-            { name: 'sogga', town: 'Mbale' },
-            { name: 'kitwee', town: 'Wakiso' },
-            { name: 'busega', town: 'Kampala' },
-            { name: 'mbweera', town: 'Arua' },
-        ];
     }
     RegistrationComponent.prototype.ngOnInit = function () {
         this.getRoles();
         this.getUnits();
+        this.others.getAllTheAreaLocations().subscribe(function (res) { return console.log(res); });
+        this.others.getAllTheTownLocations().subscribe(function (res) { return console.log(res); });
+        this.others.getAllTheStationLocations().subscribe(function (res) { return console.log(res); });
         this.userForm = this.createFormGroup();
         this.myDateValue = new Date();
     };
@@ -146,9 +118,9 @@ var RegistrationComponent = /** @class */ (function () {
     };
     RegistrationComponent.prototype.getUnits = function () {
         var _this = this;
-        this.others.getBussinessUnits().subscribe(function (res) {
+        this.others.getBussinessUnitLocations().subscribe(function (res) {
             _this.units = res;
-            // console.log(this.units);
+            console.log(_this.units);
         }, function (err) { return console.log(err); });
     };
     RegistrationComponent.prototype.getRoles = function () {
@@ -211,7 +183,7 @@ var RegistrationComponent = /** @class */ (function () {
             else if (this.fval.position.value === 'CENTRAL USER') {
                 this.units.forEach(function (unit) {
                     if (_this.fval.central.value.toString() === unit.bussinessUnitName) {
-                        _this.selectedLocation = unit.businnessUnitId;
+                        _this.selectedLocation = unit.theBusinessUnitId;
                         console.log(_this.selectedLocation);
                     }
                 });

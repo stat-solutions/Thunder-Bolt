@@ -7,9 +7,6 @@ import { AdminProfileComponent } from './components/admin-profile/admin-profile.
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BussinessunitsComponent } from './components/bussinessunits/bussinessunits.component';
 import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
-import { PersonalProfileComponent } from './components/admin-profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from './components/admin-profile/set-password/set-password.component';
-import { ApproveAdminUsersComponent } from './components/approve-admin-users/approve-admin-users.component';
 
 const routes: Routes = [
   {
@@ -47,16 +44,6 @@ const routes: Routes = [
       {
         path: 'adminprofile',
         component: AdminProfileComponent,
-        children: [
-          {
-            path: 'personalprofile',
-            component: PersonalProfileComponent,
-          },
-          {
-            path: 'setpassword',
-            component: SetPasswordComponent,
-          },
-        ],
       },
     ],
   },

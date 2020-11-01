@@ -9,64 +9,15 @@ exports.__esModule = true;
 exports.ApproveCentralUsersComponent = void 0;
 var core_1 = require("@angular/core");
 var ApproveCentralUsersComponent = /** @class */ (function () {
-    function ApproveCentralUsersComponent(authService, router, spinner, alertService, fb) {
+    function ApproveCentralUsersComponent(authService, others, router, spinner, alertService, fb) {
         this.authService = authService;
+        this.others = others;
         this.router = router;
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
-        this.centralUserApprovals = [
-            {
-                userID: 'TB03492',
-                userName: 'Kasule Joseph',
-                userRole: 'Central User',
-                userLocation: 'Fuel Bussiness',
-                status: 0
-            },
-            {
-                userID: 'TB03492',
-                userName: 'Kasule Joseph',
-                userRole: 'Area User',
-                userLocation: 'Central Region',
-                status: 0
-            },
-            {
-                userID: 'TB03492',
-                userName: 'Kasule Joseph',
-                userRole: 'Area User',
-                userLocation: 'Eastern Region',
-                status: 0
-            },
-            {
-                userID: 'TB03492',
-                userName: 'Kasule Joseph',
-                userRole: 'Town User',
-                userLocation: 'Kampala',
-                status: 0
-            },
-            {
-                userID: 'TB03492',
-                userName: 'Kasule Joseph',
-                userRole: 'Town User',
-                userLocation: 'Kitugumu',
-                status: 0
-            },
-            {
-                userID: 'TB03492',
-                userName: 'Kasule Joseph',
-                userRole: 'Station User',
-                userLocation: 'Don Petrol Station',
-                status: 0
-            },
-            {
-                userID: 'TB03492',
-                userName: 'Kasule Joseph',
-                userRole: 'Station User',
-                userLocation: 'Don Petrol Station',
-                status: 0
-            },
-        ];
         this.posted = false;
+        this.User = this.authService.loggedInUserInfo();
     }
     ApproveCentralUsersComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
@@ -85,6 +36,7 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
                 userID: this.fb.control({ value: '' }),
                 userName: this.fb.control({ value: '' }),
                 userRole: this.fb.control({ value: '' }),
+                userLocation: this.fb.control({ value: '' }),
                 approved: this.fb.control({})
             });
         },
@@ -101,22 +53,20 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
     ApproveCentralUsersComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        // this.others.getBussinessUnits().subscribe(
-        //   units => {
-        //     this.approvals = units;
-        this.centralUserApprovals.forEach(function (item, i) {
-            // console.log(item.name);
-            // console.log(i);
-            _this.fval.approveUsers.controls[i].controls.userID.setValue(item.userID);
-            _this.fval.approveUsers.controls[i].controls.userName.setValue(item.userName);
-            _this.fval.approveUsers.controls[i].controls.userRole.setValue(item.userRole);
-            _this.fval.approveUsers.controls[i].controls.approved.setValue(false);
-            _this.addItem();
-            n = i + 1;
+        this.others.getUsersForApproval().subscribe(function (units) {
+            _this.centralUserApprovals = units;
+            // console.log(this.centralUserApprovals);
+            _this.centralUserApprovals.forEach(function (item, i) {
+                _this.fval.approveUsers.controls[i].controls.userID.setValue(item.userId);
+                _this.fval.approveUsers.controls[i].controls.userName.setValue(item.userName);
+                _this.fval.approveUsers.controls[i].controls.userRole.setValue(item.roleName);
+                _this.fval.approveUsers.controls[i].controls.userLocation.setValue(item.locationName);
+                _this.fval.approveUsers.controls[i].controls.approved.setValue(false);
+                _this.addItem();
+                n = i + 1;
+            });
+            _this.removeItem(n);
         });
-        this.removeItem(n);
-        // }
-        // )
     };
     ApproveCentralUsersComponent.prototype.checkAllItems = function (val) {
         var _this = this;
@@ -161,18 +111,23 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
         var itemsApproved = [];
         this.centralUserApprovals.forEach(function (item, i) {
             if (_this.fval.approveUsers.controls[i].controls.approved.value === true) {
-                item.status = 2;
-                itemsApproved.push(item);
+                itemsApproved.push({
+                    userId: item.userId,
+                    userStatus: 2,
+                    userIdApprover: _this.User.userId
+                });
             }
         });
-        console.log(itemsApproved.length);
+        // console.log(itemsApproved.length);
         if (itemsApproved.length > 0) {
-            setTimeout(function () {
-                _this.router.navigate(['centralmanagement/dashboard']);
-            }, 3000);
+            this.others.approveUsers(itemsApproved).subscribe(function (res) {
+                // setTimeout(() => {
+                //   this.refresh();
+                // }, 3000);
+            }, function (err) { return console.log(err); });
         }
         else {
-            // alert("Please select something")
+            alert('Please select something');
             return;
         }
     };
@@ -181,18 +136,24 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
         var itemsRejected = [];
         this.centralUserApprovals.forEach(function (item, i) {
             if (_this.fval.approveUsers.controls[i].controls.approved.value === true) {
-                item.status = 1;
-                itemsRejected.push(item);
+                itemsRejected.push({
+                    userId: item.userId,
+                    userStatus: 3,
+                    userIdApprover: _this.User.userId
+                });
             }
         });
-        console.log(itemsRejected.length);
+        // console.log(itemsRejected.length);
         if (itemsRejected.length > 0) {
-            setTimeout(function () {
-                _this.router.navigate(['centralmanagement/dashboard']);
-            }, 3000);
+            this.others.rejectUsers(itemsRejected).subscribe(function (res) {
+                //
+                // setTimeout(() => {
+                //   this.refresh();
+                // }, 3000);
+            }, function (err) { return console.log(err); });
         }
         else {
-            // alert("Please select something")
+            alert('Please select something');
             return;
         }
     };

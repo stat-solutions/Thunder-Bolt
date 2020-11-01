@@ -15,11 +15,19 @@ import * as jwt_decode from 'jwt-decode';
   styleUrls: ['./edit-personal-info.component.scss']
 })
 export class EditPersonalInfoComponent implements OnInit {
-  registered = false;
+ registered = false;
   submitted = false;
   errored = false;
   posted = false;
   userForm: FormGroup;
+  bodaClientForm: FormGroup;
+  taxiClientForm: FormGroup;
+  microClientForm: FormGroup;
+  showPersonalForm = true;
+  showBodaForm = false;
+  showTaxiForm = false;
+  showMicroForm = false;
+  // showSubmitForm = false;
   serviceErrors: any = {};
   value: string;
   fieldType: boolean;
@@ -34,12 +42,15 @@ export class EditPersonalInfoComponent implements OnInit {
     private alertService: AlertService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
+    this.bodaClientForm = this.bodaClientFormGroup();
+    this.taxiClientForm = this.taxiClientFormGroup();
+    this.microClientForm = this.microLientFormGroup();
     this.stageNames();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
       customer_name: new FormControl(
         '',
@@ -69,12 +80,11 @@ export class EditPersonalInfoComponent implements OnInit {
       id_number: new FormControl(
         '',
         Validators.compose([
-          // Validators.required,
-          // CustomValidator.patternValidator(
-          // tslint:disable-next-line: max-line-length
-          //   /^(([a-zA-Z])([a-zA-Z])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z]))$/,
-          //   { nationalIdCheck: true }
-          // ),
+          Validators.required,
+          CustomValidator.patternValidator(
+            /^(([a-zA-Z])([a-zA-Z])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z]))$/,
+            { nationalIdCheck: true }
+          ),
         ])
       ),
       homeDetails: new FormControl(
@@ -131,25 +141,203 @@ export class EditPersonalInfoComponent implements OnInit {
       // )
     });
   }
-
-  //toggle visibility of password field
-  toggleFieldType() {
+  bodaClientFormGroup(): any {
+    return new FormGroup({
+      clientName: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      bodabodaCustomerNumberPlate: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(8),
+          CustomValidator.patternValidator(
+            /^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/,
+            { beUgandanNumberPlate: true }
+          )
+        ])
+      ),
+      bodabodaCustomerColour: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      bodabodaCustomerModel: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      bodabodaCustomerYearOfManufacture: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      bodabodaCustomerEngineNumber: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      bodabodaCustomerFrontPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      bodabodaCustomerRearPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      bodabodaCustomerTheBodabodaRearPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      )
+    });
+  }
+  taxiClientFormGroup(): any {
+    return new FormGroup({
+      clientName: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      taxiCustomerNumberPlate: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(8),
+          CustomValidator.patternValidator(
+            /^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/,
+            { beUgandanNumberPlate: true }
+          )
+        ])
+      ),
+      taxiCustomerColour: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      taxiCustomerModel: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      taxiCustomerYearOfManufacture: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      taxiCustomerEngineNumber: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      taxiCustomerFrontPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      taxiCustomerRearPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      taxiCustomerTheBodabodaRearPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      )
+    });
+  }
+  microLientFormGroup(): any {
+    return new FormGroup({
+      clientName: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      microloanCustomerGaurantor1: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      microloanCustomerGaurantor2: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      microloanCustomerGaurantor3: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      microloanCustomerSecurity1: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      microloanCustomerSecurity2: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      microloanCustomerSecurityLocation1: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      microloanCustomerSecurityLocation2: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      microloanCustomerSecurity1PhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      microloanCustomerSecurity2PhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      )
+    });
+  }
+  // toggle visibility of password field
+  toggleFieldType(): any {
     this.fieldType = !this.fieldType;
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  resetStageNames() {
+  resetStageNames(): any {
     this.userForm.controls.stage_name.reset();
+    this.revert();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
-
-  stageNames() {
+  get bodaFval(): any {
+    return this.bodaClientForm.controls;
+  }
+  get taxiFval(): any {
+    return this.taxiClientForm.controls;
+  }
+  get microFval(): any {
+    return this.microClientForm.controls;
+  }
+  personalNext(): any{
+    this.showPersonalForm = false;
+    this.showBodaForm = true;
+    this.bodaFval.clientName.value = this.fval.customer_name.value.toUpperCase();
+    this.bodaFval.clientName.disable();
+  }
+  bodaNext(): any{
+    this.showBodaForm = false;
+    this.showTaxiForm = true;
+    this.taxiFval.clientName.value = this.fval.customer_name.value.toUpperCase();
+    this.taxiFval.clientName.disable();
+  }
+  bodaBack(): any{
+    this.showPersonalForm = true;
+    this.showBodaForm = false;
+  }
+  taxiNext(): any{
+    this.showTaxiForm = false;
+    this.showMicroForm = true;
+    this.microFval.clientName.value = this.fval.customer_name.value.toUpperCase();
+    this.microFval.clientName.disable();
+  }
+  taxiBack(): any{
+    this.showTaxiForm = false;
+    this.showBodaForm = true;
+  }
+  microBack(): any{
+    this.showMicroForm = false;
+    this.showTaxiForm = true;
+  }
+  stageNames(): any {
     // this.adminUserService.getStageNames(jwt_decode(this.authService.getJwtToken()).user_station).subscribe(
     //   data => {
     //     this.userForm.controls.stage_name.reset();
@@ -167,7 +355,7 @@ export class EditPersonalInfoComponent implements OnInit {
     // );
   }
 
-  onSubmit() {
+  onSubmit(): any {
     this.submitted = true;
     this.spinner.show();
 

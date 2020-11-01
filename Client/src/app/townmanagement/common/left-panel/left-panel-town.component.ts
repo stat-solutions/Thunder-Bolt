@@ -115,27 +115,10 @@ export class LeftPanelTownComponent implements OnInit {
           }
                 ]
       },
-      // {
-      //   name: 'Approve Users',
-      //   icon: 'fas fa-user-check',
-      //   url: '/townmanagement/approveusers',
-      //       },
-                  {
+      {
         name: 'Profile',
         icon: 'fas fa-user-cog',
         url: '/townmanagement/profile',
-        subMenu: [
-          {
-            name: 'Personal Info',
-            icon: 'fas fa-user',
-            url: '/townmanagement/profile/personalprofile'
-          },
-          {
-            name: 'Set PIN',
-            icon: 'fas fa-lock',
-            url: '/townmanagement/profile/setpassword'
-          }
-                        ]
       }
     ];
   }

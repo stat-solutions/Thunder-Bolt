@@ -39,11 +39,7 @@ import { EnrollStageComponent } from './components/enroll/enroll-stage/enroll-st
 import { EnrollTaxiStageComponent } from './components/enroll/enroll-stage/enroll-taxi-stage/enroll-taxi-stage.component';
 import { EnrollBodaStageComponent } from './components/enroll/enroll-stage/enroll-boda-stage/enroll-boda-stage.component';
 import { PersonalInfoComponent } from './components/enroll/enroll-client/personal-info/personal-info.component';
-import { MicroLoanClientComponent } from './components/enroll/enroll-client/micro-loan-client/micro-loan-client.component';
-import { BodaLoanClientComponent } from './components/enroll/enroll-client/boda-loan-client/boda-loan-client.component';
-import { TaxiLoanClientComponent } from './components/enroll/enroll-client/taxi-loan-client/taxi-loan-client.component';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 
 
 @NgModule({
@@ -77,11 +73,7 @@ import { SetPasswordComponent } from './components/profile/set-password/set-pass
     EnrollTaxiStageComponent,
     EnrollBodaStageComponent,
     PersonalInfoComponent,
-    MicroLoanClientComponent,
-    BodaLoanClientComponent,
-    TaxiLoanClientComponent,
     PersonalProfileComponent,
-    SetPasswordComponent
   ],
 
   imports: [

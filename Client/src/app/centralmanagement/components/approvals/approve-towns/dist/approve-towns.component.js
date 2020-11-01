@@ -33,6 +33,7 @@ var ApproveTownsComponent = /** @class */ (function () {
     Object.defineProperty(ApproveTownsComponent.prototype, "townApproval", {
         get: function () {
             return this.fb.group({
+                townId: this.fb.control({ value: '' }),
                 town: this.fb.control({ value: '' }),
                 approved: this.fb.control({})
             });
@@ -50,13 +51,14 @@ var ApproveTownsComponent = /** @class */ (function () {
     ApproveTownsComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.others.getAreasToApprove(this.User.userId).subscribe(function (items) {
+        this.others.getTownsToApprove(this.User.userId).subscribe(function (items) {
             _this.townApprovals = items;
-            console.log(_this.townApprovals);
+            // console.log(this.townApprovals);
             _this.townApprovals.forEach(function (item, i) {
                 // console.log(item.town);
                 // console.log(i);
-                // this.fval.approveTowns.controls[i].controls.town.setValue(item.town);
+                _this.fval.approveTowns.controls[i].controls.townId.setValue(item.townId);
+                _this.fval.approveTowns.controls[i].controls.town.setValue(item.townName);
                 _this.fval.approveTowns.controls[i].controls.approved.setValue(false);
                 _this.addItem();
                 n = i + 1;
@@ -105,8 +107,8 @@ var ApproveTownsComponent = /** @class */ (function () {
         this.townApprovals.forEach(function (item, i) {
             if (_this.fval.approveTowns.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
-                    // areaRegionId: item.areaRegionId,
-                    areaRegionStatus: 2,
+                    townnId: item.townId,
+                    townStatus: 2,
                     userId: _this.User.userId
                 });
             }
@@ -115,7 +117,9 @@ var ApproveTownsComponent = /** @class */ (function () {
         if (itemsApproved.length > 0) {
             this.others.approveTowns(itemsApproved).subscribe(function (res) {
                 if (res) {
-                    _this.initialiseForm();
+                    setTimeout(function () {
+                        _this.refresh();
+                    }, 3000);
                 }
             }, function (err) { return console.log(err); });
         }
@@ -130,7 +134,7 @@ var ApproveTownsComponent = /** @class */ (function () {
         this.townApprovals.forEach(function (item, i) {
             if (_this.fval.approveTowns.controls[i].controls.approved.value === true) {
                 itemsRejected.push({
-                    // areaRegionId: item.areaRegionId,
+                    townId: item.townId,
                     areaRegionStatus: 3,
                     userId: _this.User.userId
                 });
@@ -140,7 +144,9 @@ var ApproveTownsComponent = /** @class */ (function () {
         if (itemsRejected.length > 0) {
             this.others.rejectTowns(itemsRejected).subscribe(function (res) {
                 if (res) {
-                    _this.initialiseForm();
+                    setTimeout(function () {
+                        _this.refresh();
+                    }, 3000);
                 }
             }, function (err) { return console.log(err); });
         }

@@ -26,10 +26,18 @@ var PersonalInfoComponent = /** @class */ (function () {
         this.submitted = false;
         this.errored = false;
         this.posted = false;
+        this.showPersonalForm = true;
+        this.showBodaForm = false;
+        this.showTaxiForm = false;
+        this.showMicroForm = false;
+        // showSubmitForm = false;
         this.serviceErrors = {};
     }
     PersonalInfoComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
+        this.bodaClientForm = this.bodaClientFormGroup();
+        this.taxiClientForm = this.taxiClientFormGroup();
+        this.microClientForm = this.microLientFormGroup();
         this.stageNames();
     };
     PersonalInfoComponent.prototype.createFormGroup = function () {
@@ -37,19 +45,20 @@ var PersonalInfoComponent = /** @class */ (function () {
             customer_name: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             main_contact_number1: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
-                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true })
+                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
             ])),
             main_contact_number2: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
-                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true })
+                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
             ])),
             id_type: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             id_number: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
-                custom_validator_1.CustomValidator.patternValidator(/^(([a-zA-Z])([a-zA-Z])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z]))$/, { nationalIdCheck: true })
+                custom_validator_1.CustomValidator.patternValidator(/^(([a-zA-Z])([a-zA-Z])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z])([a-zA-Z]))$/, { nationalIdCheck: true }),
             ])),
             homeDetails: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             clientPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            idPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             secretPin: new forms_1.FormControl('', forms_1.Validators.compose([
                 // 1. Password Field is Required
                 forms_1.Validators.required,
@@ -69,18 +78,56 @@ var PersonalInfoComponent = /** @class */ (function () {
                 forms_1.Validators.maxLength(4),
             ])),
             clientComment: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
-            // number_plate: new FormControl(
-            //   '',
-            //   Validators.compose([
-            //     Validators.required,
-            //     Validators.minLength(8),
-            //     Validators.maxLength(8),
-            //     CustomValidator.patternValidator(
-            //       /^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/,
-            //       { beUgandanNumberPlate: true }
-            //     )
-            //   ])
-            // )
+        });
+    };
+    PersonalInfoComponent.prototype.bodaClientFormGroup = function () {
+        return new forms_1.FormGroup({
+            clientName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerNumberPlate: new forms_1.FormControl('', forms_1.Validators.compose([
+                forms_1.Validators.required,
+                forms_1.Validators.minLength(8),
+                forms_1.Validators.maxLength(8),
+                custom_validator_1.CustomValidator.patternValidator(/^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/, { beUgandanNumberPlate: true })
+            ])),
+            bodabodaCustomerColour: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerModel: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerYearOfManufacture: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerEngineNumber: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerFrontPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerTheBodabodaRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
+        });
+    };
+    PersonalInfoComponent.prototype.taxiClientFormGroup = function () {
+        return new forms_1.FormGroup({
+            clientName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            taxiCustomerNumberPlate: new forms_1.FormControl('', forms_1.Validators.compose([
+                forms_1.Validators.required,
+                forms_1.Validators.minLength(8),
+                forms_1.Validators.maxLength(8),
+                custom_validator_1.CustomValidator.patternValidator(/^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/, { beUgandanNumberPlate: true })
+            ])),
+            taxiCustomerColour: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            taxiCustomerModel: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            taxiCustomerYearOfManufacture: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            taxiCustomerEngineNumber: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            taxiCustomerFrontPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            taxiCustomerRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            taxiCustomerTheBodabodaRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
+        });
+    };
+    PersonalInfoComponent.prototype.microLientFormGroup = function () {
+        return new forms_1.FormGroup({
+            clientName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            microloanCustomerGaurantor1: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            microloanCustomerGaurantor2: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            microloanCustomerGaurantor3: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            microloanCustomerSecurity1: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            microloanCustomerSecurity2: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            microloanCustomerSecurityLocation1: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            microloanCustomerSecurityLocation2: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            microloanCustomerSecurity1PhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            microloanCustomerSecurity2PhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
         });
     };
     // toggle visibility of password field
@@ -92,6 +139,7 @@ var PersonalInfoComponent = /** @class */ (function () {
     };
     PersonalInfoComponent.prototype.resetStageNames = function () {
         this.userForm.controls.stage_name.reset();
+        this.revert();
     };
     Object.defineProperty(PersonalInfoComponent.prototype, "fval", {
         get: function () {
@@ -100,6 +148,57 @@ var PersonalInfoComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(PersonalInfoComponent.prototype, "bodaFval", {
+        get: function () {
+            return this.bodaClientForm.controls;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(PersonalInfoComponent.prototype, "taxiFval", {
+        get: function () {
+            return this.taxiClientForm.controls;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(PersonalInfoComponent.prototype, "microFval", {
+        get: function () {
+            return this.microClientForm.controls;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    PersonalInfoComponent.prototype.personalNext = function () {
+        this.showPersonalForm = false;
+        this.showBodaForm = true;
+        this.bodaFval.clientName.value = this.fval.customer_name.value.toUpperCase();
+        this.bodaFval.clientName.disable();
+    };
+    PersonalInfoComponent.prototype.bodaNext = function () {
+        this.showBodaForm = false;
+        this.showTaxiForm = true;
+        this.taxiFval.clientName.value = this.fval.customer_name.value.toUpperCase();
+        this.taxiFval.clientName.disable();
+    };
+    PersonalInfoComponent.prototype.bodaBack = function () {
+        this.showPersonalForm = true;
+        this.showBodaForm = false;
+    };
+    PersonalInfoComponent.prototype.taxiNext = function () {
+        this.showTaxiForm = false;
+        this.showMicroForm = true;
+        this.microFval.clientName.value = this.fval.customer_name.value.toUpperCase();
+        this.microFval.clientName.disable();
+    };
+    PersonalInfoComponent.prototype.taxiBack = function () {
+        this.showTaxiForm = false;
+        this.showBodaForm = true;
+    };
+    PersonalInfoComponent.prototype.microBack = function () {
+        this.showMicroForm = false;
+        this.showTaxiForm = true;
+    };
     PersonalInfoComponent.prototype.stageNames = function () {
         // this.adminUserService.getStageNames(jwt_decode(this.authService.getJwtToken()).user_station).subscribe(
         //   data => {

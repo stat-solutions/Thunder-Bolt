@@ -18,11 +18,7 @@ var waive_interest_component_1 = require("./components/adjustments/waive-interes
 var write_off_component_1 = require("./components/adjustments/write-off/write-off.component");
 var random_guard_service_1 = require("../shared/services/other-services/route-guards/random-guard.service");
 var dashboard_component_1 = require("./components/dashboard/dashboard.component");
-var boda_loan_client_component_1 = require("./components/enroll/enroll-client/boda-loan-client/boda-loan-client.component");
 var enroll_client_component_1 = require("./components/enroll/enroll-client/enroll-client.component");
-var micro_loan_client_component_1 = require("./components/enroll/enroll-client/micro-loan-client/micro-loan-client.component");
-var personal_info_component_1 = require("./components/enroll/enroll-client/personal-info/personal-info.component");
-var taxi_loan_client_component_1 = require("./components/enroll/enroll-client/taxi-loan-client/taxi-loan-client.component");
 var enroll_boda_stage_component_1 = require("./components/enroll/enroll-stage/enroll-boda-stage/enroll-boda-stage.component");
 var enroll_stage_component_1 = require("./components/enroll/enroll-stage/enroll-stage.component");
 var enroll_taxi_stage_component_1 = require("./components/enroll/enroll-stage/enroll-taxi-stage/enroll-taxi-stage.component");
@@ -37,8 +33,6 @@ var deposit_component_1 = require("./components/savings/deposit/deposit.componen
 var savings_component_1 = require("./components/savings/savings.component");
 var withdraw_component_1 = require("./components/savings/withdraw/withdraw.component");
 var pages_core_officer_component_1 = require("./pages-core/pages-core-officer.component");
-var personal_profile_component_1 = require("../townmanagement/components/profile/personal-profile/personal-profile.component");
-var set_password_component_1 = require("../townmanagement/components/profile/set-password/set-password.component");
 var routes = [
     { path: '',
         component: pages_core_officer_component_1.PagesCoreOfficerComponent,
@@ -67,30 +61,7 @@ var routes = [
                 children: [
                     {
                         path: 'enrollclient',
-                        component: enroll_client_component_1.EnrollClientComponent,
-                        children: [
-                            {
-                                path: '',
-                                pathMatch: 'full',
-                                redirectTo: 'personalinfo'
-                            },
-                            {
-                                path: 'personalinfo',
-                                component: personal_info_component_1.PersonalInfoComponent
-                            },
-                            {
-                                path: 'microloanclient',
-                                component: micro_loan_client_component_1.MicroLoanClientComponent
-                            },
-                            {
-                                path: 'bodaloanclient',
-                                component: boda_loan_client_component_1.BodaLoanClientComponent
-                            },
-                            {
-                                path: 'taxiloanclient',
-                                component: taxi_loan_client_component_1.TaxiLoanClientComponent
-                            }
-                        ]
+                        component: enroll_client_component_1.EnrollClientComponent
                     },
                     {
                         path: 'enrollstage',
@@ -168,17 +139,7 @@ var routes = [
             },
             {
                 path: 'profile',
-                component: profile_component_1.ProfileComponent,
-                children: [
-                    {
-                        path: 'personalprofile',
-                        component: personal_profile_component_1.PersonalProfileComponent
-                    },
-                    {
-                        path: 'setpassword',
-                        component: set_password_component_1.SetPasswordComponent
-                    }
-                ]
+                component: profile_component_1.ProfileComponent
             }
         ]
     }

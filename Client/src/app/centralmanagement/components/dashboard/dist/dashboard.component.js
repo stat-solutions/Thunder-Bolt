@@ -9,9 +9,10 @@ exports.__esModule = true;
 exports.DashboardComponent = void 0;
 var core_1 = require("@angular/core");
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent(messagingService, others) {
+    function DashboardComponent(messagingService, others, authService) {
         this.messagingService = messagingService;
         this.others = others;
+        this.authService = authService;
         this.lineChartData = [
             {
                 label: 'Clients',
@@ -105,7 +106,7 @@ var DashboardComponent = /** @class */ (function () {
         this.lineChartLegend = true;
         this.lineChartType = 'line';
         this.totals = [
-            { areas: 24, towns: 40, stations: 136, clients: 200 }
+            { areas: null, towns: null, stations: null, clients: null }
         ];
         this.creationApprovals = [
             { type: 'Area Creation', total: 17 },
@@ -144,6 +145,7 @@ var DashboardComponent = /** @class */ (function () {
         ];
     }
     DashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
         // inline plugin
         this.messagingService.requestPermission();
         this.messagingService.receiveMessage();
@@ -167,6 +169,11 @@ var DashboardComponent = /** @class */ (function () {
             }];
         this.inlinePlugin = this.textPlugin;
         this.getSms();
+        this.authService.loggedInUserInfo();
+        this.others.getAllTheAreaLocationTotal().subscribe(function (res) { return _this.totals[0].areas = res; });
+        this.others.getAllTheTownLocationTotal().subscribe(function (res) { return _this.totals[0].towns = res; });
+        this.others.getAllTheStationLocationTotal().subscribe(function (res) { return _this.totals[0].stations = res; });
+        // this.others.getAllTheTownLocationTotals().subscribe(res => this.totals[0].towns = res);
     };
     DashboardComponent.prototype.getSms = function () {
         var _this = this;

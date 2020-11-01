@@ -19,17 +19,12 @@ import { ReportsComponent } from '../centralmanagement/components/reports/report
 import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
 import { LoansLedgerComponent } from './components/reports/loans-ledger/loans-ledger.component';
 import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledger.component';
-import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
-import { EditBodaClientInfoComponent } from './components/enroll/edit-client/edit-boda-client-info/edit-boda-client-info.component';
 import { EditClientComponent } from './components/enroll/edit-client/edit-client.component';
-import { EditMicroClientInfoComponent } from './components/enroll/edit-client/edit-micro-client-info/edit-micro-client-info.component';
 import { EditPersonalInfoComponent } from './components/enroll/edit-client/edit-personal-info/edit-personal-info.component';
-import { EditTaxiClientInfoComponent } from './components/enroll/edit-client/edit-taxi-client-info/edit-taxi-client-info.component';
 import { EditBodaStageComponent } from './components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component';
 import { EditStageComponent } from './components/enroll/edit-stage/edit-stage.component';
 import { EditTaxiStageComponent } from './components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component';
-import { ApproveTownUsersComponent } from './components/approve-town-users/approve-town-users.component';
 
 const routes: Routes = [
   { path: '',
@@ -86,31 +81,8 @@ const routes: Routes = [
                 ]
                   },
                   {
-                    path: '',
+                    path: 'editclient',
                     component: EditClientComponent,
-                    children: [
-                      {
-                        path: 'editclient',
-                        pathMatch: 'full',
-                        redirectTo: 'editpersonalinfo'
-                      },
-                      {
-                        path: 'editpersonalinfo',
-                        component: EditPersonalInfoComponent
-                      },
-                      {
-                        path: 'editmicroloanclient',
-                        component: EditMicroClientInfoComponent
-                      },
-                      {
-                        path: 'editbodaloanclient',
-                        component: EditBodaClientInfoComponent
-                      },
-                      {
-                        path: 'edittaxiloanclient',
-                        component: EditTaxiClientInfoComponent
-                      }
-                    ]
                   },
                   {
                     path: 'editstage',
@@ -146,24 +118,10 @@ const routes: Routes = [
           }
         ]
           },
-//           {
-//             path: 'approveusers',
-//             component: ApproveTownUsersComponent
-//           }
-// ,
-{
+
+      {
         path: 'profile',
         component: ProfileComponent,
-        children: [
-          {
-            path: 'personalprofile',
-            component: PersonalProfileComponent
-          },
-          {
-            path: 'setpassword',
-            component: SetPasswordComponent
-          }
-        ]
       }
     ]
   }];

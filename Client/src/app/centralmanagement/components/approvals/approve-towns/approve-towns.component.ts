@@ -51,6 +51,7 @@ export class ApproveTownsComponent implements OnInit {
   }
   get townApproval(): any {
     return this.fb.group({
+      townId: this.fb.control({value: ''}),
       town: this.fb.control({value: ''}),
       approved: this.fb.control({})
     });
@@ -65,14 +66,15 @@ export class ApproveTownsComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getAreasToApprove(this.User.userId).subscribe(
+    this.others.getTownsToApprove(this.User.userId).subscribe(
       items => {
         this.townApprovals = items;
-        console.log(this.townApprovals);
+        // console.log(this.townApprovals);
         this.townApprovals.forEach((item, i) => {
               // console.log(item.town);
               // console.log(i);
-              // this.fval.approveTowns.controls[i].controls.town.setValue(item.town);
+              this.fval.approveTowns.controls[i].controls.townId.setValue(item.townId);
+              this.fval.approveTowns.controls[i].controls.town.setValue(item.townName);
               this.fval.approveTowns.controls[i].controls.approved.setValue(false);
               this.addItem();
               n = i + 1;
@@ -120,8 +122,8 @@ export class ApproveTownsComponent implements OnInit {
     this.townApprovals.forEach((item, i) => {
       if (this.fval.approveTowns.controls[i].controls.approved.value === true) {
         itemsApproved.push({
-          // areaRegionId: item.areaRegionId,
-          areaRegionStatus: 2,
+          townnId: item.townId,
+          townStatus: 2,
           userId: this.User.userId
         });
       }
@@ -132,7 +134,9 @@ export class ApproveTownsComponent implements OnInit {
       this.others.approveTowns(itemsApproved).subscribe(
         res => {
           if (res) {
-            this.initialiseForm();
+            setTimeout(() => {
+              this.refresh();
+            }, 3000);
           }
         },
         err => console.log(err)
@@ -147,7 +151,7 @@ export class ApproveTownsComponent implements OnInit {
     this.townApprovals.forEach((item, i) => {
       if (this.fval.approveTowns.controls[i].controls.approved.value === true) {
         itemsRejected.push({
-          // areaRegionId: item.areaRegionId,
+          townId: item.townId,
           areaRegionStatus: 3,
           userId: this.User.userId
         });
@@ -158,7 +162,9 @@ export class ApproveTownsComponent implements OnInit {
       this.others.rejectTowns(itemsRejected).subscribe(
         res => {
           if (res) {
-            this.initialiseForm();
+            setTimeout(() => {
+              this.refresh();
+            }, 3000);
           }
         },
         err => console.log(err)

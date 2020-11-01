@@ -16,8 +16,6 @@ var admin_profile_component_1 = require("./components/admin-profile/admin-profil
 var dashboard_component_1 = require("./components/dashboard/dashboard.component");
 var bussinessunits_component_1 = require("./components/bussinessunits/bussinessunits.component");
 var random_guard_service_1 = require("../shared/services/other-services/route-guards/random-guard.service");
-var personal_profile_component_1 = require("./components/admin-profile/personal-profile/personal-profile.component");
-var set_password_component_1 = require("./components/admin-profile/set-password/set-password.component");
 var routes = [
     {
         path: '',
@@ -51,17 +49,7 @@ var routes = [
             // },
             {
                 path: 'adminprofile',
-                component: admin_profile_component_1.AdminProfileComponent,
-                children: [
-                    {
-                        path: 'personalprofile',
-                        component: personal_profile_component_1.PersonalProfileComponent
-                    },
-                    {
-                        path: 'setpassword',
-                        component: set_password_component_1.SetPasswordComponent
-                    },
-                ]
+                component: admin_profile_component_1.AdminProfileComponent
             },
         ]
     },

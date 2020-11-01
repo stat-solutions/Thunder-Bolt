@@ -23,8 +23,6 @@ import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledge
 import { BorrowedLedgerComponent } from './components/reports/borrowed-ledger/borrowed-ledger.component';
 import { NgChartjsModule } from 'ng-chartjs';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
-import { ApproveStationUsersComponent } from './components/approve-station-users/approve-station-users.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +39,6 @@ import { ApproveStationUsersComponent } from './components/approve-station-users
     PaidLedgerComponent,
     BorrowedLedgerComponent,
     PersonalProfileComponent,
-    SetPasswordComponent,
-    ApproveStationUsersComponent,
   ],
   imports: [
     CommonModule,

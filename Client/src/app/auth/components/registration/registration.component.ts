@@ -27,37 +27,9 @@ export class RegistrationComponent implements OnInit {
   mySubscription: any;
   myDateValue: Date;
   positionValue: string;
-  areas: Array<string> = [
-    'Central Region',
-    'Western Region',
-    'Southern Region',
-    'Northern Region',
-    'Eastern Region'
-  ];
-  towns = [
-    {name: 'Kampala', area: 'Central Region'},
-    {name: 'Wakiso', area: 'Central Region'},
-    {name: 'Mbale', area: 'Eastern Region'},
-    {name: 'Busia', area: 'Eastern Region'},
-    {name: 'Mbarara', area: 'Western Region'},
-    {name: 'Bushenyi', area: 'Western Region'},
-    {name: 'Kisoro', area: 'Western Region'},
-    {name: 'Kotido', area: 'Northern Region'},
-    {name: 'Moroto', area: 'Northern Region'},
-    {name: 'Arua', area: 'Northern Region'},
-  ];
-  stations = [
-    {name: 'ndeba', town: 'Wakiso'},
-    {name: 'ndejje', town: 'Kampala'},
-    {name: 'matugga', town: 'Wakiso'},
-    {name: 'kinawa', town: 'Kampala'},
-    {name: 'kitale', town: 'Mbarara'},
-    {name: 'katwe', town: 'Kampala'},
-    {name: 'sogga', town: 'Mbale'},
-    {name: 'kitwee', town: 'Wakiso'},
-    {name: 'busega', town: 'Kampala'},
-    {name: 'mbweera', town: 'Arua'},
-  ];
+  areas: any;
+  towns: any;
+  stations: any;
   roles: UserRole[];
   units: any;
   selectedRole: any;
@@ -76,6 +48,9 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.getRoles();
     this.getUnits();
+    this.others.getAllTheAreaLocations().subscribe(res => console.log(res));
+    this.others.getAllTheTownLocations().subscribe(res => console.log(res));
+    this.others.getAllTheStationLocations().subscribe(res => console.log(res));
     this.userForm = this.createFormGroup();
     this.myDateValue = new Date();
   }
@@ -202,10 +177,10 @@ returnHome(): any {
     }, 2000);
   }
 getUnits(): any {
-  this.others.getBussinessUnits().subscribe(
+  this.others.getBussinessUnitLocations().subscribe(
     res => {
       this.units = res;
-      // console.log(this.units);
+      console.log(this.units);
   },
     err => console.log(err)
   );
@@ -267,7 +242,7 @@ register(): any {
       } else if (this.fval.position.value === 'CENTRAL USER') {
         this.units.forEach(unit => {
           if (this.fval.central.value.toString() === unit.bussinessUnitName) {
-            this.selectedLocation = unit.businnessUnitId;
+            this.selectedLocation = unit.theBusinessUnitId;
             console.log(this.selectedLocation);
           }
         });

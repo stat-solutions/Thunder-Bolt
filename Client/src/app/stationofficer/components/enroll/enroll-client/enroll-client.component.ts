@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./enroll-client.component.scss']
 })
 export class EnrollClientComponent implements OnInit {
-  constructor(
-  ) {}
+
+  constructor() { }
 
   ngOnInit(): void {
   }
+
 }

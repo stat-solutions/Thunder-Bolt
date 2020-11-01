@@ -48,7 +48,6 @@ import { NgChartjsModule } from 'ng-chartjs';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 import { ApproveCentralUsersComponent } from './components/approve-central-users/approve-central-users.component';
 import { SelectTheAreaComponent } from './components/select-the-Area/select-the-Area.component';
 import { SetManagersComponent } from './components/set-managers/set-managers.component';
@@ -97,7 +96,6 @@ import { StationManagersComponent } from './components/set-managers/station-mana
     LoanLimitComponent,
     FloatApprovalComponent,
     PersonalProfileComponent,
-    SetPasswordComponent,
     ApproveCentralUsersComponent,
     SelectTheAreaComponent,
     SetManagersComponent,

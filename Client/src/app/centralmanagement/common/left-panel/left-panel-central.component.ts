@@ -62,9 +62,19 @@ export class LeftPanelCentralComponent implements OnInit {
         url: '/centralmanagement/create',
       },
       {
+        name: 'Creation Approvals',
+        icon: 'fas fa-cogs',
+        url: '/centralmanagement/approve',
+      },
+      {
         name: 'Select the Area',
         icon: 'fas fa-user-check',
         url: '/centralmanagement/selectarea'
+      },
+      {
+        name: 'Approve Users',
+        icon: 'fas fa-user-check',
+        url: '/centralmanagement/approveusers',
       },
       {
         name: 'Managers',
@@ -87,11 +97,6 @@ export class LeftPanelCentralComponent implements OnInit {
             url: '/centralmanagement/managers/stationmanagers',
           },
         ]
-      },
-      {
-        name: 'Creation Approvals',
-        icon: 'fas fa-cogs',
-        url: '/centralmanagement/approve',
       },
       {
         name: 'Transactions',
@@ -148,26 +153,9 @@ export class LeftPanelCentralComponent implements OnInit {
         ],
       },
       {
-        name: 'Approve Users',
-        icon: 'fas fa-user-check',
-        url: '/centralmanagement/approveusers',
-      },
-      {
         name: 'Profile',
         icon: 'fas fa-user-cog',
         url: '/centralmanagement/profile',
-        subMenu: [
-          {
-            name: 'Personal Info',
-            icon: 'fas fa-user',
-            url: '/centralmanagement/profile/personalprofile',
-          },
-          {
-            name: 'Set PIN',
-            icon: 'fas fa-lock',
-            url: '/centralmanagement/profile/setpassword',
-          },
-        ],
       },
     ];
 }

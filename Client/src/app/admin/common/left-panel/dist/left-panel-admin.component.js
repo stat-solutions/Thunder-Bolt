@@ -60,19 +60,7 @@ var LeftPanelAdminComponent = /** @class */ (function () {
             {
                 name: 'Profile',
                 icon: 'fas fa-user-cog',
-                url: '/admin/adminprofile',
-                subMenu: [
-                    {
-                        name: 'Personal Info',
-                        icon: 'fas fa-user',
-                        url: '/admin/adminprofile/personalprofile'
-                    },
-                    {
-                        name: 'Set PIN',
-                        icon: 'fas fa-lock',
-                        url: '/admin/adminprofile/setpassword'
-                    },
-                ]
+                url: '/admin/adminprofile'
             },
         ];
     };

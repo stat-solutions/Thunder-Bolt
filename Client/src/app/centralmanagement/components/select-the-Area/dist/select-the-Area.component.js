@@ -11,35 +11,15 @@ var core_1 = require("@angular/core");
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 var SelectTheAreaComponent = /** @class */ (function () {
-    function SelectTheAreaComponent(authService, router, spinner, alertService, fb) {
+    function SelectTheAreaComponent(authService, others, router, spinner, alertService, fb) {
         this.authService = authService;
+        this.others = others;
         this.router = router;
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
-        this.approvedAreas = [
-            {
-                areaId: 2,
-                areaName: 'kinawattaka'
-            },
-            {
-                areaId: 2,
-                areaName: 'kinawattaka'
-            },
-            {
-                areaId: 2,
-                areaName: 'kinawattaka'
-            },
-            {
-                areaId: 2,
-                areaName: 'kinawattaka'
-            },
-            {
-                areaId: 2,
-                areaName: 'kinawattaka'
-            },
-        ];
         this.posted = false;
+        this.User = this.authService.loggedInUserInfo();
     }
     SelectTheAreaComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
@@ -73,21 +53,24 @@ var SelectTheAreaComponent = /** @class */ (function () {
     SelectTheAreaComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        // this.others.getBussinessUnits().subscribe(
-        //   units => {
-        //     this.approvals = units;
-        this.approvedAreas.forEach(function (item, i) {
-            // console.log(item.areaName);
-            // console.log(i);
-            _this.fval.selectedAreas.controls[i].controls.areaId.setValue(item.areaId);
-            _this.fval.selectedAreas.controls[i].controls.areaName.setValue(item.areaName);
-            _this.fval.selectedAreas.controls[i].controls.approved.setValue(false);
-            _this.addItem();
-            n = i + 1;
+        this.others.getAreas().subscribe(function (units) {
+            _this.approvedAreas = units;
+            console.log(_this.approvedAreas);
+            _this.approvedAreas.forEach(function (item, i) {
+                // console.log(item.areaName);
+                // console.log(i);
+                // this.fval.selectedAreas.controls[i].controls.areaId.setValue(
+                //   item.areaRegionId
+                // );
+                // this.fval.selectedAreas.controls[i].controls.areaName.setValue(
+                //   item.areaName
+                // );
+                _this.fval.selectedAreas.controls[i].controls.approved.setValue(false);
+                _this.addItem();
+                n = i + 1;
+            });
+            _this.removeItem(n);
         });
-        this.removeItem(n);
-        // }
-        // )
     };
     SelectTheAreaComponent.prototype.checkAllItems = function (val) {
         var _this = this;
@@ -128,44 +111,36 @@ var SelectTheAreaComponent = /** @class */ (function () {
         return this.userForm.enable();
     };
     SelectTheAreaComponent.prototype.approveItems = function () {
-        // const itemsApproved = [];
-        // this.centralUserApprovals.forEach((item, i) => {
-        //   if (
-        //     this.fval.approveUsers.controls[i].controls.approved.value === true
-        //   ) {
-        //     item.status = 2;
-        //     itemsApproved.push(item);
-        //   }
-        // });
-        // console.log(itemsApproved.length);
-        // if (itemsApproved.length > 0) {
-        //   setTimeout(() => {
-        //     this.router.navigate(['centralmanagement/dashboard']);
-        //   }, 3000);
-        // } else {
-        //   // alert("Please select something")
-        //   return;
-        // }
+        var _this = this;
+        var areasSelected = [];
+        this.approvedAreas.forEach(function (item, i) {
+            if (_this.fval.selectedAreas.controls[i].controls.approved.value === true) {
+                areasSelected.push({
+                    areaRegionId: item.areaRegionId,
+                    theBusinessUnitId: _this.User.userLocationId,
+                    userId: _this.User.userId
+                });
+            }
+        });
+        // console.log(AreasSelected.length);
+        if (areasSelected.length > 0) {
+            this.others.createTheArea(areasSelected).subscribe(function (res) {
+                setTimeout(function () {
+                    _this.refresh();
+                }, 3000);
+            }, function (err) { return console.log(err); });
+        }
+        else {
+            alert('Please select something');
+            return;
+        }
     };
-    SelectTheAreaComponent.prototype.rejectItems = function () {
-        // const itemsRejected = [];
-        // this.centralUserApprovals.forEach((item, i) => {
-        //   if (
-        //     this.fval.approveUsers.controls[i].controls.approved.value === true
-        //   ) {
-        //     item.status = 1;
-        //     itemsRejected.push(item);
-        //   }
-        // });
-        // console.log(itemsRejected.length);
-        // if (itemsRejected.length > 0) {
-        //   setTimeout(() => {
-        //     this.router.navigate(['centralmanagement/dashboard']);
-        //   }, 3000);
-        // } else {
-        //   // alert("Please select something")
-        //   return;
-        // }
+    SelectTheAreaComponent.prototype.cancelSelection = function () {
+        var _this = this;
+        this.revert();
+        setTimeout(function () {
+            _this.router.navigate(['centralmanagement']);
+        }, 3000);
     };
     SelectTheAreaComponent = __decorate([
         core_1.Component({

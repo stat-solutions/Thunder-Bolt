@@ -9,11 +9,8 @@ import { WaiveInterestComponent } from './components/adjustments/waive-interest/
 import { WriteOffComponent } from './components/adjustments/write-off/write-off.component';
 import { RandomGuard } from '../shared/services/other-services/route-guards/random-guard.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { BodaLoanClientComponent } from './components/enroll/enroll-client/boda-loan-client/boda-loan-client.component';
 import { EnrollClientComponent } from './components/enroll/enroll-client/enroll-client.component';
-import { MicroLoanClientComponent } from './components/enroll/enroll-client/micro-loan-client/micro-loan-client.component';
 import { PersonalInfoComponent } from './components/enroll/enroll-client/personal-info/personal-info.component';
-import { TaxiLoanClientComponent } from './components/enroll/enroll-client/taxi-loan-client/taxi-loan-client.component';
 import { EnrollBodaStageComponent } from './components/enroll/enroll-stage/enroll-boda-stage/enroll-boda-stage.component';
 import { EnrollStageComponent } from './components/enroll/enroll-stage/enroll-stage.component';
 import { EnrollTaxiStageComponent } from './components/enroll/enroll-stage/enroll-taxi-stage/enroll-taxi-stage.component';
@@ -28,8 +25,6 @@ import { DepositComponent } from './components/savings/deposit/deposit.component
 import { SavingsComponent } from './components/savings/savings.component';
 import { WithdrawComponent } from './components/savings/withdraw/withdraw.component';
 import { PagesCoreOfficerComponent } from './pages-core/pages-core-officer.component';
-import { PersonalProfileComponent } from '../townmanagement/components/profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from '../townmanagement/components/profile/set-password/set-password.component';
 
 const routes: Routes = [
   { path: '',
@@ -60,29 +55,6 @@ const routes: Routes = [
           {
             path: 'enrollclient',
             component: EnrollClientComponent,
-            children: [
-              {
-              path: '',
-              pathMatch: 'full',
-              redirectTo: 'personalinfo'
-              },
-              {
-                path: 'personalinfo',
-                component: PersonalInfoComponent
-              },
-              {
-                path: 'microloanclient',
-                component: MicroLoanClientComponent
-              },
-              {
-                path: 'bodaloanclient',
-                component: BodaLoanClientComponent
-              },
-              {
-                path: 'taxiloanclient',
-                component: TaxiLoanClientComponent
-              }
-            ]
           },
           {
             path: 'enrollstage',
@@ -161,16 +133,6 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
-        children: [
-          {
-            path: 'personalprofile',
-            component: PersonalProfileComponent
-          },
-          {
-            path: 'setpassword',
-            component: SetPasswordComponent
-          }
-        ]
       }
     ]
 }];

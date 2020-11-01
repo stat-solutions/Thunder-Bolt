@@ -70,11 +70,9 @@ export class ApproveStationsComponent implements OnInit {
     this.others.getStationsToApprove(this.User.userId).subscribe(
       items => {
         this.stationApproval = items;
-        console.log(this.stationApproval);
+        // console.log(this.stationApproval);
         this.stationApproval.forEach((item, i) => {
-              // console.log(item.station);
-              // console.log(i);
-              // this.fval.approveStations.controls[i].controls.station.setValue(item.station);
+              this.fval.approveStations.controls[i].controls.station.setValue(item.stationName);
               this.fval.approveStations.controls[i].controls.approved.setValue(false);
               this.addItem();
               n = i + 1;
@@ -121,8 +119,8 @@ export class ApproveStationsComponent implements OnInit {
     this.stationApproval.forEach((item, i) => {
       if (this.fval.approveStations.controls[i].controls.approved.value === true) {
         itemsApproved.push({
-          // areaRegionId: item.areaRegionId,
-          areaRegionStatus: 2,
+          stationId: item.stationId,
+          stationStatus: 3,
           userId: this.User.userId
         });
       }
@@ -133,7 +131,9 @@ export class ApproveStationsComponent implements OnInit {
       this.others.approveStations(itemsApproved).subscribe(
         res => {
           if (res) {
-            this.initialiseForm();
+            setTimeout(() => {
+              this.refresh();
+            }, 3000);
           }
         },
         err => console.log(err)
@@ -148,8 +148,8 @@ export class ApproveStationsComponent implements OnInit {
     this.stationApproval.forEach((item, i) => {
       if (this.fval.approveStations.controls[i].controls.approved.value === true) {
         itemsRejected.push({
-          // areaRegionId: item.areaRegionId,
-          areaRegionStatus: 3,
+          stationId: item.stationId,
+          stationStatus: 3,
           userId: this.User.userId
         });
       }
@@ -159,7 +159,9 @@ export class ApproveStationsComponent implements OnInit {
       this.others.rejectStations(itemsRejected).subscribe(
         res => {
           if (res) {
-            this.initialiseForm();
+            setTimeout(() => {
+              this.refresh();
+            }, 3000);
           }
         },
         err => console.log(err)

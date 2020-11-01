@@ -93,6 +93,9 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.getBussinessUnits = function () {
         return this.http.get(this.API_URL + "/api/adminUser/getAllBusinessUnits");
     };
+    OthersService.prototype.getBussinessUnitLocations = function () {
+        return this.http.get(this.API_URL + "/api/adminUser/getAllBusinessUnitLocations");
+    };
     OthersService.prototype.setBussinessUnits = function (postData) {
         return this.http.post(this.API_URL + "/api/adminUser/postBusinessUnit", postData, this.httpOptions);
     };
@@ -108,6 +111,9 @@ var OthersService = /** @class */ (function () {
     };
     OthersService.prototype.rejectUsers = function (postData) {
         return this.http.post(this.API_URL + "/api/user/putRejectUserApproval", postData, this.httpOptions);
+    };
+    OthersService.prototype.approveUsers = function (postData) {
+        return this.http.post(this.API_URL + "/api/user/putApproveUser", postData, this.httpOptions);
     };
     OthersService.prototype.getUserProfile = function (userId) {
         return this.http.get(this.API_URL + "/api/user/getUser/?id=" + userId);
@@ -144,7 +150,7 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.getAllTheAreaLocations = function () {
         return this.http.get(this.API_URL + "/api/areaUser/getAllAreaLocations");
     };
-    OthersService.prototype.getAllTheAreaLocationTotals = function () {
+    OthersService.prototype.getAllTheAreaLocationTotal = function () {
         return this.http.get(this.API_URL + "/api/areaUser/getTotalAreaLocations");
     };
     OthersService.prototype.getTowns = function () {
@@ -153,8 +159,8 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.getAllTheTownLocations = function () {
         return this.http.get(this.API_URL + "/api/townUser/getAllTownLocations");
     };
-    OthersService.prototype.getAllTheTownLocationTotals = function () {
-        return this.http.get(this.API_URL + "/api/townUser/getTotalTownLocations");
+    OthersService.prototype.getAllTheTownLocationTotal = function () {
+        return this.http.get(this.API_URL + "/api/townUser/getTotalTownLocations").pipe();
     };
     OthersService.prototype.getStations = function () {
         return this.http.get(this.API_URL + "/api/stationUser/getAllStations");

@@ -4,6 +4,7 @@ import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { AreaApprovals } from '../approvals/approve-areas/approve-areas.component';
 import { MessagingService } from 'src/app/shared/services/other-services/messaging.service';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -107,7 +108,7 @@ export class DashboardComponent implements OnInit {
   inlinePlugin: any;
   textPlugin: any;
   totals = [
-    {areas: 24, towns: 40, stations: 136, clients: 200}
+    {areas: null, towns: null, stations: null, clients: null}
   ];
   creationApprovals: Array<any> = [
     {type: 'Area Creation', total: 17},
@@ -146,7 +147,7 @@ export class DashboardComponent implements OnInit {
   ];
   numberOfSms: any;
 
-  constructor(private messagingService: MessagingService, private others: OthersService) { }
+  constructor(private messagingService: MessagingService, private others: OthersService, private authService: AuthServiceService) { }
 
   ngOnInit(): void {
 // inline plugin
@@ -173,6 +174,11 @@ export class DashboardComponent implements OnInit {
 
     this.inlinePlugin = this.textPlugin;
     this.getSms();
+    this.authService.loggedInUserInfo();
+    this.others.getAllTheAreaLocationTotal().subscribe(res => this.totals[0].areas = res);
+    this.others.getAllTheTownLocationTotal().subscribe(res => this.totals[0].towns = res);
+    this.others.getAllTheStationLocationTotal().subscribe(res => this.totals[0].stations = res);
+    // this.others.getAllTheTownLocationTotals().subscribe(res => this.totals[0].towns = res);
 }
 
 getSms(): any {

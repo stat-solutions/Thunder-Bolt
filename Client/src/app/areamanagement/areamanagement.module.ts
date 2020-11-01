@@ -20,11 +20,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgChartjsModule } from 'ng-chartjs';
 import { CreateComponent } from './components/create/create.component';
 import { CreateTownsComponent } from './components/create/create-towns/create-towns.component';
-import { CreateStationsComponent } from './components/create/create-stations/create-stations.component';
 import { ApprovalsComponent } from './components/approvals/approvals.component';
 import { WithdrawSavingsComponent } from './components/approvals/loans-approvals/withdraw-savings/withdraw-savings.component';
-import { StationsComponent } from './components/approvals/create-approvals/stations/stations.component';
-import { TownsComponent } from './components/approvals/create-approvals/towns/towns.component';
 import { InterestRateComponent } from './components/approvals/loans-approvals/interest-rate/interest-rate.component';
 import { LoanLimitComponent } from './components/approvals/loans-approvals/loan-limit/loan-limit.component';
 import { ReduceRateComponent } from './components/approvals/loans-approvals/reduce-rate/reduce-rate.component';
@@ -34,11 +31,8 @@ import { WriteOffComponent } from './components/approvals/loans-approvals/write-
 import { ReportsComponent } from './components/reports/reports.component';
 import { ClientsComponent } from './components/reports/clients/clients.component';
 import { UsersComponent } from './components/reports/users/users.component';
-import { CreateApprovalsComponent } from './components/approvals/create-approvals/create-approvals.component';
 import { LoansApprovalsComponent } from './components/approvals/loans-approvals/loans-approvals.component';
-import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
-import { ApproveAreaUsersComponent } from './components/approve-area-users/approve-area-users.component';
 
 @NgModule({
   declarations: [
@@ -49,14 +43,11 @@ import { ApproveAreaUsersComponent } from './components/approve-area-users/appro
     HeaderAreaComponent,
     ContentSectionAreaComponent,
     DashboardComponent,
-    TownsComponent,
     ProfileComponent,
     CreateComponent,
     CreateTownsComponent,
-    CreateStationsComponent,
     ApprovalsComponent,
     WithdrawSavingsComponent,
-    StationsComponent,
     InterestRateComponent,
     LoanLimitComponent,
     ReduceRateComponent,
@@ -66,11 +57,8 @@ import { ApproveAreaUsersComponent } from './components/approve-area-users/appro
     ReportsComponent,
     ClientsComponent,
     UsersComponent,
-    CreateApprovalsComponent,
     LoansApprovalsComponent,
-    SetPasswordComponent,
     PersonalProfileComponent,
-    ApproveAreaUsersComponent
   ],
   imports: [
     CommonModule,

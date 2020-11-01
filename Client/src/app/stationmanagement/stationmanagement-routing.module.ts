@@ -8,9 +8,6 @@ import { ReportsComponent } from './components/reports/reports.component';
 import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
 import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledger.component';
 import { BorrowedLedgerComponent } from './components/reports/borrowed-ledger/borrowed-ledger.component';
-import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
-import { ApproveStationUsersComponent } from './components/approve-station-users/approve-station-users.component';
 
 const routes: Routes = [
   {
@@ -45,23 +42,9 @@ const routes: Routes = [
           },
         ],
       },
-      // {
-      //   path: 'approveusers',
-      //   component: ApproveStationUsersComponent,
-      // },
       {
         path: 'profile',
         component: ProfileComponent,
-        children: [
-          {
-            path: 'personalprofile',
-            component: PersonalProfileComponent,
-          },
-          {
-            path: 'setpassword',
-            component: SetPasswordComponent,
-          },
-        ],
       },
     ],
   },

@@ -7,21 +7,15 @@ import { RandomGuard } from '../shared/services/other-services/route-guards/rand
 import { ProfileComponent } from './components/profile/profile.component';
 import { CreateComponent } from './components/create/create.component';
 import { CreateTownsComponent } from './components/create/create-towns/create-towns.component';
-import { CreateStationsComponent } from './components/create/create-stations/create-stations.component';
 import { ApprovalsComponent } from './components/approvals/approvals.component';
 import { WithdrawSavingsComponent } from './components/approvals/loans-approvals/withdraw-savings/withdraw-savings.component';
-import { StationsComponent } from './components/approvals/create-approvals/stations/stations.component';
-import { TownsComponent } from './components/approvals/create-approvals/towns/towns.component';
 import { InterestRateComponent } from './components/approvals/loans-approvals/interest-rate/interest-rate.component';
 import { LoanLimitComponent } from './components/approvals/loans-approvals/loan-limit/loan-limit.component';
 import { ReduceRateComponent } from './components/approvals/loans-approvals/reduce-rate/reduce-rate.component';
 import { ReversePrincipleComponent } from './components/approvals/loans-approvals/reverse-principle/reverse-principle.component';
 import { WaiveInterestComponent } from './components/approvals/loans-approvals/waive-interest/waive-interest.component';
 import { WriteOffComponent } from './components/approvals/loans-approvals/write-off/write-off.component';
-import { CreateApprovalsComponent } from './components/approvals/create-approvals/create-approvals.component';
 import { LoansApprovalsComponent } from './components/approvals/loans-approvals/loans-approvals.component';
-import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
-import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 import { StationsReportsComponent } from './components/reports/stations-reports/stations-reports.component';
 import { TownsReportsComponent } from './components/reports/towns-reports/towns-reports.component';
 import { ClientsComponent } from './components/reports/clients/clients.component';
@@ -35,7 +29,6 @@ import { TownsPaidLedgerComponent } from './components/reports/towns-reports/tow
 import { StationsCashLedgerComponent } from './components/reports/stations-reports/stations-cash-ledger/stations-cash-ledger.component';
 import { StationsLoansLedgerComponent } from './components/reports/stations-reports/stations-loans-ledger/stations-loans-ledger.component';
 import { StationsPaidLedgerComponent } from './components/reports/stations-reports/stations-paid-ledger/stations-paid-ledger.component';
-import { ApproveAreaUsersComponent } from './components/approve-area-users/approve-area-users.component';
 
 const routes: Routes = [
   {
@@ -56,10 +49,6 @@ const routes: Routes = [
         path: 'create',
         component: CreateComponent,
         children: [
-          // {
-          //   path: 'createstations',
-          //   component: CreateStationsComponent,
-          // },
           {
             path: '',
             pathMatch: 'full',
@@ -106,20 +95,6 @@ const routes: Routes = [
               {
                 path: 'loanlimit',
                 component: LoanLimitComponent,
-              },
-            ],
-          },
-          {
-            path: 'createapprovals',
-            component: CreateApprovalsComponent,
-            children: [
-              {
-                path: 'approvestations',
-                component: StationsComponent,
-              },
-              {
-                path: 'approvetowns',
-                component: TownsComponent,
               },
             ],
           },
@@ -175,23 +150,9 @@ const routes: Routes = [
           },
         ],
       },
-      // {
-      //   path: 'approveusers',
-      //   component: ApproveAreaUsersComponent,
-      // },
       {
         path: 'profile',
         component: ProfileComponent,
-        children: [
-          {
-            path: 'personalprofile',
-            component: PersonalProfileComponent,
-          },
-          {
-            path: 'setpassword',
-            component: SetPasswordComponent,
-          },
-        ],
       },
     ],
   },
