@@ -115,9 +115,13 @@ export class DashboardComponent implements OnInit {
   setCompanyDetails(): any {
     this.others.getCompanyInfo().subscribe(
       item => {
-        this.company.created = true;
-        this.companyInfo = item;
-        // console.log(this.companyInfo);
+        if (item[0].companyName) {
+          this.company.created = true;
+          this.companyInfo = item;
+          // console.log(this.companyInfo);
+        } else {
+          this.company.created = false;
+        }
       },
       (error: string) => {
         //

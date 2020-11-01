@@ -11,11 +11,13 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var CreateTownComponent = /** @class */ (function () {
     // ShiftDetails[]
-    function CreateTownComponent(authService, spinner, router, alertService) {
+    function CreateTownComponent(authService, others, spinner, router, alertService) {
         this.authService = authService;
+        this.others = others;
         this.spinner = spinner;
         this.router = router;
         this.alertService = alertService;
+        this.User = this.authService.loggedInUserInfo();
     }
     CreateTownComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
@@ -36,7 +38,25 @@ var CreateTownComponent = /** @class */ (function () {
         configurable: true
     });
     CreateTownComponent.prototype.createItem = function () {
-        this.spinner.show();
+        var _this = this;
+        if (this.userForm.valid) {
+            var data = {
+                townName: this.fval.itemCreate.value.toUpperCase(),
+                userId: this.User.userId
+            };
+            this.others.createTown(data).subscribe(function (res) {
+                // console.log(res)
+                if (res) {
+                    _this.revert();
+                    _this.alertService.success({
+                        html: '<p>Station creation was successful</p>'
+                    });
+                }
+            }, function (err) { return console.log(err); });
+        }
+        else {
+            // return;
+        }
     };
     CreateTownComponent = __decorate([
         core_1.Component({

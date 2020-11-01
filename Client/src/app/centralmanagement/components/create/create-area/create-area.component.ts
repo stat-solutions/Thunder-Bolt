@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
 import * as jwt_decode from 'jwt-decode';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
   selector: 'app-create-area',
@@ -17,10 +18,11 @@ export class CreateAreaComponent implements OnInit {
   serviceErrors: string;
   values: any;
   numberValue: number;
-
+  User = this.authService.loggedInUserInfo();
   // ShiftDetails[]
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService
@@ -44,8 +46,26 @@ export class CreateAreaComponent implements OnInit {
   }
 
   create(): any {
-    // this.spinner.show();
-
-
+    if (this.userForm.valid){
+        const data = {
+          areaRegionName: this.fval.itemCreate.value.toUpperCase(),
+          userId: this.User.userId
+        };
+        this.others.createArea(data).subscribe(
+          res => {
+            // console.log(res)
+            if (res){
+              this.revert();
+              this.alertService.success({
+                html:
+                  '<p>Station creation was successful</p>'
+              });
+            }
+          },
+          err => console.log(err)
+        );
+    } else {
+      // return;
     }
   }
+}

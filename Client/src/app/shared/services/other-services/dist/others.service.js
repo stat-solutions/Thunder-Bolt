@@ -89,6 +89,7 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.setApprovalLevel = function (postData) {
         return this.http.post(this.API_URL + "/api/adminUser/putItemsRequiringApprovalCreate", postData, this.httpOptions);
     };
+    // business unit section
     OthersService.prototype.getBussinessUnits = function () {
         return this.http.get(this.API_URL + "/api/adminUser/getAllBusinessUnits");
     };
@@ -100,80 +101,108 @@ var OthersService = /** @class */ (function () {
     };
     // users and set user profile
     OthersService.prototype.getUsers = function () {
-        return this.http.get(this.API_URL + "/api/business/users");
+        return this.http.get(this.API_URL + "/api/user/getAllUsers");
+    };
+    OthersService.prototype.getUsersForApproval = function () {
+        return this.http.get(this.API_URL + "/api/user/getUsersForApproval");
+    };
+    OthersService.prototype.rejectUsers = function (postData) {
+        return this.http.post(this.API_URL + "/api/user/putRejectUserApproval", postData, this.httpOptions);
     };
     OthersService.prototype.getUserProfile = function (userId) {
-        return this.http.get(this.API_URL + "/api/business/users/" + userId);
+        return this.http.get(this.API_URL + "/api/user/getUser/?id=" + userId);
     };
-    OthersService.prototype.setUserProfile = function (postData, userId) {
-        return this.http.put(this.API_URL + "/api/business/users/" + userId, postData.value, this.httpOptions);
+    OthersService.prototype.setUserProfile = function (postData) {
+        return this.http.post(this.API_URL + "/api/user/putUser", postData, this.httpOptions);
     };
     OthersService.prototype.setNewPassword = function (postData, userId) {
-        return this.http.put(this.API_URL + "/api/business/users/" + userId, postData, this.httpOptions);
-    };
-    // top results
-    OthersService.prototype.getTopUsers = function () {
-        return this.http.get(this.API_URL + "/api/business/topusers");
-    };
-    OthersService.prototype.getTopClients = function () {
-        return this.http.get(this.API_URL + "/api/bussiness/topclients");
-    };
-    OthersService.prototype.getTopStations = function () {
-        return this.http.get(this.API_URL + "/api/business/topstations");
+        return this.http.put(this.API_URL + "/api/business/users/?id=" + userId, postData, this.httpOptions);
     };
     //  creating area town and station
     OthersService.prototype.createArea = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/createarea", postData, this.httpOptions);
+        return this.http.post(this.API_URL + "/api/areaUser/postAreaCreate", postData, this.httpOptions);
+    };
+    OthersService.prototype.createTheArea = function (postData) {
+        return this.http.post(this.API_URL + "/api/areaUser/postCreateAreaLocation", postData, this.httpOptions);
     };
     OthersService.prototype.createTown = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/createtown", postData, this.httpOptions);
+        return this.http.post(this.API_URL + "/api/townUser/postTownCreate", postData, this.httpOptions);
     };
-    OthersService.prototype.createStaion = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/createstation", postData, this.httpOptions);
+    OthersService.prototype.createTheTown = function (postData) {
+        return this.http.post(this.API_URL + "/api/townUser/postCreateTownLocation", postData, this.httpOptions);
     };
-    // client section
-    OthersService.prototype.enrollClient = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/enrollclient", postData, this.httpOptions);
+    OthersService.prototype.createStation = function (postData) {
+        return this.http.post(this.API_URL + "/api/stationUser/postStationCreate", postData, this.httpOptions);
     };
-    OthersService.prototype.getClients = function () {
-        return this.http.get(this.API_URL + "/api/business/clients");
+    OthersService.prototype.createTheStation = function (postData) {
+        return this.http.post(this.API_URL + "/api/stationUser/postCreateStationLocation", postData, this.httpOptions);
     };
     // get areas towns and stations
     OthersService.prototype.getAreas = function () {
-        return this.http.get(this.API_URL + "/api/business/areas");
+        return this.http.get(this.API_URL + "/api/areaUser/getAllAreas");
+    };
+    OthersService.prototype.getAllTheAreaLocations = function () {
+        return this.http.get(this.API_URL + "/api/areaUser/getAllAreaLocations");
+    };
+    OthersService.prototype.getAllTheAreaLocationTotals = function () {
+        return this.http.get(this.API_URL + "/api/areaUser/getTotalAreaLocations");
     };
     OthersService.prototype.getTowns = function () {
-        return this.http.get(this.API_URL + "/api/business/towns");
+        return this.http.get(this.API_URL + "/api/townUser/getAllTowns");
+    };
+    OthersService.prototype.getAllTheTownLocations = function () {
+        return this.http.get(this.API_URL + "/api/townUser/getAllTownLocations");
+    };
+    OthersService.prototype.getAllTheTownLocationTotals = function () {
+        return this.http.get(this.API_URL + "/api/townUser/getTotalTownLocations");
     };
     OthersService.prototype.getStations = function () {
-        return this.http.get(this.API_URL + "/api/business/stations");
+        return this.http.get(this.API_URL + "/api/stationUser/getAllStations");
     };
-    OthersService.prototype.getAreasToApprove = function () {
-        return this.http.get(this.API_URL + "/api/business/approvalareas");
+    OthersService.prototype.getAllTheStationLocations = function () {
+        return this.http.get(this.API_URL + "/api/stationUser/getAllStationLocations");
     };
-    OthersService.prototype.getTownsToApprove = function () {
-        return this.http.get(this.API_URL + "/api/business/approvaltowns");
+    OthersService.prototype.getAllTheStationLocationTotal = function () {
+        return this.http.get(this.API_URL + "/api/stationUser/getTotalStationLocations");
     };
-    OthersService.prototype.getStationsToApprove = function () {
-        return this.http.get(this.API_URL + "/api/business/approvalstations");
+    // get areas towns and stations to approve
+    OthersService.prototype.getAreasToApprove = function (userId) {
+        return this.http.get(this.API_URL + "/api/areaUser/getAreasForApproval/?id=" + userId);
     };
-    OthersService.prototype.approvedAreas = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/approvedareas", postData, this.httpOptions);
+    OthersService.prototype.getTownsToApprove = function (userId) {
+        return this.http.get(this.API_URL + "/api/townUser/getTownsForApproval/?id=" + userId);
     };
-    OthersService.prototype.approvedTowns = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/approvedtowns", postData, this.httpOptions);
+    OthersService.prototype.getStationsToApprove = function (userId) {
+        return this.http.get(this.API_URL + "/api/stationUser/getStationsForApproval/?id=" + userId);
     };
-    OthersService.prototype.approvedStations = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/approvedstations", postData, this.httpOptions);
+    // post approved areas towns and stations
+    OthersService.prototype.approveAreas = function (postData) {
+        return this.http.post(this.API_URL + "/api/areaUser/putApproveRegionArea", postData, this.httpOptions);
     };
-    OthersService.prototype.rejectedApprovalsArea = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/rejectedareas", postData, this.httpOptions);
+    OthersService.prototype.rejectAreas = function (postData) {
+        return this.http.post(this.API_URL + "/api/areaUser/putRejectAreaApproval", postData, this.httpOptions);
     };
-    OthersService.prototype.rejectedApprovalsTown = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/rejectedtowns", postData, this.httpOptions);
+    OthersService.prototype.approveTowns = function (postData) {
+        return this.http.post(this.API_URL + "/api/townUser/putApproveTown", postData, this.httpOptions);
     };
-    OthersService.prototype.rejectedApprovalsStation = function (postData) {
-        return this.http.post(this.API_URL + "/api/business/rejectedstations", postData, this.httpOptions);
+    OthersService.prototype.rejectTowns = function (postData) {
+        return this.http.post(this.API_URL + "/api/townUser/putRejectTownApproval", postData, this.httpOptions);
+    };
+    OthersService.prototype.approveStations = function (postData) {
+        return this.http.post(this.API_URL + "/api/stationUser/putApproveStation", postData, this.httpOptions);
+    };
+    OthersService.prototype.rejectStations = function (postData) {
+        return this.http.post(this.API_URL + "/api/stationUser/putRejectStationApproval", postData, this.httpOptions);
+    };
+    // set managers
+    OthersService.prototype.setAreaManager = function (postData) {
+        return this.http.post(this.API_URL + "/api/areaUser/postSetAreaManager", postData, this.httpOptions);
+    };
+    OthersService.prototype.setTownManager = function (postData) {
+        return this.http.post(this.API_URL + "/api/townUser/postSetupTownManager", postData, this.httpOptions);
+    };
+    OthersService.prototype.setStationManager = function (postData) {
+        return this.http.post(this.API_URL + "/api/stationUser/postSetupStationManager", postData, this.httpOptions);
     };
     OthersService.prototype.handleCompanySetupError = function (errorResponse) {
         if (errorResponse.error instanceof ErrorEvent) {

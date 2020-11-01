@@ -99,7 +99,7 @@ export class LoginComponent implements OnInit {
                 || this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1
               ) {
                 if (
-                  this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 600
+                  this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 500
                 ) {
                   this.alertService.success({
                     html: '<strong>Signed In Successfully</strong>'
@@ -146,21 +146,16 @@ export class LoginComponent implements OnInit {
                   this.alertService.success({
                     html: '<strong>Signed In Successfully</strong>'
                   });
-                  setTimeout(() => {
-                    this.router.navigate(['/stationmanagement']);
-                  }, 1000);
-                } else if (
-                  this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 500
-                ) {
-                  this.spinner.hide();
-                  this.alertService.success({
-                    html: '<strong>Signed In Successfully</strong>'
-                  });
-                  setTimeout(() => {
-                    this.router.navigate(['/stationofficer']);
-                  }, 1000);
-                }
-                 else {
+                  if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).UserType.toUpperCase() === 1) {
+                    setTimeout(() => {
+                      this.router.navigate(['/stationmanagement']);
+                    }, 1000);
+                  } else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).UserType.toUpperCase() === 2) {
+                    setTimeout(() => {
+                      this.router.navigate(['/stationofficer']);
+                    }, 1000);
+                  }
+                } else {
                   this.alertService.danger({
                     html: '<strong>No User found with these details, Please register</strong>'
                   });

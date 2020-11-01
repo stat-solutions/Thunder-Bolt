@@ -35,6 +35,7 @@ export class OthersService {
           catchError(async (err) => console.log(err))
         );
     }
+
 //  create company section
     createCompany(postData: CompanyInfo): Observable<any>{
       return this.http.post<any>(`${this.API_URL}/api/adminUser/setUpCompany`, postData, this.httpOptions)
@@ -56,7 +57,8 @@ export class OthersService {
           catchError(this.OtherErrors)
         ) as Observable<CompanyInfo>;
   }
-  // approvals and business unit
+
+// approvals and business unit
   getApprovalLevelsCreate(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/adminUser/itemsRequiringApprovalCreate`);
   }
@@ -67,6 +69,7 @@ export class OthersService {
     return this.http.post(`${this.API_URL}/api/adminUser/putItemsRequiringApprovalCreate`, postData, this.httpOptions);
   }
 
+// business unit section
   getBussinessUnits(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/adminUser/getAllBusinessUnits`);
   }
@@ -78,84 +81,113 @@ export class OthersService {
   }
 
 // users and set user profile
-  getUsers(): Observable<UserInfo> {
-    return this.http.get<UserInfo>(`${this.API_URL}/api/business/users`);
+  getUsers(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/user/getAllUsers`);
   }
-  getUserProfile(userId: number): Observable<UserInfo> {
-    return this.http.get<UserInfo>(`${this.API_URL}/api/business/users/${userId}`);
+  getUsersForApproval(): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/user/getUsersForApproval`);
   }
-  setUserProfile(postData: FormGroup, userId: number ): any {
-    return this.http.put(`${this.API_URL}/api/business/users/${userId}`, postData.value, this.httpOptions);
+  rejectUsers(postData: any): Observable<any> {
+    return this.http.post<any>(`${this.API_URL}/api/user/putRejectUserApproval`, postData, this.httpOptions);
+  }
+  getUserProfile(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/user/getUser/?id=${userId}`);
+  }
+  setUserProfile(postData: any): any {
+    return this.http.post(`${this.API_URL}/api/user/putUser`, postData, this.httpOptions);
   }
   setNewPassword(postData: string, userId: number ): any{
-    return this.http.put(`${this.API_URL}/api/business/users/${userId}`, postData, this.httpOptions);
-  }
-  // top results
-  getTopUsers(): Observable<any> {
-    return this.http.get<any>(`${this.API_URL}/api/business/topusers`);
-  }
-  getTopClients(): Observable<any> {
-    return this.http.get<any>(`${this.API_URL}/api/bussiness/topclients`);
-  }
-  getTopStations(): Observable<any> {
-    return this.http.get<any>(`${this.API_URL}/api/business/topstations`);
+    return this.http.put(`${this.API_URL}/api/business/users/?id=${userId}`, postData, this.httpOptions);
   }
 
 //  creating area town and station
-    createArea(postData: string): any {
-      return this.http.post(`${this.API_URL}/api/business/createarea`, postData, this.httpOptions);
+    createArea(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/areaUser/postAreaCreate`, postData, this.httpOptions);
     }
-    createTown(postData: string): any {
-      return this.http.post(`${this.API_URL}/api/business/createtown`, postData, this.httpOptions);
+    createTheArea(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/areaUser/postCreateAreaLocation`, postData, this.httpOptions);
     }
-    createStaion(postData: string): any {
-      return this.http.post(`${this.API_URL}/api/business/createstation`, postData, this.httpOptions);
+    createTown(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/townUser/postTownCreate`, postData, this.httpOptions);
     }
-// client section
-    enrollClient(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/business/enrollclient`, postData, this.httpOptions);
+    createTheTown(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/townUser/postCreateTownLocation`, postData, this.httpOptions);
+    }
+    createStation(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/stationUser/postStationCreate`, postData, this.httpOptions);
+    }
+    createTheStation(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/stationUser/postCreateStationLocation`, postData, this.httpOptions);
     }
 
-    getClients(): Observable<Client> {
-      return this.http.get<Client>(`${this.API_URL}/api/business/clients`);
-    }
 // get areas towns and stations
-     getAreas(): Observable<AreaInfo[]> {
-      return this.http.get<AreaInfo[]>(`${this.API_URL}/api/business/areas`);
+    getAreas(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/areaUser/getAllAreas`);
     }
-    getTowns(): Observable<TownInfo[]> {
-      return this.http.get<TownInfo[]>(`${this.API_URL}/api/business/towns`);
+    getAllTheAreaLocations(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/areaUser/getAllAreaLocations`);
     }
-    getStations(): Observable<StationInfo[]> {
-      return this.http.get<StationInfo[]>(`${this.API_URL}/api/business/stations`);
+    getAllTheAreaLocationTotals(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/areaUser/getTotalAreaLocations`);
+    }
+    getTowns(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/townUser/getAllTowns`);
+    }
+    getAllTheTownLocations(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/townUser/getAllTownLocations`);
+    }
+    getAllTheTownLocationTotals(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/townUser/getTotalTownLocations`);
+    }
+    getStations(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/stationUser/getAllStations`);
+    }
+    getAllTheStationLocations(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/stationUser/getAllStationLocations`);
+    }
+    getAllTheStationLocationTotal(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/stationUser/getTotalStationLocations`);
     }
 
-    getAreasToApprove(): Observable<AreaApprovals[]> {
-      return this.http.get<AreaApprovals[]>(`${this.API_URL}/api/business/approvalareas`);
+// get areas towns and stations to approve
+    getAreasToApprove(userId: number): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/areaUser/getAreasForApproval/?id=${userId}`);
     }
-    getTownsToApprove(): Observable<TownApprovals[]> {
-      return this.http.get<TownApprovals[]>(`${this.API_URL}/api/business/approvaltowns`);
+    getTownsToApprove(userId: number): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/townUser/getTownsForApproval/?id=${userId}`);
     }
-    getStationsToApprove(): Observable<StationApprovals[]> {
-      return this.http.get<StationApprovals[]>(`${this.API_URL}/api/business/approvalstations`);
+    getStationsToApprove(userId: number): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/stationUser/getStationsForApproval/?id=${userId}`);
     }
-    approvedAreas(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/business/approvedareas`, postData, this.httpOptions);
+
+// post approved areas towns and stations
+    approveAreas(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/areaUser/putApproveRegionArea`, postData, this.httpOptions);
     }
-    approvedTowns(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/business/approvedtowns`, postData, this.httpOptions);
+    rejectAreas(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/areaUser/putRejectAreaApproval`, postData, this.httpOptions);
     }
-    approvedStations(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/business/approvedstations`, postData, this.httpOptions);
+    approveTowns(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/townUser/putApproveTown`, postData, this.httpOptions);
     }
-    rejectedApprovalsArea(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/business/rejectedareas`, postData, this.httpOptions);
+    rejectTowns(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/townUser/putRejectTownApproval`, postData, this.httpOptions);
     }
-    rejectedApprovalsTown(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/business/rejectedtowns`, postData, this.httpOptions);
+    approveStations(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/stationUser/putApproveStation`, postData, this.httpOptions);
     }
-    rejectedApprovalsStation(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/business/rejectedstations`, postData, this.httpOptions);
+    rejectStations(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/stationUser/putRejectStationApproval`, postData, this.httpOptions);
+    }
+// set managers
+    setAreaManager(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/areaUser/postSetAreaManager`, postData, this.httpOptions);
+    }
+    setTownManager(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/townUser/postSetupTownManager`, postData, this.httpOptions);
+    }
+    setStationManager(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/stationUser/postSetupStationManager`, postData, this.httpOptions);
     }
 
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {

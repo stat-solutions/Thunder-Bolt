@@ -20,9 +20,6 @@ import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { EnrollComponent } from './components/enroll/enroll.component';
 import { EnrollClientComponent } from './components/enroll/enroll-client/enroll-client.component';
 import { PersonalInfoComponent } from './components/enroll/enroll-client/personal-info/personal-info.component';
-import { MicroClientInfoComponent } from './components/enroll/enroll-client/micro-client-info/micro-client-info.component';
-import { TaxiClientInfoComponent } from './components/enroll/enroll-client/taxi-client-info/taxi-client-info.component';
-import { BodaClientInfoComponent } from './components/enroll/enroll-client/boda-client-info/boda-client-info.component';
 import { EnrollStageComponent } from './components/enroll/enroll-stage/enroll-stage.component';
 import { EnrollBodaStageComponent } from './components/enroll/enroll-stage/enroll-boda-stage/enroll-boda-stage.component';
 import { EnrollTaxiStageComponent } from './components/enroll/enroll-stage/enroll-taxi-stage/enroll-taxi-stage.component';
@@ -59,9 +56,6 @@ import { ApproveTownUsersComponent } from './components/approve-town-users/appro
     EnrollComponent,
     EnrollClientComponent,
     PersonalInfoComponent,
-    MicroClientInfoComponent,
-    TaxiClientInfoComponent,
-    BodaClientInfoComponent,
     EnrollStageComponent,
     EnrollBodaStageComponent,
     EnrollTaxiStageComponent,

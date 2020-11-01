@@ -9,18 +9,15 @@ exports.__esModule = true;
 exports.ApproveAreasComponent = void 0;
 var core_1 = require("@angular/core");
 var ApproveAreasComponent = /** @class */ (function () {
-    function ApproveAreasComponent(authService, router, spinner, alertService, fb) {
+    function ApproveAreasComponent(authService, others, router, spinner, alertService, fb) {
         this.authService = authService;
+        this.others = others;
         this.router = router;
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
         this.posted = false;
-        this.areaApproval = [
-        // { area: 'central', status: 0 },
-        // { area: 'Eastern', status: 0 },
-        // { area: 'Western', status: 0 },
-        ];
+        this.User = this.authService.loggedInUserInfo();
     }
     ApproveAreasComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
@@ -53,20 +50,40 @@ var ApproveAreasComponent = /** @class */ (function () {
     ApproveAreasComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        // this.others.getBussinessUnits().subscribe(
-        //   units => {
-        //     this.approvals = units;
-        this.areaApproval.forEach(function (item, i) {
-            // console.log(item.name);
-            // console.log(i);
-            _this.fval.approveAreas.controls[i].controls.area.setValue(item.area);
-            _this.fval.approveAreas.controls[i].controls.approved.setValue(false);
-            _this.addItem();
-            n = i + 1;
-        });
-        this.removeItem(n);
-        // }
-        // )
+        this.others.getAreasToApprove(this.User.userId).subscribe(function (items) {
+            _this.areaApproval = items;
+            // console.log(this.areaApproval);
+            _this.areaApproval.forEach(function (item, i) {
+                // approvalDetailsId: 117
+                // areaRegionId: 800
+                // areaRegionName: "Albert Region"
+                // areaRegionStatus: 1
+                // createdBy: 1000000001
+                // createdByAt: "2020-10-31T22:38:47.000Z"
+                // firstApprovedBy: 1000000000
+                // firstApprovedByAt: "2020-10-31T22:38:47.000Z"
+                // firstUpdateApprovedBy: 1000000000
+                // firstUpdateApprovedByAt: "2020-10-31T22:38:47.000Z"
+                // fkApprovalDetailsIdAreaRegion: 117
+                // secondApprovedBy: 1000000000
+                // secondApprovedByAt: "2020-10-31T22:38:47.000Z"
+                // secondUpdateApprovedBy: 1000000000
+                // secondUpdateApprovedByAt: "2020-10-31T22:38:47.000Z"
+                // thirdApprovedBy: 1000000000
+                // thirdApprovedByAt: "2020-10-31T22:38:47.000Z"
+                // thirdUpdateApprovedBy: 1000000000
+                // thirdUpdateApprovedByAt: "2020-10-31T22:38:47.000Z"
+                // updatedBy: 1000000000
+                // updatedByAt: "2020-10-31T22:38:47.000Z"
+                // console.log(item.name);
+                // console.log(i);
+                _this.fval.approveAreas.controls[i].controls.area.setValue(item.areaRegionName);
+                _this.fval.approveAreas.controls[i].controls.approved.setValue(false);
+                _this.addItem();
+                n = i + 1;
+            });
+            _this.removeItem(n);
+        }, function (err) { return console.log(err); });
     };
     ApproveAreasComponent.prototype.checkAllItems = function (val) {
         var _this = this;
@@ -108,18 +125,23 @@ var ApproveAreasComponent = /** @class */ (function () {
         var itemsApproved = [];
         this.areaApproval.forEach(function (item, i) {
             if (_this.fval.approveAreas.controls[i].controls.approved.value === true) {
-                item.status = 2;
-                itemsApproved.push(item);
+                itemsApproved.push({
+                    areaRegionId: item.areaRegionId,
+                    areaRegionStatus: 2,
+                    userId: _this.User.userId
+                });
             }
         });
-        // console.log(itemsApproved)
+        // console.log(itemsApproved);
         if (itemsApproved.length > 0) {
-            setTimeout(function () {
-                _this.router.navigate(['centralmanagement/dashboard']);
-            }, 3000);
+            this.others.approveAreas(itemsApproved).subscribe(function (res) {
+                if (res) {
+                    _this.initialiseForm();
+                }
+            }, function (err) { return console.log(err); });
         }
         else {
-            // alert("Please select something")
+            alert('Please select something');
             return;
         }
     };
@@ -128,18 +150,23 @@ var ApproveAreasComponent = /** @class */ (function () {
         var itemsRejected = [];
         this.areaApproval.forEach(function (item, i) {
             if (_this.fval.approveAreas.controls[i].controls.approved.value === true) {
-                item.status = 1;
-                itemsRejected.push(item);
+                itemsRejected.push({
+                    areaRegionId: item.areaRegionId,
+                    areaRegionStatus: 3,
+                    userId: _this.User.userId
+                });
             }
         });
-        // console.log(itemsRejected.length)
+        // console.log(itemsRejected);
         if (itemsRejected.length > 0) {
-            setTimeout(function () {
-                _this.router.navigate(['centralmanagement/dashboard']);
-            }, 3000);
+            this.others.rejectAreas(itemsRejected).subscribe(function (res) {
+                if (res) {
+                    _this.initialiseForm();
+                }
+            }, function (err) { return console.log(err); });
         }
         else {
-            // alert("Please select something")
+            alert('Please select something');
             return;
         }
     };

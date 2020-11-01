@@ -1,0 +1,108 @@
+<div
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-md-0 pt-0 pb-5 pb-sm-0 shadow-lg col-xs-12 col-lg-10"
+>
+  <div class="jumbotron-fluid mx-0 px-0 mb-5 mb-sm-3">
+    <div class="invest-card card-body mt-2 pt-4 mb-3 mx-auto pb-3 shadow-lg">
+      <form [formGroup]="managersForm">
+        <div class="row">
+          <div class="col-3">
+            <h4 class="text-center text-info">Area</h4>
+          </div>
+          <div class="col-4 col-md-4">
+            <h4 class="text-center text-info">Manager</h4>
+          </div>
+          <div class="col-3 col-md-3 ml-3 ml-lg-8">
+            <h4 class="text-right text-info">Actions</h4>
+          </div>
+        </div>
+        <div class="iteration" formArrayName= "areaManagers">
+        <div class ="item-container"
+        *ngFor="let items of fval.areaManagers['controls']; let idx = index"
+        >
+        <div>
+        <div class="list-card card mt-1 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"  [formGroupName]="idx">
+          <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0" 
+            (mouseover)="showLevels = idx" (mouseleave)="showLevels = null">
+            <div class="row mt-0 pt-1 mb-0 pb-0 d-flex flex-column">
+            <div class="d-flex flex-row row">
+              <div class="col-4 mx-0 px-4">
+                <span class="itemCreated">{{fval.areaManagers["controls"][idx]["controls"].areaName.value}}</span>
+              </div>
+              <div class="col-4 mx-0 px-2">
+                <span class="itemCreated">{{fval.areaManagers["controls"][idx]["controls"].currentManager.value}}</span>
+              </div>
+              <div class="col-4 ml-1 pl-2 mx-auto pr-0">
+                <button
+                  class="edit-button btn-sm btn-infob col-3 ml-2 py-1 px-2"
+                  (click)="enableEdit(idx)"
+                >
+                  <i class="fas fa-edit"></i>
+                </button>
+                &nbsp;
+                <button
+                  class="save-button btn-sm btn-infob col-3 ml-3 mr-3 py-1 px-2"
+                  [disabled] = "fval.areaManagers['controls'][idx].pristine || fval.areaManagers['controls'][idx].invalid"
+                  (click)="saveLevel(idx)"
+                >
+                  <i class="fas fa-save"></i>
+                </button>
+              </div>
+            </div>
+            <div class="d-flex flex-column row mt-0 pt-0 mb-0 pb-0 pl-0 pr-0" *ngIf="showLevels  == idx">
+                <!--require entry of approval persons per level depending on the number of levels set-->
+               <div class="row d-flex flex-column col-12">
+                <div class="text-primary text-center d-flex flex-colum col-12">
+                  <label
+                    for=""
+                    class="col-8 mx-1"
+                    [ngClass]="fval.areaManagers['controls'][idx]['controls']['selectedManager'].valid ? 'text-info' : ''"
+                    >
+                    <!-- <i *ngIf="fval.approvalItems['controls'][idx]['controls']['firstApproval'].valid" class="material-icons"
+                      >check_circle</i
+                    > -->
+                    Select a manager from available area users </label>                    
+                  <select
+                  formControlName="selectedManager"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.areaManagers['controls'][idx]['controls']['selectedManager'].touched 
+                      || fval.areaManagers['controls'][idx]['controls']['selectedManager'].dirty) &&
+                      fval.areaManagers['controls'][idx]['controls']['selectedManager'].errors
+                  }"
+                  class="col-3 mx-1"
+                  autocomplete="off"
+                  placeholder="Select required managers"
+                >
+                <option>CENTRAL</option>
+                <option>AREA</option>
+                <option>TOWN</option>
+                </select>
+                <!-- <div
+                  class="text-danger col-3 mx-1"
+                  *ngIf="
+                    (fval.areaManagers['controls'][idx]['controls']['selectedManager'].touched 
+                    || fval.areaManagers['controls'][idx]['controls']['selectedManager'].dirty) &&
+                    fval.areaManagers['controls'][idx]['controls']['selectedManager'].errors?.required
+                  "
+                >
+                  please choose a manager!
+                </div> -->
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+<!--footer -->
+<div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-3 mx-auto">
+  <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
+</div>
+<!--/ footer -->

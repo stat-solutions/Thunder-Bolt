@@ -11,8 +11,9 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
 var RegistrationComponent = /** @class */ (function () {
-    function RegistrationComponent(authService, spinner, router, alertService, fb) {
+    function RegistrationComponent(authService, others, spinner, router, alertService, fb) {
         this.authService = authService;
+        this.others = others;
         this.spinner = spinner;
         this.router = router;
         this.alertService = alertService;
@@ -56,6 +57,7 @@ var RegistrationComponent = /** @class */ (function () {
     }
     RegistrationComponent.prototype.ngOnInit = function () {
         this.getRoles();
+        this.getUnits();
         this.userForm = this.createFormGroup();
         this.myDateValue = new Date();
     };
@@ -110,6 +112,19 @@ var RegistrationComponent = /** @class */ (function () {
     RegistrationComponent.prototype.revert = function () {
         this.userForm.reset();
     };
+    RegistrationComponent.prototype.log = function () {
+        // console.log(this.fval.central.value);
+        // console.log(this.units);
+        // this.units.forEach(unit => {
+        //   if (this.fval.central.value === unit.bussinessUnitName) {
+        //   console.log(unit);
+        //     this.selectedLocation = unit.businnessUnitId;
+        //     console.log(unit.businnessUnitId);
+        //     console.log(this.selectedLocation);
+        //   }
+        // });
+        // console.log(this.selectedLocation);
+    };
     Object.defineProperty(RegistrationComponent.prototype, "fval", {
         get: function () {
             return this.userForm.controls;
@@ -128,6 +143,13 @@ var RegistrationComponent = /** @class */ (function () {
         setTimeout(function () {
             _this.router.navigate(['authpage/loginpage']);
         }, 2000);
+    };
+    RegistrationComponent.prototype.getUnits = function () {
+        var _this = this;
+        this.others.getBussinessUnits().subscribe(function (res) {
+            _this.units = res;
+            // console.log(this.units);
+        }, function (err) { return console.log(err); });
     };
     RegistrationComponent.prototype.getRoles = function () {
         var _this = this;
@@ -155,14 +177,13 @@ var RegistrationComponent = /** @class */ (function () {
             });
             return;
         }
-        else if (this.fval.position.value === 'TOWN MANAGER' && this.fval.town === '') {
+        else if (this.fval.position.value === 'TOWN USER' && this.fval.town === '') {
             this.alertService.success({
                 html: '<b>Town was not selected</b>'
             });
             return;
         }
-        else if ((this.fval.position.value === 'STATION MANAGER'
-            || this.fval.position.value === 'STATION MANAGER')
+        else if ((this.fval.position.value === 'STATION USER')
             && this.fval.station === '') {
             this.alertService.success({
                 html: '<b>Station was not selected</b>'
@@ -170,35 +191,41 @@ var RegistrationComponent = /** @class */ (function () {
             return;
         }
         else {
-            var selectedRole_1;
-            var selectedLocation = void 0;
             this.roles.forEach(function (role) {
                 if (_this.fval.position.value === role.roleName) {
-                    selectedRole_1 = role.accessRightsId;
+                    _this.selectedRole = role.accessRightsId;
                 }
             });
-            if (this.fval.position.value === 'AREA MANAGER') {
-                selectedLocation = this.fval.area.value;
+            if (this.fval.position.value === 'AREA USER') {
+                this.selectedLocation = this.fval.area.value;
             }
-            else if (this.fval.position.value === 'TOWN MANAGER') {
-                selectedLocation = this.fval.town.value;
+            else if (this.fval.position.value === 'TOWN USER') {
+                this.selectedLocation = this.fval.town.value;
             }
-            else if (this.fval.position.value === 'STATION MANAGER' || this.fval.position.value === 'STATION OFFICER') {
-                selectedLocation = this.fval.station.value;
+            else if (this.fval.position.value === 'STATION USER') {
+                this.selectedLocation = this.fval.station.value;
             }
-            else {
-                selectedLocation = '';
+            else if (this.fval.position.value === 'ADMIN') {
+                this.selectedLocation = 10000;
+            }
+            else if (this.fval.position.value === 'CENTRAL USER') {
+                this.units.forEach(function (unit) {
+                    if (_this.fval.central.value.toString() === unit.bussinessUnitName) {
+                        _this.selectedLocation = unit.businnessUnitId;
+                        console.log(_this.selectedLocation);
+                    }
+                });
             }
             this.registerUser = {
                 userName: this.fval.full_name.value,
                 userEmail1: this.fval.email.value,
                 userPhone1: "" + this.fval.user_contact_number.value,
                 userIdType: this.fval.id_type.value,
-                userIdNumber: "" + this.fval.id_number.value,
+                userIdNumber: "" + this.fval.id_number.value.toUpperCase(),
                 userDateOfBirth: this.fval.date_of_birth.value.getFullYear() + "-" + (this.fval.date_of_birth.value.getMonth() + 1) + "-" + this.fval.date_of_birth.value.getDate(),
                 userPassword: Number(this.fval.password.value),
-                fkAccessRightsIdUser: selectedRole_1,
-                userLocation: selectedLocation
+                fkAccessRightsIdUser: this.selectedRole,
+                locationId: this.selectedLocation
             };
             // console.log(this.registerUser);
             this.authService.registerUser(this.registerUser).subscribe(function () {

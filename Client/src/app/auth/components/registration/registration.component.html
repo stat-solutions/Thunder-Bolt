@@ -348,7 +348,44 @@
           The position is required!
         </div>
       </div>
-        <!--the divs below will appear depending on the position selected-->        
+        <!--the divs below will appear depending on the position selected--> 
+        <div class="form-group text-primary" *ngIf="(positionValue === 'CENTRAL USER')">
+          <label
+            for="central"
+            [ngClass]="fval.central.valid ? 'text-info' : ''"
+            ><i *ngIf="fval.central.valid" class="material-icons"
+              >check_circle</i
+            >Choose Unit</label
+          >
+          <div class="input-group mb-2">
+            <select
+            formControlName="central"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid':
+                (fval.central.touched || fval.central.dirty) &&
+                fval.central.errors
+            }"
+            autocomplete="off"
+            placeholder="Select Unit"
+            (change)="log()"
+            >
+            <option></option>
+            <option   *ngFor="let unit of units">
+              {{unit.bussinessUnitName}}
+            </option>
+          </select>
+      </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.central.touched || fval.central.dirty) &&
+              fval.central.errors?.required
+            "
+          >
+            The unit is required!
+          </div>
+        </div>
         <div class="form-group text-primary" *ngIf="(positionValue === 'AREA USER')">
           <label
             for="area"
@@ -369,7 +406,7 @@
             autocomplete="off"
             placeholder="Select Area"
             
-          >
+          > <option></option>
             <option  *ngFor="let area of areas">
               {{area}}
             </option>
@@ -405,7 +442,7 @@
             }"
             autocomplete="off"
             placeholder="Select town"
-          >
+          ><option></option>
             <option *ngFor="let town of towns">
               {{town.name}}
             </option>
@@ -423,7 +460,7 @@
         </div>
 
         <!--the div for station-->
-        <div class="form-group text-primary" *ngIf="(positionValue  === 'STATION MANAGER USER')">
+        <div class="form-group text-primary" *ngIf="(positionValue  === 'STATION USER')">
           <label
             for="station"
             [ngClass]="fval.station.valid ? 'text-info' : ''"
@@ -448,41 +485,6 @@
             </option>
           </select>
           </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.station.touched || fval.station.dirty) &&
-              fval.station.errors?.required
-            "
-          >
-            The station is required!
-          </div>
-        </div>
-        <div class="form-group text-primary" *ngIf="(positionValue === 'STATION OFFICER USER')">
-          <label
-            for="station"
-            [ngClass]="fval.station.valid ? 'text-info' : ''"
-            ><i *ngIf="fval.station.valid" class="material-icons"
-              >check_circle</i
-            >Choose station</label
-          >
-          <div class="input-group mb-2">
-            <select
-            formControlName="station"
-            class="form-control"
-            [ngClass]="{
-              'is-invalid':
-                (fval.station.touched || fval.station.dirty) &&
-                fval.station.errors
-            }"
-            autocomplete="off"
-            placeholder="Select station"
-            >
-            <option   *ngFor="let station of stations">
-              {{station.name}}
-            </option>
-          </select>
-      </div>
           <div
             class="text-danger col"
             *ngIf="

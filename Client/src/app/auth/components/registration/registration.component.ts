@@ -8,6 +8,7 @@ import { AlertService } from 'ngx-alerts';
 import { FormBuilder } from '@angular/forms';
 import { UserRole } from 'src/app/shared/models/user-role';
 import { RegisterUser } from 'src/app/shared/models/register';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
   selector: 'app-registration',
@@ -58,10 +59,14 @@ export class RegistrationComponent implements OnInit {
     {name: 'mbweera', town: 'Arua'},
   ];
   roles: UserRole[];
+  units: any;
+  selectedRole: any;
+  selectedLocation: any;
   registerUser: RegisterUser;
 
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService,
@@ -70,6 +75,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRoles();
+    this.getUnits();
     this.userForm = this.createFormGroup();
     this.myDateValue = new Date();
   }
@@ -166,7 +172,19 @@ export class RegistrationComponent implements OnInit {
 revert(): any {
     this.userForm.reset();
   }
-
+log(): any{
+  // console.log(this.fval.central.value);
+  // console.log(this.units);
+  // this.units.forEach(unit => {
+  //   if (this.fval.central.value === unit.bussinessUnitName) {
+  //   console.log(unit);
+  //     this.selectedLocation = unit.businnessUnitId;
+  //     console.log(unit.businnessUnitId);
+  //     console.log(this.selectedLocation);
+  //   }
+  // });
+  // console.log(this.selectedLocation);
+}
 get fval(): any {
     return this.userForm.controls;
   }
@@ -183,6 +201,15 @@ returnHome(): any {
       this.router.navigate(['authpage/loginpage']);
     }, 2000);
   }
+getUnits(): any {
+  this.others.getBussinessUnits().subscribe(
+    res => {
+      this.units = res;
+      // console.log(this.units);
+  },
+    err => console.log(err)
+  );
+}
 getRoles(): any{
   this.authService.getRoles().subscribe(
     x => {
@@ -208,15 +235,14 @@ register(): any {
           '<b>Area was not selected</b>'
       });
       return;
-    } else if (this.fval.position.value === 'TOWN MANAGER' && this.fval.town === ''){
+    } else if (this.fval.position.value === 'TOWN USER' && this.fval.town === ''){
       this.alertService.success({
         html:
           '<b>Town was not selected</b>'
       });
       return;
     } else if (
-        (this.fval.position.value === 'STATION MANAGER'
-        || this.fval.position.value === 'STATION MANAGER')
+        (this.fval.position.value === 'STATION USER')
         && this.fval.station === ''
       ){
       this.alertService.success({
@@ -225,33 +251,37 @@ register(): any {
       });
       return;
     } else {
-
-      let selectedRole;
-      let selectedLocation;
       this.roles.forEach(role => {
         if (this.fval.position.value === role.roleName) {
-          selectedRole = role.accessRightsId;
+          this.selectedRole = role.accessRightsId;
         }
       });
-      if (this.fval.position.value === 'AREA MANAGER'){
-          selectedLocation = this.fval.area.value;
-      } else  if (this.fval.position.value === 'TOWN MANAGER'){
-        selectedLocation = this.fval.town.value;
-      }  else  if (this.fval.position.value === 'STATION MANAGER' || this.fval.position.value === 'STATION OFFICER' ){
-        selectedLocation = this.fval.station.value;
-      } else {
-        selectedLocation = '';
+      if (this.fval.position.value === 'AREA USER'){
+        this.selectedLocation = this.fval.area.value;
+      } else  if (this.fval.position.value === 'TOWN USER'){
+        this.selectedLocation = this.fval.town.value;
+      }  else  if (this.fval.position.value === 'STATION USER' ){
+        this.selectedLocation = this.fval.station.value;
+      } else if (this.fval.position.value === 'ADMIN') {
+        this.selectedLocation = 10000;
+      } else if (this.fval.position.value === 'CENTRAL USER') {
+        this.units.forEach(unit => {
+          if (this.fval.central.value.toString() === unit.bussinessUnitName) {
+            this.selectedLocation = unit.businnessUnitId;
+            console.log(this.selectedLocation);
+          }
+        });
       }
       this.registerUser = {
         userName: this.fval.full_name.value,
         userEmail1: this.fval.email.value,
         userPhone1: `${this.fval.user_contact_number.value}`,
         userIdType: this.fval.id_type.value,
-        userIdNumber: `${this.fval.id_number.value}`,
+        userIdNumber: `${this.fval.id_number.value.toUpperCase()}`,
         userDateOfBirth: `${this.fval.date_of_birth.value.getFullYear()}-${this.fval.date_of_birth.value.getMonth() + 1}-${this.fval.date_of_birth.value.getDate()}`,
         userPassword: Number(this.fval.password.value),
-        fkAccessRightsIdUser: selectedRole,
-        userLocation: selectedLocation
+        fkAccessRightsIdUser: this.selectedRole,
+        locationId: this.selectedLocation
       };
 
       // console.log(this.registerUser);

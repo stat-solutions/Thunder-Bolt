@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // import * as jwt_decode from 'jwt-decode';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder,
-  FormArray,
-} from '@angular/forms';
+import {FormGroup, FormControl, Validators, FormBuilder, FormArray, } from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,6 +11,7 @@ export interface ApproveCentralUsers {
   userID: string;
   userName: string;
   userRole: string;
+  userLocation: string;
   status: number;
 }
 
@@ -31,151 +26,50 @@ export class ApproveCentralUsersComponent implements OnInit {
     {
       userID: 'TB03492',
       userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
+      userRole: 'Central User',
+      userLocation: 'Fuel Bussiness',
       status: 0,
     },
     {
       userID: 'TB03492',
       userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
+      userRole: 'Area User',
+      userLocation: 'Central Region',
       status: 0,
     },
     {
       userID: 'TB03492',
       userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
+      userRole: 'Area User',
+      userLocation: 'Eastern Region',
       status: 0,
     },
     {
       userID: 'TB03492',
       userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
+      userRole: 'Town User',
+      userLocation: 'Kampala',
       status: 0,
     },
     {
       userID: 'TB03492',
       userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
+      userRole: 'Town User',
+      userLocation: 'Kitugumu',
       status: 0,
     },
     {
       userID: 'TB03492',
       userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
+      userRole: 'Station User',
+      userLocation: 'Don Petrol Station',
       status: 0,
     },
     {
       userID: 'TB03492',
       userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
-      status: 0,
-    },
-    {
-      userID: 'TB03492',
-      userName: 'Kasule Joseph',
-      userRole: 'Central Manager',
+      userRole: 'Station User',
+      userLocation: 'Don Petrol Station',
       status: 0,
     },
   ];
@@ -192,18 +86,18 @@ export class ApproveCentralUsersComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
   }
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
       approveUsers: this.fb.array([this.centralUserApproval]),
       selectAll: this.fb.control({}),
     });
   }
-  get centralUserApproval() {
+  get centralUserApproval(): any {
     return this.fb.group({
       userID: this.fb.control({ value: '' }),
       userName: this.fb.control({ value: '' }),
@@ -211,15 +105,15 @@ export class ApproveCentralUsersComponent implements OnInit {
       approved: this.fb.control({}),
     });
   }
-  addItem() {
+  addItem(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
     (this.fval.approveUsers as FormArray).push(this.centralUserApproval);
   }
 
-  removeItem(index: number) {
+  removeItem(index: number): any {
     (this.fval.approveUsers as FormArray).removeAt(index);
   }
-  initialiseForm() {
+  initialiseForm(): any {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
     //   units => {
@@ -227,16 +121,16 @@ export class ApproveCentralUsersComponent implements OnInit {
     this.centralUserApprovals.forEach((item, i) => {
       // console.log(item.name);
       // console.log(i);
-      this.fval.approveUsers['controls'][i]['controls'].userID.setValue(
+      this.fval.approveUsers.controls[i].controls.userID.setValue(
         item.userID
       );
-      this.fval.approveUsers['controls'][i]['controls'].userName.setValue(
+      this.fval.approveUsers.controls[i].controls.userName.setValue(
         item.userName
       );
-      this.fval.approveUsers['controls'][i]['controls'].userRole.setValue(
+      this.fval.approveUsers.controls[i].controls.userRole.setValue(
         item.userRole
       );
-      this.fval.approveUsers['controls'][i]['controls'].approved.setValue(
+      this.fval.approveUsers.controls[i].controls.approved.setValue(
         false
       );
       this.addItem();
@@ -246,54 +140,54 @@ export class ApproveCentralUsersComponent implements OnInit {
     // }
     // )
   }
-  checkAllItems(val: boolean) {
-    if (val == true) {
+  checkAllItems(val: boolean): any {
+    if (val === true) {
       this.centralUserApprovals.forEach((item, i) => {
-        this.fval.approveUsers['controls'][i]['controls'].approved.setValue(
+        this.fval.approveUsers.controls[i].controls.approved.setValue(
           val
         );
       });
     } else {
       this.centralUserApprovals.forEach((item, i) => {
-        this.fval.approveUsers['controls'][i]['controls'].approved.setValue(
+        this.fval.approveUsers.controls[i].controls.approved.setValue(
           false
         );
       });
     }
   }
-  deselectAll(val: boolean) {
+  deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
     if (
-      this.fval.approveUsers['controls'][val]['controls'].approved.value == true
+      this.fval.approveUsers.controls[val].controls.approved.value === true
     ) {
       this.fval.selectAll.setValue(false);
     }
   }
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  disableForm() {
+  disableForm(): any {
     return this.userForm.disable();
   }
 
-  enableEdit() {
+  enableEdit(): any {
     return this.userForm.enable();
   }
 
-  approveItems() {
+  approveItems(): any {
     const itemsApproved = [];
     this.centralUserApprovals.forEach((item, i) => {
       if (
-        this.fval.approveUsers['controls'][i]['controls'].approved.value == true
+        this.fval.approveUsers.controls[i].controls.approved.value === true
       ) {
         item.status = 2;
         itemsApproved.push(item);
@@ -310,11 +204,11 @@ export class ApproveCentralUsersComponent implements OnInit {
       return;
     }
   }
-  rejectItems() {
+  rejectItems(): any {
     const itemsRejected = [];
     this.centralUserApprovals.forEach((item, i) => {
       if (
-        this.fval.approveUsers['controls'][i]['controls'].approved.value == true
+        this.fval.approveUsers.controls[i].controls.approved.value === true
       ) {
         item.status = 1;
         itemsRejected.push(item);

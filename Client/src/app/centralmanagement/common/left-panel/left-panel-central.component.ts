@@ -62,6 +62,33 @@ export class LeftPanelCentralComponent implements OnInit {
         url: '/centralmanagement/create',
       },
       {
+        name: 'Select the Area',
+        icon: 'fas fa-user-check',
+        url: '/centralmanagement/selectarea'
+      },
+      {
+        name: 'Managers',
+        icon: 'fas fa-user-check',
+        url: '/centralmanagement/managers',
+        subMenu: [
+          {
+            name: 'Area Managers',
+            icon: 'fas fa-credit-card',
+            url: '/centralmanagement/managers/areamanagers',
+          },
+          {
+            name: 'Town Managers',
+            icon: 'fas fa-credit-card',
+            url: '/centralmanagement/managers/townmanagers',
+          },
+          {
+            name: 'Station Managers',
+            icon: 'fas fa-credit-card',
+            url: '/centralmanagement/managers/stationmanagers',
+          },
+        ]
+      },
+      {
         name: 'Creation Approvals',
         icon: 'fas fa-cogs',
         url: '/centralmanagement/approve',

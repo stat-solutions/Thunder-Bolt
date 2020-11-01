@@ -11,11 +11,13 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var CreateAreaComponent = /** @class */ (function () {
     // ShiftDetails[]
-    function CreateAreaComponent(authService, spinner, router, alertService) {
+    function CreateAreaComponent(authService, others, spinner, router, alertService) {
         this.authService = authService;
+        this.others = others;
         this.spinner = spinner;
         this.router = router;
         this.alertService = alertService;
+        this.User = this.authService.loggedInUserInfo();
     }
     CreateAreaComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
@@ -36,7 +38,25 @@ var CreateAreaComponent = /** @class */ (function () {
         configurable: true
     });
     CreateAreaComponent.prototype.create = function () {
-        // this.spinner.show();
+        var _this = this;
+        if (this.userForm.valid) {
+            var data = {
+                areaRegionName: this.fval.itemCreate.value.toUpperCase(),
+                userId: this.User.userId
+            };
+            this.others.createArea(data).subscribe(function (res) {
+                // console.log(res)
+                if (res) {
+                    _this.revert();
+                    _this.alertService.success({
+                        html: '<p>Station creation was successful</p>'
+                    });
+                }
+            }, function (err) { return console.log(err); });
+        }
+        else {
+            // return;
+        }
     };
     CreateAreaComponent = __decorate([
         core_1.Component({

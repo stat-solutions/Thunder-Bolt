@@ -9,20 +9,15 @@ exports.__esModule = true;
 exports.ApproveStationsComponent = void 0;
 var core_1 = require("@angular/core");
 var ApproveStationsComponent = /** @class */ (function () {
-    function ApproveStationsComponent(authService, router, spinner, alertService, fb) {
+    function ApproveStationsComponent(others, authService, router, spinner, alertService, fb) {
+        this.others = others;
         this.authService = authService;
         this.router = router;
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
-        this.stationApproval = [
-            { station: 'ndeeba', status: 1 },
-            { station: 'nakulabye', status: 1 },
-            { station: 'mutundwe', status: 1 },
-            { station: 'busega', status: 1 },
-            { station: 'bwayise', status: 1 }
-        ];
         this.posted = false;
+        this.User = this.authService.loggedInUserInfo();
     }
     ApproveStationsComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
@@ -55,20 +50,19 @@ var ApproveStationsComponent = /** @class */ (function () {
     ApproveStationsComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        // this.others.getBussinessUnits().subscribe(
-        //   units => {
-        //     this.approvals = units;
-        this.stationApproval.forEach(function (item, i) {
-            // console.log(item.station);
-            // console.log(i);
-            _this.fval.approveStations.controls[i].controls.station.setValue(item.station);
-            _this.fval.approveStations.controls[i].controls.approved.setValue(false);
-            _this.addItem();
-            n = i + 1;
+        this.others.getStationsToApprove(this.User.userId).subscribe(function (items) {
+            _this.stationApproval = items;
+            console.log(_this.stationApproval);
+            _this.stationApproval.forEach(function (item, i) {
+                // console.log(item.station);
+                // console.log(i);
+                // this.fval.approveStations.controls[i].controls.station.setValue(item.station);
+                _this.fval.approveStations.controls[i].controls.approved.setValue(false);
+                _this.addItem();
+                n = i + 1;
+            });
+            _this.removeItem(n);
         });
-        this.removeItem(n);
-        // }
-        // )
     };
     ApproveStationsComponent.prototype.checkAllItems = function (val) {
         var _this = this;
@@ -110,20 +104,23 @@ var ApproveStationsComponent = /** @class */ (function () {
         var itemsApproved = [];
         this.stationApproval.forEach(function (item, i) {
             if (_this.fval.approveStations.controls[i].controls.approved.value === true) {
-                item.status = 2;
-                itemsApproved.push(item);
+                itemsApproved.push({
+                    // areaRegionId: item.areaRegionId,
+                    areaRegionStatus: 2,
+                    userId: _this.User.userId
+                });
             }
         });
         // console.log(itemsApproved)
         if (itemsApproved.length > 0) {
-            setTimeout(function () {
-                _this.router.navigate([
-                    'centralmanagement/dashboard'
-                ]);
-            }, 3000);
+            this.others.approveStations(itemsApproved).subscribe(function (res) {
+                if (res) {
+                    _this.initialiseForm();
+                }
+            }, function (err) { return console.log(err); });
         }
         else {
-            // alert("Please select something")
+            alert('Please select something');
             return;
         }
     };
@@ -132,20 +129,23 @@ var ApproveStationsComponent = /** @class */ (function () {
         var itemsRejected = [];
         this.stationApproval.forEach(function (item, i) {
             if (_this.fval.approveStations.controls[i].controls.approved.value === true) {
-                item.status = 1;
-                itemsRejected.push(item);
+                itemsRejected.push({
+                    // areaRegionId: item.areaRegionId,
+                    areaRegionStatus: 3,
+                    userId: _this.User.userId
+                });
             }
         });
         // console.log(itemsRejected.length)
         if (itemsRejected.length > 0) {
-            setTimeout(function () {
-                _this.router.navigate([
-                    'centralmanagement/dashboard'
-                ]);
-            }, 3000);
+            this.others.rejectStations(itemsRejected).subscribe(function (res) {
+                if (res) {
+                    _this.initialiseForm();
+                }
+            }, function (err) { return console.log(err); });
         }
         else {
-            // alert("Please select something")
+            alert('Please select something');
             return;
         }
     };

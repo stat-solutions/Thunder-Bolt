@@ -72,7 +72,7 @@ var LoginComponent = /** @class */ (function () {
                     _this.posted = true;
                     if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 2
                         || _this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 1) {
-                        if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 600) {
+                        if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 500) {
                             _this.alertService.success({
                                 html: '<strong>Signed In Successfully</strong>'
                             });
@@ -114,18 +114,16 @@ var LoginComponent = /** @class */ (function () {
                             _this.alertService.success({
                                 html: '<strong>Signed In Successfully</strong>'
                             });
-                            setTimeout(function () {
-                                _this.router.navigate(['/stationmanagement']);
-                            }, 1000);
-                        }
-                        else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 500) {
-                            _this.spinner.hide();
-                            _this.alertService.success({
-                                html: '<strong>Signed In Successfully</strong>'
-                            });
-                            setTimeout(function () {
-                                _this.router.navigate(['/stationofficer']);
-                            }, 1000);
+                            if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).UserType.toUpperCase() === 1) {
+                                setTimeout(function () {
+                                    _this.router.navigate(['/stationmanagement']);
+                                }, 1000);
+                            }
+                            else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).UserType.toUpperCase() === 2) {
+                                setTimeout(function () {
+                                    _this.router.navigate(['/stationofficer']);
+                                }, 1000);
+                            }
                         }
                         else {
                             _this.alertService.danger({

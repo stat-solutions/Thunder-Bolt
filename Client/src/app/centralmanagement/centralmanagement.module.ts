@@ -43,13 +43,18 @@ import { WaiveInterestComponent } from './components/transactions/approval/waive
 import { WriteOffComponent } from './components/transactions/approval/write-off/write-off.component';
 import { LoanLimitComponent } from './components/transactions/approval/loan-limit/loan-limit.component';
 import { FloatApprovalComponent } from './components/transactions/approval/float-approval/float-approval.component';
-import { ModalModule } from "ngx-bootstrap/modal";
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgChartjsModule } from 'ng-chartjs';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
 import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 import { ApproveCentralUsersComponent } from './components/approve-central-users/approve-central-users.component';
+import { SelectTheAreaComponent } from './components/select-the-Area/select-the-Area.component';
+import { SetManagersComponent } from './components/set-managers/set-managers.component';
+import { AreaManagersComponent } from './components/set-managers/area-managers/area-managers.component';
+import { TownManagersComponent } from './components/set-managers/town-managers/town-managers.component';
+import { StationManagersComponent } from './components/set-managers/station-managers/station-managers.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +99,11 @@ import { ApproveCentralUsersComponent } from './components/approve-central-users
     PersonalProfileComponent,
     SetPasswordComponent,
     ApproveCentralUsersComponent,
+    SelectTheAreaComponent,
+    SetManagersComponent,
+    AreaManagersComponent,
+    TownManagersComponent,
+    StationManagersComponent,
   ],
   imports: [
     CommonModule,

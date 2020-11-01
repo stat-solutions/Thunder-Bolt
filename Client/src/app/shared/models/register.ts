@@ -8,5 +8,5 @@ export interface RegisterUser {
     userDateOfBirth: string;
     userPassword: number;
     fkAccessRightsIdUser: number;
-    userLocation: string;
+    locationId: number;
 }

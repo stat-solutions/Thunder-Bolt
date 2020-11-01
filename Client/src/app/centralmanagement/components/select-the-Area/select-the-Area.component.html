@@ -1,0 +1,108 @@
+<div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-0 pt-md-1 pt-xl-0 pb-3 shadow-lg col-xs-12 col-lg-11">
+  <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1">
+      <div class="container mt-3 mt-xl-2 mx-0 shadow-lg">
+          <div class="row">
+              <div class="col-12">
+                  <h2 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
+                      Select  an area or areas ready to operate
+                  </h2>
+              </div>
+          </div>
+      </div>
+      <div class="invest-card card-body mt-2 pt-3 pt-md-4 mb-5 mx-auto pb-4 px-1 px-lg-auto shadow-lg">
+          <form [formGroup]="userForm">
+              <div class="item-header mb-2">
+                  <div class="row">
+                      <!--select all items-->
+                      <div class="col-1 ml-0 pl-0">
+                          <input
+                          id="allSelected"
+                          formControlName="selectAll"
+                          (click)="checkAllItems(!fval.selectAll.value)"
+                          type="checkbox"
+                          value=""
+                          class="ml-4 text-info"
+                      />
+                      </div>
+                      <div class="col-4">
+                          <h4 class="text-center text-info">Area ID</h4>
+                      </div>
+                      <div class="col-6">
+                          <h4 class="text-center text-info">Area Name</h4>
+                      </div>
+                      <!-- <div class="col-3">
+                          <h4 class="text-center text-info">Role</h4>
+                      </div>
+                      <div class="col-3">
+                          <h4 class="text-center text-info">Location</h4>
+                      </div> -->
+                  </div>
+              </div>
+             <div class="iteration" formArrayName="selectedAreas">
+              <div
+                  class="item-container mt-1"
+                  *ngFor="let items of fval.selectedAreas['controls'];let idx = index"
+              >
+                  <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
+                      <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+                          <div class="row mt-0 pt-0 mb-0 pb-0">
+                              <div class="col-1 ml-0 pl-1">
+                                  <!--select an item-->
+                                  <input
+                                  formControlName="approved"
+                                  (click)="deselectAll(idx)"
+                                  type="checkbox"
+                                  value=""
+                                  class="ml-1 text-info"
+                              />
+                              </div>
+                              <div class="col-4 pl-1 text-center">
+                                  <span class="itemCreated">
+                                      {{fval.selectedAreas["controls"][idx]["controls"].areaId.value}}
+                                  </span>
+                              </div>
+                              <div class="col-6 text-center">
+                                  <span class="itemCreated">
+                                      {{fval.selectedAreas["controls"][idx]["controls"].areaName.value}}
+                                  </span>
+                              </div>
+                              <!-- <div class="col-3 text-center">
+                                  <span class="rate-selected align-self-center">
+                                      {{fval.approveUsers["controls"][idx]["controls"].userRole.value}}
+                                  </span>
+                              </div> 
+                              <div class="col-3 text-center">
+                                  <span class="rate-selected align-self-center">
+                                      {{fval.approveUsers["controls"][idx]["controls"].userRole.value}}
+                                  </span>
+                              </div> -->
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          </form>
+              <div class="d-flex mt-3 mb-0 pt-2 pb-2 mx-auto">
+                  <button
+                  class="btn btn-info col-4 col-md-3 mx-auto px-0"
+                  (click)="approveItems()"
+              >
+              <i class="fas fa-check"></i> Select
+              </button>
+              <button
+                  class="btn btn-info col-4 col-md-3 mx-auto px-0"
+                  (click)="rejectItems()"
+              >
+              <i class="fas fa-times"></i> Cancel
+              </button>
+              </div>
+      </div>
+  </div>
+</div>
+<!--footer -->
+<div
+  class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mt-xl-2 pt-1 mb-1 mx-auto"
+>
+  <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
+</div>
+<!--/ footer -->

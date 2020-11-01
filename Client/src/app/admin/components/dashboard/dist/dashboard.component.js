@@ -82,9 +82,14 @@ var DashboardComponent = /** @class */ (function () {
     DashboardComponent.prototype.setCompanyDetails = function () {
         var _this = this;
         this.others.getCompanyInfo().subscribe(function (item) {
-            _this.company.created = true;
-            _this.companyInfo = item;
-            // console.log(this.companyInfo);
+            if (item[0].companyName) {
+                _this.company.created = true;
+                _this.companyInfo = item;
+                // console.log(this.companyInfo);
+            }
+            else {
+                _this.company.created = false;
+            }
         }, function (error) {
             //
         });

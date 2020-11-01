@@ -43,10 +43,17 @@ var waive_interest_component_1 = require("./components/transactions/approval/wai
 var withdraw_savings_component_1 = require("./components/transactions/approval/withdraw-savings/withdraw-savings.component");
 var write_off_component_1 = require("./components/transactions/approval/write-off/write-off.component");
 var random_guard_service_1 = require("../shared/services/other-services/route-guards/random-guard.service");
-var personal_profile_component_1 = require("../townmanagement/components/profile/personal-profile/personal-profile.component");
-var set_password_component_1 = require("../townmanagement/components/profile/set-password/set-password.component");
+var personal_profile_component_1 = require("./components/profile/personal-profile/personal-profile.component");
+var set_password_component_1 = require("./components/profile/set-password/set-password.component");
+var approve_central_users_component_1 = require("./components/approve-central-users/approve-central-users.component");
+var select_the_Area_component_1 = require("./components/select-the-Area/select-the-Area.component");
+var set_managers_component_1 = require("./components/set-managers/set-managers.component");
+var area_managers_component_1 = require("./components/set-managers/area-managers/area-managers.component");
+var town_managers_component_1 = require("./components/set-managers/town-managers/town-managers.component");
+var station_managers_component_1 = require("./components/set-managers/station-managers/station-managers.component");
 var routes = [
-    { path: '',
+    {
+        path: '',
         component: pages_core_central_component_1.PagesCoreCentralComponent,
         canActivateChild: [random_guard_service_1.RandomGuard],
         children: [
@@ -74,6 +81,28 @@ var routes = [
                     {
                         path: 'createstation',
                         component: create_station_component_1.CreateStationComponent
+                    },
+                ]
+            },
+            {
+                path: 'selectarea',
+                component: select_the_Area_component_1.SelectTheAreaComponent
+            },
+            {
+                path: 'managers',
+                component: set_managers_component_1.SetManagersComponent,
+                children: [
+                    {
+                        path: 'areamanagers',
+                        component: area_managers_component_1.AreaManagersComponent
+                    },
+                    {
+                        path: 'townmanagers',
+                        component: town_managers_component_1.TownManagersComponent
+                    },
+                    {
+                        path: 'stationmanagers',
+                        component: station_managers_component_1.StationManagersComponent
                     }
                 ]
             },
@@ -92,8 +121,12 @@ var routes = [
                     {
                         path: 'approvestation',
                         component: approve_stations_component_1.ApproveStationsComponent
-                    }
+                    },
                 ]
+            },
+            {
+                path: 'approveusers',
+                component: approve_central_users_component_1.ApproveCentralUsersComponent
             },
             {
                 path: 'transactions',
@@ -110,7 +143,7 @@ var routes = [
                             {
                                 path: 'setloanrate',
                                 component: set_loan_rate_component_1.SetLoanRateComponent
-                            }
+                            },
                         ]
                     },
                     {
@@ -148,7 +181,7 @@ var routes = [
                             {
                                 path: 'floatapproval',
                                 component: float_approval_component_1.FloatApprovalComponent
-                            }
+                            },
                         ]
                     },
                     {
@@ -162,9 +195,9 @@ var routes = [
                             {
                                 path: 'depositfloat',
                                 component: deposit_float_component_1.DepositFloatComponent
-                            }
+                            },
                         ]
-                    }
+                    },
                 ]
             },
             {
@@ -190,7 +223,7 @@ var routes = [
                     {
                         path: 'users',
                         component: users_component_1.UsersComponent
-                    }
+                    },
                 ]
             },
             {
@@ -204,11 +237,11 @@ var routes = [
                     {
                         path: 'setpassword',
                         component: set_password_component_1.SetPasswordComponent
-                    }
+                    },
                 ]
-            }
+            },
         ]
-    }
+    },
 ];
 var CentralmanagementRoutingModule = /** @class */ (function () {
     function CentralmanagementRoutingModule() {

@@ -14,14 +14,10 @@ var dashboard_component_1 = require("./components/dashboard/dashboard.component"
 var pages_core_town_component_1 = require("./pages-core/pages-core-town.component");
 var random_guard_service_1 = require("../shared/services/other-services/route-guards/random-guard.service");
 var enroll_client_component_1 = require("./components/enroll/enroll-client/enroll-client.component");
-var personal_info_component_1 = require("./components/enroll/enroll-client/personal-info/personal-info.component");
 var enroll_boda_stage_component_1 = require("./components/enroll/enroll-stage/enroll-boda-stage/enroll-boda-stage.component");
 var enroll_stage_component_1 = require("./components/enroll/enroll-stage/enroll-stage.component");
 var enroll_taxi_stage_component_1 = require("./components/enroll/enroll-stage/enroll-taxi-stage/enroll-taxi-stage.component");
 var enroll_component_1 = require("./components/enroll/enroll.component");
-var boda_client_info_component_1 = require("./components/enroll/enroll-client/boda-client-info/boda-client-info.component");
-var micro_client_info_component_1 = require("./components/enroll/enroll-client/micro-client-info/micro-client-info.component");
-var taxi_client_info_component_1 = require("./components/enroll/enroll-client/taxi-client-info/taxi-client-info.component");
 var create_station_component_1 = require("./components/create-station/create-station.component");
 var cluster_and_taxipark_component_1 = require("./components/enroll/cluster-and-taxipark/cluster-and-taxipark.component");
 var enroll_cluster_component_1 = require("./components/enroll/cluster-and-taxipark/enroll-cluster/enroll-cluster.component");
@@ -64,30 +60,7 @@ var routes = [
                 children: [
                     {
                         path: 'enrollclient',
-                        component: enroll_client_component_1.EnrollClientComponent,
-                        children: [
-                            {
-                                path: '',
-                                pathMatch: 'full',
-                                redirectTo: 'personalinfo'
-                            },
-                            {
-                                path: 'personalinfo',
-                                component: personal_info_component_1.PersonalInfoComponent
-                            },
-                            {
-                                path: 'microloanclient',
-                                component: micro_client_info_component_1.MicroClientInfoComponent
-                            },
-                            {
-                                path: 'bodaloanclient',
-                                component: boda_client_info_component_1.BodaClientInfoComponent
-                            },
-                            {
-                                path: 'taxiloanclient',
-                                component: taxi_client_info_component_1.TaxiClientInfoComponent
-                            }
-                        ]
+                        component: enroll_client_component_1.EnrollClientComponent
                     },
                     {
                         path: 'enrollstage',

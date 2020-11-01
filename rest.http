@@ -1,0 +1,10 @@
+
+###
+POST https://statbackend.com:3089/api/areaUser/postAreaCreate
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEwMDAwMDAwMDMsInVzZXJOYW1lIjoiQmF6aXJha2UgQXVndXN0aW5lIEdvb2dvIiwidXNlclBob25lMSI6IjA3ODEzMzE2MTYiLCJ1c2VyU3RhdHVzIjoxLCJma0FjY2Vzc1JpZ2h0c0lkVXNlciI6NjAwLCJsb2NhdGlvbklkIjoxMDAwMCwiaWF0IjoxNjAzOTY1MTI2LCJleHAiOjE5MTk1NDExMjYsImF1ZCI6IjEwMDAwMDAwMDMiLCJpc3MiOiI6OmZmZmY6MTI3LjAuMC4xIn0.GF85J6wq0PQOql3lLCmRYkCkhmhXS-rEPZiOzFPe99U
+
+{
+ "areaRegionName":"Albert Region",
+  "userId":1000000001
+  }

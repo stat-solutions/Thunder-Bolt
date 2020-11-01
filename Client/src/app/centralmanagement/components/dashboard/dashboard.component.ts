@@ -5,13 +5,6 @@ import { AreaApprovals } from '../approvals/approve-areas/approve-areas.componen
 import { MessagingService } from 'src/app/shared/services/other-services/messaging.service';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
-
-export interface Totals {
-  areas: number;
-  towns: number;
-  stations: number;
-  clients: number;
-}
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -113,7 +106,7 @@ export class DashboardComponent implements OnInit {
   lineChartType = 'line';
   inlinePlugin: any;
   textPlugin: any;
-  totals: Totals[] = [
+  totals = [
     {areas: 24, towns: 40, stations: 136, clients: 200}
   ];
   creationApprovals: Array<any> = [

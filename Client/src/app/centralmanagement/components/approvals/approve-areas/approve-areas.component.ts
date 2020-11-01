@@ -4,6 +4,7 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 export interface AreaApprovals {
   area: string;
@@ -22,13 +23,11 @@ export class ApproveAreasComponent implements OnInit {
   serviceErrors: string;
   status: boolean;
   checkedOk: boolean;
-  areaApproval: AreaApprovals[] = [
-    // { area: 'central', status: 0 },
-    // { area: 'Eastern', status: 0 },
-    // { area: 'Western', status: 0 },
-  ];
+  areaApproval: any;
+  User = this.authService.loggedInUserInfo();
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
@@ -62,20 +61,43 @@ export class ApproveAreasComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    //   units => {
-    //     this.approvals = units;
-    this.areaApproval.forEach((item, i) => {
-      // console.log(item.name);
-      // console.log(i);
-      this.fval.approveAreas.controls[i].controls.area.setValue(item.area);
-      this.fval.approveAreas.controls[i].controls.approved.setValue(false);
-      this.addItem();
-      n = i + 1;
-    });
-    this.removeItem(n);
-    // }
-    // )
+    this.others.getAreasToApprove(this.User.userId).subscribe(
+      items => {
+        this.areaApproval = items;
+        // console.log(this.areaApproval);
+        this.areaApproval.forEach((item, i) => {
+        // approvalDetailsId: 117
+        // areaRegionId: 800
+        // areaRegionName: "Albert Region"
+        // areaRegionStatus: 1
+        // createdBy: 1000000001
+        // createdByAt: "2020-10-31T22:38:47.000Z"
+        // firstApprovedBy: 1000000000
+        // firstApprovedByAt: "2020-10-31T22:38:47.000Z"
+        // firstUpdateApprovedBy: 1000000000
+        // firstUpdateApprovedByAt: "2020-10-31T22:38:47.000Z"
+        // fkApprovalDetailsIdAreaRegion: 117
+        // secondApprovedBy: 1000000000
+        // secondApprovedByAt: "2020-10-31T22:38:47.000Z"
+        // secondUpdateApprovedBy: 1000000000
+        // secondUpdateApprovedByAt: "2020-10-31T22:38:47.000Z"
+        // thirdApprovedBy: 1000000000
+        // thirdApprovedByAt: "2020-10-31T22:38:47.000Z"
+        // thirdUpdateApprovedBy: 1000000000
+        // thirdUpdateApprovedByAt: "2020-10-31T22:38:47.000Z"
+        // updatedBy: 1000000000
+        // updatedByAt: "2020-10-31T22:38:47.000Z"
+        // console.log(item.name);
+        // console.log(i);
+        this.fval.approveAreas.controls[i].controls.area.setValue(item.areaRegionName);
+        this.fval.approveAreas.controls[i].controls.approved.setValue(false);
+        this.addItem();
+        n = i + 1;
+      });
+        this.removeItem(n);
+      },
+      err => console.log(err)
+    );
   }
   checkAllItems(val: boolean): any {
     if (val === true) {
@@ -114,18 +136,26 @@ export class ApproveAreasComponent implements OnInit {
     const itemsApproved = [];
     this.areaApproval.forEach((item, i) => {
       if (this.fval.approveAreas.controls[i].controls.approved.value === true) {
-        item.status = 2;
-        itemsApproved.push(item);
+        itemsApproved.push({
+          areaRegionId: item.areaRegionId,
+          areaRegionStatus: 2,
+          userId: this.User.userId
+        });
       }
     });
 
-    // console.log(itemsApproved)
+    // console.log(itemsApproved);
     if (itemsApproved.length > 0) {
-      setTimeout(() => {
-        this.router.navigate(['centralmanagement/dashboard']);
-      }, 3000);
+      this.others.approveAreas(itemsApproved).subscribe(
+        res => {
+          if (res) {
+            this.initialiseForm();
+          }
+        },
+        err => console.log(err)
+      );
     } else {
-      // alert("Please select something")
+      alert('Please select something');
       return;
     }
   }
@@ -133,17 +163,25 @@ export class ApproveAreasComponent implements OnInit {
     const itemsRejected = [];
     this.areaApproval.forEach((item, i) => {
       if (this.fval.approveAreas.controls[i].controls.approved.value === true) {
-        item.status = 1;
-        itemsRejected.push(item);
+        itemsRejected.push({
+          areaRegionId: item.areaRegionId,
+          areaRegionStatus: 3,
+          userId: this.User.userId
+        });
       }
     });
-    // console.log(itemsRejected.length)
+    // console.log(itemsRejected);
     if (itemsRejected.length > 0) {
-      setTimeout(() => {
-        this.router.navigate(['centralmanagement/dashboard']);
-      }, 3000);
+      this.others.rejectAreas(itemsRejected).subscribe(
+        res => {
+          if (res) {
+            this.initialiseForm();
+          }
+        },
+        err => console.log(err)
+      );
     } else {
-      // alert("Please select something")
+      alert('Please select something');
       return;
     }
   }

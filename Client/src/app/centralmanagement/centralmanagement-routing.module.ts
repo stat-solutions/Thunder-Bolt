@@ -37,6 +37,11 @@ import { RandomGuard } from '../shared/services/other-services/route-guards/rand
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
 import { SetPasswordComponent } from './components/profile/set-password/set-password.component';
 import { ApproveCentralUsersComponent } from './components/approve-central-users/approve-central-users.component';
+import { SelectTheAreaComponent } from './components/select-the-Area/select-the-Area.component';
+import { SetManagersComponent } from './components/set-managers/set-managers.component';
+import { AreaManagersComponent } from './components/set-managers/area-managers/area-managers.component';
+import { TownManagersComponent } from './components/set-managers/town-managers/town-managers.component';
+import { StationManagersComponent } from './components/set-managers/station-managers/station-managers.component';
 
 const routes: Routes = [
   {
@@ -70,6 +75,28 @@ const routes: Routes = [
             component: CreateStationComponent,
           },
         ],
+      },
+      {
+        path: 'selectarea',
+        component: SelectTheAreaComponent
+      },
+      {
+        path: 'managers',
+        component: SetManagersComponent,
+        children: [
+          {
+            path: 'areamanagers',
+            component: AreaManagersComponent,
+          },
+          {
+            path: 'townmanagers',
+            component: TownManagersComponent,
+          },
+          {
+            path: 'stationmanagers',
+            component: StationManagersComponent,
+          }
+        ]
       },
       {
         path: 'approve',

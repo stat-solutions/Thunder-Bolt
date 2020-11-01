@@ -11,9 +11,6 @@ import { EnrollBodaStageComponent } from './components/enroll/enroll-stage/enrol
 import { EnrollStageComponent } from './components/enroll/enroll-stage/enroll-stage.component';
 import { EnrollTaxiStageComponent } from './components/enroll/enroll-stage/enroll-taxi-stage/enroll-taxi-stage.component';
 import { EnrollComponent } from './components/enroll/enroll.component';
-import { BodaClientInfoComponent } from './components/enroll/enroll-client/boda-client-info/boda-client-info.component';
-import { MicroClientInfoComponent } from './components/enroll/enroll-client/micro-client-info/micro-client-info.component';
-import { TaxiClientInfoComponent } from './components/enroll/enroll-client/taxi-client-info/taxi-client-info.component';
 import { CreateStationComponent } from './components/create-station/create-station.component';
 import { ClusterAndTaxiparkComponent } from './components/enroll/cluster-and-taxipark/cluster-and-taxipark.component';
 import { EnrollClusterComponent } from './components/enroll/cluster-and-taxipark/enroll-cluster/enroll-cluster.component';
@@ -59,29 +56,6 @@ const routes: Routes = [
           {
             path: 'enrollclient',
             component: EnrollClientComponent,
-            children: [
-              {
-                path: '',
-                pathMatch: 'full',
-                redirectTo: 'personalinfo'
-              },
-              {
-                path: 'personalinfo',
-                component: PersonalInfoComponent
-              },
-              {
-                path: 'microloanclient',
-                component: MicroClientInfoComponent
-              },
-              {
-                path: 'bodaloanclient',
-                component: BodaClientInfoComponent
-              },
-              {
-                path: 'taxiloanclient',
-                component: TaxiClientInfoComponent
-              }
-            ]
           },
           {
             path: 'enrollstage',

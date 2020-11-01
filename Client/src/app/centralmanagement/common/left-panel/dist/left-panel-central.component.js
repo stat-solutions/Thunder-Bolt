@@ -38,12 +38,39 @@ var LeftPanelCentralComponent = /** @class */ (function () {
                 url: '/centralmanagement/dashboard'
             },
             {
-                name: 'Create',
+                name: 'Creations',
                 icon: 'fas fa-wrench',
                 url: '/centralmanagement/create'
             },
             {
-                name: 'Approvals',
+                name: 'Select the Area',
+                icon: 'fas fa-user-check',
+                url: '/centralmanagement/selectarea'
+            },
+            {
+                name: 'Managers',
+                icon: 'fas fa-user-check',
+                url: '/centralmanagement/managers',
+                subMenu: [
+                    {
+                        name: 'Area Managers',
+                        icon: 'fas fa-credit-card',
+                        url: '/centralmanagement/managers/areamanagers'
+                    },
+                    {
+                        name: 'Town Managers',
+                        icon: 'fas fa-credit-card',
+                        url: '/centralmanagement/managers/townmanagers'
+                    },
+                    {
+                        name: 'Station Managers',
+                        icon: 'fas fa-credit-card',
+                        url: '/centralmanagement/managers/stationmanagers'
+                    },
+                ]
+            },
+            {
+                name: 'Creation Approvals',
                 icon: 'fas fa-cogs',
                 url: '/centralmanagement/approve'
             },
@@ -66,7 +93,7 @@ var LeftPanelCentralComponent = /** @class */ (function () {
                         name: 'Float',
                         icon: 'fas fa-credit-card',
                         url: '/centralmanagement/transactions/float'
-                    }
+                    },
                 ]
             },
             {
@@ -76,36 +103,53 @@ var LeftPanelCentralComponent = /** @class */ (function () {
                 subMenu: [
                     {
                         name: 'Areas',
-                        icon: 'fas fa-user-cog',
+                        icon: 'fas fa-file',
                         url: '/centralmanagement/reports/areas'
                     },
                     {
                         name: 'Towns',
-                        icon: 'fas fa-user-cog',
+                        icon: 'fas fa-file',
                         url: '/centralmanagement/reports/towns'
                     },
                     {
                         name: 'Stations',
-                        icon: 'fas fa-user-cog',
+                        icon: 'fas fa-file',
                         url: '/centralmanagement/reports/stations'
                     },
                     {
                         name: 'Clients',
-                        icon: 'fas fa-user-cog',
+                        icon: 'fas fa-file',
                         url: '/centralmanagement/reports/clients'
                     },
                     {
                         name: 'Users',
-                        icon: 'fas fa-user-cog',
+                        icon: 'fas fa-file',
                         url: '/centralmanagement/reports/users'
-                    }
+                    },
                 ]
             },
             {
-                name: 'My Profile',
+                name: 'Approve Users',
+                icon: 'fas fa-user-check',
+                url: '/centralmanagement/approveusers'
+            },
+            {
+                name: 'Profile',
                 icon: 'fas fa-user-cog',
-                url: '/centralmanagement/profile'
-            }
+                url: '/centralmanagement/profile',
+                subMenu: [
+                    {
+                        name: 'Personal Info',
+                        icon: 'fas fa-user',
+                        url: '/centralmanagement/profile/personalprofile'
+                    },
+                    {
+                        name: 'Set PIN',
+                        icon: 'fas fa-lock',
+                        url: '/centralmanagement/profile/setpassword'
+                    },
+                ]
+            },
         ];
     };
     __decorate([

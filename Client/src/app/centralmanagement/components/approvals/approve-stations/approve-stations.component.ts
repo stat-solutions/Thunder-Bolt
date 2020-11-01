@@ -5,6 +5,8 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
+
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
@@ -20,20 +22,17 @@ export interface StationApprovals {
 })
 export class ApproveStationsComponent implements OnInit {
   userForm: FormGroup;
-  stationApproval: StationApprovals[] = [
-    {station: 'ndeeba', status: 1},
-    {station: 'nakulabye', status: 1},
-    {station: 'mutundwe', status: 1},
-    {station: 'busega', status: 1},
-    {station: 'bwayise', status: 1}
-  ];
+  stationApproval: any;
   posted = false;
   actionButton: string;
   errored: boolean;
   serviceErrors: string;
   status: boolean;
   checkedOk: boolean;
+  User = this.authService.loggedInUserInfo();
+
   constructor(
+    private others: OthersService,
     private authService: AuthServiceService,
     private router: Router,
     private spinner: NgxSpinnerService,
@@ -68,20 +67,21 @@ export class ApproveStationsComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    //   units => {
-    //     this.approvals = units;
-    this.stationApproval.forEach((item, i) => {
-          // console.log(item.station);
-          // console.log(i);
-          this.fval.approveStations.controls[i].controls.station.setValue(item.station);
-          this.fval.approveStations.controls[i].controls.approved.setValue(false);
-          this.addItem();
-          n = i + 1;
-        });
-    this.removeItem(n);
-      // }
-    // )
+    this.others.getStationsToApprove(this.User.userId).subscribe(
+      items => {
+        this.stationApproval = items;
+        console.log(this.stationApproval);
+        this.stationApproval.forEach((item, i) => {
+              // console.log(item.station);
+              // console.log(i);
+              // this.fval.approveStations.controls[i].controls.station.setValue(item.station);
+              this.fval.approveStations.controls[i].controls.approved.setValue(false);
+              this.addItem();
+              n = i + 1;
+            });
+        this.removeItem(n);
+      }
+    );
   }
   checkAllItems(val: boolean): any {
     if (val === true) {
@@ -119,48 +119,55 @@ export class ApproveStationsComponent implements OnInit {
   approveItems(): any {
     const itemsApproved = [];
     this.stationApproval.forEach((item, i) => {
-      if (
-        this.fval.approveStations.controls[i].controls.approved.value === true
-      ) {
-        item.status = 2;
-        itemsApproved.push(item);
+      if (this.fval.approveStations.controls[i].controls.approved.value === true) {
+        itemsApproved.push({
+          // areaRegionId: item.areaRegionId,
+          areaRegionStatus: 2,
+          userId: this.User.userId
+        });
       }
     });
 
     // console.log(itemsApproved)
     if (itemsApproved.length > 0) {
-      setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
-      }, 3000);
+      this.others.approveStations(itemsApproved).subscribe(
+        res => {
+          if (res) {
+            this.initialiseForm();
+          }
+        },
+        err => console.log(err)
+      );
     } else {
-      // alert("Please select something")
+      alert('Please select something');
       return;
     }
   }
   rejectItems(): any {
     const itemsRejected = [];
     this.stationApproval.forEach((item, i) => {
-      if (
-        this.fval.approveStations.controls[i].controls.approved.value === true
-      ) {
-        item.status = 1;
-        itemsRejected.push(item);
+      if (this.fval.approveStations.controls[i].controls.approved.value === true) {
+        itemsRejected.push({
+          // areaRegionId: item.areaRegionId,
+          areaRegionStatus: 3,
+          userId: this.User.userId
+        });
       }
     });
     // console.log(itemsRejected.length)
     if (itemsRejected.length > 0) {
-      setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
-      }, 3000);
+      this.others.rejectStations(itemsRejected).subscribe(
+        res => {
+          if (res) {
+            this.initialiseForm();
+          }
+        },
+        err => console.log(err)
+      );
     } else {
-      // alert("Please select something")
+      alert('Please select something');
       return;
     }
   }
-
 }
 

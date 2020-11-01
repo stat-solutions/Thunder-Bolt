@@ -5,6 +5,7 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
@@ -20,20 +21,16 @@ export interface TownApprovals {
 })
 export class ApproveTownsComponent implements OnInit {
   userForm: FormGroup;
-  townApprovals: TownApprovals[] = [
-    {town: 'kampala', status: 1},
-    {town: 'mbale', status: 1},
-    {town: 'masaka', status: 1},
-    {town: 'kawempe', status: 1},
-    {town: 'jinja', status: 1}
-  ];
+  townApprovals: any;
   posted = false;
   actionButton: string;
   errored: boolean;
   serviceErrors: string;
   status: boolean;
   checkedOk: boolean;
+  User = this.authService.loggedInUserInfo();
   constructor(
+    private others: OthersService,
     private authService: AuthServiceService,
     private router: Router,
     private spinner: NgxSpinnerService,
@@ -68,20 +65,21 @@ export class ApproveTownsComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    //   units => {
-    //     this.approvals = units;
-    this.townApprovals.forEach((item, i) => {
-          // console.log(item.town);
-          // console.log(i);
-          this.fval.approveTowns.controls[i].controls.town.setValue(item.town);
-          this.fval.approveTowns.controls[i].controls.approved.setValue(false);
-          this.addItem();
-          n = i + 1;
-        });
-    this.removeItem(n);
-      // }
-    // )
+    this.others.getAreasToApprove(this.User.userId).subscribe(
+      items => {
+        this.townApprovals = items;
+        console.log(this.townApprovals);
+        this.townApprovals.forEach((item, i) => {
+              // console.log(item.town);
+              // console.log(i);
+              // this.fval.approveTowns.controls[i].controls.town.setValue(item.town);
+              this.fval.approveTowns.controls[i].controls.approved.setValue(false);
+              this.addItem();
+              n = i + 1;
+            });
+        this.removeItem(n);
+      }
+    );
   }
 
   checkAllItems(val: boolean): any {
@@ -120,48 +118,56 @@ export class ApproveTownsComponent implements OnInit {
   approveItems(): any {
     const itemsApproved = [];
     this.townApprovals.forEach((item, i) => {
-      if (
-        this.fval.approveTowns.controls[i].controls.approved.value === true
-      ) {
-        item.status = 2;
-        itemsApproved.push(item);
+      if (this.fval.approveTowns.controls[i].controls.approved.value === true) {
+        itemsApproved.push({
+          // areaRegionId: item.areaRegionId,
+          areaRegionStatus: 2,
+          userId: this.User.userId
+        });
       }
     });
 
     // console.log(itemsApproved)
     if (itemsApproved.length > 0) {
-      setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
-      }, 3000);
+      this.others.approveTowns(itemsApproved).subscribe(
+        res => {
+          if (res) {
+            this.initialiseForm();
+          }
+        },
+        err => console.log(err)
+      );
     } else {
-      // alert("Please select something")
+      alert('Please select something');
       return;
     }
   }
   rejectItems(): any {
     const itemsRejected = [];
     this.townApprovals.forEach((item, i) => {
-      if (
-        this.fval.approveTowns.controls[i].controls.approved.value === true
-      ) {
-        item.status = 1;
-        itemsRejected.push(item);
+      if (this.fval.approveTowns.controls[i].controls.approved.value === true) {
+        itemsRejected.push({
+          // areaRegionId: item.areaRegionId,
+          areaRegionStatus: 3,
+          userId: this.User.userId
+        });
       }
     });
     // console.log(itemsRejected.length)
     if (itemsRejected.length > 0) {
-      setTimeout(() => {
-        this.router.navigate([
-          'centralmanagement/dashboard'
-        ]);
-      }, 3000);
+      this.others.rejectTowns(itemsRejected).subscribe(
+        res => {
+          if (res) {
+            this.initialiseForm();
+          }
+        },
+        err => console.log(err)
+      );
     } else {
-      // alert("Please select something")
+      alert('Please select something');
       return;
     }
   }
-
 }
+
 
