@@ -10,17 +10,15 @@ exports.AreaManagersComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var AreaManagersComponent = /** @class */ (function () {
-    function AreaManagersComponent(others, router, spinner, alertService, fb) {
+    function AreaManagersComponent(others, authService, router, spinner, alertService, fb) {
         this.others = others;
+        this.authService = authService;
         this.router = router;
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
         this.posted = false;
-        this.managers = [
-            { areaName: 'Central Region', manager: 'mukwaya' },
-            { areaName: 'Eastern Region', manager: 'matugga' },
-        ];
+        this.User = this.authService.loggedInUserInfo();
     }
     AreaManagersComponent.prototype.ngOnInit = function () {
         this.managersForm = this.createFormGroup();
@@ -35,8 +33,9 @@ var AreaManagersComponent = /** @class */ (function () {
         get: function () {
             return this.fb.group({
                 areaName: this.fb.control({ value: '' }),
-                id: this.fb.control({ value: '' }),
+                areaId: this.fb.control({ value: '' }),
                 currentManager: this.fb.control({ value: '' }),
+                selectedManagerId: this.fb.control({ value: '' }),
                 selectedManager: this.fb.control({ value: '' }, forms_1.Validators.compose([
                     forms_1.Validators.required,
                 ]))
@@ -54,29 +53,25 @@ var AreaManagersComponent = /** @class */ (function () {
     AreaManagersComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.managers.forEach(function (item, i) {
-            _this.fval.areaManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
-            // this.fval.approvalItems.controls[i].controls.id.setValue(item.itemRequiringApprovalId);
-            _this.fval.areaManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
-            _this.fval.areaManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
-            _this.addItem();
-            n = i + 1;
-        });
-        this.removeItem(n);
-        this.disableForms();
-        //       },
-        //       error => console.log(error)
-        //     );
-        //   },
-        //   err => console.log(err)
-        // );
+        this.others.getAllTheAreaLocations().subscribe(function (res) {
+            _this.areasManager = res;
+            console.log(_this.areasManager);
+            _this.areasManager.forEach(function (item, i) {
+                _this.fval.areaManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
+                _this.fval.areaManagers.controls[i].controls.areaId.setValue(item.theAreaLocationId);
+                _this.fval.areaManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
+                _this.fval.areaManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
+                _this.fval.areaManagers.controls[i].controls.selectedManagerId.setValue(item.manager.toUpperCase());
+                _this.addItem();
+                n = i + 1;
+            });
+            _this.removeItem(n);
+            _this.disableForms();
+        }, function (err) { return console.log(err); });
     };
     AreaManagersComponent.prototype.revert = function () {
         this.managersForm.reset();
     };
-    // revert() {
-    //   this.approvalForm.reset();
-    // }
     AreaManagersComponent.prototype.refresh = function () {
         location.reload();
     };
@@ -90,20 +85,42 @@ var AreaManagersComponent = /** @class */ (function () {
     AreaManagersComponent.prototype.disableForms = function () {
         var _this = this;
         // console.log(this.approvals);
-        this.managers.forEach(function (itm, i) {
+        this.areasManager.forEach(function (itm, i) {
             _this.fval.areaManagers.controls[i].disable();
         });
     };
     AreaManagersComponent.prototype.enableEdit = function (val) {
         var _this = this;
         this.showLevels = val;
-        this.managers.forEach(function (itm, i) {
+        this.areasManager.forEach(function (itm, i) {
             if (i === val) {
+                _this.others.getUsersByLocation(itm.theAreaLocationId).subscribe(function (res) {
+                    _this.users = res;
+                    console.log(_this.users);
+                }, function (err) { return console.log(err); });
                 _this.fval.areaManagers.controls[i].enable();
             }
         });
     };
-    AreaManagersComponent.prototype.saveLevel = function (index) {
+    AreaManagersComponent.prototype.saveManager = function (index) {
+        if (this.fval.areaManagers.controls[index]) {
+            this.fval.areaManagers.controls[index].disable();
+            this.showLevels = null;
+            var data = {
+            // theAreaLocationId: ,
+            // userId:
+            };
+            console.log(data);
+            // this.others.setAreaManager(data).subscribe(
+            //   res => {
+            //     // console.log(res);
+            //   },
+            //   err => console.log(err)
+            // );
+        }
+        else {
+            return;
+        }
     };
     AreaManagersComponent = __decorate([
         core_1.Component({

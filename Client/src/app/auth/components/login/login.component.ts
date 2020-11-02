@@ -96,7 +96,6 @@ export class LoginComponent implements OnInit {
               this.posted = true;
               if (
                 this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 2
-                || this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1
               ) {
                 if (
                   this.jwtHelper.decodeToken(this.authService.getJwtToken()).fkAccessRightsIdUser === 500
@@ -146,11 +145,12 @@ export class LoginComponent implements OnInit {
                   this.alertService.success({
                     html: '<strong>Signed In Successfully</strong>'
                   });
-                  if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).UserType === 1) {
+                  console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType);
+                  if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType === 1) {
                     setTimeout(() => {
                       this.router.navigate(['/stationmanagement']);
                     }, 1000);
-                  } else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).UserType === 2) {
+                  } else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType === 2) {
                     setTimeout(() => {
                       this.router.navigate(['/stationofficer']);
                     }, 1000);
@@ -171,16 +171,16 @@ export class LoginComponent implements OnInit {
                 this.spinner.hide();
                 return;
               }
-              // else if (
-              //   this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1
-              // ) {
-              //   this.alertService.danger({
-              //     html:
-              //       '<strong>This account recquires approval, please contact system admin!</strong>'
-              //   });
-              //   this.spinner.hide();
-              //   return;
-              // }
+              else if (
+                this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1
+              ) {
+                this.alertService.danger({
+                  html:
+                    '<strong>This account recquires approval, please contact system admin!</strong>'
+                });
+                this.spinner.hide();
+                return;
+              }
             } else {
               this.spinner.hide();
               this.errored = true;

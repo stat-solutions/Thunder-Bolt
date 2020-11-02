@@ -169,13 +169,13 @@ var RegistrationComponent = /** @class */ (function () {
                 }
             });
             if (this.fval.position.value === 'AREA USER') {
-                this.selectedLocation = this.fval.area.value;
+                this.selectedLocation = 1000;
             }
             else if (this.fval.position.value === 'TOWN USER') {
-                this.selectedLocation = this.fval.town.value;
+                this.selectedLocation = 1500;
             }
             else if (this.fval.position.value === 'STATION USER') {
-                this.selectedLocation = this.fval.station.value;
+                this.selectedLocation = 2000;
             }
             else if (this.fval.position.value === 'ADMIN') {
                 this.selectedLocation = 10000;

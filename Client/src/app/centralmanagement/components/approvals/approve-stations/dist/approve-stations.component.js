@@ -112,11 +112,11 @@ var ApproveStationsComponent = /** @class */ (function () {
         // console.log(itemsApproved)
         if (itemsApproved.length > 0) {
             this.others.approveStations(itemsApproved).subscribe(function (res) {
-                if (res) {
-                    setTimeout(function () {
-                        _this.refresh();
-                    }, 3000);
-                }
+                // if (res) {
+                setTimeout(function () {
+                    _this.refresh();
+                }, 3000);
+                // }
             }, function (err) { return console.log(err); });
         }
         else {
@@ -139,11 +139,11 @@ var ApproveStationsComponent = /** @class */ (function () {
         // console.log(itemsRejected.length)
         if (itemsRejected.length > 0) {
             this.others.rejectStations(itemsRejected).subscribe(function (res) {
-                if (res) {
-                    setTimeout(function () {
-                        _this.refresh();
-                    }, 3000);
-                }
+                // if (res) {
+                setTimeout(function () {
+                    _this.refresh();
+                }, 3000);
+                // }
             }, function (err) { return console.log(err); });
         }
         else {

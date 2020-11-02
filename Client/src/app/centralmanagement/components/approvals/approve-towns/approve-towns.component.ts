@@ -133,11 +133,11 @@ export class ApproveTownsComponent implements OnInit {
     if (itemsApproved.length > 0) {
       this.others.approveTowns(itemsApproved).subscribe(
         res => {
-          if (res) {
+          // if (res) {
             setTimeout(() => {
               this.refresh();
             }, 3000);
-          }
+          // }
         },
         err => console.log(err)
       );
@@ -161,11 +161,11 @@ export class ApproveTownsComponent implements OnInit {
     if (itemsRejected.length > 0) {
       this.others.rejectTowns(itemsRejected).subscribe(
         res => {
-          if (res) {
+          // if (res) {
             setTimeout(() => {
               this.refresh();
             }, 3000);
-          }
+          // }
         },
         err => console.log(err)
       );

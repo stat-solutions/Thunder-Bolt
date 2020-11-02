@@ -87,6 +87,9 @@ export class OthersService {
   getUsers(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/user/getAllUsers`);
   }
+  getUsersByLocation(locationId: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URL}/api/user/getUsersPerLocation/?id=${locationId}`);
+  }
   getUsersForApproval(): Observable<any> {
     return this.http.get<any>(`${this.API_URL}/api/user/getUsersForApproval`);
   }
@@ -187,13 +190,13 @@ export class OthersService {
       return this.http.post(`${this.API_URL}/api/stationUser/putRejectStationApproval`, postData, this.httpOptions);
     }
 // set managers
-    setAreaManager(postData: Array<object>): any {
+    setAreaManager(postData: any): any {
       return this.http.post(`${this.API_URL}/api/areaUser/postSetAreaManager`, postData, this.httpOptions);
     }
-    setTownManager(postData: Array<object>): any {
+    setTownManager(postData: any): any {
       return this.http.post(`${this.API_URL}/api/townUser/postSetupTownManager`, postData, this.httpOptions);
     }
-    setStationManager(postData: Array<object>): any {
+    setStationManager(postData: any): any {
       return this.http.post(`${this.API_URL}/api/stationUser/postSetupStationManager`, postData, this.httpOptions);
     }
 

@@ -130,11 +130,11 @@ export class ApproveStationsComponent implements OnInit {
     if (itemsApproved.length > 0) {
       this.others.approveStations(itemsApproved).subscribe(
         res => {
-          if (res) {
+          // if (res) {
             setTimeout(() => {
               this.refresh();
             }, 3000);
-          }
+          // }
         },
         err => console.log(err)
       );
@@ -158,11 +158,11 @@ export class ApproveStationsComponent implements OnInit {
     if (itemsRejected.length > 0) {
       this.others.rejectStations(itemsRejected).subscribe(
         res => {
-          if (res) {
+          // if (res) {
             setTimeout(() => {
               this.refresh();
             }, 3000);
-          }
+          // }
         },
         err => console.log(err)
       );

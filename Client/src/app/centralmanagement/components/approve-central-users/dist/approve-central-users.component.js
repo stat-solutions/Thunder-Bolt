@@ -121,9 +121,9 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
         // console.log(itemsApproved.length);
         if (itemsApproved.length > 0) {
             this.others.approveUsers(itemsApproved).subscribe(function (res) {
-                // setTimeout(() => {
-                //   this.refresh();
-                // }, 3000);
+                setTimeout(function () {
+                    _this.refresh();
+                }, 3000);
             }, function (err) { return console.log(err); });
         }
         else {
@@ -146,10 +146,9 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
         // console.log(itemsRejected.length);
         if (itemsRejected.length > 0) {
             this.others.rejectUsers(itemsRejected).subscribe(function (res) {
-                //
-                // setTimeout(() => {
-                //   this.refresh();
-                // }, 3000);
+                setTimeout(function () {
+                    _this.refresh();
+                }, 3000);
             }, function (err) { return console.log(err); });
         }
         else {

@@ -4,10 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { LayoutService } from './services/layout.service';
 import { MenudropdownDirective } from './directives/menudropdown.directive';
 import { AuthGuard } from './services/other-services/route-guards/auth-guard.service';
-import { RandomGuard } from './services/other-services/route-guards/random-guard.service';
 import { AuthServiceService } from './services/auth-service.service';
 import { MessagingService } from './services/other-services/messaging.service';
 import { OthersService } from './services/other-services/others.service';
+import { AdminGuard } from './services/other-services/route-guards/admin-guard.service';
+import { AreaGuard } from './services/other-services/route-guards/area-guard.service';
+import { OfficerGuard } from './services/other-services/route-guards/officer-guard.service';
+import { CentralGuard } from './services/other-services/route-guards/central-guard.service';
+import { TownGuard } from './services/other-services/route-guards/town-guard.service';
+import { StManagerGuard } from './services/other-services/route-guards/stmanager-guard.service';
 
 
 @NgModule({
@@ -33,7 +38,12 @@ export class SharedModule {
         MessagingService,
         OthersService,
         AuthGuard,
-        RandomGuard
+        AdminGuard,
+        CentralGuard,
+        AreaGuard,
+        TownGuard,
+        StManagerGuard,
+        OfficerGuard,
       ]
     };
   }

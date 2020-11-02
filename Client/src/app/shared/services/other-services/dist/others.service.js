@@ -106,6 +106,9 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.getUsers = function () {
         return this.http.get(this.API_URL + "/api/user/getAllUsers");
     };
+    OthersService.prototype.getUsersByLocation = function (locationId) {
+        return this.http.get(this.API_URL + "/api/user/getUsersPerLocation/?id=" + locationId);
+    };
     OthersService.prototype.getUsersForApproval = function () {
         return this.http.get(this.API_URL + "/api/user/getUsersForApproval");
     };
