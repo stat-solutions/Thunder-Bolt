@@ -70,8 +70,7 @@ var LoginComponent = /** @class */ (function () {
                 .subscribe(function (success) {
                 if (success) {
                     _this.posted = true;
-                    if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 2
-                        || _this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 1) {
+                    if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 2) {
                         if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).fkAccessRightsIdUser === 500) {
                             _this.alertService.success({
                                 html: '<strong>Signed In Successfully</strong>'
@@ -114,12 +113,13 @@ var LoginComponent = /** @class */ (function () {
                             _this.alertService.success({
                                 html: '<strong>Signed In Successfully</strong>'
                             });
-                            if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).UserType === 1) {
+                            console.log(_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userType);
+                            if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userType === 1) {
                                 setTimeout(function () {
                                     _this.router.navigate(['/stationmanagement']);
                                 }, 1000);
                             }
-                            else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).UserType === 2) {
+                            else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userType === 2) {
                                 setTimeout(function () {
                                     _this.router.navigate(['/stationofficer']);
                                 }, 1000);
@@ -139,16 +139,13 @@ var LoginComponent = /** @class */ (function () {
                         _this.spinner.hide();
                         return;
                     }
-                    // else if (
-                    //   this.jwtHelper.decodeToken(this.authService.getJwtToken()).userStatus === 1
-                    // ) {
-                    //   this.alertService.danger({
-                    //     html:
-                    //       '<strong>This account recquires approval, please contact system admin!</strong>'
-                    //   });
-                    //   this.spinner.hide();
-                    //   return;
-                    // }
+                    else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 1) {
+                        _this.alertService.danger({
+                            html: '<strong>This account recquires approval, please contact system admin!</strong>'
+                        });
+                        _this.spinner.hide();
+                        return;
+                    }
                 }
                 else {
                     _this.spinner.hide();

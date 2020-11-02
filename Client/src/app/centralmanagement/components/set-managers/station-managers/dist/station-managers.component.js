@@ -17,10 +17,6 @@ var StationManagersComponent = /** @class */ (function () {
         this.alertService = alertService;
         this.fb = fb;
         this.posted = false;
-        this.managers = [
-            { areaName: 'Don Petrol', manager: 'mukwaya' },
-            { areaName: 'Wes gas', manager: 'matugga' },
-        ];
     }
     StationManagersComponent.prototype.ngOnInit = function () {
         this.managersForm = this.createFormGroup();

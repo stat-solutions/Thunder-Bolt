@@ -6,14 +6,9 @@ import { AlertService } from 'ngx-alerts';
 import { ArrayType } from '@angular/compiler';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 import { CustomValidator } from 'src/app/validators/custom-validator';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
-
-export interface Approvals {
-  name: string;
-  level: number;
-}
 
 @Component({
   selector: 'app-town-managers',
@@ -31,13 +26,12 @@ export class TownManagersComponent implements OnInit {
   checkedOk: boolean;
   station: string;
   theCompany: string;
-  managers =
-  [
-    { areaName: 'kampala', manager: 'mukwaya' },
-    { areaName: 'koboko', manager: 'matugga' },
-  ];
+  users: any;
+  User = this.authService.loggedInUserInfo();
+  townsManager: any;
   constructor(
     private others: OthersService,
+    private authService: AuthServiceService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
@@ -75,22 +69,23 @@ export class TownManagersComponent implements OnInit {
 
   initialiseForm(): any {
     let n: number;
-    this.managers.forEach((item, i) => {
-    this.fval.townManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
-    // this.fval.approvalItems.controls[i].controls.id.setValue(item.itemRequiringApprovalId);
-    this.fval.townManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
-    this.fval.townManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
-    this.addItem();
-    n = i + 1;
-  });
-    this.removeItem(n);
-    this.disableForms();
-    //       },
-    //       error => console.log(error)
-    //     );
-    //   },
-    //   err => console.log(err)
-    // );
+    this.others.getAllTheTownLocations().subscribe(
+      res => {
+        this.townsManager = res;
+        console.log(this.townsManager);
+        this.townsManager.forEach((item, i) => {
+        this.fval.townManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
+          // this.fval.approvalItems.controls[i].controls.id.setValue(item.itemRequiringApprovalId);
+        this.fval.townManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
+        this.fval.townManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
+        this.addItem();
+        n = i + 1;
+      });
+        this.removeItem(n);
+        this.disableForms();
+      },
+      err => console.log(err)
+    );
   }
 revert(): any {
     this.managersForm.reset();
@@ -110,14 +105,14 @@ get fval(): any {
 
 disableForms(): any {
   // console.log(this.approvals);
-  this.managers.forEach((itm, i) => {
+  this.townsManager.forEach((itm, i) => {
     this.fval.townManagers.controls[i].disable();
   });
   }
 
 enableEdit(val: number): any {
     this.showLevels = val;
-    this.managers.forEach((itm, i) => {
+    this.townsManager.forEach((itm, i) => {
       if (i === val) {
         this.fval.townManagers.controls[i].enable();
       }

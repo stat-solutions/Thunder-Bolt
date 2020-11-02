@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormControlName } from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
@@ -9,6 +9,13 @@ import { FormBuilder } from '@angular/forms';
 import { UserRole } from 'src/app/shared/models/user-role';
 import { RegisterUser } from 'src/app/shared/models/register';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
+
+const originFormControlNameNgOnChanges = FormControlName.prototype.ngOnChanges;
+FormControlName.prototype.ngOnChanges = function(): any {
+  const result = originFormControlNameNgOnChanges.apply(this, arguments);
+  this.control.nativeElement = this.valueAccessor._elementRef.nativeElement;
+  return result;
+};
 
 @Component({
   selector: 'app-registration',
@@ -180,7 +187,7 @@ getUnits(): any {
   this.others.getBussinessUnitLocations().subscribe(
     res => {
       this.units = res;
-      console.log(this.units);
+      // console.log(this.units);
   },
     err => console.log(err)
   );
@@ -201,29 +208,23 @@ getRoles(): any{
 }
 register(): any {
     this.submitted = true;
-    this.spinner.show();
+    this.spinner.hide();
     if (this.userForm.invalid === true) {
       return;
-    } else if (this.fval.position.value === 'AREA MANAGER' && this.fval.area === ''){
-      this.alertService.success({
-        html:
-          '<b>Area was not selected</b>'
-      });
+    } else if (this.fval.position.value === 'AREA USER' && this.fval.area.value === ''){
+      this.spinner.hide();
+      this.fval.area.nativeElement.focus();
       return;
-    } else if (this.fval.position.value === 'TOWN USER' && this.fval.town === ''){
-      this.alertService.success({
-        html:
-          '<b>Town was not selected</b>'
-      });
+    } else if (this.fval.position.value === 'TOWN USER' && this.fval.town.value === ''){
+      this.spinner.hide();
+      this.fval.town.nativeElement.focus();
       return;
     } else if (
         (this.fval.position.value === 'STATION USER')
-        && this.fval.station === ''
+        && this.fval.station.value === ''
       ){
-      this.alertService.success({
-        html:
-          '<b>Station was not selected</b>'
-      });
+      this.spinner.hide();
+      this.fval.station.nativeElement.focus();
       return;
     } else {
       this.roles.forEach(role => {
@@ -232,13 +233,28 @@ register(): any {
         }
       });
       if (this.fval.position.value === 'AREA USER'){
-        this.selectedLocation = this.fval.area.value;
+        this.areas.forEach(unit => {
+          if (this.fval.central.value.toString() === unit.bussinessUnitName) {
+            // this.selectedLocation = unit.theBusinessUnitId;
+            // console.log(this.selectedLocation);
+          }
+        });
       } else  if (this.fval.position.value === 'TOWN USER'){
-        this.selectedLocation = this.fval.town.value;
+        this.towns.forEach(unit => {
+          if (this.fval.central.value.toString() === unit.bussinessUnitName) {
+            // this.selectedLocation = unit.theBusinessUnitId;
+            // console.log(this.selectedLocation);
+          }
+        });
       }  else  if (this.fval.position.value === 'STATION USER' ){
-        this.selectedLocation = this.fval.station.value;
+        this.stations.forEach(unit => {
+          if (this.fval.central.value.toString() === unit.bussinessUnitName) {
+            // this.selectedLocation = unit.theBusinessUnitId;
+            // console.log(this.selectedLocation);
+          }
+        });
       } else if (this.fval.position.value === 'ADMIN') {
-        this.selectedLocation = 10000;
+        this.selectedLocation = 1000;
       } else if (this.fval.position.value === 'CENTRAL USER') {
         this.units.forEach(unit => {
           if (this.fval.central.value.toString() === unit.bussinessUnitName) {

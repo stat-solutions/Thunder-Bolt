@@ -6,6 +6,7 @@ import { AlertService } from 'ngx-alerts';
 import { ArrayType } from '@angular/compiler';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 import { CustomValidator } from 'src/app/validators/custom-validator';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
@@ -31,13 +32,12 @@ export class AreaManagersComponent implements OnInit {
   checkedOk: boolean;
   station: string;
   theCompany: string;
-  managers =
-  [
-    { areaName: 'Central Region', manager: 'mukwaya' },
-    { areaName: 'Eastern Region', manager: 'matugga' },
-  ];
+  User = this.authService.loggedInUserInfo();
+  users: any;
+  areasManager: any;
   constructor(
     private others: OthersService,
+    private authService: AuthServiceService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
@@ -55,8 +55,9 @@ export class AreaManagersComponent implements OnInit {
   get areaManager(): any {
     return this.fb.group({
       areaName: this.fb.control({ value: '' }),
-      id: this.fb.control({ value: '' }),
+      areaId: this.fb.control({ value: '' }),
       currentManager: this.fb.control({ value: '' }),
+      selectedManagerId: this.fb.control({ value: '' }),
       selectedManager: this.fb.control(
         {value: ''},
         Validators.compose([
@@ -75,30 +76,29 @@ export class AreaManagersComponent implements OnInit {
 
   initialiseForm(): any {
     let n: number;
-    this.managers.forEach((item, i) => {
-    this.fval.areaManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
-    // this.fval.approvalItems.controls[i].controls.id.setValue(item.itemRequiringApprovalId);
-    this.fval.areaManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
-    this.fval.areaManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
-    this.addItem();
-    n = i + 1;
-  });
-    this.removeItem(n);
-    this.disableForms();
-    //       },
-    //       error => console.log(error)
-    //     );
-    //   },
-    //   err => console.log(err)
-    // );
+    this.others.getAllTheAreaLocations().subscribe(
+      res => {
+        this.areasManager = res;
+        console.log(this.areasManager);
+        this.areasManager.forEach((item, i) => {
+          this.fval.areaManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
+          this.fval.areaManagers.controls[i].controls.areaId.setValue(item.theAreaLocationId);
+          this.fval.areaManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
+          this.fval.areaManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
+          this.fval.areaManagers.controls[i].controls.selectedManagerId.setValue(item.manager.toUpperCase());
+          this.addItem();
+          n = i + 1;
+        });
+        this.removeItem(n);
+        this.disableForms();
+
+      },
+      err => console.log(err)
+    );
   }
 revert(): any {
     this.managersForm.reset();
   }
-
-  // revert() {
-  //   this.approvalForm.reset();
-  // }
 
 refresh(): any {
     location.reload();
@@ -110,22 +110,44 @@ get fval(): any {
 
 disableForms(): any {
   // console.log(this.approvals);
-  this.managers.forEach((itm, i) => {
+  this.areasManager.forEach((itm, i) => {
     this.fval.areaManagers.controls[i].disable();
   });
   }
 
 enableEdit(val: number): any {
     this.showLevels = val;
-    this.managers.forEach((itm, i) => {
+    this.areasManager.forEach((itm, i) => {
       if (i === val) {
+        this.others.getUsersByLocation(itm.theAreaLocationId).subscribe(
+          res => {
+            this.users = res;
+            console.log(this.users);
+          },
+          err => console.log(err)
+        );
         this.fval.areaManagers.controls[i].enable();
       }
     });
   }
 
-saveLevel(index: any): any {
-
+saveManager(index: any): any {
+  if (this.fval.areaManagers.controls[index].valid) {
+    this.fval.areaManagers.controls[index].disable();
+    this.showLevels = null;
+    const data = {
+        // theAreaLocationId: ,
+        // userId:
+    };
+    console.log(data);
+    // this.others.setAreaManager(data).subscribe(
+    //   res => {
+    //     // console.log(res);
+    //   },
+    //   err => console.log(err)
+    // );
+    } else {
+      return;
+    }
   }
 }
-

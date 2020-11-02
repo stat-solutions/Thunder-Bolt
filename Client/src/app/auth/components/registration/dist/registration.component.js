@@ -10,6 +10,12 @@ exports.RegistrationComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
+var originFormControlNameNgOnChanges = forms_1.FormControlName.prototype.ngOnChanges;
+forms_1.FormControlName.prototype.ngOnChanges = function () {
+    var result = originFormControlNameNgOnChanges.apply(this, arguments);
+    this.control.nativeElement = this.valueAccessor._elementRef.nativeElement;
+    return result;
+};
 var RegistrationComponent = /** @class */ (function () {
     function RegistrationComponent(authService, others, spinner, router, alertService, fb) {
         this.authService = authService;
@@ -120,7 +126,7 @@ var RegistrationComponent = /** @class */ (function () {
         var _this = this;
         this.others.getBussinessUnitLocations().subscribe(function (res) {
             _this.units = res;
-            console.log(_this.units);
+            // console.log(this.units);
         }, function (err) { return console.log(err); });
     };
     RegistrationComponent.prototype.getRoles = function () {
@@ -139,27 +145,24 @@ var RegistrationComponent = /** @class */ (function () {
     RegistrationComponent.prototype.register = function () {
         var _this = this;
         this.submitted = true;
-        this.spinner.show();
+        this.spinner.hide();
         if (this.userForm.invalid === true) {
             return;
         }
-        else if (this.fval.position.value === 'AREA MANAGER' && this.fval.area === '') {
-            this.alertService.success({
-                html: '<b>Area was not selected</b>'
-            });
+        else if (this.fval.position.value === 'AREA USER' && this.fval.area.value === '') {
+            this.spinner.hide();
+            this.fval.area.nativeElement.focus();
             return;
         }
-        else if (this.fval.position.value === 'TOWN USER' && this.fval.town === '') {
-            this.alertService.success({
-                html: '<b>Town was not selected</b>'
-            });
+        else if (this.fval.position.value === 'TOWN USER' && this.fval.town.value === '') {
+            this.spinner.hide();
+            this.fval.town.nativeElement.focus();
             return;
         }
         else if ((this.fval.position.value === 'STATION USER')
-            && this.fval.station === '') {
-            this.alertService.success({
-                html: '<b>Station was not selected</b>'
-            });
+            && this.fval.station.value === '') {
+            this.spinner.hide();
+            this.fval.station.nativeElement.focus();
             return;
         }
         else {
@@ -169,16 +172,31 @@ var RegistrationComponent = /** @class */ (function () {
                 }
             });
             if (this.fval.position.value === 'AREA USER') {
-                this.selectedLocation = this.fval.area.value;
+                this.areas.forEach(function (unit) {
+                    if (_this.fval.central.value.toString() === unit.bussinessUnitName) {
+                        // this.selectedLocation = unit.theBusinessUnitId;
+                        // console.log(this.selectedLocation);
+                    }
+                });
             }
             else if (this.fval.position.value === 'TOWN USER') {
-                this.selectedLocation = this.fval.town.value;
+                this.towns.forEach(function (unit) {
+                    if (_this.fval.central.value.toString() === unit.bussinessUnitName) {
+                        // this.selectedLocation = unit.theBusinessUnitId;
+                        // console.log(this.selectedLocation);
+                    }
+                });
             }
             else if (this.fval.position.value === 'STATION USER') {
-                this.selectedLocation = this.fval.station.value;
+                this.stations.forEach(function (unit) {
+                    if (_this.fval.central.value.toString() === unit.bussinessUnitName) {
+                        // this.selectedLocation = unit.theBusinessUnitId;
+                        // console.log(this.selectedLocation);
+                    }
+                });
             }
             else if (this.fval.position.value === 'ADMIN') {
-                this.selectedLocation = 10000;
+                this.selectedLocation = 1000;
             }
             else if (this.fval.position.value === 'CENTRAL USER') {
                 this.units.forEach(function (unit) {

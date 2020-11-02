@@ -13,10 +13,15 @@ var forms_1 = require("@angular/forms");
 var layout_service_1 = require("./services/layout.service");
 var menudropdown_directive_1 = require("./directives/menudropdown.directive");
 var auth_guard_service_1 = require("./services/other-services/route-guards/auth-guard.service");
-var random_guard_service_1 = require("./services/other-services/route-guards/random-guard.service");
 var auth_service_service_1 = require("./services/auth-service.service");
 var messaging_service_1 = require("./services/other-services/messaging.service");
 var others_service_1 = require("./services/other-services/others.service");
+var admin_guard_service_1 = require("./services/other-services/route-guards/admin-guard.service");
+var area_guard_service_1 = require("./services/other-services/route-guards/area-guard.service");
+var officer_guard_service_1 = require("./services/other-services/route-guards/officer-guard.service");
+var central_guard_service_1 = require("./services/other-services/route-guards/central-guard.service");
+var town_guard_service_1 = require("./services/other-services/route-guards/town-guard.service");
+var stmanager_guard_service_1 = require("./services/other-services/route-guards/stmanager-guard.service");
 var SharedModule = /** @class */ (function () {
     function SharedModule() {
     }
@@ -30,7 +35,12 @@ var SharedModule = /** @class */ (function () {
                 messaging_service_1.MessagingService,
                 others_service_1.OthersService,
                 auth_guard_service_1.AuthGuard,
-                random_guard_service_1.RandomGuard
+                admin_guard_service_1.AdminGuard,
+                central_guard_service_1.CentralGuard,
+                area_guard_service_1.AreaGuard,
+                town_guard_service_1.TownGuard,
+                stmanager_guard_service_1.StManagerGuard,
+                officer_guard_service_1.OfficerGuard,
             ]
         };
     };

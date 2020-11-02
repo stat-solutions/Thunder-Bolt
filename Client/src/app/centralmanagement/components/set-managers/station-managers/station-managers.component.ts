@@ -31,11 +31,7 @@ export class StationManagersComponent implements OnInit {
   checkedOk: boolean;
   station: string;
   theCompany: string;
-  managers =
-  [
-    { areaName: 'Don Petrol', manager: 'mukwaya' },
-    { areaName: 'Wes gas', manager: 'matugga' },
-  ];
+  managers: any;
   constructor(
     private others: OthersService,
     private router: Router,

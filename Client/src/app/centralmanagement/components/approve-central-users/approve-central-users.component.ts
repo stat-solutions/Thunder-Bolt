@@ -147,9 +147,9 @@ export class ApproveCentralUsersComponent implements OnInit {
     if (itemsApproved.length > 0) {
       this.others.approveUsers(itemsApproved).subscribe(
         res => {
-          // setTimeout(() => {
-          //   this.refresh();
-          // }, 3000);
+          setTimeout(() => {
+            this.refresh();
+          }, 3000);
         }, err => console.log(err)
       );
     } else {
@@ -172,10 +172,9 @@ export class ApproveCentralUsersComponent implements OnInit {
     if (itemsRejected.length > 0) {
       this.others.rejectUsers(itemsRejected).subscribe(
         res => {
-          //
-          // setTimeout(() => {
-          //   this.refresh();
-          // }, 3000);
+          setTimeout(() => {
+            this.refresh();
+          }, 3000);
         }, err => console.log(err)
       );
     } else {

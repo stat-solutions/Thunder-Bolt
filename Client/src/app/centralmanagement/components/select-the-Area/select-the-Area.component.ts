@@ -63,19 +63,15 @@ export class SelectTheAreaComponent implements OnInit {
     this.others.getAreas().subscribe(
       units => {
         this.approvedAreas = units;
-        console.log(this.approvedAreas)
+        // console.log(this.approvedAreas)
+        // areaRegionId: 803
+        // areaRegionName: "CENTRAL REGION"
+        // areaRegionStatus: 2
+        // fkApprovalDetailsIdAreaRegion: 125
         this.approvedAreas.forEach((item, i) => {
-          // console.log(item.areaName);
-          // console.log(i);
-          // this.fval.selectedAreas.controls[i].controls.areaId.setValue(
-          //   item.areaRegionId
-          // );
-          // this.fval.selectedAreas.controls[i].controls.areaName.setValue(
-          //   item.areaName
-          // );
-          this.fval.selectedAreas.controls[i].controls.approved.setValue(
-            false
-          );
+          this.fval.selectedAreas.controls[i].controls.areaId.setValue(item.areaRegionId);
+          this.fval.selectedAreas.controls[i].controls.areaName.setValue(item.areaRegionName);
+          this.fval.selectedAreas.controls[i].controls.approved.setValue(false);
           this.addItem();
           n = i + 1;
         });
@@ -141,9 +137,9 @@ export class SelectTheAreaComponent implements OnInit {
     if (areasSelected.length > 0) {
         this.others.createTheArea(areasSelected).subscribe(
           res => {
-            setTimeout(() => {
-              this.refresh();
-            }, 3000);
+            // setTimeout(() => {
+            //   this.refresh();
+            // }, 3000);
           }, err => console.log(err)
         );
     } else {
