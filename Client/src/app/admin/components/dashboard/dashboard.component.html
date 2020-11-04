@@ -1,37 +1,37 @@
 <div
-  class="container-fluid flex-row justify-content-center mb-0 mb-lg-5 mb-xl-2 mt-md-1 mt-xl-0 pt-md-0 pt-3 pt-xl-0 pb-3 pb-lg-5 pb-xl-1 shadow-lg col-xs-12 col-lg-12"
+  class="container-fluid flex-row justify-content-center mb-0 mb-lg-5 mb-xl-2 mt-md-1 mt-xl-0 pt-3 pt-md-0 pt-xl-0 pb-3 pb-lg-5 pb-xl-1 shadow-lg col-xs-12 col-lg-12"
 >
   <div class="d-flex shadow-lg">
     <div class="container mb-3 mb-lg-5 pb-lg-5 mb-xl-0 pb-xl-0">
       <div class="row" *ngIf="!company.created">
-        <div class="col-12 mt-2 mb-0  d-flex  flex-column justify-content-center">
-          <!-- <div class="col-12"> -->
-            <h2 class="rub-head3 text-info text-center font-weight-bold pt-0 py-0">
-              You have no company set up
-            </h2>
-            <h2
-              class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
-            > 
-              Please setting up a company to explore more
-            </h2>
-            <button
+        <div
+          class="col-12 mt-2 mt-lg-5 pt-lg-5 mb-3 mb-lg-5 d-flex flex-column justify-content-center"
+        >
+          <h4 class="rub-head4 text-primary text-center font-weight-bold py-1">
+            You have no company set up!
+          </h4>
+          <h4 class="rub-head4 text-primary text-center font-weight-bold py-1">
+            Please set up a company to explore more
+          </h4>
+          <button
             type="button"
-            class="btn btn-info col-5 mt-4 mb-4 align-self-center"
-            routerLink="/admin/companysetup">
+            class="btn btn-info mt-4 mt-lg-5 mb-4 align-self-center"
+            routerLink="/admin/companysetup"
+          >
             Create company
           </button>
         </div>
       </div>
       <div class="row" *ngIf="company.created">
-        <div class="col-xs-12 col-lg-4 mt-2 mb-0">
+        <div class="col-xs-12 col-lg-4 mt-2 mt-xl-1 mb-0 mb-lg-1">
           <div class="container mt-0 mt-lg-3 mt-xl-2 mx-0 shadow-lg">
             <div class="row">
               <div class="col-12">
-                <h2
-                  class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+                <h3
+                  class="rub-head4 text-info text-center font-weight-bold py-1"
                 >
                   Company Logo
-                </h2>
+                </h3>
               </div>
             </div>
           </div>
@@ -39,102 +39,134 @@
             <div class="big-card-body-1 card-body">
               <div class="d-flex justify-content-between align-items-center">
                 <img
-                  class="mb-0 pb-0"
+                  class="mb-2 pb-0"
                   [src]="companyInfo[0].companyLogoUrl"
-                  width="50%"
-                  height="50%"
                 />
               </div>
+              <button
+                type="button"
+                class="btn btn-info col-4 mx-auto mx-lg-3 mb-0"
+                (click)="enableEdit()"
+              >
+                Edit
+              </button>
             </div>
-            <button
-            type="button"
-            class="btn btn-info col-3 col-md-3 mx-auto mb-1"
-            (click)="enableEdit()"
-          >
-            Edit
-          </button>
             <input
-            *ngIf="showInput"
-            type="file"
-            src="image/*"
-            class="form-control"
-            (change)="onFileSelected($event)"
-          />
+              *ngIf="showInput"
+              type="file"
+              src="image/*"
+              class="form-control mt-2 mb-2"
+              (change)="onFileSelected($event)"
+            />
           </div>
         </div>
-        <div class="col-xs-12 col-lg-8 mt-0 mt-lg-2 mb-0">
+        <div class="col-xs-12 col-lg-8 mt-0 mt-lg-2 mt-xl-1 mb-0 mb-lg-1">
           <div class="container mt-0 mt-lg-3 mt-xl-2 mx-0 shadow-lg">
             <div class="row">
               <div class="col-12">
-                <h2
-                  class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+                <h3
+                  class="rub-head4 text-info text-center font-weight-bold py-1"
                 >
                   Company Details
-                </h2>
+                </h3>
               </div>
             </div>
           </div>
-          <div class="big-card-2 card mt-2 mt-lg-3 mt-xl-2 pt-2 pt-lg-4 pt-xl-2 mb-2 pb-1 pb-md-0 pb-lg-4 pb-xl-2 shadow-lg">
+          <div
+            class="big-card-2 card mt-2 mt-lg-3 mt-xl-2 pt-2 pt-lg-4 pt-xl-3 mb-2 pb-1 pb-md-0 pb-lg-4 pb-xl-3 shadow-lg"
+          >
             <div
               class="big-card-body-2 card-body mx-auto mx-md-0 mx-xl-auto px-auto px-xl-3 px-md-0 mb-md-0 pb-md-3 pb-lg-2"
             >
               <div
-                class="list-card2 card mt-2 pt-1 pt-lg-2 pt-xl-1 mb-2 mb-md-0 mb-lg-1 mx-auto mx-md-0 mx-xl-auto px-0 px-xl-5 pb-3 shadow-lg"
+                class="list-card2 card mt-2 mt-lg-1 pt-1 pt-lg-2 pt-xl-1 mb-2 mb-md-0 mb-lg-1 mx-auto mx-md-0 mx-xl-auto px-0 px-xl-5 pb-3 shadow-lg"
               >
                 <div
                   class="list-card-body-2 card-body mt-0 pt-1 mb-0 pb-0 mx-auto px-auto px-lg-3 mx-lg-2"
                 >
                   <div class="row mt-0 pt-0 mb-0 pb-0">
-                    <div class="col-12 col-md-4 mt-0 pt-2 mx-auto px-auto mx-lg-0 px-lg-0">
+                    <div
+                      class="col-12 col-md-4 mt-0 pt-2 mx-auto px-auto mx-lg-0 px-lg-0"
+                    >
                       <!--add data from the database next to the span after &nbsp;-->
                       <span class="itemCreated-1">Name: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyName}}</span
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyName
+                      }}</span
                       ><br />
                       <span class="itemCreated-1"
                         >Office floor: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyOfficeFloor}}</span
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyOfficeFloor
+                      }}</span
                       ><br />
                       <span class="itemCreated-1"
                         >Street Building: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyStreetBuilding}}</span
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyStreetBuilding
+                      }}</span
                       ><br />
                       <span class="itemCreated-1"
                         >Plot number: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyPlotNumber}}</span
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyPlotNumber
+                      }}</span
                       ><br />
                       <span class="itemCreated-1"
                         >Street name: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyStreetBuilding}}</span>
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyStreetBuilding
+                      }}</span>
                     </div>
-                    <div class="col-12 col-md-4 mt-0 pt-2 mx-auto px-auto mx-lg-0 px-lg-0">
+                    <div
+                      class="col-12 col-md-4 mt-0 pt-2 mx-auto px-auto mx-lg-0 px-lg-0"
+                    >
                       <span class="itemCreated-1">City: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyCityLocation}}</span
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyCityLocation
+                      }}</span
                       ><br />
                       <span class="itemCreated-1">Region: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyRegionLocation}}</span
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyRegionLocation
+                      }}</span
                       ><br />
                       <span class="itemCreated-1">Country: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyCountryLocation}}</span
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyCountryLocation
+                      }}</span
                       ><br />
                       <span class="itemCreated-1">BoxNumber: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyBoxNumber}}</span>
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyBoxNumber
+                      }}</span>
                     </div>
-                    <div class="col-12 col-md-4 mt-0 pt-2 mx-auto px-auto mx-lg-0 px-lg-0">
+                    <div
+                      class="col-12 col-md-4 mt-0 pt-2 mx-auto px-auto mx-lg-0 px-lg-0"
+                    >
                       <span class="itemCreated-1">Email1: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyEmail1}}</span
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyEmail1
+                      }}</span
                       ><br />
                       <!--display second email only if given-->
                       <span class="itemCreated-1">Email 2: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyEmail2}}</span
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyEmail2
+                      }}</span
                       ><br />
                       <span class="itemCreated-1"
                         >Phone contact 1: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyPhoneContact1}}</span
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyPhoneContact1
+                      }}</span
                       ><br />
                       <!--display second email only if given-->
                       <span class="itemCreated-1"
                         >Phone contact 2: &nbsp;&nbsp;</span
-                      ><span class="itemCreated-2 text-info">{{companyInfo[0].companyPhoneContact2}}</span>
+                      ><span class="itemCreated-2 text-info">{{
+                        companyInfo[0].companyPhoneContact2
+                      }}</span>
                     </div>
                   </div>
                 </div>
@@ -148,123 +180,142 @@
           <div class="container mt-0 mt-lg-0 mx-0 shadow-lg">
             <div class="row">
               <div class="col-12">
-                <h2
-                  class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+                <h3
+                  class="rub-head4 text-info text-center font-weight-bold py-1"
                 >
                   Approvals
-                </h2>
+                </h3>
               </div>
             </div>
           </div>
-          <div class="big-card-4 card mt-2 mt-lg-3 mt-xl-2 pt-2 mb-0 shadow-lg">
-            <div class="big-card-body-4 card-body mx-auto px-auto pb-3">
+          <div class="big-card-4 card mt-2 mt-lg-3 mt-xl-2 pt-2 mb-0 pb-3 shadow-lg">
+            <div class="big-card-body-4 card-body mx-auto px-auto">
               <div class="row" *ngIf="!company.created">
-                <div class="col-12 mt-2 mb-0  d-flex  flex-column justify-content-center">
+                <div
+                  class="col-12 mt-2 mb-0 d-flex flex-column justify-content-center"
+                >
                   <!-- <div class="col-12"> -->
-                    <h2
-                      class="list-head-2 text-info text-center font-weight-bold pt-0 py-0"
-                    > 
-                      Your have no approval levels set, <br/>please set an...
-                    </h2>
-                    <button
+                  <h4
+                    class="rub-head4 text-primary text-center font-weight-bold py-1"
+                  >
+                    Your have no approval levels set!<br />
+                  </h4>
+                  <button
                     type="button"
-                    class="btn btn-info col-5 mt-1 mb-1 align-self-center"
-                    routerLink="/admin/approvalsetup">
-                    approval level
+                    class="btn btn-info mt-1 mb-1 align-self-center"
+                    routerLink="/admin/approvalsetup"
+                  >
+                    Set Approval Level
                   </button>
                 </div>
               </div>
               <div class="row" *ngIf="company.created">
                 <div class="col-xs-12 col-lg-12">
                   <div class="row">
-                    <div class="col-6 col-md-6">
+                    <div class="col-7 col-md-8 col-xl-8">
                       <h4 class="list-head-1 text-center text-info">Item</h4>
                     </div>
-                    <div class="col-6 col-md-5 ml-5">
+                    <div class="col-5 col-md-4 col-xl-4 ml-5 ml-md-0">
                       <h4 class="list-head-2 text-center text-info">Levels</h4>
                     </div>
                   </div>
-                  <div
-                    class="item-container"
-                    *ngFor="let item of approvals"
-                  >
-                  <div
-                    class="list-card-4 card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-                  >
-                    <div
-                      class="list-card-body-4 card-body mt-0 pt-0 mb-0 pb-0 mx-2"
-                    >
-                      <div class="row mt-0 pt-0 mb-0 pb-0" routerLink="/admin/approvalsetup">
-                        <div class="col-6 mt-0 pt-0 mx-0 px-0">
-                          <span class="itemCreated-3">{{ item.itemName}}</span>
-                        </div>
-                        <div class="col-6 mt-0 pt-0 mx-0 px-0">
-                          <span class="levelSet">{{ item.approvalLevel }}</span>
+                  <div class="iteration mt-2 mb-2">
+                    <div class="item-container my-0 py-0" *ngFor="let item of approvals">
+                  <div class="list-card-4 card my-0 py-1 mx-auto px-0 shadow-lg">
+                      <div class="list-card-body-4 card-body my-0 py-0 mx-0">
+                          <div
+                            class="row mt-0 pt-0 mb-0 pb-0"
+                            routerLink="/admin/approvalsetup"
+                          >
+                            <div class="col-7 col-md-8 mt-0 pt-0 mx-0 px-0">
+                              <span class="itemCreated-3">{{
+                                item.itemName
+                              }}</span>
+                            </div>
+                            <div class="col-5 col-md-4 mt-0 pt-0 mx-0 px-0">
+                              <span class="levelSet">{{
+                                item.approvalLevel
+                              }}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-xs-12 col-lg-4 mt-0 mt-lg-2 mt-xl-0 mb-0">
-          <div class="container mt-0 mx-0 shadow-lg">
-            <div class="row">
-              <div class="col-12">
-                <h2
-                  class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
-                >
-                  Business Units
-                </h2>
-              </div>
-            </div>
           </div>
-          <div class="big-card-3 card mt-2 mt-lg-3 mt-xl-2 pt-2 mb-0 shadow-lg">
-            <div class="row" *ngIf="!company.created">
-              <div class="col-12 mt-2 mb-0  d-flex  flex-column justify-content-center">
-                <!-- <div class="col-12"> -->
-                  <h2
-                    class="list-head-2 text-info text-center font-weight-bold pt-0 py-0"
-                  > 
-                    Your have no bussiness units created, <br/>please ...
-                  </h2>
-                  <button
-                  type="button"
-                  class="btn btn-info col-5 mt-1 mb-1 align-self-center"
-                  routerLink="/admin/businessunits">
-                  create a unit
-                </button>
-              </div>
-            </div>
-            <div class="row" *ngIf="company.created">
-              <div class="col-12">
-                  <h4 class="list-head-3 text-info text-center">Unit</h4>
-              </div>
-            </div>
-            <div class="big-card-body-3 card-body mx-0 px-auto pb-3 mb-3 shadow-lg" *ngIf="company.created">
+          <div class="col-xs-12 col-lg-4 mt-0 mt-lg-2 mt-xl-0 mb-0">
+            <div class="container mt-0 mx-0 shadow-lg">
               <div class="row">
-                <div class="col-xs-12 col-lg-12">
-                  <div
-                    class="item-container"
-                    *ngFor="let Units of bussinessUnits"
+                <div class="col-12">
+                  <h3
+                    class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
                   >
-                  <div
-                    class="list-card-3 card mt-2 pt-1 mb-0 mx-0 mx-lg-0 px-0 pb-0 shadow-lg"
+                    Business Units
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div
+              class="big-card-3 card mt-2 mt-lg-3 mt-xl-2 pt-2 mb-0 shadow-lg"
+            >
+              <div class="row" *ngIf="!company.created">
+                <div
+                  class="col-12 mt-2 mb-0 d-flex flex-column justify-content-center"
+                >
+                  <!-- <div class="col-12"> -->
+                  <h4
+                    class="rub-head4 text-primary text-center font-weight-bold pt-0 py-0"
                   >
+                    Your have no business units created yet! <br />
+                  </h4>
+                  <button
+                    type="button"
+                    class="btn btn-info my-1 align-self-center"
+                    routerLink="/admin/businessunits"
+                  >
+                    Create business unit
+                  </button>
+                </div>
+              </div>
+              <div class="row" *ngIf="company.created">
+                <div class="col-12">
+                  <h4 class="list-head-3 text-info text-center">Unit</h4>
+                </div>
+              </div>
+              <div
+                class="big-card-body-3 card-body mx-0 px-auto pb-3 mb-3 shadow-lg"
+                *ngIf="company.created"
+              >
+                <div class="row">
+                  <div class="col-xs-12 col-lg-12">
                     <div
-                      class="list-card-body-3 card-body mt-0 pt-0 mb-0 pb-0 mx-0"
+                      class="item-container"
+                      *ngFor="let Units of bussinessUnits"
                     >
-                      <div class="row mt-0 pt-0 mb-0 pb-0" routerLink="/admin/businessunits">
-                        <div class="col-12 mt-0 pt-0 mx-0">
-                          <span class="itemCreated text-center">{{ Units.bussinessUnitName }}</span>
+                      <div
+                        class="list-card-3 card mt-2 pt-1 mb-0 mx-0 mx-lg-0 px-0 pb-0 shadow-lg"
+                      >
+                        <div
+                          class="list-card-body-3 card-body mt-0 pt-0 mb-0 pb-0 mx-0"
+                        >
+                          <div
+                            class="row mt-0 pt-0 mb-0 pb-0"
+                            routerLink="/admin/businessunits"
+                          >
+                            <div class="col-12 mt-0 pt-0 mx-0">
+                              <span class="itemCreated text-center">{{
+                                Units.bussinessUnitName
+                              }}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
                 </div>
               </div>
             </div>
@@ -273,11 +324,10 @@
       </div>
     </div>
   </div>
-</div>
-    <!-- <footer> -->
-    <div class="container mt-3 mt-xl-1 mb-2 pb-2 pb-xl-1">
-      <div class="col-xs-12 col-lg-12">
-        <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
-      </div>
+  <!-- <footer> -->
+  <div class="container mt-3 mt-xl-1 mb-2 pb-2 pb-xl-1">
+    <div class="col-xs-12 col-lg-12">
+      <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
     </div>
-    <!-- </footer> -->
+  </div>
+  <!-- </footer> -->

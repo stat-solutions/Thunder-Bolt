@@ -24,6 +24,9 @@ Created by: @LogicalStack
 //     @include ag-theme-alpine();
 // }
 // .ag-theme-balham{ @include ag-theme-balham(); }
+
+@import 'material-icons/iconfont/material-icons.scss';
+
 ::-webkit-scrollbar {
     width: 7px;
 }
@@ -2476,7 +2479,7 @@ textarea.form-control.is-invalid {
     padding: .375rem .65rem;
     font-size: 1rem;
     line-height: 1.0;
-    border-radius: .25rem;
+    border-radius: .94rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
@@ -2622,27 +2625,24 @@ fieldset:disabled a.btn {
 }
 
 .btn-info {
+  color: #17aae0ee;
+  background-color: transparent;
+  border-color: #17aae0ee
+}
+  .btn-info:hover, .btn-info:focus {
     color: #d9dbdd;
-    background-color: #51a416e0;
-    border-color: #51a416e0
-}
-
-.btn-info:hover {
-    color: #51a416e0;
-    background-color: #d9dbdd;
-    border-color: #51a416e0
-}
-
+    background-color: #17aae0ee;
+    border-color: #17aae0ee
+  }
 .btn-info.focus,
 .btn-info:focus {
-    box-shadow: 0 0 0 .2rem rgba(126, 235, 36, 0.5)
+  box-shadow: 0 0 0 .2rem #0e99ccee
 }
-
 .btn-info.disabled,
 .btn-info:disabled {
-    color: #fff;
-    background-color: #17a2b8;
-    border-color: #17a2b8
+  color: #1b9eceec;
+  background-color: transparent;
+  border-color: #1b9eceec
 }
 
 .btn-info:not(:disabled):not(.disabled).active,
@@ -2657,6 +2657,28 @@ fieldset:disabled a.btn {
 .btn-info:not(:disabled):not(.disabled):active:focus,
 .show>.btn-info.dropdown-toggle:focus {
     box-shadow: 0 0 0 .2rem rgba(58, 176, 195, .5)
+}
+
+.btn-infob {
+  color: #7d8388;
+  background-color: transparent;
+  border-color: transparent;
+}
+.btn-infob:hover,
+.btn-infob:focus {
+  color: #17aae0ee;
+  background-color: transparent;
+  border-color: transparent;
+}
+.btn-infob.focus,
+.btn-infob:focus {
+  box-shadow: 0 0 0 0.2rem transparent;
+}
+.btn-infob.disabled,
+.btn-infob:disabled {
+  color: #89898a;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .btn-warning {
