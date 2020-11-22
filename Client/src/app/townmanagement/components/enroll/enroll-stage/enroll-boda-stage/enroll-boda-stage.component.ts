@@ -8,6 +8,7 @@ import { CustomValidator } from 'src/app/validators/custom-validator';
 // import { DashboardUserService } from 'src/app/services/dashboard-user.service';
 // import { StageNames } from 'src/app/models/stage-names';
 import * as jwt_decode from 'jwt-decode';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
   selector: 'app-enroll-boda-stage',
@@ -23,25 +24,29 @@ export class EnrollBodaStageComponent implements OnInit {
   serviceErrors: any = {};
   value: string;
   fieldType: boolean;
-  theStageNames: [];
-  // theStageNames: StageNames[];
+  clusters: [];
+  User = this.authService.loggedInUserInfo();
 
   constructor(
     private authService: AuthServiceService,
-    // private adminUserService: DashboardUserService,
+    private ohers: OthersService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
-    this.stageNames();
+    this.bodaClusters();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
       bodabodaStageName: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+       cluster: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
@@ -62,37 +67,23 @@ export class EnrollBodaStageComponent implements OnInit {
     });
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  resetStageNames() {
+  resetStageNames(): any {
     this.userForm.controls.stage_name.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  stageNames() {
-    // this.adminUserService.getStageNames(jwt_decode(this.authService.getJwtToken()).user_station).subscribe(
-    //   data => {
-    //     this.userForm.controls.stage_name.reset();
-    //     this.theStageNames = data;
-    //     // this.alertService.success({ html: '<b> User Roles Updated</b>' + '<br/>' });
-    //   },
+  bodaClusters(): any {
 
-    //   (error: string) => {
-    //     this.errored = true;
-    //     this.serviceErrors = error;
-    //     this.alertService.danger({
-    //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-    //     });
-    //   }
-    // );
   }
 
-  onSubmit() {
+  onSubmit(): any {
     this.submitted = true;
     this.spinner.show();
 
@@ -103,34 +94,6 @@ export class EnrollBodaStageComponent implements OnInit {
         user_station: jwt_decode(this.authService.getJwtToken()).user_station,
         user_id: jwt_decode(this.authService.getJwtToken()).user_id
       });
-
-      // this.adminUserService.registerCustomer(this.userForm).subscribe(
-      //   () => {
-      //     this.posted = true;
-      //     this.spinner.hide();
-
-      //     // tslint:disable-next-line:max-line-length
-      //     this.alertService.success({
-      //       html:
-      //         '<b>Customer Registration was Successful!!</b>' +
-      //         '</br>' +
-      //         'Please proceed to lend him'
-      //     });
-      //     this.revert();
-      //     setTimeout(() => {
-      //       this.router.navigate(['dashboarduser/loans']);
-      //     }, 2000);
-      //   },
-
-      //   (error: string) => {
-      //     this.errored = true;
-      //     this.serviceErrors = error;
-      //     this.alertService.danger({
-      //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-      //     });
-      //     this.spinner.hide();
-      //   }
-      // );
     }
   }
 }

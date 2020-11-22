@@ -31,11 +31,12 @@ var RegistrationComponent = /** @class */ (function () {
         this.serviceErrors = {};
     }
     RegistrationComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.getRoles();
         this.getUnits();
-        this.others.getAllTheAreaLocations().subscribe(function (res) { return console.log(res); });
-        this.others.getAllTheTownLocations().subscribe(function (res) { return console.log(res); });
-        this.others.getAllTheStationLocations().subscribe(function (res) { return console.log(res); });
+        this.others.getAllTheAreaLocations().subscribe(function (res) { return _this.areas = res; });
+        this.others.getAllTheTownLocations().subscribe(function (res) { return _this.towns = res; });
+        this.others.getAllTheStationLocations().subscribe(function (res) { return _this.stations = res; });
         this.userForm = this.createFormGroup();
         this.myDateValue = new Date();
     };
@@ -149,6 +150,11 @@ var RegistrationComponent = /** @class */ (function () {
         if (this.userForm.invalid === true) {
             return;
         }
+        else if (this.fval.position.value === 'CENTRAL USER' && this.fval.central.value === '') {
+            this.spinner.hide();
+            this.fval.central.nativeElement.focus();
+            return;
+        }
         else if (this.fval.position.value === 'AREA USER' && this.fval.area.value === '') {
             this.spinner.hide();
             this.fval.area.nativeElement.focus();
@@ -172,25 +178,25 @@ var RegistrationComponent = /** @class */ (function () {
                 }
             });
             if (this.fval.position.value === 'AREA USER') {
-                this.areas.forEach(function (unit) {
-                    if (_this.fval.central.value.toString() === unit.bussinessUnitName) {
-                        // this.selectedLocation = unit.theBusinessUnitId;
+                this.areas.forEach(function (area) {
+                    if (_this.fval.area.value.toString() === area.areaRegionName) {
+                        _this.selectedLocation = area.theAreaLocationId;
                         // console.log(this.selectedLocation);
                     }
                 });
             }
             else if (this.fval.position.value === 'TOWN USER') {
-                this.towns.forEach(function (unit) {
-                    if (_this.fval.central.value.toString() === unit.bussinessUnitName) {
-                        // this.selectedLocation = unit.theBusinessUnitId;
+                this.towns.forEach(function (town) {
+                    if (_this.fval.town.value.toString() === town.townName) {
+                        _this.selectedLocation = town.theTownLocationId;
                         // console.log(this.selectedLocation);
                     }
                 });
             }
             else if (this.fval.position.value === 'STATION USER') {
-                this.stations.forEach(function (unit) {
-                    if (_this.fval.central.value.toString() === unit.bussinessUnitName) {
-                        // this.selectedLocation = unit.theBusinessUnitId;
+                this.stations.forEach(function (station) {
+                    if (_this.fval.station.value.toString() === station.stationName) {
+                        _this.selectedLocation = station.theStationLocationId;
                         // console.log(this.selectedLocation);
                     }
                 });
@@ -202,7 +208,7 @@ var RegistrationComponent = /** @class */ (function () {
                 this.units.forEach(function (unit) {
                     if (_this.fval.central.value.toString() === unit.bussinessUnitName) {
                         _this.selectedLocation = unit.theBusinessUnitId;
-                        console.log(_this.selectedLocation);
+                        // console.log(this.selectedLocation);
                     }
                 });
             }
@@ -218,29 +224,37 @@ var RegistrationComponent = /** @class */ (function () {
                 locationId: this.selectedLocation
             };
             // console.log(this.registerUser);
-            this.authService.registerUser(this.registerUser).subscribe(function () {
-                _this.posted = true;
-                _this.spinner.hide();
-                _this.alertService.success({
-                    html: '<b>User Registration Was Successful</b>' +
-                        '</br>' +
-                        'Wait for verification'
+            if (this.registerUser.locationId === null) {
+                this.spinner.hide();
+                this.alertService.danger({
+                    html: '<b>' + 'No location address was selected' + '</b>' + '<br/>'
                 });
-                setTimeout(function () {
-                    _this.router.navigate(['authpage/login']);
-                }, 3000);
-            }, function (error) {
-                _this.spinner.hide();
-                _this.errored = true;
-                _this.serviceErrors = error;
-                _this.alertService.danger({
-                    html: '<b>' + _this.serviceErrors + '</b>' + '<br/>'
+            }
+            else {
+                this.authService.registerUser(this.registerUser).subscribe(function () {
+                    _this.posted = true;
+                    _this.spinner.hide();
+                    _this.alertService.success({
+                        html: '<b>User Registration Was Successful</b>' +
+                            '</br>' +
+                            'Wait for verification'
+                    });
+                    setTimeout(function () {
+                        _this.router.navigate(['authpage/login']);
+                    }, 3000);
+                }, function (error) {
+                    _this.spinner.hide();
+                    _this.errored = true;
+                    _this.serviceErrors = error;
+                    _this.alertService.danger({
+                        html: '<b>' + _this.serviceErrors + '</b>' + '<br/>'
+                    });
+                    setTimeout(function () {
+                        // location.reload();
+                    }, 5000);
+                    console.log(error);
                 });
-                setTimeout(function () {
-                    // location.reload();
-                }, 5000);
-                console.log(error);
-            });
+            }
             this.spinner.hide();
             this.registered = true;
         }

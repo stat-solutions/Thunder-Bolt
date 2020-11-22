@@ -16,7 +16,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 })
 export class CreateStationComponent implements OnInit {
   userForm: FormGroup;
-  approvedAreas: any;
+  approvedStations: any;
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -39,41 +39,41 @@ export class CreateStationComponent implements OnInit {
   }
   createFormGroup(): any {
     return this.fb.group({
-      selectedAreas: this.fb.array([this.selectArea]),
+      selectedStations: this.fb.array([this.selectStation]),
       selectAll: this.fb.control({}),
     });
   }
-  get selectArea(): any {
+  get selectStation(): any {
     return this.fb.group({
-      areaId: this.fb.control({ value: '' }),
-      areaName: this.fb.control({ value: '' }),
+      stationId: this.fb.control({ value: '' }),
+      stationName: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
   }
   addItem(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.selectedAreas as FormArray).push(this.selectArea);
+    (this.fval.selectedStations as FormArray).push(this.selectStation);
   }
 
   removeItem(index: number): any {
-    (this.fval.selectedAreas as FormArray).removeAt(index);
+    (this.fval.selectedStations as FormArray).removeAt(index);
   }
   initialiseForm(): any {
     let n: number;
     this.others.getAreas().subscribe(
       units => {
-        this.approvedAreas = units;
-        // console.log(this.approvedAreas)
-        this.approvedAreas.forEach((item, i) => {
+        this.approvedStations = units;
+        // console.log(this.approvedStations)
+        this.approvedStations.forEach((item, i) => {
           // console.log(item.areaName);
           // console.log(i);
-          // this.fval.selectedAreas.controls[i].controls.areaId.setValue(
+          // this.fval.selectedStations.controls[i].controls.areaId.setValue(
           //   item.areaRegionId
           // );
-          // this.fval.selectedAreas.controls[i].controls.areaName.setValue(
+          // this.fval.selectedStations.controls[i].controls.areaName.setValue(
           //   item.areaName
           // );
-          this.fval.selectedAreas.controls[i].controls.approved.setValue(
+          this.fval.selectedStations.controls[i].controls.approved.setValue(
             false
           );
           this.addItem();
@@ -85,14 +85,14 @@ export class CreateStationComponent implements OnInit {
   }
   checkAllItems(val: boolean): any {
     if (val === true) {
-      this.approvedAreas.forEach((item, i) => {
-        this.fval.selectedAreas.controls[i].controls.approved.setValue(
+      this.approvedStations.forEach((item, i) => {
+        this.fval.selectedStations.controls[i].controls.approved.setValue(
           val
         );
       });
     } else {
-      this.approvedAreas.forEach((item, i) => {
-        this.fval.selectedAreas.controls[i].controls.approved.setValue(
+      this.approvedStations.forEach((item, i) => {
+        this.fval.selectedStations.controls[i].controls.approved.setValue(
           false
         );
       });
@@ -101,7 +101,7 @@ export class CreateStationComponent implements OnInit {
   deselectAll(val: any): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
     if (
-      this.fval.selectedAreas.controls[val].controls.approved.value === true
+      this.fval.selectedStations.controls[val].controls.approved.value === true
     ) {
       this.fval.selectAll.setValue(false);
     }
@@ -128,8 +128,8 @@ export class CreateStationComponent implements OnInit {
 
   approveItems(): any {
     const areasSelected = [];
-    this.approvedAreas.forEach((item, i) => {
-      if (this.fval.selectedAreas.controls[i].controls.approved.value === true) {
+    this.approvedStations.forEach((item, i) => {
+      if (this.fval.selectedStations.controls[i].controls.approved.value === true) {
         areasSelected.push({
             areaRegionId: item.areaRegionId,
             theBusinessUnitId: this.User.userLocationId,
