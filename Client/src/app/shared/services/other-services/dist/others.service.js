@@ -213,6 +213,34 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.setStationManager = function (postData) {
         return this.http.post(this.API_URL + "/api/stationUser/postSetupStationManager", postData, this.httpOptions);
     };
+    //  bussiness section
+    OthersService.prototype.createTaxiPark = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postCreateTaxiPark", postData, this.httpOptions);
+    };
+    OthersService.prototype.createTaxiStage = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postCreateTaxiStatage", postData, this.httpOptions);
+    };
+    OthersService.prototype.createBodaCluster = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaCluster", postData, this.httpOptions);
+    };
+    OthersService.prototype.createBodaStage = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaStage", postData, this.httpOptions);
+    };
+    OthersService.prototype.getProducts = function () {
+        return this.http.get(this.API_URL + "/ api/customer/getheTheProducts");
+    };
+    OthersService.prototype.createCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postCreateCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.createBodaCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.createTaxiCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postCreateTaxiCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.createMicroloanCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postCreateMicroloanCustomer", postData, this.httpOptions);
+    };
     OthersService.prototype.handleCompanySetupError = function (errorResponse) {
         if (errorResponse.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
