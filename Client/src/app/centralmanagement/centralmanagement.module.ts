@@ -54,6 +54,8 @@ import { SetManagersComponent } from './components/set-managers/set-managers.com
 import { AreaManagersComponent } from './components/set-managers/area-managers/area-managers.component';
 import { TownManagersComponent } from './components/set-managers/town-managers/town-managers.component';
 import { StationManagersComponent } from './components/set-managers/station-managers/station-managers.component';
+import { SetLoanTenureComponent } from './components/transactions/loans/set-loan-tenure/set-loan-tenure.component';
+import { LoanTenureComponent } from './components/transactions/approval/loan-tenure/loan-tenure.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +104,8 @@ import { StationManagersComponent } from './components/set-managers/station-mana
     AreaManagersComponent,
     TownManagersComponent,
     StationManagersComponent,
+    SetLoanTenureComponent,
+    LoanTenureComponent,
   ],
   imports: [
     CommonModule,

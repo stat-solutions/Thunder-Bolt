@@ -36,7 +36,7 @@ Created by: @LogicalStack
 
 ::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px rgb(255, 255, 255);
-    border-radius: 8px;
+    border-radius: 0px;
 }
 
 
@@ -44,7 +44,7 @@ Created by: @LogicalStack
 
 ::-webkit-scrollbar-thumb {
     background: rgb(2, 23, 43);
-    border-radius: 0px;
+    border-radius: 8px;
 }
 
 
@@ -2464,6 +2464,10 @@ textarea.form-control.is-invalid {
     }
 }
 
+.pointerCursor {
+  cursor: pointer;
+}
+
 .btn {
     display: inline-block;
     font-weight: 400;
@@ -2476,10 +2480,11 @@ textarea.form-control.is-invalid {
     user-select: none;
     background-color: transparent;
     border: 1px solid transparent;
-    padding: .375rem .65rem;
-    font-size: 1rem;
-    line-height: 1.0;
+  padding: .340rem .35rem;
+  font-size: .8rem;
+  line-height: 1.0;
     border-radius: .94rem;
+    outline: 0;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
@@ -2627,7 +2632,8 @@ fieldset:disabled a.btn {
 .btn-info {
   color: #17aae0ee;
   background-color: transparent;
-  border-color: #17aae0ee
+  border-color: #17aae0ee;
+  outline: 0;
 }
   .btn-info:hover, .btn-info:focus {
     color: #d9dbdd;
@@ -2648,27 +2654,30 @@ fieldset:disabled a.btn {
 .btn-info:not(:disabled):not(.disabled).active,
 .btn-info:not(:disabled):not(.disabled):active,
 .show>.btn-info.dropdown-toggle {
-    color: #fff;
-    background-color: #117a8b;
-    border-color: #10707f
+    color: #d9dbdd;
+    background-color: #17aae0ee;
+    border-color: #17aae0ee;
+  outline: 0;
 }
 
 .btn-info:not(:disabled):not(.disabled).active:focus,
 .btn-info:not(:disabled):not(.disabled):active:focus,
 .show>.btn-info.dropdown-toggle:focus {
-    box-shadow: 0 0 0 .2rem rgba(58, 176, 195, .5)
+    box-shadow: 0 0 0 .2rem rgba(19, 188, 214, 0.466)
 }
 
 .btn-infob {
   color: #7d8388;
   background-color: transparent;
   border-color: transparent;
+  outline: 0;
 }
 .btn-infob:hover,
 .btn-infob:focus {
   color: #17aae0ee;
   background-color: transparent;
   border-color: transparent;
+  outline: 0;
 }
 .btn-infob.focus,
 .btn-infob:focus {
@@ -2679,6 +2688,15 @@ fieldset:disabled a.btn {
   color: #89898a;
   background-color: transparent;
   border-color: transparent;
+}
+
+.btn-infob:not(:disabled):not(.disabled).active,
+.btn-infob:not(:disabled):not(.disabled):active,
+.show>.btn-infob.dropdown-toggle {
+  color: #17aae0ee;
+  background-color: transparent;
+  border-color: transparent;
+  outline: 0;
 }
 
 .btn-warning {

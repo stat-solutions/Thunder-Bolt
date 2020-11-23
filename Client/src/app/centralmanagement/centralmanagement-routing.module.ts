@@ -40,6 +40,8 @@ import { SetManagersComponent } from './components/set-managers/set-managers.com
 import { AreaManagersComponent } from './components/set-managers/area-managers/area-managers.component';
 import { TownManagersComponent } from './components/set-managers/town-managers/town-managers.component';
 import { StationManagersComponent } from './components/set-managers/station-managers/station-managers.component';
+import { SetLoanTenureComponent } from './components/transactions/loans/set-loan-tenure/set-loan-tenure.component';
+import { LoanTenureComponent } from './components/transactions/approval/loan-tenure/loan-tenure.component';
 
 const routes: Routes = [
   {
@@ -76,7 +78,7 @@ const routes: Routes = [
       },
       {
         path: 'selectarea',
-        component: SelectTheAreaComponent
+        component: SelectTheAreaComponent,
       },
       {
         path: 'managers',
@@ -93,8 +95,8 @@ const routes: Routes = [
           {
             path: 'stationmanagers',
             component: StationManagersComponent,
-          }
-        ]
+          },
+        ],
       },
       {
         path: 'approve',
@@ -134,6 +136,10 @@ const routes: Routes = [
                 path: 'setloanrate',
                 component: SetLoanRateComponent,
               },
+              {
+                path: 'setloantenure',
+                component: SetLoanTenureComponent,
+              },
             ],
           },
           {
@@ -167,6 +173,10 @@ const routes: Routes = [
               {
                 path: 'loanlimit',
                 component: LoanLimitComponent,
+              },
+              {
+                path: 'loantenure',
+                component: LoanTenureComponent,
               },
               {
                 path: 'floatapproval',
