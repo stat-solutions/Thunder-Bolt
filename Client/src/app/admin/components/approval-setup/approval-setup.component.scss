@@ -5,111 +5,50 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  contain: auto;
 }
 
 .card-body {
   width: 100%;
-  // height: 100%;
   border-radius: 8px;
-  // contain: auto;
-}
-
-.list-card-body {
-  width: 100%;
-  // max-height: 90%;
 }
 
 .invest-card {
   height: auto;
+  max-height: 480px;
   margin-bottom: 20px !important;
 }
 
 .iteration {
-  height: 375px;
+  height: auto;
+  max-height: 340px;
   overflow-y: auto;
 }
 
 .list-card {
-  max-height: 135px !important;
-  min-height: 25px !important;
+  position: relative;
+  width: 100%;
+height: auto;
+  min-height: 20px !important;
 }
+.list-card-body {
+  width: 100%;
+height: auto;
+}
+
 .level-control {
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
-  margin-right: 0px !important;
-  margin-left: 0px !important;
   padding-right: 5px !important;
   padding-left: 5px !important;
   width: 100%;
-  height: 26px;
+  height: 28px;
 }
 
 .edit-button {
   margin-right: 0px !important;
-  margin-left: 18px !important;
+  margin-left: 1.05rem !important;
 }
 .save-button {
   margin-right: 0px !important;
   margin-left: 0px !important;
-}
-
-.text-info {
-  color: #17aae0ee !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
-}
-
-.btn {
-  padding: .38rem .35rem;
-  font-size: .8rem;
-  border-radius: 15px;
-  line-height: .7;
-}
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee;
-}
-.btn-info:hover,
-.btn-info:focus {
-  color: #d9dbdd;
-  background-color: #17aae0ee;
-  border-color: #17aae0ee;
-}
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 0.2rem #0e99ccee;
-}
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec;
-}
-.btn-infob {
-  color: #7d8388;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn-infob:hover,
-.btn-infob:focus {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn-infob.focus,
-.btn-infob:focus {
-  box-shadow: 0 0 0 0.2rem transparent;
-}
-.btn-infob.disabled,
-.btn-infob:disabled {
-  color: #89898a;
-  background-color: transparent;
-  border-color: transparent;
 }
 
 .pointerCursor {
@@ -120,88 +59,40 @@ a.text-info:hover {
 
 //media queries
 @media (min-width: 320px) {
-  .card-body {
-    padding-top: 4px;
-  }
   .jumbotron-fluid {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
   }
   .list-card {
-    max-height: 135px !important;
-    min-height: 25px !important;
+    min-height: 40px !important;
   }
 }
 
 @media (min-width: 360px) {
-  .card-body {
-    margin-bottom: 50px !important;
-  }
-  .list-card {
-    max-height: 135px !important;
-    min-height: 25px !important;
-  }
 }
 
 @media (min-width: 375px) {
   .card-body {
-    margin-bottom: 40px !important;
+    margin-bottom: .65rem !important;
   }
   .jumbotron-fluid {
     padding-bottom: 40px !important;
   }
-  .list-card {
-    max-height: 135px !important;
-    min-height: 25px !important;
-  }
 }
 
 @media (min-width: 410px) {
-  .card-body {
-    margin-bottom: 5px !important;
-  }
   .jumbotron-fluid {
-    padding-bottom: 90px !important;
+    padding-bottom: 20px !important;
   }
   .edit-button {
   margin-left: 10px !important;
   }
-  .list-card {
-    max-height: 135px !important;
-    min-height: 25px !important;
-  }
 }
 
 @media (min-width: 445px) {
-  .jumbotron-fluid {
-    padding-top: 8px !important;
-  }
-  .list-card {
-    max-height: 135px !important;
-    min-height: 25px !important;
-  }
 }
 
 @media (min-width: 568px) {
-  .jumbotron-fluid {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
-  }
-  .list-card {
-    max-height: 135px !important;
-    min-height: 25px !important;
-  }
-}
-
-@media (min-width: 640px) {
-  .container {
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-  .list-card {
-    max-height: 135px !important;
-    min-height: 25px !important;
-  }
 }
 
 @media (min-width: 768px) {
@@ -209,25 +100,23 @@ a.text-info:hover {
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
-  .card-body {
-            max-width: 620px;
-            min-width: 530px;
-    margin-bottom: 70px !important;
-  }
   .jumbotron-fluid {
     padding-top: 80px !important;
-    padding-bottom: 260px !important;
+    padding-bottom: 30px !important;
   }
   .itemCreated {
-  margin-left: 1.2rem !important;
+  margin-left: 0rem !important;
   }
   .edit-button {
-  margin-left: 70px !important;
+  margin-left: 45px !important;
   }
-  .list-card {
-    max-height: 135px !important;
-    min-height: 25px !important;
-  }
+.invest-card {
+  max-height: 800px;
+}
+
+.iteration {
+  max-height: 680px;
+}
 }
 
 @media (min-width: 812px) {
@@ -238,20 +127,25 @@ a.text-info:hover {
     padding-top: 0px !important;
     padding-bottom: 5px !important;
   }
+  .edit-button {
+  margin-left: 48px !important;
+  }
 }
 
 @media (min-width: 1024px) {
   .jumbotron-fluid {
     padding-top: 80px !important;
-    padding-bottom: 450px !important;
+    padding-bottom: 40px !important;
   }
-          .card-body {
-            max-width: 700px;
-            min-width: 600px;
-           margin-bottom: 70px !important;
-          }
+.invest-card {
+  max-height: 9800px;
+}
+
+.iteration {
+  max-height: 900px;
+}
 .edit-button {
-  margin-left: 60px !important;
+  margin-left: 52px !important;
 }
 }
 
@@ -264,19 +158,19 @@ a.text-info:hover {
   .jumbotron-fluid {
     margin-top: 10px !important;
     padding-top: 0px !important;
-    padding-bottom: 110px !important;
+    padding-bottom: 0px !important;
   }
-  .card-body {
-    margin-bottom: 15px !important;
-  }
+ .invest-card {
+  max-height: 530px;
+}
+
+.iteration {
+  max-height: 410px;
+}
   .itemCreated {
   margin-left: 1.6rem !important;
   }
   .edit-button {
-  margin-left: 80px !important;
-  }
-  .list-card {
-  max-height: 135px !important;
-  min-height: 20px !important;
+  margin-left: 25px !important;
   }
 }

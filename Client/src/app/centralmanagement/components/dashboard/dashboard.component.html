@@ -1,19 +1,19 @@
-<div class="jumbotron-fluid pt-2 pt-md-3 pt-lg-4 pt-xl-2 mb-0 pb-0 mx-auto px-lg-0">
+<div class="jumbotron-fluid pt-2 pt-md-3 pt-lg-4 pt-xl-2 mb-0 pb-4 mx-auto px-lg-0 col-12">
   <div class="global-container container">
     <!-- <div class="row">{{message | async | json }}</div> -->
-    <div class="row">
-      <div class="thunder-col-1 col-6 col-xl-3 mb-3">
+    <div class="row d-flex flex-row justify-content-center">
+      <div class="thunder-col-1 col-6 col-xl-2 mb-3">
         <div class="sm-card-1 card shadow py-0">
           <div class="card-body">
             <div class="row">
-              <div class="col mx-0 px-0 mx-lg-2">
+              <div class="col mx-0 px-0 mx-lg-1">
                 <div class="text-uppercase text-gray font-weight-bold mb-1">
                   <span class="sm-card-title-2">total areas</span>
                 </div>
                 <div class="row">
                   <div class="col-auto">
                     <div class="text-primary font-weight-bold h5 mb-0 pb-0">
-                      <span class="pl-3 pl-sm-4 pb-0">{{totals[0].areas}}</span>
+                      <span class="pl-3 pb-0">{{totals[0].areas}}</span>
                     </div>
                   </div>
                 </div>
@@ -26,11 +26,11 @@
         </div>
       </div>
 
-      <div class="thunder-col-2 col-6 col-xl-3 mb-3">
+      <div class="thunder-col-2 col-6 col-xl-2 mb-3">
         <div class="sm-card-2 card shadow py-0">
           <div class="card-body">
             <div class="row">
-              <div class="col mx-0 px-0 mx-lg-2">
+              <div class="col mx-0 px-0 mx-lg-1">
                 <div class="text-uppercase text-gray font-weight-bold mb-1">
                   <span class="sm-card-title-2">total towns</span>
                 </div>
@@ -53,7 +53,7 @@
         <div class="sm-card-3 card shadow py-0">
           <div class="card-body">
             <div class="row">
-              <div class="col mx-0 px-0 mx-lg-2">
+              <div class="col mx-0 px-0 mx-lg-1">
                 <div class="text-uppercase text-gray font-weight-bold mb-1">
                   <span class="sm-card-title-3">total Stations</span>
                 </div>
@@ -90,6 +90,29 @@
               </div>
               <div class="col-auto align-self-baseline">
                 <i class="fas fa-users text-secondary"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="thunder-col-4 col-6 col-xl-2 mb-3">
+        <div class="sm-card-3 card shadow py-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col mx-0 px-0 mx-lg-2">
+                <div class="text-uppercase text-gray font-weight-bold mb-1">
+                  <span class="sm-card-title-3">sms left</span>
+                </div>
+                <div class="row">
+                  <div class="col-auto">
+                    <div class="text-primary font-weight-bold h5 mb-0 pb-0">
+                      <span class="pl-3 pl-sm-4 pb-0">{{totals[0].clients}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-auto align-self-baseline">
+                <i class="fas fa-sms text-secondary"></i>
               </div>
             </div>
           </div>
@@ -367,11 +390,3 @@
     </div>
   </div>
 </div>
-
-<!--footer -->
-<div
-  class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-3 mx-auto"
->
-  <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
-</div>
-<!--/ footer -->

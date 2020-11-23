@@ -32,10 +32,22 @@ export class SetLoanLimitComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
-      itemLimit: new FormControl('', Validators.compose([Validators.required,
-        CustomValidator.minValue(5000),
-        Validators.minLength(4)
-]))
+      itemLimit: new FormControl(
+        '',
+        Validators.compose([
+          Validators.required,
+          CustomValidator.minValue(5000),
+          Validators.minLength(4),
+        ])
+      ),
+      station_name: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      loan_product: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      )
     });
   }
 

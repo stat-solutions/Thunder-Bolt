@@ -8,11 +8,11 @@ import * as jwt_decode from 'jwt-decode';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 
 @Component({
-  selector: 'app-set-loan-rate',
-  templateUrl: './set-loan-rate.component.html',
-  styleUrls: ['./set-loan-rate.component.scss']
+  selector: 'app-set-loan-tenure',
+  templateUrl: './set-loan-tenure.component.html',
+  styleUrls: ['./set-loan-tenure.component.scss'],
 })
-export class SetLoanRateComponent implements OnInit {
+export class SetLoanTenureComponent implements OnInit {
   userForm: FormGroup;
   errored: boolean;
   serviceErrors: string;
@@ -32,7 +32,7 @@ export class SetLoanRateComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
-      itemRate: new FormControl(
+      loanTenure: new FormControl(
         '',
         Validators.compose([Validators.required, CustomValidator.maxValue(100)])
       ),
@@ -43,7 +43,7 @@ export class SetLoanRateComponent implements OnInit {
       loan_product: new FormControl(
         '',
         Validators.compose([Validators.required])
-      )
+      ),
     });
   }
   revert() {
@@ -54,8 +54,6 @@ export class SetLoanRateComponent implements OnInit {
   }
 
   setRate() {
-
     this.spinner.show();
-
-    }
   }
+}

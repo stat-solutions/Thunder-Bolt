@@ -1,7 +1,6 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  contain: auto;
 }
 
 .card-body {
@@ -11,38 +10,30 @@
 
 .big-card-4 {
   position: relative;
-height: 250px !important;
-    margin-bottom: 20px !important;
+min-height: 250px !important;
+    // margin-bottom: 20px !important;
     contain: auto;
 }
 .big-card-body-4 {
   width: 100%;
   height: auto;
-  margin-bottom: 0px;
-    padding-bottom: 10px;
-  overflow-y: auto;
 }
 .big-card-3 {
   position: relative;
-height: 290px !important;
-    margin-bottom: 20px !important;
+min-height: 220px !important;
+    // margin-bottom: 20px !important;
     contain: auto;
 }
 .big-card-body-3 {
   width: 100%;
   height: auto;
-  margin-bottom: 0px;
-    padding-bottom: 10px;
-  overflow-y: auto;
 }
 .big-card-1 {
   position: relative;
   height: auto;
   min-height: 150px !important;
   max-height: 220px !important;
-  margin-bottom: 20px !important;
     contain: auto;
-  z-index: 1;
 }
 .big-card-body-1 {
   margin-left: 3.6rem !important;
@@ -53,17 +44,19 @@ height: 290px !important;
 .big-card-2 {
   position: relative;
   height: auto;
-    margin-bottom: 20px !important;
     contain: auto;
-  z-index: 1;
 }
-.big-card-body-2 {
-  margin-bottom: 0px;
+
+.iteration {
+  height: auto;
+  min-height: 90px;
+  max-height: 170px;
+  overflow-y: auto;
 }
 
 .item-container {
   position: relative;
-  height: 35px;
+  min-height: 35px;
 }
 
 .list-card {
@@ -88,13 +81,15 @@ height: 290px !important;
   margin-right: 0px !important;
     contain: auto;
 }
+.list-card-body-4 {
+  width: 100%;
+}
 
 .list-card2 {
   position: relative;
   height: auto;
   margin-left: -5px !important;
     contain: auto;
-    // margin-bottom: 0px !important;
 }
 .levelSet {
   position: relative;
@@ -104,61 +99,6 @@ height: 290px !important;
 .itemCreated {
   position: relative;
   margin-left: 5px !important;
-}
-
-button.btn {
-  border-radius: 15px;
-}
-
-.text-info {
-  color: #17aae0ee !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
-}
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee;
-}
-.btn-info:hover,
-.btn-info:focus {
-  color: #d9dbdd;
-  background-color: #17aae0ee;
-  border-color: #17aae0ee;
-}
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 0.2rem #0e99ccee;
-}
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec;
-}
-.btn-infob {
-  color: #7d8388;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn-infob:hover,
-.btn-infob:focus {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn-infob.focus,
-.btn-infob:focus {
-  box-shadow: 0 0 0 0.2rem transparent;
-}
-.btn-infob.disabled,
-.btn-infob:disabled {
-  color: #89898a;
-  background-color: transparent;
-  border-color: transparent;
 }
 
 .pointerCursor {
@@ -356,20 +296,20 @@ height: 72%;
   margin-right: 4.8rem !important;
 }
 .big-card-body-1 img{
-  width: 46.5%;
-height: 46.5%;
+  width: 36.5%;
+height: 36.5%;
 }
   .big-card-3 {
-height: 240px !important;
+height: 250px !important;
 }
   .big-card-4 {
-height: 240px !important;
+height: 230px !important;
   }
 .itemCreated-3 {
-  margin-left: 6.2rem !important
+  margin-left: 2.5rem !important
 }
 .levelSet {
-  margin-left: 11.5rem !important;
+  margin-left: 8rem !important;
 }
 .itemCreated {
   margin-left: 3.8rem !important;

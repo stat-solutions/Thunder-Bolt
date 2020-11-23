@@ -88,6 +88,10 @@ export class LendComponent implements OnInit {
           ),
         ])
       ),
+      loanTenure: new FormControl(
+        '',
+        Validators.compose([Validators.required, CustomValidator.maxValue(100)])
+      ),
       amount_to_borrow: new FormControl(
         { value: '', disabled: true },
         Validators.compose([
