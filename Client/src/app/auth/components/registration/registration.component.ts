@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormControlName } from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
@@ -9,6 +9,13 @@ import { FormBuilder } from '@angular/forms';
 import { UserRole } from 'src/app/shared/models/user-role';
 import { RegisterUser } from 'src/app/shared/models/register';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
+
+const originFormControlNameNgOnChanges = FormControlName.prototype.ngOnChanges;
+FormControlName.prototype.ngOnChanges = function(): any {
+  const result = originFormControlNameNgOnChanges.apply(this, arguments);
+  this.control.nativeElement = this.valueAccessor._elementRef.nativeElement;
+  return result;
+};
 
 @Component({
   selector: 'app-registration',
@@ -48,9 +55,9 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
     this.getRoles();
     this.getUnits();
-    this.others.getAllTheAreaLocations().subscribe(res => console.log(res));
-    this.others.getAllTheTownLocations().subscribe(res => console.log(res));
-    this.others.getAllTheStationLocations().subscribe(res => console.log(res));
+    this.others.getAllTheAreaLocations().subscribe(res => this.areas = res);
+    this.others.getAllTheTownLocations().subscribe(res => this.towns = res);
+    this.others.getAllTheStationLocations().subscribe(res => this.stations = res);
     this.userForm = this.createFormGroup();
     this.myDateValue = new Date();
   }
@@ -180,7 +187,7 @@ getUnits(): any {
   this.others.getBussinessUnitLocations().subscribe(
     res => {
       this.units = res;
-      console.log(this.units);
+      // console.log(this.units);
   },
     err => console.log(err)
   );
@@ -201,29 +208,27 @@ getRoles(): any{
 }
 register(): any {
     this.submitted = true;
-    this.spinner.show();
+    this.spinner.hide();
     if (this.userForm.invalid === true) {
       return;
-    } else if (this.fval.position.value === 'AREA MANAGER' && this.fval.area === ''){
-      this.alertService.success({
-        html:
-          '<b>Area was not selected</b>'
-      });
+    } else if (this.fval.position.value === 'CENTRAL USER' && this.fval.central.value === ''){
+      this.spinner.hide();
+      this.fval.central.nativeElement.focus();
       return;
-    } else if (this.fval.position.value === 'TOWN USER' && this.fval.town === ''){
-      this.alertService.success({
-        html:
-          '<b>Town was not selected</b>'
-      });
+    } else if (this.fval.position.value === 'AREA USER' && this.fval.area.value === ''){
+      this.spinner.hide();
+      this.fval.area.nativeElement.focus();
+      return;
+    } else if (this.fval.position.value === 'TOWN USER' && this.fval.town.value === ''){
+      this.spinner.hide();
+      this.fval.town.nativeElement.focus();
       return;
     } else if (
         (this.fval.position.value === 'STATION USER')
-        && this.fval.station === ''
+        && this.fval.station.value === ''
       ){
-      this.alertService.success({
-        html:
-          '<b>Station was not selected</b>'
-      });
+      this.spinner.hide();
+      this.fval.station.nativeElement.focus();
       return;
     } else {
       this.roles.forEach(role => {
@@ -232,18 +237,33 @@ register(): any {
         }
       });
       if (this.fval.position.value === 'AREA USER'){
-        this.selectedLocation = 1000;
+        this.areas.forEach(area => {
+          if (this.fval.area.value.toString() === area.areaRegionName) {
+            this.selectedLocation = area.theAreaLocationId;
+            // console.log(this.selectedLocation);
+          }
+        });
       } else  if (this.fval.position.value === 'TOWN USER'){
-        this.selectedLocation = 1500;
+        this.towns.forEach(town => {
+          if (this.fval.town.value.toString() === town.townName) {
+            this.selectedLocation = town.theTownLocationId;
+            // console.log(this.selectedLocation);
+          }
+        });
       }  else  if (this.fval.position.value === 'STATION USER' ){
-        this.selectedLocation = 2000;
+        this.stations.forEach(station => {
+          if (this.fval.station.value.toString() === station.stationName) {
+            this.selectedLocation = station.theStationLocationId;
+            // console.log(this.selectedLocation);
+          }
+        });
       } else if (this.fval.position.value === 'ADMIN') {
-        this.selectedLocation = 10000;
+        this.selectedLocation = 1000;
       } else if (this.fval.position.value === 'CENTRAL USER') {
         this.units.forEach(unit => {
           if (this.fval.central.value.toString() === unit.bussinessUnitName) {
             this.selectedLocation = unit.theBusinessUnitId;
-            console.log(this.selectedLocation);
+            // console.log(this.selectedLocation);
           }
         });
       }
@@ -260,33 +280,40 @@ register(): any {
       };
 
       // console.log(this.registerUser);
-      this.authService.registerUser(this.registerUser).subscribe(
-        () => {
-          this.posted = true;
-          this.spinner.hide();
-          this.alertService.success({
-            html:
-              '<b>User Registration Was Successful</b>' +
-              '</br>' +
-              'Wait for verification'
-          });
-          setTimeout(() => {
-            this.router.navigate(['authpage/login']);
-          }, 3000);
-        },
-        (error: string) => {
-          this.spinner.hide();
-          this.errored = true;
-          this.serviceErrors = error;
-          this.alertService.danger({
-            html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-          });
-          setTimeout(() => {
-            // location.reload();
-          }, 5000);
-          console.log(error);
-        }
-      );
+      if ( this.registerUser.locationId === null){
+        this.spinner.hide();
+        this.alertService.danger({
+          html: '<b>' + 'No location address was selected' + '</b>' + '<br/>'
+        });
+      } else {
+            this.authService.registerUser(this.registerUser).subscribe(
+              () => {
+                this.posted = true;
+                this.spinner.hide();
+                this.alertService.success({
+                  html:
+                    '<b>User Registration Was Successful</b>' +
+                    '</br>' +
+                    'Wait for verification'
+                });
+                setTimeout(() => {
+                  this.router.navigate(['authpage/login']);
+                }, 3000);
+              },
+              (error: string) => {
+                this.spinner.hide();
+                this.errored = true;
+                this.serviceErrors = error;
+                this.alertService.danger({
+                  html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
+                });
+                setTimeout(() => {
+                  // location.reload();
+                }, 5000);
+                console.log(error);
+              }
+            );
+      }
       this.spinner.hide();
       this.registered = true;
     }

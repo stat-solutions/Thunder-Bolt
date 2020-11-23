@@ -104,7 +104,7 @@ var AuthServiceService = /** @class */ (function () {
     };
     AuthServiceService.prototype.refreshToken = function () {
         var _this = this;
-        console.log('am refreshing');
+        // console.log('am refreshing');
         return this.http.post(this.API_URL + "/api/user/userRefreshToken", {
             refreshToken: this.getRefreshToken()
         }).pipe(operators_1.tap(function (tokens) {

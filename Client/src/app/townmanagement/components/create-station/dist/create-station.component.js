@@ -28,15 +28,15 @@ var CreateStationComponent = /** @class */ (function () {
     };
     CreateStationComponent.prototype.createFormGroup = function () {
         return this.fb.group({
-            selectedAreas: this.fb.array([this.selectArea]),
+            selectedStations: this.fb.array([this.selectStation]),
             selectAll: this.fb.control({})
         });
     };
-    Object.defineProperty(CreateStationComponent.prototype, "selectArea", {
+    Object.defineProperty(CreateStationComponent.prototype, "selectStation", {
         get: function () {
             return this.fb.group({
-                areaId: this.fb.control({ value: '' }),
-                areaName: this.fb.control({ value: '' }),
+                stationId: this.fb.control({ value: '' }),
+                stationName: this.fb.control({ value: '' }),
                 approved: this.fb.control({})
             });
         },
@@ -45,27 +45,27 @@ var CreateStationComponent = /** @class */ (function () {
     });
     CreateStationComponent.prototype.addItem = function () {
         // this.unitForm.controls.bussinessUnits  as FormArray
-        this.fval.selectedAreas.push(this.selectArea);
+        this.fval.selectedStations.push(this.selectStation);
     };
     CreateStationComponent.prototype.removeItem = function (index) {
-        this.fval.selectedAreas.removeAt(index);
+        this.fval.selectedStations.removeAt(index);
     };
     CreateStationComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
         this.others.getAreas().subscribe(function (units) {
-            _this.approvedAreas = units;
-            // console.log(this.approvedAreas)
-            _this.approvedAreas.forEach(function (item, i) {
+            _this.approvedStations = units;
+            // console.log(this.approvedStations)
+            _this.approvedStations.forEach(function (item, i) {
                 // console.log(item.areaName);
                 // console.log(i);
-                // this.fval.selectedAreas.controls[i].controls.areaId.setValue(
+                // this.fval.selectedStations.controls[i].controls.areaId.setValue(
                 //   item.areaRegionId
                 // );
-                // this.fval.selectedAreas.controls[i].controls.areaName.setValue(
+                // this.fval.selectedStations.controls[i].controls.areaName.setValue(
                 //   item.areaName
                 // );
-                _this.fval.selectedAreas.controls[i].controls.approved.setValue(false);
+                _this.fval.selectedStations.controls[i].controls.approved.setValue(false);
                 _this.addItem();
                 n = i + 1;
             });
@@ -75,19 +75,19 @@ var CreateStationComponent = /** @class */ (function () {
     CreateStationComponent.prototype.checkAllItems = function (val) {
         var _this = this;
         if (val === true) {
-            this.approvedAreas.forEach(function (item, i) {
-                _this.fval.selectedAreas.controls[i].controls.approved.setValue(val);
+            this.approvedStations.forEach(function (item, i) {
+                _this.fval.selectedStations.controls[i].controls.approved.setValue(val);
             });
         }
         else {
-            this.approvedAreas.forEach(function (item, i) {
-                _this.fval.selectedAreas.controls[i].controls.approved.setValue(false);
+            this.approvedStations.forEach(function (item, i) {
+                _this.fval.selectedStations.controls[i].controls.approved.setValue(false);
             });
         }
     };
     CreateStationComponent.prototype.deselectAll = function (val) {
         // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-        if (this.fval.selectedAreas.controls[val].controls.approved.value === true) {
+        if (this.fval.selectedStations.controls[val].controls.approved.value === true) {
             this.fval.selectAll.setValue(false);
         }
     };
@@ -113,8 +113,8 @@ var CreateStationComponent = /** @class */ (function () {
     CreateStationComponent.prototype.approveItems = function () {
         var _this = this;
         var areasSelected = [];
-        this.approvedAreas.forEach(function (item, i) {
-            if (_this.fval.selectedAreas.controls[i].controls.approved.value === true) {
+        this.approvedStations.forEach(function (item, i) {
+            if (_this.fval.selectedStations.controls[i].controls.approved.value === true) {
                 areasSelected.push({
                     areaRegionId: item.areaRegionId,
                     theBusinessUnitId: _this.User.userLocationId,

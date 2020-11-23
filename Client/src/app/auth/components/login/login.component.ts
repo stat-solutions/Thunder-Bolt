@@ -146,11 +146,11 @@ export class LoginComponent implements OnInit {
                     html: '<strong>Signed In Successfully</strong>'
                   });
                   console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType);
-                  if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType === 2) {
+                  if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType === 1) {
                     setTimeout(() => {
                       this.router.navigate(['/stationmanagement']);
                     }, 1000);
-                  } else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType === 1) {
+                  } else if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType === 2) {
                     setTimeout(() => {
                       this.router.navigate(['/stationofficer']);
                     }, 1000);

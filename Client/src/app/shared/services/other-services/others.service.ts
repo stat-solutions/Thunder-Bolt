@@ -200,6 +200,34 @@ export class OthersService {
       return this.http.post(`${this.API_URL}/api/stationUser/postSetupStationManager`, postData, this.httpOptions);
     }
 
+//  bussiness section
+    createTaxiPark(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiPark`, postData, this.httpOptions);
+    }
+    createTaxiStage(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiStatage`, postData, this.httpOptions);
+    }
+    createBodaCluster(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaCluster`, postData, this.httpOptions);
+    }
+    createBodaStage(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaStage`, postData, this.httpOptions);
+    }
+    getProducts(): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/ api/customer/getheTheProducts`);
+    }
+    createCustomer(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postCreateCustomer`, postData, this.httpOptions);
+    }
+    createBodaCustomer(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaCustomer`, postData, this.httpOptions);
+    }
+    createTaxiCustomer(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiCustomer`, postData, this.httpOptions);
+    }
+    createMicroloanCustomer(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postCreateMicroloanCustomer`, postData, this.httpOptions);
+    }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 
       if (errorResponse.error instanceof ErrorEvent) {

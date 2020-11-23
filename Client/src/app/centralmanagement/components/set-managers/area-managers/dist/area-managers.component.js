@@ -103,7 +103,7 @@ var AreaManagersComponent = /** @class */ (function () {
         });
     };
     AreaManagersComponent.prototype.saveManager = function (index) {
-        if (this.fval.areaManagers.controls[index]) {
+        if (this.fval.areaManagers.controls[index].valid) {
             this.fval.areaManagers.controls[index].disable();
             this.showLevels = null;
             var data = {

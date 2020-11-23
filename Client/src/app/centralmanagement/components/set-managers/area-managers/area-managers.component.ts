@@ -132,7 +132,7 @@ enableEdit(val: number): any {
   }
 
 saveManager(index: any): any {
-  if (this.fval.areaManagers.controls[index]) {
+  if (this.fval.areaManagers.controls[index].valid) {
     this.fval.areaManagers.controls[index].disable();
     this.showLevels = null;
     const data = {

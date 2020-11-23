@@ -72,7 +72,7 @@ export class TownManagersComponent implements OnInit {
     this.others.getAllTheTownLocations().subscribe(
       res => {
         this.townsManager = res;
-        console.log(this.townsManager)
+        console.log(this.townsManager);
         this.townsManager.forEach((item, i) => {
         this.fval.townManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
           // this.fval.approvalItems.controls[i].controls.id.setValue(item.itemRequiringApprovalId);

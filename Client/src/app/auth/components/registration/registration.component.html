@@ -137,10 +137,10 @@
           autocomplete="off"
           placeholder="Select the ID type"
         >
-          <option>National ID</option>
-          <option>Passport Number</option>
-          <option>Driving Permit</option>
-          <option>Village ID</option>
+          <option>NATIONAL ID</option>
+          <option>PASSPORT NUMBER</option>
+          <option>DRIVING PERMIT</option>
+          <option>VILLAGE ID</option>
         </select>
     </div>
         <div
@@ -408,7 +408,7 @@
             
           > <option></option>
             <option  *ngFor="let area of areas">
-              {{area}}
+              {{area.areaRegionName}}
             </option>
           </select>
       </div>
@@ -444,7 +444,7 @@
             placeholder="Select town"
           ><option></option>
             <option *ngFor="let town of towns">
-              {{town.name}}
+              {{town.townName}}
             </option>
           </select>
       </div>
@@ -480,8 +480,9 @@
             autocomplete="off"
             placeholder="Select station"
             >
+            <option></option>
             <option   *ngFor="let station of stations">
-              {{station.name}}
+              {{station.stationName}}
             </option>
           </select>
           </div>
