@@ -68,7 +68,7 @@ export class LeftPanelCentralComponent implements OnInit {
       },
       {
         name: 'Select the Area',
-        icon: 'fas fa-user-check',
+        icon: 'fas fa-map-pin',
         url: '/centralmanagement/selectarea'
       },
       {
@@ -78,7 +78,7 @@ export class LeftPanelCentralComponent implements OnInit {
       },
       {
         name: 'Managers',
-        icon: 'fas fa-user-check',
+        icon: 'fas fa-users',
         url: '/centralmanagement/managers',
         subMenu: [
           {

@@ -217,11 +217,17 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.createTaxiPark = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateTaxiPark", postData, this.httpOptions);
     };
+    OthersService.prototype.getTaxiParks = function () {
+        return this.http.get(this.API_URL + "/api/customer/getTaxiParks");
+    };
     OthersService.prototype.createTaxiStage = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateTaxiStatage", postData, this.httpOptions);
     };
     OthersService.prototype.createBodaCluster = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaCluster", postData, this.httpOptions);
+    };
+    OthersService.prototype.getBodaClusters = function () {
+        return this.http.get(this.API_URL + "/api/customer/getBodabodaStages");
     };
     OthersService.prototype.createBodaStage = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaStage", postData, this.httpOptions);

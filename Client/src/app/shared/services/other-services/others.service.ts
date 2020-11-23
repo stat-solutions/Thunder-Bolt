@@ -204,11 +204,17 @@ export class OthersService {
     createTaxiPark(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiPark`, postData, this.httpOptions);
     }
+    getTaxiParks(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getTaxiParks`);
+    }
     createTaxiStage(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiStatage`, postData, this.httpOptions);
     }
     createBodaCluster(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaCluster`, postData, this.httpOptions);
+    }
+    getBodaClusters(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getBodabodaStages`);
     }
     createBodaStage(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaStage`, postData, this.httpOptions);

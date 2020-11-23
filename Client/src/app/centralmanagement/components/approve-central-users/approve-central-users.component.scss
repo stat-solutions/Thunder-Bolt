@@ -1,3 +1,4 @@
+
 .jumbotron-fluid {
   height: inherit !important;
 }
@@ -20,7 +21,7 @@
 }
 .iteration {
   height: auto;
-  min-height: 150px;
+  min-height: 45px;
   max-height: 300px;
   overflow-y: auto;
 }
@@ -34,76 +35,6 @@
 }
 .list-card-body {
   width: 100%;
-}
-
-.btn {
-  padding: .340rem .35rem;
-  font-size: .8rem;
-  line-height: 1.0;
-  border-radius: 15px;
-}
-
-.text-info {
-  color: #17aae0ee !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
-}
-
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee;
-}
-
-.btn-info:hover,
-.btn-info:focus {
-  color: #d9dbdd;
-  background-color: #17aae0ee;
-  border-color: #17aae0ee;
-}
-
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 0.2rem #0e99ccee;
-}
-
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec;
-}
-
-.btn-infob {
-  color: #7d8388;
-  background-color: transparent;
-  border-color: transparent;
-}
-
-.btn-infob:hover,
-.btn-infob:focus {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: transparent;
-}
-
-.btn-infob.focus,
-.btn-infob:focus {
-  box-shadow: 0 0 0 0.2rem transparent;
-}
-
-.btn-infob.disabled,
-.btn-infob:disabled {
-  color: #89898a;
-  background-color: transparent;
-  border-color: transparent;
-}
-
-.pointerCursor {
-  cursor: pointer;
 }
 
 
@@ -161,10 +92,6 @@ a.text-info:hover {
   .jumbotron-fluid {
       padding-bottom: 1rem !important;
   }
-  .card-body {
-            max-width: 710px;
-            min-width: 590px;
-  }
 .iteration {
   max-height: 650px;
 }
@@ -181,10 +108,6 @@ a.text-info:hover {
   .jumbotron-fluid {
       padding-bottom: 2rem !important;
   }
-  .card-body {
-            max-width: 900px;
-            min-width: 680px;
-  }
 .iteration {
   max-height: 970px;
 }
@@ -196,15 +119,9 @@ a.text-info:hover {
   .container {
       margin-left: auto !important;
       margin-right: auto !important;
-            max-width: 1000px;
-            min-width: 900px;
   }
   .jumbotron-fluid {
       padding-bottom: .4rem !important;
-  }
-  .card-body {
-            max-width: 900px;
-            min-width: 680px;
   }
 .iteration {
   max-height: 320px;

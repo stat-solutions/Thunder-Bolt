@@ -18,39 +18,6 @@
 contain: auto;
 }
 
-button.btn {
-  border-radius: 15px;
-}
-
-.text-info {
-  color: #17aae0ee !important
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important
-}
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee
-}
-  .btn-info:hover, .btn-info:focus {
-    color: #d9dbdd;
-    background-color: #17aae0ee;
-    border-color: #17aae0ee
-  }
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 .2rem #0e99ccee
-}
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec
-}
-
 .pointerCursor {
   cursor: pointer;
 }

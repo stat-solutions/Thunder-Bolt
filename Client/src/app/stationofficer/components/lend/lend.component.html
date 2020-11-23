@@ -243,6 +243,60 @@
             Please enter valid amount to borrow!
           </div>
         </div>
+                <div class="form-group text-primary">
+                    <label for="loanTenure" [ngClass]="fval.loanTenure.valid ? 'text-info' : ''">Tenure<i *ngIf="fval.loanTenure.valid" class="material-icons"
+              >check_circle</i
+            ></label
+          >
+          <div class="input-group mb-0">
+            <input
+            id="loanTenure"
+            formControlName="loanTenure"
+            type="number"
+            class="level-control form-control mx-0"
+            min="0"
+            max="100"
+            [ngClass]="{
+              'is-invalid':
+              (fval.loanTenure.touched || fval.loanTenure.dirty) &&
+              fval.loanTenure.errors
+            }"
+            autocomplete="off"
+            /><i *ngIf="fval.loanTenure.valid" class="material-icons"
+              >check_circle</i
+            >
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.loanTenure.touched || fval.loanTenure.dirty) &&
+              fval.loanTenure.errors?.required
+            "
+          >
+            The loan tenure is required!
+          </div>
+          <div
+          class="col"
+          *ngIf="
+            (fval.loanTenure.touched || fval.loanTenure.dirty) &&
+            fval.loanTenure.invalid
+          "
+          [ngClass]="
+            fval.loanTenure.errors?.required ||
+            fval.loanTenure.errors?.maxlength
+              ? 'text-danger'
+              : 'text-info'
+          "
+        >
+          <i class="material-icons">{{
+            fval.loanTenure.errors?.required ||
+            fval.loanTenure.errors?.maxlength
+              ? "cancel"
+              : "check_circle"
+          }}</i>
+          The loan tenure should be a maximum of 100!
+        </div>
+        </div>
 
         <div class="form-group text-primary">
           <label for="pin" [ngClass]="fval.pin.valid ? 'text-info' : ''"

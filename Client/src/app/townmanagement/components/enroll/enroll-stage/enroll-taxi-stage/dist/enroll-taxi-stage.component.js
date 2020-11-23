@@ -10,7 +10,6 @@ exports.EnrollTaxiStageComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
-var jwt_decode = require("jwt-decode");
 var EnrollTaxiStageComponent = /** @class */ (function () {
     function EnrollTaxiStageComponent(authService, others, spinner, router, alertService) {
         this.authService = authService;
@@ -58,7 +57,8 @@ var EnrollTaxiStageComponent = /** @class */ (function () {
         configurable: true
     });
     EnrollTaxiStageComponent.prototype.taxiParks = function () {
-        // this.others.
+        var _this = this;
+        this.others.getTaxiParks().subscribe(function (res) { return _this.parks = res; }, function (err) { return console.log(err); });
     };
     EnrollTaxiStageComponent.prototype.onSubmit = function () {
         this.submitted = true;
@@ -67,10 +67,6 @@ var EnrollTaxiStageComponent = /** @class */ (function () {
             return;
         }
         else {
-            this.userForm.patchValue({
-                user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-                user_id: jwt_decode(this.authService.getJwtToken()).user_id
-            });
         }
     };
     EnrollTaxiStageComponent = __decorate([

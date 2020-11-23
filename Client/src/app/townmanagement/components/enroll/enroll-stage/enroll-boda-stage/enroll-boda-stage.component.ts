@@ -29,7 +29,7 @@ export class EnrollBodaStageComponent implements OnInit {
 
   constructor(
     private authService: AuthServiceService,
-    private ohers: OthersService,
+    private others: OthersService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService
@@ -80,7 +80,10 @@ export class EnrollBodaStageComponent implements OnInit {
   }
 
   bodaClusters(): any {
-
+    this.others.getBodaClusters().subscribe(
+      res => this.clusters = res,
+      err => console.log(err)
+    );
   }
 
   onSubmit(): any {
@@ -90,10 +93,6 @@ export class EnrollBodaStageComponent implements OnInit {
     if (this.userForm.invalid === true) {
       return;
     } else {
-      this.userForm.patchValue({
-        user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-        user_id: jwt_decode(this.authService.getJwtToken()).user_id
-      });
     }
   }
 }

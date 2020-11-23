@@ -83,7 +83,10 @@ export class EnrollTaxiStageComponent implements OnInit {
   }
 
   taxiParks(): any {
-    // this.others.
+    this.others.getTaxiParks().subscribe(
+      res => this.parks = res,
+      err => console.log(err)
+    );
   }
 
   onSubmit(): any {
@@ -92,11 +95,7 @@ export class EnrollTaxiStageComponent implements OnInit {
 
     if (this.userForm.invalid === true) {
       return;
-    } else {
-      this.userForm.patchValue({
-        user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-        user_id: jwt_decode(this.authService.getJwtToken()).user_id
-      });
+    } else {  
     }
   }
 }

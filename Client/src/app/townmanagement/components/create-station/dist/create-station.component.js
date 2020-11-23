@@ -53,18 +53,12 @@ var CreateStationComponent = /** @class */ (function () {
     CreateStationComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.others.getAreas().subscribe(function (units) {
+        this.others.getAllTheStationLocations().subscribe(function (units) {
             _this.approvedStations = units;
             // console.log(this.approvedStations)
             _this.approvedStations.forEach(function (item, i) {
-                // console.log(item.areaName);
-                // console.log(i);
-                // this.fval.selectedStations.controls[i].controls.areaId.setValue(
-                //   item.areaRegionId
-                // );
-                // this.fval.selectedStations.controls[i].controls.areaName.setValue(
-                //   item.areaName
-                // );
+                _this.fval.selectedStations.controls[i].controls.stationId.setValue(item.theStationLocationId);
+                _this.fval.selectedStations.controls[i].controls.stationName.setValue(item.stationName);
                 _this.fval.selectedStations.controls[i].controls.approved.setValue(false);
                 _this.addItem();
                 n = i + 1;
@@ -112,19 +106,19 @@ var CreateStationComponent = /** @class */ (function () {
     };
     CreateStationComponent.prototype.approveItems = function () {
         var _this = this;
-        var areasSelected = [];
+        var stationsSelected = [];
         this.approvedStations.forEach(function (item, i) {
             if (_this.fval.selectedStations.controls[i].controls.approved.value === true) {
-                areasSelected.push({
-                    areaRegionId: item.areaRegionId,
-                    theBusinessUnitId: _this.User.userLocationId,
+                stationsSelected.push({
+                    theStationLocationId: item.theStationLocationId,
+                    locationId: _this.User.userLocationId,
                     userId: _this.User.userId
                 });
             }
         });
-        // console.log(AreasSelected.length);
-        if (areasSelected.length > 0) {
-            this.others.createTheArea(areasSelected).subscribe(function (res) {
+        // console.log(stationsSelected);
+        if (stationsSelected.length > 0) {
+            this.others.createTheStation(stationsSelected).subscribe(function (res) {
                 setTimeout(function () {
                     _this.refresh();
                 }, 3000);

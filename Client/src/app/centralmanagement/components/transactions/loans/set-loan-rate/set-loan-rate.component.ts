@@ -32,12 +32,19 @@ export class SetLoanRateComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
-      itemRate: new FormControl('', Validators.compose([Validators.required,
-              CustomValidator.maxValue(100)
-        ])
-
-    )
-  });
+      itemRate: new FormControl(
+        '',
+        Validators.compose([Validators.required, CustomValidator.maxValue(100)])
+      ),
+      station_name: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      loan_product: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      )
+    });
   }
   revert() {
     this.userForm.reset();

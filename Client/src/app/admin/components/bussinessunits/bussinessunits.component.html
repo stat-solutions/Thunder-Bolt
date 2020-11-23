@@ -1,25 +1,25 @@
-<div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-md-0 pt-0 pb-4 shadow-lg col-xs-12 col-lg-10">
-    <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1">
-        <div class="container mt-3 mx-0 shadow-lg">
+<div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-0 pb-3 pb-lg-5 pb-xl-3 shadow-lg col-12 col-lg-10">
+    <div class="jumbotron-fluid mx-0 px-0 mb-0 mb-lg-5 mb-xl-1 pb-1 pb-lg-5 pb-xl-2 col-12 col-md-11">
+        <div class="container mt-1 mt-md-3 mt-xl-1 mx-0 shadow-lg col-12">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
+                    <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
                         Business Unit Setup
-                    </h2>
+                    </h3>
                 </div>
             </div>
         </div>
-    <div class="invest-card card-body mt-2 pt-4 mb-3 mx-auto pb-0 shadow-lg">
+    <div class="invest-card card-body mt-2 pt-4 mb-3 mx-auto pb-3 shadow-lg">
       <form [formGroup]="unitForm">
         <div class="row">
-          <div class="col-12 col-md-12">
+          <div class="col-12">
             <div class="form-group text-secondary">
               <div class="input-group mb-0">
                 <input
                   id="bussinessUnitName"
                   formControlName="bussinessUnitName"
                   type="text"
-                  class="form-control col-lg-8"
+                  class="form-control col-sm-7 col-md-6 col-lg-5"
                   placeholder="Enter name to create unit"
                   autocomplete="off"
                   [ngClass]="{
@@ -30,7 +30,7 @@
                   }"
                 />
                 &nbsp;
-                <button type="button" class="btn btn-info mx-auto mx-lg-0 px-lg-4"
+                <button type="button" class="btn btn-info mx-auto mx-sm-0 px-lg-4"
                 (click)= "createUnit()"
                 >
                   Create
@@ -44,22 +44,22 @@
             <div class="col-7">
               <h4 class="text-center text-info">Unit</h4>
             </div>
-            <div class="col-5">
+            <div class="col-5 justify-content-center">
               <h4 class="text-center text-info">Action</h4>
             </div>
           </div>
         </div>
-        <div class="iteration mt-1"
+        <div class="iteration mt-1 mb-3 py-0"
         formArrayName= "bussinessUnits"
         >
-        <div class="item-container"
+        <div class="item-container my-1 py-0"
         *ngFor="let units of fval.bussinessUnits['controls'];let i = index"
             >
           <div
-            class="list-card card mt-1 pt-1 mb-0 mx-0 px-0 pb-0 shadow-lg" [formGroupName]="i"
+            class="list-card card my-0 py-1 mx-0 px-0 shadow-lg" [formGroupName]="i"
           >
-            <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0 px-3" >
-              <div class="row mt-0 pt-0 mb-0 pb-0" >
+            <div class="list-card-body card-body my-0 py-0 mx-0 px-3" >
+              <div class="row my-0 py-0" >
                 <div class="col-7">
                   <div class="form-group text-primary">
                     <input
@@ -76,20 +76,20 @@
                     />
                   </div>
                 </div>
-                <div class="col-5">
+                <div class="col-5 d-flex justify-content-center">
                   <button
-                    class="edit-button btn-sm btn-infob col-3 ml-3 py-1 px-2"
+                    class="edit-button btn-sm btn-infob col-3 ml-0 ml-sm-3 pt-0 pb-3 px-2"
                     (click)= "editUnit(i)"
                   >
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-edit" tooltip="Edit" placement="right"></i>
                   </button>
                   &nbsp;
                   <button
-                    class="save-button btn-sm btn-infob col-3 mr-3 py-1 px-2"
+                    class="save-button btn-sm btn-infob col-3 mr-3 pt-1 pb-3 px-2"
                     [disabled] = "fval.bussinessUnits['controls'][i].pristine || fval.bussinessUnits['controls'][i].invalid"
                     (click)="saveUnit(i)"
                   >
-                    <i class="fas fa-save"></i>
+                    <i class="fas fa-save" tooltip="Save" placement="right"></i>
                   </button>
                                 </div>
                             </div>
@@ -101,8 +101,3 @@
     </div>
     </div>
     </div>
-<!--footer -->
-<div class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-3 mx-auto">
-    <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
-</div>
-<!--/ footer -->

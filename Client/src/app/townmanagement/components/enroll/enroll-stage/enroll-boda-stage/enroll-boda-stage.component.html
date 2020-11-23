@@ -41,28 +41,29 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
             >check_circle</i
           >cluster</label
         >
-        <div class="input-group mb-2">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <i class="fas fa-user-cog text-primary mx-auto" style="size: 50px;">
-              </i>
-            </div>
-          </div>
-          <select
-          formControlName="cluster"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid':
-              (fval.cluster.touched || fval.cluster.dirty) &&
-              fval.cluster.errors
-          }"
-          autocomplete="off"
-          placeholder="Select the cluster"
-        >
-          <option></option>
-          <option *ngFor="let cluster of clusters; let i = index">{{cluster}}</option>
-        </select></div>
-      </div>
+        <div class="input-group mb-2"> 
+          <input
+              type="text"
+              list="cluster"
+              formControlName="cluster"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.cluster.touched ||
+                    fval.cluster.dirty) &&
+                  fval.cluster.errors
+              }"
+              autocomplete="off"
+              placeholder="Select a cluster"
+            />
+            <!-- clusters -->
+            <datalist id="cluster">
+              <option *ngFor="let cluster of clusters">
+                {{ cluster }}
+              </option>
+            </datalist>
+</div>
+    </div>
 <div class="form-group text-primary">
         <label for="bodabodaStageChairmanName" [ngClass]="fval.bodabodaStageChairmanName.valid ? 'text-info' : ''">Chairman's Name<i  *ngIf="fval.bodabodaStageChairmanName.valid" class="material-icons">check_circle</i></label>
         <div class="input-group mb-0">

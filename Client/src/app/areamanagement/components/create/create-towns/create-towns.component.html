@@ -4,7 +4,7 @@
           <div class="row">
               <div class="col-12">
                   <h2 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
-                      Select  an area or areas ready to operate
+                      Select  a town or towns ready to operate under your area
                   </h2>
               </div>
           </div>
@@ -25,10 +25,10 @@
                       />
                       </div>
                       <div class="col-4">
-                          <h4 class="text-center text-info">Area ID</h4>
+                          <h4 class="text-center text-info">Town ID</h4>
                       </div>
                       <div class="col-6">
-                          <h4 class="text-center text-info">Area Name</h4>
+                          <h4 class="text-center text-info">Town Name</h4>
                       </div>
                       <!-- <div class="col-3">
                           <h4 class="text-center text-info">Role</h4>
@@ -38,10 +38,10 @@
                       </div> -->
                   </div>
               </div>
-             <div class="iteration" formArrayName="selectedAreas">
+             <div class="iteration" formArrayName="selectedTowns">
               <div
                   class="item-container mt-1"
-                  *ngFor="let items of fval.selectedAreas['controls'];let idx = index"
+                  *ngFor="let items of fval.selectedTowns['controls'];let idx = index"
               >
                   <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
                       <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
@@ -58,12 +58,12 @@
                               </div>
                               <div class="col-4 pl-1 text-center">
                                   <span class="itemCreated">
-                                      {{fval.selectedAreas["controls"][idx]["controls"].areaId.value}}
+                                      {{fval.selectedTowns["controls"][idx]["controls"].townId.value}}
                                   </span>
                               </div>
                               <div class="col-6 text-center">
                                   <span class="itemCreated">
-                                      {{fval.selectedAreas["controls"][idx]["controls"].areaName.value}}
+                                      {{fval.selectedTowns["controls"][idx]["controls"].townName.value}}
                                   </span>
                               </div>
                               <!-- <div class="col-3 text-center">

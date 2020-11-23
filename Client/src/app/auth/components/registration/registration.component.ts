@@ -268,7 +268,7 @@ register(): any {
         });
       }
       this.registerUser = {
-        userName: this.fval.full_name.value,
+        userName: this.fval.full_name.value.toUpperCase(),
         userEmail1: this.fval.email.value,
         userPhone1: `${this.fval.user_contact_number.value}`,
         userIdType: this.fval.id_type.value,

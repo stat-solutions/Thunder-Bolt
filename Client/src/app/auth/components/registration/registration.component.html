@@ -408,7 +408,7 @@
             
           > <option></option>
             <option  *ngFor="let area of areas">
-              {{area.areaRegionName}}
+              {{area.areaRegionName.toUpperCase()}}
             </option>
           </select>
       </div>
@@ -444,7 +444,7 @@
             placeholder="Select town"
           ><option></option>
             <option *ngFor="let town of towns">
-              {{town.townName}}
+              {{town.townName.toUpperCase()}}
             </option>
           </select>
       </div>
@@ -482,7 +482,7 @@
             >
             <option></option>
             <option   *ngFor="let station of stations">
-              {{station.stationName}}
+              {{station.stationName.toUpperCase()}}
             </option>
           </select>
           </div>

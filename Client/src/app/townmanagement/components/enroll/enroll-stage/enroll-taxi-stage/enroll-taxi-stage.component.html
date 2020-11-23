@@ -40,29 +40,30 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
           [ngClass]="fval.park.valid ? 'text-info' : ''"
           ><i *ngIf="fval.park.valid" class="material-icons"
             >check_circle</i
-          >park</label
+          >Park</label
         >
         <div class="input-group mb-0">
-          <div class="input-group-prepend">
-            <div class="input-group-text">
-              <i class="fas fa-user-cog text-primary mx-auto" style="size: 50px;">
-              </i>
-            </div>
-          </div>
-          <select
-          formControlName="park"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid':
-              (fval.park.touched || fval.park.dirty) &&
-              fval.park.errors
-          }"
-          autocomplete="off"
-          placeholder="Select the park"
-        >
-          <option></option>
-          <option *ngFor="let park of parks; let i = index">{{park}}</option>
-        </select></div>
+          <input
+              type="text"
+              list="park"
+              formControlName="park"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.park.touched ||
+                    fval.park.dirty) &&
+                  fval.park.errors
+              }"
+              autocomplete="off"
+              placeholder="Select a taxi park"
+            />
+            <!-- taxi parks -->
+            <datalist id="park">
+              <option *ngFor="let park of taxiParks">
+                {{ park }}
+              </option>
+            </datalist>
+        </div>
       </div>
 <div class="form-group text-primary">
         <label for="taxiStageChairmanName" [ngClass]="fval.taxiStageChairmanName.valid ? 'text-info' : ''">Chairman's Name<i  *ngIf="fval.taxiStageChairmanName.valid" class="material-icons">check_circle</i></label>
