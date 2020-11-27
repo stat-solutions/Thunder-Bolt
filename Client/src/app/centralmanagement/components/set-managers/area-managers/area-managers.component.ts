@@ -10,12 +10,6 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-
-export interface Approvals {
-  name: string;
-  level: string;
-}
-
 @Component({
   selector: 'app-area-managers',
   templateUrl: './area-managers.component.html',
@@ -30,8 +24,6 @@ export class AreaManagersComponent implements OnInit {
   serviceErrors: string;
   status: boolean;
   checkedOk: boolean;
-  station: string;
-  theCompany: string;
   User = this.authService.loggedInUserInfo();
   users: any;
   areasManager: any;
@@ -57,7 +49,6 @@ export class AreaManagersComponent implements OnInit {
       areaName: this.fb.control({ value: '' }),
       areaId: this.fb.control({ value: '' }),
       currentManager: this.fb.control({ value: '' }),
-      selectedManagerId: this.fb.control({ value: '' }),
       selectedManager: this.fb.control(
         {value: ''},
         Validators.compose([
@@ -79,17 +70,17 @@ export class AreaManagersComponent implements OnInit {
     this.others.getAllTheAreaLocations().subscribe(
       res => {
         this.areasManager = res;
-        console.log(this.areasManager);
+        // console.log(this.areasManager);
         this.areasManager.forEach((item, i) => {
-          this.fval.areaManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
+          this.fval.areaManagers.controls[i].controls.areaName.setValue(item.areaRegionName.replace(/_/g, ' ').toUpperCase());
           this.fval.areaManagers.controls[i].controls.areaId.setValue(item.theAreaLocationId);
-          this.fval.areaManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
-          this.fval.areaManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
-          this.fval.areaManagers.controls[i].controls.selectedManagerId.setValue(item.manager.toUpperCase());
+          this.fval.areaManagers.controls[i].controls.currentManager.setValue(item.userName.toUpperCase());
+          this.fval.areaManagers.controls[i].controls.selectedManager.setValue(item.userName.toUpperCase());
           this.addItem();
           n = i + 1;
         });
         this.removeItem(n);
+        // console.log(this.fval.areaManagers);
         this.disableForms();
 
       },
@@ -117,35 +108,42 @@ disableForms(): any {
 
 enableEdit(val: number): any {
     this.showLevels = val;
-    this.areasManager.forEach((itm, i) => {
-      if (i === val) {
-        this.others.getUsersByLocation(itm.theAreaLocationId).subscribe(
-          res => {
-            this.users = res;
-            console.log(this.users);
-          },
-          err => console.log(err)
-        );
-        this.fval.areaManagers.controls[i].enable();
-      }
-    });
+    this.others.getUsersByLocation(this.fval.areaManagers.controls[val].controls.areaId.value).subscribe(
+      res => {
+        this.users = res;
+        // console.log(this.users);
+      },
+      err => console.log(err)
+    );
+    this.fval.areaManagers.controls[val].enable();
   }
 
 saveManager(index: any): any {
   if (this.fval.areaManagers.controls[index].valid) {
+    const data = {
+      theAreaLocationId: this.fval.areaManagers.controls[index].controls.areaId.value,
+      userId: null
+  };
+    // console.log(this.fval.areaManagers.controls[index].controls.selectedManager.value);
+    this.users.forEach((item) => {
+    if (item.userName.toUpperCase() === this.fval.areaManagers.controls[index].controls.selectedManager.value) {
+        data.userId = item.userId;
+    } else {
+      // console.log(item);
+    }
+  });
     this.fval.areaManagers.controls[index].disable();
     this.showLevels = null;
-    const data = {
-        // theAreaLocationId: ,
-        // userId:
-    };
-    console.log(data);
-    // this.others.setAreaManager(data).subscribe(
-    //   res => {
-    //     // console.log(res);
-    //   },
-    //   err => console.log(err)
-    // );
+    // console.log(data);
+    this.others.setAreaManager(data).subscribe(
+      res => {
+        // console.log(res);
+        this.fval.areaManagers.controls[index].controls.currentManager.setValue(
+          this.fval.areaManagers.controls[index].controls.selectedManager.value
+        );
+      },
+      err => console.log(err)
+    );
     } else {
       return;
     }

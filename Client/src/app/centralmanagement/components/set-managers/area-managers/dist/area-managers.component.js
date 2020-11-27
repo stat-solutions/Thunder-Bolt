@@ -9,6 +9,8 @@ exports.__esModule = true;
 exports.AreaManagersComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+// import { BsModalService } from 'ngx-bootstrap/modal';
+// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 var AreaManagersComponent = /** @class */ (function () {
     function AreaManagersComponent(others, authService, router, spinner, alertService, fb) {
         this.others = others;
@@ -35,7 +37,6 @@ var AreaManagersComponent = /** @class */ (function () {
                 areaName: this.fb.control({ value: '' }),
                 areaId: this.fb.control({ value: '' }),
                 currentManager: this.fb.control({ value: '' }),
-                selectedManagerId: this.fb.control({ value: '' }),
                 selectedManager: this.fb.control({ value: '' }, forms_1.Validators.compose([
                     forms_1.Validators.required,
                 ]))
@@ -55,17 +56,17 @@ var AreaManagersComponent = /** @class */ (function () {
         var n;
         this.others.getAllTheAreaLocations().subscribe(function (res) {
             _this.areasManager = res;
-            console.log(_this.areasManager);
+            // console.log(this.areasManager);
             _this.areasManager.forEach(function (item, i) {
-                _this.fval.areaManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
+                _this.fval.areaManagers.controls[i].controls.areaName.setValue(item.areaRegionName.replace(/_/g, ' ').toUpperCase());
                 _this.fval.areaManagers.controls[i].controls.areaId.setValue(item.theAreaLocationId);
-                _this.fval.areaManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
-                _this.fval.areaManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
-                _this.fval.areaManagers.controls[i].controls.selectedManagerId.setValue(item.manager.toUpperCase());
+                _this.fval.areaManagers.controls[i].controls.currentManager.setValue(item.userName.toUpperCase());
+                _this.fval.areaManagers.controls[i].controls.selectedManager.setValue(item.userName.toUpperCase());
                 _this.addItem();
                 n = i + 1;
             });
             _this.removeItem(n);
+            // console.log(this.fval.areaManagers);
             _this.disableForms();
         }, function (err) { return console.log(err); });
     };
@@ -92,31 +93,35 @@ var AreaManagersComponent = /** @class */ (function () {
     AreaManagersComponent.prototype.enableEdit = function (val) {
         var _this = this;
         this.showLevels = val;
-        this.areasManager.forEach(function (itm, i) {
-            if (i === val) {
-                _this.others.getUsersByLocation(itm.theAreaLocationId).subscribe(function (res) {
-                    _this.users = res;
-                    console.log(_this.users);
-                }, function (err) { return console.log(err); });
-                _this.fval.areaManagers.controls[i].enable();
-            }
-        });
+        this.others.getUsersByLocation(this.fval.areaManagers.controls[val].controls.areaId.value).subscribe(function (res) {
+            _this.users = res;
+            // console.log(this.users);
+        }, function (err) { return console.log(err); });
+        this.fval.areaManagers.controls[val].enable();
     };
     AreaManagersComponent.prototype.saveManager = function (index) {
+        var _this = this;
         if (this.fval.areaManagers.controls[index].valid) {
+            var data_1 = {
+                theAreaLocationId: this.fval.areaManagers.controls[index].controls.areaId.value,
+                userId: null
+            };
+            // console.log(this.fval.areaManagers.controls[index].controls.selectedManager.value);
+            this.users.forEach(function (item) {
+                if (item.userName.toUpperCase() === _this.fval.areaManagers.controls[index].controls.selectedManager.value) {
+                    data_1.userId = item.userId;
+                }
+                else {
+                    // console.log(item);
+                }
+            });
             this.fval.areaManagers.controls[index].disable();
             this.showLevels = null;
-            var data = {
-            // theAreaLocationId: ,
-            // userId:
-            };
-            console.log(data);
-            // this.others.setAreaManager(data).subscribe(
-            //   res => {
-            //     // console.log(res);
-            //   },
-            //   err => console.log(err)
-            // );
+            // console.log(data);
+            this.others.setAreaManager(data_1).subscribe(function (res) {
+                // console.log(res);
+                _this.fval.areaManagers.controls[index].controls.currentManager.setValue(_this.fval.areaManagers.controls[index].controls.selectedManager.value);
+            }, function (err) { return console.log(err); });
         }
         else {
             return;

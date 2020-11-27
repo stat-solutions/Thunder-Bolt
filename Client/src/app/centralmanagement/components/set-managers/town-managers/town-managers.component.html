@@ -40,7 +40,7 @@
                   <div class="d-flex flex-row row">
                     <div class="col-4 mx-0 px-1 px-md-4">
                       <span class="itemCreated">{{
-                        fval.townManagers["controls"][idx]["controls"].areaName
+                        fval.townManagers["controls"][idx]["controls"].townName
                           .value
                       }}</span>
                     </div>
@@ -66,11 +66,8 @@
                       &nbsp;
                       <button
                         class="save-button btn-sm btn-infob col-3 mx-0 mx-sm-3 py-1 px-2"
-                        [disabled]="
-                          fval.townManagers['controls'][idx].pristine ||
-                          fval.townManagers['controls'][idx].invalid
-                        "
-                        (click)="saveLevel(idx)"
+                        [disabled]="fval.townManagers['controls'][idx]['controls']['selectedManager'].value === ''"
+                        (click)="saveManager(idx)"
                         tooltip="Save"
                         placement="right"
                       >
@@ -119,20 +116,11 @@
                         autocomplete="off"
                         placeholder="Select required managers"
                       >
-                        <option>CENTRAL</option>
-                        <option>AREA</option>
-                        <option>TOWN</option>
+                      <option></option>
+                      <option *ngFor="let user of users">
+                        {{user.userName.toUpperCase()}}
+                      </option>
                       </select>
-                      <!-- <div
-                  class="text-danger col-3 mx-1"
-                  *ngIf="
-                    (fval.townManagers['controls'][idx]['controls']['selectedManager'].touched
-                    || fval.townManagers['controls'][idx]['controls']['selectedManager'].dirty) &&
-                    fval.townManagers['controls'][idx]['controls']['selectedManager'].errors?.required
-                  "
-                >
-                  please choose a manager!
-                </div> -->
                     </div>
                   </div>
                 </div>

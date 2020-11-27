@@ -59,7 +59,7 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
             _this.centralUserApprovals.forEach(function (item, i) {
                 _this.fval.approveUsers.controls[i].controls.userID.setValue(item.userId);
                 _this.fval.approveUsers.controls[i].controls.userName.setValue(item.userName);
-                _this.fval.approveUsers.controls[i].controls.userRole.setValue(item.roleName);
+                _this.fval.approveUsers.controls[i].controls.userRole.setValue(item.roleName.replace(/_/g, ' '));
                 _this.fval.approveUsers.controls[i].controls.userLocation.setValue(item.locationName);
                 _this.fval.approveUsers.controls[i].controls.approved.setValue(false);
                 _this.addItem();

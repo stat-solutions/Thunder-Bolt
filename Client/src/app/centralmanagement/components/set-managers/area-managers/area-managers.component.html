@@ -66,11 +66,8 @@
                       &nbsp;
                       <button
                         class="save-button btn-sm btn-infob col-3 mx-0 mx-sm-3 py-1 px-2"
-                        [disabled]="
-                          fval.areaManagers['controls'][idx].pristine ||
-                          fval.areaManagers['controls'][idx].invalid
-                        "
-                        (click)="saveLevel(idx)"
+                        [disabled]="fval.areaManagers['controls'][idx]['controls']['selectedManager'].invalid"
+                        (click)="saveManager(idx)"
                       >
                         <i
                           class="fas fa-save"
@@ -121,23 +118,13 @@
                           autocomplete="off"
                           placeholder="Select required managers"
                         >
-                          <option>CENTRAL</option>
-                          <option>AREA</option>
-                          <option>TOWN</option>
+                          <option></option>
+                          <option *ngFor="let user of users">
+                            {{user.userName.toUpperCase()}}
+                          </option>
                         </select>
-                        <!-- <div
-                  class="text-danger col-3 mx-1"
-                  *ngIf="
-                    (fval.areaManagers['controls'][idx]['controls']['selectedManager'].touched
-                    || fval.areaManagers['controls'][idx]['controls']['selectedManager'].dirty) &&
-                    fval.areaManagers['controls'][idx]['controls']['selectedManager'].errors?.required
-                  "
-                >
-                  please choose a manager!
-                </div> -->
                       </div>
                   </div>
-                  <!-- </div> -->
                 </div>
               </div>
             </div>
