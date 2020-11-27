@@ -75,9 +75,9 @@ export class ApproveCentralUsersComponent implements OnInit {
         // console.log(this.centralUserApprovals);
         this.centralUserApprovals.forEach((item, i) => {
         this.fval.approveUsers.controls[i].controls.userID.setValue(item.userId);
-        this.fval.approveUsers.controls[i].controls.userName.setValue(item.userName);
-        this.fval.approveUsers.controls[i].controls.userRole.setValue(item.roleName.replace(/_/g, ' '));
-        this.fval.approveUsers.controls[i].controls.userLocation.setValue(item.locationName);
+        this.fval.approveUsers.controls[i].controls.userName.setValue(item.userName.toUpperCase());
+        this.fval.approveUsers.controls[i].controls.userRole.setValue(item.roleName.replace(/_/g, ' ').toUpperCase());
+        this.fval.approveUsers.controls[i].controls.userLocation.setValue(item.locationName.toUpperCase());
         this.fval.approveUsers.controls[i].controls.approved.setValue(
           false
         );

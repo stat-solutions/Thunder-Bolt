@@ -53,7 +53,7 @@ var CreateStationComponent = /** @class */ (function () {
     CreateStationComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.others.getAllTheStationLocations().subscribe(function (units) {
+        this.others.getStations().subscribe(function (units) {
             _this.approvedStations = units;
             // console.log(this.approvedStations)
             _this.approvedStations.forEach(function (item, i) {

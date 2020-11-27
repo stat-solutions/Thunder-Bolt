@@ -45,8 +45,8 @@ export class StationManagersComponent implements OnInit {
   }
   get stationManager(): any {
     return this.fb.group({
-      areaName: this.fb.control({ value: '' }),
-      id: this.fb.control({ value: '' }),
+      stationName: this.fb.control({ value: '' }),
+      stationId: this.fb.control({ value: '' }),
       currentManager: this.fb.control({ value: '' }),
       selectedManager: this.fb.control(
         {value: ''},
@@ -70,8 +70,8 @@ export class StationManagersComponent implements OnInit {
       res => {
         this.stationsManager = res;
         this.stationsManager.forEach((item, i) => {
-        this.fval.stationManagers.controls[i].controls.areaName.setValue(item.stationName.replace(/_/g, ' ').toUpperCase());
-        this.fval.approvalItems.controls[i].controls.id.setValue(item.theSationLocationId);
+        this.fval.stationManagers.controls[i].controls.stationName.setValue(item.stationName.replace(/_/g, ' ').toUpperCase());
+        this.fval.stationManagers.controls[i].controls.stationId.setValue(item.theStationLocationId);
         this.fval.stationManagers.controls[i].controls.currentManager.setValue(item.userName.toUpperCase());
         this.fval.stationManagers.controls[i].controls.selectedManager.setValue(item.userName.toUpperCase());
         this.addItem();
@@ -104,7 +104,7 @@ disableForms(): any {
 
 enableEdit(val: number): any {
     this.showLevels = val;
-    this.others.getUsersByLocation(this.fval.staationManagers.controls[val].controls.areaId.value).subscribe(
+    this.others.getUsersByLocation(this.fval.stationManagers.controls[val].controls.stationId.value).subscribe(
       res => {
         this.users = res;
         // console.log(this.users);
@@ -115,27 +115,27 @@ enableEdit(val: number): any {
   }
 
 saveManager(index: any): any {
-  if (this.fval.sationManagers.controls[index].valid) {
+  if (this.fval.stationManagers.controls[index].valid) {
     const data = {
-      theAreaLocationId: this.fval.sationManagers.controls[index].controls.stationId.value,
+      theStationLocationId: this.fval.stationManagers.controls[index].controls.stationId.value,
       userId: null
   };
-    // console.log(this.fval.sationManagers.controls[index].controls.selectedManager.value);
+    // console.log(this.fval.stationManagers.controls[index].controls.selectedManager.value);
     this.users.forEach((item) => {
-    if (item.userName.toUpperCase() === this.fval.sationManagers.controls[index].controls.selectedManager.value) {
+    if (item.userName.toUpperCase() === this.fval.stationManagers.controls[index].controls.selectedManager.value) {
         data.userId = item.userId;
     } else {
       // console.log(item);
     }
   });
-    this.fval.sationManagers.controls[index].disable();
+    this.fval.stationManagers.controls[index].disable();
     this.showLevels = null;
     // console.log(data);
     this.others.setStationManager(data).subscribe(
       res => {
         // console.log(res);
-        this.fval.sationManagers.controls[index].controls.currentManager.setValue(
-          this.fval.sationManagers.controls[index].controls.selectedManager.value
+        this.fval.stationManagers.controls[index].controls.currentManager.setValue(
+          this.fval.stationManagers.controls[index].controls.selectedManager.value
         );
       },
       err => console.log(err)

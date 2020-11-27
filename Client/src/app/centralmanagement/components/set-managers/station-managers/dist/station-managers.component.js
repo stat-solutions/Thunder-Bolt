@@ -34,8 +34,8 @@ var StationManagersComponent = /** @class */ (function () {
     Object.defineProperty(StationManagersComponent.prototype, "stationManager", {
         get: function () {
             return this.fb.group({
-                areaName: this.fb.control({ value: '' }),
-                id: this.fb.control({ value: '' }),
+                stationName: this.fb.control({ value: '' }),
+                stationId: this.fb.control({ value: '' }),
                 currentManager: this.fb.control({ value: '' }),
                 selectedManager: this.fb.control({ value: '' }, forms_1.Validators.compose([
                     forms_1.Validators.required,
@@ -57,8 +57,8 @@ var StationManagersComponent = /** @class */ (function () {
         this.others.getAllTheStationLocations().subscribe(function (res) {
             _this.stationsManager = res;
             _this.stationsManager.forEach(function (item, i) {
-                _this.fval.stationManagers.controls[i].controls.areaName.setValue(item.stationName.replace(/_/g, ' ').toUpperCase());
-                _this.fval.approvalItems.controls[i].controls.id.setValue(item.theSationLocationId);
+                _this.fval.stationManagers.controls[i].controls.stationName.setValue(item.stationName.replace(/_/g, ' ').toUpperCase());
+                _this.fval.stationManagers.controls[i].controls.stationId.setValue(item.theStationLocationId);
                 _this.fval.stationManagers.controls[i].controls.currentManager.setValue(item.userName.toUpperCase());
                 _this.fval.stationManagers.controls[i].controls.selectedManager.setValue(item.userName.toUpperCase());
                 _this.addItem();
@@ -91,7 +91,7 @@ var StationManagersComponent = /** @class */ (function () {
     StationManagersComponent.prototype.enableEdit = function (val) {
         var _this = this;
         this.showLevels = val;
-        this.others.getUsersByLocation(this.fval.staationManagers.controls[val].controls.areaId.value).subscribe(function (res) {
+        this.others.getUsersByLocation(this.fval.stationManagers.controls[val].controls.stationId.value).subscribe(function (res) {
             _this.users = res;
             // console.log(this.users);
         }, function (err) { return console.log(err); });
@@ -99,26 +99,26 @@ var StationManagersComponent = /** @class */ (function () {
     };
     StationManagersComponent.prototype.saveManager = function (index) {
         var _this = this;
-        if (this.fval.sationManagers.controls[index].valid) {
+        if (this.fval.stationManagers.controls[index].valid) {
             var data_1 = {
-                theAreaLocationId: this.fval.sationManagers.controls[index].controls.stationId.value,
+                theStationLocationId: this.fval.stationManagers.controls[index].controls.stationId.value,
                 userId: null
             };
-            // console.log(this.fval.sationManagers.controls[index].controls.selectedManager.value);
+            // console.log(this.fval.stationManagers.controls[index].controls.selectedManager.value);
             this.users.forEach(function (item) {
-                if (item.userName.toUpperCase() === _this.fval.sationManagers.controls[index].controls.selectedManager.value) {
+                if (item.userName.toUpperCase() === _this.fval.stationManagers.controls[index].controls.selectedManager.value) {
                     data_1.userId = item.userId;
                 }
                 else {
                     // console.log(item);
                 }
             });
-            this.fval.sationManagers.controls[index].disable();
+            this.fval.stationManagers.controls[index].disable();
             this.showLevels = null;
             // console.log(data);
             this.others.setStationManager(data_1).subscribe(function (res) {
                 // console.log(res);
-                _this.fval.sationManagers.controls[index].controls.currentManager.setValue(_this.fval.sationManagers.controls[index].controls.selectedManager.value);
+                _this.fval.stationManagers.controls[index].controls.currentManager.setValue(_this.fval.stationManagers.controls[index].controls.selectedManager.value);
             }, function (err) { return console.log(err); });
         }
         else {

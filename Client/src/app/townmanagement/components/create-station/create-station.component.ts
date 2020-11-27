@@ -60,7 +60,7 @@ export class CreateStationComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getAllTheStationLocations().subscribe(
+    this.others.getStations().subscribe(
       units => {
         this.approvedStations = units;
         // console.log(this.approvedStations)
