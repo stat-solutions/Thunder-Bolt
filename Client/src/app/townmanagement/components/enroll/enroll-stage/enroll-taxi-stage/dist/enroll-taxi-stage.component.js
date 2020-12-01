@@ -59,14 +59,47 @@ var EnrollTaxiStageComponent = /** @class */ (function () {
     EnrollTaxiStageComponent.prototype.taxiParks = function () {
         var _this = this;
         this.others.getTaxiParks().subscribe(function (res) { return _this.parks = res; }, function (err) { return console.log(err); });
+        //     fkApprovalDetailsIdTaxiPark: 125
+        // taxiParkId: 1500
+        // taxiParkLocation: "KAMPALA TOWN"
+        // taxiParkName: "NEW TAXI PARK"
+        // taxiParkStatus: 2
     };
     EnrollTaxiStageComponent.prototype.onSubmit = function () {
+        var _this = this;
         this.submitted = true;
         this.spinner.show();
         if (this.userForm.invalid === true) {
             return;
         }
         else {
+            var data_1 = {
+                taxiStageName: this.fval.taxiStageName.value.toUpperCase(),
+                taxiStageChairmanName: this.fval.taxiStageChairmanName.value.toUpperCase(),
+                taxiStageChairmanPhone1: this.fval.taxiStageChairmanPhone1.value,
+                taxiParkId: null,
+                userId: this.User.userId
+            };
+            this.parks.forEach(function (park) {
+                if (park.taxiParkName === _this.fval.park.value) {
+                    data_1.taxiParkId = park.taxiParkId;
+                }
+            });
+            console.log(data_1);
+            this.spinner.hide();
+            this.others.createBodaStage(data_1).subscribe(function (res) {
+                _this.posted = true;
+                _this.alertService.success({
+                    html: '<b>' + data_1.taxiStageName + 'Was Created Successfully</b>'
+                });
+                // this.fval.taxiParkName.setValue('');
+                _this.revert();
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.error.message + '</b>'
+                });
+            });
         }
     };
     EnrollTaxiStageComponent = __decorate([

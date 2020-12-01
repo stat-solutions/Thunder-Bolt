@@ -22,6 +22,7 @@ export class EnrollTaxiParkComponent implements OnInit {
   userForm: FormGroup;
   serviceErrors: any = {};
   value: string;
+  towns: any;
   User = this.authService.loggedInUserInfo();
 
   constructor(
@@ -34,6 +35,15 @@ export class EnrollTaxiParkComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
+    this.others.getAllTheTownLocations().subscribe(res => {
+      this.towns = res;
+      this.initiateTownLocation();
+    }, 
+    err => {
+      this.errored = true;
+      console.log(err.error.error.message);
+    }
+    );
   }
 
   createFormGroup(): any {
@@ -45,12 +55,21 @@ export class EnrollTaxiParkComponent implements OnInit {
       taxiParkTown: new FormControl(
         '',
         Validators.compose([Validators.required])
-      )
+      ),
+    });
+  }
+  initiateTownLocation(){
+    this.towns.forEach(town => {
+      if (town.theTownLocationId === this.User.userLocationId) {
+        this.fval.taxiParkTown.setValue(town.townName.toUpperCase());
+        this.fval.taxiParkTown.disable();
+      }
     });
   }
 
   revert(): any {
     this.userForm.reset();
+    this.ngOnInit();
   }
 
   resetStageNames(): any {
@@ -68,6 +87,31 @@ export class EnrollTaxiParkComponent implements OnInit {
     if (this.userForm.invalid === true) {
       return;
     } else {
+      const data = {
+            taxiParkName: this.fval.taxiParkName.value.toUpperCase(),
+            taxiParkLocation: this.fval.taxiParkTown.value.toUpperCase(),
+            userId: this.User.userId
+      }
+      // console.log(data);
+      this.spinner.hide();
+      this.others.createTaxiPark(data).subscribe(
+        res => {
+          this.posted = true;
+          this.alertService.success({
+                  html:
+                    '<b>' + data.taxiParkName + 'Was Created Successfully</b>'
+          });
+          // this.fval.taxiParkName.setValue('');
+          this.revert(); 
+        },
+        err => {
+          this.errored = true;
+           this.alertService.danger({
+                  html:
+                    '<b>' + err.error.error.message + '</b>'
+          });
+        }
+      );
     }
   }
 }

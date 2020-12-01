@@ -52,6 +52,13 @@ var EnrollTaxiParkComponent = /** @class */ (function () {
             return;
         }
         else {
+            var data = {
+                "taxiParkName": "NEW TAXI PARK",
+                "taxiParkLocation": "KAMPALA TOWN",
+                "userId": 1000000000
+            };
+            this.others.
+            ;
         }
     };
     EnrollTaxiParkComponent = __decorate([

@@ -21,8 +21,8 @@ export class EnrollClusterComponent implements OnInit {
   userForm: FormGroup;
   serviceErrors: any = {};
   value: string;
+  towns: any;
   User = this.authService.loggedInUserInfo();
-  
   constructor(
     private authService: AuthServiceService,
     private others: OthersService,
@@ -33,6 +33,15 @@ export class EnrollClusterComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
+    this.others.getAllTheTownLocations().subscribe(res => {
+      this.towns = res;
+      this.initiateTownLocation();
+    }, 
+    err => {
+      this.errored = true;
+      console.log(err.error.error.message);
+    }
+    );
   }
 
   createFormGroup(): any {
@@ -47,9 +56,19 @@ export class EnrollClusterComponent implements OnInit {
       )
     });
   }
+  
+  initiateTownLocation(){
+    this.towns.forEach(town => {
+      if (town.theTownLocationId === this.User.userLocationId) {
+        this.fval.stageClusterTown.setValue(town.townName.toUpperCase());
+        this.fval.stageClusterTown.disable();
+      }
+    });
+  }
 
   revert(): any {
     this.userForm.reset();
+    this.ngOnInit();
   }
 
   resetStageNames(): any {
@@ -67,6 +86,31 @@ export class EnrollClusterComponent implements OnInit {
     if (this.userForm.invalid === true) {
       return;
     } else {
+      const data = {
+            stageClusterName: this.fval.stageClusterName.value.toUpperCase(),
+            stageClusterLocation: this.fval.stageClusterTown.value.toUpperCase(),
+            userId: this.User.userId
+      }
+      // console.log(data);
+      this.spinner.hide();
+      this.others.createBodaCluster(data).subscribe(
+        res => {
+          this.posted = true;
+          this.alertService.success({
+                  html:
+                    '<b>' + data.stageClusterName + 'Was Created Successfully</b>'
+          });
+          // this.fval.taxiParkName.setValue('');
+          this.revert(); 
+        },
+        err => {
+          this.errored = true;
+           this.alertService.danger({
+                  html:
+                    '<b>' + err.error.error.message + '</b>'
+          });
+        }
+      );
     }
   }
 }
