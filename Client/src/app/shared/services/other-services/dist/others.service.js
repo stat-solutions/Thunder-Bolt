@@ -223,17 +223,23 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.createTaxiStage = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateTaxiStatage", postData, this.httpOptions);
     };
+    OthersService.prototype.getTaxiStages = function () {
+        return this.http.get(this.API_URL + "/api/customer/getTaxiStages");
+    };
     OthersService.prototype.createBodaCluster = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaCluster", postData, this.httpOptions);
     };
     OthersService.prototype.getBodaClusters = function () {
-        return this.http.get(this.API_URL + "/api/customer/getBodabodaStages");
+        return this.http.get(this.API_URL + "/api/customer/getBodabodaClusters");
     };
     OthersService.prototype.createBodaStage = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaStage", postData, this.httpOptions);
     };
+    OthersService.prototype.getBodaStages = function () {
+        return this.http.get(this.API_URL + "/api/customer/getBodabodaStages");
+    };
     OthersService.prototype.getProducts = function () {
-        return this.http.get(this.API_URL + "/ api/customer/getheTheProducts");
+        return this.http.get(this.API_URL + "/api/customer/getheTheProducts");
     };
     OthersService.prototype.createCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateCustomer", postData, this.httpOptions);
