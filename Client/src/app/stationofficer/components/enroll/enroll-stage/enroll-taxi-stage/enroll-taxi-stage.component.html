@@ -1,20 +1,20 @@
 
 <div
-class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 pt-0 pt-md-5 pt-xl-2 pb-0 shadow-lg col-xs-12 col-lg-8"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-md-5 pt-xl-2 pb-4 shadow-lg col-xs-12 col-lg-8"
 >
-<div class="jumbotron-fluid">
-  <div class="container mt-2 mb-2 mx-0 shadow-lg">
-    <div class="row">
-      <div class="col-12">
-        <h3
-          class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
-        >
-        Taxi Stage
-        </h3>
+  <div class="jumbotron-fluid col-12 col-md-6">
+    <div class="container my-2 mx-0 shadow-lg col-12">
+      <div class="row">
+        <div class="col-12">
+          <h4
+            class="rub-head4 text-info text-center font-weight-bold py-1"
+          >
+            Taxi Stage
+          </h4>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="invest-card card-body mt-2 pt-3 mb-0 mx-auto pb-2 shadow-lg">
+    <div class="invest-card card-body mt-2 pt-3 mb-0 mx-auto pb-2 shadow-lg">
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div class="form-group text-primary">
         <label for="taxiStageName" [ngClass]="fval.taxiStageName.valid ? 'text-info' : ''">Stage Name<i  *ngIf="fval.taxiStageName.valid" class="material-icons">check_circle</i></label>
@@ -53,7 +53,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-1 
 <label
   for="taxiStageChairmanPhone1"
   [ngClass]="fval.taxiStageChairmanPhone1.valid ? 'text-info' : ''"
-  >Phone Number 1<i
+  >Phone Number<i
     *ngIf="fval.taxiStageChairmanPhone1.valid"
     class="material-icons"
     >check_circle</i

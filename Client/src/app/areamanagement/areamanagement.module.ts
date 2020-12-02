@@ -19,7 +19,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgChartjsModule } from 'ng-chartjs';
 import { CreateComponent } from './components/create/create.component';
-import { CreateTownsComponent } from './components/create/create-towns/create-towns.component';
+// import { CreateTownsComponent } from './components/create/create-towns/create-towns.component';
 import { ApprovalsComponent } from './components/approvals/approvals.component';
 import { WithdrawSavingsComponent } from './components/approvals/loans-approvals/withdraw-savings/withdraw-savings.component';
 import { InterestRateComponent } from './components/approvals/loans-approvals/interest-rate/interest-rate.component';
@@ -45,7 +45,6 @@ import { PersonalProfileComponent } from './components/profile/personal-profile/
     DashboardComponent,
     ProfileComponent,
     CreateComponent,
-    CreateTownsComponent,
     ApprovalsComponent,
     WithdrawSavingsComponent,
     InterestRateComponent,
@@ -58,7 +57,7 @@ import { PersonalProfileComponent } from './components/profile/personal-profile/
     ClientsComponent,
     UsersComponent,
     LoansApprovalsComponent,
-    PersonalProfileComponent,
+    PersonalProfileComponent
   ],
   imports: [
     CommonModule,

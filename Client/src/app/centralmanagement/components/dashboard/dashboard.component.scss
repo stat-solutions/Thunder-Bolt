@@ -86,47 +86,12 @@ border-color: #17aee0
   height: auto !important;
   contain: auto;
 }
-
-.btn {
-  border-radius: 15px;
+.list-card-2:hover, .list-card:focus {
+border-color: #17aee0
 }
 
 .text-gray {
   color: #f7f5f5;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important
-}
-
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee
-}
-
-.btn-info:hover,
-.btn-info:focus {
-  color: #d9dbdd;
-  background-color: #17aae0ee;
-  border-color: #17aae0ee
-}
-
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 .2rem #0e99ccee
-}
-
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec
-}
-
-.pointerCursor {
-  cursor: pointer;
 }
 
 .sm-card-1 {

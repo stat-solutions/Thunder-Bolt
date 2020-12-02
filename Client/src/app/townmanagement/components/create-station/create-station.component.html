@@ -1,11 +1,11 @@
 <div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-0 pt-md-1 pt-xl-0 pb-3 shadow-lg col-xs-12 col-lg-11">
-  <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1">
-      <div class="container mt-3 mt-xl-2 mx-0 shadow-lg">
+  <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1 col-md-11 col-xl-9">
+  <div class="container mt-2 mx-0 mb-2 shadow-lg col-12">
           <div class="row">
               <div class="col-12">
-                  <h2 class="rub-head4 text-info text-center font-weight-bold pt-0 py-1">
-                      Select  an area or areas ready to operate
-                  </h2>
+                  <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
+                      Select Station(s) Ready to Operate
+                  </h3>
               </div>
           </div>
       </div>
@@ -14,14 +14,14 @@
               <div class="item-header mb-2">
                   <div class="row">
                       <!--select all items-->
-                      <div class="col-1 ml-0 pl-0">
+                      <div class="col-1 col-sm-2 ml-0 pl-0 mx-sm-auto px-sm-auto pt-1">
                           <input
                           id="allSelected"
                           formControlName="selectAll"
                           (click)="checkAllItems(!fval.selectAll.value)"
                           type="checkbox"
                           value=""
-                          class="ml-4 text-info"
+                          class="ml-4 text-info" tooltip="Select All"
                       />
                       </div>
                       <div class="col-4">
@@ -70,7 +70,7 @@
                                   <span class="rate-selected align-self-center">
                                       {{fval.approveUsers["controls"][idx]["controls"].userRole.value}}
                                   </span>
-                              </div> 
+                              </div>
                               <div class="col-3 text-center">
                                   <span class="rate-selected align-self-center">
                                       {{fval.approveUsers["controls"][idx]["controls"].userRole.value}}
@@ -82,7 +82,7 @@
               </div>
           </div>
           </form>
-              <div class="d-flex mt-3 mb-0 pt-2 pb-2 mx-auto">
+              <div class="d-flex mt-3 mb-0 py-2 mx-auto">
                   <button
                   class="btn btn-info col-4 col-md-3 mx-auto px-0"
                   (click)="approveItems()"
@@ -99,10 +99,3 @@
       </div>
   </div>
 </div>
-<!--footer -->
-<div
-  class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mt-xl-2 pt-1 mb-1 mx-auto"
->
-  <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
-</div>
-<!--/ footer -->

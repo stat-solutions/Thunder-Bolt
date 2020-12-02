@@ -15,78 +15,26 @@
   border-radius: 8px;
 }
 
+
 .big-card-1 {
-  height: 90px !important;
-  margin-bottom: 0px !important;
-  contain: auto;
+height: 65px !important;
+margin-bottom: 0px !important;
+contain: auto;
 }
 .big-card-body-1 {
 height: 100% !important;
 margin-bottom: 0px !important;
 }
-
-.big-card-3 {
-height: 340px !important;
-margin-bottom: 0px !important;
-contain: auto;
-}
-.big-card-body-3 {
-height: 100% !important;
-margin-bottom: 0px !important;
+.big-card-1:hover {
+  border-color: #17aae0ee !important
 }
 
-button.btn {
-  border-radius: 15px;
-}
-
-.text-info {
-  color: #17aae0ee !important
-}
 .text-danger{
   color: #17aae0ee !important
 }
 
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important
-}
-
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee
-}
-
-.btn-info:hover,
-.btn-info:focus {
-  color: #d9dbdd;
-  background-color: #17aae0ee;
-  border-color: #17aae0ee
-}
-
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 .2rem #0e99ccee
-}
-
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec
-}
-
-.pointerCursor {
-  cursor: pointer;
-}
-
 .text-gray {
   color: #f7f5f5;
-}
-
-.text-info {
-  color: #17aae0ee;
 }
 
 .sm-card-1 {
@@ -190,14 +138,19 @@ font-size: 17px;
 @media (min-width:568px) {
 }
 
+@media (min-width:640px) {
+    .big-card-1 {
+      height: 80px !important;
+  }
+}
+
 @media (min-width: 768px) {
   .container {
       margin-left: 0px !important;
       margin-right: 0px !important;
   }
   .big-card-1 {
-      height: 120px;
-      padding-bottom: 15px !important;
+      height: 90px !important;
   }
 }
 
@@ -210,7 +163,7 @@ font-size: 17px;
 
 @media (min-width: 1024px) {
   .jumbotron-fluid{
-      margin-bottom: 19rem !important;
+      margin-bottom: 9rem !important;
   }
   .container {
       margin-left: 0px !important;
@@ -230,6 +183,10 @@ font-size: 17px;
   }
   .thunder-col-4 {
       margin-bottom: 0px !important;
+  }
+  .big-card-1 {
+      height: 85px !important;
+      padding-bottom: 0px !important;
   }
 }
 

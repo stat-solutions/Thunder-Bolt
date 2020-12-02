@@ -12,9 +12,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 @Component({
   selector: 'app-deposit',
   templateUrl: './deposit.component.html',
-  styleUrls: ['./deposit.component.scss']
+  styleUrls: ['./deposit.component.scss'],
 })
-
 export class DepositComponent implements OnInit {
   modalRef: BsModalRef;
   userForm: FormGroup;
@@ -57,14 +56,13 @@ export class DepositComponent implements OnInit {
 
   createFormGroup(): any {
     return new FormGroup({
-      loanType: new FormControl(['',
-        Validators.required]),
+      loanType: new FormControl(['', Validators.required]),
       number_plate: new FormControl(
         '',
         Validators.compose([
           Validators.required,
           Validators.minLength(8),
-          Validators.maxLength(8)
+          Validators.maxLength(8),
         ])
       ),
       user_contact_number: new FormControl(
@@ -74,7 +72,7 @@ export class DepositComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
       ),
       amount_to_pay: new FormControl(
@@ -83,7 +81,7 @@ export class DepositComponent implements OnInit {
           Validators.required,
           CustomValidator.patternValidator(/\d/, { hasNumber: true }),
           Validators.maxLength(6),
-          Validators.minLength(3)
+          Validators.minLength(3),
         ])
       ),
       pin: new FormControl(
@@ -92,9 +90,9 @@ export class DepositComponent implements OnInit {
           Validators.required,
           CustomValidator.patternValidator(/\d/, { hasNumber: true }),
           Validators.maxLength(4),
-          Validators.minLength(4)
+          Validators.minLength(4),
         ])
-      )
+      ),
     });
   }
 
@@ -123,8 +121,10 @@ export class DepositComponent implements OnInit {
   }
 
   public openModal(template: TemplateRef<any>): any {
-    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-lg modal-dialog-centered' }));
-
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
+    );
   }
 
   getTheNumberPlates(): any {
@@ -132,7 +132,6 @@ export class DepositComponent implements OnInit {
     //   data => {
     //     this.numberPlates = data;
     //   },
-
     //   (error: string) => {
     //     this.errored = true;
     //     this.serviceErrors = error;
@@ -143,29 +142,39 @@ export class DepositComponent implements OnInit {
     // );
   }
 
-  deposit(): any {
+  // toggle visibility of password field
+  toggleFieldType(): any {
+    this.fieldType = !this.fieldType;
+  }
 
+  deposit(): any {
     this.userForm.patchValue({
-      amount_to_borrow: parseInt( this.userForm.controls.amount_to_borrow.value.replace(/[\D\s\._\-]+/g, ''), 10 )
+      amount_to_borrow: parseInt(
+        this.userForm.controls.amount_to_borrow.value.replace(
+          /[\D\s\._\-]+/g,
+          ''
+        ),
+        10
+      ),
     });
 
     // tslint:disable-next-line:triple-equals
     if (!(this.secretPin == this.userForm.controls.pin.value)) {
       this.alertService.danger({
-        html: '<b>Invalid PIN!</b>'
+        html: '<b>Invalid PIN!</b>',
       });
       return;
     } else {
       if (this.userForm.controls.amount_to_borrow.value > this.loanLimit) {
         this.alertService.warning({
-          html: '<b>Loan Limit Exceeded!</b>' + '<br/>'
+          html: '<b>Loan Limit Exceeded!</b>' + '<br/>',
         });
         return;
       } else {
         this.userForm.controls.number_plate.enable();
         this.userForm.patchValue({
           user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-          user_id: jwt_decode(this.authService.getJwtToken()).user_id
+          user_id: jwt_decode(this.authService.getJwtToken()).user_id,
         });
         // console.log(this.userForm.value);
         this.posted = true;

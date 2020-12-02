@@ -63,7 +63,7 @@ export class LeftPanelTownComponent implements OnInit {
       },
       {
         name: 'Enroll',
-        icon: 'fas fa-user',
+        icon: 'fas fa-user-plus',
         url: '/townmanagement/enroll',
         subMenu: [
           {

@@ -59,24 +59,12 @@ export class LeftPanelAreaComponent implements OnInit {
       {
         name: 'Creation',
         icon: 'fas fa-wrench',
-        url: '/areamanagement/create'
+        url: '/areamanagement/createtowns'
       },
       {
         name: 'Approvals',
         icon: 'fas fa-cogs',
-        url: '/areamanagement/approvals',
-        subMenu: [
-          {
-            name: 'Loan Approvals',
-            icon: 'fas fa-credit-card',
-            url: '/areamanagement/approvals/loansapprovals'
-         },
-         {
-          name: 'Creation Approvals',
-          icon: 'fas fa-wrench',
-          url: '/areamanagement/approvals/createapprovals'
-        }
-          ]
+        url: '/areamanagement/approvals'
         },
       {
         name: 'Reports',

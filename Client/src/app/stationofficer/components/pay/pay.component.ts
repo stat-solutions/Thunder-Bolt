@@ -196,6 +196,11 @@ export class PayComponent implements OnInit {
     //   );
   }
 
+  // toggle visibility of password field
+  toggleFieldType(): any {
+    this.fieldType = !this.fieldType;
+  }
+
   pay(): any {
     this.userForm.patchValue({
       amount_to_pay: parseInt(
