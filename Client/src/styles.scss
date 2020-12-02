@@ -1931,7 +1931,7 @@ pre code {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
+    color: #333a41;
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid #ced4da;
@@ -1951,35 +1951,35 @@ pre code {
 }
 
 .form-control:focus {
-    color: #495057;
+    color: #333a41;
     background-color: #fff;
-    border-color: #fbc2b3;
+    border-color: #17aae0;
     outline: 0;
-    box-shadow: 0 0 0 .2rem rgba(244, 98, 58, .25)
+    box-shadow: 0 0 0 .2rem rgba(28, 181, 236, 0.25)
 }
 
 .form-control::-webkit-input-placeholder {
-    color: #6c757d;
+    color: #bbbec0;
     opacity: 1
 }
 
 .form-control::-moz-placeholder {
-    color: #6c757d;
+    color: #bbbec0;
     opacity: 1
 }
 
 .form-control:-ms-input-placeholder {
-    color: #6c757d;
+    color: #bbbec0;
     opacity: 1
 }
 
 .form-control::-ms-input-placeholder {
-    color: #6c757d;
+    color: #bbbec0;
     opacity: 1
 }
 
 .form-control::placeholder {
-    color: #6c757d;
+    color: #bbbec0;
     opacity: 1
 }
 
@@ -9721,6 +9721,7 @@ button.bg-dark:hover {
     }
 }
 
+
 .text-monospace {
     font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important
 }
@@ -9930,6 +9931,10 @@ a.text-dark:hover {
 
 .text-muted {
     color: #6c757d !important
+}
+
+.text-black {
+    color: #0c1014 !important
 }
 
 .text-black-50 {

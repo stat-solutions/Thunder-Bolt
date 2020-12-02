@@ -208,6 +208,11 @@ export class LendComponent implements OnInit {
     //   );
   }
 
+  // toggle visibility of password field
+  toggleFieldType(): any {
+    this.fieldType = !this.fieldType;
+  }
+
   lend(): any {
     this.userForm.patchValue({
       amount_to_borrow: parseInt(

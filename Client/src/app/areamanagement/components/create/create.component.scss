@@ -1,3 +1,4 @@
+
 .jumbotron-fluid {
   height: inherit !important;
 }
@@ -5,181 +6,126 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
+}
+
+.card-body {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
   contain: auto;
 }
 
-.btn {
-  padding: .340rem 0rem;
-  font-size: .8rem;
-  line-height: 1.0;
-  border-radius: 15px;
+.invest-card {
+  height: auto;
+  margin-bottom: 20px !important;
+}
+.iteration {
+  height: auto;
+  min-height: 45px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
-.text-info {
-  color: #17aae0ee !important;
+.item-container {
+  min-height: 35px !important;
 }
 
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
+.list-card {
+  height: auto !important;
 }
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee;
+.list-card-body {
+  width: 100%;
 }
-.btn-info:hover,
-.btn-info:focus {
-  color: #d9dbdd;
-  background-color: #17aae0ee;
-  border-color: #17aae0ee;
-}
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 0.2rem #0e99ccee;
-}
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec;
-}
-.btn-infob {
-  color: #7d8388;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn-infob:hover,
-.btn-infob:focus {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn-infob.focus,
-.btn-infob:focus {
-  box-shadow: 0 0 0 0.2rem transparent;
-}
-.btn-infob.disabled,
-.btn-infob:disabled {
-  color: #89898a;
-  background-color: transparent;
-  border-color: transparent;
-}
-
-.pointerCursor {
-  cursor: pointer;
-}
-
-.the-footer {
-    margin-top: 1rem;
-  }
 
 
 
 //media queries
 @media (min-width: 320px) {
+  .card-body {
+      padding-top: 4px;
+      margin-bottom: 5px !important;
+  }
   .jumbotron-fluid {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
   }
 }
 
 @media (min-width: 360px) {
-.the-footer {
-    margin-top: 0rem !important;
-    padding-top: 0px !important;
+  .jumbotron-fluid {
+      padding-bottom: 0rem !important;
   }
 }
 
 @media (min-width: 375px) {
   .jumbotron-fluid {
-    padding-bottom: 10px !important;
-  }
-.the-footer {
-    margin-top: 4.6rem !important;
+      padding-bottom: .65rem !important;
   }
 }
 
 @media (min-width: 410px) {
-  .jumbotron-fluid {
-    padding-bottom: 5px !important;
-  }
-.the-footer {
-    margin-top: 5.2rem !important;
-  }
+.iteration {
+  max-height: 370px;
+}
 }
 
 @media (min-width: 445px) {
   .jumbotron-fluid {
-    padding-top: 8px !important;
-    padding-bottom: 5px !important;
+      padding-bottom: 5px !important;
   }
 }
 
-@media (min-width: 568px) {
-  .card-body {
-    padding-top: 4px !important;
-  }
-  .jumbotron-fluid {
-    padding-top: 0px !important;
-  }
-.the-footer {
-    margin-top: .7rem !important;
-  }
-}
+@media (min-width: 568px) {}
 
 @media (min-width: 640px) {
   .container {
-    margin-left: auto !important;
-    margin-right: auto !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
   }
 }
 
 @media (min-width: 768px) {
   .container {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+      margin-left: 0px !important;
+      margin-right: 0px !important;
   }
   .jumbotron-fluid {
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
+      padding-bottom: 1rem !important;
   }
-.the-footer {
-    margin-top: 7rem !important;
-  }
+.iteration {
+  max-height: 650px;
+}
 }
 
 @media (min-width: 812px) {
   .jumbotron-fluid {
-    padding-top: 0px !important;
-    padding-bottom: 5px !important;
-  }
-.the-footer {
-    margin-top: 2.6rem !important;
+      padding-top: 0px !important;
+      padding-bottom: 5px !important;
   }
 }
 
 @media (min-width: 1024px) {
   .jumbotron-fluid {
-    padding-top: 10px !important;
-    padding-bottom: 20px !important;
+      padding-bottom: 2rem !important;
   }
+.iteration {
+  max-height: 970px;
+}
 }
 
-@media (min-width: 1100px) {
-}
+@media (min-width: 1100px) {}
 
 @media (min-width: 1280px) {
   .container {
-    margin-left: auto !important;
-    margin-right: auto !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
   }
   .jumbotron-fluid {
-    margin-top: 0px !important;
-    padding-top: 0px !important;
-    padding-bottom: 10px !important;
+      padding-bottom: .4rem !important;
   }
+.iteration {
+  max-height: 320px;
+}
 }
 
-@media (min-width: 1320px) {
-}
+@media (min-width: 1320px) {}

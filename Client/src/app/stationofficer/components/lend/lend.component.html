@@ -1,15 +1,15 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-0 pb-1 shadow-lg col-xs-12 col-lg-8"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-0 pt-md-5 pt-xl-2 pb-4 shadow-lg col-xs-12 col-lg-8"
 >
-  <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1">
-    <div class="container mt-3 mb-2 mx-0 shadow-lg">
-      <div class="row">
+  <div class="jumbotron-fluid col-12 col-md-6">
+    <div class="container my-2 mx-0 shadow-lg col-12">
+     <div class="row">
         <div class="col-12">
-          <h2
-            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          <h3
+            class="rub-head4 text-info text-center font-weight-bold py-1"
           >
             Lend
-          </h2>
+          </h3>
         </div>
       </div>
     </div>
@@ -243,25 +243,28 @@
             Please enter valid amount to borrow!
           </div>
         </div>
-                <div class="form-group text-primary">
-                    <label for="loanTenure" [ngClass]="fval.loanTenure.valid ? 'text-info' : ''">Tenure<i *ngIf="fval.loanTenure.valid" class="material-icons"
+        <div class="form-group text-primary">
+          <label
+            for="loanTenure"
+            [ngClass]="fval.loanTenure.valid ? 'text-info' : ''"
+            >Tenure<i *ngIf="fval.loanTenure.valid" class="material-icons"
               >check_circle</i
             ></label
           >
           <div class="input-group mb-0">
             <input
-            id="loanTenure"
-            formControlName="loanTenure"
-            type="number"
-            class="level-control form-control mx-0"
-            min="0"
-            max="100"
-            [ngClass]="{
-              'is-invalid':
-              (fval.loanTenure.touched || fval.loanTenure.dirty) &&
-              fval.loanTenure.errors
-            }"
-            autocomplete="off"
+              id="loanTenure"
+              formControlName="loanTenure"
+              type="number"
+              class="level-control form-control mx-0"
+              min="0"
+              max="100"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.loanTenure.touched || fval.loanTenure.dirty) &&
+                  fval.loanTenure.errors
+              }"
+              autocomplete="off"
             /><i *ngIf="fval.loanTenure.valid" class="material-icons"
               >check_circle</i
             >
@@ -276,26 +279,26 @@
             The loan tenure is required!
           </div>
           <div
-          class="col"
-          *ngIf="
-            (fval.loanTenure.touched || fval.loanTenure.dirty) &&
-            fval.loanTenure.invalid
-          "
-          [ngClass]="
-            fval.loanTenure.errors?.required ||
-            fval.loanTenure.errors?.maxlength
-              ? 'text-danger'
-              : 'text-info'
-          "
-        >
-          <i class="material-icons">{{
-            fval.loanTenure.errors?.required ||
-            fval.loanTenure.errors?.maxlength
-              ? "cancel"
-              : "check_circle"
-          }}</i>
-          The loan tenure should be a maximum of 100!
-        </div>
+            class="col"
+            *ngIf="
+              (fval.loanTenure.touched || fval.loanTenure.dirty) &&
+              fval.loanTenure.invalid
+            "
+            [ngClass]="
+              fval.loanTenure.errors?.required ||
+              fval.loanTenure.errors?.maxlength
+                ? 'text-danger'
+                : 'text-info'
+            "
+          >
+            <i class="material-icons">{{
+              fval.loanTenure.errors?.required ||
+              fval.loanTenure.errors?.maxlength
+                ? "cancel"
+                : "check_circle"
+            }}</i>
+            The loan tenure should be a maximum of 100!
+          </div>
         </div>
 
         <div class="form-group text-primary">
@@ -325,6 +328,18 @@
               placeholder="Enter your PIN"
               autocomplete="off"
             />
+          <div class="input-group-append">
+            <span class="input-group-text">
+              <i
+                class="fas"
+                [ngClass]="{
+                  'fa-eye-slash': !fieldType,
+                  'fa-eye': fieldType
+                }"
+                (click)="toggleFieldType()"
+              ></i>
+            </span>
+          </div>
           </div>
           <div
             class="text-danger col"
@@ -360,7 +375,7 @@
             Please enter a valid pin!
           </div>
         </div>
-        <div class="d-flex mt-3 mb-3 pt-2 pb-3 mx-auto">
+        <div class="d-flex my-3 pt-2 pb-3 mx-auto">
           <button
             type="submit"
             class="btn btn-info col-5 mx-auto"
@@ -394,13 +409,6 @@
     </div>
   </div>
 </div>
-<!--footer -->
-<div
-  class="d-flex justify-content-center col-xs-12 col-lg-12 mt-3 mb-3 mx-auto"
->
-  <div class="small text-center text-info">&copy; 2020 - ThunderBolt</div>
-</div>
-<!--/ footer -->
 <ng-template #template>
   <div class="modal-header modal-lg bg-info">
     <h4 class="modal-title text-center text-white">
@@ -420,29 +428,27 @@
   <div class="modal-body modal-lg">
     <div class="row">
       <div class="col-xs-12 col-lg-12">
-            <div
-              class="list-card card mt-2 pt-1 mb-1 mx-auto px-auto pb-0 shadow-lg"
-            >
+        <div
+          class="list-card card mt-2 pt-1 mb-1 mx-auto px-auto pb-0 shadow-lg"
+        >
+          <div
+            class="list-card-body card-body mt-0 pt-1 mb-0 pb-0 mx-auto px-0 px-xl-4"
+          >
+            <div class="row mt-0 pt-3 mb-0 pb-0 mx-auto px-auto">
               <div
-                class="list-card-body card-body mt-0 pt-1 mb-0 pb-0 mx-auto px-0 px-xl-4"
+                class="d-flex col-12 col-md-4 col-xl-3 mt-0 mb-0 pt-0 pt-md-4 pt-xl-3 pb-0"
               >
-                <div class="row mt-0 pt-3 mb-0 pb-0 mx-auto px-auto">
-                  <div
-                    class="d-flex col-12 col-md-4 col-xl-3 mt-0 mb-0 pt-0 pt-md-4 pt-xl-3 pb-0"
-                  >
                 <!--add data from the database next to the span after &nbsp;-->
                 <img
                   class="details-img img-rounded"
                   [src]="checkedClient.photoUrl"
                 />
               </div>
-                  <div
-                    class="col-12 col-md-8 col-xl-9 mt-0 mb-0 pt-2 pt-md-5 pt-xl-4 pb-0"
-                  >
+              <div
+                class="col-12 col-md-8 col-xl-9 mt-0 mb-0 pt-2 pt-md-5 pt-xl-4 pb-0"
+              >
                 <div class="row my-0 py-0">
-                  <div
-                    class="col-12 col-lg-6 mt-2 mb-0 py-0"
-                  >
+                  <div class="col-12 col-lg-6 mt-2 mb-0 py-0">
                     <span class="itemCreated">Phone Number: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{
                       checkedClient.phone
@@ -464,9 +470,7 @@
                       checkedClient.loanLimit
                     }}</span>
                   </div>
-                  <div
-                    class="col-12 col-lg-6 mt-2 mb-0 py-0"
-                  >
+                  <div class="col-12 col-lg-6 mt-2 mb-0 py-0">
                     <span class="itemCreated">Loan Taken: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{
                       checkedClient.loanAmount
@@ -487,9 +491,7 @@
                       checkedClient.loanStatus
                     }}</span>
                   </div>
-                  <div
-                    class="col-12 mt-2 mb-0 py-0"
-                  >
+                  <div class="col-12 mt-2 mb-0 py-0">
                     <span class="itemCreated">Comment: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{
                       checkedClient.comment

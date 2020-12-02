@@ -1,3 +1,4 @@
+
 .jumbotron-fluid {
   height: inherit !important;
 }
@@ -5,76 +6,35 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  margin-right: 0px !important;
-  contain: auto;
 }
 
 .card-body {
   width: 100%;
-  height: 100%;
-  max-width: 320px;
-  min-width: 260px;
+  height: auto;
   border-radius: 8px;
-contain: auto;
+  contain: auto;
 }
 
-button.btn {
-  border-radius: 15px;
+.invest-card {
+  height: auto;
+  margin-bottom: 20px !important;
+}
+.iteration {
+  height: auto;
+  min-height: 45px;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
-.text-info {
-  color: #17aae0ee !important
+.item-container {
+  min-height: 35px !important;
 }
 
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important
+.list-card {
+  height: auto !important;
 }
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee
-}
-  .btn-info:hover, .btn-info:focus {
-    color: #d9dbdd;
-    background-color: #17aae0ee;
-    border-color: #17aae0ee
-  }
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 .2rem #0e99ccee
-}
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec
-}
-
-.pointerCursor {
-  cursor: pointer;
-}
-
-//styling of color of placeholder
-::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-  color:    rgb(187, 190, 192);
-}
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color:    rgb(187, 190, 192);
-  opacity:  1;
-}
-::-moz-placeholder { /* Mozilla Firefox 19+ */
- color:    rgb(187, 190, 192);
- opacity:  1;
-}
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color:    rgb(187, 190, 192);
-}
-::-ms-input-placeholder { /* Microsoft Edge */
-  color:    rgb(187, 190, 192);
-}
-::placeholder { /* Most modern browsers support this now. */
-  color:    rgb(187, 190, 192);
+.list-card-body {
+  width: 100%;
 }
 
 
@@ -82,121 +42,90 @@ a.text-info:hover {
 //media queries
 @media (min-width: 320px) {
   .card-body {
-    max-width: 320px;
-    min-width: 290px;
-    max-height: 180px;
-    min-height: 150px;
-    margin-bottom: 6.5rem !important;
+      padding-top: 4px;
+      margin-bottom: 5px !important;
   }
   .jumbotron-fluid {
-    padding-top: 0px !important;
-    padding-bottom: 2rem !important;
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
   }
-  }
+}
 
 @media (min-width: 360px) {
-  .card-body {
-    max-width: 360px;
-    min-width: 330px;
-    margin-bottom: 7rem !important;
-  }
   .jumbotron-fluid {
-    padding-bottom: 5.5rem !important;
+      padding-bottom: 0rem !important;
   }
 }
 
 @media (min-width: 375px) {
   .jumbotron-fluid {
-    padding-bottom: 7.8rem !important;
+      padding-bottom: .65rem !important;
   }
-
-    }
+}
 
 @media (min-width: 410px) {
-  .jumbotron-fluid {
-    padding-bottom: 11rem !important;
-  }
+.iteration {
+  max-height: 370px;
+}
 }
 
 @media (min-width: 445px) {
+  .jumbotron-fluid {
+      padding-bottom: 5px !important;
+  }
 }
 
-@media (min-width: 568px) {
-  .card-body {
-    margin-bottom: 0rem !important;
-  }
-  .jumbotron-fluid {
-    padding-bottom: 0rem !important;
-  }
-}
+@media (min-width: 568px) {}
 
 @media (min-width: 640px) {
   .container {
-    margin-left: auto !important;
-    margin-right: auto !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
   }
 }
 
 @media (min-width: 768px) {
   .container {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+      margin-left: 0px !important;
+      margin-right: 0px !important;
   }
-  .card-body {
-    margin-bottom: 8rem !important;
+  .jumbotron-fluid {
+      padding-bottom: 1rem !important;
   }
-    .jumbotron-fluid {
-      padding-bottom: 17rem !important;
-    }
+.iteration {
+  max-height: 650px;
+}
 }
 
 @media (min-width: 812px) {
-    .card-body {
-      margin-bottom: 0rem !important;
-    }
-    .container-fluid {
-      padding-top: 0rem !important;
-      padding-bottom: 0rem !important;
-    }
-    .jumbotron-fluid {
-      padding-top: 0rem !important;
-      padding-bottom: 3rem !important;
-    }
+  .jumbotron-fluid {
+      padding-top: 0px !important;
+      padding-bottom: 5px !important;
+  }
 }
 
 @media (min-width: 1024px) {
-    .container-fluid {
-      padding-top: 6.5rem !important;
-      padding-bottom: 4rem !important;
-    }
-  .container {
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+  .jumbotron-fluid {
+      padding-bottom: 2rem !important;
   }
-    .card-body {
-      margin-bottom: 10rem !important;
-    }
-    .jumbotron-fluid {
-      padding-bottom: 18rem !important;
-    }
+.iteration {
+  max-height: 970px;
+}
 }
 
-@media (min-width: 1100px) {
-}
+@media (min-width: 1100px) {}
 
 @media (min-width: 1280px) {
-    .container-fluid {
-      padding-top: 1rem !important;
-      padding-bottom: 0rem !important;
-    }
-    .card-body {
-      margin-bottom: 7rem !important;
-    }
-    .jumbotron-fluid {
-      padding-bottom: 10rem !important;
-    }
+  .container {
+      margin-left: auto !important;
+      margin-right: auto !important;
+  }
+  .jumbotron-fluid {
+      padding-bottom: .4rem !important;
+  }
+.iteration {
+  max-height: 320px;
+}
 }
 
-@media (min-width: 1320px) {
-}
-
+@media (min-width: 1320px) {}

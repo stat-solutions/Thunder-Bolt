@@ -166,7 +166,7 @@ export class LoginComponent implements OnInit {
               ) {
                 this.alertService.danger({
                   html:
-                    '<strong>This account has been deactivated!, please contact system admin!</strong>'
+                    '<strong>This account has been deactivated!, please contact system admin.</strong>'
                 });
                 this.spinner.hide();
                 return;
@@ -176,7 +176,7 @@ export class LoginComponent implements OnInit {
               ) {
                 this.alertService.danger({
                   html:
-                    '<strong>This account recquires approval, please contact system admin!</strong>'
+                    '<strong>This account requires approval, please contact system admin.</strong>'
                 });
                 this.spinner.hide();
                 return;
@@ -197,7 +197,7 @@ export class LoginComponent implements OnInit {
             });
             // this.alertService.warning({html: '<b>Signed In Successfully</b>'});
             if (
-              this.loginStatus === 'Authorisation Failed! User Not Registered'
+              this.loginStatus === 'Authorisation Failed! User Not Registered.'
             ) {
               setTimeout(() => {
                 this.router.navigate(['authpage/register']);

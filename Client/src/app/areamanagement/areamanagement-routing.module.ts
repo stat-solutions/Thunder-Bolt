@@ -6,7 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AreaGuard } from '../shared/services/other-services/route-guards/area-guard.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { CreateComponent } from './components/create/create.component';
-import { CreateTownsComponent } from './components/create/create-towns/create-towns.component';
+// import { CreateTownsComponent } from './components/create/create-towns/create-towns.component';
 import { ApprovalsComponent } from './components/approvals/approvals.component';
 import { WithdrawSavingsComponent } from './components/approvals/loans-approvals/withdraw-savings/withdraw-savings.component';
 import { InterestRateComponent } from './components/approvals/loans-approvals/interest-rate/interest-rate.component';
@@ -46,29 +46,25 @@ const routes: Routes = [
         component: DashboardComponent,
       },
       {
-        path: 'create',
+        path: 'createtowns',
         component: CreateComponent,
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            redirectTo: 'createtowns',
-          },
-          {
-            path: 'createtowns',
-            component: CreateTownsComponent,
-          },
-        ],
+        // children: [
+        //   {
+        //     path: '',
+        //     pathMatch: 'full',
+        //     redirectTo: 'createtowns',
+        //   },
+        //   {
+        //     path: 'createtowns',
+        //     component: CreateTownsComponent,
+        //   },
+        // ],
       },
       {
         path: 'approvals',
         component: ApprovalsComponent,
         children: [
           {
-            path: 'loansapprovals',
-            component: LoansApprovalsComponent,
-            children: [
-              {
                 path: 'reducerate',
                 component: ReduceRateComponent,
               },
@@ -95,11 +91,9 @@ const routes: Routes = [
               {
                 path: 'loanlimit',
                 component: LoanLimitComponent,
-              },
-            ],
+              }
+            ]
           },
-        ],
-      },
       {
         path: 'reports',
         component: ReportsComponent,
