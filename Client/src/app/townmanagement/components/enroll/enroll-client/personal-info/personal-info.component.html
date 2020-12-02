@@ -424,7 +424,7 @@
               <label
                 for="productCode"
                 [ngClass]="fval.productCode.valid ? 'text-info' : ''"
-                >Initial Product (optional)
+                >Initial Product
                 <!-- <i
                   *ngIf="fval.productCode.valid"
                   class="material-icons"
@@ -450,7 +450,7 @@
                     fval.productCode.errors
                 }"
                 autocomplete="off"
-                placeholder="Select  a procduct *optional*"
+                placeholder="Select  a procduct"
               >
                 <!-- <option> </option> -->
                 <option>BODABODA LOAN PRODUCT</option>
@@ -459,6 +459,15 @@
                 <option>SAVINGS PRODUCT</option>
               </select>
               </div>
+              <div
+              class="text-danger col"
+              *ngIf="
+                (fval.productCode.touched || fval.productCode.dirty) &&
+                fval.productCode.errors?.required
+              "
+            >
+              initial product is required
+            </div>
             </div>
           </div>
         </div>
@@ -878,6 +887,16 @@
               >
              Bodaboda owner's name is required!
             </div>
+            <div
+            class="text-danger col"
+            *ngIf="
+              (bodaFval.ownersPhoneNumber.touched ||
+              bodaFval.ownersPhoneNumber.dirty) &&
+              bodaFval.ownersPhoneNumber.errors?.hasNumber
+            "
+          >
+          Bodaboda owner's phone number should be equal to 10 "digits"!
+          </div>
             </div>
           </div>
           <div class="col-12 col-md-6">
@@ -1400,6 +1419,16 @@
               >
               Taxi owner's phone number is required!
               </div>
+              <div
+              class="text-danger col"
+              *ngIf="
+                (taxiFval.ownersPhoneNumber.touched ||
+                taxiFval.ownersPhoneNumber.dirty) &&
+                taxiFval.ownersPhoneNumber.errors?.hasNumber
+              "
+            >
+            Taxi owner's phone number should be equal to 10 "digits"!
+            </div>
             </div>
           </div>
         </div>
@@ -2117,12 +2146,12 @@
     <label class="col" *ngIf="errored" class="text-danger">
       <i class="material-icons">Cancel</i>
 
-      <!-- <ngx-alerts></ngx-alerts> -->
+      <ngx-alerts></ngx-alerts>
     </label>
 
     <label class="col" *ngIf="posted" class="text-info">
       <i class="material-icons">check_circle</i>
-      <!-- <ngx-alerts></ngx-alerts> -->
+      <ngx-alerts></ngx-alerts>
     </label>
 
     <button

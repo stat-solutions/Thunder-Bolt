@@ -54,15 +54,48 @@ var EnrollBodaStageComponent = /** @class */ (function () {
     });
     EnrollBodaStageComponent.prototype.bodaClusters = function () {
         var _this = this;
-        this.others.getBodaClusters().subscribe(function (res) { return _this.clusters = res; }, function (err) { return console.log(err); });
+        this.others.getBodaClusters().subscribe(function (res) { return _this.clusters = res; }, function (err) { return console.log(err.error.error.message); });
+        //     fkApprovalDetailsIdstageCluster: 122
+        // stageCluesterStatus: 2
+        // stageClusterId: 1800
+        // stageClusterLocation: "NANSANA"
+        // stageClusterName: "KYINYARWANDA"
     };
     EnrollBodaStageComponent.prototype.onSubmit = function () {
+        var _this = this;
         this.submitted = true;
         this.spinner.show();
         if (this.userForm.invalid === true) {
             return;
         }
         else {
+            var data_1 = {
+                bodabodaStageName: this.fval.bodabodaStageName.value.toUpperCase(),
+                bodabodaStageChairmanName: this.fval.bodabodaStageChairmanName.value.toUpperCase(),
+                bodabodaStageChairmanPhone1: this.fval.bodabodaStageChairmanPhone1.value,
+                stageClusterId: null,
+                userId: this.User.userId
+            };
+            this.clusters.forEach(function (cluster) {
+                if (cluster.stageClusterName === _this.fval.cluster.value) {
+                    data_1.stageClusterId = cluster.stageClusterId;
+                }
+            });
+            console.log(data_1);
+            this.spinner.hide();
+            this.others.createBodaStage(data_1).subscribe(function (res) {
+                _this.posted = true;
+                _this.alertService.success({
+                    html: '<b>' + data_1.bodabodaStageName + 'Was Created Successfully</b>'
+                });
+                // this.fval.taxiParkName.setValue('');
+                _this.revert();
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.error.message + '</b>'
+                });
+            });
         }
     };
     EnrollBodaStageComponent = __decorate([

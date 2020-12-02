@@ -48,6 +48,7 @@ var enroll_taxi_stage_component_1 = require("./components/enroll/enroll-stage/en
 var enroll_boda_stage_component_1 = require("./components/enroll/enroll-stage/enroll-boda-stage/enroll-boda-stage.component");
 var personal_info_component_1 = require("./components/enroll/enroll-client/personal-info/personal-info.component");
 var personal_profile_component_1 = require("./components/profile/personal-profile/personal-profile.component");
+var ngx_alerts_1 = require("ngx-alerts");
 var StationofficerModule = /** @class */ (function () {
     function StationofficerModule() {
     }
@@ -97,7 +98,8 @@ var StationofficerModule = /** @class */ (function () {
                 modal_1.ModalModule.forRoot(),
                 tooltip_1.TooltipModule.forRoot(),
                 ng_chartjs_1.NgChartjsModule,
-                ng_chartjs_1.NgChartjsModule.registerPlugin(['inlinePlugin'])
+                ng_chartjs_1.NgChartjsModule.registerPlugin(['inlinePlugin']),
+                ngx_alerts_1.AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
             ]
         })
     ], StationofficerModule);

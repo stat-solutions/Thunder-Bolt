@@ -40,6 +40,7 @@ import { EnrollTaxiStageComponent } from './components/enroll/enroll-stage/enrol
 import { EnrollBodaStageComponent } from './components/enroll/enroll-stage/enroll-boda-stage/enroll-boda-stage.component';
 import { PersonalInfoComponent } from './components/enroll/enroll-client/personal-info/personal-info.component';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
+import { AlertModule } from 'ngx-alerts';
 
 
 @NgModule({
@@ -88,7 +89,8 @@ import { PersonalProfileComponent } from './components/profile/personal-profile/
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
     NgChartjsModule,
-    NgChartjsModule.registerPlugin(['inlinePlugin'])
+    NgChartjsModule.registerPlugin(['inlinePlugin']),
+    AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
   ]
 })
 export class StationofficerModule { }

@@ -45,6 +45,7 @@ var edit_personal_info_component_1 = require("./components/enroll/edit-client/ed
 var edit_stage_component_1 = require("./components/enroll/edit-stage/edit-stage.component");
 var edit_boda_stage_component_1 = require("./components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component");
 var edit_taxi_stage_component_1 = require("./components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component");
+var ngx_alerts_1 = require("ngx-alerts");
 var TownmanagementModule = /** @class */ (function () {
     function TownmanagementModule() {
     }
@@ -90,7 +91,8 @@ var TownmanagementModule = /** @class */ (function () {
                 datepicker_1.DatepickerModule,
                 datepicker_1.BsDatepickerModule,
                 modal_1.ModalModule.forRoot(),
-                tooltip_1.TooltipModule.forRoot()
+                tooltip_1.TooltipModule.forRoot(),
+                ngx_alerts_1.AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
             ]
         })
     ], TownmanagementModule);

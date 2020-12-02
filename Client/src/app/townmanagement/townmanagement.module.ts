@@ -37,6 +37,7 @@ import { EditPersonalInfoComponent } from './components/enroll/edit-client/edit-
 import { EditStageComponent } from './components/enroll/edit-stage/edit-stage.component';
 import { EditBodaStageComponent } from './components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component';
 import { EditTaxiStageComponent } from './components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component';
+import { AlertModule } from 'ngx-alerts';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { EditTaxiStageComponent } from './components/enroll/edit-stage/edit-taxi
     DatepickerModule,
     BsDatepickerModule,
     ModalModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
   ]
 })
 export class TownmanagementModule { }

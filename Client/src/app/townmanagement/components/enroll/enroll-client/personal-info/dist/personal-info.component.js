@@ -36,6 +36,8 @@ var PersonalInfoComponent = /** @class */ (function () {
     }
     PersonalInfoComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.errored = false;
+        this.posted = false;
         this.userForm = this.createFormGroup();
         this.bodaClientForm = this.bodaClientFormGroup();
         this.taxiClientForm = this.taxiClientFormGroup();
@@ -81,7 +83,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                 forms_1.Validators.required,
             ])),
             dateOfBirth: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            productCode: new forms_1.FormControl(''),
+            productCode: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             homeDetails: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             clientComment: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
         });
@@ -100,7 +102,10 @@ var PersonalInfoComponent = /** @class */ (function () {
             dateOfJoiningStage: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownershipStatus: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownersName: new forms_1.FormControl(''),
-            ownersPhoneNumber: new forms_1.FormControl('')
+            ownersPhoneNumber: new forms_1.FormControl('', forms_1.Validators.compose([
+                // Validators.required
+                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+            ]))
         });
     };
     PersonalInfoComponent.prototype.taxiClientFormGroup = function () {
@@ -118,7 +123,10 @@ var PersonalInfoComponent = /** @class */ (function () {
             dateOfJoiningStage: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownershipStatus: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownersName: new forms_1.FormControl(''),
-            ownersPhoneNumber: new forms_1.FormControl('')
+            ownersPhoneNumber: new forms_1.FormControl('', forms_1.Validators.compose([
+                // Validators.required
+                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+            ]))
         });
     };
     PersonalInfoComponent.prototype.microClientFormGroup = function () {
@@ -309,9 +317,16 @@ var PersonalInfoComponent = /** @class */ (function () {
                             html: '<b> customer was created succsefully <b>'
                         });
                         _this.revert();
+                        _this.bodaClientForm.reset();
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
                     }, function (err) {
                         _this.data = [];
                         console.log(err.statusText);
+                        _this.alertService.danger({
+                            html: '<b>' + err.error.error.message + '</b>'
+                        });
                     });
                 }
             }
@@ -363,9 +378,16 @@ var PersonalInfoComponent = /** @class */ (function () {
                             html: '<b> customer was created succsefully <b>'
                         });
                         _this.revert();
+                        _this.taxiClientForm.reset();
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
                     }, function (err) {
                         _this.data = [];
                         console.log(err.statusText);
+                        _this.alertService.danger({
+                            html: '<b>' + err.error.error.message + '</b>'
+                        });
                     });
                 }
             }
@@ -398,9 +420,16 @@ var PersonalInfoComponent = /** @class */ (function () {
                         html: '<b> customer was created succsefully <b>'
                     });
                     _this.revert();
+                    _this.microClientForm.reset();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
                 }, function (err) {
                     _this.data = [];
                     console.log(err.statusText);
+                    _this.alertService.danger({
+                        html: '<b>' + err.error.error.message + '</b>'
+                    });
                 });
             }
             else {
@@ -427,9 +456,16 @@ var PersonalInfoComponent = /** @class */ (function () {
                         html: '<b> customer was created succsefully <b>'
                     });
                     _this.revert();
+                    _this.microClientForm.reset();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
                 }, function (err) {
                     _this.data = [];
                     console.log(err.statusText);
+                    _this.alertService.danger({
+                        html: '<b>' + err.error.error.message + '</b>'
+                    });
                 });
             }
             else {

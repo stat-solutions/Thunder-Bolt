@@ -52,6 +52,8 @@ export class PersonalInfoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.errored = false;
+    this.posted = false;
     this.userForm = this.createFormGroup();
     this.bodaClientForm = this.bodaClientFormGroup();
     this.taxiClientForm = this.taxiClientFormGroup();
@@ -141,7 +143,7 @@ export class PersonalInfoComponent implements OnInit {
       ),
       productCode: new FormControl(
         '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
       ),
       homeDetails: new FormControl(
         '',
@@ -196,7 +198,13 @@ export class PersonalInfoComponent implements OnInit {
       ),
       ownersPhoneNumber: new FormControl(
         '',
-        // Validators.compose([Validators.required])
+        Validators.compose([
+          // Validators.required
+          CustomValidator.patternValidator(
+            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+            { hasNumber: true }
+          ),
+        ])
       )
     });
   }
@@ -248,7 +256,13 @@ export class PersonalInfoComponent implements OnInit {
       ),
       ownersPhoneNumber: new FormControl(
         '',
-        // Validators.compose([Validators.required])
+        Validators.compose([
+          // Validators.required
+          CustomValidator.patternValidator(
+            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+            { hasNumber: true }
+          ),
+        ])
       )
     });
   }
@@ -464,10 +478,17 @@ export class PersonalInfoComponent implements OnInit {
                 html: '<b> customer was created succsefully <b>'
               });
               this.revert();
+              this.bodaClientForm.reset();
+              setTimeout(() => {
+                  location.reload();
+                }, 3000);
             },
             err => {
               this.data = [];
               console.log(err.statusText);
+              this.alertService.danger({
+                  html: '<b>' + err.error.error.message + '</b>'
+                });
             }
           );
       }
@@ -522,10 +543,17 @@ export class PersonalInfoComponent implements OnInit {
                 html: '<b> customer was created succsefully <b>'
               });
               this.revert();
+              this.taxiClientForm.reset();
+              setTimeout(() => {
+                  location.reload();
+                }, 3000);
             },
             err => {
               this.data = [];
               console.log(err.statusText);
+              this.alertService.danger({
+                  html: '<b>' + err.error.error.message + '</b>'
+                });
             }
           );
         }
@@ -559,10 +587,17 @@ export class PersonalInfoComponent implements OnInit {
               html: '<b> customer was created succsefully <b>'
             });
             this.revert();
+            this.microClientForm.reset();
+            setTimeout(() => {
+                  location.reload();
+                }, 3000);
           },
           err => {
             this.data = [];
             console.log(err.statusText);
+            this.alertService.danger({
+                  html: '<b>' + err.error.error.message + '</b>'
+                });
           }
         );
       } else {
@@ -590,10 +625,17 @@ export class PersonalInfoComponent implements OnInit {
               html: '<b> customer was created succsefully <b>'
             });
             this.revert();
+            this.microClientForm.reset();
+            setTimeout(() => {
+                  location.reload();
+                }, 3000);
           },
           err => {
             this.data = [];
             console.log(err.statusText);
+            this.alertService.danger({
+                  html: '<b>' + err.error.error.message + '</b>'
+                });
           }
         );
       } else {

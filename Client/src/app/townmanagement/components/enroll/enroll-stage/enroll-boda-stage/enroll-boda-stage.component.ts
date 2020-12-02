@@ -92,24 +92,24 @@ export class EnrollBodaStageComponent implements OnInit {
   }
 
   onSubmit(): any {
-   this.submitted = true;
+    this.submitted = true;
     this.spinner.show();
 
     if (this.userForm.invalid === true) {
       return;
     } else {
-      let data = {
+      const data = {
             bodabodaStageName: this.fval.bodabodaStageName.value.toUpperCase(),
             bodabodaStageChairmanName: this.fval.bodabodaStageChairmanName.value.toUpperCase(),
             bodabodaStageChairmanPhone1: this.fval.bodabodaStageChairmanPhone1.value,
             stageClusterId: null,
             userId: this.User.userId
-      }
+      };
       this.clusters.forEach(cluster => {
         if (cluster.stageClusterName === this.fval.cluster.value) {
-          data.stageClusterId = cluster.stageClusterId
+          data.stageClusterId = cluster.stageClusterId;
         }
-      })
+      });
       console.log(data);
       this.spinner.hide();
       this.others.createBodaStage(data).subscribe(
@@ -120,11 +120,11 @@ export class EnrollBodaStageComponent implements OnInit {
                     '<b>' + data.bodabodaStageName + 'Was Created Successfully</b>'
           });
           // this.fval.taxiParkName.setValue('');
-          this.revert(); 
+          this.revert();
         },
         err => {
           this.errored = true;
-           this.alertService.danger({
+          this.alertService.danger({
                   html:
                     '<b>' + err.error.error.message + '</b>'
           });

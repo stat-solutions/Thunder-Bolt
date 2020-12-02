@@ -8,6 +8,7 @@ import { CustomValidator } from 'src/app/validators/custom-validator';
 // import { DashboardUserService } from 'src/app/services/dashboard-user.service';
 // import { StageNames } from 'src/app/models/stage-names';
 import * as jwt_decode from 'jwt-decode';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
   selector: 'app-enroll-boda-stage',
@@ -23,12 +24,12 @@ export class EnrollBodaStageComponent implements OnInit {
   serviceErrors: any = {};
   value: string;
   fieldType: boolean;
-  theStageNames: [];
-  // theStageNames: StageNames[];
+  clusters: any;
+  User = this.authService.loggedInUserInfo();
 
   constructor(
     private authService: AuthServiceService,
-    // private adminUserService: DashboardUserService,
+    private others: OthersService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService
@@ -36,12 +37,16 @@ export class EnrollBodaStageComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
-    this.stageNames();
+    this.bodaClusters();
   }
 
   createFormGroup(): any {
     return new FormGroup({
       bodabodaStageName: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+       cluster: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
@@ -62,11 +67,6 @@ export class EnrollBodaStageComponent implements OnInit {
     });
   }
 
-  // toggle visibility of password field
-  toggleFieldType(): any {
-    this.fieldType = !this.fieldType;
-  }
-
   revert(): any {
     this.userForm.reset();
   }
@@ -79,22 +79,16 @@ export class EnrollBodaStageComponent implements OnInit {
     return this.userForm.controls;
   }
 
-  stageNames(): any {
-    // this.adminUserService.getStageNames(jwt_decode(this.authService.getJwtToken()).user_station).subscribe(
-    //   data => {
-    //     this.userForm.controls.stage_name.reset();
-    //     this.theStageNames = data;
-    //     // this.alertService.success({ html: '<b> User Roles Updated</b>' + '<br/>' });
-    //   },
-
-    //   (error: string) => {
-    //     this.errored = true;
-    //     this.serviceErrors = error;
-    //     this.alertService.danger({
-    //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-    //     });
-    //   }
-    // );
+  bodaClusters(): any {
+    this.others.getBodaClusters().subscribe(
+      res => this.clusters = res,
+      err => console.log(err.error.error.message)
+    );
+//     fkApprovalDetailsIdstageCluster: 122
+// stageCluesterStatus: 2
+// stageClusterId: 1800
+// stageClusterLocation: "NANSANA"
+// stageClusterName: "KYINYARWANDA"
   }
 
   onSubmit(): any {
@@ -104,38 +98,38 @@ export class EnrollBodaStageComponent implements OnInit {
     if (this.userForm.invalid === true) {
       return;
     } else {
-      this.userForm.patchValue({
-        user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-        user_id: jwt_decode(this.authService.getJwtToken()).user_id
+      const data = {
+            bodabodaStageName: this.fval.bodabodaStageName.value.toUpperCase(),
+            bodabodaStageChairmanName: this.fval.bodabodaStageChairmanName.value.toUpperCase(),
+            bodabodaStageChairmanPhone1: this.fval.bodabodaStageChairmanPhone1.value,
+            stageClusterId: null,
+            userId: this.User.userId
+      };
+      this.clusters.forEach(cluster => {
+        if (cluster.stageClusterName === this.fval.cluster.value) {
+          data.stageClusterId = cluster.stageClusterId;
+        }
       });
-
-      // this.adminUserService.registerCustomer(this.userForm).subscribe(
-      //   () => {
-      //     this.posted = true;
-      //     this.spinner.hide();
-
-      //     // tslint:disable-next-line:max-line-length
-      //     this.alertService.success({
-      //       html:
-      //         '<b>Customer Registration was Successful!!</b>' +
-      //         '</br>' +
-      //         'Please proceed to lend him'
-      //     });
-      //     this.revert();
-      //     setTimeout(() => {
-      //       this.router.navigate(['dashboarduser/loans']);
-      //     }, 2000);
-      //   },
-
-      //   (error: string) => {
-      //     this.errored = true;
-      //     this.serviceErrors = error;
-      //     this.alertService.danger({
-      //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-      //     });
-      //     this.spinner.hide();
-      //   }
-      // );
+      console.log(data);
+      this.spinner.hide();
+      this.others.createBodaStage(data).subscribe(
+        res => {
+          this.posted = true;
+          this.alertService.success({
+                  html:
+                    '<b>' + data.bodabodaStageName + 'Was Created Successfully</b>'
+          });
+          // this.fval.taxiParkName.setValue('');
+          this.revert();
+        },
+        err => {
+          this.errored = true;
+          this.alertService.danger({
+                  html:
+                    '<b>' + err.error.error.message + '</b>'
+          });
+        }
+      );
     }
   }
 }
