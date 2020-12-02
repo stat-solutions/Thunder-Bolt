@@ -196,6 +196,11 @@ export class WaiveInterestComponent implements OnInit {
     //   );
   }
 
+  // toggle visibility of password field
+  toggleFieldType(): any {
+    this.fieldType = !this.fieldType;
+  }
+
   waiveInterest(): any {
     this.userForm.patchValue({
       amount_to_pay: parseInt(

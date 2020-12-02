@@ -19,9 +19,9 @@
         <label
           for="full_name"
           [ngClass]="fval.full_name.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.full_name.valid" class="material-icons"
+          >Full Name<i *ngIf="fval.full_name.valid" class="material-icons"
             >check_circle</i
-          >Full Name</label
+          ></label
         >
         <div class="input-group mb-0">
           <div class="input-group-prepend">
@@ -52,7 +52,7 @@
           "
         >
           The full name is required!
-        </div>   
+        </div>
         <!--div
           class="text-danger col"
           *ngIf="
@@ -68,9 +68,9 @@
         <label
           for="date_of_birth"
           [ngClass]="fval.date_of_birth.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.date_of_birth.valid" class="material-icons"
+          >Date Of Birth<i *ngIf="fval.date_of_birth.valid" class="material-icons"
             >check_circle</i
-          >Date Of Birth</label
+          ></label
         >
 
         <div class="input-group mb-0">
@@ -115,9 +115,9 @@
         <label
           for="id_type"
           [ngClass]="fval.id_type.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.id_type.valid" class="material-icons"
+          >ID Type<i *ngIf="fval.id_type.valid" class="material-icons"
             >check_circle</i
-          >ID Type</label
+          ></label
         >
         <div class="input-group mb-0">
           <div class="input-group-prepend">
@@ -138,7 +138,7 @@
           placeholder="Select the ID type"
         >
           <option>NATIONAL ID</option>
-          <option>PASSPORT NUMBER</option>
+          <option>PASSPORT</option>
           <option>DRIVING PERMIT</option>
           <option>VILLAGE ID</option>
         </select>
@@ -167,7 +167,7 @@
           <div class="input-group-prepend">
             <div class="input-group-text">
               <i
-                class="fas fa-tag text-secondary mx-auto"
+                class="fas fa-id-card text-primary mx-auto"
                 style="size: 50px"
               ></i>
             </div>
@@ -311,9 +311,9 @@
         <label
           for="position"
           [ngClass]="fval.position.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.position.valid" class="material-icons"
+          >Position<i *ngIf="fval.position.valid" class="material-icons"
             >check_circle</i
-          >Position</label
+          ></label
         >
         <div class="input-group mb-2">
           <div class="input-group-prepend">
@@ -348,16 +348,16 @@
           The position is required!
         </div>
       </div>
-        <!--the divs below will appear depending on the position selected--> 
+        <!--the divs below will appear depending on the position selected-->
         <div class="form-group text-primary" *ngIf="(positionValue === 'CENTRAL USER')">
           <label
             for="central"
             [ngClass]="fval.central.valid ? 'text-info' : ''"
-            ><i *ngIf="fval.central.valid" class="material-icons"
+            >Choose Unit<i *ngIf="fval.central.valid" class="material-icons"
               >check_circle</i
-            >Choose Unit</label
+            ></label
           >
-          <div class="input-group mb-2">
+          <div class="input-group mb-0">
             <select
             formControlName="central"
             class="form-control"
@@ -390,9 +390,9 @@
           <label
             for="area"
             [ngClass]="fval.area.valid ? 'text-info' : ''"
-            ><i *ngIf="fval.area.valid" class="material-icons"
+            >Choose Area<i *ngIf="fval.area.valid" class="material-icons"
               >check_circle</i
-            >Choose Area</label
+            ></label
           >
           <div class="input-group mb-0">
             <select
@@ -405,7 +405,7 @@
             }"
             autocomplete="off"
             placeholder="Select Area"
-            
+
           > <option></option>
             <option  *ngFor="let area of areas">
               {{area.areaRegionName}}
@@ -427,9 +427,9 @@
           <label
             for="town"
             [ngClass]="fval.town.valid ? 'text-info' : ''"
-            ><i *ngIf="fval.town.valid" class="material-icons"
+            >Choose Town<i *ngIf="fval.town.valid" class="material-icons"
               >check_circle</i
-            >Choose Town</label
+            ></label
           >
           <div class="input-group mb-0">
             <select
@@ -464,9 +464,9 @@
           <label
             for="station"
             [ngClass]="fval.station.valid ? 'text-info' : ''"
-            ><i *ngIf="fval.station.valid" class="material-icons"
+            >Choose station<i *ngIf="fval.station.valid" class="material-icons"
               >check_circle</i
-            >Choose station</label
+            ></label
           >
           <div class="input-group mb-2">
             <select
@@ -601,8 +601,8 @@
             [ngClass]="fval.confirmPassword.valid ? 'text-info' : ''"
             >Confirm PIN<i
               *ngIf="fval.confirmPassword.valid"
-              class="fas fa-approved"
-              ></i
+              class="material-icons"
+              >check_circle</i
             ></label
           >
 

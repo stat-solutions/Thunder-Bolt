@@ -102,6 +102,7 @@ export class ReduceRateComponent implements OnInit {
       ),
     });
   }
+
   checkLoanType(value: string): any {
     // console.log(value);
     this.loanType = value;
@@ -165,6 +166,11 @@ export class ReduceRateComponent implements OnInit {
     //     });
     //   }
     // );
+  }
+
+  // toggle visibility of password field
+  toggleFieldType(): any {
+    this.fieldType = !this.fieldType;
   }
 
   reduceRate(): any {

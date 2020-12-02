@@ -99,7 +99,7 @@ export class DashboardComponent implements OnInit {
       data: [35, 79, 53, 31, 36, 40, 60, 56, 57, 24, 35, 78]
     },
   ];
-  lineChartLabels: Array<any> = [ '7am', '8am', '9am', '10am', '11am', '12', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm'];
+  lineChartLabels: Array<any> = [ '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm'];
   lineChartOptions: any = {
     responsive: true
   };
