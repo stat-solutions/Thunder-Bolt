@@ -452,7 +452,7 @@
                 autocomplete="off"
                 placeholder="Select  a procduct *optional*"
               >
-                <option> </option>
+                <!-- <option> </option> -->
                 <option>BODABODA LOAN PRODUCT</option>
                 <option>TAXI LOAN PRODUCT</option>
                 <option>MICROLOAN PRODUCT</option>
@@ -1198,7 +1198,7 @@
               <!-- parks -->
               <datalist id="taxiStage">
                 <option *ngFor="let taxiStage of taxiStages">
-                  {{ taxiStage }}
+                  {{ taxiStage.taxiStageName }}
                 </option>
               </datalist>
               </div>
@@ -1845,6 +1845,7 @@
                   id="numberOfDependants"
                   formControlName="numberOfDependants"
                   type="number"
+                  min='0'
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
@@ -2084,7 +2085,7 @@
 
   <!-- action buttons -->
   <div class="d-flex mt-3 mb-2 mb-xl-0 pt-2 pb-2 pb-xl-2 mx-auto">
-    <button
+    <!-- <button
       type="submit"
       class="btn btn-info col-5 col-md-3 mx-auto"
       *ngIf="this.fval.productCode.value === ''"
@@ -2092,7 +2093,7 @@
       (click) = "saveOnlyClientDetails()"
     >
       Save
-    </button>
+    </button> -->
     <button
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"
