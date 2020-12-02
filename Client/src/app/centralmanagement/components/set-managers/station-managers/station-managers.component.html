@@ -44,7 +44,7 @@
                     <div class="col-4 mx-0 px-1 px-md-4">
                       <span class="itemCreated">{{
                         fval.stationManagers["controls"][idx]["controls"]
-                          .areaName.value
+                          .stationName.value
                       }}</span>
                     </div>
                     <div class="col-4 justify-content-center mx-0 px-2">
@@ -69,11 +69,8 @@
                       &nbsp;
                       <button
                         class="save-button btn-sm btn-infob col-3 mx-0 mx-sm-3 py-1 px-2"
-                        [disabled]="
-                          fval.stationManagers['controls'][idx].pristine ||
-                          fval.stationManagers['controls'][idx].invalid
-                        "
-                        (click)="saveLevel(idx)"
+                        [disabled]="fval.stationManagers['controls'][idx]['controls']['selectedManager'].invalid"
+                        (click)="saveManager(idx)"
                       >
                         <i
                           class="fas fa-save"
@@ -100,10 +97,7 @@
                             : ''
                         "
                       >
-                        <!-- <i *ngIf="fval.approvalItems['controls'][idx]['controls']['firstApproval'].valid" class="material-icons"
-                      >check_circle</i
-                    > -->
-                        Select a manager from available area users
+                        Select a manager from available station users
                       </label>
                       <select
                         formControlName="selectedManager"
@@ -124,20 +118,11 @@
                         autocomplete="off"
                         placeholder="Select required managers"
                       >
-                        <option>CENTRAL</option>
-                        <option>AREA</option>
-                        <option>TOWN</option>
+                      <option></option>
+                      <option *ngFor="let user of users">
+                        {{user.userName.toUpperCase()}}
+                      </option>
                       </select>
-                      <!-- <div
-                  class="text-danger col-3 mx-1"
-                  *ngIf="
-                    (fval.stationManagers['controls'][idx]['controls']['selectedManager'].touched
-                    || fval.stationManagers['controls'][idx]['controls']['selectedManager'].dirty) &&
-                    fval.stationManagers['controls'][idx]['controls']['selectedManager'].errors?.required
-                  "
-                >
-                  please choose a manager!
-                </div> -->
                     </div>
                   </div>
                 </div>

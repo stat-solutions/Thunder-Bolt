@@ -10,12 +10,6 @@ exports.RegistrationComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
-var originFormControlNameNgOnChanges = forms_1.FormControlName.prototype.ngOnChanges;
-forms_1.FormControlName.prototype.ngOnChanges = function () {
-    var result = originFormControlNameNgOnChanges.apply(this, arguments);
-    this.control.nativeElement = this.valueAccessor._elementRef.nativeElement;
-    return result;
-};
 var RegistrationComponent = /** @class */ (function () {
     function RegistrationComponent(authService, others, spinner, router, alertService, fb) {
         this.authService = authService;
@@ -92,17 +86,6 @@ var RegistrationComponent = /** @class */ (function () {
         this.userForm.reset();
     };
     RegistrationComponent.prototype.log = function () {
-        // console.log(this.fval.central.value);
-        // console.log(this.units);
-        // this.units.forEach(unit => {
-        //   if (this.fval.central.value === unit.bussinessUnitName) {
-        //   console.log(unit);
-        //     this.selectedLocation = unit.businnessUnitId;
-        //     console.log(unit.businnessUnitId);
-        //     console.log(this.selectedLocation);
-        //   }
-        // });
-        // console.log(this.selectedLocation);
     };
     Object.defineProperty(RegistrationComponent.prototype, "fval", {
         get: function () {
@@ -150,27 +133,6 @@ var RegistrationComponent = /** @class */ (function () {
         if (this.userForm.invalid === true) {
             return;
         }
-        else if (this.fval.position.value === 'CENTRAL USER' && this.fval.central.value === '') {
-            this.spinner.hide();
-            this.fval.central.nativeElement.focus();
-            return;
-        }
-        else if (this.fval.position.value === 'AREA USER' && this.fval.area.value === '') {
-            this.spinner.hide();
-            this.fval.area.nativeElement.focus();
-            return;
-        }
-        else if (this.fval.position.value === 'TOWN USER' && this.fval.town.value === '') {
-            this.spinner.hide();
-            this.fval.town.nativeElement.focus();
-            return;
-        }
-        else if ((this.fval.position.value === 'STATION USER')
-            && this.fval.station.value === '') {
-            this.spinner.hide();
-            this.fval.station.nativeElement.focus();
-            return;
-        }
         else {
             this.roles.forEach(function (role) {
                 if (_this.fval.position.value === role.roleName) {
@@ -179,25 +141,22 @@ var RegistrationComponent = /** @class */ (function () {
             });
             if (this.fval.position.value === 'AREA USER') {
                 this.areas.forEach(function (area) {
-                    if (_this.fval.area.value.toString() === area.areaRegionName) {
+                    if (_this.fval.area.value.toLowerCase() === area.areaRegionName.toLowerCase().replace(/_/g, ' ')) {
                         _this.selectedLocation = area.theAreaLocationId;
-                        // console.log(this.selectedLocation);
                     }
                 });
             }
             else if (this.fval.position.value === 'TOWN USER') {
                 this.towns.forEach(function (town) {
-                    if (_this.fval.town.value.toString() === town.townName) {
+                    if (_this.fval.town.value.toLowerCase() === town.townName.toLowerCase().replace(/_/g, ' ')) {
                         _this.selectedLocation = town.theTownLocationId;
-                        // console.log(this.selectedLocation);
                     }
                 });
             }
             else if (this.fval.position.value === 'STATION USER') {
                 this.stations.forEach(function (station) {
-                    if (_this.fval.station.value.toString() === station.stationName) {
+                    if (_this.fval.station.value.toLowerCase() === station.stationName.toLowerCase().replace(/_/g, ' ')) {
                         _this.selectedLocation = station.theStationLocationId;
-                        // console.log(this.selectedLocation);
                     }
                 });
             }
@@ -206,14 +165,13 @@ var RegistrationComponent = /** @class */ (function () {
             }
             else if (this.fval.position.value === 'CENTRAL USER') {
                 this.units.forEach(function (unit) {
-                    if (_this.fval.central.value.toString() === unit.bussinessUnitName) {
+                    if (_this.fval.central.value.toLowerCase() === unit.bussinessUnitName.toLowerCase().replace(/_/g, ' ')) {
                         _this.selectedLocation = unit.theBusinessUnitId;
-                        // console.log(this.selectedLocation);
                     }
                 });
             }
             this.registerUser = {
-                userName: this.fval.full_name.value,
+                userName: this.fval.full_name.value.toUpperCase(),
                 userEmail1: this.fval.email.value,
                 userPhone1: "" + this.fval.user_contact_number.value,
                 userIdType: this.fval.id_type.value,
@@ -224,13 +182,7 @@ var RegistrationComponent = /** @class */ (function () {
                 locationId: this.selectedLocation
             };
             // console.log(this.registerUser);
-            if (this.registerUser.locationId === null) {
-                this.spinner.hide();
-                this.alertService.danger({
-                    html: '<b>' + 'No location address was selected' + '</b>' + '<br/>'
-                });
-            }
-            else {
+            if (this.registerUser.locationId) {
                 this.authService.registerUser(this.registerUser).subscribe(function () {
                     _this.posted = true;
                     _this.spinner.hide();
@@ -249,10 +201,13 @@ var RegistrationComponent = /** @class */ (function () {
                     _this.alertService.danger({
                         html: '<b>' + _this.serviceErrors + '</b>' + '<br/>'
                     });
-                    setTimeout(function () {
-                        // location.reload();
-                    }, 5000);
-                    console.log(error);
+                });
+            }
+            else {
+                this.spinner.hide();
+                this.errored = true;
+                this.alertService.danger({
+                    html: '<b>' + 'No location address was selected' + '</b>' + '<br/>'
                 });
             }
             this.spinner.hide();

@@ -46,22 +46,35 @@
               <i class="fas fa-tag text-primary mx-auto" style="size: 50px;">
               </i>
             </div>
+  </div>
+  <input
+              type="text"
+              list="cluster"
+              formControlName="cluster"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.cluster.touched ||
+                    fval.cluster.dirty) &&
+                  fval.cluster.errors
+              }"
+              autocomplete="off"
+              placeholder="Select a cluster"
+            />
+            <!-- clusters -->
+            <datalist id="cluster">
+              <option *ngFor="let cluster of clusters">
+                {{ cluster.stageClusterName }}
+              </option>
+            </datalist>
+      
           </div>
-          <select
-          formControlName="cluster"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid':
-              (fval.cluster.touched || fval.cluster.dirty) &&
-              fval.cluster.errors
-          }"
-          autocomplete="off"
-          placeholder="Select the cluster"
-        >
-          <option></option>
-          <option *ngFor="let cluster of clusters; let i = index">{{cluster}}</option>
-        </select></div>
-      </div>
+          <div class="text-danger col" 
+            *ngIf="(fval.cluster.touched||fval.cluster.dirty)
+            && fval.cluster.errors?.required">
+               The cluster name is required!
+          </div>
+    </div>
 <div class="form-group text-primary">
         <label for="bodabodaStageChairmanName" [ngClass]="fval.bodabodaStageChairmanName.valid ? 'text-info' : ''">Chairman's Name<i  *ngIf="fval.bodabodaStageChairmanName.valid" class="material-icons">check_circle</i></label>
         <div class="input-group mb-0">

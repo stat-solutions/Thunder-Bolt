@@ -65,58 +65,53 @@
           >
             Please select a valid stage name!
           </div>
-        </div>
-        <div class="form-group text-primary">
-          <label for="park" [ngClass]="fval.park.valid ? 'text-info' : ''"
-            ><i *ngIf="fval.park.valid" class="material-icons">check_circle</i
-            >Taxi Park</label
-          >
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i
-                  class="fas fa-parking text-primary mx-auto"
-                  style="size: 50px"
-                >
-                </i>
-              </div>
-            </div>
-            <select
+      </div>
+    <div class="form-group text-primary">
+      <label
+          for="park"
+          [ngClass]="fval.park.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.park.valid" class="material-icons"
+            >check_circle</i
+          >Park</label
+        >
+        <div class="input-group mb-0">
+ <input
+              type="text"
+              list="park"
               formControlName="park"
               class="form-control"
               [ngClass]="{
                 'is-invalid':
-                  (fval.park.touched || fval.park.dirty) && fval.park.errors
+                  (fval.park.touched ||
+                    fval.park.dirty) &&
+                  fval.park.errors
               }"
               autocomplete="off"
-              placeholder="Select the taxi park"
-            >
-              <option></option>
-              <option *ngFor="let park of parks; let i = index">
-                {{ park }}
+              placeholder="Select a park"
+            />
+            <!-- parks -->
+            <datalist id="park">
+              <option *ngFor="let park of parks">
+                {{ park.taxiParkName }}
               </option>
-            </select>
-          </div>
+            </datalist>
         </div>
-        <div class="form-group text-primary">
-          <label
-            for="taxiStageChairmanName"
-            [ngClass]="fval.taxiStageChairmanName.valid ? 'text-info' : ''"
-            >Chairman's Name<i
-              *ngIf="fval.taxiStageChairmanName.valid"
-              class="material-icons"
-              >check_circle</i
-            ></label
-          >
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i
-                  class="fas fa-user-alt text-primary mx-auto"
-                  style="size: 50px"
-                >
-                </i>
-              </div>
+        <div class="text-danger col" 
+        *ngIf="(fval.park.touched||fval.park.dirty)
+        && fval.park.errors?.required">
+           The park name is required!
+      </div>
+      </div>
+<div class="form-group text-primary">
+        <label for="taxiStageChairmanName" [ngClass]="fval.taxiStageChairmanName.valid ? 'text-info' : ''">Chairman's Name<i  *ngIf="fval.taxiStageChairmanName.valid" class="material-icons">check_circle</i></label>
+        <div class="input-group mb-0">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i
+                class="fas fa-user-alt text-primary mx-auto"
+                style="size: 50px;"
+              >
+              </i>
             </div>
             <input
               type="text"

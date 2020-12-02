@@ -25,18 +25,19 @@ var CreateTownsComponent = /** @class */ (function () {
         this.userForm = this.createFormGroup();
         this.fval.selectAll.setValue(false);
         this.initialiseForm();
+        // console.log(this.User);
     };
     CreateTownsComponent.prototype.createFormGroup = function () {
         return this.fb.group({
-            selectedAreas: this.fb.array([this.selectArea]),
+            selectedTowns: this.fb.array([this.selectTown]),
             selectAll: this.fb.control({})
         });
     };
-    Object.defineProperty(CreateTownsComponent.prototype, "selectArea", {
+    Object.defineProperty(CreateTownsComponent.prototype, "selectTown", {
         get: function () {
             return this.fb.group({
-                areaId: this.fb.control({ value: '' }),
-                areaName: this.fb.control({ value: '' }),
+                townId: this.fb.control({ value: '' }),
+                townName: this.fb.control({ value: '' }),
                 approved: this.fb.control({})
             });
         },
@@ -45,27 +46,22 @@ var CreateTownsComponent = /** @class */ (function () {
     });
     CreateTownsComponent.prototype.addItem = function () {
         // this.unitForm.controls.bussinessUnits  as FormArray
-        this.fval.selectedAreas.push(this.selectArea);
+        this.fval.selectedTowns.push(this.selectTown);
     };
     CreateTownsComponent.prototype.removeItem = function (index) {
-        this.fval.selectedAreas.removeAt(index);
+        this.fval.selectedTowns.removeAt(index);
     };
     CreateTownsComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.others.getAreas().subscribe(function (units) {
-            _this.approvedAreas = units;
-            // console.log(this.approvedAreas)
-            _this.approvedAreas.forEach(function (item, i) {
-                // console.log(item.areaName);
+        this.others.getTowns().subscribe(function (units) {
+            _this.approvedTowns = units;
+            _this.approvedTowns.forEach(function (item, i) {
+                // console.log(item.townName);
                 // console.log(i);
-                // this.fval.selectedAreas.controls[i].controls.areaId.setValue(
-                //   item.areaRegionId
-                // );
-                // this.fval.selectedAreas.controls[i].controls.areaName.setValue(
-                //   item.areaName
-                // );
-                _this.fval.selectedAreas.controls[i].controls.approved.setValue(false);
+                _this.fval.selectedTowns.controls[i].controls.townId.setValue(item.townId);
+                _this.fval.selectedTowns.controls[i].controls.townName.setValue(item.townName.toUpperCase());
+                _this.fval.selectedTowns.controls[i].controls.approved.setValue(false);
                 _this.addItem();
                 n = i + 1;
             });
@@ -75,19 +71,19 @@ var CreateTownsComponent = /** @class */ (function () {
     CreateTownsComponent.prototype.checkAllItems = function (val) {
         var _this = this;
         if (val === true) {
-            this.approvedAreas.forEach(function (item, i) {
-                _this.fval.selectedAreas.controls[i].controls.approved.setValue(val);
+            this.approvedTowns.forEach(function (item, i) {
+                _this.fval.selectedTowns.controls[i].controls.approved.setValue(val);
             });
         }
         else {
-            this.approvedAreas.forEach(function (item, i) {
-                _this.fval.selectedAreas.controls[i].controls.approved.setValue(false);
+            this.approvedTowns.forEach(function (item, i) {
+                _this.fval.selectedTowns.controls[i].controls.approved.setValue(false);
             });
         }
     };
     CreateTownsComponent.prototype.deselectAll = function (val) {
         // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-        if (this.fval.selectedAreas.controls[val].controls.approved.value === true) {
+        if (this.fval.selectedTowns.controls[val].controls.approved.value === true) {
             this.fval.selectAll.setValue(false);
         }
     };
@@ -112,22 +108,22 @@ var CreateTownsComponent = /** @class */ (function () {
     };
     CreateTownsComponent.prototype.approveItems = function () {
         var _this = this;
-        var areasSelected = [];
-        this.approvedAreas.forEach(function (item, i) {
-            if (_this.fval.selectedAreas.controls[i].controls.approved.value === true) {
-                areasSelected.push({
-                    areaRegionId: item.areaRegionId,
-                    theBusinessUnitId: _this.User.userLocationId,
+        var townsSelected = [];
+        this.approvedTowns.forEach(function (item, i) {
+            if (_this.fval.selectedTowns.controls[i].controls.approved.value === true) {
+                townsSelected.push({
+                    townId: item.townId,
+                    theAreaLocationId: _this.User.userLocationId,
                     userId: _this.User.userId
                 });
             }
         });
-        // console.log(AreasSelected.length);
-        if (areasSelected.length > 0) {
-            this.others.createTheArea(areasSelected).subscribe(function (res) {
-                setTimeout(function () {
-                    _this.refresh();
-                }, 3000);
+        // console.log(townsSelected);
+        if (townsSelected.length > 0) {
+            this.others.createTheTown(townsSelected).subscribe(function (res) {
+                // setTimeout(() => {
+                //   this.refresh();
+                // }, 3000);
             }, function (err) { return console.log(err); });
         }
         else {

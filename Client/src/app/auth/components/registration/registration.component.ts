@@ -10,13 +10,6 @@ import { UserRole } from 'src/app/shared/models/user-role';
 import { RegisterUser } from 'src/app/shared/models/register';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
-const originFormControlNameNgOnChanges = FormControlName.prototype.ngOnChanges;
-FormControlName.prototype.ngOnChanges = function(): any {
-  const result = originFormControlNameNgOnChanges.apply(this, arguments);
-  this.control.nativeElement = this.valueAccessor._elementRef.nativeElement;
-  return result;
-};
-
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -155,17 +148,7 @@ revert(): any {
     this.userForm.reset();
   }
 log(): any{
-  // console.log(this.fval.central.value);
-  // console.log(this.units);
-  // this.units.forEach(unit => {
-  //   if (this.fval.central.value === unit.bussinessUnitName) {
-  //   console.log(unit);
-  //     this.selectedLocation = unit.businnessUnitId;
-  //     console.log(unit.businnessUnitId);
-  //     console.log(this.selectedLocation);
-  //   }
-  // });
-  // console.log(this.selectedLocation);
+
 }
 get fval(): any {
     return this.userForm.controls;
@@ -211,26 +194,8 @@ register(): any {
     this.spinner.hide();
     if (this.userForm.invalid === true) {
       return;
-    } else if (this.fval.position.value === 'CENTRAL USER' && this.fval.central.value === ''){
-      this.spinner.hide();
-      this.fval.central.nativeElement.focus();
-      return;
-    } else if (this.fval.position.value === 'AREA USER' && this.fval.area.value === ''){
-      this.spinner.hide();
-      this.fval.area.nativeElement.focus();
-      return;
-    } else if (this.fval.position.value === 'TOWN USER' && this.fval.town.value === ''){
-      this.spinner.hide();
-      this.fval.town.nativeElement.focus();
-      return;
-    } else if (
-        (this.fval.position.value === 'STATION USER')
-        && this.fval.station.value === ''
-      ){
-      this.spinner.hide();
-      this.fval.station.nativeElement.focus();
-      return;
-    } else {
+    }
+    else {
       this.roles.forEach(role => {
         if (this.fval.position.value === role.roleName) {
           this.selectedRole = role.accessRightsId;
@@ -238,37 +203,33 @@ register(): any {
       });
       if (this.fval.position.value === 'AREA USER'){
         this.areas.forEach(area => {
-          if (this.fval.area.value.toString() === area.areaRegionName) {
+          if (this.fval.area.value.toLowerCase() === area.areaRegionName.toLowerCase().replace(/_/g, ' ')) {
             this.selectedLocation = area.theAreaLocationId;
-            // console.log(this.selectedLocation);
           }
         });
       } else  if (this.fval.position.value === 'TOWN USER'){
         this.towns.forEach(town => {
-          if (this.fval.town.value.toString() === town.townName) {
+          if (this.fval.town.value.toLowerCase() === town.townName.toLowerCase().replace(/_/g, ' ')) {
             this.selectedLocation = town.theTownLocationId;
-            // console.log(this.selectedLocation);
           }
         });
       }  else  if (this.fval.position.value === 'STATION USER' ){
         this.stations.forEach(station => {
-          if (this.fval.station.value.toString() === station.stationName) {
+          if (this.fval.station.value.toLowerCase() === station.stationName.toLowerCase().replace(/_/g, ' ')) {
             this.selectedLocation = station.theStationLocationId;
-            // console.log(this.selectedLocation);
           }
         });
       } else if (this.fval.position.value === 'ADMIN') {
         this.selectedLocation = 1000;
       } else if (this.fval.position.value === 'CENTRAL USER') {
         this.units.forEach(unit => {
-          if (this.fval.central.value.toString() === unit.bussinessUnitName) {
+          if (this.fval.central.value.toLowerCase() === unit.bussinessUnitName.toLowerCase().replace(/_/g, ' ')) {
             this.selectedLocation = unit.theBusinessUnitId;
-            // console.log(this.selectedLocation);
           }
         });
       }
       this.registerUser = {
-        userName: this.fval.full_name.value,
+        userName: this.fval.full_name.value.toUpperCase(),
         userEmail1: this.fval.email.value,
         userPhone1: `${this.fval.user_contact_number.value}`,
         userIdType: this.fval.id_type.value,
@@ -280,12 +241,7 @@ register(): any {
       };
 
       // console.log(this.registerUser);
-      if ( this.registerUser.locationId === null){
-        this.spinner.hide();
-        this.alertService.danger({
-          html: '<b>' + 'No location address was selected' + '</b>' + '<br/>'
-        });
-      } else {
+      if ( this.registerUser.locationId){
             this.authService.registerUser(this.registerUser).subscribe(
               () => {
                 this.posted = true;
@@ -307,12 +263,14 @@ register(): any {
                 this.alertService.danger({
                   html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
                 });
-                setTimeout(() => {
-                  // location.reload();
-                }, 5000);
-                console.log(error);
               }
             );
+      } else {
+        this.spinner.hide();
+        this.errored = true;
+        this.alertService.danger({
+        html: '<b>' + 'No location address was selected' + '</b>' + '<br/>'
+        });
       }
       this.spinner.hide();
       this.registered = true;

@@ -127,7 +127,6 @@
 
           <label class="col" *ngIf="errored" class="text-danger">
             <i class="material-icons">Cancel</i>
-
             <ngx-alerts></ngx-alerts>
           </label>
 
@@ -139,7 +138,7 @@
           <button
             type="button"
             class="btn btn-info col-5 mx-auto"
-            (click)="resetStageNames()"
+            (click)="revert()"
           >
             Cancel
           </button>

@@ -6,14 +6,10 @@ import { AlertService } from 'ngx-alerts';
 import { ArrayType } from '@angular/compiler';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 import { CustomValidator } from 'src/app/validators/custom-validator';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-
-export interface Approvals {
-  name: string;
-  level: number;
-}
 
 @Component({
   selector: 'app-station-managers',
@@ -27,13 +23,12 @@ export class StationManagersComponent implements OnInit {
   actionButton: string;
   errored: boolean;
   serviceErrors: string;
-  status: boolean;
-  checkedOk: boolean;
-  station: string;
-  theCompany: string;
-  managers: any;
+  User = this.authService.loggedInUserInfo();
+  users: any;
+  stationsManager: any;
   constructor(
     private others: OthersService,
+    private authService: AuthServiceService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
@@ -50,8 +45,8 @@ export class StationManagersComponent implements OnInit {
   }
   get stationManager(): any {
     return this.fb.group({
-      areaName: this.fb.control({ value: '' }),
-      id: this.fb.control({ value: '' }),
+      stationName: this.fb.control({ value: '' }),
+      stationId: this.fb.control({ value: '' }),
       currentManager: this.fb.control({ value: '' }),
       selectedManager: this.fb.control(
         {value: ''},
@@ -71,30 +66,26 @@ export class StationManagersComponent implements OnInit {
 
   initialiseForm(): any {
     let n: number;
-    this.managers.forEach((item, i) => {
-    this.fval.stationManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
-    // this.fval.approvalItems.controls[i].controls.id.setValue(item.itemRequiringApprovalId);
-    this.fval.stationManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
-    this.fval.stationManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
-    this.addItem();
-    n = i + 1;
-  });
-    this.removeItem(n);
-    this.disableForms();
-    //       },
-    //       error => console.log(error)
-    //     );
-    //   },
-    //   err => console.log(err)
-    // );
+    this.others.getAllTheStationLocations().subscribe(
+      res => {
+        this.stationsManager = res;
+        this.stationsManager.forEach((item, i) => {
+        this.fval.stationManagers.controls[i].controls.stationName.setValue(item.stationName.replace(/_/g, ' ').toUpperCase());
+        this.fval.stationManagers.controls[i].controls.stationId.setValue(item.theStationLocationId);
+        this.fval.stationManagers.controls[i].controls.currentManager.setValue(item.userName.toUpperCase());
+        this.fval.stationManagers.controls[i].controls.selectedManager.setValue(item.userName.toUpperCase());
+        this.addItem();
+        n = i + 1;
+      });
+        this.removeItem(n);
+        this.disableForms();
+      },
+        error => console.log(error)
+      );
   }
 revert(): any {
     this.managersForm.reset();
   }
-
-  // revert() {
-  //   this.approvalForm.reset();
-  // }
 
 refresh(): any {
     location.reload();
@@ -106,21 +97,51 @@ get fval(): any {
 
 disableForms(): any {
   // console.log(this.approvals);
-  this.managers.forEach((itm, i) => {
+  this.stationsManager.forEach((itm, i) => {
     this.fval.stationManagers.controls[i].disable();
   });
   }
 
 enableEdit(val: number): any {
     this.showLevels = val;
-    this.managers.forEach((itm, i) => {
-      if (i === val) {
-        this.fval.stationManagers.controls[i].enable();
-      }
-    });
+    this.others.getUsersByLocation(this.fval.stationManagers.controls[val].controls.stationId.value).subscribe(
+      res => {
+        this.users = res;
+        // console.log(this.users);
+      },
+      err => console.log(err)
+    );
+    this.fval.stationManagers.controls[val].enable();
   }
 
-saveLevel(index: any): any {
-
+saveManager(index: any): any {
+  if (this.fval.stationManagers.controls[index].valid) {
+    const data = {
+      theStationLocationId: this.fval.stationManagers.controls[index].controls.stationId.value,
+      userId: null
+  };
+    // console.log(this.fval.stationManagers.controls[index].controls.selectedManager.value);
+    this.users.forEach((item) => {
+    if (item.userName.toUpperCase() === this.fval.stationManagers.controls[index].controls.selectedManager.value) {
+        data.userId = item.userId;
+    } else {
+      // console.log(item);
+    }
+  });
+    this.fval.stationManagers.controls[index].disable();
+    this.showLevels = null;
+    // console.log(data);
+    this.others.setStationManager(data).subscribe(
+      res => {
+        // console.log(res);
+        this.fval.stationManagers.controls[index].controls.currentManager.setValue(
+          this.fval.stationManagers.controls[index].controls.selectedManager.value
+        );
+      },
+      err => console.log(err)
+    );
+    } else {
+      return;
+    }
   }
 }

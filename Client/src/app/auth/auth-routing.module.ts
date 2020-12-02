@@ -11,15 +11,15 @@ const routes: Routes = [
   component: AuthpageComponent,
   children: [
     {
-      path: "login",
+      path: 'login',
       component: LoginComponent
     },
     {
-      path: "register",
+      path: 'register',
       component: RegistrationComponent
     },
     {
-      path: "changepassword",
+      path: 'changepassword',
       component: ChangepasswordComponent
     }
   ]

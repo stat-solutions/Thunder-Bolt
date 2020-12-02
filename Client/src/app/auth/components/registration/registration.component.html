@@ -52,16 +52,7 @@
           "
         >
           The full name is required!
-        </div>
-        <!--div
-          class="text-danger col"
-          *ngIf="
-            (fval.full_name.touched || fval.full_name.dirty) &&
-            fval.full_name.errors?.pattern
-          "
-        >
-          Please enter a valid full name!
-        </div-->
+        </div>   
       </div>
 
       <div class="form-group text-primary">
@@ -408,7 +399,7 @@
 
           > <option></option>
             <option  *ngFor="let area of areas">
-              {{area.areaRegionName}}
+              {{area.areaRegionName.toUpperCase()}}
             </option>
           </select>
       </div>
@@ -444,7 +435,7 @@
             placeholder="Select town"
           ><option></option>
             <option *ngFor="let town of towns">
-              {{town.townName}}
+              {{town.townName.toUpperCase()}}
             </option>
           </select>
       </div>
@@ -482,7 +473,7 @@
             >
             <option></option>
             <option   *ngFor="let station of stations">
-              {{station.stationName}}
+              {{station.stationName.toUpperCase()}}
             </option>
           </select>
           </div>
@@ -681,13 +672,13 @@
         </ngx-spinner>
 
         <label class="col" *ngIf="errored" class="text-danger">
-          <!-- <i class="material-icons">Cancel</i> -->
+          <i class="material-icons">Cancel</i>
 
           <ngx-alerts></ngx-alerts>
         </label>
 
         <label class="col" *ngIf="posted" class="text-info">
-          <!-- <i class="material-icons">check_circle</i> -->
+          <i class="material-icons">check_circle</i>
           <ngx-alerts></ngx-alerts>
         </label>
     </div>

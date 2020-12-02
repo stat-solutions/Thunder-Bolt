@@ -34,8 +34,8 @@ var TownManagersComponent = /** @class */ (function () {
     Object.defineProperty(TownManagersComponent.prototype, "townManager", {
         get: function () {
             return this.fb.group({
-                areaName: this.fb.control({ value: '' }),
-                id: this.fb.control({ value: '' }),
+                townName: this.fb.control({ value: '' }),
+                townId: this.fb.control({ value: '' }),
                 currentManager: this.fb.control({ value: '' }),
                 selectedManager: this.fb.control({ value: '' }, forms_1.Validators.compose([
                     forms_1.Validators.required,
@@ -56,12 +56,15 @@ var TownManagersComponent = /** @class */ (function () {
         var n;
         this.others.getAllTheTownLocations().subscribe(function (res) {
             _this.townsManager = res;
-            console.log(_this.townsManager);
+            // console.log(this.townsManager);
+            //         theTownLocationId: 1100
+            // townName: "Maganjo"
+            // userName: "Baziraked Augustine Googo"
             _this.townsManager.forEach(function (item, i) {
-                _this.fval.townManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
-                // this.fval.approvalItems.controls[i].controls.id.setValue(item.itemRequiringApprovalId);
-                _this.fval.townManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
-                _this.fval.townManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
+                _this.fval.townManagers.controls[i].controls.townName.setValue(item.townName.replace(/_/g, ' ').toUpperCase());
+                _this.fval.townManagers.controls[i].controls.townId.setValue(item.theTownLocationId);
+                _this.fval.townManagers.controls[i].controls.currentManager.setValue(item.userName.toUpperCase());
+                _this.fval.townManagers.controls[i].controls.selectedManager.setValue(item.userName.toUpperCase());
                 _this.addItem();
                 n = i + 1;
             });
@@ -72,9 +75,6 @@ var TownManagersComponent = /** @class */ (function () {
     TownManagersComponent.prototype.revert = function () {
         this.managersForm.reset();
     };
-    // revert() {
-    //   this.approvalForm.reset();
-    // }
     TownManagersComponent.prototype.refresh = function () {
         location.reload();
     };
@@ -100,8 +100,39 @@ var TownManagersComponent = /** @class */ (function () {
                 _this.fval.townManagers.controls[i].enable();
             }
         });
+        this.others.getUsersByLocation(this.fval.townManagers.controls[val].controls.townId.value).subscribe(function (res) {
+            _this.users = res;
+            // console.log(this.users);
+        }, function (err) { return console.log(err); });
+        this.fval.townManagers.controls[val].enable();
     };
-    TownManagersComponent.prototype.saveLevel = function (index) {
+    TownManagersComponent.prototype.saveManager = function (index) {
+        var _this = this;
+        if (this.fval.townManagers.controls[index].valid) {
+            var data_1 = {
+                theTownLocationId: this.fval.townManagers.controls[index].controls.townId.value,
+                userId: null
+            };
+            // console.log(this.fval.townManagers.controls[index].controls.selectedManager.value);
+            this.users.forEach(function (item) {
+                if (item.userName.toUpperCase() === _this.fval.townManagers.controls[index].controls.selectedManager.value) {
+                    data_1.userId = item.userId;
+                }
+                else {
+                    // console.log(item);
+                }
+            });
+            this.fval.townManagers.controls[index].disable();
+            this.showLevels = null;
+            // console.log(data);
+            this.others.setTownManager(data_1).subscribe(function (res) {
+                // console.log(res);
+                _this.fval.townManagers.controls[index].controls.currentManager.setValue(_this.fval.townManagers.controls[index].controls.selectedManager.value);
+            }, function (err) { return console.log(err); });
+        }
+        else {
+            return;
+        }
     };
     TownManagersComponent = __decorate([
         core_1.Component({

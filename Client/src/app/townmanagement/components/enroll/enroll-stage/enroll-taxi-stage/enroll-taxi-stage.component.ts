@@ -22,7 +22,7 @@ export class EnrollTaxiStageComponent implements OnInit {
   serviceErrors: any = {};
   value: string;
   fieldType: boolean;
-  parks: [];
+  parks: any;
   User = this.authService.loggedInUserInfo();
 
   constructor(
@@ -83,7 +83,15 @@ export class EnrollTaxiStageComponent implements OnInit {
   }
 
   taxiParks(): any {
-    // this.others.
+    this.others.getTaxiParks().subscribe(
+      res => this.parks = res,
+      err => console.log(err)
+    );
+//     fkApprovalDetailsIdTaxiPark: 125
+// taxiParkId: 1500
+// taxiParkLocation: "KAMPALA TOWN"
+// taxiParkName: "NEW TAXI PARK"
+// taxiParkStatus: 2
   }
 
   onSubmit(): any {
@@ -93,10 +101,38 @@ export class EnrollTaxiStageComponent implements OnInit {
     if (this.userForm.invalid === true) {
       return;
     } else {
-      this.userForm.patchValue({
-        user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-        user_id: jwt_decode(this.authService.getJwtToken()).user_id
+      const data = {
+            taxiStageName: this.fval.taxiStageName.value.toUpperCase(),
+            taxiStageChairmanName: this.fval.taxiStageChairmanName.value.toUpperCase(),
+            taxiStageChairmanPhone1: this.fval.taxiStageChairmanPhone1.value,
+            taxiParkId: null,
+            userId: this.User.userId
+      };
+      this.parks.forEach(park => {
+        if (park.taxiParkName === this.fval.park.value) {
+          data.taxiParkId = park.taxiParkId;
+        }
       });
+      console.log(data);
+      this.spinner.hide();
+      this.others.createBodaStage(data).subscribe(
+        res => {
+          this.posted = true;
+          this.alertService.success({
+                  html:
+                    '<b>' + data.taxiStageName + 'Was Created Successfully</b>'
+          });
+          // this.fval.taxiParkName.setValue('');
+          this.revert();
+        },
+        err => {
+          this.errored = true;
+          this.alertService.danger({
+                  html:
+                    '<b>' + err.error.error.message + '</b>'
+          });
+        }
+      );
     }
   }
 }

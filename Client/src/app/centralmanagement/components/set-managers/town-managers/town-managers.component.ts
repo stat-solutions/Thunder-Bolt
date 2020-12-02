@@ -48,8 +48,8 @@ export class TownManagersComponent implements OnInit {
   }
   get townManager(): any {
     return this.fb.group({
-      areaName: this.fb.control({ value: '' }),
-      id: this.fb.control({ value: '' }),
+      townName: this.fb.control({ value: '' }),
+      townId: this.fb.control({ value: '' }),
       currentManager: this.fb.control({ value: '' }),
       selectedManager: this.fb.control(
         {value: ''},
@@ -72,12 +72,15 @@ export class TownManagersComponent implements OnInit {
     this.others.getAllTheTownLocations().subscribe(
       res => {
         this.townsManager = res;
-        console.log(this.townsManager);
+        // console.log(this.townsManager);
+//         theTownLocationId: 1100
+// townName: "Maganjo"
+// userName: "Baziraked Augustine Googo"
         this.townsManager.forEach((item, i) => {
-        this.fval.townManagers.controls[i].controls.areaName.setValue(item.areaName.replace(/_/g, ' ').toUpperCase());
-          // this.fval.approvalItems.controls[i].controls.id.setValue(item.itemRequiringApprovalId);
-        this.fval.townManagers.controls[i].controls.currentManager.setValue(item.manager.toUpperCase());
-        this.fval.townManagers.controls[i].controls.selectedManager.setValue(item.manager.toUpperCase());
+        this.fval.townManagers.controls[i].controls.townName.setValue(item.townName.replace(/_/g, ' ').toUpperCase());
+        this.fval.townManagers.controls[i].controls.townId.setValue(item.theTownLocationId);
+        this.fval.townManagers.controls[i].controls.currentManager.setValue(item.userName.toUpperCase());
+        this.fval.townManagers.controls[i].controls.selectedManager.setValue(item.userName.toUpperCase());
         this.addItem();
         n = i + 1;
       });
@@ -90,10 +93,6 @@ export class TownManagersComponent implements OnInit {
 revert(): any {
     this.managersForm.reset();
   }
-
-  // revert() {
-  //   this.approvalForm.reset();
-  // }
 
 refresh(): any {
     location.reload();
@@ -117,9 +116,44 @@ enableEdit(val: number): any {
         this.fval.townManagers.controls[i].enable();
       }
     });
+    this.others.getUsersByLocation(this.fval.townManagers.controls[val].controls.townId.value).subscribe(
+      res => {
+        this.users = res;
+        // console.log(this.users);
+      },
+      err => console.log(err)
+    );
+    this.fval.townManagers.controls[val].enable();
   }
 
-saveLevel(index: any): any {
-
+saveManager(index: any): any {
+  if (this.fval.townManagers.controls[index].valid) {
+    const data = {
+      theTownLocationId: this.fval.townManagers.controls[index].controls.townId.value,
+      userId: null
+  };
+    // console.log(this.fval.townManagers.controls[index].controls.selectedManager.value);
+    this.users.forEach((item) => {
+    if (item.userName.toUpperCase() === this.fval.townManagers.controls[index].controls.selectedManager.value) {
+        data.userId = item.userId;
+    } else {
+      // console.log(item);
+    }
+  });
+    this.fval.townManagers.controls[index].disable();
+    this.showLevels = null;
+    // console.log(data);
+    this.others.setTownManager(data).subscribe(
+      res => {
+        // console.log(res);
+        this.fval.townManagers.controls[index].controls.currentManager.setValue(
+          this.fval.townManagers.controls[index].controls.selectedManager.value
+        );
+      },
+      err => console.log(err)
+    );
+    } else {
+      return;
+    }
   }
 }

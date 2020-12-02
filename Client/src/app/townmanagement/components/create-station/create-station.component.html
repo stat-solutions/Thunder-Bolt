@@ -38,10 +38,10 @@
                       </div> -->
                   </div>
               </div>
-             <div class="iteration" formArrayName="selectedAreas">
+             <div class="iteration" formArrayName="selectedStations">
               <div
                   class="item-container mt-1"
-                  *ngFor="let items of fval.selectedAreas['controls'];let idx = index"
+                  *ngFor="let items of fval.selectedStations['controls'];let idx = index"
               >
                   <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
                       <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
@@ -58,12 +58,12 @@
                               </div>
                               <div class="col-4 pl-1 text-center">
                                   <span class="itemCreated">
-                                      {{fval.selectedAreas["controls"][idx]["controls"].areaId.value}}
+                                      {{fval.selectedStations["controls"][idx]["controls"].stationId.value}}
                                   </span>
                               </div>
                               <div class="col-6 text-center">
                                   <span class="itemCreated">
-                                      {{fval.selectedAreas["controls"][idx]["controls"].areaName.value}}
+                                      {{fval.selectedStations["controls"][idx]["controls"].stationName.value}}
                                   </span>
                               </div>
                               <!-- <div class="col-3 text-center">

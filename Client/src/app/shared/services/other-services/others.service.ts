@@ -3,19 +3,10 @@ import { FormGroup } from '@angular/forms';
 import { Observable, throwError } from 'rxjs';
 import { HttpHeaders, HttpErrorResponse, HttpClient, HttpParams, HttpInterceptor, HttpEvent, HttpHandler, HttpRequest } from '@angular/common/http';
 import { map, tap, catchError } from 'rxjs/operators';
-import { Approvals } from 'src/app/admin/components/approval-setup/approval-setup.component';
 import { CompanyInfo } from '../../models/company';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { UserInfo } from '../../models/user-info';
 import { AnyNaptrRecord } from 'dns';
-import { AreaApprovals } from 'src/app/centralmanagement/components/approvals/approve-areas/approve-areas.component';
-import { TownApprovals } from 'src/app/centralmanagement/components/approvals/approve-towns/approve-towns.component';
-import { StationApprovals } from 'src/app/centralmanagement/components/approvals/approve-stations/approve-stations.component';
-import { AreaInfo } from '../../models/area-ifo';
-import { TownInfo } from '../../models/town-info';
-import { StationInfo } from '../../models/station-info';
-import { Client } from '../../models/client';
 @Injectable({
   providedIn: 'root'
 })
@@ -204,17 +195,29 @@ export class OthersService {
     createTaxiPark(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiPark`, postData, this.httpOptions);
     }
+    getTaxiParks(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getTaxiParks`);
+    }
     createTaxiStage(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiStatage`, postData, this.httpOptions);
+    }
+    getTaxiStages(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getTaxiStages`);
     }
     createBodaCluster(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaCluster`, postData, this.httpOptions);
     }
+    getBodaClusters(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getBodabodaClusters`);
+    }
     createBodaStage(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaStage`, postData, this.httpOptions);
     }
+    getBodaStages(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getBodabodaStages`);
+    }
     getProducts(): Observable<any> {
-      return this.http.get<any>(`${this.API_URL}/ api/customer/getheTheProducts`);
+      return this.http.get<any>(`${this.API_URL}/api/customer/getheTheProducts`);
     }
     createCustomer(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateCustomer`, postData, this.httpOptions);

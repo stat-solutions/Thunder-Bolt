@@ -24,12 +24,12 @@ export class EnrollBodaStageComponent implements OnInit {
   serviceErrors: any = {};
   value: string;
   fieldType: boolean;
-  clusters: [];
+  clusters: any;
   User = this.authService.loggedInUserInfo();
 
   constructor(
     private authService: AuthServiceService,
-    private ohers: OthersService,
+    private others: OthersService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService
@@ -80,20 +80,56 @@ export class EnrollBodaStageComponent implements OnInit {
   }
 
   bodaClusters(): any {
-
+    this.others.getBodaClusters().subscribe(
+      res => this.clusters = res,
+      err => console.log(err.error.error.message)
+    );
+//     fkApprovalDetailsIdstageCluster: 122
+// stageCluesterStatus: 2
+// stageClusterId: 1800
+// stageClusterLocation: "NANSANA"
+// stageClusterName: "KYINYARWANDA"
   }
 
   onSubmit(): any {
-    this.submitted = true;
+   this.submitted = true;
     this.spinner.show();
 
     if (this.userForm.invalid === true) {
       return;
     } else {
-      this.userForm.patchValue({
-        user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-        user_id: jwt_decode(this.authService.getJwtToken()).user_id
-      });
+      let data = {
+            bodabodaStageName: this.fval.bodabodaStageName.value.toUpperCase(),
+            bodabodaStageChairmanName: this.fval.bodabodaStageChairmanName.value.toUpperCase(),
+            bodabodaStageChairmanPhone1: this.fval.bodabodaStageChairmanPhone1.value,
+            stageClusterId: null,
+            userId: this.User.userId
+      }
+      this.clusters.forEach(cluster => {
+        if (cluster.stageClusterName === this.fval.cluster.value) {
+          data.stageClusterId = cluster.stageClusterId
+        }
+      })
+      console.log(data);
+      this.spinner.hide();
+      this.others.createBodaStage(data).subscribe(
+        res => {
+          this.posted = true;
+          this.alertService.success({
+                  html:
+                    '<b>' + data.bodabodaStageName + 'Was Created Successfully</b>'
+          });
+          // this.fval.taxiParkName.setValue('');
+          this.revert(); 
+        },
+        err => {
+          this.errored = true;
+           this.alertService.danger({
+                  html:
+                    '<b>' + err.error.error.message + '</b>'
+          });
+        }
+      );
     }
   }
 }

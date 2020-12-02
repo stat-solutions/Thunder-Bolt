@@ -16,7 +16,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 })
 export class CreateTownsComponent implements OnInit {
   userForm: FormGroup;
-  approvedAreas: any;
+  approvedTowns: any;
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -36,44 +36,44 @@ export class CreateTownsComponent implements OnInit {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
+    // console.log(this.User);
   }
   createFormGroup(): any {
     return this.fb.group({
-      selectedAreas: this.fb.array([this.selectArea]),
+      selectedTowns: this.fb.array([this.selectTown]),
       selectAll: this.fb.control({}),
     });
   }
-  get selectArea(): any {
+  get selectTown(): any {
     return this.fb.group({
-      areaId: this.fb.control({ value: '' }),
-      areaName: this.fb.control({ value: '' }),
+      townId: this.fb.control({ value: '' }),
+      townName: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
   }
   addItem(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.selectedAreas as FormArray).push(this.selectArea);
+    (this.fval.selectedTowns as FormArray).push(this.selectTown);
   }
 
   removeItem(index: number): any {
-    (this.fval.selectedAreas as FormArray).removeAt(index);
+    (this.fval.selectedTowns as FormArray).removeAt(index);
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getAreas().subscribe(
+    this.others.getTowns().subscribe(
       units => {
-        this.approvedAreas = units;
-        // console.log(this.approvedAreas)
-        this.approvedAreas.forEach((item, i) => {
-          // console.log(item.areaName);
+        this.approvedTowns = units;
+        this.approvedTowns.forEach((item, i) => {
+          // console.log(item.townName);
           // console.log(i);
-          // this.fval.selectedAreas.controls[i].controls.areaId.setValue(
-          //   item.areaRegionId
-          // );
-          // this.fval.selectedAreas.controls[i].controls.areaName.setValue(
-          //   item.areaName
-          // );
-          this.fval.selectedAreas.controls[i].controls.approved.setValue(
+          this.fval.selectedTowns.controls[i].controls.townId.setValue(
+            item.townId
+          );
+          this.fval.selectedTowns.controls[i].controls.townName.setValue(
+            item.townName.toUpperCase()
+          );
+          this.fval.selectedTowns.controls[i].controls.approved.setValue(
             false
           );
           this.addItem();
@@ -85,14 +85,14 @@ export class CreateTownsComponent implements OnInit {
   }
   checkAllItems(val: boolean): any {
     if (val === true) {
-      this.approvedAreas.forEach((item, i) => {
-        this.fval.selectedAreas.controls[i].controls.approved.setValue(
+      this.approvedTowns.forEach((item, i) => {
+        this.fval.selectedTowns.controls[i].controls.approved.setValue(
           val
         );
       });
     } else {
-      this.approvedAreas.forEach((item, i) => {
-        this.fval.selectedAreas.controls[i].controls.approved.setValue(
+      this.approvedTowns.forEach((item, i) => {
+        this.fval.selectedTowns.controls[i].controls.approved.setValue(
           false
         );
       });
@@ -101,7 +101,7 @@ export class CreateTownsComponent implements OnInit {
   deselectAll(val: any): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
     if (
-      this.fval.selectedAreas.controls[val].controls.approved.value === true
+      this.fval.selectedTowns.controls[val].controls.approved.value === true
     ) {
       this.fval.selectAll.setValue(false);
     }
@@ -127,23 +127,23 @@ export class CreateTownsComponent implements OnInit {
   }
 
   approveItems(): any {
-    const areasSelected = [];
-    this.approvedAreas.forEach((item, i) => {
-      if (this.fval.selectedAreas.controls[i].controls.approved.value === true) {
-        areasSelected.push({
-            areaRegionId: item.areaRegionId,
-            theBusinessUnitId: this.User.userLocationId,
+    const townsSelected = [];
+    this.approvedTowns.forEach((item, i) => {
+      if (this.fval.selectedTowns.controls[i].controls.approved.value === true) {
+        townsSelected.push({
+            townId: item.townId,
+            theAreaLocationId: this.User.userLocationId,
             userId: this.User.userId
         });
       }
     });
-    // console.log(AreasSelected.length);
-    if (areasSelected.length > 0) {
-        this.others.createTheArea(areasSelected).subscribe(
+    // console.log(townsSelected);
+    if (townsSelected.length > 0) {
+        this.others.createTheTown(townsSelected).subscribe(
           res => {
-            setTimeout(() => {
-              this.refresh();
-            }, 3000);
+            // setTimeout(() => {
+            //   this.refresh();
+            // }, 3000);
           }, err => console.log(err)
         );
     } else {

@@ -10,13 +10,10 @@ exports.EnrollBodaStageComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
-// import { DashboardUserService } from 'src/app/services/dashboard-user.service';
-// import { StageNames } from 'src/app/models/stage-names';
-var jwt_decode = require("jwt-decode");
 var EnrollBodaStageComponent = /** @class */ (function () {
-    function EnrollBodaStageComponent(authService, ohers, spinner, router, alertService) {
+    function EnrollBodaStageComponent(authService, others, spinner, router, alertService) {
         this.authService = authService;
-        this.ohers = ohers;
+        this.others = others;
         this.spinner = spinner;
         this.router = router;
         this.alertService = alertService;
@@ -56,6 +53,8 @@ var EnrollBodaStageComponent = /** @class */ (function () {
         configurable: true
     });
     EnrollBodaStageComponent.prototype.bodaClusters = function () {
+        var _this = this;
+        this.others.getBodaClusters().subscribe(function (res) { return _this.clusters = res; }, function (err) { return console.log(err); });
     };
     EnrollBodaStageComponent.prototype.onSubmit = function () {
         this.submitted = true;
@@ -64,10 +63,6 @@ var EnrollBodaStageComponent = /** @class */ (function () {
             return;
         }
         else {
-            this.userForm.patchValue({
-                user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-                user_id: jwt_decode(this.authService.getJwtToken()).user_id
-            });
         }
     };
     EnrollBodaStageComponent = __decorate([

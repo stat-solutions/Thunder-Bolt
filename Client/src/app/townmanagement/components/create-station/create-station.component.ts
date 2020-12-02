@@ -60,19 +60,17 @@ export class CreateStationComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getAreas().subscribe(
+    this.others.getStations().subscribe(
       units => {
         this.approvedStations = units;
         // console.log(this.approvedStations)
         this.approvedStations.forEach((item, i) => {
-          // console.log(item.areaName);
-          // console.log(i);
-          // this.fval.selectedStations.controls[i].controls.areaId.setValue(
-          //   item.areaRegionId
-          // );
-          // this.fval.selectedStations.controls[i].controls.areaName.setValue(
-          //   item.areaName
-          // );
+          this.fval.selectedStations.controls[i].controls.stationId.setValue(
+            item.theStationLocationId
+          );
+          this.fval.selectedStations.controls[i].controls.stationName.setValue(
+            item.stationName
+          );
           this.fval.selectedStations.controls[i].controls.approved.setValue(
             false
           );
@@ -127,19 +125,19 @@ export class CreateStationComponent implements OnInit {
   }
 
   approveItems(): any {
-    const areasSelected = [];
+    const stationsSelected = [];
     this.approvedStations.forEach((item, i) => {
       if (this.fval.selectedStations.controls[i].controls.approved.value === true) {
-        areasSelected.push({
-            areaRegionId: item.areaRegionId,
-            theBusinessUnitId: this.User.userLocationId,
+        stationsSelected.push({
+            theStationLocationId: item.theStationLocationId,
+            locationId: this.User.userLocationId,
             userId: this.User.userId
         });
       }
     });
-    // console.log(AreasSelected.length);
-    if (areasSelected.length > 0) {
-        this.others.createTheArea(areasSelected).subscribe(
+    // console.log(stationsSelected);
+    if (stationsSelected.length > 0) {
+        this.others.createTheStation(stationsSelected).subscribe(
           res => {
             setTimeout(() => {
               this.refresh();
