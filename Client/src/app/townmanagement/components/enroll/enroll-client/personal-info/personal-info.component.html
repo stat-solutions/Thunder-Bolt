@@ -424,7 +424,7 @@
               <label
                 for="productCode"
                 [ngClass]="fval.productCode.valid ? 'text-info' : ''"
-                >Initial Product (optional)
+                >Initial Product
                 <!-- <i
                   *ngIf="fval.productCode.valid"
                   class="material-icons"
@@ -450,7 +450,7 @@
                     fval.productCode.errors
                 }"
                 autocomplete="off"
-                placeholder="Select  a procduct *optional*"
+                placeholder="Select  a procduct"
               >
                 <!-- <option> </option> -->
                 <option>BODABODA LOAN PRODUCT</option>
@@ -459,6 +459,15 @@
                 <option>SAVINGS PRODUCT</option>
               </select>
               </div>
+              <div
+              class="text-danger col"
+              *ngIf="
+                (fval.productCode.touched || fval.productCode.dirty) &&
+                fval.productCode.errors?.required
+              "
+            >
+              initial product is required
+            </div>
             </div>
           </div>
         </div>

@@ -5,9 +5,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { AlertService } from 'ngx-alerts';
 import { CustomValidator } from 'src/app/validators/custom-validator';
-// import { DashboardUserService } from 'src/app/services/dashboard-user.service';
-// import { StageNames } from 'src/app/models/stage-names';
 import * as jwt_decode from 'jwt-decode';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
   selector: 'app-enroll-taxi-stage',
@@ -23,12 +22,12 @@ export class EnrollTaxiStageComponent implements OnInit {
   serviceErrors: any = {};
   value: string;
   fieldType: boolean;
-  theStageNames: [];
-  // theStageNames: StageNames[];
+  parks: any;
+  User = this.authService.loggedInUserInfo();
 
   constructor(
     private authService: AuthServiceService,
-    // private adminUserService: DashboardUserService,
+    private others: OthersService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService
@@ -36,12 +35,16 @@ export class EnrollTaxiStageComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
-    this.stageNames();
+    this.taxiParks();
   }
 
   createFormGroup(): any {
     return new FormGroup({
       taxiStageName: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+       park: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
@@ -79,22 +82,16 @@ export class EnrollTaxiStageComponent implements OnInit {
     return this.userForm.controls;
   }
 
-  stageNames(): any {
-    // this.adminUserService.getStageNames(jwt_decode(this.authService.getJwtToken()).user_station).subscribe(
-    //   data => {
-    //     this.userForm.controls.stage_name.reset();
-    //     this.theStageNames = data;
-    //     // this.alertService.success({ html: '<b> User Roles Updated</b>' + '<br/>' });
-    //   },
-
-    //   (error: string) => {
-    //     this.errored = true;
-    //     this.serviceErrors = error;
-    //     this.alertService.danger({
-    //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-    //     });
-    //   }
-    // );
+  taxiParks(): any {
+    this.others.getTaxiParks().subscribe(
+      res => this.parks = res,
+      err => console.log(err)
+    );
+//     fkApprovalDetailsIdTaxiPark: 125
+// taxiParkId: 1500
+// taxiParkLocation: "KAMPALA TOWN"
+// taxiParkName: "NEW TAXI PARK"
+// taxiParkStatus: 2
   }
 
   onSubmit(): any {
@@ -104,38 +101,38 @@ export class EnrollTaxiStageComponent implements OnInit {
     if (this.userForm.invalid === true) {
       return;
     } else {
-      this.userForm.patchValue({
-        user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-        user_id: jwt_decode(this.authService.getJwtToken()).user_id
+      const data = {
+            taxiStageName: this.fval.taxiStageName.value.toUpperCase(),
+            taxiStageChairmanName: this.fval.taxiStageChairmanName.value.toUpperCase(),
+            taxiStageChairmanPhone1: this.fval.taxiStageChairmanPhone1.value,
+            taxiParkId: null,
+            userId: this.User.userId
+      };
+      this.parks.forEach(park => {
+        if (park.taxiParkName === this.fval.park.value) {
+          data.taxiParkId = park.taxiParkId;
+        }
       });
-
-      // this.adminUserService.registerCustomer(this.userForm).subscribe(
-      //   () => {
-      //     this.posted = true;
-      //     this.spinner.hide();
-
-      //     // tslint:disable-next-line:max-line-length
-      //     this.alertService.success({
-      //       html:
-      //         '<b>Customer Registration was Successful!!</b>' +
-      //         '</br>' +
-      //         'Please proceed to lend him'
-      //     });
-      //     this.revert();
-      //     setTimeout(() => {
-      //       this.router.navigate(['dashboarduser/loans']);
-      //     }, 2000);
-      //   },
-
-      //   (error: string) => {
-      //     this.errored = true;
-      //     this.serviceErrors = error;
-      //     this.alertService.danger({
-      //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-      //     });
-      //     this.spinner.hide();
-      //   }
-      // );
+      console.log(data);
+      this.spinner.hide();
+      this.others.createBodaStage(data).subscribe(
+        res => {
+          this.posted = true;
+          this.alertService.success({
+                  html:
+                    '<b>' + data.taxiStageName + 'Was Created Successfully</b>'
+          });
+          // this.fval.taxiParkName.setValue('');
+          this.revert();
+        },
+        err => {
+          this.errored = true;
+          this.alertService.danger({
+                  html:
+                    '<b>' + err.error.error.message + '</b>'
+          });
+        }
+      );
     }
   }
 }

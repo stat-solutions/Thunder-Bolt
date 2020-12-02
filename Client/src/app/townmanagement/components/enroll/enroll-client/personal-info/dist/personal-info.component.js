@@ -81,7 +81,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                 forms_1.Validators.required,
             ])),
             dateOfBirth: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            productCode: new forms_1.FormControl(''),
+            productCode: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             homeDetails: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             clientComment: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
         });

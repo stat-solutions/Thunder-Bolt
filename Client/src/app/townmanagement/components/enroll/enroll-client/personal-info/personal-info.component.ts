@@ -141,7 +141,7 @@ export class PersonalInfoComponent implements OnInit {
       ),
       productCode: new FormControl(
         '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
       ),
       homeDetails: new FormControl(
         '',
