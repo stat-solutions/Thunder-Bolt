@@ -2080,7 +2080,9 @@
       *ngIf="userForm.valid && this.fval.productCode.value != '' && showcompleteBtn"
       (click)="completeForm()"
     >
-      Complete with {{this.fval.productCode.value}} form
+    Go To {{this.fval.productCode.value == 'BODABODA LOAN PRODUCT' ? 'BodaLoan' :
+            this.fval.productCode.value == 'TAXI LOAN PRODUCT' ? 'TaxiLoan' :
+            this.fval.productCode.value == 'MICROLOAN PRODUCT' ? 'MicroLoan' : 'Savings' }} Form
     </button>
     <button
     type="button"

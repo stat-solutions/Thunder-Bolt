@@ -444,7 +444,7 @@ export class PersonalInfoComponent implements OnInit {
               this.bodaFval.ownersPhoneNumber.value === '')){
               this.errored = true;
               this.alertService.danger({
-                html: '<strong>The ownership details are missing</strong>'
+                html: '<strong>The ownership details are missing!</strong>'
             });
         }
         else {
@@ -475,7 +475,7 @@ export class PersonalInfoComponent implements OnInit {
               this.posted = true;
               this.data = [];
               this.alertService.success({
-                html: '<b> customer was created succsefully <b>'
+                html: '<b> Customer was created successfully <b>'
               });
               this.revert();
               this.bodaClientForm.reset();
@@ -496,7 +496,7 @@ export class PersonalInfoComponent implements OnInit {
     else {
         this.errored = true;
         this.alertService.danger({
-            html: '<strong>some form fields where not filled</strong>'
+            html: '<strong>Some form fields where not filled!</strong>'
         });
       }
     }
@@ -508,7 +508,7 @@ export class PersonalInfoComponent implements OnInit {
               this.taxiFval.ownersPhoneNumber.value === '')){
               this.errored = true;
               this.alertService.danger({
-                html: '<strong>The ownership details are missing</strong>'
+                html: '<strong>The ownership details are missing!</strong>'
             });
         }
         else {
@@ -540,7 +540,7 @@ export class PersonalInfoComponent implements OnInit {
               this.posted = true;
               this.data = [];
               this.alertService.success({
-                html: '<b> customer was created succsefully <b>'
+                html: '<b> Customer was created successfully <b>'
               });
               this.revert();
               this.taxiClientForm.reset();
@@ -560,7 +560,7 @@ export class PersonalInfoComponent implements OnInit {
       } else {
         this.errored = true;
         this.alertService.danger({
-            html: '<strong>some form fields where not filled</strong>'
+            html: '<strong>Some form fields where not filled!</strong>'
         });
       }
     }
@@ -584,7 +584,7 @@ export class PersonalInfoComponent implements OnInit {
             this.posted = true;
             this.data = [];
             this.alertService.success({
-              html: '<b> customer was created succsefully <b>'
+              html: '<b> Customer was created successfully <b>',
             });
             this.revert();
             this.microClientForm.reset();
@@ -603,7 +603,7 @@ export class PersonalInfoComponent implements OnInit {
       } else {
         this.errored = true;
         this.alertService.danger({
-            html: '<strong>some form fields where not filled</strong>'
+            html: '<strong>Some form fields where not filled!</strong>'
         });
       }
     }
@@ -622,7 +622,7 @@ export class PersonalInfoComponent implements OnInit {
             this.posted = true;
             this.data = [];
             this.alertService.success({
-              html: '<b> customer was created succsefully <b>'
+              html: '<b> Customer was created successfully <b>',
             });
             this.revert();
             this.microClientForm.reset();
@@ -641,7 +641,7 @@ export class PersonalInfoComponent implements OnInit {
       } else {
         this.errored = true;
         this.alertService.danger({
-            html: '<strong>some form fields where not filled</strong>'
+            html: '<strong>Some form fields where not filled!</strong>'
         });
       }
     }
