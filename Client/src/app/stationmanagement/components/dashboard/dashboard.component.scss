@@ -5,13 +5,11 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  margin-right: 0px !important;
-  contain: auto;
 }
 
 .card-body {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 .big-card-2 {
@@ -30,55 +28,13 @@ margin-bottom: 0px !important;
   .fa-coins {
       font-size: 1rem !important;
   }
-
-  .btn {
-  border-radius: 15px;
-}
-
-.text-info {
-  color: #17aae0ee !important
-}
-
 .text-gray {
   color: #f7f5f5;
 }
 
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important
-}
-
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee
-}
-
-.btn-info:hover,
-.btn-info:focus {
-  color: #d9dbdd;
-  background-color: #17aae0ee;
-  border-color: #17aae0ee
-}
-
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 .2rem #0e99ccee
-}
-
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec
-}
-
-.pointerCursor {
-  cursor: pointer;
-}
 
 .sm-card-1 {
-height: 160px;
+height: 135px;
   background-image: linear-gradient(to bottom right, rgb(168, 18, 106, 1), rgba(189, 192, 194, 0.7));
   border: 0rem;
 }
@@ -155,6 +111,9 @@ height: 160px;
 @media (min-width:375px) {}
 
 @media (min-width:410px) {
+.sm-card-1 {
+height: 138px;
+}
   .sm-card-title-2 {
       font-size: .9rem !important;
   }
@@ -170,11 +129,14 @@ height: 160px;
   .fa-coins {
       font-size: 1rem !important;
   }
+  .big-card-2 {
+      height: 220px !important;
+  }
 }
 
 @media (min-width:445px) {
 .sm-card-1 {
-height: 164px;
+height: 140px;
 }
   .sm-card-title-2 {
       font-size: 1rem !important;
@@ -195,7 +157,7 @@ height: 164px;
       font-size: 1.2rem !important;
   }
   .big-card-2 {
-      height: 290px !important;
+      height: 280px !important;
   }
 }
 
@@ -205,7 +167,7 @@ height: 164px;
       margin-right: 0px !important;
   }
 .sm-card-1 {
-height: 190px;
+height: 166px;
 }
   .sm-card-title-2 {
       font-size: 1.6rem !important;
@@ -226,7 +188,7 @@ height: 190px;
       font-size: 1.6rem !important;
   }
   .big-card-2 {
-      height: 400px !important;
+      height: 370px !important;
   }
 }
 
@@ -258,17 +220,9 @@ height: 190px;
 }
 
 @media (min-width:1100px) {
-}
-
-@media (min-width:1280px) {
-.jumbotron-fluid{
-      padding-top: .5rem !important;
-}
-
-  .container{
-    max-width: 1100px !important;
-    min-width: 1050px !important;
-}
+  .jumbotron-fluid{
+        padding-top: .5rem !important;
+  }
   .thunder-col-1 {
       margin-bottom: 0px !important;
   }
@@ -285,18 +239,18 @@ height: 190px;
       margin-top: 0px !important;
   }
 .sm-card-1 {
-height: 166px;
+height: 140px;
 }
   .sm-card-title-2 {
-      font-size: 1.1rem !important;
+      font-size: 1.02rem !important;
       padding-left: .5rem !important;
   }
   .sm-card-title-3 {
-      font-size: 1.1rem !important;
+      font-size: 1.02rem !important;
       padding-left: .5rem !important;
   }
   .sm-card-title-4 {
-      font-size: 1.1rem !important;
+      font-size: 1.02rem !important;
       padding-left: .5rem !important;
   }
   .fas {
@@ -306,12 +260,20 @@ height: 166px;
       font-size: 1.6rem !important;
   }
   .big-card-2 {
-      height: 370px !important;
+      height: 375px !important;
   }
   .big-card-body-2 {
         margin-left: 10rem !important;
         margin-right: 10rem !important;
   }
+}
+
+@media (min-width:1280px) {
+
+  .container{
+    max-width: 1100px !important;
+    min-width: 1050px !important;
+}
 }
 
 @media (min-width:1320px) {

@@ -75,6 +75,15 @@
           >Park</label
         >
         <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i
+                  class="fas fa-parking text-primary mx-auto"
+                  style="size: 50px"
+                >
+                </i>
+              </div>
+            </div>
           <input
               type="text"
               list="park"
@@ -96,7 +105,7 @@
               </option>
             </datalist>
         </div>
-        <div class="text-danger col" 
+        <div class="text-danger col"
         *ngIf="(fval.park.touched||fval.park.dirty)
         && fval.park.errors?.required">
            The park name is required!

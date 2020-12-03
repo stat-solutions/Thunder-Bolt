@@ -6,11 +6,11 @@
     <div class="container my-2 mx-0 shadow-lg col-12">
     <div class="row">
       <div class="col-12">
-        <h3
+        <h4
           class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
         >
         Boda Stage
-        </h3>
+        </h4>
       </div>
     </div>
   </div>
@@ -33,6 +33,49 @@
         <div class="text-danger col" *ngIf="(fval.bodabodaStageName.touched||fval.bodabodaStageName.dirty)  && fval.bodabodaStageName.errors?.required">The stage name is required!</div>
         <div class="text-danger col" *ngIf="(fval.bodabodaStageName.touched||fval.bodabodaStageName.dirty)  && fval.bodabodaStageName.errors?.belongTobodabodaStageNames">Please select a valid stage name!</div>
 </div>
+<div class="form-group text-primary">
+      <label
+          for="cluster"
+          [ngClass]="fval.cluster.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.cluster.valid" class="material-icons"
+            >check_circle</i
+          >Cluster</label
+        >
+        <div class="input-group mb-0">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="fas fa-tag text-primary mx-auto" style="size: 50px;">
+              </i>
+            </div>
+  </div>
+  <input
+              type="text"
+              list="cluster"
+              formControlName="cluster"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.cluster.touched ||
+                    fval.cluster.dirty) &&
+                  fval.cluster.errors
+              }"
+              autocomplete="off"
+              placeholder="Select a cluster"
+            />
+            <!-- clusters -->
+            <datalist id="cluster">
+              <option *ngFor="let cluster of clusters">
+                {{ cluster.stageClusterName }}
+              </option>
+            </datalist>
+
+          </div>
+          <div class="text-danger col"
+            *ngIf="(fval.cluster.touched||fval.cluster.dirty)
+            && fval.cluster.errors?.required">
+               The cluster name is required!
+          </div>
+    </div>
 <div class="form-group text-primary">
         <label for="bodabodaStageChairmanName" [ngClass]="fval.bodabodaStageChairmanName.valid ? 'text-info' : ''">Chairman's Name<i  *ngIf="fval.bodabodaStageChairmanName.valid" class="material-icons">check_circle</i></label>
         <div class="input-group mb-0">
