@@ -164,8 +164,8 @@ export class PersonalInfoComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(8),
+          Validators.minLength(7),
+          Validators.maxLength(7),
           // CustomValidator.patternValidator(
           //   /^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/,
           //   { beUgandanNumberPlate: true }
@@ -221,8 +221,8 @@ export class PersonalInfoComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(8),
+          Validators.minLength(7),
+          Validators.maxLength(7),
           // CustomValidator.patternValidator(
           //   /^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/,
           //   { beUgandanNumberPlate: true }
@@ -325,22 +325,8 @@ export class PersonalInfoComponent implements OnInit {
       ),
     });
   }
-  setStation(val: any): any{
-    // console.log(val);
-    this.stations.forEach(station => {
-      if (station.stationName.toUpperCase() === val.toUpperCase()){
-        this.fval.station.setValue(val);
-      } else {
-        this.fval.station.setValue('');
-      }
-    });
-  }
   setSelectedChanges(selectedChange: any): any {
     switch (selectedChange) {
-      case 'Select Station':
-        this.fval.station.setValue('');
-        this.fval.station.setValidators([Validators.required]);
-        break;
       case 'Select the ID type':
         this.fval.id_type.setValue('');
         this.fval.id_type.setValidators([Validators.required]);
@@ -413,59 +399,67 @@ export class PersonalInfoComponent implements OnInit {
         this.data[0].productCode = pdt.productCode;
        }
      });
-     this.stations.forEach(station => {
+    //  this.stations.forEach(station => {
+    //   if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()){
+    //    this.data[0].theStationLocationId = station.theStationLocationId;
+    //   } else {
+    //     this.fval.station.setValue('');
+    //   }
+    // });
+     for (const station of this.stations){
       if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()){
-       this.data[0].theStationLocationId = station.theStationLocationId;
-      } else {
-        this.fval.station.setValue('');
-      }
-    });
-     if (this.fval.productCode.value === 'BODABODA LOAN PRODUCT'){
-      this.showPersonalForm = false;
-      this.showBodaForm = true;
-      this.showFinalBtn = true;
-      this.showcompleteBtn = false;
-      this.bodaFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-      this.bodaFval.clientName.disable();
-     }
-     else if (this.fval.productCode.value === 'MICROLOAN PRODUCT'){
-      this.showPersonalForm = false;
-      this.showMicroForm = true;
-      this.showFinalBtn = true;
-      this.showcompleteBtn = false;
-      this.microFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-      this.microFval.clientName.disable();
-      this.microFval.currentResidence.setValue(this.fval.homeDetails.value.toUpperCase());
-      this.microFval.currentResidence.disable();
+        this.data[0].theStationLocationId = station.theStationLocationId;
+       }
+    }
+     if (this.data[0].theStationLocationId === null || this.data[0].productCode === null){
+       this.errored = true;
+       this.alertService.danger({
+        html: '<b> The station chose does not exist</b>'
+       });
+       this.errored = false;
+       return;
+     } else {
+          if (this.fval.productCode.value === 'BODABODA LOAN PRODUCT'){
+            this.showPersonalForm = false;
+            this.showBodaForm = true;
+            this.showFinalBtn = true;
+            this.showcompleteBtn = false;
+            this.bodaFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+            this.bodaFval.clientName.disable();
+          }
+          else if (this.fval.productCode.value === 'MICROLOAN PRODUCT'){
+            this.showPersonalForm = false;
+            this.showMicroForm = true;
+            this.showFinalBtn = true;
+            this.showcompleteBtn = false;
+            this.microFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+            this.microFval.clientName.disable();
+            this.microFval.currentResidence.setValue(this.fval.homeDetails.value.toUpperCase());
+            this.microFval.currentResidence.disable();
 
-     }
-     else if (this.fval.productCode.value === 'TAXI LOAN PRODUCT'){
-      this.showPersonalForm = false;
-      this.showFinalBtn = true;
-      this.showTaxiForm = true;
-      this.showcompleteBtn = false;
-      this.taxiFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-      this.taxiFval.clientName.disable();
-     }
-     else if (this.fval.productCode.value === 'SAVINGS PRODUCT'){
-      this.fval.productCode.setValue(' ');
-      this.showPersonalForm = false;
-      this.showFinalBtn = true;
-      this.showSaveForm = true;
-      this.showcompleteBtn = false;
-      this.savFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-      this.savFval.clientName.disable();
-     }
+          }
+          else if (this.fval.productCode.value === 'TAXI LOAN PRODUCT'){
+            this.showPersonalForm = false;
+            this.showFinalBtn = true;
+            this.showTaxiForm = true;
+            this.showcompleteBtn = false;
+            this.taxiFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+            this.taxiFval.clientName.disable();
+          }
+          else if (this.fval.productCode.value === 'SAVINGS PRODUCT'){
+            this.fval.productCode.setValue(' ');
+            this.showPersonalForm = false;
+            this.showFinalBtn = true;
+            this.showSaveForm = true;
+            this.showcompleteBtn = false;
+            this.savFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+            this.savFval.clientName.disable();
+          }
+    }
     }
   }
 
   goBack(): any{
-    this.stations.forEach(station => {
-      if (station.theStationLocationId === this.data[0].theStationLocationId){
-        // console.log(station);
-        this.fval.station.setValue(station.stationName);
-      }
-    });
     this.showPersonalForm = true;
     this.showBodaForm = false;
     this.showTaxiForm = false;
@@ -515,7 +509,9 @@ export class PersonalInfoComponent implements OnInit {
         }
         else {
           this.data.push({
-            bodabodaCustomerNumberPlate: this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase(),
+            bodabodaCustomerNumberPlate: this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().substring( 0, 3 ) +
+                                         ' ' + this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().substring(
+                                           3, this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().length),
             bodabodaCustomerMakeOrType:  this.bodaFval.bodaMakeorType.value.toUpperCase(),
             bodabodaCustomerInsurance: this.bodaFval.bodaInsuarance.value.toUpperCase() === 'NONE' ?
                                         1 : this.bodaFval.bodaInsuarance.value.toUpperCase() === 'REGULAR' ?
@@ -535,7 +531,7 @@ export class PersonalInfoComponent implements OnInit {
               this.data[1].bodabodaStageId = bodaStage.bodabodaStageId;
             }
           });
-          console.log(this.data);
+          // console.log(this.data);
           if (this.data[1].bodabodaStageId  === null) {
             this.errored = true;
             this.alertService.danger({
@@ -588,7 +584,9 @@ export class PersonalInfoComponent implements OnInit {
         }
         else {
           this.data.push({
-            taxiCustomerNumberPlate: this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase(),
+            taxiCustomerNumberPlate: this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().substring( 0, 3 ) +
+                                    ' ' + this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().substring(
+                                      3, this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().length),
             taxiCustomerDrivingPermitNumber: this.taxiFval.drivingPermit.value,
             taxiCustomerMakeOrType:  this.taxiFval.taxiMakeorType.value.toUpperCase(),
             taxiCustomerInsurance: this.taxiFval.taxiInsuarance.value.toUpperCase() === 'NONE' ?
@@ -609,7 +607,7 @@ export class PersonalInfoComponent implements OnInit {
               this.data[1].taxiStageId = taxiStage.taxiStageId;
             }
           });
-          console.log(this.data);
+          // console.log(this.data);
           if (this.data[1].taxiStageId === null) {
               this.errored = true;
               this.alertService.danger({

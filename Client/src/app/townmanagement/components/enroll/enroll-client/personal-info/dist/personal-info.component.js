@@ -93,8 +93,8 @@ var PersonalInfoComponent = /** @class */ (function () {
             clientName: new forms_1.FormControl(''),
             bodabodaCustomerNumberPlate: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
-                forms_1.Validators.minLength(8),
-                forms_1.Validators.maxLength(8),
+                forms_1.Validators.minLength(7),
+                forms_1.Validators.maxLength(7),
             ])),
             bodaMakeorType: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             bodaInsuarance: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
@@ -114,8 +114,8 @@ var PersonalInfoComponent = /** @class */ (function () {
             drivingPermit: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             taxiCustomerNumberPlate: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
-                forms_1.Validators.minLength(8),
-                forms_1.Validators.maxLength(8),
+                forms_1.Validators.minLength(7),
+                forms_1.Validators.maxLength(7),
             ])),
             taxiMakeorType: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             taxiInsuarance: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
@@ -150,24 +150,8 @@ var PersonalInfoComponent = /** @class */ (function () {
             customerTarget: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
         });
     };
-    PersonalInfoComponent.prototype.setStation = function (val) {
-        var _this = this;
-        // console.log(val);
-        this.stations.forEach(function (station) {
-            if (station.stationName.toUpperCase() === val.toUpperCase()) {
-                _this.fval.station.setValue(val);
-            }
-            else {
-                _this.fval.station.setValue('');
-            }
-        });
-    };
     PersonalInfoComponent.prototype.setSelectedChanges = function (selectedChange) {
         switch (selectedChange) {
-            case 'Select Station':
-                this.fval.station.setValue('');
-                this.fval.station.setValidators([forms_1.Validators.required]);
-                break;
             case 'Select the ID type':
                 this.fval.id_type.setValue('');
                 this.fval.id_type.setValidators([forms_1.Validators.required]);
@@ -241,59 +225,67 @@ var PersonalInfoComponent = /** @class */ (function () {
                     _this.data[0].productCode = pdt.productCode;
                 }
             });
-            this.stations.forEach(function (station) {
-                if (station.stationName.toUpperCase() === _this.fval.station.value.toUpperCase()) {
-                    _this.data[0].theStationLocationId = station.theStationLocationId;
+            //  this.stations.forEach(station => {
+            //   if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()){
+            //    this.data[0].theStationLocationId = station.theStationLocationId;
+            //   } else {
+            //     this.fval.station.setValue('');
+            //   }
+            // });
+            for (var _i = 0, _a = this.stations; _i < _a.length; _i++) {
+                var station = _a[_i];
+                if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()) {
+                    this.data[0].theStationLocationId = station.theStationLocationId;
                 }
-                else {
-                    _this.fval.station.setValue('');
+            }
+            if (this.data[0].theStationLocationId === null || this.data[0].productCode === null) {
+                this.errored = true;
+                this.alertService.danger({
+                    html: '<b> The station chose does not exist</b>'
+                });
+                this.errored = false;
+                return;
+            }
+            else {
+                if (this.fval.productCode.value === 'BODABODA LOAN PRODUCT') {
+                    this.showPersonalForm = false;
+                    this.showBodaForm = true;
+                    this.showFinalBtn = true;
+                    this.showcompleteBtn = false;
+                    this.bodaFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+                    this.bodaFval.clientName.disable();
                 }
-            });
-            if (this.fval.productCode.value === 'BODABODA LOAN PRODUCT') {
-                this.showPersonalForm = false;
-                this.showBodaForm = true;
-                this.showFinalBtn = true;
-                this.showcompleteBtn = false;
-                this.bodaFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-                this.bodaFval.clientName.disable();
-            }
-            else if (this.fval.productCode.value === 'MICROLOAN PRODUCT') {
-                this.showPersonalForm = false;
-                this.showMicroForm = true;
-                this.showFinalBtn = true;
-                this.showcompleteBtn = false;
-                this.microFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-                this.microFval.clientName.disable();
-                this.microFval.currentResidence.setValue(this.fval.homeDetails.value.toUpperCase());
-                this.microFval.currentResidence.disable();
-            }
-            else if (this.fval.productCode.value === 'TAXI LOAN PRODUCT') {
-                this.showPersonalForm = false;
-                this.showFinalBtn = true;
-                this.showTaxiForm = true;
-                this.showcompleteBtn = false;
-                this.taxiFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-                this.taxiFval.clientName.disable();
-            }
-            else if (this.fval.productCode.value === 'SAVINGS PRODUCT') {
-                this.fval.productCode.setValue(' ');
-                this.showPersonalForm = false;
-                this.showFinalBtn = true;
-                this.showSaveForm = true;
-                this.showcompleteBtn = false;
-                this.savFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-                this.savFval.clientName.disable();
+                else if (this.fval.productCode.value === 'MICROLOAN PRODUCT') {
+                    this.showPersonalForm = false;
+                    this.showMicroForm = true;
+                    this.showFinalBtn = true;
+                    this.showcompleteBtn = false;
+                    this.microFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+                    this.microFval.clientName.disable();
+                    this.microFval.currentResidence.setValue(this.fval.homeDetails.value.toUpperCase());
+                    this.microFval.currentResidence.disable();
+                }
+                else if (this.fval.productCode.value === 'TAXI LOAN PRODUCT') {
+                    this.showPersonalForm = false;
+                    this.showFinalBtn = true;
+                    this.showTaxiForm = true;
+                    this.showcompleteBtn = false;
+                    this.taxiFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+                    this.taxiFval.clientName.disable();
+                }
+                else if (this.fval.productCode.value === 'SAVINGS PRODUCT') {
+                    this.fval.productCode.setValue(' ');
+                    this.showPersonalForm = false;
+                    this.showFinalBtn = true;
+                    this.showSaveForm = true;
+                    this.showcompleteBtn = false;
+                    this.savFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+                    this.savFval.clientName.disable();
+                }
             }
         }
     };
     PersonalInfoComponent.prototype.goBack = function () {
-        var _this = this;
-        this.stations.forEach(function (station) {
-            if (station.theStationLocationId === _this.data[0].theStationLocationId) {
-                // console.log(station);
-                _this.fval.station.setValue(station.stationName);
-            }
-        });
         this.showPersonalForm = true;
         this.showBodaForm = false;
         this.showTaxiForm = false;
@@ -360,7 +352,8 @@ var PersonalInfoComponent = /** @class */ (function () {
                 }
                 else {
                     this.data.push({
-                        bodabodaCustomerNumberPlate: this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase(),
+                        bodabodaCustomerNumberPlate: this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().substring(0, 3) +
+                            ' ' + this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().substring(3, this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().length),
                         bodabodaCustomerMakeOrType: this.bodaFval.bodaMakeorType.value.toUpperCase(),
                         bodabodaCustomerInsurance: this.bodaFval.bodaInsuarance.value.toUpperCase() === 'NONE' ?
                             1 : this.bodaFval.bodaInsuarance.value.toUpperCase() === 'REGULAR' ?
@@ -380,7 +373,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                             _this.data[1].bodabodaStageId = bodaStage.bodabodaStageId;
                         }
                     });
-                    console.log(this.data);
+                    // console.log(this.data);
                     if (this.data[1].bodabodaStageId === null) {
                         this.errored = true;
                         this.alertService.danger({
@@ -430,7 +423,8 @@ var PersonalInfoComponent = /** @class */ (function () {
                 }
                 else {
                     this.data.push({
-                        taxiCustomerNumberPlate: this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase(),
+                        taxiCustomerNumberPlate: this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().substring(0, 3) +
+                            ' ' + this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().substring(3, this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().length),
                         taxiCustomerDrivingPermitNumber: this.taxiFval.drivingPermit.value,
                         taxiCustomerMakeOrType: this.taxiFval.taxiMakeorType.value.toUpperCase(),
                         taxiCustomerInsurance: this.taxiFval.taxiInsuarance.value.toUpperCase() === 'NONE' ?
@@ -451,7 +445,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                             _this.data[1].taxiStageId = taxiStage.taxiStageId;
                         }
                     });
-                    console.log(this.data);
+                    // console.log(this.data);
                     if (this.data[1].taxiStageId === null) {
                         this.errored = true;
                         this.alertService.danger({

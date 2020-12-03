@@ -22,6 +22,7 @@ export class EditBodaStageComponent implements OnInit {
   userForm: FormGroup;
   serviceErrors: any = {};
   value: string;
+  clusters: any;
   fieldType: boolean;
   theStageNames: [];
   // theStageNames: StageNames[];
@@ -45,6 +46,10 @@ export class EditBodaStageComponent implements OnInit {
         '',
         Validators.compose([Validators.required])
       ),
+      cluster: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
       bodabodaStageChairmanName: new FormControl(
         '',
         Validators.compose([Validators.required])
@@ -56,9 +61,9 @@ export class EditBodaStageComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
-      )
+      ),
     });
   }
 

@@ -12,7 +12,7 @@ import * as jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-edit-taxi-stage',
   templateUrl: './edit-taxi-stage.component.html',
-  styleUrls: ['./edit-taxi-stage.component.scss']
+  styleUrls: ['./edit-taxi-stage.component.scss'],
 })
 export class EditTaxiStageComponent implements OnInit {
   registered = false;
@@ -22,6 +22,7 @@ export class EditTaxiStageComponent implements OnInit {
   userForm: FormGroup;
   serviceErrors: any = {};
   value: string;
+  parks: any;
   fieldType: boolean;
   theStageNames: [];
   // theStageNames: StageNames[];
@@ -45,6 +46,7 @@ export class EditTaxiStageComponent implements OnInit {
         '',
         Validators.compose([Validators.required])
       ),
+      park: new FormControl('', Validators.compose([Validators.required])),
       taxiStageChairmanName: new FormControl(
         '',
         Validators.compose([Validators.required])
@@ -56,9 +58,9 @@ export class EditTaxiStageComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          )
+          ),
         ])
-      )
+      ),
     });
   }
 
@@ -86,7 +88,6 @@ export class EditTaxiStageComponent implements OnInit {
     //     this.theStageNames = data;
     //     // this.alertService.success({ html: '<b> User Roles Updated</b>' + '<br/>' });
     //   },
-
     //   (error: string) => {
     //     this.errored = true;
     //     this.serviceErrors = error;
@@ -106,7 +107,7 @@ export class EditTaxiStageComponent implements OnInit {
     } else {
       this.userForm.patchValue({
         user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-        user_id: jwt_decode(this.authService.getJwtToken()).user_id
+        user_id: jwt_decode(this.authService.getJwtToken()).user_id,
       });
 
       // this.adminUserService.registerCustomer(this.userForm).subscribe(

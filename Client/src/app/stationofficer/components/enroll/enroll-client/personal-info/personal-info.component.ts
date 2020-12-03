@@ -210,8 +210,8 @@ export class PersonalInfoComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(8),
+          Validators.minLength(7),
+          Validators.maxLength(7),
           // CustomValidator.patternValidator(
           //   /^(([U])([A-Z])([A-Z])(\s)([0-9])([0-9])([0-9])([A-Z]))$/,
           //   { beUgandanNumberPlate: true }
@@ -274,11 +274,21 @@ export class PersonalInfoComponent implements OnInit {
       ),
       averageDailyExpenses: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(8),
+          Validators.minLength(3),
+          CustomValidator.patternValidator(/\d/, { hasNumber: true }),
+        ])
       ),
       averageDailyIncome: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(8),
+          Validators.minLength(3),
+          CustomValidator.patternValidator(/\d/, { hasNumber: true }),
+        ])
       ),
       currentResidence: new FormControl(
         '',
@@ -302,7 +312,12 @@ export class PersonalInfoComponent implements OnInit {
       ),
       monthlyIncome: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(8),
+          Validators.minLength(3),
+          CustomValidator.patternValidator(/\d/, { hasNumber: true }),
+        ])
       ),
       withdrawFreequency: new FormControl(
         '',

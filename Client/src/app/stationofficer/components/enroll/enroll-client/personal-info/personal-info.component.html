@@ -1,21 +1,20 @@
 <div
   class="container-fluid d-flex flex-row justify-content-center mb-0 mt-2 pt-1 pb-0 shadow-lg col-xs-12 col-lg-10"
 >
-<div class="jumbotron-fluid mb-0 pb-0">
-<div class="container mt-0 mb-2 mx-0 shadow-lg">
-  <!-- this is for personal info -->
-  <div *ngIf="showPersonalForm"> 
-    <div class="container mt-0 mx-0 shadow-lg">
-      <div class="row">
-        <div class="col-12">
-          <h3
-            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
-          >
-            Personal Info
-          </h3>
+  <div class="jumbotron-fluid mb-0 pb-0">
+    <!-- this is for personal info -->
+    <div *ngIf="showPersonalForm">
+      <div class="container mt-0 mx-0 shadow-lg">
+        <div class="row">
+          <div class="col-12">
+            <h4
+              class="rub-head4 text-info text-center font-weight-bold py-1"
+            >
+              Personal Info
+            </h4>
+          </div>
         </div>
       </div>
-    </div>
     <div class="card-body mt-1 pt-4 mb-0 pb-3 pb-md-1 shadow-lg">
       <form [formGroup]="userForm">
         <div class="row">
@@ -174,7 +173,7 @@
               <label
                 for="main_contact_number2"
                 [ngClass]="fval.main_contact_number2.valid ? 'text-info' : ''"
-                >Phone Number 2(optional)
+                >Phone Number 2(Optional)
                 <!-- <i
                   *ngIf="fval.main_contact_number2.valid"
                   class="material-icons"
@@ -224,7 +223,7 @@
             <div class="form-group text-primary">
               <label
                 for="id_type"
-                [ngClass]="fval.id_type.valid ? 'text-info' : ''"
+                [ngClass]="fval.id_type.valid? 'text-info' : ''"
                 ><i *ngIf="fval.id_type.valid" class="material-icons"
                   >check_circle</i
                 >ID Type</label
@@ -251,9 +250,9 @@
                   placeholder="Select the ID type"
                   (change)='setSelectedChanges(fval.id_type.value)'
                 >
-                  <option>Select the ID type</option>
+                  <option selected>Select the ID type</option>
                   <option>NATIONAL ID</option>
-                  <option>PASSPORT NUMBER</option>
+                  <option>PASSPORT</option>
                   <option>DRIVING PERMIT</option>
                   <option>VILLAGE ID</option>
                 </select>
@@ -368,44 +367,36 @@
                   fval.dateOfBirth.errors?.required
                 "
               >
-                Date Of Birth is required
+                Date Of Birth is required!
               </div>
-            </div>          
-          </div>          
+            </div>
+          </div>
         <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
                 for="productCode"
-                [ngClass]="fval.productCode.valid ? 'text-info' : ''"
+                [ngClass]="fval.productCode.valid && fval.productCode.value !== 'Initial Product' ? 'text-info' : ''"
                 >Initial Product
-                <!-- <i
-                  *ngIf="fval.productCode.valid"
+                <i
+                  *ngIf="fval.productCode.valid && fval.productCode.value !== 'Initial Product'"
                   class="material-icons"
                   >check_circle</i
-                > -->
+                >
                 </label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-image text-primary mx-auto"
-                      style="size: 50px"
-                    ></i>
-                  </div>
-                </div>
                 <select
                 formControlName="productCode"
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
                     (fval.productCode.touched || fval.productCode.dirty) &&
-                    fval.productCode.errors
+                    fval.productCode.errors || this.fval.productCode.value === 'Initial Product'
                 }"
                 autocomplete="off"
-                placeholder="Select  a procduct"
+                placeholder="Select  a product"
               >
-                <!-- <option> </option> -->
+                <option selected>Initial Product </option>
                 <option>BODABODA LOAN PRODUCT</option>
                 <option>TAXI LOAN PRODUCT</option>
                 <option>MICROLOAN PRODUCT</option>
@@ -425,7 +416,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-md-9">
             <div class="form-group text-primary">
               <div class="input-group mb-0">
                 <textarea
@@ -456,17 +447,17 @@
       </form>
     </div>
   </div>
-  
+
   <!-- this is for boda client -->
   <div *ngIf="showBodaForm">
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
-          <h3
-            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          <h4
+            class="rub-head4 text-info text-center font-weight-bold py-1"
           >
             Boda Client Info
-          </h3>
+          </h4>
         </div>
       </div>
     </div>
@@ -478,9 +469,9 @@
             <label
               for="clientName"
               [ngClass]="bodaFval.clientName.valid ? 'text-info' : ''"
-              ><i *ngIf="bodaFval.clientName.valid" class="material-icons"
+              >Client Name<i *ngIf="bodaFval.clientName.valid" class="material-icons"
                 >check_circle</i
-              >Client Name</label
+              ></label
             >
             <div class="input-group mb-0">
               <div class="input-group-prepend">
@@ -565,7 +556,7 @@
           </div>
         </div>
         </div>
-        <div class="row">  
+        <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
@@ -605,7 +596,7 @@
                 The bodaboda make/type is required!
               </div>
             </div>
-          </div> 
+          </div>
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
@@ -613,7 +604,7 @@
                 [ngClass]="
                 bodaFval.bodaInsuarance.valid ? 'text-info' : ''
                 "
-                >Bodaboda Insuarance<i
+                >Bodaboda Insurance<i
                   *ngIf="bodaFval.bodaInsuarance.valid"
                   class="material-icons"
                   >check_circle</i
@@ -629,9 +620,9 @@
                     bodaFval.bodaInsuarance.errors
                 }"
                 autocomplete="off"
-                placeholder="Select insuarance status"
+                placeholder="Select Insurance status"
               >
-                <option></option>
+                <option selected>Select Insurance status</option>
                 <option>NONE</option>
                 <option>REGULAR</option>
                 <option>COMPREHENSIVE</option>
@@ -645,7 +636,7 @@
                   bodaFval.bodaInsuarance.errors?.required
                 "
               >
-                The bodaboda insuarance is required!
+                The bodaboda insurance is required!
               </div>
             </div>
           </div>
@@ -694,7 +685,7 @@
                   bodaFval.bodaStage.errors?.required
                 "
               >
-                Boda stage is required!
+                Bodaboda stage is required!
               </div>
             </div>
           </div>
@@ -721,7 +712,7 @@
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
-                      (bodaFval.dateOfJoiningStage.touched 
+                      (bodaFval.dateOfJoiningStage.touched
                       || bodaFval.dateOfJoiningStage.dirty) &&
                       bodaFval.dateOfJoiningStage.errors
                   }"
@@ -759,14 +750,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-image text-primary mx-auto"
-                      style="size: 50px"
-                    ></i>
-                  </div>
-                </div>
                 <select
                 formControlName="ownershipStatus"
                 class="form-control"
@@ -792,7 +775,7 @@
                   bodaFval.ownershipStatus.errors?.required
                 "
               >
-                Taxi ownership status is required!
+                Bodaboda ownership status is required!
               </div>
             </div>
           </div>
@@ -810,14 +793,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-image text-primary mx-auto"
-                      style="size: 50px"
-                    ></i>
-                  </div>
-                </div>
                 <input
                   id="ownersName"
                   formControlName="ownersName"
@@ -841,6 +816,16 @@
               >
              Bodaboda owner's name is required!
             </div>
+            <div
+            class="text-danger col"
+            *ngIf="
+              (bodaFval.ownersPhoneNumber.touched ||
+              bodaFval.ownersPhoneNumber.dirty) &&
+              bodaFval.ownersPhoneNumber.errors?.hasNumber
+            "
+          >
+          Bodaboda owner's phone number should be equal to 10 "digits"!
+          </div>
             </div>
           </div>
           <div class="col-12 col-md-6">
@@ -855,14 +840,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-image text-primary mx-auto"
-                      style="size: 50px"
-                    ></i>
-                  </div>
-                </div>
                 <input
                   id="ownersPhoneNumber"
                   formControlName="ownersPhoneNumber"
@@ -886,16 +863,6 @@
               >
               Bodaboda owner's phone number is required!
               </div>
-              <div
-              class="text-danger col"
-              *ngIf="
-                (bodaFval.ownersPhoneNumber.touched ||
-                bodaFval.ownersPhoneNumber.dirty) &&
-                bodaFval.ownersPhoneNumber.errors?.hasNumber
-              "
-            >
-            Bodaboda owner's phone number should be equal to 10 "digits"!
-            </div>
             </div>
           </div>
         </div>
@@ -908,11 +875,11 @@
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
-          <h2
-            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          <h4
+            class="rub-head4 text-info text-center font-weight-bold py-1"
           >
             Taxi Client Info
-          </h2>
+          </h4>
         </div>
       </div>
     </div>
@@ -924,9 +891,9 @@
           <label
             for="clientName"
             [ngClass]="taxiFval.clientName.valid ? 'text-info' : ''"
-            ><i *ngIf="taxiFval.clientName.valid" class="material-icons"
+            >Client Name<i *ngIf="taxiFval.clientName.valid" class="material-icons"
               >check_circle</i
-            >Client Name</label
+            ></label
           >
           <div class="input-group mb-0">
             <div class="input-group-prepend">
@@ -966,15 +933,15 @@
           <label
             for="drivingPermit"
             [ngClass]="taxiFval.drivingPermit.valid ? 'text-info' : ''"
-            ><i *ngIf="taxiFval.drivingPermit.valid" class="material-icons"
+            >Driving Permit<i *ngIf="taxiFval.drivingPermit.valid" class="material-icons"
               >check_circle</i
-            >Driving Permit</label
+            ></label
           >
           <div class="input-group mb-0">
             <div class="input-group-prepend">
               <div class="input-group-text">
                 <i
-                  class="fas fa-user-alt text-primary mx-auto"
+                  class="fas fa-id-card text-primary mx-auto"
                   style="size: 50px"
                 >
                 </i>
@@ -990,7 +957,7 @@
                   taxiFval.drivingPermit.errors
               }"
               autocomplete="off"
-              placeholder="Enter diriving permit number"
+              placeholder="Enter Driving permit number"
             />
           </div>
           <div
@@ -1104,7 +1071,7 @@
                 [ngClass]="
                   taxiFval.taxiInsuarance.valid ? 'text-info' : ''
                 "
-                >Taxi Insuarance<i
+                >Taxi Insurance<i
                   *ngIf="taxiFval.taxiInsuarance.valid"
                   class="material-icons"
                   >check_circle</i
@@ -1120,7 +1087,7 @@
                     taxiFval.taxiInsuarance.errors
                 }"
                 autocomplete="off"
-                placeholder="Select insuarance status"
+                placeholder="Select insurance status"
               >
                 <option></option>
                 <option>NONE</option>
@@ -1136,7 +1103,7 @@
                   taxiFval.taxiInsuarance.errors?.required
                 "
               >
-                The taxi insuarance is required!
+                The taxi insurance is required!
               </div>
             </div>
           </div>
@@ -1247,14 +1214,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-image text-primary mx-auto"
-                      style="size: 50px"
-                    ></i>
-                  </div>
-                </div>
                 <select
                 formControlName="ownershipStatus"
                 class="form-control"
@@ -1265,7 +1224,7 @@
                 }"
                 autocomplete="off"
                 placeholder="Select ownership status"
-                (change)='setSelectedChanges(taxiFval.ownershipStatus.value)'
+                (change)='setSelectedChanges(bodaFval.ownershipStatus.value)'
               >
                 <option></option>
                 <option>ONLOAN</option>
@@ -1298,14 +1257,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-image text-primary mx-auto"
-                      style="size: 50px"
-                    ></i>
-                  </div>
-                </div>
                 <input
                   id="ownersName"
                   formControlName="ownersName"
@@ -1343,14 +1294,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-image text-primary mx-auto"
-                      style="size: 50px"
-                    ></i>
-                  </div>
-                </div>
                 <input
                   id="ownersPhoneNumber"
                   formControlName="ownersPhoneNumber"
@@ -1396,11 +1339,11 @@
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
-          <h3
-            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          <h4
+            class="rub-head4 text-info text-center font-weight-bold py-1"
           >
             Micro Client Info
-          </h3>
+          </h4>
         </div>
       </div>
     </div>
@@ -1412,9 +1355,9 @@
             <label
               for="clientName"
               [ngClass]="microFval.clientName.valid ? 'text-info' : ''"
-              ><i *ngIf="microFval.clientName.valid" class="material-icons"
+              >Client Name<i *ngIf="microFval.clientName.valid" class="material-icons"
                 >check_circle</i
-              >Client Name</label
+              ></label
             >
             <div class="input-group mb-0">
               <div class="input-group-prepend">
@@ -1450,7 +1393,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-6">
+        <div class="col-12 col-md-6">
           <div class="form-group text-primary">
             <label
               for="loanpurpose"
@@ -1464,15 +1407,6 @@
               ></label
             >
             <div class="input-group mb-0">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i
-                    class="fas fa-user-alt text-primary mx-auto"
-                    style="size: 50px"
-                  >
-                  </i>
-                </div>
-              </div>
               <input
                 type="text"
                 formControlName="loanpurpose"
@@ -1501,14 +1435,14 @@
         </div>
     </div>
           <div class="row">
-          <div class="col-12 col-md-6 col-lg-6">
+          <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
                 for="currentBusinesstype"
                 [ngClass]="
                 microFval.currentBusinesstype.valid ? 'text-info' : ''
                 "
-                >Current Business Type<i
+                >Current Business<i
                   *ngIf="microFval.currentBusinesstype.valid"
                   class="material-icons"
                   >check_circle</i
@@ -1550,7 +1484,7 @@
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6 col-lg-6">
+          <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
                 for="businessLocation"
@@ -1567,7 +1501,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">
                     <i
-                      class="fas fa-user-alt text-primary mx-auto"
+                      class="fas fa-map-marker-alt text-primary mx-auto"
                       style="size: 50px"
                     >
                     </i>
@@ -1584,7 +1518,7 @@
                       microFval.businessLocation.errors
                   }"
                   autocomplete="off"
-                  placeholder="Business loaction"
+                  placeholder="Business location"
                 />
               </div>
               <div
@@ -1595,7 +1529,7 @@
                   microFval.businessLocation.errors?.required
                 "
               >
-                The business loaction is required!
+                The business location is required!
               </div>
             </div>
           </div>
@@ -1615,15 +1549,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-building text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
                   formControlName="averageDailyExpenses"
@@ -1664,15 +1589,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-building text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
                   formControlName="averageDailyIncome"
@@ -1768,15 +1684,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-location-arrow text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
                   formControlName="residenceStatus"
@@ -1817,14 +1724,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-image text-primary mx-auto"
-                      style="size: 50px"
-                    ></i>
-                  </div>
-                </div>
                 <input
                   id="numberOfDependants"
                   formControlName="numberOfDependants"
@@ -1854,16 +1753,16 @@
         </div>
       </form>
     </div>
-  </div> 
+  </div>
   <div *ngIf="showSaveForm">
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
-          <h3
-            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+          <h4
+            class="rub-head4 text-info text-center font-weight-bold py-1"
           >
             Micro Client Info
-          </h3>
+          </h4>
         </div>
       </div>
     </div>
@@ -1875,9 +1774,9 @@
             <label
               for="clientName"
               [ngClass]="savFval.clientName.valid ? 'text-info' : ''"
-              ><i *ngIf="savFval.clientName.valid" class="material-icons"
+              >Client Name<i *ngIf="savFval.clientName.valid" class="material-icons"
                 >check_circle</i
-              >Client Name</label
+              ></label
             >
             <div class="input-group mb-0">
               <div class="input-group-prepend">
@@ -1909,11 +1808,11 @@
                 savFval.clientName.errors?.required
               "
             >
-              The client name is required!
+              The customer name is required!
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6 col-lg-6">
+        <div class="col-12 col-md-6">
           <div class="form-group text-primary">
             <label
               for="monthlyIncome"
@@ -1927,15 +1826,6 @@
               ></label
             >
             <div class="input-group mb-0">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i
-                    class="fas fa-user-alt text-primary mx-auto"
-                    style="size: 50px"
-                  >
-                  </i>
-                </div>
-              </div>
               <input
                 type="text"
                 formControlName="monthlyIncome"
@@ -1964,7 +1854,7 @@
         </div>
         </div>
           <div class="row">
-          <div class="col-12 col-md-6 col-lg-6">
+          <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
                 for="withdrawFreequency"
@@ -1978,15 +1868,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
                   formControlName="withdrawFreequency"
@@ -1998,7 +1879,7 @@
                       savFval.withdrawFreequency.errors
                   }"
                   autocomplete="off"
-                  placeholder="Withraw freequency"
+                  placeholder="Withraw frequency"
                 />
               </div>
               <div
@@ -2009,11 +1890,11 @@
                   savFval.withdrawFreequency.errors?.required
                 "
               >
-                Withdraw freequency is required!
+                Withdraw frequency is required!
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6 col-lg-6">
+          <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
                 for="customerTarget"
@@ -2027,15 +1908,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
                   formControlName="customerTarget"
@@ -2084,9 +1956,9 @@
       *ngIf="userForm.valid && this.fval.productCode.value != '' && showcompleteBtn"
       (click)="completeForm()"
     >
-    Go To {{this.fval.productCode.value == 'BODABODA LOAN PRODUCT' ? 'BodaLoan' :
-            this.fval.productCode.value == 'TAXI LOAN PRODUCT' ? 'TaxiLoan' :
-            this.fval.productCode.value == 'MICROLOAN PRODUCT' ? 'MicroLoan' : 'Savings' }} Form
+      Go To {{this.fval.productCode.value == 'BODABODA LOAN PRODUCT' ? 'BodaLoan' :
+              this.fval.productCode.value == 'TAXI LOAN PRODUCT' ? 'TaxiLoan' :
+              this.fval.productCode.value == 'MICROLOAN PRODUCT' ? 'MicroLoan' : 'Savings' }} Form
     </button>
     <button
     type="button"
@@ -2114,7 +1986,7 @@
     <button
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"
-      routerLink = '/stationofficer'
+      routerLink = '/townmanagement'
       *ngIf="showPersonalForm"
     >
       Cancel
