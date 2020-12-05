@@ -145,6 +145,54 @@ var PersonalInfoComponent = /** @class */ (function () {
             customerTarget: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
         });
     };
+    PersonalInfoComponent.prototype.setSelectedChanges = function (selectedChange) {
+        switch (selectedChange) {
+            case 'NATIONAL ID':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(14),
+                    forms_1.Validators.maxLength(14)
+                ]);
+                break;
+            case 'VILLAGE ID':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(9),
+                    forms_1.Validators.maxLength(9)
+                ]);
+                break;
+            case 'PASSPORT':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(20),
+                    forms_1.Validators.maxLength(20)
+                ]);
+                break;
+            case 'DRIVING PERMIT':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(10),
+                    forms_1.Validators.maxLength(10)
+                ]);
+                break;
+            case 'ONLOAN':
+                this.bodaFval.ownersName.setValidators([forms_1.Validators.required]);
+                this.bodaFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersName.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                break;
+            case 'HIREDOUT':
+                this.bodaFval.ownersName.setValidators([forms_1.Validators.required]);
+                this.bodaFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersName.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                break;
+        }
+    };
     PersonalInfoComponent.prototype.completeForm = function () {
         var _this = this;
         if (this.fval.productCode.value) {

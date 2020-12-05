@@ -314,6 +314,54 @@ export class PersonalInfoComponent implements OnInit {
       ),
     });
   }
+  setSelectedChanges(selectedChange: any): any {
+    switch (selectedChange) {
+      case 'NATIONAL ID':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          Validators.minLength(14),
+          Validators.maxLength(14)
+        ]);
+        break;
+      case 'VILLAGE ID':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          Validators.minLength(9),
+          Validators.maxLength(9)
+        ]);
+        break;
+      case 'PASSPORT':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          Validators.minLength(20),
+          Validators.maxLength(20)
+        ]);
+        break;
+      case 'DRIVING PERMIT':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10)
+        ]);
+        break;
+      case 'ONLOAN':
+          this.bodaFval.ownersName.setValidators([Validators.required]);
+          this.bodaFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.taxiFval.ownersName.setValidators([Validators.required]);
+          this.taxiFval.ownersPhoneNumber.setValidators([Validators.required]);
+          break;
+      case 'HIREDOUT':
+          this.bodaFval.ownersName.setValidators([Validators.required]);
+          this.bodaFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.taxiFval.ownersName.setValidators([Validators.required]);
+          this.taxiFval.ownersPhoneNumber.setValidators([Validators.required]);
+          break;
+    }
+  }
 
   completeForm(): any {
     if (this.fval.productCode.value){

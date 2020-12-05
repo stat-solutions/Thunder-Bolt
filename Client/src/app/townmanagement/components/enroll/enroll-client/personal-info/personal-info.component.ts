@@ -194,7 +194,6 @@ export class PersonalInfoComponent implements OnInit {
       ),
       ownersName: new FormControl(
         '',
-        // Validators.compose([Validators.required])
       ),
       ownersPhoneNumber: new FormControl(
         '',
@@ -326,7 +325,72 @@ export class PersonalInfoComponent implements OnInit {
       ),
     });
   }
-
+  setStation(val: any): any{
+    // console.log(val);
+    this.stations.forEach(station => {
+      if (station.stationName.toUpperCase() === val.toUpperCase()){
+        this.fval.station.setValue(val);
+      } else {
+        this.fval.station.setValue('');
+      }
+    });
+  }
+  setSelectedChanges(selectedChange: any): any {
+    switch (selectedChange) {
+      case 'Select Station':
+        this.fval.station.setValue('');
+        this.fval.station.setValidators([Validators.required]);
+        break;
+      case 'Select the ID type':
+        this.fval.id_type.setValue('');
+        this.fval.id_type.setValidators([Validators.required]);
+        break;
+      case 'NATIONAL ID':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          Validators.minLength(14),
+          Validators.maxLength(14)
+        ]);
+        break;
+      case 'VILLAGE ID':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          Validators.minLength(9),
+          Validators.maxLength(9)
+        ]);
+        break;
+      case 'PASSPORT':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          Validators.minLength(20),
+          Validators.maxLength(20)
+        ]);
+        break;
+      case 'DRIVING PERMIT':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(10)
+        ]);
+        break;
+      case 'ONLOAN':
+          this.bodaFval.ownersName.setValidators([Validators.required]);
+          this.bodaFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.taxiFval.ownersName.setValidators([Validators.required]);
+          this.taxiFval.ownersPhoneNumber.setValidators([Validators.required]);
+          break;
+      case 'HIREDOUT':
+          this.bodaFval.ownersName.setValidators([Validators.required]);
+          this.bodaFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.taxiFval.ownersName.setValidators([Validators.required]);
+          this.taxiFval.ownersPhoneNumber.setValidators([Validators.required]);
+          break;
+    }
+  }
   completeForm(): any {
     if (this.fval.productCode.value){
      this.data.push({
@@ -352,6 +416,8 @@ export class PersonalInfoComponent implements OnInit {
      this.stations.forEach(station => {
       if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()){
        this.data[0].theStationLocationId = station.theStationLocationId;
+      } else {
+        this.fval.station.setValue('');
       }
     });
      if (this.fval.productCode.value === 'BODABODA LOAN PRODUCT'){
@@ -470,27 +536,36 @@ export class PersonalInfoComponent implements OnInit {
             }
           });
           console.log(this.data);
-          this.others.createCustomer(this.data).subscribe(
-            res => {
-              this.posted = true;
-              this.data = [];
-              this.alertService.success({
-                html: '<b> Customer was created successfully <b>'
-              });
-              this.revert();
-              this.bodaClientForm.reset();
-              setTimeout(() => {
-                  location.reload();
-                }, 3000);
-            },
-            err => {
-              this.data = [];
-              console.log(err.statusText);
-              this.alertService.danger({
-                  html: '<b>' + err.error.error.message + '</b>'
+          if (this.data[1].bodabodaStageId  === null) {
+            this.errored = true;
+            this.alertService.danger({
+              html: '<b> taxi stage selected was not found </b>'
+            });
+            return;
+        } else {
+            this.others.createCustomer(this.data).subscribe(
+              res => {
+                this.posted = true;
+                this.data = [];
+                this.alertService.success({
+                  html: '<b> Customer was created successfully <b>'
                 });
-            }
-          );
+                this.revert();
+                this.bodaClientForm.reset();
+                setTimeout(() => {
+                    location.reload();
+                  }, 3000);
+              },
+              err => {
+                this.data = [];
+                this.errored = true;
+                console.log(err.statusText);
+                this.alertService.danger({
+                    html: '<b>' + err.error.error.message + '</b>'
+                  });
+              }
+            );
+        }
       }
     }
     else {
@@ -535,27 +610,35 @@ export class PersonalInfoComponent implements OnInit {
             }
           });
           console.log(this.data);
-          this.others.createCustomer(this.data).subscribe(
-            res => {
-              this.posted = true;
-              this.data = [];
-              this.alertService.success({
-                html: '<b> Customer was created successfully <b>'
-              });
-              this.revert();
-              this.taxiClientForm.reset();
-              setTimeout(() => {
-                  location.reload();
-                }, 3000);
-            },
-            err => {
-              this.data = [];
-              console.log(err.statusText);
+          if (this.data[1].taxiStageId === null) {
+              this.errored = true;
               this.alertService.danger({
-                  html: '<b>' + err.error.error.message + '</b>'
+                html: '<b> taxi stage selected was not found </b>'
+              });
+              return;
+          } else {
+            this.others.createCustomer(this.data).subscribe(
+              res => {
+                this.posted = true;
+                this.data = [];
+                this.alertService.success({
+                  html: '<b> Customer was created successfully <b>'
                 });
-            }
-          );
+                this.revert();
+                this.taxiClientForm.reset();
+                setTimeout(() => {
+                    location.reload();
+                  }, 3000);
+              },
+              err => {
+                this.data = [];
+                console.log(err.statusText);
+                this.alertService.danger({
+                    html: '<b>' + err.error.error.message + '</b>'
+                  });
+              }
+            );
+          }
         }
       } else {
         this.errored = true;

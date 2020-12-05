@@ -150,6 +150,74 @@ var PersonalInfoComponent = /** @class */ (function () {
             customerTarget: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
         });
     };
+    PersonalInfoComponent.prototype.setStation = function (val) {
+        var _this = this;
+        // console.log(val);
+        this.stations.forEach(function (station) {
+            if (station.stationName.toUpperCase() === val.toUpperCase()) {
+                _this.fval.station.setValue(val);
+            }
+            else {
+                _this.fval.station.setValue('');
+            }
+        });
+    };
+    PersonalInfoComponent.prototype.setSelectedChanges = function (selectedChange) {
+        switch (selectedChange) {
+            case 'Select Station':
+                this.fval.station.setValue('');
+                this.fval.station.setValidators([forms_1.Validators.required]);
+                break;
+            case 'Select the ID type':
+                this.fval.id_type.setValue('');
+                this.fval.id_type.setValidators([forms_1.Validators.required]);
+                break;
+            case 'NATIONAL ID':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(14),
+                    forms_1.Validators.maxLength(14)
+                ]);
+                break;
+            case 'VILLAGE ID':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(9),
+                    forms_1.Validators.maxLength(9)
+                ]);
+                break;
+            case 'PASSPORT':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(20),
+                    forms_1.Validators.maxLength(20)
+                ]);
+                break;
+            case 'DRIVING PERMIT':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(10),
+                    forms_1.Validators.maxLength(10)
+                ]);
+                break;
+            case 'ONLOAN':
+                this.bodaFval.ownersName.setValidators([forms_1.Validators.required]);
+                this.bodaFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersName.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                break;
+            case 'HIREDOUT':
+                this.bodaFval.ownersName.setValidators([forms_1.Validators.required]);
+                this.bodaFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersName.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                break;
+        }
+    };
     PersonalInfoComponent.prototype.completeForm = function () {
         var _this = this;
         if (this.fval.productCode.value) {
@@ -176,6 +244,9 @@ var PersonalInfoComponent = /** @class */ (function () {
             this.stations.forEach(function (station) {
                 if (station.stationName.toUpperCase() === _this.fval.station.value.toUpperCase()) {
                     _this.data[0].theStationLocationId = station.theStationLocationId;
+                }
+                else {
+                    _this.fval.station.setValue('');
                 }
             });
             if (this.fval.productCode.value === 'BODABODA LOAN PRODUCT') {
@@ -284,7 +355,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                         this.bodaFval.ownersPhoneNumber.value === '')) {
                     this.errored = true;
                     this.alertService.danger({
-                        html: '<strong>The ownership details are missing</strong>'
+                        html: '<strong>The ownership details are missing!</strong>'
                     });
                 }
                 else {
@@ -310,30 +381,40 @@ var PersonalInfoComponent = /** @class */ (function () {
                         }
                     });
                     console.log(this.data);
-                    this.others.createCustomer(this.data).subscribe(function (res) {
-                        _this.posted = true;
-                        _this.data = [];
-                        _this.alertService.success({
-                            html: '<b> customer was created succsefully <b>'
+                    if (this.data[1].bodabodaStageId === null) {
+                        this.errored = true;
+                        this.alertService.danger({
+                            html: '<b> taxi stage selected was not found </b>'
                         });
-                        _this.revert();
-                        _this.bodaClientForm.reset();
-                        setTimeout(function () {
-                            location.reload();
-                        }, 3000);
-                    }, function (err) {
-                        _this.data = [];
-                        console.log(err.statusText);
-                        _this.alertService.danger({
-                            html: '<b>' + err.error.error.message + '</b>'
+                        return;
+                    }
+                    else {
+                        this.others.createCustomer(this.data).subscribe(function (res) {
+                            _this.posted = true;
+                            _this.data = [];
+                            _this.alertService.success({
+                                html: '<b> Customer was created successfully <b>'
+                            });
+                            _this.revert();
+                            _this.bodaClientForm.reset();
+                            setTimeout(function () {
+                                location.reload();
+                            }, 3000);
+                        }, function (err) {
+                            _this.data = [];
+                            _this.errored = true;
+                            console.log(err.statusText);
+                            _this.alertService.danger({
+                                html: '<b>' + err.error.error.message + '</b>'
+                            });
                         });
-                    });
+                    }
                 }
             }
             else {
                 this.errored = true;
                 this.alertService.danger({
-                    html: '<strong>some form fields where not filled</strong>'
+                    html: '<strong>Some form fields where not filled!</strong>'
                 });
             }
         }
@@ -344,7 +425,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                         this.taxiFval.ownersPhoneNumber.value === '')) {
                     this.errored = true;
                     this.alertService.danger({
-                        html: '<strong>The ownership details are missing</strong>'
+                        html: '<strong>The ownership details are missing!</strong>'
                     });
                 }
                 else {
@@ -371,30 +452,39 @@ var PersonalInfoComponent = /** @class */ (function () {
                         }
                     });
                     console.log(this.data);
-                    this.others.createCustomer(this.data).subscribe(function (res) {
-                        _this.posted = true;
-                        _this.data = [];
-                        _this.alertService.success({
-                            html: '<b> customer was created succsefully <b>'
+                    if (this.data[1].taxiStageId === null) {
+                        this.errored = true;
+                        this.alertService.danger({
+                            html: '<b> taxi stage selected was not found </b>'
                         });
-                        _this.revert();
-                        _this.taxiClientForm.reset();
-                        setTimeout(function () {
-                            location.reload();
-                        }, 3000);
-                    }, function (err) {
-                        _this.data = [];
-                        console.log(err.statusText);
-                        _this.alertService.danger({
-                            html: '<b>' + err.error.error.message + '</b>'
+                        return;
+                    }
+                    else {
+                        this.others.createCustomer(this.data).subscribe(function (res) {
+                            _this.posted = true;
+                            _this.data = [];
+                            _this.alertService.success({
+                                html: '<b> Customer was created successfully <b>'
+                            });
+                            _this.revert();
+                            _this.taxiClientForm.reset();
+                            setTimeout(function () {
+                                location.reload();
+                            }, 3000);
+                        }, function (err) {
+                            _this.data = [];
+                            console.log(err.statusText);
+                            _this.alertService.danger({
+                                html: '<b>' + err.error.error.message + '</b>'
+                            });
                         });
-                    });
+                    }
                 }
             }
             else {
                 this.errored = true;
                 this.alertService.danger({
-                    html: '<strong>some form fields where not filled</strong>'
+                    html: '<strong>Some form fields where not filled!</strong>'
                 });
             }
         }
@@ -417,7 +507,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                     _this.posted = true;
                     _this.data = [];
                     _this.alertService.success({
-                        html: '<b> customer was created succsefully <b>'
+                        html: '<b> Customer was created successfully <b>'
                     });
                     _this.revert();
                     _this.microClientForm.reset();
@@ -435,7 +525,7 @@ var PersonalInfoComponent = /** @class */ (function () {
             else {
                 this.errored = true;
                 this.alertService.danger({
-                    html: '<strong>some form fields where not filled</strong>'
+                    html: '<strong>Some form fields where not filled!</strong>'
                 });
             }
         }
@@ -453,7 +543,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                     _this.posted = true;
                     _this.data = [];
                     _this.alertService.success({
-                        html: '<b> customer was created succsefully <b>'
+                        html: '<b> Customer was created successfully <b>'
                     });
                     _this.revert();
                     _this.microClientForm.reset();
@@ -471,7 +561,7 @@ var PersonalInfoComponent = /** @class */ (function () {
             else {
                 this.errored = true;
                 this.alertService.danger({
-                    html: '<strong>some form fields where not filled</strong>'
+                    html: '<strong>Some form fields where not filled!</strong>'
                 });
             }
         }
