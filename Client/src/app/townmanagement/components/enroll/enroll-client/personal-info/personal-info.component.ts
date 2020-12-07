@@ -8,6 +8,8 @@ import { CustomValidator } from 'src/app/validators/custom-validator';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 import * as jwt_decode from 'jwt-decode';
 import { NgTranscludeDirective } from 'ngx-bootstrap/tabs';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-personal-info',
@@ -32,7 +34,6 @@ export class PersonalInfoComponent implements OnInit {
   showMicroForm = false;
   showSaveForm = false;
   currentForm = [];
-  // showSubmitForm = false;
   serviceErrors: any = {};
   value: string;
   fieldType: boolean;
@@ -43,12 +44,21 @@ export class PersonalInfoComponent implements OnInit {
   bodaStages: any;
   stations: any;
   data = [];
+  clientPhotoUrl: string;
+  clientIdUrl: string;
+  bodaFrontUrl: string;
+  bodaSideUrl: string;
+  bodaRearUrl: string;
+  taxiFrontUrl: string;
+  taxiSideUrl: string;
+  taxiRearUrl: string;
   constructor(
     private authService: AuthServiceService,
     private others: OthersService,
     private spinner: NgxSpinnerService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private storage: AngularFireStorage
   ) {}
 
   ngOnInit(): void {
@@ -141,6 +151,15 @@ export class PersonalInfoComponent implements OnInit {
         '',
         Validators.compose([Validators.required])
       ),
+      clientPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      idPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+
       productCode: new FormControl(
         '',
         Validators.compose([Validators.required])
@@ -188,6 +207,19 @@ export class PersonalInfoComponent implements OnInit {
         '',
         Validators.compose([Validators.required])
       ),
+      bodabodaCustomerFrontPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      bodabodaCustomerSidePhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      bodabodaCustomerRearPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+
       ownershipStatus: new FormControl(
         '',
         Validators.compose([Validators.required])
@@ -242,6 +274,18 @@ export class PersonalInfoComponent implements OnInit {
         Validators.compose([Validators.required])
       ),
       dateOfJoiningStage: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      taxiCustomerFrontPhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      taxiCustomerSidePhotoUrl: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      taxiCustomerRearPhotoUrl: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
@@ -325,6 +369,98 @@ export class PersonalInfoComponent implements OnInit {
       ),
     });
   }
+
+  onFileSelected(event): any {
+    // console.log(event.target.id);
+    let folder: string;
+    switch (event.target.id) {
+      case 'clientPhotoUrl':
+        folder = 'clientImages/photos-and-ids';
+        this.upload(event.target.id, event.target.files[0], folder);
+        break;
+      case 'idPhotoUrl':
+        folder = 'clientImages/photos-and-ids';
+        this.upload(event.target.id, event.target.files[0], folder);
+        break;
+      case 'bodabodaCustomerFrontPhotoUrl':
+        folder = 'clientImages/bodaboda';
+        this.upload(event.target.id, event.target.files[0], folder);
+        break;
+      case 'bodabodaCustomerSidePhotoUrl':
+        folder = 'clientImages/bodaboda';
+        this.upload(event.target.id, event.target.files[0], folder);
+        break;
+      case 'bodabodaCustomerRearPhotoUrl':
+        folder = 'clientImages/bodaboda';
+        this.upload(event.target.id, event.target.files[0], folder);
+        break;
+      case 'taxiCustomerFrontPhotoUrl':
+        folder = 'clientImages/taxi';
+        this.upload(event.target.id, event.target.files[0], folder);
+        break;
+      case 'taxiCustomerSidePhotoUrl':
+        folder = 'clientImages/taxi';
+        this.upload(event.target.id, event.target.files[0], folder);
+        break;
+      case 'taxiCustomerRearPhotoUrl':
+        folder = 'clientImages/taxi';
+        this.upload(event.target.id, event.target.files[0], folder);
+        break;
+    }
+  }
+  upload(inputType: string, getfile: any, path: any): any {
+    const n = Date.now();
+    const file = getfile;
+    const filePath = `${path}/${n}`;
+    // file ? console.log('true') : console.log('false');
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    const result = task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          const downloadURL = fileRef.getDownloadURL();
+          downloadURL.subscribe(url => {
+            if (url) {
+              // console.log(url);
+              switch (inputType) {
+                case 'clientPhotoUrl':
+                  this.clientPhotoUrl = url;
+                  // console.log(this.clientPhotoUrl);
+                  break;
+                case 'idPhotoUrl':
+                  this.clientIdUrl = url;
+                  // console.log(this.clientIdUrl);
+                  break;
+                case 'bodabodaCustomerFrontPhotoUrl':
+                  this.bodaFrontUrl = url;
+                  break;
+                case 'bodabodaCustomerSidePhotoUrl':
+                  this.bodaSideUrl = url;
+                  break;
+                case 'bodabodaCustomerRearPhotoUrl':
+                  this.bodaRearUrl = url;
+                  break;
+                case 'taxiCustomerFrontPhotoUrl':
+                  this.taxiFrontUrl = url;
+                  break;
+                case 'taxiCustomerSidePhotoUrl':
+                  this.taxiSideUrl = url;
+                  break;
+                case 'taxiCustomerRearPhotoUrl':
+                  this.taxiRearUrl = url;
+                  break;
+              }
+            }
+          });
+        })
+      )
+      .subscribe(url => {
+        if (url) {
+          // console.log(url);
+        }
+      });
+  }
   setSelectedChanges(selectedChange: any): any {
     switch (selectedChange) {
       case 'Select the ID type':
@@ -377,6 +513,10 @@ export class PersonalInfoComponent implements OnInit {
           break;
     }
   }
+
+  nextForm(): any{
+    setTimeout(this.completeForm(), 5000);
+  }
   completeForm(): any {
     if (this.fval.productCode.value){
      this.data.push({
@@ -386,6 +526,8 @@ export class PersonalInfoComponent implements OnInit {
                       this.fval.main_contact_number1.value :
                       this.fval.main_contact_number2.value,
       customerIdType: this.fval.id_type.value.toUpperCase(),
+      customerIdPhotoUrl: this.clientPhotoUrl,
+      customerPhotoUrl: this.clientIdUrl,
       customerDateOfBirth: `${this.fval.dateOfBirth.value.getFullYear()}-${this.fval.dateOfBirth.value.getMonth() + 1}-${this.fval.dateOfBirth.value.getDate()}`,
       customerIdNumber: this.fval.id_number.value,
       customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
@@ -399,13 +541,6 @@ export class PersonalInfoComponent implements OnInit {
         this.data[0].productCode = pdt.productCode;
        }
      });
-    //  this.stations.forEach(station => {
-    //   if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()){
-    //    this.data[0].theStationLocationId = station.theStationLocationId;
-    //   } else {
-    //     this.fval.station.setValue('');
-    //   }
-    // });
      for (const station of this.stations){
       if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()){
         this.data[0].theStationLocationId = station.theStationLocationId;
@@ -416,9 +551,11 @@ export class PersonalInfoComponent implements OnInit {
        this.alertService.danger({
         html: '<b> The station chose does not exist</b>'
        });
-       this.errored = false;
+       this.data = [];
+      //  this.errored = false;
        return;
      } else {
+          // console.log(this.data[0]);
           if (this.fval.productCode.value === 'BODABODA LOAN PRODUCT'){
             this.showPersonalForm = false;
             this.showBodaForm = true;
@@ -460,6 +597,8 @@ export class PersonalInfoComponent implements OnInit {
   }
 
   goBack(): any{
+    this.fval.clientPhotoUrl.setValue(this.data[0].customerPhotoUrl);
+    this.fval.idPhotoUrl.setValue(this.data[0].customerIdPhotoUrl);
     this.showPersonalForm = true;
     this.showBodaForm = false;
     this.showTaxiForm = false;
@@ -495,6 +634,9 @@ export class PersonalInfoComponent implements OnInit {
     return this.savingsClientForm.controls;
   }
 
+  save(): any{
+    setTimeout(this.saveClientAndPdt(), 5000);
+  }
   saveClientAndPdt(): any {
     if (this.showBodaForm){
       if (this.bodaClientForm.valid) {
@@ -522,6 +664,9 @@ export class PersonalInfoComponent implements OnInit {
                                         2 : 3,
             bodabodaCustomerOwnersName: this.bodaFval.ownersName.value.toUpperCase(),
             bodabodaCustomerOwnersPhone1: this.bodaFval.ownersPhoneNumber.value,
+            bodabodaCustomerFrontPhotoUrl: this.bodaFrontUrl,
+            bodabodaCustomerSidePhotoUrl: this.bodaSideUrl,
+            bodabodaCustomerRearPhotoUrl: this.bodaRearUrl,
             // customerId: 400000000,
             bodabodaStageId: null,
             productCode: this.data[0].productCode
@@ -531,12 +676,13 @@ export class PersonalInfoComponent implements OnInit {
               this.data[1].bodabodaStageId = bodaStage.bodabodaStageId;
             }
           });
-          // console.log(this.data);
+          console.log(this.data);
           if (this.data[1].bodabodaStageId  === null) {
             this.errored = true;
             this.alertService.danger({
               html: '<b> taxi stage selected was not found </b>'
             });
+            this.data.pop();
             return;
         } else {
             this.others.createCustomer(this.data).subscribe(
@@ -557,7 +703,7 @@ export class PersonalInfoComponent implements OnInit {
                 this.errored = true;
                 console.log(err.statusText);
                 this.alertService.danger({
-                    html: '<b>' + err.error.error.message + '</b>'
+                    html: '<b>' + err.statusText + '</b>'
                   });
               }
             );
@@ -598,6 +744,9 @@ export class PersonalInfoComponent implements OnInit {
                                         2 : 3,
             taxiCustomerOwnersName: this.taxiFval.ownersName.value.toUpperCase(),
             taxiCustomerOwnersPhone: this.taxiFval.ownersPhoneNumber.value,
+            taxiCustomerFrontPhotoUrl: this.taxiFrontUrl,
+            taxiCustomerSidePhotoUrl: this.taxiSideUrl,
+            taxiCustomerRearPhotoUrl: this.taxiRearUrl,
             // customerId: 400000000,
             taxiStageId: null,
             productCode: this.data[0].productCode
@@ -607,12 +756,13 @@ export class PersonalInfoComponent implements OnInit {
               this.data[1].taxiStageId = taxiStage.taxiStageId;
             }
           });
-          // console.log(this.data);
+          console.log(this.data);
           if (this.data[1].taxiStageId === null) {
               this.errored = true;
               this.alertService.danger({
                 html: '<b> taxi stage selected was not found </b>'
               });
+              this.data.pop();
               return;
           } else {
             this.others.createCustomer(this.data).subscribe(

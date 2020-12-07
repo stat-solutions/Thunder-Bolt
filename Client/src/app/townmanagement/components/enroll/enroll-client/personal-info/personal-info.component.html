@@ -375,6 +375,102 @@
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
+                for="clientPhotoUrl"
+                [ngClass]="fval.clientPhotoUrl.valid ? 'text-info' : ''"
+                >Photo<i
+                  *ngIf="fval.clientPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="clientPhotoUrl"
+                  formControlName="clientPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  capture
+                  (change)="onFileSelected($event)"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.clientPhotoUrl.touched ||
+                        fval.clientPhotoUrl.dirty) &&
+                      fval.clientPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.clientPhotoUrl.touched || fval.clientPhotoUrl.dirty) &&
+                  fval.clientPhotoUrl.errors?.required
+                "
+              >
+                Please upload a passport-size photo of the client!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="idPhotoUrl"
+                [ngClass]="fval.idPhotoUrl.valid ? 'text-info' : ''"
+                >ID Upload<i
+                  *ngIf="fval.idPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="idPhotoUrl"
+                  formControlName="idPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  capture
+                  (change)="onFileSelected($event)"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.idPhotoUrl.touched ||
+                        fval.idPhotoUrl.dirty) &&
+                      fval.idPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.idPhotoUrl.touched || fval.idPhotoUrl.dirty) &&
+                  fval.idPhotoUrl.errors?.required
+                "
+              >
+                Please upload a photo of the client's ID'!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
                 for="dateOfBirth"
                 [ngClass]="fval.dateOfBirth.valid ? 'text-info' : ''"
                 >Date Of Birth<i
@@ -791,6 +887,149 @@
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
+                for="bodabodaCustomerFrontPhotoUrl"
+                [ngClass]="bodaFval.bodabodaCustomerFrontPhotoUrl.valid ? 'text-info' : ''"
+                >Front Image<i
+                  *ngIf="bodaFval.bodabodaCustomerFrontPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="bodabodaCustomerFrontPhotoUrl"
+                  formControlName="bodabodaCustomerFrontPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  capture
+                  (change)="onFileSelected($event)"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerFrontPhotoUrl.touched ||
+                      bodaFval.bodabodaCustomerFrontPhotoUrl.dirty) &&
+                      bodaFval.bodabodaCustomerFrontPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerFrontPhotoUrl.touched || bodaFval.bodabodaCustomerFrontPhotoUrl.dirty) &&
+                  bodaFval.bodabodaCustomerFrontPhotoUrl.errors?.required
+                "
+              >
+                Please upload a front image of bodaboda!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerSidePhotoUrl"
+                [ngClass]="bodaFval.bodabodaCustomerSidePhotoUrl.valid ? 'text-info' : ''"
+                >Side Image<i
+                  *ngIf="bodaFval.bodabodaCustomerSidePhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="bodabodaCustomerSidePhotoUrl"
+                  formControlName="bodabodaCustomerSidePhotoUrl"
+                  type="file"
+                  src="image/*"
+                  capture
+                  (change)="onFileSelected($event)"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerSidePhotoUrl.touched ||
+                      bodaFval.bodabodaCustomerSidePhotoUrl.dirty) &&
+                      bodaFval.bodabodaCustomerSidePhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerSidePhotoUrl.touched || bodaFval.bodabodaCustomerSidePhotoUrl.dirty) &&
+                  bodaFval.bodabodaCustomerSidePhotoUrl.errors?.required
+                "
+              >
+                Please upload a side image of bodaboda!
+              </div>
+              </div>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="bodabodaCustomerRearPhotoUrl"
+                [ngClass]="bodaFval.bodabodaCustomerRearPhotoUrl.valid ? 'text-info' : ''"
+                >Rear Image<i
+                  *ngIf="bodaFval.bodabodaCustomerRearPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="bodabodaCustomerRearPhotoUrl"
+                  formControlName="bodabodaCustomerRearPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  capture
+                  (change)="onFileSelected($event)"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (bodaFval.bodabodaCustomerRearPhotoUrl.touched ||
+                      bodaFval.bodabodaCustomerRearPhotoUrl.dirty) &&
+                      bodaFval.bodabodaCustomerRearPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (bodaFval.bodabodaCustomerRearPhotoUrl.touched || bodaFval.bodabodaCustomerRearPhotoUrl.dirty) &&
+                  bodaFval.bodabodaCustomerRearPhotoUrl.errors?.required
+                "
+              >
+              Please upload a rear image of bodaboda!
+            </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
                 for="ownershipStatus"
                 [ngClass]="bodaFval.ownershipStatus.valid ? 'text-info' : ''"
                 >Bodaboda Ownership Status<i
@@ -1117,6 +1356,149 @@
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
+                for="taxiCustomerFrontPhotoUrl"
+                [ngClass]="taxiFval.taxiCustomerFrontPhotoUrl.valid ? 'text-info' : ''"
+                >Front Image<i
+                  *ngIf="taxiFval.taxiCustomerFrontPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="taxiCustomerFrontPhotoUrl"
+                  formControlName="taxiCustomerFrontPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  capture
+                  (change)="onFileSelected($event)"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerFrontPhotoUrl.touched ||
+                      taxiFval.taxiCustomerFrontPhotoUrl.dirty) &&
+                      taxiFval.taxiCustomerFrontPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerFrontPhotoUrl.touched || taxiFval.taxiCustomerFrontPhotoUrl.dirty) &&
+                  taxiFval.taxiCustomerFrontPhotoUrl.errors?.required
+                "
+              >
+                Please upload a front image of taxi!
+              </div>
+            </div>
+          </div>
+            <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="taxiCustomerSidePhotoUrl"
+                [ngClass]="taxiFval.taxiCustomerSidePhotoUrl.valid ? 'text-info' : ''"
+                >Side Image<i
+                  *ngIf="taxiFval.taxiCustomerSidePhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="taxiCustomerSidePhotoUrl"
+                  formControlName="taxiCustomerSidePhotoUrl"
+                  type="file"
+                  src="image/*"
+                  capture
+                  (change)="onFileSelected($event)"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerSidePhotoUrl.touched ||
+                      taxiFval.taxiCustomerSidePhotoUrl.dirty) &&
+                      taxiFval.taxiCustomerSidePhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerSidePhotoUrl.touched || taxiFval.taxiCustomerSidePhotoUrl.dirty) &&
+                  taxiFval.taxiCustomerSidePhotoUrl.errors?.required
+                "
+              >
+                Please upload a Side image of taxi!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="taxiCustomerRearPhotoUrl"
+                [ngClass]="taxiFval.taxiCustomerRearPhotoUrl.valid ? 'text-info' : ''"
+                >Rear Image<i
+                  *ngIf="taxiFval.taxiCustomerRearPhotoUrl.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-image text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="taxiCustomerRearPhotoUrl"
+                  formControlName="taxiCustomerRearPhotoUrl"
+                  type="file"
+                  src="image/*"
+                  capture
+                  (change)="onFileSelected($event)"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (taxiFval.taxiCustomerRearPhotoUrl.touched ||
+                      taxiFval.taxiCustomerRearPhotoUrl.dirty) &&
+                      taxiFval.taxiCustomerRearPhotoUrl.errors
+                  }"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (taxiFval.taxiCustomerRearPhotoUrl.touched || taxiFval.taxiCustomerRearPhotoUrl.dirty) &&
+                  taxiFval.taxiCustomerRearPhotoUrl.errors?.required
+                "
+              >
+              Please upload a rear image of taxi!
+            </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
                 for="taxiInsuarance"
                 [ngClass]="
                   taxiFval.taxiInsuarance.valid ? 'text-info' : ''
@@ -1139,7 +1521,7 @@
                 autocomplete="off"
                 placeholder="Select insurance status"
               >
-                <option></option>
+                <!-- <option></option> -->
                 <option>NONE</option>
                 <option>REGULAR</option>
                 <option>COMPREHENSIVE</option>
@@ -1157,6 +1539,8 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
@@ -1204,8 +1588,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
@@ -1252,6 +1634,8 @@
               </div>
             </div>
           </div>
+        </div>  
+        <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
@@ -1276,7 +1660,7 @@
                 placeholder="Select ownership status"
                 (change)='setSelectedChanges(bodaFval.ownershipStatus.value)'
               >
-                <option></option>
+                <!-- <option></option> -->
                 <option>ONLOAN</option>
                 <option>PAIDOUT</option>
                 <option>HIREDOUT</option>
@@ -2006,7 +2390,7 @@
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"
       *ngIf="userForm.valid && this.fval.productCode.value != '' && showcompleteBtn"
-      (click)="completeForm()"
+      (click)="nextForm()"
     >
       Go To {{this.fval.productCode.value == 'BODABODA LOAN PRODUCT' ? 'BodaLoan' :
               this.fval.productCode.value == 'TAXI LOAN PRODUCT' ? 'TaxiLoan' :
@@ -2047,7 +2431,7 @@
     type="button"
     class="btn btn-info col-5 col-md-3 mx-auto"
     *ngIf="showFinalBtn"
-    (click)="saveClientAndPdt()"
+    (click)="save()"
   >
    Finish
   </button>

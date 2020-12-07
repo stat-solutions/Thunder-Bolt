@@ -10,13 +10,15 @@ exports.PersonalInfoComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
+var operators_1 = require("rxjs/operators");
 var PersonalInfoComponent = /** @class */ (function () {
-    function PersonalInfoComponent(authService, others, spinner, router, alertService) {
+    function PersonalInfoComponent(authService, others, spinner, router, alertService, storage) {
         this.authService = authService;
         this.others = others;
         this.spinner = spinner;
         this.router = router;
         this.alertService = alertService;
+        this.storage = storage;
         this.registered = false;
         this.submitted = false;
         this.errored = false;
@@ -29,7 +31,6 @@ var PersonalInfoComponent = /** @class */ (function () {
         this.showMicroForm = false;
         this.showSaveForm = false;
         this.currentForm = [];
-        // showSubmitForm = false;
         this.serviceErrors = {};
         this.User = this.authService.loggedInUserInfo();
         this.data = [];
@@ -83,6 +84,8 @@ var PersonalInfoComponent = /** @class */ (function () {
                 forms_1.Validators.required,
             ])),
             dateOfBirth: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            clientPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            idPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             productCode: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             homeDetails: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             clientComment: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
@@ -100,6 +103,9 @@ var PersonalInfoComponent = /** @class */ (function () {
             bodaInsuarance: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             bodaStage: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             dateOfJoiningStage: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerFrontPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerSidePhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            bodabodaCustomerRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownershipStatus: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownersName: new forms_1.FormControl(''),
             ownersPhoneNumber: new forms_1.FormControl('', forms_1.Validators.compose([
@@ -121,6 +127,9 @@ var PersonalInfoComponent = /** @class */ (function () {
             taxiInsuarance: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             taxiStage: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             dateOfJoiningStage: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            taxiCustomerFrontPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            taxiCustomerSidePhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            taxiCustomerRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownershipStatus: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownersName: new forms_1.FormControl(''),
             ownersPhoneNumber: new forms_1.FormControl('', forms_1.Validators.compose([
@@ -148,6 +157,96 @@ var PersonalInfoComponent = /** @class */ (function () {
             monthlyIncome: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             withdrawFreequency: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             customerTarget: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
+        });
+    };
+    PersonalInfoComponent.prototype.onFileSelected = function (event) {
+        // console.log(event.target.id);
+        var folder;
+        switch (event.target.id) {
+            case 'clientPhotoUrl':
+                folder = 'clientImages/photos-and-ids';
+                this.upload(event.target.id, event.target.files[0], folder);
+                break;
+            case 'idPhotoUrl':
+                folder = 'clientImages/photos-and-ids';
+                this.upload(event.target.id, event.target.files[0], folder);
+                break;
+            case 'bodabodaCustomerFrontPhotoUrl':
+                folder = 'clientImages/bodaboda';
+                this.upload(event.target.id, event.target.files[0], folder);
+                break;
+            case 'bodabodaCustomerSidePhotoUrl':
+                folder = 'clientImages/bodaboda';
+                this.upload(event.target.id, event.target.files[0], folder);
+                break;
+            case 'bodabodaCustomerRearPhotoUrl':
+                folder = 'clientImages/bodaboda';
+                this.upload(event.target.id, event.target.files[0], folder);
+                break;
+            case 'taxiCustomerFrontPhotoUrl':
+                folder = 'clientImages/taxi';
+                this.upload(event.target.id, event.target.files[0], folder);
+                break;
+            case 'taxiCustomerSidePhotoUrl':
+                folder = 'clientImages/taxi';
+                this.upload(event.target.id, event.target.files[0], folder);
+                break;
+            case 'taxiCustomerRearPhotoUrl':
+                folder = 'clientImages/taxi';
+                this.upload(event.target.id, event.target.files[0], folder);
+                break;
+        }
+    };
+    PersonalInfoComponent.prototype.upload = function (inputType, getfile, path) {
+        var _this = this;
+        var n = Date.now();
+        var file = getfile;
+        var filePath = path + "/" + n;
+        // file ? console.log('true') : console.log('false');
+        var fileRef = this.storage.ref(filePath);
+        var task = this.storage.upload(filePath, file);
+        var result = task
+            .snapshotChanges()
+            .pipe(operators_1.finalize(function () {
+            var downloadURL = fileRef.getDownloadURL();
+            downloadURL.subscribe(function (url) {
+                if (url) {
+                    // console.log(url);
+                    switch (inputType) {
+                        case 'clientPhotoUrl':
+                            _this.clientPhotoUrl = url;
+                            // console.log(this.clientPhotoUrl);
+                            break;
+                        case 'idPhotoUrl':
+                            _this.clientIdUrl = url;
+                            // console.log(this.clientIdUrl);
+                            break;
+                        case 'bodabodaCustomerFrontPhotoUrl':
+                            _this.bodaFrontUrl = url;
+                            break;
+                        case 'bodabodaCustomerSidePhotoUrl':
+                            _this.bodaSideUrl = url;
+                            break;
+                        case 'bodabodaCustomerRearPhotoUrl':
+                            _this.bodaRearUrl = url;
+                            break;
+                        case 'taxiCustomerFrontPhotoUrl':
+                            _this.taxiFrontUrl = url;
+                            break;
+                        case 'taxiCustomerSidePhotoUrl':
+                            _this.taxiSideUrl = url;
+                            break;
+                        case 'taxiCustomerRearPhotoUrl':
+                            _this.taxiRearUrl = url;
+                            break;
+                    }
+                }
+            });
+        }))
+            .subscribe(function (url) {
+            if (url) {
+                // console.log(url);
+            }
         });
     };
     PersonalInfoComponent.prototype.setSelectedChanges = function (selectedChange) {
@@ -202,6 +301,9 @@ var PersonalInfoComponent = /** @class */ (function () {
                 break;
         }
     };
+    PersonalInfoComponent.prototype.nextForm = function () {
+        setTimeout(this.completeForm(), 5000);
+    };
     PersonalInfoComponent.prototype.completeForm = function () {
         var _this = this;
         if (this.fval.productCode.value) {
@@ -212,6 +314,8 @@ var PersonalInfoComponent = /** @class */ (function () {
                     this.fval.main_contact_number1.value :
                     this.fval.main_contact_number2.value,
                 customerIdType: this.fval.id_type.value.toUpperCase(),
+                customerIdPhotoUrl: this.clientPhotoUrl,
+                customerPhotoUrl: this.clientIdUrl,
                 customerDateOfBirth: this.fval.dateOfBirth.value.getFullYear() + "-" + (this.fval.dateOfBirth.value.getMonth() + 1) + "-" + this.fval.dateOfBirth.value.getDate(),
                 customerIdNumber: this.fval.id_number.value,
                 customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
@@ -225,13 +329,6 @@ var PersonalInfoComponent = /** @class */ (function () {
                     _this.data[0].productCode = pdt.productCode;
                 }
             });
-            //  this.stations.forEach(station => {
-            //   if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()){
-            //    this.data[0].theStationLocationId = station.theStationLocationId;
-            //   } else {
-            //     this.fval.station.setValue('');
-            //   }
-            // });
             for (var _i = 0, _a = this.stations; _i < _a.length; _i++) {
                 var station = _a[_i];
                 if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()) {
@@ -243,10 +340,12 @@ var PersonalInfoComponent = /** @class */ (function () {
                 this.alertService.danger({
                     html: '<b> The station chose does not exist</b>'
                 });
-                this.errored = false;
+                this.data = [];
+                //  this.errored = false;
                 return;
             }
             else {
+                // console.log(this.data[0]);
                 if (this.fval.productCode.value === 'BODABODA LOAN PRODUCT') {
                     this.showPersonalForm = false;
                     this.showBodaForm = true;
@@ -286,6 +385,8 @@ var PersonalInfoComponent = /** @class */ (function () {
         }
     };
     PersonalInfoComponent.prototype.goBack = function () {
+        this.fval.clientPhotoUrl.setValue(this.data[0].customerPhotoUrl);
+        this.fval.idPhotoUrl.setValue(this.data[0].customerIdPhotoUrl);
         this.showPersonalForm = true;
         this.showBodaForm = false;
         this.showTaxiForm = false;
@@ -338,6 +439,9 @@ var PersonalInfoComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    PersonalInfoComponent.prototype.save = function () {
+        setTimeout(this.saveClientAndPdt(), 5000);
+    };
     PersonalInfoComponent.prototype.saveClientAndPdt = function () {
         var _this = this;
         if (this.showBodaForm) {
@@ -364,6 +468,9 @@ var PersonalInfoComponent = /** @class */ (function () {
                             2 : 3,
                         bodabodaCustomerOwnersName: this.bodaFval.ownersName.value.toUpperCase(),
                         bodabodaCustomerOwnersPhone1: this.bodaFval.ownersPhoneNumber.value,
+                        bodabodaCustomerFrontPhotoUrl: this.bodaFrontUrl,
+                        bodabodaCustomerSidePhotoUrl: this.bodaSideUrl,
+                        bodabodaCustomerRearPhotoUrl: this.bodaRearUrl,
                         // customerId: 400000000,
                         bodabodaStageId: null,
                         productCode: this.data[0].productCode
@@ -373,12 +480,13 @@ var PersonalInfoComponent = /** @class */ (function () {
                             _this.data[1].bodabodaStageId = bodaStage.bodabodaStageId;
                         }
                     });
-                    // console.log(this.data);
+                    console.log(this.data);
                     if (this.data[1].bodabodaStageId === null) {
                         this.errored = true;
                         this.alertService.danger({
                             html: '<b> taxi stage selected was not found </b>'
                         });
+                        this.data.pop();
                         return;
                     }
                     else {
@@ -398,7 +506,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                             _this.errored = true;
                             console.log(err.statusText);
                             _this.alertService.danger({
-                                html: '<b>' + err.error.error.message + '</b>'
+                                html: '<b>' + err.statusText + '</b>'
                             });
                         });
                     }
@@ -436,6 +544,9 @@ var PersonalInfoComponent = /** @class */ (function () {
                             2 : 3,
                         taxiCustomerOwnersName: this.taxiFval.ownersName.value.toUpperCase(),
                         taxiCustomerOwnersPhone: this.taxiFval.ownersPhoneNumber.value,
+                        taxiCustomerFrontPhotoUrl: this.taxiFrontUrl,
+                        taxiCustomerSidePhotoUrl: this.taxiSideUrl,
+                        taxiCustomerRearPhotoUrl: this.taxiRearUrl,
                         // customerId: 400000000,
                         taxiStageId: null,
                         productCode: this.data[0].productCode
@@ -445,12 +556,13 @@ var PersonalInfoComponent = /** @class */ (function () {
                             _this.data[1].taxiStageId = taxiStage.taxiStageId;
                         }
                     });
-                    // console.log(this.data);
+                    console.log(this.data);
                     if (this.data[1].taxiStageId === null) {
                         this.errored = true;
                         this.alertService.danger({
                             html: '<b> taxi stage selected was not found </b>'
                         });
+                        this.data.pop();
                         return;
                     }
                     else {
