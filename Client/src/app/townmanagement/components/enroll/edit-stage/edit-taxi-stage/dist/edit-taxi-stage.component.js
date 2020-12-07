@@ -6,12 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.EnrollTaxiStageComponent = void 0;
+exports.EditTaxiStageComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
-var EnrollTaxiStageComponent = /** @class */ (function () {
-    function EnrollTaxiStageComponent(authService, others, spinner, router, alertService) {
+var EditTaxiStageComponent = /** @class */ (function () {
+    function EditTaxiStageComponent(authService, others, spinner, router, alertService) {
         this.authService = authService;
         this.others = others;
         this.spinner = spinner;
@@ -24,11 +24,11 @@ var EnrollTaxiStageComponent = /** @class */ (function () {
         this.serviceErrors = {};
         this.User = this.authService.loggedInUserInfo();
     }
-    EnrollTaxiStageComponent.prototype.ngOnInit = function () {
+    EditTaxiStageComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
         this.taxiParks();
     };
-    EnrollTaxiStageComponent.prototype.createFormGroup = function () {
+    EditTaxiStageComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
             taxiStageName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             park: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
@@ -39,33 +39,74 @@ var EnrollTaxiStageComponent = /** @class */ (function () {
             ]))
         });
     };
+    EditTaxiStageComponent.prototype.initiateForm = function (val) {
+        var _this = this;
+        // console.log(val);
+        if (val) {
+            this.taxiStages.forEach(function (stage) {
+                if (stage.taxiStageName.toUpperCase() === val.toUpperCase()) {
+                    _this.stageId = stage.taxiStageId;
+                    _this.parks.forEach(function (park) {
+                        if (park.taxiParkId === stage.fkTaxiParkIdTaxiStage) {
+                            _this.fval.park.setValue(park.taxiParkName);
+                            _this.fval.park.disable();
+                        }
+                    });
+                    _this.fval.taxiStageChairmanName.setValue(stage.taxiStageChairmanName);
+                    _this.fval.taxiStageChairmanPhone1.setValue(stage.taxiStageChairmanPhone1);
+                }
+                else {
+                    if (_this.fval.park) {
+                        return;
+                    }
+                    else {
+                        _this.errored = true;
+                        _this.alertService.danger({
+                            html: '<b> the taxi stage chose does not exist </b>'
+                        });
+                    }
+                }
+            });
+        }
+        else {
+            return;
+        }
+    };
     // toggle visibility of password field
-    EnrollTaxiStageComponent.prototype.toggleFieldType = function () {
+    EditTaxiStageComponent.prototype.toggleFieldType = function () {
         this.fieldType = !this.fieldType;
     };
-    EnrollTaxiStageComponent.prototype.revert = function () {
+    EditTaxiStageComponent.prototype.revert = function () {
         this.userForm.reset();
     };
-    EnrollTaxiStageComponent.prototype.resetStageNames = function () {
+    EditTaxiStageComponent.prototype.resetStageNames = function () {
         this.userForm.controls.stage_name.reset();
     };
-    Object.defineProperty(EnrollTaxiStageComponent.prototype, "fval", {
+    Object.defineProperty(EditTaxiStageComponent.prototype, "fval", {
         get: function () {
             return this.userForm.controls;
         },
         enumerable: false,
         configurable: true
     });
-    EnrollTaxiStageComponent.prototype.taxiParks = function () {
+    EditTaxiStageComponent.prototype.taxiParks = function () {
         var _this = this;
         this.others.getTaxiParks().subscribe(function (res) { return _this.parks = res; }, function (err) { return console.log(err); });
+        this.others.getTaxiStages().subscribe(function (res) { return _this.taxiStages = res.filter(function (stage) { return stage.bodabodaStageName !== null && stage.fkStageClusterIdBodabodaStage !== null; }); }, function (err) { return console.log(status); });
         //     fkApprovalDetailsIdTaxiPark: 125
         // taxiParkId: 1500
         // taxiParkLocation: "KAMPALA TOWN"
         // taxiParkName: "NEW TAXI PARK"
         // taxiParkStatus: 2
+        // fkApprovalDetailsIdTaxiStage: 126
+        // fkTaxiParkIdTaxiStage: 1500
+        // taxiStageChairmanName: "MUKAMA GILBERT"
+        // taxiStageChairmanPhone1: "0781331616"
+        // taxiStageId: 1600
+        // taxiStageName: "KYINYARWANDA"
+        // taxiStageStatus: 2
     };
-    EnrollTaxiStageComponent.prototype.onSubmit = function () {
+    EditTaxiStageComponent.prototype.onSubmit = function () {
         var _this = this;
         this.submitted = true;
         this.spinner.show();
@@ -76,6 +117,7 @@ var EnrollTaxiStageComponent = /** @class */ (function () {
         }
         else {
             var data_1 = {
+                taxiStageId: this.stageId,
                 taxiStageName: this.fval.taxiStageName.value.toUpperCase(),
                 taxiStageChairmanName: this.fval.taxiStageChairmanName.value.toUpperCase(),
                 taxiStageChairmanPhone1: this.fval.taxiStageChairmanPhone1.value,
@@ -100,12 +142,13 @@ var EnrollTaxiStageComponent = /** @class */ (function () {
                 return;
             }
             else {
-                this.others.createTaxiStage(data_1).subscribe(function (res) {
+                this.others.updateTaxiStage(data_1).subscribe(function (res) {
                     _this.posted = true;
                     _this.alertService.success({
-                        html: '<b>' + data_1.taxiStageName + ' Was Created Successfully</b>'
+                        html: '<b>' + data_1.taxiStageName + ' Was Updated Successfully</b>'
                     });
                     // this.fval.taxiParkName.setValue('');
+                    _this.taxiParks();
                     _this.revert();
                 }, function (err) {
                     _this.errored = true;
@@ -116,13 +159,13 @@ var EnrollTaxiStageComponent = /** @class */ (function () {
             }
         }
     };
-    EnrollTaxiStageComponent = __decorate([
+    EditTaxiStageComponent = __decorate([
         core_1.Component({
-            selector: 'app-enroll-taxi-stage',
-            templateUrl: './enroll-taxi-stage.component.html',
-            styleUrls: ['./enroll-taxi-stage.component.scss']
+            selector: 'app-edit-taxi-stage',
+            templateUrl: './edit-taxi-stage.component.html',
+            styleUrls: ['./edit-taxi-stage.component.scss']
         })
-    ], EnrollTaxiStageComponent);
-    return EnrollTaxiStageComponent;
+    ], EditTaxiStageComponent);
+    return EditTaxiStageComponent;
 }());
-exports.EnrollTaxiStageComponent = EnrollTaxiStageComponent;
+exports.EditTaxiStageComponent = EditTaxiStageComponent;

@@ -97,6 +97,8 @@ export class EnrollTaxiStageComponent implements OnInit {
   onSubmit(): any {
     this.submitted = true;
     this.spinner.show();
+    this.errored = false;
+    this.posted = false;
 
     if (this.userForm.invalid === true) {
       return;
@@ -113,26 +115,38 @@ export class EnrollTaxiStageComponent implements OnInit {
           data.taxiParkId = park.taxiParkId;
         }
       });
-      console.log(data);
+      // console.log(data);
       this.spinner.hide();
-      this.others.createBodaStage(data).subscribe(
-        res => {
-          this.posted = true;
-          this.alertService.success({
-                  html:
-                    '<b>' + data.taxiStageName + 'Was Created Successfully</b>'
-          });
-          // this.fval.taxiParkName.setValue('');
-          this.revert();
-        },
-        err => {
-          this.errored = true;
-          this.alertService.danger({
-                  html:
-                    '<b>' + err.error.error.message + '</b>'
-          });
-        }
-      );
+      if (data.taxiParkId === null) {
+        // console.log('errored')
+        this.errored = true;
+        this.alertService.danger({
+                html:
+                  '<b> the taxi park chose does not exist </b>'
+        });
+        // this.errored = false;
+        this.fval.park.setValue('');
+        return;
+      } else {
+        this.others.createTaxiStage(data).subscribe(
+          res => {
+            this.posted = true;
+            this.alertService.success({
+                    html:
+                      '<b>' + data.taxiStageName + ' Was Created Successfully</b>'
+            });
+            // this.fval.taxiParkName.setValue('');
+            this.revert();
+          },
+          err => {
+            this.errored = true;
+            this.alertService.danger({
+                    html:
+                      '<b>' + err.error.error.message + '</b>'
+            });
+          }
+        );
+      }
     }
   }
 }

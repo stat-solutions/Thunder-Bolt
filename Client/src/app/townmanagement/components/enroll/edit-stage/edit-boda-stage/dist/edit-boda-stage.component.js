@@ -6,12 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.EnrollBodaStageComponent = void 0;
+exports.EditBodaStageComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
-var EnrollBodaStageComponent = /** @class */ (function () {
-    function EnrollBodaStageComponent(authService, others, spinner, router, alertService) {
+var EditBodaStageComponent = /** @class */ (function () {
+    function EditBodaStageComponent(authService, others, spinner, router, alertService) {
         this.authService = authService;
         this.others = others;
         this.spinner = spinner;
@@ -24,11 +24,11 @@ var EnrollBodaStageComponent = /** @class */ (function () {
         this.serviceErrors = {};
         this.User = this.authService.loggedInUserInfo();
     }
-    EnrollBodaStageComponent.prototype.ngOnInit = function () {
+    EditBodaStageComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
         this.bodaClusters();
     };
-    EnrollBodaStageComponent.prototype.createFormGroup = function () {
+    EditBodaStageComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
             bodabodaStageName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             cluster: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
@@ -39,29 +39,70 @@ var EnrollBodaStageComponent = /** @class */ (function () {
             ]))
         });
     };
-    EnrollBodaStageComponent.prototype.revert = function () {
+    EditBodaStageComponent.prototype.revert = function () {
         this.userForm.reset();
     };
-    EnrollBodaStageComponent.prototype.resetStageNames = function () {
+    EditBodaStageComponent.prototype.resetStageNames = function () {
         this.userForm.controls.stage_name.reset();
     };
-    Object.defineProperty(EnrollBodaStageComponent.prototype, "fval", {
+    Object.defineProperty(EditBodaStageComponent.prototype, "fval", {
         get: function () {
             return this.userForm.controls;
         },
         enumerable: false,
         configurable: true
     });
-    EnrollBodaStageComponent.prototype.bodaClusters = function () {
+    EditBodaStageComponent.prototype.bodaClusters = function () {
         var _this = this;
         this.others.getBodaClusters().subscribe(function (res) { return _this.clusters = res; }, function (err) { return console.log(err.error.error.message); });
+        this.others.getBodaStages().subscribe(function (res) { return _this.bodaStages = res.filter(function (stage) { return stage.bodabodaStageName !== null && stage.fkStageClusterIdBodabodaStage !== null; }); }, function (err) { return console.log(err.error.error.message); });
+        //     bodabodaStageChairmanName: "KAWAGA JAWAD"
+        // bodabodaStageChairmanPhone1: "0788888888"
+        // bodabodaStageId: 1904
+        // bodabodaStageName: "KASAWE"
+        // bodabodaStageStatus: 2
+        // fkApprovalDetailsIdbodabodaStage: 194
+        // fkStageClusterIdBodabodaStage: 1806
         //     fkApprovalDetailsIdstageCluster: 122
         // stageCluesterStatus: 2
         // stageClusterId: 1800
         // stageClusterLocation: "NANSANA"
         // stageClusterName: "KYINYARWANDA"
     };
-    EnrollBodaStageComponent.prototype.onSubmit = function () {
+    EditBodaStageComponent.prototype.initiateForm = function (val) {
+        var _this = this;
+        // console.log(val);
+        if (val) {
+            this.bodaStages.forEach(function (stage) {
+                if (stage.bodabodaStageName.toUpperCase() === val.toUpperCase()) {
+                    _this.stageId = stage.bodabodaStageId;
+                    _this.clusters.forEach(function (cluster) {
+                        if (cluster.stageClusterId === stage.fkStageClusterIdBodabodaStage) {
+                            _this.fval.cluster.setValue(cluster.stageClusterName);
+                            _this.fval.cluster.disable();
+                        }
+                    });
+                    _this.fval.bodabodaStageChairmanName.setValue(stage.bodabodaStageChairmanName);
+                    _this.fval.bodabodaStageChairmanPhone1.setValue(stage.bodabodaStageChairmanPhone1);
+                }
+                else {
+                    if (_this.fval.cluster) {
+                        return;
+                    }
+                    else {
+                        _this.errored = true;
+                        _this.alertService.danger({
+                            html: '<b> the boda stage chose does not exist </b>'
+                        });
+                    }
+                }
+            });
+        }
+        else {
+            return;
+        }
+    };
+    EditBodaStageComponent.prototype.onSubmit = function () {
         var _this = this;
         this.submitted = true;
         this.errored = false;
@@ -72,6 +113,7 @@ var EnrollBodaStageComponent = /** @class */ (function () {
         }
         else {
             var data_1 = {
+                bodabodaStageId: this.stageId,
                 bodabodaStageName: this.fval.bodabodaStageName.value.toUpperCase(),
                 bodabodaStageChairmanName: this.fval.bodabodaStageChairmanName.value.toUpperCase(),
                 bodabodaStageChairmanPhone1: this.fval.bodabodaStageChairmanPhone1.value,
@@ -95,12 +137,13 @@ var EnrollBodaStageComponent = /** @class */ (function () {
                 return;
             }
             else {
-                this.others.createBodaStage(data_1).subscribe(function (res) {
+                this.others.updateBodaStage(data_1).subscribe(function (res) {
                     _this.posted = true;
                     _this.alertService.success({
-                        html: '<b>' + data_1.bodabodaStageName + ' Was Created Successfully</b>'
+                        html: '<b>' + data_1.bodabodaStageName + ' Was Updated Successfully</b>'
                     });
                     // this.fval.taxiParkName.setValue('');
+                    _this.bodaClusters();
                     _this.revert();
                 }, function (err) {
                     _this.errored = true;
@@ -111,13 +154,13 @@ var EnrollBodaStageComponent = /** @class */ (function () {
             }
         }
     };
-    EnrollBodaStageComponent = __decorate([
+    EditBodaStageComponent = __decorate([
         core_1.Component({
-            selector: 'app-enroll-boda-stage',
-            templateUrl: './enroll-boda-stage.component.html',
-            styleUrls: ['./enroll-boda-stage.component.scss']
+            selector: 'app-edit-boda-stage',
+            templateUrl: './edit-boda-stage.component.html',
+            styleUrls: ['./edit-boda-stage.component.scss']
         })
-    ], EnrollBodaStageComponent);
-    return EnrollBodaStageComponent;
+    ], EditBodaStageComponent);
+    return EditBodaStageComponent;
 }());
-exports.EnrollBodaStageComponent = EnrollBodaStageComponent;
+exports.EditBodaStageComponent = EditBodaStageComponent;

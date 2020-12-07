@@ -93,6 +93,8 @@ export class EnrollBodaStageComponent implements OnInit {
 
   onSubmit(): any {
     this.submitted = true;
+    this.errored = false;
+    this.posted = false;
     this.spinner.show();
 
     if (this.userForm.invalid === true) {
@@ -110,26 +112,37 @@ export class EnrollBodaStageComponent implements OnInit {
           data.stageClusterId = cluster.stageClusterId;
         }
       });
-      console.log(data);
+      // console.log(data);
       this.spinner.hide();
-      this.others.createBodaStage(data).subscribe(
-        res => {
-          this.posted = true;
-          this.alertService.success({
-                  html:
-                    '<b>' + data.bodabodaStageName + 'Was Created Successfully</b>'
-          });
-          // this.fval.taxiParkName.setValue('');
-          this.revert();
-        },
-        err => {
-          this.errored = true;
-          this.alertService.danger({
-                  html:
-                    '<b>' + err.error.error.message + '</b>'
-          });
-        }
-      );
+      if (data.stageClusterId === null){
+        this.errored = true;
+        this.alertService.danger({
+                html:
+                  '<b> the cluster chose does not exist </b>'
+        });
+        // this.errored = false;
+        this.fval.cluster.setValue('');
+        return;
+      } else {
+        this.others.createBodaStage(data).subscribe(
+          res => {
+            this.posted = true;
+            this.alertService.success({
+                    html:
+                      '<b>' + data.bodabodaStageName + ' Was Created Successfully</b>'
+            });
+            // this.fval.taxiParkName.setValue('');
+            this.revert();
+          },
+          err => {
+            this.errored = true;
+            this.alertService.danger({
+                    html:
+                      '<b>' + err.error.error.message + '</b>'
+            });
+          }
+        );
+      }
     }
   }
 }

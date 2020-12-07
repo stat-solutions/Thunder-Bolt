@@ -8,6 +8,7 @@ import { CustomValidator } from 'src/app/validators/custom-validator';
 // import { DashboardUserService } from 'src/app/services/dashboard-user.service';
 // import { StageNames } from 'src/app/models/stage-names';
 import * as jwt_decode from 'jwt-decode';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
   selector: 'app-edit-taxi-stage',
@@ -22,31 +23,35 @@ export class EditTaxiStageComponent implements OnInit {
   userForm: FormGroup;
   serviceErrors: any = {};
   value: string;
-  parks: any;
   fieldType: boolean;
-  theStageNames: [];
-  // theStageNames: StageNames[];
+  parks: any;
+  taxiStages: any;
+  stageId: number;
+  User = this.authService.loggedInUserInfo();
 
   constructor(
     private authService: AuthServiceService,
-    // private adminUserService: DashboardUserService,
+    private others: OthersService,
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
-    this.stageNames();
+    this.taxiParks();
   }
 
-  createFormGroup() {
+  createFormGroup(): any {
     return new FormGroup({
       taxiStageName: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
-      park: new FormControl('', Validators.compose([Validators.required])),
+       park: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
       taxiStageChairmanName: new FormControl(
         '',
         Validators.compose([Validators.required])
@@ -58,85 +63,139 @@ export class EditTaxiStageComponent implements OnInit {
           CustomValidator.patternValidator(
             /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
             { hasNumber: true }
-          ),
+          )
         ])
-      ),
+      )
     });
   }
 
-  //toggle visibility of password field
-  toggleFieldType() {
+  initiateForm(val: any): void{
+    // console.log(val);
+    if (val){
+      this.taxiStages.forEach(stage => {
+        if (stage.taxiStageName.toUpperCase() === val.toUpperCase()) {
+          this.stageId = stage.taxiStageId;
+          this.parks.forEach(park => {
+            if (park.taxiParkId === stage.fkTaxiParkIdTaxiStage){
+                this.fval.park.setValue(park.taxiParkName);
+                this.fval.park.disable();
+            }
+          });
+          this.fval.taxiStageChairmanName.setValue(stage.taxiStageChairmanName);
+          this.fval.taxiStageChairmanPhone1.setValue(stage.taxiStageChairmanPhone1);
+        } else {
+          if (this.fval.park) {
+            return;
+          } else {
+            this.errored = true;
+            this.alertService.danger({
+                    html:
+                      '<b> the taxi stage chose does not exist </b>'
+            });
+          }
+        }
+      });
+    } else {
+      return;
+    }
+  }
+
+  // toggle visibility of password field
+  toggleFieldType(): any {
     this.fieldType = !this.fieldType;
   }
 
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  resetStageNames() {
+  resetStageNames(): any {
     this.userForm.controls.stage_name.reset();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  stageNames() {
-    // this.adminUserService.getStageNames(jwt_decode(this.authService.getJwtToken()).user_station).subscribe(
-    //   data => {
-    //     this.userForm.controls.stage_name.reset();
-    //     this.theStageNames = data;
-    //     // this.alertService.success({ html: '<b> User Roles Updated</b>' + '<br/>' });
-    //   },
-    //   (error: string) => {
-    //     this.errored = true;
-    //     this.serviceErrors = error;
-    //     this.alertService.danger({
-    //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-    //     });
-    //   }
-    // );
+  taxiParks(): any {
+    this.others.getTaxiParks().subscribe(
+      res => this.parks = res,
+      err => console.log(err)
+    );
+    this.others.getTaxiStages().subscribe(
+      res => this.taxiStages = res.filter(stage => stage.bodabodaStageName !== null && stage.fkStageClusterIdBodabodaStage !== null),
+      err => console.log(status)
+    );
+//     fkApprovalDetailsIdTaxiPark: 125
+// taxiParkId: 1500
+// taxiParkLocation: "KAMPALA TOWN"
+// taxiParkName: "NEW TAXI PARK"
+// taxiParkStatus: 2
+
+// fkApprovalDetailsIdTaxiStage: 126
+// fkTaxiParkIdTaxiStage: 1500
+// taxiStageChairmanName: "MUKAMA GILBERT"
+// taxiStageChairmanPhone1: "0781331616"
+// taxiStageId: 1600
+// taxiStageName: "KYINYARWANDA"
+// taxiStageStatus: 2
   }
 
-  onSubmit() {
+  onSubmit(): any {
     this.submitted = true;
     this.spinner.show();
+    this.errored = false;
+    this.posted = false;
 
     if (this.userForm.invalid === true) {
       return;
     } else {
-      this.userForm.patchValue({
-        user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-        user_id: jwt_decode(this.authService.getJwtToken()).user_id,
+      const data = {
+            taxiStageId: this.stageId,
+            taxiStageName: this.fval.taxiStageName.value.toUpperCase(),
+            taxiStageChairmanName: this.fval.taxiStageChairmanName.value.toUpperCase(),
+            taxiStageChairmanPhone1: this.fval.taxiStageChairmanPhone1.value,
+            taxiParkId: null,
+            userId: this.User.userId
+      };
+      this.parks.forEach(park => {
+        if (park.taxiParkName === this.fval.park.value) {
+          data.taxiParkId = park.taxiParkId;
+        }
       });
-
-      // this.adminUserService.registerCustomer(this.userForm).subscribe(
-      //   () => {
-      //     this.posted = true;
-      //     this.spinner.hide();
-
-      //     // tslint:disable-next-line:max-line-length
-      //     this.alertService.success({
-      //       html:
-      //         '<b>Customer Registration was Successful!!</b>' +
-      //         '</br>' +
-      //         'Please proceed to lend him'
-      //     });
-      //     this.revert();
-      //     setTimeout(() => {
-      //       this.router.navigate(['dashboarduser/loans']);
-      //     }, 2000);
-      //   },
-
-      //   (error: string) => {
-      //     this.errored = true;
-      //     this.serviceErrors = error;
-      //     this.alertService.danger({
-      //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-      //     });
-      //     this.spinner.hide();
-      //   }
-      // );
+      // console.log(data);
+      this.spinner.hide();
+      if (data.taxiParkId === null) {
+        // console.log('errored')
+        this.errored = true;
+        this.alertService.danger({
+                html:
+                  '<b> the taxi park chose does not exist </b>'
+        });
+        // this.errored = false;
+        this.fval.park.setValue('');
+        return;
+      } else {
+        this.others.updateTaxiStage(data).subscribe(
+          res => {
+            this.posted = true;
+            this.alertService.success({
+                    html:
+                      '<b>' + data.taxiStageName + ' Was Updated Successfully</b>'
+            });
+            // this.fval.taxiParkName.setValue('');
+            this.taxiParks();
+            this.revert();
+          },
+          err => {
+            this.errored = true;
+            this.alertService.danger({
+                    html:
+                      '<b>' + err.error.error.message + '</b>'
+            });
+          }
+        );
+      }
     }
   }
 }

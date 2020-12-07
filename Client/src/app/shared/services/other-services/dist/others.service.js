@@ -217,11 +217,17 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.createTaxiPark = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateTaxiPark", postData, this.httpOptions);
     };
+    OthersService.prototype.updateTaxiPark = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putUpdateTaxiPark", postData, this.httpOptions);
+    };
     OthersService.prototype.getTaxiParks = function () {
         return this.http.get(this.API_URL + "/api/customer/getTaxiParks");
     };
     OthersService.prototype.createTaxiStage = function (postData) {
-        return this.http.post(this.API_URL + "/api/customer/postCreateTaxiStatage", postData, this.httpOptions);
+        return this.http.post(this.API_URL + "/api/customer/postCreateTaxiStage", postData, this.httpOptions);
+    };
+    OthersService.prototype.updateTaxiStage = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putUpdateTaxiStage", postData, this.httpOptions);
     };
     OthersService.prototype.getTaxiStages = function () {
         return this.http.get(this.API_URL + "/api/customer/getTaxiStages");
@@ -229,11 +235,17 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.createBodaCluster = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaCluster", postData, this.httpOptions);
     };
+    OthersService.prototype.updateBodaCluster = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaCluster", postData, this.httpOptions);
+    };
     OthersService.prototype.getBodaClusters = function () {
         return this.http.get(this.API_URL + "/api/customer/getBodabodaClusters");
     };
     OthersService.prototype.createBodaStage = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaStage", postData, this.httpOptions);
+    };
+    OthersService.prototype.updateBodaStage = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putUpdateBodaBodaStage", postData, this.httpOptions);
     };
     OthersService.prototype.getBodaStages = function () {
         return this.http.get(this.API_URL + "/api/customer/getBodabodaStages");

@@ -66,60 +66,60 @@ export class LeftPanelOfficerComponent implements OnInit {
         icon: 'fas fa-exchange-alt',
         url: '/stationofficer/pay'
       },
-      {
-        name: 'Adjustments',
-        icon: 'fas fa-tools',
-        url: '/stationofficer/adjustments',
-        subMenu: [
-          {
-            name: 'Reduce Rate',
-            icon: 'fas fa-balance-scale',
-            url: '/stationofficer/adjustments/reduceinterestrate'
-          },
-          {
-            name: 'Reverse Principle',
-            icon: 'fas fa-balance-scale',
-            url: '/stationofficer/adjustments/reverse-principle'
-          },
-          {
-            name: 'Interest Rate',
-            icon: 'fas fa-balance-scale',
-            url: '/stationofficer/adjustments/setinterestrate'
-          },
-          {
-            name: 'Loan Limit',
-            icon: 'fas fa-balance-scale',
-            url: '/stationofficer/adjustments/setloanlimit'
-          },
-          {
-            name: 'Waive Interest',
-            icon: 'fas fa-balance-scale',
-            url: '/stationofficer/adjustments/waive-interest'
-          },
-          {
-            name: 'Writeoff Principle',
-            icon: 'fas fa-balance-scale',
-            url: '/stationofficer/adjustments/writeoffprinciple'
-          }
-        ]
-      },
-      {
-        name: 'Enroll',
-        icon: 'fas fa-user',
-        url: '/stationofficer/enroll',
-        subMenu: [
-          {
-            name: 'Enroll Client',
-            icon: 'fas fa-user',
-            url: '/stationofficer/enroll/enrollclient'
-          },
-          {
-            name: 'Enroll Stage',
-            icon: 'fas fa-parking',
-            url: '/stationofficer/enroll/enrollstage'
-          }
-        ]
-      },
+      // {
+      //   name: 'Adjustments',
+      //   icon: 'fas fa-tools',
+      //   url: '/stationofficer/adjustments',
+      //   subMenu: [
+      //     {
+      //       name: 'Reduce Rate',
+      //       icon: 'fas fa-balance-scale',
+      //       url: '/stationofficer/adjustments/reduceinterestrate'
+      //     },
+      //     {
+      //       name: 'Reverse Principle',
+      //       icon: 'fas fa-balance-scale',
+      //       url: '/stationofficer/adjustments/reverse-principle'
+      //     },
+      //     {
+      //       name: 'Interest Rate',
+      //       icon: 'fas fa-balance-scale',
+      //       url: '/stationofficer/adjustments/setinterestrate'
+      //     },
+      //     {
+      //       name: 'Loan Limit',
+      //       icon: 'fas fa-balance-scale',
+      //       url: '/stationofficer/adjustments/setloanlimit'
+      //     },
+      //     {
+      //       name: 'Waive Interest',
+      //       icon: 'fas fa-balance-scale',
+      //       url: '/stationofficer/adjustments/waive-interest'
+      //     },
+      //     {
+      //       name: 'Writeoff Principle',
+      //       icon: 'fas fa-balance-scale',
+      //       url: '/stationofficer/adjustments/writeoffprinciple'
+      //     }
+      //   ]
+      // },
+      // {
+      //   name: 'Enroll',
+      //   icon: 'fas fa-user',
+      //   url: '/stationofficer/enroll',
+      //   subMenu: [
+      //     {
+      //       name: 'Enroll Client',
+      //       icon: 'fas fa-user',
+      //       url: '/stationofficer/enroll/enrollclient'
+      //     },
+      //     {
+      //       name: 'Enroll Stage',
+      //       icon: 'fas fa-parking',
+      //       url: '/stationofficer/enroll/enrollstage'
+      //     }
+      //   ]
+      // },
       {
         name: 'Savings',
         icon: 'fas fa-piggy-bank',

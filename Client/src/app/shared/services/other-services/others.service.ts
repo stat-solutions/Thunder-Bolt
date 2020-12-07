@@ -195,11 +195,17 @@ export class OthersService {
     createTaxiPark(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiPark`, postData, this.httpOptions);
     }
+    updateTaxiPark(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putUpdateTaxiPark`, postData, this.httpOptions);
+    }
     getTaxiParks(): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getTaxiParks`);
     }
     createTaxiStage(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiStatage`, postData, this.httpOptions);
+      return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiStage`, postData, this.httpOptions);
+    }
+    updateTaxiStage(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putUpdateTaxiStage`, postData, this.httpOptions);
     }
     getTaxiStages(): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getTaxiStages`);
@@ -207,11 +213,17 @@ export class OthersService {
     createBodaCluster(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaCluster`, postData, this.httpOptions);
     }
+    updateBodaCluster(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaCluster`, postData, this.httpOptions);
+    }
     getBodaClusters(): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getBodabodaClusters`);
     }
     createBodaStage(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaStage`, postData, this.httpOptions);
+    }
+    updateBodaStage(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putUpdateBodaBodaStage`, postData, this.httpOptions);
     }
     getBodaStages(): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getBodabodaStages`);
