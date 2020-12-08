@@ -52,7 +52,7 @@
           "
         >
           The full name is required!
-        </div>   
+        </div>
       </div>
 
       <div class="form-group text-primary">
@@ -219,18 +219,9 @@
               'is-invalid':
                 (fval.email.touched || fval.email.dirty) && fval.email.errors
             }"
-            placeholder="Enter email address"
+            placeholder="Email address (Optional)"
             autocomplete="off"
           />
-        </div>
-        <div
-          class="text-danger col"
-          *ngIf="
-            (fval.email.touched || fval.email.dirty) &&
-            fval.email.errors?.required
-          "
-        >
-          The email address is required!
         </div>
         <div
           class="text-danger col"
@@ -381,7 +372,7 @@
           <label
             for="area"
             [ngClass]="fval.area.valid ? 'text-info' : ''"
-            >Choose Area<i *ngIf="fval.area.valid" class="material-icons"
+            >Choose Region<i *ngIf="fval.area.valid" class="material-icons"
               >check_circle</i
             ></label
           >
@@ -395,7 +386,7 @@
                 fval.area.errors
             }"
             autocomplete="off"
-            placeholder="Select Area"
+            placeholder="Select Region"
 
           > <option></option>
             <option  *ngFor="let area of areas">
@@ -410,7 +401,7 @@
               fval.area.errors?.required
             "
           >
-            The area is required!
+            The region is required!
           </div>
         </div>
         <!--the div for town-->

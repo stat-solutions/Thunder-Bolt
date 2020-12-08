@@ -42,10 +42,10 @@ import { WithdrawSavingsComponent } from './components/transactions/approval/wit
 import { WaiveInterestComponent } from './components/transactions/approval/waive-interest/waive-interest.component';
 import { WriteOffComponent } from './components/transactions/approval/write-off/write-off.component';
 import { LoanLimitComponent } from './components/transactions/approval/loan-limit/loan-limit.component';
-import { FloatApprovalComponent } from './components/transactions/approval/float-approval/float-approval.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgChartjsModule } from 'ng-chartjs';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
 import { ApproveCentralUsersComponent } from './components/approve-central-users/approve-central-users.component';
@@ -96,7 +96,6 @@ import { LoanTenureComponent } from './components/transactions/approval/loan-ten
     WaiveInterestComponent,
     WriteOffComponent,
     LoanLimitComponent,
-    FloatApprovalComponent,
     PersonalProfileComponent,
     ApproveCentralUsersComponent,
     SelectTheAreaComponent,
@@ -119,7 +118,8 @@ import { LoanTenureComponent } from './components/transactions/approval/loan-ten
     NgChartjsModule.registerPlugin(['inlinePlugin']),
     TabsModule.forRoot(),
     DatepickerModule,
-    BsDatepickerModule
-    ],
+    BsDatepickerModule,
+    NgbModule
+  ],
 })
 export class CentralmanagementModule {}
