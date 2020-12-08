@@ -3,19 +3,65 @@
 >
   <div class="jumbotron-fluid mb-0 pb-0">
     <!-- this is for personal info -->
-    <div *ngIf="showPersonalForm">
+    <div [hidden]="!showPersonalForm">
       <div class="container mt-0 mx-0 shadow-lg">
-        <div class="row">
-          <div class="col-12">
-            <h4
-              class="rub-head4 text-info text-center font-weight-bold py-1"
-            >
-              Personal Info
-            </h4>
+        <div class="row mt-2 " [formGroup]="searchForm">
+          <div class="col-8 col-md-8">
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-gas-pump text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
+              <input
+              type="text"
+              formControlName="getCustomers"
+              list="getCustomers"
+              placeholder="Select a station "
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (searchForm.controls.getCustomers.touched || searchForm.controls.getCustomers.dirty) &&
+                  searchForm.controls.getCustomers.errors
+              }"
+              autocomplete="off"
+            />
+            <datalist id="getCustomers">
+              <!-- <option selected>Select Station</option> -->
+              <option *ngFor="let station of stations">{{station.stationName.toUpperCase()}}</option>
+            </datalist>
+            </div>
           </div>
+          <button
+          type="button"
+          class="btn btn-info col-3 col-md-3 mx-auto"
+          [disabled]="!searchForm"
+          (click)="getCustomers(searchForm.controls.getCustomers.value)"
+        >
+          Get Customers
+          </button>
+        </div>
+        <div class="col-12 mt-2 mb-2" [hidden]="!customers">
+          <h4
+            class="rub-head4 text-info text-center font-weight-bold py-1"
+          >
+            Personal Info
+          </h4>
         </div>
       </div>
-    <div class="card-body mt-1 pt-4 mb-0 pb-3 pb-md-1 shadow-lg">
+    <div class="card-body mt-1 pt-4 mb-0 pb-3 pb-md-1 shadow-lg" [hidden]="!customers">
+      <div class="row" [hidden]="customers">
+        <h4
+        class="rub-head4 text-info text-center font-weight-bold py-1"
+      >
+        {{searchForm.controls.getCustomers.value}} station has no customers you can register one 
+        <a routerLink = '/townmanagement/enroll/enrollclient'> here</a>
+      </h4>
+      </div>
       <form [formGroup]="userForm">
         <div class="row">
           <div class="col-12 col-md-6">
@@ -94,6 +140,7 @@
                 <input
                   type="text"
                   formControlName="customer_name"
+                  list="customer_name"
                   class="form-control"
                   [ngClass]="{
                     'is-invalid':
@@ -102,8 +149,13 @@
                       fval.customer_name.errors
                   }"
                   autocomplete="off"
-                  placeholder="Enter Customer Name"
+                  placeholder="Select Customer's Name"
+                  (change)="onCustomerNameChange(fval.customer_name.value)"
                 />
+                <datalist id="customer_name">
+                  <!-- <option selected>Select Station</option> -->
+                  <option *ngFor="let customer of customers">{{customer.customerName.toUpperCase()}}</option>
+                </datalist>
               </div>
               <div
                 class="text-danger col"
@@ -376,13 +428,16 @@
             <div class="form-group text-primary">
               <label
                 for="clientPhotoUrl"
-                [ngClass]="fval.clientPhotoUrl.valid ? 'text-info' : ''"
-                >Photo<i
+                
+                >Photo
+                <!-- <i
                   *ngIf="fval.clientPhotoUrl.valid"
                   class="material-icons"
                   >check_circle</i
-                ></label
+                > -->
+                </label
               >
+              <!-- [ngClass]="fval.clientPhotoUrl.valid ? 'text-info' : ''" -->
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
                   <div class="input-group-text">
@@ -423,13 +478,15 @@
             <div class="form-group text-primary">
               <label
                 for="idPhotoUrl"
-                [ngClass]="fval.idPhotoUrl.valid ? 'text-info' : ''"
-                >ID Upload<i
+                >ID Upload
+                <!-- <i
                   *ngIf="fval.idPhotoUrl.valid"
                   class="material-icons"
                   >check_circle</i
-                ></label
+                > -->
+                </label
               >
+              <!-- [ngClass]="fval.idPhotoUrl.valid ? 'text-info' : ''" -->
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
                   <div class="input-group-text">
@@ -517,21 +574,68 @@
               </div>
             </div>
           </div>
-        <div class="col-12 col-md-6">
-            <div class="form-group text-primary">
-              <label
-                for="productCode"
-                [ngClass]="fval.productCode.valid && fval.productCode.value !== 'Initial Product' ? 'text-info' : ''"
-                >Initial Product
-                <i
-                  *ngIf="fval.productCode.valid && fval.productCode.value !== 'Initial Product'"
-                  class="material-icons"
-                  >check_circle</i
-                >
-                </label
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <label for="products">Customer's Products</label>
+            <div class="row mx-auto">
+              <button
+              type="button"
+              class="btn btn-info col-6 col-md-5  mx-auto"
+              (click)="savingForm()"
               >
-              <div class="input-group mb-0">
+              100
+              </button>
+              <button
+              type="button"
+              class="btn btn-info col-6 col-md-5 mx-auto"
+              (click)="microForm()"
+              >
+              200
+              </button>
+            <!-- </div> -->
+            <!-- <div class="row mx-auto my-3"> -->
+              <button
+              type="button"
+              class="btn btn-info col-6 col-md-5 mb-2 mt-2 mx-auto"
+              (click)="taxiForm()"
+              >
+              300
+              </button>
+              <button
+              type="button"
+              class="btn btn-info col-6 col-md-5 mb-2 mt-2 mx-auto"
+              (click)="bodaForm()"
+              >
+              400
+              </button>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+          <div class="form-group text-primary">
+            <label
+            *ngIf="addProduct"
+              for="productCode"
+              [ngClass]="fval.productCode.valid && fval.productCode.value !== 'Initial Product' ? 'text-info' : ''"
+              >Product
+              <i
+                *ngIf="fval.productCode.valid && fval.productCode.value !== 'Initial Product'"
+                class="material-icons"
+                >check_circle</i
+              >
+              </label
+            >
+            <div class="input-group mb-0">
+                <button
+                type="button"
+                class="btn btn-info col-12 col-md-6 mt-3 mx-auto ml-3"
+                *ngIf="!addProduct"
+                (click)="addProduct = true"
+                >
+                Add Product
+                </button>
                 <select
+                *ngIf="addProduct"
                 formControlName="productCode"
                 class="form-control"
                 [ngClass]="{
@@ -541,6 +645,7 @@
                 }"
                 autocomplete="off"
                 placeholder="Select  a product"
+                (change)="setSelectedChanges(fval.productCode.value)"
               >
                 <!-- <option selected>Initial Product </option> -->
                 <option>BODABODA LOAN PRODUCT</option>
@@ -548,17 +653,17 @@
                 <option>MICROLOAN PRODUCT</option>
                 <option>SAVINGS PRODUCT</option>
               </select>
-              </div>
-              <div
-              class="text-danger col"
-              *ngIf="
-                (fval.productCode.touched || fval.productCode.dirty) &&
-                fval.productCode.errors?.required
-              "
-            >
-              initial product is required
             </div>
+            <div
+            class="text-danger col"
+            *ngIf="
+              (fval.productCode.touched || fval.productCode.dirty) &&
+              fval.productCode.errors?.required
+            "
+          >
+            initial product is required
             </div>
+          </div>
           </div>
         </div>
         <div class="row">
@@ -595,7 +700,7 @@
   </div>
 
   <!-- this is for boda client -->
-  <div *ngIf="showBodaForm">
+  <div [hidden]="!showBodaForm">
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
@@ -852,7 +957,7 @@
               >
               <div class="input-group mb-0">
                 <input
-                  id="dateOfJoiningStage"
+                  id="bodaDateOfJoiningStage"
                   formControlName="dateOfJoiningStage"
                   type="text"
                   class="form-control"
@@ -888,12 +993,15 @@
             <div class="form-group text-primary">
               <label
                 for="bodabodaCustomerFrontPhotoUrl"
-                [ngClass]="bodaFval.bodabodaCustomerFrontPhotoUrl.valid ? 'text-info' : ''"
-                >Front Image<i
+               
+                >Front Image
+                 <!-- [ngClass]="bodaFval.bodabodaCustomerFrontPhotoUrl.valid ? 'text-info' : ''" -->
+                <!-- <i
                   *ngIf="bodaFval.bodabodaCustomerFrontPhotoUrl.valid"
                   class="material-icons"
                   >check_circle</i
-                ></label
+                > -->
+                </label
               >
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
@@ -935,12 +1043,15 @@
             <div class="form-group text-primary">
               <label
                 for="bodabodaCustomerSidePhotoUrl"
-                [ngClass]="bodaFval.bodabodaCustomerSidePhotoUrl.valid ? 'text-info' : ''"
-                >Side Image<i
+               
+                >Side Image
+                 <!-- [ngClass]="bodaFval.bodabodaCustomerSidePhotoUrl.valid ? 'text-info' : ''" -->
+                <!-- <i
                   *ngIf="bodaFval.bodabodaCustomerSidePhotoUrl.valid"
                   class="material-icons"
                   >check_circle</i
-                ></label
+                > -->
+                </label
               >
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
@@ -984,12 +1095,15 @@
             <div class="form-group text-primary">
               <label
                 for="bodabodaCustomerRearPhotoUrl"
-                [ngClass]="bodaFval.bodabodaCustomerRearPhotoUrl.valid ? 'text-info' : ''"
-                >Rear Image<i
+                
+                >Rear Image
+                <!-- [ngClass]="bodaFval.bodabodaCustomerRearPhotoUrl.valid ? 'text-info' : ''" -->
+                <!-- <i
                   *ngIf="bodaFval.bodabodaCustomerRearPhotoUrl.valid"
                   class="material-icons"
                   >check_circle</i
-                ></label
+                > -->
+                </label
               >
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
@@ -1160,7 +1274,7 @@
   </div>
 
   <!-- this is for taxi client -->
-  <div *ngIf="showTaxiForm">
+  <div [hidden]="!showTaxiForm">
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
@@ -1357,12 +1471,15 @@
             <div class="form-group text-primary">
               <label
                 for="taxiCustomerFrontPhotoUrl"
-                [ngClass]="taxiFval.taxiCustomerFrontPhotoUrl.valid ? 'text-info' : ''"
-                >Front Image<i
+               
+                >Front Image
+                 <!-- [ngClass]="taxiFval.taxiCustomerFrontPhotoUrl.valid ? 'text-info' : ''"
+                <i
                   *ngIf="taxiFval.taxiCustomerFrontPhotoUrl.valid"
                   class="material-icons"
                   >check_circle</i
-                ></label
+                > -->
+                </label
               >
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
@@ -1373,6 +1490,11 @@
                     ></i>
                   </div>
                 </div>
+                <img
+                class="mb-2 pb-0 mx-4 mx-xl-3"
+                
+              />
+              <!-- [src]="" -->
                 <input
                   id="taxiCustomerFrontPhotoUrl"
                   formControlName="taxiCustomerFrontPhotoUrl"
@@ -1404,12 +1526,15 @@
             <div class="form-group text-primary">
               <label
                 for="taxiCustomerSidePhotoUrl"
-                [ngClass]="taxiFval.taxiCustomerSidePhotoUrl.valid ? 'text-info' : ''"
-                >Side Image<i
+               
+                >Side Image
+                <!-- [ngClass]="taxiFval.taxiCustomerSidePhotoUrl.valid ? 'text-info' : ''"
+                <i
                   *ngIf="taxiFval.taxiCustomerSidePhotoUrl.valid"
                   class="material-icons"
                   >check_circle</i
-                ></label
+                > -->
+                </label
               >
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
@@ -1453,12 +1578,15 @@
             <div class="form-group text-primary">
               <label
                 for="taxiCustomerRearPhotoUrl"
-                [ngClass]="taxiFval.taxiCustomerRearPhotoUrl.valid ? 'text-info' : ''"
-                >Rear Image<i
+                
+                >Rear Image
+                <!-- [ngClass]="taxiFval.taxiCustomerRearPhotoUrl.valid ? 'text-info' : ''"
+                <i
                   *ngIf="taxiFval.taxiCustomerRearPhotoUrl.valid"
                   class="material-icons"
                   >check_circle</i
-                ></label
+                > -->
+                </label
               >
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
@@ -1605,7 +1733,7 @@
               >
               <div class="input-group mb-0">
                 <input
-                  id="dateOfJoiningStage"
+                  id="taxiDateOfJoiningStage"
                   formControlName="dateOfJoiningStage"
                   type="text"
                   class="form-control"
@@ -1769,7 +1897,7 @@
   </div>
 
   <!-- this is for micro client -->
-  <div *ngIf="showMicroForm">
+  <div [hidden]="!showMicroForm">
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
@@ -2190,7 +2318,7 @@
   </div>
 
    <!-- this is for savings client -->
-  <div *ngIf="showSaveForm">
+  <div [hidden]="!showSaveForm">
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
@@ -2376,34 +2504,54 @@
   </div>
 
   <!-- action buttons -->
-  <div class="d-flex mt-3 mb-2 mb-xl-0 pt-2 pb-2 pb-xl-2 mx-auto">
-    <!-- <button
-      type="submit"
-      class="btn btn-info col-5 col-md-3 mx-auto"
-      *ngIf="this.fval.productCode.value === ''"
-      [disabled]="!userForm.valid"
-      (click) = "saveOnlyClientDetails()"
-    >
-      Save
-    </button> -->
+  <div class="d-flex mt-3 mb-2 mb-xl-0 pt-2 pb-2 pb-xl-2 mx-auto" [hidden]="!customers">
     <button
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"
-      *ngIf="userForm.valid && this.fval.productCode.value != '' && showcompleteBtn"
-      (click)="nextForm()"
+      *ngIf="showPersonalForm"
+      [disabled]="!userForm.valid"
     >
-      Go To {{this.fval.productCode.value == 'BODABODA LOAN PRODUCT' ? 'BodaLoan' :
-              this.fval.productCode.value == 'TAXI LOAN PRODUCT' ? 'TaxiLoan' :
-              this.fval.productCode.value == 'MICROLOAN PRODUCT' ? 'MicroLoan' : 'Savings' }} Form
-    </button>
+      Save
+    </button>    
     <button
-    type="button"
-    class="btn btn-info col-5 col-md-3 mx-auto"
-    *ngIf="!showPersonalForm"
-    (click)="goBack()"
-  >
-    Back
-  </button>
+      type="button"
+      class="btn btn-info col-5 col-md-3 mx-auto"
+      *ngIf="showBodaForm"
+      [disabled]="!bodaClientForm.valid"
+    >
+      Save
+    </button>    
+    <button
+      type="button"
+      class="btn btn-info col-5 col-md-3 mx-auto"
+      *ngIf="showTaxiForm"
+      [disabled]="!taxiClientForm.valid"
+    >
+      Save
+    </button>    
+    <button
+      type="button"
+      class="btn btn-info col-5 col-md-3 mx-auto"
+      *ngIf="showMicroForm"
+      [disabled]="!microClientForm.valid"
+    >
+      Save
+    </button> 
+    <button
+      type="button"
+      class="btn btn-info col-5 col-md-3 mx-auto"
+      *ngIf="showSaveForm"
+      [disabled]="!savingsClientForm.valid"
+    >
+      Save
+    </button>
+    <!-- <button
+      type="button"
+      class="btn btn-info col-5 col-md-3 mx-auto"
+    >
+     Edit
+    </button> -->
+
     <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
       <p class="text-light">Please wait...</p>
     </ngx-spinner>
@@ -2420,21 +2568,21 @@
     </label>
 
     <button
-      type="button"
-      class="btn btn-info col-5 col-md-3 mx-auto"
-      routerLink = '/townmanagement'
-      *ngIf="showPersonalForm"
-    >
-      Cancel
+    type="button"
+    class="btn btn-info col-5 col-md-3 mx-auto"
+    routerLink = '/townmanagement'
+    *ngIf="showPersonalForm"
+  >
+    Cancel
     </button>
     <button
     type="button"
     class="btn btn-info col-5 col-md-3 mx-auto"
-    *ngIf="showFinalBtn"
-    (click)="save()"
+    *ngIf="!showPersonalForm"
+    (click)="goBack()"
   >
-   Finish
-  </button>
+    Back
+    </button>
 </div>
-  </div>
+</div>
 </div>

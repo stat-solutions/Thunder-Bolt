@@ -143,6 +143,9 @@ export class OthersService {
     getStations(): Observable<any> {
       return this.http.get<any>(`${this.API_URL}/api/stationUser/getAllStations`);
     }
+    getAllTheStationLocationsByTown(id: any): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/stationUser/getStationLocationsByTownLocation/?towmLocationId=${id}`);
+    } 
     getAllTheStationLocations(): Observable<any> {
       return this.http.get<any>(`${this.API_URL}/api/stationUser/getAllStationLocations`);
     }
@@ -234,14 +237,92 @@ export class OthersService {
     createCustomer(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateCustomer`, postData, this.httpOptions);
     }
+    updateCustomer(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putUpdateCustomer`, postData, this.httpOptions);
+    }
     createBodaCustomer(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateBodaBodaCustomer`, postData, this.httpOptions);
+    }
+    updateBodaCustomer(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putUpdateBodabodaCustomer`, postData, this.httpOptions);
     }
     createTaxiCustomer(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateTaxiCustomer`, postData, this.httpOptions);
     }
+    updateTaxiCustomer(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putUpdateTaxiCustomer`, postData, this.httpOptions);
+    }
     createMicroloanCustomer(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/postCreateMicroloanCustomer`, postData, this.httpOptions);
+    }
+    updateMicroloanCustomer(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putUpdateMicroLoanCustomer`, postData, this.httpOptions);
+    }
+    createSavingsCustomer(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postCreateMicroloanCustomer`, postData, this.httpOptions);
+    }
+    updateSavingsCustomer(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putUpdateSavingsCustomer`, postData, this.httpOptions);
+    }
+    getCustomers(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersOnly`);
+    }
+    getCustomersByArea(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAreaCustomers/?theAreaLocationId=${id}`);
+    }
+    getCustomersByTown(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getTownCustomers/?theTownLocationId=${id}`);
+    }
+    getCustomersByStation(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getStationCustomers/?theStationLocationId=${id}`);
+    }
+    getBodaCustomers(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithBodabodaLoanProduct`);
+    }
+    getBodaCustomersByArea(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAreaCustomersWithBodabodaLoanProduct/?theAreaLocationId=${id}`);
+    }
+    getBodaCustomersByTown(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getTownCustomersWithBodabodaLoanProduct/?theTownLocationId=${id}`);
+    }
+    getBodaCustomersByStation(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getStationCustomersWithBodabodaLoanProduct/?theStationLocationId=${id}`);
+    }
+    getTaxiCustomers(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithTaxiLoanProduct`);
+    }
+    getTaxiCustomersByArea(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAreaCustomersWithTaxiLoanProduct/?theAreaLocationId=${id}`);
+    }
+    getTaxiCustomersByTown(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getTownCustomersWithTaxiLoanProduct/?theTownLocationId=${id}`);
+    }
+    getTaxiCustomersByStation(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getStationCustomersWithTaxiLoanProduct/?theStationLocationId=${id}`);
+    }
+    getMicroCustomers(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithMicroLoanProduct`);
+    }
+    getMicroCustomersByArea(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAreaCustomersWithMicroLoanProduct/?theAreaLocationId=${id}`);
+    }
+    getMicroCustomersByTown(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getTownCustomersWithMicroLoanProduct/?theTownLocationId=${id}`);
+    }
+    getMicroCustomersByStation(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getStationCustomersWithMicroLoanProduct/?theStationLocationId=${id}`);
+    }
+    getSavingsCustomers(): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithSavingsProduct`);
+    }
+    getSavingsCustomersByArea(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAreaCustomersWithSavingsProduct/?theAreaLocationId=${id}`);
+    }
+    getSavingsCustomersByTown(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getTownCustomersWithSavingsProduct/?theTownLocationId=${id}`);
+    }
+    getSavingsCustomersByStation(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getStationCustomersWithSavingsProduct/?theStationLocationId=${id}`);
     }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 

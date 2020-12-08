@@ -168,6 +168,9 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.getStations = function () {
         return this.http.get(this.API_URL + "/api/stationUser/getAllStations");
     };
+    OthersService.prototype.getAllTheStationLocationsByTown = function (id) {
+        return this.http.get(this.API_URL + "/api/stationUser/getStationLocationsByTownLocation/?towmLocationId=" + id);
+    };
     OthersService.prototype.getAllTheStationLocations = function () {
         return this.http.get(this.API_URL + "/api/stationUser/getAllStationLocations");
     };
@@ -256,14 +259,92 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.createCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateCustomer", postData, this.httpOptions);
     };
+    OthersService.prototype.updateCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putUpdateCustomer", postData, this.httpOptions);
+    };
     OthersService.prototype.createBodaCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateBodaBodaCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.updateBodaCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putUpdateBodabodaCustomer", postData, this.httpOptions);
     };
     OthersService.prototype.createTaxiCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateTaxiCustomer", postData, this.httpOptions);
     };
+    OthersService.prototype.updateTaxiCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putUpdateTaxiCustomer", postData, this.httpOptions);
+    };
     OthersService.prototype.createMicroloanCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/postCreateMicroloanCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.updateMicroloanCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putUpdateMicroLoanCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.createSavingsCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postCreateMicroloanCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.updateSavingsCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putUpdateSavingsCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.getCustomers = function () {
+        return this.http.get(this.API_URL + "/api/customer/getAllCustomersOnly");
+    };
+    OthersService.prototype.getCustomersByArea = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getAreaCustomers/?theAreaLocationId=" + id);
+    };
+    OthersService.prototype.getCustomersByTown = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getTownCustomers/?theTownLocationId=" + id);
+    };
+    OthersService.prototype.getCustomersByStation = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getStationCustomers/?theStationLocationId=" + id);
+    };
+    OthersService.prototype.getBodaCustomers = function () {
+        return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithBodabodaLoanProduct");
+    };
+    OthersService.prototype.getBodaCustomersByArea = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getAreaCustomersWithBodabodaLoanProduct/?theAreaLocationId=" + id);
+    };
+    OthersService.prototype.getBodaCustomersByTown = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getTownCustomersWithBodabodaLoanProduct/?theTownLocationId=" + id);
+    };
+    OthersService.prototype.getBodaCustomersByStation = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getStationCustomersWithBodabodaLoanProduct/?theStationLocationId=" + id);
+    };
+    OthersService.prototype.getTaxiCustomers = function () {
+        return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithTaxiLoanProduct");
+    };
+    OthersService.prototype.getTaxiCustomersByArea = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getAreaCustomersWithTaxiLoanProduct/?theAreaLocationId=" + id);
+    };
+    OthersService.prototype.getTaxiCustomersByTown = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getTownCustomersWithTaxiLoanProduct/?theTownLocationId=" + id);
+    };
+    OthersService.prototype.getTaxiCustomersByStation = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getStationCustomersWithTaxiLoanProduct/?theStationLocationId=" + id);
+    };
+    OthersService.prototype.getMicroCustomers = function () {
+        return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithMicroLoanProduct");
+    };
+    OthersService.prototype.getMicroCustomersByArea = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getAreaCustomersWithMicroLoanProduct/?theAreaLocationId=" + id);
+    };
+    OthersService.prototype.getMicroCustomersByTown = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getTownCustomersWithMicroLoanProduct/?theTownLocationId=" + id);
+    };
+    OthersService.prototype.getMicroCustomersByStation = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getStationCustomersWithMicroLoanProduct/?theStationLocationId=" + id);
+    };
+    OthersService.prototype.getSavingsCustomers = function () {
+        return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithSavingsProduct");
+    };
+    OthersService.prototype.getSavingsCustomersByArea = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getAreaCustomersWithSavingsProduct/?theAreaLocationId=" + id);
+    };
+    OthersService.prototype.getSavingsCustomersByTown = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getTownCustomersWithSavingsProduct/?theTownLocationId=" + id);
+    };
+    OthersService.prototype.getSavingsCustomersByStation = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getStationCustomersWithSavingsProduct/?theStationLocationId=" + id);
     };
     OthersService.prototype.handleCompanySetupError = function (errorResponse) {
         if (errorResponse.error instanceof ErrorEvent) {

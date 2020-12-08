@@ -549,7 +549,7 @@ export class PersonalInfoComponent implements OnInit {
      if (this.data[0].theStationLocationId === null || this.data[0].productCode === null){
        this.errored = true;
        this.alertService.danger({
-        html: '<b> The station chose does not exist</b>'
+        html: '<b> The station or initial products chose do not exist</b>'
        });
        this.data = [];
       //  this.errored = false;
@@ -597,8 +597,7 @@ export class PersonalInfoComponent implements OnInit {
   }
 
   goBack(): any{
-    this.fval.clientPhotoUrl.setValue(this.data[0].customerPhotoUrl);
-    this.fval.idPhotoUrl.setValue(this.data[0].customerIdPhotoUrl);
+    this.fval.productCode.setValue(this.fval.productCode.value);
     this.showPersonalForm = true;
     this.showBodaForm = false;
     this.showTaxiForm = false;

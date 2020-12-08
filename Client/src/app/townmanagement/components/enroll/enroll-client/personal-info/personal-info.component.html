@@ -3,7 +3,7 @@
 >
   <div class="jumbotron-fluid mb-0 pb-0">
     <!-- this is for personal info -->
-    <div *ngIf="showPersonalForm">
+    <div [hidden]="!showPersonalForm">
       <div class="container mt-0 mx-0 shadow-lg">
         <div class="row">
           <div class="col-12">
@@ -595,7 +595,7 @@
   </div>
 
   <!-- this is for boda client -->
-  <div *ngIf="showBodaForm">
+  <div [hidden]="!showBodaForm">
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
@@ -852,7 +852,7 @@
               >
               <div class="input-group mb-0">
                 <input
-                  id="dateOfJoiningStage"
+                  id="bodaDateOfJoiningStage"
                   formControlName="dateOfJoiningStage"
                   type="text"
                   class="form-control"
@@ -1160,7 +1160,7 @@
   </div>
 
   <!-- this is for taxi client -->
-  <div *ngIf="showTaxiForm">
+  <div [hidden]="!showTaxiForm">
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
@@ -1605,7 +1605,7 @@
               >
               <div class="input-group mb-0">
                 <input
-                  id="dateOfJoiningStage"
+                  id="taxiDateOfJoiningStage"
                   formControlName="dateOfJoiningStage"
                   type="text"
                   class="form-control"
@@ -1769,7 +1769,7 @@
   </div>
 
   <!-- this is for micro client -->
-  <div *ngIf="showMicroForm">
+  <div [hidden]="!showMicroForm">
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
@@ -2190,7 +2190,7 @@
   </div>
 
    <!-- this is for savings client -->
-  <div *ngIf="showSaveForm">
+  <div [hidden]="!showSaveForm">
     <div class="container mt-0 mb-2 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
@@ -2377,15 +2377,6 @@
 
   <!-- action buttons -->
   <div class="d-flex mt-3 mb-2 mb-xl-0 pt-2 pb-2 pb-xl-2 mx-auto">
-    <!-- <button
-      type="submit"
-      class="btn btn-info col-5 col-md-3 mx-auto"
-      *ngIf="this.fval.productCode.value === ''"
-      [disabled]="!userForm.valid"
-      (click) = "saveOnlyClientDetails()"
-    >
-      Save
-    </button> -->
     <button
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"

@@ -28,6 +28,8 @@ export class EditPersonalInfoComponent implements OnInit {
   taxiClientForm: FormGroup;
   microClientForm: FormGroup;
   savingsClientForm: FormGroup;
+  searchForm: FormGroup;
+  addProduct = false;
   showPersonalForm = true;
   showBodaForm = false;
   showTaxiForm = false;
@@ -38,6 +40,7 @@ export class EditPersonalInfoComponent implements OnInit {
   value: string;
   fieldType: boolean;
   products: any;
+  customers: any;
   theStageNames: any;
   User = this.authService.loggedInUserInfo();
   taxiStages: any;
@@ -52,6 +55,7 @@ export class EditPersonalInfoComponent implements OnInit {
   taxiFrontUrl: string;
   taxiSideUrl: string;
   taxiRearUrl: string;
+  currentCustomerId: number;
   constructor(
     private authService: AuthServiceService,
     private others: OthersService,
@@ -64,12 +68,20 @@ export class EditPersonalInfoComponent implements OnInit {
   ngOnInit(): void {
     this.errored = false;
     this.posted = false;
+    this.searchForm = (function searchStation(): any{
+      return new FormGroup({
+        getCustomers: new FormControl(
+          '',
+          Validators.compose([Validators.required])
+        ),
+      });
+    })();
     this.userForm = this.createFormGroup();
     this.bodaClientForm = this.bodaClientFormGroup();
     this.taxiClientForm = this.taxiClientFormGroup();
     this.microClientForm = this.microClientFormGroup();
     this.savingsClientForm = this.savingsClientFormGroup();
-    this.others.getAllTheStationLocations().subscribe(
+    this.others.getAllTheStationLocationsByTown(this.User.userLocationId).subscribe(
       res => {
         this.stations = res;
       // tslint:disable-next-line: only-arrow-functions
@@ -153,16 +165,16 @@ export class EditPersonalInfoComponent implements OnInit {
       ),
       clientPhotoUrl: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
       idPhotoUrl: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
 
       productCode: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
       homeDetails: new FormControl(
         '',
@@ -209,17 +221,16 @@ export class EditPersonalInfoComponent implements OnInit {
       ),
       bodabodaCustomerFrontPhotoUrl: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
       bodabodaCustomerSidePhotoUrl: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
       bodabodaCustomerRearPhotoUrl: new FormControl(
         '',
-        Validators.compose([Validators.required])
-      ), 
-
+        // Validators.compose([Validators.required])
+      ),
       ownershipStatus: new FormControl(
         '',
         Validators.compose([Validators.required])
@@ -279,15 +290,15 @@ export class EditPersonalInfoComponent implements OnInit {
       ),
       taxiCustomerFrontPhotoUrl: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
       taxiCustomerSidePhotoUrl: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
       taxiCustomerRearPhotoUrl: new FormControl(
         '',
-        Validators.compose([Validators.required])
+        // Validators.compose([Validators.required])
       ),
       ownershipStatus: new FormControl(
         '',
@@ -369,7 +380,33 @@ export class EditPersonalInfoComponent implements OnInit {
       ),
     });
   }
-
+  getCustomers(val: any): any{
+    let theStationLocationId = null;
+    for (const station of this.stations){
+      if (station.stationName.toUpperCase() === val.toUpperCase()){
+        theStationLocationId = station.theStationLocationId;
+       }
+    }
+    if (theStationLocationId === null){
+       this.errored = true;
+       this.alertService.danger({
+        html: '<b> The station chose does not exist</b>'
+       });
+       return;
+    } else {
+        this.others.getCustomersByStation(theStationLocationId).subscribe(
+          res => {
+            this.customers = res;
+          },
+          err => {
+            this.errored = true;
+            this.alertService.danger({
+              html: '<b>' + err.statusText + '</b>'
+            });
+          }
+        );
+      }
+    }
   onFileSelected(event): any {
     // console.log(event.target.id);
     let folder: string;
@@ -459,7 +496,7 @@ export class EditPersonalInfoComponent implements OnInit {
         if (url) {
           // console.log(url);
         }
-      });
+    });
   }
   setSelectedChanges(selectedChange: any): any {
     switch (selectedChange) {
@@ -479,47 +516,115 @@ export class EditPersonalInfoComponent implements OnInit {
         this.fval.id_number.setValue('');
         this.fval.id_number.setValidators([
           Validators.required,
-          Validators.minLength(9),
-          Validators.maxLength(9)
+          // Validators.minLength(9),
+          // Validators.maxLength(9)
         ]);
         break;
       case 'PASSPORT':
         this.fval.id_number.setValue('');
         this.fval.id_number.setValidators([
           Validators.required,
-          Validators.minLength(20),
-          Validators.maxLength(20)
+          // Validators.minLength(20),
+          // Validators.maxLength(20)
         ]);
         break;
       case 'DRIVING PERMIT':
         this.fval.id_number.setValue('');
         this.fval.id_number.setValidators([
           Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10)
+          // Validators.minLength(10),
+          // Validators.maxLength(10)
         ]);
         break;
       case 'ONLOAN':
+          console.log(selectedChange);
           this.bodaFval.ownersName.setValidators([Validators.required]);
           this.bodaFval.ownersPhoneNumber.setValidators([Validators.required]);
           this.taxiFval.ownersName.setValidators([Validators.required]);
           this.taxiFval.ownersPhoneNumber.setValidators([Validators.required]);
           break;
       case 'HIREDOUT':
+          console.log(selectedChange);
           this.bodaFval.ownersName.setValidators([Validators.required]);
           this.bodaFval.ownersPhoneNumber.setValidators([Validators.required]);
           this.taxiFval.ownersName.setValidators([Validators.required]);
           this.taxiFval.ownersPhoneNumber.setValidators([Validators.required]);
           break;
+      case 'BODABODA LOAN PRODUCT':
+          this.bodaForm();
+          break;
+      case 'TAXI LOAN PRODUCT':
+          this.taxiForm();
+          break;
+      case 'MICROLOAN PRODUCT':
+          this.microForm();
+          break;
+      case 'SAVINGS PRODUCT':
+          this.savingForm();
+          break;
     }
   }
 
-  nextForm(): any{
-    setTimeout(this.completeForm(), 5000);
+  bodaForm(): any{
+    this.showPersonalForm = false;
+    this.showBodaForm = true;
+    this.showFinalBtn = true;
+    this.showcompleteBtn = false;
+    this.bodaFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+    this.bodaFval.clientName.disable();
   }
-  completeForm(): any {
-    if (this.fval.productCode.value){
+  taxiForm(): any{
+    this.showPersonalForm = false;
+    this.showFinalBtn = true;
+    this.showTaxiForm = true;
+    this.showcompleteBtn = false;
+    this.taxiFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+    this.taxiFval.clientName.disable();
+  }
+  microForm(): any{
+    this.showPersonalForm = false;
+    this.showMicroForm = true;
+    this.showFinalBtn = true;
+    this.showcompleteBtn = false;
+    this.microFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+    this.microFval.clientName.disable();
+    this.microFval.currentResidence.setValue(this.fval.homeDetails.value.toUpperCase());
+    this.microFval.currentResidence.disable();
+  }
+  savingForm(): any{
+    this.fval.productCode.setValue(' ');
+    this.showPersonalForm = false;
+    this.showSaveForm = true;
+    this.showcompleteBtn = false;
+    this.savFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+    this.savFval.clientName.disable();
+  }
+
+onCustomerNameChange(val: string): any{
+  this.customers.forEach(customer => {
+    if (customer.customerName.toUpperCase() === val.toUpperCase()) {
+      this.currentCustomerId = customer.customerId;
+      this.fval.main_contact_number1.setValue(customer.customerPhone1);
+      this.fval.main_contact_number2.setValue(customer.customerPhone2);
+      this.fval.id_type.setValue(customer.customerIdType);
+      this.fval.id_number.setValue(customer.customerIdNumber);
+      this.fval.customerDateOfBirth.setValue(customer.customerDateOfBirth);
+      this.fval.customerHomeAreaDetails.setValue(customer.customerHomeAreaDetails);
+      this.fval.customerComment.setValue(customer.customerPhone1);
+      for (const station of this.stations){
+        if (station.theStationLocationId === customer.fktheStationLocationIdCustomer){
+          this.fval.station.setValue(station.stationName.toUpperCase());
+         }
+      }
+      this.clientPhotoUrl = customer.customerPhotoUrl;
+      this.clientIdUrl = customer.customerIdPhotoUrl;
+    }
+  });
+}
+  updateCustomerDetails(): any {
+    if (this.userForm.valid){
      this.data.push({
+      customerId: 400000054,
       customerName: this.fval.customer_name.value.toUpperCase(),
       customerPhone1: this.fval.main_contact_number1.value,
       customerPhone2: this.fval.main_contact_number2.value === '' ?
@@ -534,12 +639,6 @@ export class EditPersonalInfoComponent implements OnInit {
       customerComment: this.fval.clientComment.value.toUpperCase(),
       theStationLocationId: null,
       userId: this.User.userId,
-      productCode: null
-     });
-     this.products.forEach(pdt => {
-       if (pdt.productName === this.fval.productCode.value){
-        this.data[0].productCode = pdt.productCode;
-       }
      });
      for (const station of this.stations){
       if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()){
@@ -555,49 +654,13 @@ export class EditPersonalInfoComponent implements OnInit {
        return;
      } else {
           console.log(this.data[0]);
-          if (this.fval.productCode.value === 'BODABODA LOAN PRODUCT'){
-            this.showPersonalForm = false;
-            this.showBodaForm = true;
-            this.showFinalBtn = true;
-            this.showcompleteBtn = false;
-            this.bodaFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-            this.bodaFval.clientName.disable();
-          }
-          else if (this.fval.productCode.value === 'MICROLOAN PRODUCT'){
-            this.showPersonalForm = false;
-            this.showMicroForm = true;
-            this.showFinalBtn = true;
-            this.showcompleteBtn = false;
-            this.microFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-            this.microFval.clientName.disable();
-            this.microFval.currentResidence.setValue(this.fval.homeDetails.value.toUpperCase());
-            this.microFval.currentResidence.disable();
-
-          }
-          else if (this.fval.productCode.value === 'TAXI LOAN PRODUCT'){
-            this.showPersonalForm = false;
-            this.showFinalBtn = true;
-            this.showTaxiForm = true;
-            this.showcompleteBtn = false;
-            this.taxiFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-            this.taxiFval.clientName.disable();
-          }
-          else if (this.fval.productCode.value === 'SAVINGS PRODUCT'){
-            this.fval.productCode.setValue(' ');
-            this.showPersonalForm = false;
-            this.showFinalBtn = true;
-            this.showSaveForm = true;
-            this.showcompleteBtn = false;
-            this.savFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-            this.savFval.clientName.disable();
-          }
     }
     }
   }
 
   goBack(): any{
-    this.fval.clientPhotoUrl.setValue(this.data[0].customerPhotoUrl);
-    this.fval.idPhotoUrl.setValue(this.data[0].customerIdPhotoUrl);
+    // this.fval.clientPhotoUrl.setValue(this.data[0].customerPhotoUrl);
+    // this.fval.idPhotoUrl.setValue(this.data[0].customerIdPhotoUrl);
     this.showPersonalForm = true;
     this.showBodaForm = false;
     this.showTaxiForm = false;
