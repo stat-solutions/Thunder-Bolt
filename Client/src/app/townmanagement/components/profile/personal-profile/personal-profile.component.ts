@@ -143,7 +143,7 @@ export class PersonalProfileComponent implements OnInit {
         this.fval.id_type.setValue(res[0].userIdType.toUpperCase());
         this.fval.id_number.setValue(res[0].userIdNumber);
         // this.fval.idPhotoUrl.setValue(res[0].);
-        const DOB = '2020-10-6'; // res[0].userDateOfBirth
+        const DOB = res[0].userDateOfBirth;
         const date = new Date(DOB);
         this.fval.date_of_birth.setValue(date);
         // this.fval.full_name.setValue();

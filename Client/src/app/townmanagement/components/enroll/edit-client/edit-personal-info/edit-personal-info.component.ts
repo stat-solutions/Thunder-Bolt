@@ -603,28 +603,38 @@ export class EditPersonalInfoComponent implements OnInit {
 onCustomerNameChange(val: string): any{
   this.customers.forEach(customer => {
     if (customer.customerName.toUpperCase() === val.toUpperCase()) {
-      this.currentCustomerId = customer.customerId;
-      this.fval.main_contact_number1.setValue(customer.customerPhone1);
-      this.fval.main_contact_number2.setValue(customer.customerPhone2);
-      this.fval.id_type.setValue(customer.customerIdType);
-      this.fval.id_number.setValue(customer.customerIdNumber);
-      this.fval.customerDateOfBirth.setValue(customer.customerDateOfBirth);
-      this.fval.customerHomeAreaDetails.setValue(customer.customerHomeAreaDetails);
-      this.fval.customerComment.setValue(customer.customerPhone1);
-      for (const station of this.stations){
-        if (station.theStationLocationId === customer.fktheStationLocationIdCustomer){
-          this.fval.station.setValue(station.stationName.toUpperCase());
-         }
+        this.currentCustomerId = customer.customerId;
+        this.fval.main_contact_number1.setValue(customer.customerPhone1);
+        this.fval.main_contact_number2.setValue(customer.customerPhone2);
+        this.fval.id_type.setValue(customer.customerIdType);
+        this.fval.id_number.setValue(customer.customerIdNumber);
+        const date = new Date(customer.customerDateOfBirth);
+        this.fval.dateOfBirth.setValue(date);
+        this.fval.homeDetails.setValue(customer.customerHomeAreaDetails);
+        this.fval.clientComment.setValue(customer.customerComment);
+        for (const station of this.stations){
+          if (station.theStationLocationId === customer.fktheStationLocationIdCustomer){
+            this.fval.station.setValue(station.stationName.toUpperCase());
+          }
+        }
+        this.clientPhotoUrl = customer.customerPhotoUrl;
+        this.clientIdUrl = customer.customerIdPhotoUrl;
+    } else {
+      if (this.currentCustomerId) {
+        return;
+      } else {
+        this.errored = true;
+        this.alertService.danger({
+          html: '<b> customer with name ' + val.toUpperCase() + ' is not in records</b>'
+        });
       }
-      this.clientPhotoUrl = customer.customerPhotoUrl;
-      this.clientIdUrl = customer.customerIdPhotoUrl;
     }
   });
 }
   updateCustomerDetails(): any {
     if (this.userForm.valid){
-     this.data.push({
-      customerId: 400000054,
+     const data  = {
+      customerId: this.currentCustomerId,
       customerName: this.fval.customer_name.value.toUpperCase(),
       customerPhone1: this.fval.main_contact_number1.value,
       customerPhone2: this.fval.main_contact_number2.value === '' ?
@@ -634,27 +644,52 @@ onCustomerNameChange(val: string): any{
       customerIdPhotoUrl: this.clientPhotoUrl,
       customerPhotoUrl: this.clientIdUrl,
       customerDateOfBirth: `${this.fval.dateOfBirth.value.getFullYear()}-${this.fval.dateOfBirth.value.getMonth() + 1}-${this.fval.dateOfBirth.value.getDate()}`,
-      customerIdNumber: this.fval.id_number.value,
+      customerIdNumber: this.fval.id_number.value.toUpperCase(),
       customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
       customerComment: this.fval.clientComment.value.toUpperCase(),
       theStationLocationId: null,
       userId: this.User.userId,
-     });
+     };
      for (const station of this.stations){
       if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()){
-        this.data[0].theStationLocationId = station.theStationLocationId;
+        data.theStationLocationId = station.theStationLocationId;
        }
     }
-     if (this.data[0].theStationLocationId === null || this.data[0].productCode === null){
+     if (data.theStationLocationId === null){
        this.errored = true;
        this.alertService.danger({
         html: '<b> The station chose does not exist</b>'
        });
-       this.errored = false;
+      //  this.errored = false;
        return;
      } else {
-          console.log(this.data[0]);
+          console.log(data);
+          this.others.updateCustomer(data).subscribe(
+            res => {
+              this.posted = true;
+              this.alertService.success({
+                html: '<b> Customer was updated successfully <b>'
+              });
+              this.revert();
+              this.bodaClientForm.reset();
+              setTimeout(() => {
+                  location.reload();
+                }, 3000);
+            },
+            err => {
+              this.errored = true;
+              console.log(err.statusText);
+              this.alertService.danger({
+                  html: '<b>' + err.statusText + '</b>'
+                });
+            }
+          );
     }
+    } else {
+      this.errored = true;
+      this.alertService.danger({
+       html: '<b> some fields of the form have invalid values</b>'
+      });
     }
   }
 

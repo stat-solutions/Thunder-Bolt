@@ -249,6 +249,7 @@
                   placeholder="e.g. 07XXXXXXXX"
                   autocomplete="off"
                 />
+                <!-- customer.customerPhone1 -->
               </div>
               <div
                 class="text-danger col"
@@ -616,13 +617,14 @@
             <label
             *ngIf="addProduct"
               for="productCode"
-              [ngClass]="fval.productCode.valid && fval.productCode.value !== 'Initial Product' ? 'text-info' : ''"
+              
               >Product
-              <i
-                *ngIf="fval.productCode.valid && fval.productCode.value !== 'Initial Product'"
+              <!-- [ngClass]="fval.productCode.valid" -->
+              <!-- <i
+                *ngIf="fval.productCode.valid"
                 class="material-icons"
                 >check_circle</i
-              >
+              > -->
               </label
             >
             <div class="input-group mb-0">
@@ -2510,6 +2512,7 @@
       class="btn btn-info col-5 col-md-3 mx-auto"
       *ngIf="showPersonalForm"
       [disabled]="!userForm.valid"
+      (click)="updateCustomerDetails()"
     >
       Save
     </button>    

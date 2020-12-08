@@ -69,7 +69,7 @@ export class PersonalInfoComponent implements OnInit {
     this.taxiClientForm = this.taxiClientFormGroup();
     this.microClientForm = this.microClientFormGroup();
     this.savingsClientForm = this.savingsClientFormGroup();
-    this.others.getAllTheStationLocations().subscribe(
+    this.others.getAllTheStationLocationsByTown(this.User.userLocationId).subscribe(
       res => {
         this.stations = res;
       // tslint:disable-next-line: only-arrow-functions
@@ -529,7 +529,7 @@ export class PersonalInfoComponent implements OnInit {
       customerIdPhotoUrl: this.clientPhotoUrl,
       customerPhotoUrl: this.clientIdUrl,
       customerDateOfBirth: `${this.fval.dateOfBirth.value.getFullYear()}-${this.fval.dateOfBirth.value.getMonth() + 1}-${this.fval.dateOfBirth.value.getDate()}`,
-      customerIdNumber: this.fval.id_number.value,
+      customerIdNumber: this.fval.id_number.value.toUpperCase(),
       customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
       customerComment: this.fval.clientComment.value.toUpperCase(),
       theStationLocationId: null,

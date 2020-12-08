@@ -44,7 +44,7 @@ var PersonalInfoComponent = /** @class */ (function () {
         this.taxiClientForm = this.taxiClientFormGroup();
         this.microClientForm = this.microClientFormGroup();
         this.savingsClientForm = this.savingsClientFormGroup();
-        this.others.getAllTheStationLocations().subscribe(function (res) {
+        this.others.getAllTheStationLocationsByTown(this.User.userLocationId).subscribe(function (res) {
             _this.stations = res;
             // tslint:disable-next-line: only-arrow-functions
         }, function (err) { return console.log(err.statusText); });
@@ -317,7 +317,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                 customerIdPhotoUrl: this.clientPhotoUrl,
                 customerPhotoUrl: this.clientIdUrl,
                 customerDateOfBirth: this.fval.dateOfBirth.value.getFullYear() + "-" + (this.fval.dateOfBirth.value.getMonth() + 1) + "-" + this.fval.dateOfBirth.value.getDate(),
-                customerIdNumber: this.fval.id_number.value,
+                customerIdNumber: this.fval.id_number.value.toUpperCase(),
                 customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
                 customerComment: this.fval.clientComment.value.toUpperCase(),
                 theStationLocationId: null,

@@ -385,9 +385,10 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 _this.fval.main_contact_number2.setValue(customer.customerPhone2);
                 _this.fval.id_type.setValue(customer.customerIdType);
                 _this.fval.id_number.setValue(customer.customerIdNumber);
-                _this.fval.customerDateOfBirth.setValue(customer.customerDateOfBirth);
-                _this.fval.customerHomeAreaDetails.setValue(customer.customerHomeAreaDetails);
-                _this.fval.customerComment.setValue(customer.customerPhone1);
+                var date = new Date(customer.customerDateOfBirth);
+                _this.fval.dateOfBirth.setValue(date);
+                _this.fval.homeDetails.setValue(customer.customerHomeAreaDetails);
+                _this.fval.clientComment.setValue(customer.customerComment);
                 for (var _i = 0, _a = _this.stations; _i < _a.length; _i++) {
                     var station = _a[_i];
                     if (station.theStationLocationId === customer.fktheStationLocationIdCustomer) {
@@ -397,12 +398,24 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 _this.clientPhotoUrl = customer.customerPhotoUrl;
                 _this.clientIdUrl = customer.customerIdPhotoUrl;
             }
+            else {
+                if (_this.currentCustomerId) {
+                    return;
+                }
+                else {
+                    _this.errored = true;
+                    _this.alertService.danger({
+                        html: '<b> customer with name ' + val.toUpperCase() + ' is not in records</b>'
+                    });
+                }
+            }
         });
     };
     EditPersonalInfoComponent.prototype.updateCustomerDetails = function () {
+        var _this = this;
         if (this.userForm.valid) {
-            this.data.push({
-                customerId: 400000054,
+            var data = {
+                customerId: this.currentCustomerId,
                 customerName: this.fval.customer_name.value.toUpperCase(),
                 customerPhone1: this.fval.main_contact_number1.value,
                 customerPhone2: this.fval.main_contact_number2.value === '' ?
@@ -412,29 +425,52 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 customerIdPhotoUrl: this.clientPhotoUrl,
                 customerPhotoUrl: this.clientIdUrl,
                 customerDateOfBirth: this.fval.dateOfBirth.value.getFullYear() + "-" + (this.fval.dateOfBirth.value.getMonth() + 1) + "-" + this.fval.dateOfBirth.value.getDate(),
-                customerIdNumber: this.fval.id_number.value,
+                customerIdNumber: this.fval.id_number.value.toUpperCase(),
                 customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
                 customerComment: this.fval.clientComment.value.toUpperCase(),
                 theStationLocationId: null,
                 userId: this.User.userId
-            });
+            };
             for (var _i = 0, _a = this.stations; _i < _a.length; _i++) {
                 var station = _a[_i];
                 if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()) {
-                    this.data[0].theStationLocationId = station.theStationLocationId;
+                    data.theStationLocationId = station.theStationLocationId;
                 }
             }
-            if (this.data[0].theStationLocationId === null || this.data[0].productCode === null) {
+            if (data.theStationLocationId === null) {
                 this.errored = true;
                 this.alertService.danger({
                     html: '<b> The station chose does not exist</b>'
                 });
-                this.errored = false;
+                //  this.errored = false;
                 return;
             }
             else {
-                console.log(this.data[0]);
+                console.log(data);
+                this.others.updateCustomer(data).subscribe(function (res) {
+                    _this.posted = true;
+                    _this.alertService.success({
+                        html: '<b> Customer was updated successfully <b>'
+                    });
+                    _this.revert();
+                    _this.bodaClientForm.reset();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                }, function (err) {
+                    _this.errored = true;
+                    console.log(err.statusText);
+                    _this.alertService.danger({
+                        html: '<b>' + err.statusText + '</b>'
+                    });
+                });
             }
+        }
+        else {
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> some fields of the form have invalid values</b>'
+            });
         }
     };
     EditPersonalInfoComponent.prototype.goBack = function () {

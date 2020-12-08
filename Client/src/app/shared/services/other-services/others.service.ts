@@ -145,7 +145,7 @@ export class OthersService {
     }
     getAllTheStationLocationsByTown(id: any): Observable<any> {
       return this.http.get<any>(`${this.API_URL}/api/stationUser/getStationLocationsByTownLocation/?towmLocationId=${id}`);
-    } 
+    }
     getAllTheStationLocations(): Observable<any> {
       return this.http.get<any>(`${this.API_URL}/api/stationUser/getAllStationLocations`);
     }
