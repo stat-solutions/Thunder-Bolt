@@ -25,7 +25,6 @@ import { SetLoanLimitComponent } from './components/transactions/loans/set-loan-
 import { SetLoanRateComponent } from './components/transactions/loans/set-loan-rate/set-loan-rate.component';
 import { DepositFloatComponent } from './components/transactions/float/deposit-float/deposit-float.component';
 import { WithdrawFloatComponent } from './components/transactions/float/withdraw-float/withdraw-float.component';
-import { FloatApprovalComponent } from './components/transactions/approval/float-approval/float-approval.component';
 import { InterestRateComponent } from './components/transactions/approval/interest-rate/interest-rate.component';
 import { LoanLimitComponent } from './components/transactions/approval/loan-limit/loan-limit.component';
 import { ReduceRateComponent } from './components/transactions/approval/reduce-rate/reduce-rate.component';
@@ -63,7 +62,7 @@ const routes: Routes = [
         component: CreateComponent,
         children: [
           {
-            path: 'createarea',
+            path: 'createregion',
             component: CreateAreaComponent,
           },
           {
@@ -77,7 +76,7 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'selectarea',
+        path: 'selectregions',
         component: SelectTheAreaComponent,
       },
       {
@@ -85,7 +84,7 @@ const routes: Routes = [
         component: SetManagersComponent,
         children: [
           {
-            path: 'areamanagers',
+            path: 'regionmanagers',
             component: AreaManagersComponent,
           },
           {
@@ -103,7 +102,7 @@ const routes: Routes = [
         component: ApprovalsComponent,
         children: [
           {
-            path: 'approvearea',
+            path: 'approveregion',
             component: ApproveAreasComponent,
           },
           {
@@ -177,11 +176,7 @@ const routes: Routes = [
               {
                 path: 'loantenure',
                 component: LoanTenureComponent,
-              },
-              {
-                path: 'floatapproval',
-                component: FloatApprovalComponent,
-              },
+              }
             ],
           },
           {

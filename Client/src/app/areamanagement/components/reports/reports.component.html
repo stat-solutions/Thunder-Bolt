@@ -1,1 +1,158 @@
-<p>reports works!</p>
+<div class="container-fluid justify-content-center mb-0 py-2 shadow-lg col-12">
+  <div class="jumbotron-fluid mx-0 px-0 my-0 pt-1 pb-0">
+      <div class="container mt-0 mx-0 mb-2 shadow-lg">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
+                        Reports
+                    </h3>
+                </div>
+            </div>
+        </div>
+      <div class="container mx-auto px-0 mb-0 pb-0">
+          <div class="d-flex my-0 py-1 mx-auto px-auto">
+              <div class="col-12 mx-0 px-1">
+      <form>
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-4 mx-md-0 px-md-1">
+            <!--reporttype-->
+            <label
+              for="position"
+>Report Type</label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-file text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
+              <select
+                formControlName="report_type"
+                class="form-control"
+                autocomplete="off"
+                placeholder="Select report type"
+              >
+                <option selected>Select Report</option>
+                <!-- <option
+                  *ngFor="let reports of reportTypes"
+                  [ngValue]="reports.reportType"
+                >
+                  {{ reports.reportType }}
+                </option> -->
+              </select>
+            </div>
+            <!-- <div
+              class="text-danger col"
+              *ngIf="
+                (fval.report_type.touched || fval.report_type.dirty) &&
+                fval.report_type.errors?.required
+              "
+            >
+              The report type is required!
+            </div> -->
+          </div>
+          <div class="col-12 col-sm-6 col-md-4 mx-md-0">
+            <!--rangedate-->
+            <label
+              for="range_date"
+            >Select Date
+            </label>
+
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-calendar-alt text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
+              <input
+                id="range_date"
+                formControlName="range_date"
+                type="text"
+                class="form-control"
+                placeholder="Select date range"
+                autocomplete="off"
+                class="form-control"
+                bsDaterangepicker
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
+                placement="bottom"
+              />
+            </div>
+            <!-- <div
+              class="text-danger col"
+              *ngIf="
+                (fval.range_date.touched || fval.range_date.dirty) &&
+                fval.range_date.errors?.required
+              "
+            >
+              The date range is required!
+            </div> -->
+
+          </div>
+          <div
+            class="col-4 col-sm-6 col-md-1 mx-auto pt-2 px-auto mx-md-0 px-md-0"
+          >
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-info mt-1 mt-md-4 mx-0 dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >                  <i
+                    class="fas fa-filter mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+</button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="dropdownMenuButton"
+                          >
+
+          <a class="dropdown-item text-white-75 px-2" routerLink="products"
+            >Client Name</a
+          >
+          <a class="dropdown-item text-white-75 px-2" routerLink="products"
+            >Loan Amount</a
+          >
+          <a class="dropdown-item text-white-75 px-2" routerLink="products"
+            >Loan Age</a
+          >
+          <a class="dropdown-item text-white-75 px-2" routerLink="products"
+            >Loan Status</a
+          >
+</div></div>
+          </div>
+          <div
+            class="col-4 col-sm-6 col-md-1 mx-auto pt-2 px-auto mx-md-0 px-md-0"
+          >
+            <button class="btn btn-info mt-1 mt-md-4 mx-0" type="submit">
+              Search
+            </button>
+          </div>
+          <div class="col-8 col-sm-6 col-md-3 col-xl-3 mx-0 pt-2">
+            <button
+              class="btn btn-primary mt-1 mt-md-4 ml-4 mx-sm-0 mx-md-0 float-right"
+              tooltip="Export to Excel"
+            >
+              <i class="fas fa-file-export"></i> Export
+            </button>
+          </div>
+        </div>
+      </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<router-outlet></router-outlet>

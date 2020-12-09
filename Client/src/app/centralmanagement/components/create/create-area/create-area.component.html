@@ -5,11 +5,11 @@
   <div class="container mt-3 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
-        <h3
+        <h4
           class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
         >
-        Create Area
-        </h3>
+        Create Region
+        </h4>
       </div>
     </div>
   </div>
@@ -19,7 +19,7 @@
           <label
             for="itemCreate"
             [ngClass]="fval.itemCreate.valid ? 'text-info' : ''"
-            >Area<i *ngIf="fval.itemCreate.valid" class="material-icons"
+            >Region<i *ngIf="fval.itemCreate.valid" class="material-icons"
               >check_circle</i
             ></label
           >
@@ -34,7 +34,7 @@
                   (fval.itemCreate.touched || fval.itemCreate.dirty) &&
                   fval.itemCreate.errors
               }"
-              placeholder="Enter area to create"
+              placeholder="Enter region to create"
               autocomplete="off"
             />
             <i *ngIf="fval.itemCreate.valid" class="material-icons"
@@ -48,7 +48,7 @@
               fval.itemCreate.errors?.required
             "
           >
-            The area name is required!
+            The region name is required!
           </div>
         </div>
 
