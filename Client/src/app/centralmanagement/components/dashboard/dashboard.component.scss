@@ -5,7 +5,6 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  margin-right: 0px !important;
 }
 
 .card-body {
@@ -114,6 +113,11 @@ border-color: #17aee0
   border: 0rem;
 }
 
+.sm-card-5 {
+  background-image: linear-gradient(to bottom right, rgb(168, 18, 106, 1), rgba(189, 192, 194, 0.7));
+  border: 0rem;
+}
+
 .fas{
   font-size: 1.0rem;
 }
@@ -170,6 +174,16 @@ border-color: #17aee0
       padding-left: 2px !important;
       padding-right: 0px !important;
   }
+  .sm-card-5 {
+      padding-left: 0px !important;
+      padding-right: 0px !important;
+  }
+  .sm-card-title-5 {
+      font-size: 11px !important;
+      margin-left: 0px !important;
+      padding-left: 2px !important;
+      padding-right: 0px !important;
+  }
   .components {
       margin-top: 8px !important;
   }
@@ -206,6 +220,14 @@ border-color: #17aee0
       padding-right: .2rem !important;
   }
   .sm-card-title-4 {
+      font-size: .8rem !important;
+      padding-left: .35rem !important;
+  }
+  .sm-card-5 {
+      padding-left: .2rem !important;
+      padding-right: .2rem !important;
+  }
+  .sm-card-title-5 {
       font-size: .8rem !important;
       padding-left: .35rem !important;
   }
@@ -290,6 +312,14 @@ height: 280px !important;
       font-size: .9rem !important;
       padding-left: .5rem !important;
   }
+  .sm-card-5 {
+      padding-left: .3rem !important;
+      padding-right: .3rem !important;
+  }
+  .sm-card-title-5 {
+      font-size: .9rem !important;
+      padding-left: .5rem !important;
+  }
   .fas{
     font-size: 1.4rem;
   }
@@ -298,14 +328,16 @@ height: 280px !important;
 
 @media (min-width: 768px) {
   .container {
-      margin-left: 0px !important;
-      margin-right: 0px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
   }
   .sm-card-1 {
+    width: 95%;
       padding-left: .3rem !important;
       padding-right: .3rem !important;
   }
   .sm-card-2 {
+    width: 95%;
       padding-left: .3rem !important;
       padding-right: .3rem !important;
   }
@@ -314,6 +346,7 @@ height: 280px !important;
       padding-left: .5rem !important;
   }
   .sm-card-3 {
+    width: 95%;
       padding-left: .3rem !important;
       padding-right: .3rem !important;
   }
@@ -322,6 +355,7 @@ height: 280px !important;
       padding-left: .5rem !important;
   }
   .sm-card-4 {
+    width: 95%;
       padding-left: .3rem !important;
       padding-right: .3rem !important;
   }
@@ -373,8 +407,8 @@ height: 280px !important;
 
 @media (min-width: 1024px) {
   .container {
-      margin-left: 0px !important;
-      margin-right: 0px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
   }
   .sm-card-1 {
       padding-left: .3rem !important;
@@ -448,48 +482,86 @@ height: 280px !important;
     min-width: 1050px !important;
   }
     .thunder-col-1 {
-      padding-left: .5rem !important;
-      padding-right: .2rem !important;
+      padding-left: 0rem !important;
+      padding-right: 0rem !important;
       margin-bottom: 0px !important;
   }
   .thunder-col-2 {
-      padding-left: .7rem !important;
-      padding-right: .2rem !important;
+      margin-left: -2.4rem !important;
+      margin-right: 0rem !important;
+      padding-left: 0rem !important;
+      padding-right: 0rem !important;
       margin-bottom: 0px !important;
   }
   .thunder-col-3 {
+      margin-left: 0rem !important;
+      margin-right: 0rem !important;
+      padding-left: 0rem !important;
+      padding-right: 0rem !important;
       margin-bottom: 0px !important;
   }
   .thunder-col-4 {
+      margin-left: -2.6rem !important;
+      margin-right: 0rem !important;
+      padding-left: 0rem !important;
+      padding-right: 0rem !important;
+      margin-bottom: 0px !important;
+  }
+  .thunder-col-5 {
+      margin-left: 3.3rem !important;
+      margin-right: 0rem !important;
+      padding-left: 0rem !important;
+      padding-right: 0rem !important;
       margin-bottom: 0px !important;
   }
   .sm-card-1 {
+      width: 80%;
+      margin-left: .5rem !important;
+      margin-right: 0rem !important;
       padding-left: .1rem !important;
-      padding-right: .1rem !important;
+      padding-right: 0rem !important;
   }
   .sm-card-2 {
+      // margin-left: -7.7rem !important;
+      // margin-right: 0rem !important;
       padding-left: .1rem !important;
       padding-right: .1rem !important;
   }
   .sm-card-title-2 {
-      font-size: .9rem !important;
+      font-size: .8rem !important;
       padding-left: 0rem !important;
   }
   .sm-card-3 {
-      padding-left: .2rem !important;
-      padding-right: .2rem !important;
+      width: 80%;
+      // margin-left: -7.7rem !important;
+      // margin-right: 0rem !important;
+      padding-left: .1rem !important;
+      padding-right: 0rem !important;
   }
   .sm-card-title-3 {
-      font-size: .9rem !important;
-      padding-left: .4rem !important;
+      font-size: .8rem !important;
+      padding-left: 0rem !important;
   }
   .sm-card-4 {
-      padding-left: .3rem !important;
-      padding-right: .3rem !important;
+      // margin-left: -11.8rem !important;
+      // margin-right: 0rem !important;
+      width: 125%;
+      padding-left: .1rem !important;
+      padding-right: 0rem !important;
   }
   .sm-card-title-4 {
-      font-size: .9rem !important;
-      padding-left: .5rem !important;
+      font-size: .8rem !important;
+      padding-left: 0rem !important;
+  }
+  .sm-card-5 {
+      // margin-left: -7rem !important;
+      // margin-right: 0rem !important;
+      padding-left: .1rem !important;
+      padding-right: .1rem !important;
+  }
+  .sm-card-title-5 {
+      font-size: .8rem !important;
+      padding-left: 0rem !important;
   }
   .fas{
     font-size: 1.4rem;

@@ -67,9 +67,9 @@ export class LeftPanelCentralComponent implements OnInit {
         url: '/centralmanagement/approve',
       },
       {
-        name: 'Select the Area',
+        name: 'Select Regions',
         icon: 'fas fa-map-pin',
-        url: '/centralmanagement/selectarea'
+        url: '/centralmanagement/selectregions'
       },
       {
         name: 'Approve Users',
@@ -82,9 +82,9 @@ export class LeftPanelCentralComponent implements OnInit {
         url: '/centralmanagement/managers',
         subMenu: [
           {
-            name: 'Area Managers',
+            name: 'Regional Managers',
             icon: 'fas fa-credit-card',
-            url: '/centralmanagement/managers/areamanagers',
+            url: '/centralmanagement/managers/regionmanagers',
           },
           {
             name: 'Town Managers',

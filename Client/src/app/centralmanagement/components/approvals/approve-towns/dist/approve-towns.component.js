@@ -113,13 +113,13 @@ var ApproveTownsComponent = /** @class */ (function () {
                 });
             }
         });
-        // console.log(itemsApproved)
+        console.log(itemsApproved);
         if (itemsApproved.length > 0) {
             this.others.approveTowns(itemsApproved).subscribe(function (res) {
                 // if (res) {
-                setTimeout(function () {
-                    _this.refresh();
-                }, 3000);
+                // setTimeout(() => {
+                //   this.refresh();
+                // }, 3000);
                 // }
             }, function (err) { return console.log(err); });
         }

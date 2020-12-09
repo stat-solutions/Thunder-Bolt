@@ -23,6 +23,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AsyncPipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,6 +34,7 @@ import { AsyncPipe } from '@angular/common';
     AdminModule,
     AuthModule,
     HttpClientModule,
+    NgbModule,
     DatepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
     TownmanagementModule,

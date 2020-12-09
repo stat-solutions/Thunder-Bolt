@@ -289,6 +289,9 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.getCustomers = function () {
         return this.http.get(this.API_URL + "/api/customer/getAllCustomersOnly");
     };
+    OthersService.prototype.getOneCustomer = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getOneCustomer/?customerId=" + id);
+    };
     OthersService.prototype.getCustomersByArea = function (id) {
         return this.http.get(this.API_URL + "/api/customer/getAreaCustomers/?theAreaLocationId=" + id);
     };
@@ -300,6 +303,9 @@ var OthersService = /** @class */ (function () {
     };
     OthersService.prototype.getBodaCustomers = function () {
         return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithBodabodaLoanProduct");
+    };
+    OthersService.prototype.getBodaCustomer = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getOneCustomerWithBodabodaLoanProduct/?customerId=" + id);
     };
     OthersService.prototype.getBodaCustomersByArea = function (id) {
         return this.http.get(this.API_URL + "/api/customer/getAreaCustomersWithBodabodaLoanProduct/?theAreaLocationId=" + id);
@@ -313,6 +319,9 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.getTaxiCustomers = function () {
         return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithTaxiLoanProduct");
     };
+    OthersService.prototype.getTaxiCustomer = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getOneCustomerWithTaxiLoanProduct/?customerId=" + id);
+    };
     OthersService.prototype.getTaxiCustomersByArea = function (id) {
         return this.http.get(this.API_URL + "/api/customer/getAreaCustomersWithTaxiLoanProduct/?theAreaLocationId=" + id);
     };
@@ -325,6 +334,9 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.getMicroCustomers = function () {
         return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithMicroLoanProduct");
     };
+    OthersService.prototype.getMicroCustomer = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getOneCustomerWithMicroLoanProduct/?customerId=" + id);
+    };
     OthersService.prototype.getMicroCustomersByArea = function (id) {
         return this.http.get(this.API_URL + "/api/customer/getAreaCustomersWithMicroLoanProduct/?theAreaLocationId=" + id);
     };
@@ -336,6 +348,9 @@ var OthersService = /** @class */ (function () {
     };
     OthersService.prototype.getSavingsCustomers = function () {
         return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithSavingsProduct");
+    };
+    OthersService.prototype.getSavingsCustomer = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getOneCustomerWithSavingsProduct/?customerId=" + id);
     };
     OthersService.prototype.getSavingsCustomersByArea = function (id) {
         return this.http.get(this.API_URL + "/api/customer/getAreaCustomersWithSavingsProduct/?theAreaLocationId=" + id);

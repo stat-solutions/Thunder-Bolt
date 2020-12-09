@@ -32,6 +32,7 @@ var messaging_1 = require("@angular/fire/messaging");
 var database_1 = require("@angular/fire/database");
 var auth_1 = require("@angular/fire/auth");
 var common_1 = require("@angular/common");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -45,6 +46,7 @@ var AppModule = /** @class */ (function () {
                 admin_module_1.AdminModule,
                 auth_module_1.AuthModule,
                 http_1.HttpClientModule,
+                ng_bootstrap_1.NgbModule,
                 datepicker_1.DatepickerModule.forRoot(),
                 datepicker_1.BsDatepickerModule.forRoot(),
                 townmanagement_module_1.TownmanagementModule,
