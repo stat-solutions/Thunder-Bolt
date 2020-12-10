@@ -26,6 +26,7 @@ export class EditPersonalInfoComponent implements OnInit {
   savingsClientForm: FormGroup;
   searchForm: FormGroup;
   addProduct = false;
+  showAddPdtBtn: boolean;
   showPersonalForm = true;
   showBodaForm = false;
   showTaxiForm = false;
@@ -54,6 +55,8 @@ export class EditPersonalInfoComponent implements OnInit {
   bodaCustomerId: number;
   microCustomerId: number;
   savingsCustomerId: number;
+  bodabodaCustomerId: number;
+  microloanCustomerId: number;
   thereCustomers = false;
   noCustomers = true;
   constructor(
@@ -398,12 +401,11 @@ export class EditPersonalInfoComponent implements OnInit {
         this.others.getCustomersByStation(theStationLocationId).subscribe(
           res => {
             this.customers = res;
-            // console.log(res);
-            // console.log(this.customers);
+            this.revert();
+            this.currentCustomerId = null;
             if (this.customers.length > 0) {
               this.thereCustomers = true;
               this.noCustomers = true;
-              console.log(this.thereCustomers);
             } else {
               this.noCustomers = false;
               this.thereCustomers = false;
@@ -551,18 +553,40 @@ export class EditPersonalInfoComponent implements OnInit {
         ]);
         break;
       case 'ONLOAN':
-          console.log(selectedChange);
           this.bodaFval.ownersName.setValidators([Validators.required]);
-          this.bodaFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.bodaFval.ownersPhoneNumber.setValidators([
+            Validators.required,
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+          ]);
           this.taxiFval.ownersName.setValidators([Validators.required]);
-          this.taxiFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.taxiFval.ownersPhoneNumber.setValidators([
+            Validators.required,
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+          ]);
           break;
       case 'HIREDOUT':
-          console.log(selectedChange);
           this.bodaFval.ownersName.setValidators([Validators.required]);
-          this.bodaFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.bodaFval.ownersPhoneNumber.setValidators([
+            Validators.required,
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+           ]);
           this.taxiFval.ownersName.setValidators([Validators.required]);
-          this.taxiFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.taxiFval.ownersPhoneNumber.setValidators([
+            Validators.required,
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+           ]);
           break;
       case 'BODABODA LOAN PRODUCT':
           this.bodaForm();
@@ -583,19 +607,25 @@ export class EditPersonalInfoComponent implements OnInit {
     if (this.currentCustomer.productCodes.includes(200)){
       this.others.getBodaCustomer(this.currentCustomerId).subscribe(
         res => {
-          const bodaCustomer = res[0];
-          this.bodaFval.bodabodaCustomerNumberPlate.setValue();
-          this.bodaFval.bodaMakeorType.setValue();
-          this.bodaFval.bodaInsuarance.setValue();
-          this.bodaFval.dateOfJoiningStage.setValue();
-          this.bodaFval.ownershipStatus.setValue();
-          this.bodaFval.ownersName.setValue();
-          this.bodaFval.ownersPhoneNumber.setValue();
-          this.bodaFrontUrl = '';
-          this.bodaSideUrl = '';
-          this.bodaRearUrl = '';
+          const customer = res[0];
+          this.bodabodaCustomerId = customer.bodabodaCustomerId;
+          this.bodaFval.bodabodaCustomerNumberPlate.setValue(customer.bodabodaCustomerNumberPlate.replace(/\s/g, ''));
+          this.bodaFval.bodabodaCustomerNumberPlate.disable();
+          this.bodaFval.bodaMakeorType.setValue(customer.bodabodaCustomerMakeOrType);
+          this.bodaFval.bodaInsuarance.setValue(customer.bodabodaCustomerInsurance === 1 ?
+                                            'NONE' : customer.bodabodaCustomerInsurance === 2 ?
+                                            'REGULAR' : 'COMPREHENSIVE');
+          this.bodaFval.dateOfJoiningStage.setValue(new Date(customer.bodabodaCustomerDateOfJoinStage));
+          this.bodaFval.ownershipStatus.setValue(customer.bodabodaOwnershipStatus === 1 ?
+                                            'ONLOAN' : customer.bodabodaOwnershipStatus === 2 ?
+                                            'PAIDOUT' : 'HIREDOUT');
+          this.bodaFval.ownersName.setValue(customer.bodabodaCustomerOwnersName);
+          this.bodaFval.ownersPhoneNumber.setValue(customer.bodabodaCustomerOwnersPhone);
+          this.bodaFrontUrl = customer.bodabodaCustomerFrontPhotoUrl;
+          this.bodaSideUrl = customer.bodabodaCustomerSidePhotoUrl;
+          this.bodaRearUrl = customer.bodabodaCustomerRearPhotoUrl;
           this.bodaStages.forEach(bodaStage => {
-            if (bodaStage.bodabodaStageId === 99){
+            if (bodaStage.bodabodaStageId === customer.fkBodabodaStageIdBodabodaCustomer){
               this.bodaFval.bodaStage.setValue(bodaStage.bodabodaStageName.toUpperCase());
             }
           });
@@ -621,14 +651,15 @@ export class EditPersonalInfoComponent implements OnInit {
           const customer = res[0];
           this.taxiCustomerId = 353;
           this.taxiFval.taxiCustomerNumberPlate.setValue(customer.taxiCustomerNumberPlate.replace(/\s/g, ''));
+          this.taxiFval.taxiCustomerNumberPlate.disable();
           this.taxiFval.drivingPermit.setValue(customer.taxiCustomerDrivingPermitNumber);
           this.taxiFval.taxiMakeorType.setValue(customer.taxiCustomerMakeOrType);
           this.taxiFval.taxiInsuarance.setValue(customer.taxiCustomerInsurance === 1 ?
                                           'NONE' : customer.taxiCustomerInsurance === 2 ?
                                           'REGULAR' : 'COMPREHENSIVE');
           this.taxiFval.dateOfJoiningStage.setValue(new Date(customer.taxiCustomerDateOfJoinStage));
-          this.taxiFval.ownershipStatus.setValue( customer.taxiCustomerInsurance === 1 ?
-                                          'ONLOAN' : customer.taxiCustomerInsurance === 2 ?
+          this.taxiFval.ownershipStatus.setValue(customer.taxiOwnershipStatus === 1 ?
+                                          'ONLOAN' : customer.taxiOwnershipStatus === 2 ?
                                           'PAIDOUT' : 'HIREDOUT');
           this.taxiFval.ownersName.setValue(customer.taxiCustomerOwnersName);
           this.taxiFval.ownersPhoneNumber.setValue(customer.taxiCustomerOwnersPhone);
@@ -660,14 +691,15 @@ export class EditPersonalInfoComponent implements OnInit {
       this.others.getMicroCustomer(this.currentCustomerId).subscribe(
         res => {
           const customer = res[0];
-          this.microFval.loanpurpose.setValue();
-          this.microFval.currentBusinesstype.setValue();
-          this.microFval.businessLocation.setValue();
-          this.microFval.averageDailyExpenses.setValue();
-          this.microFval.averageDailyIncome.setValue();
-          this.microFval.currentResidence.setValue();
-          this.microFval.residenceStatus.setValue();
-          this.microFval.numberOfDependants.setValue();
+          this.microloanCustomerId = customer.microloanCustomerId;
+          this.microFval.loanpurpose.setValue(customer.microloanCustomerLoanPurpose);
+          this.microFval.currentBusinesstype.setValue(customer.microloanCustomerCurrentBusinessType);
+          this.microFval.businessLocation.setValue(customer.microloanCustomerCurrentBusinessLocation);
+          this.microFval.averageDailyExpenses.setValue(customer.microloanCustomerAverageDailyExpenses);
+          this.microFval.averageDailyIncome.setValue(customer.microloanCustomerAverageDailyIncome);
+          this.microFval.currentResidence.setValue(customer.microloanCustomerCurrentResidence);
+          this.microFval.residenceStatus.setValue(customer.microloanCustomerResidenceStatus);
+          this.microFval.numberOfDependants.setValue(customer.microloanCustomerNumberOfDependants);
         },
         err => {
           this.errored = true;
@@ -715,14 +747,13 @@ export class EditPersonalInfoComponent implements OnInit {
     this.customers.forEach(customer => {
       if (customer.customerName.toUpperCase() === val.toUpperCase()) {
           this.currentCustomer = customer;
-          // console.log(this.currentCustomer.productCodes);
+          this.showAddPdtBtn = this.currentCustomer.productCodes.length >= 20 ? false : true;
           this.currentCustomerId = customer.customerId;
           this.fval.main_contact_number1.setValue(customer.customerPhone1);
           this.fval.main_contact_number2.setValue(customer.customerPhone2);
           this.fval.id_type.setValue(customer.customerIdType);
           this.fval.id_number.setValue(customer.customerIdNumber);
-          const date = new Date(customer.customerDateOfBirth);
-          this.fval.dateOfBirth.setValue(date);
+          this.fval.dateOfBirth.setValue(new Date(customer.customerDateOfBirth));
           this.fval.homeDetails.setValue(customer.customerHomeAreaDetails);
           this.fval.clientComment.setValue(customer.customerComment);
           for (const station of this.stations){
@@ -742,10 +773,7 @@ export class EditPersonalInfoComponent implements OnInit {
     this.showTaxiForm = false;
     this.showMicroForm = false;
     this.showSaveForm = false;
-    this.showFinalBtn = false;
-    this.showcompleteBtn = true;
     this.errored = false;
-    this.data = [];
   }
   // toggle visibility of password field
   toggleFieldType(): any {
@@ -754,6 +782,9 @@ export class EditPersonalInfoComponent implements OnInit {
 
   revert(): any {
     this.userForm.reset();
+  }
+  refresh(): any {
+    location.reload();
   }
 
   get fval(): any {
@@ -878,8 +909,9 @@ export class EditPersonalInfoComponent implements OnInit {
                                       1 : this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                                       2 : 3,
           bodabodaCustomerOwnersName: this.bodaFval.ownersName.value.toUpperCase(),
-          bodabodaCustomerOwnersPhone1: this.bodaFval.ownersPhoneNumber.value,
-          bodabodaCustomerFrontPhotoUrl: this.bodaFrontUrl,
+          bodabodaCustomerOwnersPhone1: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                                        this.bodaFval.ownersPhoneNumber.value,
+          bodabodaCustomerFrontPhotoUrl: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' : this.bodaFrontUrl,
           bodabodaCustomerSidePhotoUrl: this.bodaSideUrl,
           bodabodaCustomerRearPhotoUrl: this.bodaRearUrl,
           customerId: this.currentCustomerId,
@@ -900,7 +932,7 @@ export class EditPersonalInfoComponent implements OnInit {
           return;
       } else {
         if (this.currentCustomer.productCodes.includes(200)){
-          // data = Object.assign({savingsCustomerId: this.savingsCustomerId}, data);
+          data = Object.assign({bodabodaCustomerId: this.bodabodaCustomerId}, data);
           this.others.updateBodaCustomer(data).subscribe(
             res => {
               this.posted = true;
@@ -978,8 +1010,10 @@ export class EditPersonalInfoComponent implements OnInit {
           taxiCustomerOwnershipStatus: this.taxiFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
                                       1 : this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                                       2 : 3,
-          taxiCustomerOwnersName: this.taxiFval.ownersName.value.toUpperCase(),
-          taxiCustomerOwnersPhone: this.taxiFval.ownersPhoneNumber.value,
+          taxiCustomerOwnersName: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                                  this.taxiFval.ownersName.value.toUpperCase(),
+          taxiCustomerOwnersPhone: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                                  this.taxiFval.ownersPhoneNumber.value,
           taxiCustomerFrontPhotoUrl: this.taxiFrontUrl,
           taxiCustomerSidePhotoUrl: this.taxiSideUrl,
           taxiCustomerRearPhotoUrl: this.taxiRearUrl,
@@ -1001,7 +1035,7 @@ export class EditPersonalInfoComponent implements OnInit {
             return;
         } else {
           if (this.currentCustomer.productCodes.includes(300)){
-            // data = Object.assign({savingsCustomerId: this.savingsCustomerId}, data);
+            data = Object.assign({taxiCustomerId: this.taxiCustomerId}, data);
             this.others.updateTaxiCustomer(data).subscribe(
               res => {
                 this.posted = true;
@@ -1058,7 +1092,7 @@ export class EditPersonalInfoComponent implements OnInit {
         microloanCustomerCurrentBusinessType: this.microFval.currentBusinesstype.value.toUpperCase(),
         microloanCustomerCurrentBusinessLocation: this.microFval.businessLocation.value.toUpperCase(),
         microloanCustomerAverageDailyExpenses: this.microFval.averageDailyExpenses.value,
-        microloanCustomerAverageDailyIncome: this.microFval.averageDailyIncome.value.toUpperCase(),
+        microloanCustomerAverageDailyIncome: this.microFval.averageDailyIncome.value,
         microloanCustomerCurrentResidence: this.microFval.currentResidence.value.toUpperCase(),
         microloanCustomerResidenceStatus: this.microFval.residenceStatus.value.toUpperCase(),
         microloanCustomerNumberOfDependants: this.microFval.numberOfDependants.value,
@@ -1067,7 +1101,7 @@ export class EditPersonalInfoComponent implements OnInit {
       };
       // console.log(data);
       if (this.currentCustomer.productCodes.includes(400)){
-        // data = Object.assign({savingsCustomerId: this.savingsCustomerId}, data);
+        data = Object.assign({microloanCustomerId: this.microloanCustomerId}, data);
         this.others.updateMicroloanCustomer(data).subscribe(
           res => {
             this.posted = true;

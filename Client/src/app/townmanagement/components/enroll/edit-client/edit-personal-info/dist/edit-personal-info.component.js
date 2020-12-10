@@ -180,12 +180,11 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         else {
             this.others.getCustomersByStation(theStationLocationId).subscribe(function (res) {
                 _this.customers = res;
-                // console.log(res);
-                // console.log(this.customers);
+                _this.revert();
+                _this.currentCustomerId = null;
                 if (_this.customers.length > 0) {
                     _this.thereCustomers = true;
                     _this.noCustomers = true;
-                    console.log(_this.thereCustomers);
                 }
                 else {
                     _this.noCustomers = false;
@@ -322,18 +321,28 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 ]);
                 break;
             case 'ONLOAN':
-                console.log(selectedChange);
                 this.bodaFval.ownersName.setValidators([forms_1.Validators.required]);
-                this.bodaFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.bodaFval.ownersPhoneNumber.setValidators([
+                    forms_1.Validators.required,
+                    custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                ]);
                 this.taxiFval.ownersName.setValidators([forms_1.Validators.required]);
-                this.taxiFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersPhoneNumber.setValidators([
+                    forms_1.Validators.required,
+                    custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                ]);
                 break;
             case 'HIREDOUT':
-                console.log(selectedChange);
                 this.bodaFval.ownersName.setValidators([forms_1.Validators.required]);
-                this.bodaFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.bodaFval.ownersPhoneNumber.setValidators([
+                    forms_1.Validators.required,
+                    custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                ]);
                 this.taxiFval.ownersName.setValidators([forms_1.Validators.required]);
-                this.taxiFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersPhoneNumber.setValidators([
+                    forms_1.Validators.required,
+                    custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                ]);
                 break;
             case 'BODABODA LOAN PRODUCT':
                 this.bodaForm();
@@ -353,19 +362,25 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         var _this = this;
         if (this.currentCustomer.productCodes.includes(200)) {
             this.others.getBodaCustomer(this.currentCustomerId).subscribe(function (res) {
-                var bodaCustomer = res[0];
-                _this.bodaFval.bodabodaCustomerNumberPlate.setValue();
-                _this.bodaFval.bodaMakeorType.setValue();
-                _this.bodaFval.bodaInsuarance.setValue();
-                _this.bodaFval.dateOfJoiningStage.setValue();
-                _this.bodaFval.ownershipStatus.setValue();
-                _this.bodaFval.ownersName.setValue();
-                _this.bodaFval.ownersPhoneNumber.setValue();
-                _this.bodaFrontUrl = '';
-                _this.bodaSideUrl = '';
-                _this.bodaRearUrl = '';
+                var customer = res[0];
+                _this.bodabodaCustomerId = customer.bodabodaCustomerId;
+                _this.bodaFval.bodabodaCustomerNumberPlate.setValue(customer.bodabodaCustomerNumberPlate.replace(/\s/g, ''));
+                _this.bodaFval.bodabodaCustomerNumberPlate.disable();
+                _this.bodaFval.bodaMakeorType.setValue(customer.bodabodaCustomerMakeOrType);
+                _this.bodaFval.bodaInsuarance.setValue(customer.bodabodaCustomerInsurance === 1 ?
+                    'NONE' : customer.bodabodaCustomerInsurance === 2 ?
+                    'REGULAR' : 'COMPREHENSIVE');
+                _this.bodaFval.dateOfJoiningStage.setValue(new Date(customer.bodabodaCustomerDateOfJoinStage));
+                _this.bodaFval.ownershipStatus.setValue(customer.bodabodaOwnershipStatus === 1 ?
+                    'ONLOAN' : customer.bodabodaOwnershipStatus === 2 ?
+                    'PAIDOUT' : 'HIREDOUT');
+                _this.bodaFval.ownersName.setValue(customer.bodabodaCustomerOwnersName);
+                _this.bodaFval.ownersPhoneNumber.setValue(customer.bodabodaCustomerOwnersPhone);
+                _this.bodaFrontUrl = customer.bodabodaCustomerFrontPhotoUrl;
+                _this.bodaSideUrl = customer.bodabodaCustomerSidePhotoUrl;
+                _this.bodaRearUrl = customer.bodabodaCustomerRearPhotoUrl;
                 _this.bodaStages.forEach(function (bodaStage) {
-                    if (bodaStage.bodabodaStageId === 99) {
+                    if (bodaStage.bodabodaStageId === customer.fkBodabodaStageIdBodabodaCustomer) {
                         _this.bodaFval.bodaStage.setValue(bodaStage.bodabodaStageName.toUpperCase());
                     }
                 });
@@ -389,14 +404,15 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 var customer = res[0];
                 _this.taxiCustomerId = 353;
                 _this.taxiFval.taxiCustomerNumberPlate.setValue(customer.taxiCustomerNumberPlate.replace(/\s/g, ''));
+                _this.taxiFval.taxiCustomerNumberPlate.disable();
                 _this.taxiFval.drivingPermit.setValue(customer.taxiCustomerDrivingPermitNumber);
                 _this.taxiFval.taxiMakeorType.setValue(customer.taxiCustomerMakeOrType);
                 _this.taxiFval.taxiInsuarance.setValue(customer.taxiCustomerInsurance === 1 ?
                     'NONE' : customer.taxiCustomerInsurance === 2 ?
                     'REGULAR' : 'COMPREHENSIVE');
                 _this.taxiFval.dateOfJoiningStage.setValue(new Date(customer.taxiCustomerDateOfJoinStage));
-                _this.taxiFval.ownershipStatus.setValue(customer.taxiCustomerInsurance === 1 ?
-                    'ONLOAN' : customer.taxiCustomerInsurance === 2 ?
+                _this.taxiFval.ownershipStatus.setValue(customer.taxiOwnershipStatus === 1 ?
+                    'ONLOAN' : customer.taxiOwnershipStatus === 2 ?
                     'PAIDOUT' : 'HIREDOUT');
                 _this.taxiFval.ownersName.setValue(customer.taxiCustomerOwnersName);
                 _this.taxiFval.ownersPhoneNumber.setValue(customer.taxiCustomerOwnersPhone);
@@ -427,14 +443,15 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         if (this.currentCustomer.productCodes.includes(400)) {
             this.others.getMicroCustomer(this.currentCustomerId).subscribe(function (res) {
                 var customer = res[0];
-                _this.microFval.loanpurpose.setValue();
-                _this.microFval.currentBusinesstype.setValue();
-                _this.microFval.businessLocation.setValue();
-                _this.microFval.averageDailyExpenses.setValue();
-                _this.microFval.averageDailyIncome.setValue();
-                _this.microFval.currentResidence.setValue();
-                _this.microFval.residenceStatus.setValue();
-                _this.microFval.numberOfDependants.setValue();
+                _this.microloanCustomerId = customer.microloanCustomerId;
+                _this.microFval.loanpurpose.setValue(customer.microloanCustomerLoanPurpose);
+                _this.microFval.currentBusinesstype.setValue(customer.microloanCustomerCurrentBusinessType);
+                _this.microFval.businessLocation.setValue(customer.microloanCustomerCurrentBusinessLocation);
+                _this.microFval.averageDailyExpenses.setValue(customer.microloanCustomerAverageDailyExpenses);
+                _this.microFval.averageDailyIncome.setValue(customer.microloanCustomerAverageDailyIncome);
+                _this.microFval.currentResidence.setValue(customer.microloanCustomerCurrentResidence);
+                _this.microFval.residenceStatus.setValue(customer.microloanCustomerResidenceStatus);
+                _this.microFval.numberOfDependants.setValue(customer.microloanCustomerNumberOfDependants);
             }, function (err) {
                 _this.errored = true;
                 console.log(err.statusText);
@@ -478,14 +495,13 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         this.customers.forEach(function (customer) {
             if (customer.customerName.toUpperCase() === val.toUpperCase()) {
                 _this.currentCustomer = customer;
-                // console.log(this.currentCustomer.productCodes);
+                _this.showAddPdtBtn = _this.currentCustomer.productCodes.length >= 20 ? false : true;
                 _this.currentCustomerId = customer.customerId;
                 _this.fval.main_contact_number1.setValue(customer.customerPhone1);
                 _this.fval.main_contact_number2.setValue(customer.customerPhone2);
                 _this.fval.id_type.setValue(customer.customerIdType);
                 _this.fval.id_number.setValue(customer.customerIdNumber);
-                var date = new Date(customer.customerDateOfBirth);
-                _this.fval.dateOfBirth.setValue(date);
+                _this.fval.dateOfBirth.setValue(new Date(customer.customerDateOfBirth));
                 _this.fval.homeDetails.setValue(customer.customerHomeAreaDetails);
                 _this.fval.clientComment.setValue(customer.customerComment);
                 for (var _i = 0, _a = _this.stations; _i < _a.length; _i++) {
@@ -505,10 +521,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         this.showTaxiForm = false;
         this.showMicroForm = false;
         this.showSaveForm = false;
-        this.showFinalBtn = false;
-        this.showcompleteBtn = true;
         this.errored = false;
-        this.data = [];
     };
     // toggle visibility of password field
     EditPersonalInfoComponent.prototype.toggleFieldType = function () {
@@ -516,6 +529,9 @@ var EditPersonalInfoComponent = /** @class */ (function () {
     };
     EditPersonalInfoComponent.prototype.revert = function () {
         this.userForm.reset();
+    };
+    EditPersonalInfoComponent.prototype.refresh = function () {
+        location.reload();
     };
     Object.defineProperty(EditPersonalInfoComponent.prototype, "fval", {
         get: function () {
@@ -660,8 +676,9 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                         1 : this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                         2 : 3,
                     bodabodaCustomerOwnersName: this.bodaFval.ownersName.value.toUpperCase(),
-                    bodabodaCustomerOwnersPhone1: this.bodaFval.ownersPhoneNumber.value,
-                    bodabodaCustomerFrontPhotoUrl: this.bodaFrontUrl,
+                    bodabodaCustomerOwnersPhone1: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                        this.bodaFval.ownersPhoneNumber.value,
+                    bodabodaCustomerFrontPhotoUrl: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' : this.bodaFrontUrl,
                     bodabodaCustomerSidePhotoUrl: this.bodaSideUrl,
                     bodabodaCustomerRearPhotoUrl: this.bodaRearUrl,
                     customerId: this.currentCustomerId,
@@ -683,7 +700,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 }
                 else {
                     if (this.currentCustomer.productCodes.includes(200)) {
-                        // data = Object.assign({savingsCustomerId: this.savingsCustomerId}, data);
+                        data_1 = Object.assign({ bodabodaCustomerId: this.bodabodaCustomerId }, data_1);
                         this.others.updateBodaCustomer(data_1).subscribe(function (res) {
                             _this.posted = true;
                             _this.alertService.success({
@@ -755,8 +772,10 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                     taxiCustomerOwnershipStatus: this.taxiFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
                         1 : this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                         2 : 3,
-                    taxiCustomerOwnersName: this.taxiFval.ownersName.value.toUpperCase(),
-                    taxiCustomerOwnersPhone: this.taxiFval.ownersPhoneNumber.value,
+                    taxiCustomerOwnersName: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                        this.taxiFval.ownersName.value.toUpperCase(),
+                    taxiCustomerOwnersPhone: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                        this.taxiFval.ownersPhoneNumber.value,
                     taxiCustomerFrontPhotoUrl: this.taxiFrontUrl,
                     taxiCustomerSidePhotoUrl: this.taxiSideUrl,
                     taxiCustomerRearPhotoUrl: this.taxiRearUrl,
@@ -779,7 +798,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 }
                 else {
                     if (this.currentCustomer.productCodes.includes(300)) {
-                        // data = Object.assign({savingsCustomerId: this.savingsCustomerId}, data);
+                        data_2 = Object.assign({ taxiCustomerId: this.taxiCustomerId }, data_2);
                         this.others.updateTaxiCustomer(data_2).subscribe(function (res) {
                             _this.posted = true;
                             _this.alertService.success({
@@ -833,7 +852,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 microloanCustomerCurrentBusinessType: this.microFval.currentBusinesstype.value.toUpperCase(),
                 microloanCustomerCurrentBusinessLocation: this.microFval.businessLocation.value.toUpperCase(),
                 microloanCustomerAverageDailyExpenses: this.microFval.averageDailyExpenses.value,
-                microloanCustomerAverageDailyIncome: this.microFval.averageDailyIncome.value.toUpperCase(),
+                microloanCustomerAverageDailyIncome: this.microFval.averageDailyIncome.value,
                 microloanCustomerCurrentResidence: this.microFval.currentResidence.value.toUpperCase(),
                 microloanCustomerResidenceStatus: this.microFval.residenceStatus.value.toUpperCase(),
                 microloanCustomerNumberOfDependants: this.microFval.numberOfDependants.value,
@@ -842,7 +861,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
             };
             // console.log(data);
             if (this.currentCustomer.productCodes.includes(400)) {
-                // data = Object.assign({savingsCustomerId: this.savingsCustomerId}, data);
+                data = Object.assign({ microloanCustomerId: this.microloanCustomerId }, data);
                 this.others.updateMicroloanCustomer(data).subscribe(function (res) {
                     _this.posted = true;
                     _this.alertService.success({

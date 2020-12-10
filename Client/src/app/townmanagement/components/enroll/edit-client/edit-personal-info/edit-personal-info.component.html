@@ -621,8 +621,7 @@
           <div class="form-group text-primary">
             <label
             *ngIf="addProduct"
-              for="productCode"
-              
+              for="productCode"    
               >Product
               <!-- [ngClass]="fval.productCode.valid" -->
               <!-- <i
@@ -632,11 +631,12 @@
               > -->
               </label
             >
-            <div class="input-group mb-0">
+            <div class="input-group mb-0" >
+              <div [hidden]="!showAddPdtBtn"  class="col-12 col-md-12">
                 <button
                 type="button"
                 class="btn btn-info col-12 col-md-6 mt-3 mx-auto ml-3"
-                *ngIf="(this.currentCustomer.productCodes.length !== 4 && addProduct === false)"
+                *ngIf="!addProduct"
                 (click)="addProduct = true"
                 >
                 Add Product
@@ -654,13 +654,14 @@
                 placeholder="Select  a product"
                 (change)="setSelectedChanges(fval.productCode.value)"
               >
-                <!-- <option selected>Initial Product </option> -->
+                <option selected>Initial Product </option>
                 <option *ngIf="(!this.currentCustomer.productCodes.includes(200))">BODABODA LOAN PRODUCT</option>
                 <option *ngIf="(!this.currentCustomer.productCodes.includes(300))">TAXI LOAN PRODUCT</option>
                 <option *ngIf="(!this.currentCustomer.productCodes.includes(400))">MICROLOAN PRODUCT</option>
                 <option *ngIf="(!this.currentCustomer.productCodes.includes(100))">SAVINGS PRODUCT</option>
               </select>
             </div>
+          </div>
             <div
             class="text-danger col"
             *ngIf="
@@ -2582,7 +2583,7 @@
     <button
     type="button"
     class="btn btn-info col-5 col-md-3 mx-auto"
-    routerLink = '/townmanagement'
+    (click)="refresh()"
     >
     Cancel
     </button>
