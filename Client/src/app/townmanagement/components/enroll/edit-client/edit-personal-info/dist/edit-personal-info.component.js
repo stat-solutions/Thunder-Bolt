@@ -19,22 +19,18 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         this.router = router;
         this.alertService = alertService;
         this.storage = storage;
-        this.registered = false;
-        this.submitted = false;
         this.errored = false;
         this.posted = false;
-        this.showFinalBtn = false;
-        this.showcompleteBtn = true;
         this.addProduct = false;
         this.showPersonalForm = true;
         this.showBodaForm = false;
         this.showTaxiForm = false;
         this.showMicroForm = false;
         this.showSaveForm = false;
-        this.currentForm = [];
         this.serviceErrors = {};
         this.User = this.authService.loggedInUserInfo();
-        this.data = [];
+        this.thereCustomers = false;
+        this.noCustomers = true;
     }
     EditPersonalInfoComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -184,6 +180,16 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         else {
             this.others.getCustomersByStation(theStationLocationId).subscribe(function (res) {
                 _this.customers = res;
+                _this.revert();
+                _this.currentCustomerId = null;
+                if (_this.customers.length > 0) {
+                    _this.thereCustomers = true;
+                    _this.noCustomers = true;
+                }
+                else {
+                    _this.noCustomers = false;
+                    _this.thereCustomers = false;
+                }
             }, function (err) {
                 _this.errored = true;
                 _this.alertService.danger({
@@ -315,18 +321,28 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 ]);
                 break;
             case 'ONLOAN':
-                console.log(selectedChange);
                 this.bodaFval.ownersName.setValidators([forms_1.Validators.required]);
-                this.bodaFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.bodaFval.ownersPhoneNumber.setValidators([
+                    forms_1.Validators.required,
+                    custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                ]);
                 this.taxiFval.ownersName.setValidators([forms_1.Validators.required]);
-                this.taxiFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersPhoneNumber.setValidators([
+                    forms_1.Validators.required,
+                    custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                ]);
                 break;
             case 'HIREDOUT':
-                console.log(selectedChange);
                 this.bodaFval.ownersName.setValidators([forms_1.Validators.required]);
-                this.bodaFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.bodaFval.ownersPhoneNumber.setValidators([
+                    forms_1.Validators.required,
+                    custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                ]);
                 this.taxiFval.ownersName.setValidators([forms_1.Validators.required]);
-                this.taxiFval.ownersPhoneNumber.setValidators([forms_1.Validators.required]);
+                this.taxiFval.ownersPhoneNumber.setValidators([
+                    forms_1.Validators.required,
+                    custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                ]);
                 break;
             case 'BODABODA LOAN PRODUCT':
                 this.bodaForm();
@@ -343,36 +359,134 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         }
     };
     EditPersonalInfoComponent.prototype.bodaForm = function () {
+        var _this = this;
+        if (this.currentCustomer.productCodes.includes(200)) {
+            this.others.getBodaCustomer(this.currentCustomerId).subscribe(function (res) {
+                var customer = res[0];
+                _this.bodabodaCustomerId = customer.bodabodaCustomerId;
+                _this.bodaFval.bodabodaCustomerNumberPlate.setValue(customer.bodabodaCustomerNumberPlate.replace(/\s/g, ''));
+                _this.bodaFval.bodabodaCustomerNumberPlate.disable();
+                _this.bodaFval.bodaMakeorType.setValue(customer.bodabodaCustomerMakeOrType);
+                _this.bodaFval.bodaInsuarance.setValue(customer.bodabodaCustomerInsurance === 1 ?
+                    'NONE' : customer.bodabodaCustomerInsurance === 2 ?
+                    'REGULAR' : 'COMPREHENSIVE');
+                _this.bodaFval.dateOfJoiningStage.setValue(new Date(customer.bodabodaCustomerDateOfJoinStage));
+                _this.bodaFval.ownershipStatus.setValue(customer.bodabodaOwnershipStatus === 1 ?
+                    'ONLOAN' : customer.bodabodaOwnershipStatus === 2 ?
+                    'PAIDOUT' : 'HIREDOUT');
+                _this.bodaFval.ownersName.setValue(customer.bodabodaCustomerOwnersName);
+                _this.bodaFval.ownersPhoneNumber.setValue(customer.bodabodaCustomerOwnersPhone);
+                _this.bodaFrontUrl = customer.bodabodaCustomerFrontPhotoUrl;
+                _this.bodaSideUrl = customer.bodabodaCustomerSidePhotoUrl;
+                _this.bodaRearUrl = customer.bodabodaCustomerRearPhotoUrl;
+                _this.bodaStages.forEach(function (bodaStage) {
+                    if (bodaStage.bodabodaStageId === customer.fkBodabodaStageIdBodabodaCustomer) {
+                        _this.bodaFval.bodaStage.setValue(bodaStage.bodabodaStageName.toUpperCase());
+                    }
+                });
+            }, function (err) {
+                _this.errored = true;
+                console.log(err.statusText);
+                _this.alertService.danger({
+                    html: '<b>' + err.statusText + '</b>'
+                });
+            });
+        }
         this.showPersonalForm = false;
         this.showBodaForm = true;
-        this.showFinalBtn = true;
-        this.showcompleteBtn = false;
         this.bodaFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
         this.bodaFval.clientName.disable();
     };
     EditPersonalInfoComponent.prototype.taxiForm = function () {
+        var _this = this;
+        if (this.currentCustomer.productCodes.includes(300)) {
+            this.others.getTaxiCustomer(this.currentCustomerId).subscribe(function (res) {
+                var customer = res[0];
+                _this.taxiCustomerId = 353;
+                _this.taxiFval.taxiCustomerNumberPlate.setValue(customer.taxiCustomerNumberPlate.replace(/\s/g, ''));
+                _this.taxiFval.taxiCustomerNumberPlate.disable();
+                _this.taxiFval.drivingPermit.setValue(customer.taxiCustomerDrivingPermitNumber);
+                _this.taxiFval.taxiMakeorType.setValue(customer.taxiCustomerMakeOrType);
+                _this.taxiFval.taxiInsuarance.setValue(customer.taxiCustomerInsurance === 1 ?
+                    'NONE' : customer.taxiCustomerInsurance === 2 ?
+                    'REGULAR' : 'COMPREHENSIVE');
+                _this.taxiFval.dateOfJoiningStage.setValue(new Date(customer.taxiCustomerDateOfJoinStage));
+                _this.taxiFval.ownershipStatus.setValue(customer.taxiOwnershipStatus === 1 ?
+                    'ONLOAN' : customer.taxiOwnershipStatus === 2 ?
+                    'PAIDOUT' : 'HIREDOUT');
+                _this.taxiFval.ownersName.setValue(customer.taxiCustomerOwnersName);
+                _this.taxiFval.ownersPhoneNumber.setValue(customer.taxiCustomerOwnersPhone);
+                _this.taxiFrontUrl = customer.taxiCustomerFrontPhotoUrl;
+                _this.taxiSideUrl = customer.taxiCustomerSidePhotoUrl;
+                _this.taxiRearUrl = customer.taxiCustomerRearPhotoUrl;
+                for (var _i = 0, _a = _this.taxiStages; _i < _a.length; _i++) {
+                    var stage = _a[_i];
+                    if (stage.taxiStageId === customer.fkTaxiStageIdTaxiCustomer) {
+                        _this.taxiFval.taxiStage.setValue(stage.taxiStageName.toUpperCase());
+                    }
+                }
+            }, function (err) {
+                _this.errored = true;
+                console.log(err.statusText);
+                _this.alertService.danger({
+                    html: '<b>' + err.statusText + '</b>'
+                });
+            });
+        }
         this.showPersonalForm = false;
-        this.showFinalBtn = true;
         this.showTaxiForm = true;
-        this.showcompleteBtn = false;
         this.taxiFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
         this.taxiFval.clientName.disable();
     };
     EditPersonalInfoComponent.prototype.microForm = function () {
+        var _this = this;
+        if (this.currentCustomer.productCodes.includes(400)) {
+            this.others.getMicroCustomer(this.currentCustomerId).subscribe(function (res) {
+                var customer = res[0];
+                _this.microloanCustomerId = customer.microloanCustomerId;
+                _this.microFval.loanpurpose.setValue(customer.microloanCustomerLoanPurpose);
+                _this.microFval.currentBusinesstype.setValue(customer.microloanCustomerCurrentBusinessType);
+                _this.microFval.businessLocation.setValue(customer.microloanCustomerCurrentBusinessLocation);
+                _this.microFval.averageDailyExpenses.setValue(customer.microloanCustomerAverageDailyExpenses);
+                _this.microFval.averageDailyIncome.setValue(customer.microloanCustomerAverageDailyIncome);
+                _this.microFval.currentResidence.setValue(customer.microloanCustomerCurrentResidence);
+                _this.microFval.residenceStatus.setValue(customer.microloanCustomerResidenceStatus);
+                _this.microFval.numberOfDependants.setValue(customer.microloanCustomerNumberOfDependants);
+            }, function (err) {
+                _this.errored = true;
+                console.log(err.statusText);
+                _this.alertService.danger({
+                    html: '<b>' + err.statusText + '</b>'
+                });
+            });
+        }
         this.showPersonalForm = false;
         this.showMicroForm = true;
-        this.showFinalBtn = true;
-        this.showcompleteBtn = false;
         this.microFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
         this.microFval.clientName.disable();
         this.microFval.currentResidence.setValue(this.fval.homeDetails.value.toUpperCase());
         this.microFval.currentResidence.disable();
     };
     EditPersonalInfoComponent.prototype.savingForm = function () {
+        var _this = this;
+        if (this.currentCustomer.productCodes.includes(100)) {
+            this.others.getSavingsCustomer(this.currentCustomerId).subscribe(function (res) {
+                var customer = res[0];
+                _this.savingsCustomerId = customer.savingsCustomerId;
+                _this.savFval.monthlyIncome.setValue(customer.savingsCustomerMonthlyIncome);
+                _this.savFval.withdrawFreequency.setValue(customer.savingsCustomerWithdrawFreequency);
+                _this.savFval.customerTarget.setValue(customer.savingsCustomerTarget);
+            }, function (err) {
+                _this.errored = true;
+                console.log(err.statusText);
+                _this.alertService.danger({
+                    html: '<b>' + err.statusText + '</b>'
+                });
+            });
+        }
         this.fval.productCode.setValue(' ');
         this.showPersonalForm = false;
         this.showSaveForm = true;
-        this.showcompleteBtn = false;
         this.savFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
         this.savFval.clientName.disable();
     };
@@ -380,13 +494,14 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         var _this = this;
         this.customers.forEach(function (customer) {
             if (customer.customerName.toUpperCase() === val.toUpperCase()) {
+                _this.currentCustomer = customer;
+                _this.showAddPdtBtn = _this.currentCustomer.productCodes.length >= 20 ? false : true;
                 _this.currentCustomerId = customer.customerId;
                 _this.fval.main_contact_number1.setValue(customer.customerPhone1);
                 _this.fval.main_contact_number2.setValue(customer.customerPhone2);
                 _this.fval.id_type.setValue(customer.customerIdType);
                 _this.fval.id_number.setValue(customer.customerIdNumber);
-                var date = new Date(customer.customerDateOfBirth);
-                _this.fval.dateOfBirth.setValue(date);
+                _this.fval.dateOfBirth.setValue(new Date(customer.customerDateOfBirth));
                 _this.fval.homeDetails.setValue(customer.customerHomeAreaDetails);
                 _this.fval.clientComment.setValue(customer.customerComment);
                 for (var _i = 0, _a = _this.stations; _i < _a.length; _i++) {
@@ -398,93 +513,15 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 _this.clientPhotoUrl = customer.customerPhotoUrl;
                 _this.clientIdUrl = customer.customerIdPhotoUrl;
             }
-            else {
-                if (_this.currentCustomerId) {
-                    return;
-                }
-                else {
-                    _this.errored = true;
-                    _this.alertService.danger({
-                        html: '<b> customer with name ' + val.toUpperCase() + ' is not in records</b>'
-                    });
-                }
-            }
         });
     };
-    EditPersonalInfoComponent.prototype.updateCustomerDetails = function () {
-        var _this = this;
-        if (this.userForm.valid) {
-            var data = {
-                customerId: this.currentCustomerId,
-                customerName: this.fval.customer_name.value.toUpperCase(),
-                customerPhone1: this.fval.main_contact_number1.value,
-                customerPhone2: this.fval.main_contact_number2.value === '' ?
-                    this.fval.main_contact_number1.value :
-                    this.fval.main_contact_number2.value,
-                customerIdType: this.fval.id_type.value.toUpperCase(),
-                customerIdPhotoUrl: this.clientPhotoUrl,
-                customerPhotoUrl: this.clientIdUrl,
-                customerDateOfBirth: this.fval.dateOfBirth.value.getFullYear() + "-" + (this.fval.dateOfBirth.value.getMonth() + 1) + "-" + this.fval.dateOfBirth.value.getDate(),
-                customerIdNumber: this.fval.id_number.value.toUpperCase(),
-                customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
-                customerComment: this.fval.clientComment.value.toUpperCase(),
-                theStationLocationId: null,
-                userId: this.User.userId
-            };
-            for (var _i = 0, _a = this.stations; _i < _a.length; _i++) {
-                var station = _a[_i];
-                if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()) {
-                    data.theStationLocationId = station.theStationLocationId;
-                }
-            }
-            if (data.theStationLocationId === null) {
-                this.errored = true;
-                this.alertService.danger({
-                    html: '<b> The station chose does not exist</b>'
-                });
-                //  this.errored = false;
-                return;
-            }
-            else {
-                console.log(data);
-                this.others.updateCustomer(data).subscribe(function (res) {
-                    _this.posted = true;
-                    _this.alertService.success({
-                        html: '<b> Customer was updated successfully <b>'
-                    });
-                    _this.revert();
-                    _this.bodaClientForm.reset();
-                    setTimeout(function () {
-                        location.reload();
-                    }, 3000);
-                }, function (err) {
-                    _this.errored = true;
-                    console.log(err.statusText);
-                    _this.alertService.danger({
-                        html: '<b>' + err.statusText + '</b>'
-                    });
-                });
-            }
-        }
-        else {
-            this.errored = true;
-            this.alertService.danger({
-                html: '<b> some fields of the form have invalid values</b>'
-            });
-        }
-    };
     EditPersonalInfoComponent.prototype.goBack = function () {
-        // this.fval.clientPhotoUrl.setValue(this.data[0].customerPhotoUrl);
-        // this.fval.idPhotoUrl.setValue(this.data[0].customerIdPhotoUrl);
         this.showPersonalForm = true;
         this.showBodaForm = false;
         this.showTaxiForm = false;
         this.showMicroForm = false;
         this.showSaveForm = false;
-        this.showFinalBtn = false;
-        this.showcompleteBtn = true;
         this.errored = false;
-        this.data = [];
     };
     // toggle visibility of password field
     EditPersonalInfoComponent.prototype.toggleFieldType = function () {
@@ -492,6 +529,9 @@ var EditPersonalInfoComponent = /** @class */ (function () {
     };
     EditPersonalInfoComponent.prototype.revert = function () {
         this.userForm.reset();
+    };
+    EditPersonalInfoComponent.prototype.refresh = function () {
+        location.reload();
     };
     Object.defineProperty(EditPersonalInfoComponent.prototype, "fval", {
         get: function () {
@@ -528,61 +568,143 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    EditPersonalInfoComponent.prototype.save = function () {
-        setTimeout(this.saveClientAndPdt(), 5000);
-    };
-    EditPersonalInfoComponent.prototype.saveClientAndPdt = function () {
+    EditPersonalInfoComponent.prototype.updateCustomerDetails = function () {
         var _this = this;
-        if (this.showBodaForm) {
-            if (this.bodaClientForm.valid) {
-                if (this.bodaFval.ownershipStatus.value.toUpperCase() !== 'PAIDOUT'
-                    && (this.bodaFval.ownersName.value === '' ||
-                        this.bodaFval.ownersPhoneNumber.value === '')) {
-                    this.errored = true;
-                    this.alertService.danger({
-                        html: '<strong>The ownership details are missing!</strong>'
+        if (this.userForm.valid) {
+            setTimeout(function () {
+                var data = {
+                    customerId: _this.currentCustomerId,
+                    customerName: _this.fval.customer_name.value.toUpperCase(),
+                    customerPhone1: _this.fval.main_contact_number1.value,
+                    customerPhone2: _this.fval.main_contact_number2.value === '' ?
+                        _this.fval.main_contact_number1.value :
+                        _this.fval.main_contact_number2.value,
+                    customerIdType: _this.fval.id_type.value.toUpperCase(),
+                    customerIdPhotoUrl: _this.clientPhotoUrl,
+                    customerPhotoUrl: _this.clientIdUrl,
+                    customerDateOfBirth: _this.fval.dateOfBirth.value.getFullYear() + "-" + (_this.fval.dateOfBirth.value.getMonth() + 1) + "-" + _this.fval.dateOfBirth.value.getDate(),
+                    customerIdNumber: _this.fval.id_number.value.toUpperCase(),
+                    customerHomeAreaDetails: _this.fval.homeDetails.value.toUpperCase(),
+                    customerComment: _this.fval.clientComment.value.toUpperCase(),
+                    theStationLocationId: null,
+                    userId: _this.User.userId
+                };
+                for (var _i = 0, _a = _this.stations; _i < _a.length; _i++) {
+                    var station = _a[_i];
+                    if (station.stationName.toUpperCase() === _this.fval.station.value.toUpperCase()) {
+                        data.theStationLocationId = station.theStationLocationId;
+                    }
+                }
+                if (data.theStationLocationId === null) {
+                    _this.errored = true;
+                    _this.alertService.danger({
+                        html: '<b> The station chose does not exist</b>'
+                    });
+                    //  this.errored = false;
+                    return;
+                }
+                else if (!_this.currentCustomerId) {
+                    _this.errored = true;
+                    _this.alertService.danger({
+                        html: '<b> The customer chose does not exist</b>'
                     });
                 }
                 else {
-                    this.data.push({
-                        bodabodaCustomerNumberPlate: this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().substring(0, 3) +
-                            ' ' + this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().substring(3, this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().length),
-                        bodabodaCustomerMakeOrType: this.bodaFval.bodaMakeorType.value.toUpperCase(),
-                        bodabodaCustomerInsurance: this.bodaFval.bodaInsuarance.value.toUpperCase() === 'NONE' ?
-                            1 : this.bodaFval.bodaInsuarance.value.toUpperCase() === 'REGULAR' ?
-                            2 : 3,
-                        bodabodaCustomerDateOfJoinStage: this.bodaFval.dateOfJoiningStage.value.getFullYear() + "-" + (this.bodaFval.dateOfJoiningStage.value.getMonth() + 1) + "-" + this.bodaFval.dateOfJoiningStage.value.getDate(),
-                        bodabodaOwnershipStatus: this.bodaFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
-                            1 : this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
-                            2 : 3,
-                        bodabodaCustomerOwnersName: this.bodaFval.ownersName.value.toUpperCase(),
-                        bodabodaCustomerOwnersPhone1: this.bodaFval.ownersPhoneNumber.value,
-                        bodabodaCustomerFrontPhotoUrl: this.bodaFrontUrl,
-                        bodabodaCustomerSidePhotoUrl: this.bodaSideUrl,
-                        bodabodaCustomerRearPhotoUrl: this.bodaRearUrl,
-                        // customerId: 400000000,
-                        bodabodaStageId: null,
-                        productCode: this.data[0].productCode
-                    });
-                    this.bodaStages.forEach(function (bodaStage) {
-                        if (bodaStage.bodabodaStageName.toUpperCase() === _this.bodaFval.bodaStage.value) {
-                            _this.data[1].bodabodaStageId = bodaStage.bodabodaStageId;
-                        }
-                    });
-                    console.log(this.data);
-                    if (this.data[1].bodabodaStageId === null) {
-                        this.errored = true;
-                        this.alertService.danger({
-                            html: '<b> taxi stage selected was not found </b>'
+                    // console.log(data);
+                    _this.others.updateCustomer(data).subscribe(function (res) {
+                        _this.posted = true;
+                        _this.alertService.success({
+                            html: '<b> Customer was updated successfully <b>'
                         });
-                        return;
+                        _this.revert();
+                        _this.bodaClientForm.reset();
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
+                    }, function (err) {
+                        _this.errored = true;
+                        console.log(err.statusText);
+                        _this.alertService.danger({
+                            html: '<b>' + err.statusText + '</b>'
+                        });
+                    });
+                }
+            }, 2000);
+        }
+        else {
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> some fields of the form have invalid values</b>'
+            });
+        }
+    };
+    EditPersonalInfoComponent.prototype.save = function () {
+        if (this.showBodaForm) {
+            setTimeout(this.bodaCustomer(), 2000);
+        }
+        else if (this.showTaxiForm) {
+            setTimeout(this.taxiCustomer(), 2000);
+        }
+        else if (this.showMicroForm) {
+            setTimeout(this.microCustomer(), 2000);
+        }
+        else if (this.showSaveForm) {
+            setTimeout(this.savingsCustomer(), 2000);
+        }
+    };
+    EditPersonalInfoComponent.prototype.bodaCustomer = function () {
+        var _this = this;
+        if (this.bodaClientForm.valid) {
+            if (this.bodaFval.ownershipStatus.value.toUpperCase() !== 'PAIDOUT'
+                && (this.bodaFval.ownersName.value === '' ||
+                    this.bodaFval.ownersPhoneNumber.value === '')) {
+                this.errored = true;
+                this.alertService.danger({
+                    html: '<strong>The ownership details are missing!</strong>'
+                });
+            }
+            else {
+                var data_1 = {
+                    bodabodaCustomerNumberPlate: this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().substring(0, 3) +
+                        ' ' + this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().substring(3, this.bodaFval.bodabodaCustomerNumberPlate.value.toUpperCase().length),
+                    bodabodaCustomerMakeOrType: this.bodaFval.bodaMakeorType.value.toUpperCase(),
+                    bodabodaCustomerInsurance: this.bodaFval.bodaInsuarance.value.toUpperCase() === 'NONE' ?
+                        1 : this.bodaFval.bodaInsuarance.value.toUpperCase() === 'REGULAR' ?
+                        2 : 3,
+                    bodabodaCustomerDateOfJoinStage: this.bodaFval.dateOfJoiningStage.value.getFullYear() + "-" + (this.bodaFval.dateOfJoiningStage.value.getMonth() + 1) + "-" + this.bodaFval.dateOfJoiningStage.value.getDate(),
+                    bodabodaOwnershipStatus: this.bodaFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
+                        1 : this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                        2 : 3,
+                    bodabodaCustomerOwnersName: this.bodaFval.ownersName.value.toUpperCase(),
+                    bodabodaCustomerOwnersPhone1: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                        this.bodaFval.ownersPhoneNumber.value,
+                    bodabodaCustomerFrontPhotoUrl: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' : this.bodaFrontUrl,
+                    bodabodaCustomerSidePhotoUrl: this.bodaSideUrl,
+                    bodabodaCustomerRearPhotoUrl: this.bodaRearUrl,
+                    customerId: this.currentCustomerId,
+                    bodabodaStageId: null,
+                    productCode: 200
+                };
+                this.bodaStages.forEach(function (bodaStage) {
+                    if (bodaStage.bodabodaStageName.toUpperCase() === _this.bodaFval.bodaStage.value) {
+                        data_1.bodabodaStageId = bodaStage.bodabodaStageId;
                     }
-                    else {
-                        this.others.createCustomer(this.data).subscribe(function (res) {
+                });
+                // console.log(data);
+                if (data_1.bodabodaStageId === null) {
+                    this.errored = true;
+                    this.alertService.danger({
+                        html: '<b> bodaboda stage selected was not found </b>'
+                    });
+                    return;
+                }
+                else {
+                    if (this.currentCustomer.productCodes.includes(200)) {
+                        data_1 = Object.assign({ bodabodaCustomerId: this.bodabodaCustomerId }, data_1);
+                        this.others.updateBodaCustomer(data_1).subscribe(function (res) {
                             _this.posted = true;
-                            _this.data = [];
                             _this.alertService.success({
-                                html: '<b> Customer was created successfully <b>'
+                                html: '<b> Customer bodaboda product was updated successfully <b>'
                             });
                             _this.revert();
                             _this.bodaClientForm.reset();
@@ -590,7 +712,25 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                                 location.reload();
                             }, 3000);
                         }, function (err) {
-                            _this.data = [];
+                            _this.errored = true;
+                            console.log(err.statusText);
+                            _this.alertService.danger({
+                                html: '<b>' + err.error.error.message + '</b>'
+                            });
+                        });
+                    }
+                    else {
+                        this.others.createBodaCustomer(data_1).subscribe(function (res) {
+                            _this.posted = true;
+                            _this.alertService.success({
+                                html: '<b> BodaBoda product was added successfully <b>'
+                            });
+                            _this.revert();
+                            _this.bodaClientForm.reset();
+                            setTimeout(function () {
+                                location.reload();
+                            }, 3000);
+                        }, function (err) {
                             _this.errored = true;
                             console.log(err.statusText);
                             _this.alertService.danger({
@@ -600,64 +740,69 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                     }
                 }
             }
-            else {
+        }
+        else {
+            this.errored = true;
+            this.alertService.danger({
+                html: '<strong>Some form fields where not filled!</strong>'
+            });
+        }
+    };
+    EditPersonalInfoComponent.prototype.taxiCustomer = function () {
+        var _this = this;
+        if (this.taxiClientForm.valid) {
+            if (this.taxiFval.ownershipStatus.value.toUpperCase() !== 'PAIDOUT'
+                && (this.taxiFval.ownersName.value === '' ||
+                    this.taxiFval.ownersPhoneNumber.value === '')) {
                 this.errored = true;
                 this.alertService.danger({
-                    html: '<strong>Some form fields where not filled!</strong>'
+                    html: '<strong>The ownership details are missing!</strong>'
                 });
             }
-        }
-        else if (this.showTaxiForm) {
-            if (this.taxiClientForm.valid) {
-                if (this.taxiFval.ownershipStatus.value.toUpperCase() !== 'PAIDOUT'
-                    && (this.taxiFval.ownersName.value === '' ||
-                        this.taxiFval.ownersPhoneNumber.value === '')) {
+            else {
+                var data_2 = {
+                    taxiCustomerNumberPlate: this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().substring(0, 3) +
+                        ' ' + this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().substring(3, this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().length),
+                    taxiCustomerDrivingPermitNumber: this.taxiFval.drivingPermit.value,
+                    taxiCustomerMakeOrType: this.taxiFval.taxiMakeorType.value.toUpperCase(),
+                    taxiCustomerInsurance: this.taxiFval.taxiInsuarance.value.toUpperCase() === 'NONE' ?
+                        1 : this.taxiFval.taxiInsuarance.value.toUpperCase() === 'REGULAR' ?
+                        2 : 3,
+                    taxiCustomerDateOfJoinStage: this.taxiFval.dateOfJoiningStage.value.getFullYear() + "-" + (this.taxiFval.dateOfJoiningStage.value.getMonth() + 1) + "-" + this.taxiFval.dateOfJoiningStage.value.getDate(),
+                    taxiCustomerOwnershipStatus: this.taxiFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
+                        1 : this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                        2 : 3,
+                    taxiCustomerOwnersName: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                        this.taxiFval.ownersName.value.toUpperCase(),
+                    taxiCustomerOwnersPhone: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                        this.taxiFval.ownersPhoneNumber.value,
+                    taxiCustomerFrontPhotoUrl: this.taxiFrontUrl,
+                    taxiCustomerSidePhotoUrl: this.taxiSideUrl,
+                    taxiCustomerRearPhotoUrl: this.taxiRearUrl,
+                    customerId: this.currentCustomerId,
+                    taxiStageId: null,
+                    productCode: 300
+                };
+                this.taxiStages.forEach(function (taxiStage) {
+                    if (taxiStage.taxiStageName.toUpperCase() === _this.taxiFval.taxiStage.value) {
+                        data_2.taxiStageId = taxiStage.taxiStageId;
+                    }
+                });
+                // console.log(data);
+                if (data_2.taxiStageId === null) {
                     this.errored = true;
                     this.alertService.danger({
-                        html: '<strong>The ownership details are missing!</strong>'
+                        html: '<b> taxi stage selected was not found </b>'
                     });
+                    return;
                 }
                 else {
-                    this.data.push({
-                        taxiCustomerNumberPlate: this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().substring(0, 3) +
-                            ' ' + this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().substring(3, this.taxiFval.taxiCustomerNumberPlate.value.toUpperCase().length),
-                        taxiCustomerDrivingPermitNumber: this.taxiFval.drivingPermit.value,
-                        taxiCustomerMakeOrType: this.taxiFval.taxiMakeorType.value.toUpperCase(),
-                        taxiCustomerInsurance: this.taxiFval.taxiInsuarance.value.toUpperCase() === 'NONE' ?
-                            1 : this.taxiFval.taxiInsuarance.value.toUpperCase() === 'REGULAR' ?
-                            2 : 3,
-                        taxiCustomerDateOfJoinStage: this.taxiFval.dateOfJoiningStage.value.getFullYear() + "-" + (this.taxiFval.dateOfJoiningStage.value.getMonth() + 1) + "-" + this.taxiFval.dateOfJoiningStage.value.getDate(),
-                        taxiCustomerOwnershipStatus: this.taxiFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
-                            1 : this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
-                            2 : 3,
-                        taxiCustomerOwnersName: this.taxiFval.ownersName.value.toUpperCase(),
-                        taxiCustomerOwnersPhone: this.taxiFval.ownersPhoneNumber.value,
-                        taxiCustomerFrontPhotoUrl: this.taxiFrontUrl,
-                        taxiCustomerSidePhotoUrl: this.taxiSideUrl,
-                        taxiCustomerRearPhotoUrl: this.taxiRearUrl,
-                        // customerId: 400000000,
-                        taxiStageId: null,
-                        productCode: this.data[0].productCode
-                    });
-                    this.taxiStages.forEach(function (taxiStage) {
-                        if (taxiStage.taxiStageName.toUpperCase() === _this.taxiFval.taxiStage.value) {
-                            _this.data[1].taxiStageId = taxiStage.taxiStageId;
-                        }
-                    });
-                    console.log(this.data);
-                    if (this.data[1].taxiStageId === null) {
-                        this.errored = true;
-                        this.alertService.danger({
-                            html: '<b> taxi stage selected was not found </b>'
-                        });
-                        return;
-                    }
-                    else {
-                        this.others.createCustomer(this.data).subscribe(function (res) {
+                    if (this.currentCustomer.productCodes.includes(300)) {
+                        data_2 = Object.assign({ taxiCustomerId: this.taxiCustomerId }, data_2);
+                        this.others.updateTaxiCustomer(data_2).subscribe(function (res) {
                             _this.posted = true;
-                            _this.data = [];
                             _this.alertService.success({
-                                html: '<b> Customer was created successfully <b>'
+                                html: '<b> Customer taxi fuel product was updated successfully <b>'
                             });
                             _this.revert();
                             _this.taxiClientForm.reset();
@@ -665,7 +810,24 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                                 location.reload();
                             }, 3000);
                         }, function (err) {
-                            _this.data = [];
+                            console.log(err.statusText);
+                            _this.alertService.danger({
+                                html: '<b>' + err.error.error.message + '</b>'
+                            });
+                        });
+                    }
+                    else {
+                        this.others.createTaxiCustomer(data_2).subscribe(function (res) {
+                            _this.posted = true;
+                            _this.alertService.success({
+                                html: '<b>taxi fuel product was added successfully <b>'
+                            });
+                            _this.revert();
+                            _this.taxiClientForm.reset();
+                            setTimeout(function () {
+                                location.reload();
+                            }, 3000);
+                        }, function (err) {
                             console.log(err.statusText);
                             _this.alertService.danger({
                                 html: '<b>' + err.error.error.message + '</b>'
@@ -674,33 +836,36 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                     }
                 }
             }
-            else {
-                this.errored = true;
-                this.alertService.danger({
-                    html: '<strong>Some form fields where not filled!</strong>'
-                });
-            }
         }
-        else if (this.showMicroForm) {
-            if (this.microClientForm.valid) {
-                this.data.push({
-                    microloanCustomerLoanPurpose: this.microFval.loanpurpose.value.toUpperCase(),
-                    microloanCustomerCurrentBusinessType: this.microFval.currentBusinesstype.value.toUpperCase(),
-                    microloanCustomerCurrentBusinessLocation: this.microFval.businessLocation.value.toUpperCase(),
-                    microloanCustomerAverageDailyExpenses: this.microFval.averageDailyExpenses.value,
-                    microloanCustomerAverageDailyIncome: this.microFval.averageDailyIncome.value.toUpperCase(),
-                    microloanCustomerCurrentResidence: this.microFval.currentResidence.value.toUpperCase(),
-                    microloanCustomerResidenceStatus: this.microFval.residenceStatus.value.toUpperCase(),
-                    microloanCustomerNumberOfDependants: this.microFval.numberOfDependants.value,
-                    //  customerId: 400000000,
-                    productCode: this.data[0].productCode
-                });
-                console.log(this.data);
-                this.others.createCustomer(this.data).subscribe(function (res) {
+        else {
+            this.errored = true;
+            this.alertService.danger({
+                html: '<strong>Some form fields where not filled!</strong>'
+            });
+        }
+    };
+    EditPersonalInfoComponent.prototype.microCustomer = function () {
+        var _this = this;
+        if (this.microClientForm.valid) {
+            var data = {
+                microloanCustomerLoanPurpose: this.microFval.loanpurpose.value.toUpperCase(),
+                microloanCustomerCurrentBusinessType: this.microFval.currentBusinesstype.value.toUpperCase(),
+                microloanCustomerCurrentBusinessLocation: this.microFval.businessLocation.value.toUpperCase(),
+                microloanCustomerAverageDailyExpenses: this.microFval.averageDailyExpenses.value,
+                microloanCustomerAverageDailyIncome: this.microFval.averageDailyIncome.value,
+                microloanCustomerCurrentResidence: this.microFval.currentResidence.value.toUpperCase(),
+                microloanCustomerResidenceStatus: this.microFval.residenceStatus.value.toUpperCase(),
+                microloanCustomerNumberOfDependants: this.microFval.numberOfDependants.value,
+                customerId: this.currentCustomerId,
+                productCode: 400
+            };
+            // console.log(data);
+            if (this.currentCustomer.productCodes.includes(400)) {
+                data = Object.assign({ microloanCustomerId: this.microloanCustomerId }, data);
+                this.others.updateMicroloanCustomer(data).subscribe(function (res) {
                     _this.posted = true;
-                    _this.data = [];
                     _this.alertService.success({
-                        html: '<b> Customer was created successfully <b>'
+                        html: '<b> Customer microo loan product was updated successfully <b>'
                     });
                     _this.revert();
                     _this.microClientForm.reset();
@@ -708,7 +873,6 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                         location.reload();
                     }, 3000);
                 }, function (err) {
-                    _this.data = [];
                     console.log(err.statusText);
                     _this.alertService.danger({
                         html: '<b>' + err.error.error.message + '</b>'
@@ -716,27 +880,10 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 });
             }
             else {
-                this.errored = true;
-                this.alertService.danger({
-                    html: '<strong>Some form fields where not filled!</strong>'
-                });
-            }
-        }
-        else if (this.showSaveForm) {
-            if (this.savingsClientForm.valid) {
-                this.data.push({
-                    savingsCustomerMonthlyIncome: this.savFval.monthlyIncome.value,
-                    savingsCustomerWithdrawFreequency: this.savFval.withdrawFreequency.value.toUpperCase(),
-                    savingsCustomerTarget: this.savFval.customerTarget.value.toUpperCase(),
-                    // customerId: 400000000,
-                    productCode: this.data[0].productCode
-                });
-                console.log(this.data);
-                this.others.createCustomer(this.data).subscribe(function (res) {
+                this.others.createMicroloanCustomer(data).subscribe(function (res) {
                     _this.posted = true;
-                    _this.data = [];
                     _this.alertService.success({
-                        html: '<b> Customer was created successfully <b>'
+                        html: '<b> micro loan product was added successfully <b>'
                     });
                     _this.revert();
                     _this.microClientForm.reset();
@@ -744,7 +891,44 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                         location.reload();
                     }, 3000);
                 }, function (err) {
-                    _this.data = [];
+                    console.log(err.statusText);
+                    _this.alertService.danger({
+                        html: '<b>' + err.error.error.message + '</b>'
+                    });
+                });
+            }
+        }
+        else {
+            this.errored = true;
+            this.alertService.danger({
+                html: '<strong>Some form fields where not filled!</strong>'
+            });
+        }
+    };
+    EditPersonalInfoComponent.prototype.savingsCustomer = function () {
+        var _this = this;
+        if (this.savingsClientForm.valid) {
+            var data = {
+                savingsCustomerMonthlyIncome: this.savFval.monthlyIncome.value,
+                savingsCustomerWithdrawFreequency: this.savFval.withdrawFreequency.value.toUpperCase(),
+                savingsCustomerTarget: this.savFval.customerTarget.value.toUpperCase(),
+                customerId: this.currentCustomerId,
+                productCode: 100
+            };
+            // console.log(data);
+            if (this.currentCustomer.productCodes.includes(100)) {
+                data = Object.assign({ savingsCustomerId: this.savingsCustomerId }, data);
+                this.others.updateSavingsCustomer(data).subscribe(function (res) {
+                    _this.posted = true;
+                    _this.alertService.success({
+                        html: '<b> Customersavings product was updated successfully <b>'
+                    });
+                    _this.revert();
+                    _this.microClientForm.reset();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                }, function (err) {
                     console.log(err.statusText);
                     _this.alertService.danger({
                         html: '<b>' + err.error.error.message + '</b>'
@@ -752,11 +936,29 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                 });
             }
             else {
-                this.errored = true;
-                this.alertService.danger({
-                    html: '<strong>Some form fields where not filled!</strong>'
+                this.others.createSavingsCustomer(data).subscribe(function (res) {
+                    _this.posted = true;
+                    _this.alertService.success({
+                        html: '<b> savings product was added successfully <b>'
+                    });
+                    _this.revert();
+                    _this.microClientForm.reset();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                }, function (err) {
+                    console.log(err.statusText);
+                    _this.alertService.danger({
+                        html: '<b>' + err.error.error.message + '</b>'
+                    });
                 });
             }
+        }
+        else {
+            this.errored = true;
+            this.alertService.danger({
+                html: '<strong>Some form fields where not filled!</strong>'
+            });
         }
     };
     EditPersonalInfoComponent = __decorate([

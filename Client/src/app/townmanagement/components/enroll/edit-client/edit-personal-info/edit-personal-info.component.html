@@ -29,6 +29,7 @@
                   searchForm.controls.getCustomers.errors
               }"
               autocomplete="off"
+              (change)="noCustomers = true"
             />
             <datalist id="getCustomers">
               <!-- <option selected>Select Station</option> -->
@@ -45,7 +46,7 @@
           Get Customers
           </button>
         </div>
-        <div class="col-12 mt-2 mb-2" [hidden]="!customers">
+        <div class="col-12 mt-2 mb-2" [hidden]="!thereCustomers">
           <h4
             class="rub-head4 text-info text-center font-weight-bold py-1"
           >
@@ -53,16 +54,16 @@
           </h4>
         </div>
       </div>
-    <div class="card-body mt-1 pt-4 mb-0 pb-3 pb-md-1 shadow-lg" [hidden]="!customers">
-      <div class="row" [hidden]="customers">
-        <h4
-        class="rub-head4 text-info text-center font-weight-bold py-1"
-      >
-        {{searchForm.controls.getCustomers.value}} station has no customers you can register one 
-        <a routerLink = '/townmanagement/enroll/enrollclient'> here</a>
-      </h4>
+    <div class="card-body mt-1 pt-4 mb-0 pb-3 pb-md-1 shadow-lg">
+      <div class="row" *ngIf="(noCustomers === false && searchForm.controls.getCustomers.value !== '')">
+          <h4
+          class="rub-head4 text-info text-center font-weight-bold py-1"
+        >
+          {{searchForm.controls.getCustomers.value}} station has no customers you can register one 
+          <a routerLink = '/townmanagement/enroll/enrollclient'> here</a>
+        </h4>
       </div>
-      <form [formGroup]="userForm">
+      <form [formGroup]="userForm" *ngIf="thereCustomers">
         <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
@@ -576,39 +577,43 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="currentCustomerId">
           <div class="col-12 col-md-6">
             <label for="products">Customer's Products</label>
             <div class="row mx-auto">
               <button
               type="button"
               class="btn btn-info col-6 col-md-5  mx-auto"
-              (click)="savingForm()"
+              (click)="bodaForm()"
+              *ngIf="(this.currentCustomer.productCodes.includes(200))"
               >
-              100
+              Bodaboda
               </button>
               <button
               type="button"
               class="btn btn-info col-6 col-md-5 mx-auto"
-              (click)="microForm()"
+              (click)="taxiForm()"
+              *ngIf="(this.currentCustomer.productCodes.includes(300))"
               >
-              200
+              Taxi
               </button>
             <!-- </div> -->
             <!-- <div class="row mx-auto my-3"> -->
               <button
               type="button"
               class="btn btn-info col-6 col-md-5 mb-2 mt-2 mx-auto"
-              (click)="taxiForm()"
+              (click)="microForm()"
+              *ngIf="(this.currentCustomer.productCodes.includes(400))"
               >
-              300
+              Micro Loan
               </button>
               <button
               type="button"
               class="btn btn-info col-6 col-md-5 mb-2 mt-2 mx-auto"
-              (click)="bodaForm()"
+              (click)="savingForm()"
+              *ngIf="(this.currentCustomer.productCodes.includes(100))"
               >
-              400
+              Saving
               </button>
             </div>
           </div>
@@ -616,8 +621,7 @@
           <div class="form-group text-primary">
             <label
             *ngIf="addProduct"
-              for="productCode"
-              
+              for="productCode"    
               >Product
               <!-- [ngClass]="fval.productCode.valid" -->
               <!-- <i
@@ -627,7 +631,8 @@
               > -->
               </label
             >
-            <div class="input-group mb-0">
+            <div class="input-group mb-0" >
+              <div [hidden]="!showAddPdtBtn"  class="col-12 col-md-12">
                 <button
                 type="button"
                 class="btn btn-info col-12 col-md-6 mt-3 mx-auto ml-3"
@@ -649,13 +654,14 @@
                 placeholder="Select  a product"
                 (change)="setSelectedChanges(fval.productCode.value)"
               >
-                <!-- <option selected>Initial Product </option> -->
-                <option>BODABODA LOAN PRODUCT</option>
-                <option>TAXI LOAN PRODUCT</option>
-                <option>MICROLOAN PRODUCT</option>
-                <option>SAVINGS PRODUCT</option>
+                <option selected>Initial Product </option>
+                <option *ngIf="(!this.currentCustomer.productCodes.includes(200))">BODABODA LOAN PRODUCT</option>
+                <option *ngIf="(!this.currentCustomer.productCodes.includes(300))">TAXI LOAN PRODUCT</option>
+                <option *ngIf="(!this.currentCustomer.productCodes.includes(400))">MICROLOAN PRODUCT</option>
+                <option *ngIf="(!this.currentCustomer.productCodes.includes(100))">SAVINGS PRODUCT</option>
               </select>
             </div>
+          </div>
             <div
             class="text-danger col"
             *ngIf="
@@ -1651,7 +1657,7 @@
                 autocomplete="off"
                 placeholder="Select insurance status"
               >
-                <option></option>
+                <!-- <option></option> -->
                 <option>NONE</option>
                 <option>REGULAR</option>
                 <option>COMPREHENSIVE</option>
@@ -2506,7 +2512,7 @@
   </div>
 
   <!-- action buttons -->
-  <div class="d-flex mt-3 mb-2 mb-xl-0 pt-2 pb-2 pb-xl-2 mx-auto" [hidden]="!customers">
+  <div class="d-flex mt-3 mb-2 mb-xl-0 pt-2 pb-2 pb-xl-2 mx-auto" *ngIf="thereCustomers">
     <button
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"
@@ -2521,6 +2527,7 @@
       class="btn btn-info col-5 col-md-3 mx-auto"
       *ngIf="showBodaForm"
       [disabled]="!bodaClientForm.valid"
+      (click)="save()"
     >
       Save
     </button>    
@@ -2529,6 +2536,7 @@
       class="btn btn-info col-5 col-md-3 mx-auto"
       *ngIf="showTaxiForm"
       [disabled]="!taxiClientForm.valid"
+      (click)="save()"
     >
       Save
     </button>    
@@ -2537,6 +2545,7 @@
       class="btn btn-info col-5 col-md-3 mx-auto"
       *ngIf="showMicroForm"
       [disabled]="!microClientForm.valid"
+      (click)="save()"
     >
       Save
     </button> 
@@ -2545,6 +2554,7 @@
       class="btn btn-info col-5 col-md-3 mx-auto"
       *ngIf="showSaveForm"
       [disabled]="!savingsClientForm.valid"
+      (click)="save()"
     >
       Save
     </button>
@@ -2573,19 +2583,19 @@
     <button
     type="button"
     class="btn btn-info col-5 col-md-3 mx-auto"
-    routerLink = '/townmanagement'
-    *ngIf="showPersonalForm"
-  >
+    (click)="refresh()"
+    >
     Cancel
     </button>
-    <button
+    <!-- *ngIf="showPersonalForm" -->
+    <!-- <button
     type="button"
     class="btn btn-info col-5 col-md-3 mx-auto"
     *ngIf="!showPersonalForm"
     (click)="goBack()"
   >
     Back
-    </button>
+    </button> -->
 </div>
 </div>
 </div>

@@ -267,6 +267,9 @@ export class OthersService {
     getCustomers(): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersOnly`);
     }
+    getOneCustomer(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getOneCustomer/?customerId=${id}`);
+    }
     getCustomersByArea(id: number): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getAreaCustomers/?theAreaLocationId=${id}`);
     }
@@ -278,6 +281,9 @@ export class OthersService {
     }
     getBodaCustomers(): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithBodabodaLoanProduct`);
+    }
+    getBodaCustomer(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getOneCustomerWithBodabodaLoanProduct/?customerId=${id}`);
     }
     getBodaCustomersByArea(id: number): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getAreaCustomersWithBodabodaLoanProduct/?theAreaLocationId=${id}`);
@@ -291,6 +297,9 @@ export class OthersService {
     getTaxiCustomers(): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithTaxiLoanProduct`);
     }
+    getTaxiCustomer(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getOneCustomerWithTaxiLoanProduct/?customerId=${id}`);
+    }
     getTaxiCustomersByArea(id: number): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getAreaCustomersWithTaxiLoanProduct/?theAreaLocationId=${id}`);
     }
@@ -303,6 +312,9 @@ export class OthersService {
     getMicroCustomers(): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithMicroLoanProduct`);
     }
+    getMicroCustomer(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getOneCustomerWithMicroLoanProduct/?customerId=${id}`);
+    }
     getMicroCustomersByArea(id: number): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getAreaCustomersWithMicroLoanProduct/?theAreaLocationId=${id}`);
     }
@@ -314,6 +326,9 @@ export class OthersService {
     }
     getSavingsCustomers(): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithSavingsProduct`);
+    }
+    getSavingsCustomer(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getOneCustomerWithSavingsProduct/?customerId=${id}`);
     }
     getSavingsCustomersByArea(id: number): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getAreaCustomersWithSavingsProduct/?theAreaLocationId=${id}`);

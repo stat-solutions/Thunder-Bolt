@@ -231,10 +231,6 @@ export class PersonalInfoComponent implements OnInit {
         '',
         Validators.compose([
           // Validators.required
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-            { hasNumber: true }
-          ),
         ])
       )
     });
@@ -301,10 +297,10 @@ export class PersonalInfoComponent implements OnInit {
         '',
         Validators.compose([
           // Validators.required
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-            { hasNumber: true }
-          ),
+          // CustomValidator.patternValidator(
+          //   /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+          //   { hasNumber: true }
+          // ),
         ])
       )
     });
@@ -479,37 +475,61 @@ export class PersonalInfoComponent implements OnInit {
         this.fval.id_number.setValue('');
         this.fval.id_number.setValidators([
           Validators.required,
-          Validators.minLength(9),
-          Validators.maxLength(9)
+          // Validators.minLength(9),
+          // Validators.maxLength(9)
         ]);
         break;
       case 'PASSPORT':
         this.fval.id_number.setValue('');
         this.fval.id_number.setValidators([
           Validators.required,
-          Validators.minLength(20),
-          Validators.maxLength(20)
+          // Validators.minLength(20),
+          // Validators.maxLength(20)
         ]);
         break;
       case 'DRIVING PERMIT':
         this.fval.id_number.setValue('');
         this.fval.id_number.setValidators([
           Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(10)
+          // Validators.minLength(10),
+          // Validators.maxLength(10)
         ]);
         break;
       case 'ONLOAN':
           this.bodaFval.ownersName.setValidators([Validators.required]);
-          this.bodaFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.bodaFval.ownersPhoneNumber.setValidators([
+            Validators.required,
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+          ]);
           this.taxiFval.ownersName.setValidators([Validators.required]);
-          this.taxiFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.taxiFval.ownersPhoneNumber.setValidators([
+            Validators.required,
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+          ]);
           break;
       case 'HIREDOUT':
           this.bodaFval.ownersName.setValidators([Validators.required]);
-          this.bodaFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.bodaFval.ownersPhoneNumber.setValidators([
+            Validators.required,
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+           ]);
           this.taxiFval.ownersName.setValidators([Validators.required]);
-          this.taxiFval.ownersPhoneNumber.setValidators([Validators.required]);
+          this.taxiFval.ownersPhoneNumber.setValidators([
+            Validators.required,
+            CustomValidator.patternValidator(
+              /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+              { hasNumber: true }
+            ),
+           ]);
           break;
     }
   }
@@ -661,12 +681,13 @@ export class PersonalInfoComponent implements OnInit {
             bodabodaOwnershipStatus: this.bodaFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
                                         1 : this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                                         2 : 3,
-            bodabodaCustomerOwnersName: this.bodaFval.ownersName.value.toUpperCase(),
-            bodabodaCustomerOwnersPhone1: this.bodaFval.ownersPhoneNumber.value,
+            bodabodaCustomerOwnersName: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                                        this.bodaFval.ownersName.value.toUpperCase(),
+            bodabodaCustomerOwnersPhone1: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                                        this.bodaFval.ownersPhoneNumber.value,
             bodabodaCustomerFrontPhotoUrl: this.bodaFrontUrl,
             bodabodaCustomerSidePhotoUrl: this.bodaSideUrl,
             bodabodaCustomerRearPhotoUrl: this.bodaRearUrl,
-            // customerId: 400000000,
             bodabodaStageId: null,
             productCode: this.data[0].productCode
           });
@@ -679,7 +700,7 @@ export class PersonalInfoComponent implements OnInit {
           if (this.data[1].bodabodaStageId  === null) {
             this.errored = true;
             this.alertService.danger({
-              html: '<b> taxi stage selected was not found </b>'
+              html: '<b> bodaboda stage selected was not found </b>'
             });
             this.data.pop();
             return;
@@ -691,11 +712,11 @@ export class PersonalInfoComponent implements OnInit {
                 this.alertService.success({
                   html: '<b> Customer was created successfully <b>'
                 });
-                this.revert();
-                this.bodaClientForm.reset();
-                setTimeout(() => {
-                    location.reload();
-                  }, 3000);
+                // this.revert();
+                // this.bodaClientForm.reset();
+                // setTimeout(() => {
+                //     location.reload();
+                //   }, 3000);
               },
               err => {
                 this.data = [];
@@ -741,12 +762,13 @@ export class PersonalInfoComponent implements OnInit {
             taxiCustomerOwnershipStatus: this.taxiFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
                                         1 : this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                                         2 : 3,
-            taxiCustomerOwnersName: this.taxiFval.ownersName.value.toUpperCase(),
-            taxiCustomerOwnersPhone: this.taxiFval.ownersPhoneNumber.value,
+            taxiCustomerOwnersName: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                                    this.taxiFval.ownersName.value.toUpperCase(),
+            taxiCustomerOwnersPhone: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                                    this.taxiFval.ownersPhoneNumber.value,
             taxiCustomerFrontPhotoUrl: this.taxiFrontUrl,
             taxiCustomerSidePhotoUrl: this.taxiSideUrl,
             taxiCustomerRearPhotoUrl: this.taxiRearUrl,
-            // customerId: 400000000,
             taxiStageId: null,
             productCode: this.data[0].productCode
           });
@@ -771,11 +793,11 @@ export class PersonalInfoComponent implements OnInit {
                 this.alertService.success({
                   html: '<b> Customer was created successfully <b>'
                 });
-                this.revert();
-                this.taxiClientForm.reset();
-                setTimeout(() => {
-                    location.reload();
-                  }, 3000);
+                // this.revert();
+                // this.taxiClientForm.reset();
+                // setTimeout(() => {
+                //     location.reload();
+                //   }, 3000);
               },
               err => {
                 this.data = [];
