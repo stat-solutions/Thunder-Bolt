@@ -29,6 +29,7 @@ import { TownsPaidLedgerComponent } from './components/reports/towns-reports/tow
 import { StationsCashLedgerComponent } from './components/reports/stations-reports/stations-cash-ledger/stations-cash-ledger.component';
 import { StationsLoansLedgerComponent } from './components/reports/stations-reports/stations-loans-ledger/stations-loans-ledger.component';
 import { StationsPaidLedgerComponent } from './components/reports/stations-reports/stations-paid-ledger/stations-paid-ledger.component';
+import { VerifyClientComponent } from './components/approvals/verify-client/verify-client.component';
 
 const routes: Routes = [
   {
@@ -46,7 +47,7 @@ const routes: Routes = [
         component: DashboardComponent,
       },
       {
-        path: 'createtowns',
+        path: 'selecttowns',
         component: CreateComponent,
         // children: [
         //   {
@@ -65,35 +66,49 @@ const routes: Routes = [
         component: ApprovalsComponent,
         children: [
           {
-                path: 'reducerate',
-                component: ReduceRateComponent,
-              },
-              {
-                path: 'reverseprinciple',
-                component: ReversePrincipleComponent,
-              },
-              {
-                path: 'interestrate',
-                component: InterestRateComponent,
-              },
-              {
-                path: 'withdrawsavings',
-                component: WithdrawSavingsComponent,
-              },
-              {
-                path: 'waiveinterest',
-                component: WaiveInterestComponent,
-              },
-              {
-                path: 'writeoff',
-                component: WriteOffComponent,
-              },
-              {
-                path: 'loanlimit',
-                component: LoanLimitComponent,
-              }
-            ]
+            path: 'verifyclients',
+            component: VerifyClientComponent,
           },
+          {
+            path: 'loanapprovals',
+            component: LoansApprovalsComponent,
+        children: [
+          {
+            path: 'reducerate',
+            component: ReduceRateComponent,
+          },
+          {
+            path: 'verifyclients',
+            component: VerifyClientComponent,
+          },
+          {
+            path: 'reverseprinciple',
+            component: ReversePrincipleComponent,
+          },
+          {
+            path: 'interestrate',
+            component: InterestRateComponent,
+          },
+          {
+            path: 'withdrawsavings',
+            component: WithdrawSavingsComponent,
+          },
+          {
+            path: 'waiveinterest',
+            component: WaiveInterestComponent,
+          },
+          {
+            path: 'writeoff',
+            component: WriteOffComponent,
+          },
+          {
+            path: 'loanlimit',
+            component: LoanLimitComponent,
+          },
+        ],
+      }
+    ]
+  },
       {
         path: 'reports',
         component: ReportsComponent,

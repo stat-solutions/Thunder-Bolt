@@ -24,6 +24,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AsyncPipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AdminModule,
     AuthModule,
     HttpClientModule,
+    PinchZoomModule,
     NgbModule,
     DatepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
@@ -50,13 +52,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     JwtModule.forRoot({
       config: {
-      //   tokenGetter: () => {
-      //   //   // ;
-      //   // },
-      //   allowedDomains: ["localhost:4200/"],
-      //   disallowedRoutes: ["http://example.com/examplebadroute/"],
+        //   tokenGetter: () => {
+        //   //   // ;
+        //   // },
+        //   allowedDomains: ["localhost:4200/"],
+        //   disallowedRoutes: ["http://example.com/examplebadroute/"],
       },
-    })
+    }),
   ],
   providers: [
     {
@@ -65,7 +67,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       multi: true,
     },
     SharedModule,
-    AsyncPipe
+    AsyncPipe,
   ],
   bootstrap: [AppComponent],
 })

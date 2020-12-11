@@ -54,22 +54,34 @@ export class LeftPanelAreaComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/areamanagement/dashboard'
+        url: '/areamanagement/dashboard',
       },
       {
-        name: 'Creation',
+        name: 'Select Towns',
         icon: 'fas fa-wrench',
-        url: '/areamanagement/createtowns'
+        url: '/areamanagement/selecttowns',
       },
       {
         name: 'Approvals',
         icon: 'fas fa-cogs',
-        url: '/areamanagement/approvals'
-        },
+        url: '/areamanagement/approvals',
+        subMenu: [
+          {
+            name: 'Verify Clients',
+            icon: 'fas fa-clipboard-list',
+            url: '/areamanagement/approvals/verifyclients',
+          },
+          {
+            name: 'Loan Approvals',
+            icon: 'fas fa-clipboard-list',
+            url: '/areamanagement/approvals/loanapprovals',
+          }
+        ],
+      },
       {
         name: 'Reports',
         icon: 'fas fa-chart-line',
-        url: '/areamanagement/reports'
+        url: '/areamanagement/reports',
         // subMenu: [
         //   {
         //     name: 'Towns',
@@ -97,7 +109,7 @@ export class LeftPanelAreaComponent implements OnInit {
         name: 'Profile',
         icon: 'fas fa-user-cog',
         url: '/areamanagement/profile',
-      }
+      },
     ];
   }
 }
