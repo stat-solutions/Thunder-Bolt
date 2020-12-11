@@ -69,7 +69,7 @@
               <label
                 for="homeDetails"
                 [ngClass]="fval.homeDetails.valid ? 'text-info' : ''"
-                >Home Details<i
+                >Residence<i
                   *ngIf="fval.homeDetails.valid"
                   class="material-icons"
                   >check_circle</i
@@ -816,16 +816,6 @@
               >
              Bodaboda owner's name is required!
             </div>
-            <div
-            class="text-danger col"
-            *ngIf="
-              (bodaFval.ownersPhoneNumber.touched ||
-              bodaFval.ownersPhoneNumber.dirty) &&
-              bodaFval.ownersPhoneNumber.errors?.hasNumber
-            "
-          >
-          Bodaboda owner's phone number should be equal to 10 "digits"!
-          </div>
             </div>
           </div>
           <div class="col-12 col-md-6">
@@ -863,6 +853,16 @@
               >
               Bodaboda owner's phone number is required!
               </div>
+            <div
+            class="text-danger col"
+            *ngIf="
+              (bodaFval.ownersPhoneNumber.touched ||
+              bodaFval.ownersPhoneNumber.dirty) &&
+              bodaFval.ownersPhoneNumber.errors?.hasNumber
+            "
+          >
+          Bodaboda owner's phone number should be equal to 10 "digits"!
+          </div>
             </div>
           </div>
         </div>
@@ -1761,7 +1761,7 @@
           <h4
             class="rub-head4 text-info text-center font-weight-bold py-1"
           >
-            Micro Client Info
+            Savings Client Info
           </h4>
         </div>
       </div>
@@ -1861,7 +1861,7 @@
                 [ngClass]="
                 savFval.withdrawFreequency.valid ? 'text-info' : ''
                 "
-                >Withdraw Freequency<i
+                >Withdraw Frequency<i
                   *ngIf="savFval.withdrawFreequency.valid"
                   class="material-icons"
                   >check_circle</i

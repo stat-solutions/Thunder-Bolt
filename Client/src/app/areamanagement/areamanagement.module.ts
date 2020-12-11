@@ -33,6 +33,7 @@ import { ClientsComponent } from './components/reports/clients/clients.component
 import { UsersComponent } from './components/reports/users/users.component';
 import { LoansApprovalsComponent } from './components/approvals/loans-approvals/loans-approvals.component';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
+import { VerifyClientComponent } from './components/approvals/verify-client/verify-client.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { PersonalProfileComponent } from './components/profile/personal-profile/
     ClientsComponent,
     UsersComponent,
     LoansApprovalsComponent,
-    PersonalProfileComponent
+    PersonalProfileComponent,
+    VerifyClientComponent
   ],
   imports: [
     CommonModule,

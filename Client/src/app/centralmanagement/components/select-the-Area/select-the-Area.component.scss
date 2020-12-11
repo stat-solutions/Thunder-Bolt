@@ -113,19 +113,21 @@
 }
 }
 
-@media (min-width: 1100px) {}
+@media (min-width: 1100px) {
+    .jumbotron-fluid {
+      padding-bottom: .4rem !important;
+  }
+.iteration {
+  max-height: 320px;
+}
+
+}
 
 @media (min-width: 1280px) {
   .container {
       margin-left: auto !important;
       margin-right: auto !important;
   }
-  .jumbotron-fluid {
-      padding-bottom: .4rem !important;
-  }
-.iteration {
-  max-height: 320px;
-}
 }
 
 @media (min-width: 1320px) {}
