@@ -200,7 +200,7 @@ const routes: Routes = [
         component: ReportsComponent,
         children: [
           {
-            path: 'areas',
+            path: 'regions',
             component: AreasComponent,
           },
           {

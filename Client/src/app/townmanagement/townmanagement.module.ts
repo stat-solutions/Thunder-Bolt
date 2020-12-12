@@ -16,6 +16,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { EnrollComponent } from './components/enroll/enroll.component';
 import { EnrollClientComponent } from './components/enroll/enroll-client/enroll-client.component';
@@ -69,7 +70,7 @@ import { AlertModule } from 'ngx-alerts';
     EditStageComponent,
     EditBodaStageComponent,
     EditTaxiStageComponent,
-    ],
+  ],
   imports: [
     CommonModule,
     TownmanagementRoutingModule,
@@ -79,9 +80,10 @@ import { AlertModule } from 'ngx-alerts';
     TabsModule.forRoot(),
     DatepickerModule,
     BsDatepickerModule,
+    NgbModule,
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
     AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
-  ]
+  ],
 })
-export class TownmanagementModule { }
+export class TownmanagementModule {}

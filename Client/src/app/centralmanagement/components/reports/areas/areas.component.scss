@@ -5,151 +5,15 @@
 .rub-head4 {
     margin-top: 2px !important;
     margin-bottom: 2px !important;
-    // margin-right: 0px !important;
-    // margin-left: 100px !important;
-    contain: auto;
+}
+.state-table {
+  height: 100%;
 }
 
-.card-body {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    contain: auto;
-}
 
-.invest-card {
-    height: auto;
-    margin-bottom: 20px !important;
-    contain: auto;
-    // overflow-y: auto;
-    // overflow-x: hidden;
-}
-
-.invest-card3 {
-    height: auto;
-    // min-height: 350px !important;
-    // max-height: 440px !important;
-    margin-bottom: 0px !important;
-    contain: auto;
-    // z-index: 1;
-    // overflow-y: auto;
-    // overflow-x: hidden;
-}
-
-.item-container {
-    min-height: 35px !important;
-    contain: auto;
-    // overflow-y: auto;
-    // overflow-x: hidden;
-}
-
-.col-4 h4 {
-    // margin-left: 8px !important;
-    // margin-right: 8px !important;
-}
-
-.list-card {
-    height: auto !important;
-}
-
-.list-card2 {
-    width: 100%;
-    height: auto !important;
-    margin-left: 0px !important;
-    margin-right: 15px !important;
-    contain: auto;
-}
-
-.bg-info {
-    background-color: #141e27 !important;
-}
-
-h2 {
-    font-size: 16px;
-}
-
-h4 {
-    font-size: 13px;
-}
-
-.btn {
-    padding: .340rem .35rem;
-    font-size: .8rem;
-    line-height: 1.0;
-    border-radius: 15px;
-}
-
-.text-info {
-    color: #17aae0ee !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-    color: #48bae4f5 !important;
-}
-
-.btn-info {
-    color: #17aae0ee;
-    background-color: transparent;
-    border-color: #17aae0ee;
-}
-
-.btn-info:hover,
-.btn-info:focus {
-    color: #d9dbdd;
-    background-color: #17aae0ee;
-    border-color: #17aae0ee;
-}
-
-.btn-info.focus,
-.btn-info:focus {
-    box-shadow: 0 0 0 0.2rem #0e99ccee;
-}
-
-.btn-info.disabled,
-.btn-info:disabled {
-    color: #1b9eceec;
-    background-color: transparent;
-    border-color: #1b9eceec;
-}
-
-.btn-infob {
-    color: #7d8388;
-    background-color: transparent;
-    border-color: transparent;
-}
-
-.btn-infob:hover,
-.btn-infob:focus {
-    color: #17aae0ee;
-    background-color: transparent;
-    border-color: transparent;
-}
-
-.btn-infob.focus,
-.btn-infob:focus {
-    box-shadow: 0 0 0 0.2rem transparent;
-}
-
-.btn-infob.disabled,
-.btn-infob:disabled {
-    color: #89898a;
-    background-color: transparent;
-    border-color: transparent;
-}
-
-.pointerCursor {
-    cursor: pointer;
-}
 
 //media queries
 @media (min-width: 320px) {
-    .card-body {
-        // min-height: 420px !important;
-        // max-height: 470px !important;
-        padding-top: 4px;
-        margin-bottom: 5px !important;
-    }
     .jumbotron-fluid {
         padding-top: 0px !important;
         padding-bottom: 0px !important;
@@ -157,46 +21,15 @@ a.text-info:hover {
 }
 
 @media (min-width: 360px) {
-    .card-body {}
 }
 
 @media (min-width: 375px) {
-    .card-body {
-        // max-width: 360px;
-        // min-width: 340px;
-    }
-    .jumbotron-fluid {
-        padding-bottom: 60px !important;
-    }
 }
 
 @media (min-width: 410px) {
-    h4 {
-        font-size: 18px;
-    }
-    h5 {
-        font-size: 17px;
-    }
-    .jumbotron-fluid {
-        padding-bottom: 5px !important;
-    }
 }
 
 @media (min-width: 445px) {
-    h4 {
-        font-size: 20px;
-    }
-    h5 {
-        font-size: 18px;
-    }
-    .card-body {
-        // max-width: 410px;
-        // min-width: 390px;
-    }
-    .jumbotron-fluid {
-        padding-top: 8px !important;
-        padding-bottom: 5px !important;
-    }
 }
 
 @media (min-width: 568px) {}
@@ -213,23 +46,9 @@ a.text-info:hover {
         margin-left: 0px !important;
         margin-right: 0px !important;
     }
-    h2 {
-        font-size: 22px !important;
-    }
-    h4 {
-        font-size: 20px !important;
-    }
     .jumbotron-fluid {
         padding-top: 10px !important;
         padding-bottom: 30px !important;
-    }
-    .invest-card3 {
-        min-height: 540px !important;
-        max-height: 600px !important;
-    }
-    .card-body {
-        max-width: 740px;
-        min-width: 690px;
     }
 }
 
@@ -245,35 +64,21 @@ a.text-info:hover {
         padding-top: 10px !important;
         padding-bottom: 20px !important;
     }
-    .card-body {
-        max-width: 970px;
-        min-width: 890px;
-    }
 }
 
-@media (min-width: 1100px) {}
-
-@media (min-width: 1280px) {
-    .container {
-        max-width: 1440px;
-        min-width: 1180px;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-    h4 {
-        font-size: 22px !important;
-    }
-    h5 {
-        font-size: 20px !important;
-    }
-    .jumbotron-fluid {
+@media (min-width: 1100px) {
+      .jumbotron-fluid {
         margin-top: 0px !important;
         padding-top: 0px !important;
         padding-bottom: 10px !important;
     }
-    .card-body {
-        max-width: 1300px;
-        min-width: 1180px;
+
+}
+
+@media (min-width: 1280px) {
+    .container {
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
 

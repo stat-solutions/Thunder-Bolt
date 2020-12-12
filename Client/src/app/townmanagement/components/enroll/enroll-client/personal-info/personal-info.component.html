@@ -1,10 +1,10 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-2 pt-1 pb-0 shadow-lg col-xs-12 col-lg-10"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-1 pb-0 shadow-lg col-12 col-lg-11"
 >
   <div class="jumbotron-fluid mb-0 pb-0">
     <!-- this is for personal info -->
     <div [hidden]="!showPersonalForm">
-      <div class="container mt-0 mx-0 shadow-lg">
+      <div class="container my-2 mx-0 shadow-lg">
         <div class="row">
           <div class="col-12">
             <h4
@@ -15,7 +15,7 @@
           </div>
         </div>
       </div>
-    <div class="card-body mt-1 pt-4 mb-0 pb-3 pb-md-1 shadow-lg">
+    <div class="card-body mt-1 pt-4 mb-0 pb-3 shadow-lg">
       <form [formGroup]="userForm">
         <div class="row">
           <div class="col-12 col-md-6">
@@ -276,9 +276,9 @@
               <label
                 for="id_type"
                 [ngClass]="fval.id_type.valid? 'text-info' : ''"
-                ><i *ngIf="fval.id_type.valid" class="material-icons"
+                >ID Type<i *ngIf="fval.id_type.valid" class="material-icons"
                   >check_circle</i
-                >ID Type</label
+                ></label
               >
               <div class="input-group mb-0">
                 <div class="input-group-prepend">
@@ -483,7 +483,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">
                     <i
-                      class="fas fa-image text-primary mx-auto"
+                      class="fas fa-calendar-alt text-primary mx-auto"
                       style="size: 50px"
                     ></i>
                   </div>
@@ -502,8 +502,8 @@
                   autocomplete="off"
                   class="form-control"
                   bsDatepicker
-                  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
-                  placement="bottom"
+                  [bsConfig]="{ containerClass:'theme-blue', dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
+                  placement="top"
                 />
               </div>
               <div
@@ -596,7 +596,7 @@
 
   <!-- this is for boda client -->
   <div [hidden]="!showBodaForm">
-    <div class="container mt-0 mb-2 mx-0 shadow-lg">
+    <div class="container my-2 mx-0 shadow-lg col-12">
       <div class="row">
         <div class="col-12">
           <h4
@@ -607,7 +607,7 @@
         </div>
       </div>
     </div>
-    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-0 pb-md-1 shadow-lg">
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg">
       <form [formGroup]="bodaClientForm">
         <div class="row">
         <div class="col-12 col-md-6">
@@ -669,7 +669,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text">
                   <i
-                    class="fas fa-motorcycle text-primary mx-auto"
+                    class="fas fa-tag text-primary mx-auto"
                     style="size: 50px"
                   >
                   </i>
@@ -768,7 +768,6 @@
                 autocomplete="off"
                 placeholder="Select Insurance status"
               >
-                <option selected>Select Insurance status</option>
                 <option>NONE</option>
                 <option>REGULAR</option>
                 <option>COMPREHENSIVE</option>
@@ -851,6 +850,15 @@
                 ></label
               >
               <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-calendar-alt text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+                </div>
                 <input
                   id="bodaDateOfJoiningStage"
                   formControlName="dateOfJoiningStage"
@@ -866,8 +874,8 @@
                   autocomplete="off"
                   class="form-control"
                   bsDatepicker
-                  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
-                  placement="bottom"
+                  [bsConfig]="{ containerClass:'theme-blue', dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
+                  placement="top"
                 />
               </div>
               <div
@@ -1082,6 +1090,14 @@
                 ></label
               >
               <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
                 <input
                   id="ownersName"
                   formControlName="ownersName"
@@ -1105,16 +1121,6 @@
               >
              Bodaboda owner's name is required!
             </div>
-            <div
-            class="text-danger col"
-            *ngIf="
-              (bodaFval.ownersPhoneNumber.touched ||
-              bodaFval.ownersPhoneNumber.dirty) &&
-              bodaFval.ownersPhoneNumber.errors?.hasNumber
-            "
-          >
-          Bodaboda owner's phone number should be equal to 10 "digits"!
-          </div>
             </div>
           </div>
           <div class="col-12 col-md-6">
@@ -1129,6 +1135,14 @@
                 ></label
               >
               <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-phone text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
                 <input
                   id="ownersPhoneNumber"
                   formControlName="ownersPhoneNumber"
@@ -1152,6 +1166,16 @@
               >
               Bodaboda owner's phone number is required!
               </div>
+            <div
+            class="text-danger col"
+            *ngIf="
+              (bodaFval.ownersPhoneNumber.touched ||
+              bodaFval.ownersPhoneNumber.dirty) &&
+              bodaFval.ownersPhoneNumber.errors?.hasNumber
+            "
+          >
+          Bodaboda owner's phone number should be equal to 10 "digits"!
+          </div>
             </div>
           </div>
         </div>
@@ -1161,7 +1185,7 @@
 
   <!-- this is for taxi client -->
   <div [hidden]="!showTaxiForm">
-    <div class="container mt-0 mb-2 mx-0 shadow-lg">
+    <div class="container my-2 mx-0 shadow-lg col-12">
       <div class="row">
         <div class="col-12">
           <h4
@@ -1172,7 +1196,7 @@
         </div>
       </div>
     </div>
-    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-0 pb-md-1 shadow-lg">
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg">
       <form [formGroup]="taxiClientForm">
       <div class="row">
       <div class="col-12 col-md-6">
@@ -1279,10 +1303,9 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text">
                     <i
-                      class="fas fa-motorcycle text-primary mx-auto"
+                      class="fas fa-tag text-primary mx-auto"
                       style="size: 50px"
-                    >
-                    </i>
+                    ></i>
                   </div>
                 </div>
                 <input
@@ -1604,6 +1627,14 @@
                 ></label
               >
               <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-calendar-alt text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
                 <input
                   id="taxiDateOfJoiningStage"
                   formControlName="dateOfJoiningStage"
@@ -1618,8 +1649,8 @@
                   autocomplete="off"
                   class="form-control"
                   bsDatepicker
-                  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
-                  placement="bottom"
+                  [bsConfig]="{ containerClass:'theme-blue', dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
+                  placement="top"
                 />
               </div>
               <div
@@ -1634,7 +1665,7 @@
               </div>
             </div>
           </div>
-        </div>  
+        </div>
         <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
@@ -1691,6 +1722,14 @@
                 ></label
               >
               <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
                 <input
                   id="ownersName"
                   formControlName="ownersName"
@@ -1712,7 +1751,7 @@
                   taxiFval.ownersName.errors?.required
                 "
               >
-              Taxi owner's name!
+              Taxi owner's name is required!
             </div>
             </div>
           </div>
@@ -1728,6 +1767,14 @@
                 ></label
               >
               <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-phone text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
                 <input
                   id="ownersPhoneNumber"
                   formControlName="ownersPhoneNumber"
@@ -1770,7 +1817,7 @@
 
   <!-- this is for micro client -->
   <div [hidden]="!showMicroForm">
-    <div class="container mt-0 mb-2 mx-0 shadow-lg">
+    <div class="container my-2 mx-0 shadow-lg col-12">
       <div class="row">
         <div class="col-12">
           <h4
@@ -1781,7 +1828,7 @@
         </div>
       </div>
     </div>
-    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-0 pb-md-1 shadow-lg">
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg">
       <form [formGroup]="microClientForm">
         <div class="row">
           <div class="col-12 col-md-6">
@@ -1883,15 +1930,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
                   formControlName="currentBusinesstype"
@@ -2191,7 +2229,7 @@
 
    <!-- this is for savings client -->
   <div [hidden]="!showSaveForm">
-    <div class="container mt-0 mb-2 mx-0 shadow-lg">
+    <div class="container my-2 mx-0 shadow-lg col-12">
       <div class="row">
         <div class="col-12">
           <h4
@@ -2202,7 +2240,7 @@
         </div>
       </div>
     </div>
-    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-0 pb-md-1 shadow-lg">
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg">
       <form [formGroup]="savingsClientForm">
         <div class="row">
           <div class="col-12 col-md-6">
@@ -2297,7 +2335,7 @@
                 [ngClass]="
                 savFval.withdrawFreequency.valid ? 'text-info' : ''
                 "
-                >Withdraw Freequency<i
+                >Withdraw Frequency<i
                   *ngIf="savFval.withdrawFreequency.valid"
                   class="material-icons"
                   >check_circle</i
@@ -2305,7 +2343,8 @@
               >
               <div class="input-group mb-0">
                 <input
-                  type="text"
+                  type="number"
+                  min='0'
                   formControlName="withdrawFreequency"
                   class="form-control"
                   [ngClass]="{
@@ -2376,7 +2415,7 @@
   </div>
 
   <!-- action buttons -->
-  <div class="d-flex mt-3 mb-2 mb-xl-0 pt-2 pb-2 pb-xl-2 mx-auto">
+  <div class="d-flex mt-3 mb-2 mb-xl-0 py-2 mx-auto">
     <button
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"

@@ -396,7 +396,7 @@ export class EditPersonalInfoComponent implements OnInit {
     if (theStationLocationId === null){
        this.errored = true;
        this.alertService.danger({
-        html: '<b> The station chose does not exist</b>'
+        html: '<b> The station chosen does not exist!</b>'
        });
        return;
     } else {
@@ -835,14 +835,14 @@ export class EditPersonalInfoComponent implements OnInit {
           if (data.theStationLocationId === null){
            this.errored = true;
            this.alertService.danger({
-            html: '<b> The station chose does not exist</b>'
+            html: '<b> The station chosen does not exist!</b>'
            });
           //  this.errored = false;
            return;
          } else if (!this.currentCustomerId){
             this.errored = true;
             this.alertService.danger({
-            html: '<b> The customer chose does not exist</b>'
+            html: '<b> The customer chosen does not exist!</b>'
             });
          } else {
               // console.log(data);
@@ -871,7 +871,7 @@ export class EditPersonalInfoComponent implements OnInit {
     } else {
       this.errored = true;
       this.alertService.danger({
-       html: '<b> some fields of the form have invalid values</b>'
+       html: '<b> Some fields of the form have invalid values!</b>'
       });
     }
   }
@@ -930,7 +930,7 @@ export class EditPersonalInfoComponent implements OnInit {
         if (data.bodabodaStageId  === null) {
           this.errored = true;
           this.alertService.danger({
-            html: '<b> bodaboda stage selected was not found </b>'
+            html: '<b> Bodaboda stage selected was not found! </b>'
           });
           return;
       } else {
@@ -1033,7 +1033,7 @@ export class EditPersonalInfoComponent implements OnInit {
         if (data.taxiStageId === null) {
             this.errored = true;
             this.alertService.danger({
-              html: '<b> taxi stage selected was not found </b>'
+              html: '<b> Taxi stage selected was not found! </b>'
             });
             return;
         } else {
@@ -1063,7 +1063,7 @@ export class EditPersonalInfoComponent implements OnInit {
               res => {
                 this.posted = true;
                 this.alertService.success({
-                  html: '<b>taxi fuel product was added successfully <b>'
+                  html: '<b>Taxi fuel product was added successfully <b>'
                 });
                 this.revert();
                 this.taxiClientForm.reset();
@@ -1109,7 +1109,7 @@ export class EditPersonalInfoComponent implements OnInit {
           res => {
             this.posted = true;
             this.alertService.success({
-              html: '<b> Customer microo loan product was updated successfully <b>',
+              html: '<b> Customer micro-loan product was updated successfully <b>',
             });
             this.revert();
             this.microClientForm.reset();
@@ -1129,7 +1129,7 @@ export class EditPersonalInfoComponent implements OnInit {
           res => {
             this.posted = true;
             this.alertService.success({
-              html: '<b> micro loan product was added successfully <b>',
+              html: '<b> Micro-loan product was added successfully <b>',
             });
             this.revert();
             this.microClientForm.reset();
@@ -1168,7 +1168,7 @@ export class EditPersonalInfoComponent implements OnInit {
           res => {
             this.posted = true;
             this.alertService.success({
-              html: '<b> Customersavings product was updated successfully <b>',
+              html: '<b> Customer savings product was updated successfully <b>',
             });
             this.revert();
             this.microClientForm.reset();
@@ -1188,7 +1188,7 @@ export class EditPersonalInfoComponent implements OnInit {
           res => {
             this.posted = true;
             this.alertService.success({
-              html: '<b> savings product was added successfully <b>',
+              html: '<b> Savings product was added successfully <b>',
             });
             this.revert();
             this.microClientForm.reset();

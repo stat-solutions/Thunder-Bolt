@@ -82,28 +82,28 @@ export class LeftPanelAreaComponent implements OnInit {
         name: 'Reports',
         icon: 'fas fa-chart-line',
         url: '/areamanagement/reports',
-        // subMenu: [
-        //   {
-        //     name: 'Towns',
-        //     icon: 'fas fa-clipboard-list',
-        //     url: '/areamanagement/reports/townsreports'
-        //   },
-        //   {
-        //     name: 'Stations',
-        //     icon: 'fas fa-clipboard-list',
-        //     url: '/areamanagement/reports/stationsreports'
-        //   },
-        //   {
-        //     name: 'Clients',
-        //     icon: 'fas fa-clipboard-list',
-        //     url: '/areamanagement/reports/clientsreports'
-        //   },
-        //   {
-        //     name: 'Users',
-        //     icon: 'fas fa-user-cog',
-        //     url: '/areamanagement/reports/usersreports'
-        //   }
-        // ]
+        subMenu: [
+          {
+            name: 'Towns',
+            icon: 'fas fa-clipboard-list',
+            url: '/areamanagement/reports/townsreports'
+          },
+          {
+            name: 'Stations',
+            icon: 'fas fa-clipboard-list',
+            url: '/areamanagement/reports/stationsreports'
+          },
+          {
+            name: 'Clients',
+            icon: 'fas fa-clipboard-list',
+            url: '/areamanagement/reports/clientsreports'
+          },
+          {
+            name: 'Users',
+            icon: 'fas fa-user-cog',
+            url: '/areamanagement/reports/usersreports'
+          }
+        ]
       },
       {
         name: 'Profile',
