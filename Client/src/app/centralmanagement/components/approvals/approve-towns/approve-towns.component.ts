@@ -107,7 +107,9 @@ export class ApproveTownsComponent implements OnInit {
   }
 
   refresh(): any {
-    location.reload();
+    this.userForm = this.createFormGroup();
+    this.fval.selectAll.setValue(false);
+    this.initialiseForm();
   }
 
   get fval(): any {
@@ -122,7 +124,7 @@ export class ApproveTownsComponent implements OnInit {
     this.townApprovals.forEach((item, i) => {
       if (this.fval.approveTowns.controls[i].controls.approved.value === true) {
         itemsApproved.push({
-          townnId: item.townId,
+          townId: item.townId,
           townStatus: 2,
           userId: this.User.userId
         });

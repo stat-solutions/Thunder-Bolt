@@ -85,7 +85,9 @@ var ApproveStationsComponent = /** @class */ (function () {
         this.userForm.reset();
     };
     ApproveStationsComponent.prototype.refresh = function () {
-        location.reload();
+        this.userForm = this.createFormGroup();
+        this.fval.selectAll.setValue(false);
+        this.initialiseForm();
     };
     Object.defineProperty(ApproveStationsComponent.prototype, "fval", {
         get: function () {

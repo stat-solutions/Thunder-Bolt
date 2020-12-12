@@ -6,12 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.CreateTownsComponent = void 0;
+exports.CreateComponent = void 0;
 var core_1 = require("@angular/core");
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-var CreateTownsComponent = /** @class */ (function () {
-    function CreateTownsComponent(authService, others, router, spinner, alertService, fb) {
+var CreateComponent = /** @class */ (function () {
+    function CreateComponent(authService, others, router, spinner, alertService, fb) {
         this.authService = authService;
         this.others = others;
         this.router = router;
@@ -21,19 +21,19 @@ var CreateTownsComponent = /** @class */ (function () {
         this.posted = false;
         this.User = this.authService.loggedInUserInfo();
     }
-    CreateTownsComponent.prototype.ngOnInit = function () {
+    CreateComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
         this.fval.selectAll.setValue(false);
         this.initialiseForm();
         // console.log(this.User);
     };
-    CreateTownsComponent.prototype.createFormGroup = function () {
+    CreateComponent.prototype.createFormGroup = function () {
         return this.fb.group({
             selectedTowns: this.fb.array([this.selectTown]),
             selectAll: this.fb.control({})
         });
     };
-    Object.defineProperty(CreateTownsComponent.prototype, "selectTown", {
+    Object.defineProperty(CreateComponent.prototype, "selectTown", {
         get: function () {
             return this.fb.group({
                 townId: this.fb.control({ value: '' }),
@@ -44,14 +44,14 @@ var CreateTownsComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    CreateTownsComponent.prototype.addItem = function () {
+    CreateComponent.prototype.addItem = function () {
         // this.unitForm.controls.bussinessUnits  as FormArray
         this.fval.selectedTowns.push(this.selectTown);
     };
-    CreateTownsComponent.prototype.removeItem = function (index) {
+    CreateComponent.prototype.removeItem = function (index) {
         this.fval.selectedTowns.removeAt(index);
     };
-    CreateTownsComponent.prototype.initialiseForm = function () {
+    CreateComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
         this.others.getTowns().subscribe(function (units) {
@@ -68,7 +68,7 @@ var CreateTownsComponent = /** @class */ (function () {
             _this.removeItem(n);
         });
     };
-    CreateTownsComponent.prototype.checkAllItems = function (val) {
+    CreateComponent.prototype.checkAllItems = function (val) {
         var _this = this;
         if (val === true) {
             this.approvedTowns.forEach(function (item, i) {
@@ -81,32 +81,34 @@ var CreateTownsComponent = /** @class */ (function () {
             });
         }
     };
-    CreateTownsComponent.prototype.deselectAll = function (val) {
+    CreateComponent.prototype.deselectAll = function (val) {
         // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
         if (this.fval.selectedTowns.controls[val].controls.approved.value === true) {
             this.fval.selectAll.setValue(false);
         }
     };
-    CreateTownsComponent.prototype.revert = function () {
+    CreateComponent.prototype.revert = function () {
         this.userForm.reset();
     };
-    CreateTownsComponent.prototype.refresh = function () {
-        location.reload();
+    CreateComponent.prototype.refresh = function () {
+        this.userForm = this.createFormGroup();
+        this.fval.selectAll.setValue(false);
+        this.initialiseForm();
     };
-    Object.defineProperty(CreateTownsComponent.prototype, "fval", {
+    Object.defineProperty(CreateComponent.prototype, "fval", {
         get: function () {
             return this.userForm.controls;
         },
         enumerable: false,
         configurable: true
     });
-    CreateTownsComponent.prototype.disableForm = function () {
+    CreateComponent.prototype.disableForm = function () {
         return this.userForm.disable();
     };
-    CreateTownsComponent.prototype.enableEdit = function () {
+    CreateComponent.prototype.enableEdit = function () {
         return this.userForm.enable();
     };
-    CreateTownsComponent.prototype.approveItems = function () {
+    CreateComponent.prototype.approveItems = function () {
         var _this = this;
         var townsSelected = [];
         this.approvedTowns.forEach(function (item, i) {
@@ -121,9 +123,9 @@ var CreateTownsComponent = /** @class */ (function () {
         // console.log(townsSelected);
         if (townsSelected.length > 0) {
             this.others.createTheTown(townsSelected).subscribe(function (res) {
-                // setTimeout(() => {
-                //   this.refresh();
-                // }, 3000);
+                setTimeout(function () {
+                    _this.refresh();
+                }, 3000);
             }, function (err) { return console.log(err); });
         }
         else {
@@ -131,20 +133,20 @@ var CreateTownsComponent = /** @class */ (function () {
             return;
         }
     };
-    CreateTownsComponent.prototype.cancelSelection = function () {
+    CreateComponent.prototype.cancelSelection = function () {
         var _this = this;
         this.revert();
         setTimeout(function () {
             _this.router.navigate(['areamanagement']);
         }, 3000);
     };
-    CreateTownsComponent = __decorate([
+    CreateComponent = __decorate([
         core_1.Component({
-            selector: 'app-create-towns',
-            templateUrl: './create-towns.component.html',
-            styleUrls: ['./create-towns.component.scss']
+            selector: 'app-create',
+            templateUrl: './create.component.html',
+            styleUrls: ['./create.component.scss']
         })
-    ], CreateTownsComponent);
-    return CreateTownsComponent;
+    ], CreateComponent);
+    return CreateComponent;
 }());
-exports.CreateTownsComponent = CreateTownsComponent;
+exports.CreateComponent = CreateComponent;

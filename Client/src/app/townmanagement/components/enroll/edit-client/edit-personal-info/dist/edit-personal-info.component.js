@@ -161,6 +161,9 @@ var EditPersonalInfoComponent = /** @class */ (function () {
             customerTarget: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
         });
     };
+    EditPersonalInfoComponent.prototype.console = function (val) {
+        return console.log(val);
+    };
     EditPersonalInfoComponent.prototype.getCustomers = function (val) {
         var _this = this;
         var theStationLocationId = null;
@@ -402,7 +405,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         if (this.currentCustomer.productCodes.includes(300)) {
             this.others.getTaxiCustomer(this.currentCustomerId).subscribe(function (res) {
                 var customer = res[0];
-                _this.taxiCustomerId = 353;
+                _this.taxiCustomerId = customer.taxiCustomerId;
                 _this.taxiFval.taxiCustomerNumberPlate.setValue(customer.taxiCustomerNumberPlate.replace(/\s/g, ''));
                 _this.taxiFval.taxiCustomerNumberPlate.disable();
                 _this.taxiFval.drivingPermit.setValue(customer.taxiCustomerDrivingPermitNumber);
@@ -531,7 +534,8 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         this.userForm.reset();
     };
     EditPersonalInfoComponent.prototype.refresh = function () {
-        location.reload();
+        // location.reload();
+        this.router.navigate(['townmanagement']);
     };
     Object.defineProperty(EditPersonalInfoComponent.prototype, "fval", {
         get: function () {
@@ -580,8 +584,8 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                         _this.fval.main_contact_number1.value :
                         _this.fval.main_contact_number2.value,
                     customerIdType: _this.fval.id_type.value.toUpperCase(),
-                    customerIdPhotoUrl: _this.clientPhotoUrl,
-                    customerPhotoUrl: _this.clientIdUrl,
+                    customerIdPhotoUrl: _this.clientIdUrl,
+                    customerPhotoUrl: _this.clientPhotoUrl,
                     customerDateOfBirth: _this.fval.dateOfBirth.value.getFullYear() + "-" + (_this.fval.dateOfBirth.value.getMonth() + 1) + "-" + _this.fval.dateOfBirth.value.getDate(),
                     customerIdNumber: _this.fval.id_number.value.toUpperCase(),
                     customerHomeAreaDetails: _this.fval.homeDetails.value.toUpperCase(),
@@ -619,7 +623,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                         _this.revert();
                         _this.bodaClientForm.reset();
                         setTimeout(function () {
-                            location.reload();
+                            _this.router.navigate(['townmanagement']);
                         }, 3000);
                     }, function (err) {
                         _this.errored = true;
@@ -690,7 +694,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                         data_1.bodabodaStageId = bodaStage.bodabodaStageId;
                     }
                 });
-                // console.log(data);
+                console.log(data_1);
                 if (data_1.bodabodaStageId === null) {
                     this.errored = true;
                     this.alertService.danger({
@@ -709,7 +713,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                             _this.revert();
                             _this.bodaClientForm.reset();
                             setTimeout(function () {
-                                location.reload();
+                                _this.router.navigate(['townmanagement']);
                             }, 3000);
                         }, function (err) {
                             _this.errored = true;
@@ -728,7 +732,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                             _this.revert();
                             _this.bodaClientForm.reset();
                             setTimeout(function () {
-                                location.reload();
+                                _this.router.navigate(['townmanagement']);
                             }, 3000);
                         }, function (err) {
                             _this.errored = true;
@@ -788,7 +792,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                         data_2.taxiStageId = taxiStage.taxiStageId;
                     }
                 });
-                // console.log(data);
+                console.log(data_2);
                 if (data_2.taxiStageId === null) {
                     this.errored = true;
                     this.alertService.danger({
@@ -807,7 +811,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                             _this.revert();
                             _this.taxiClientForm.reset();
                             setTimeout(function () {
-                                location.reload();
+                                _this.router.navigate(['townmanagement']);
                             }, 3000);
                         }, function (err) {
                             console.log(err.statusText);
@@ -825,12 +829,12 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                             _this.revert();
                             _this.taxiClientForm.reset();
                             setTimeout(function () {
-                                location.reload();
+                                _this.router.navigate(['townmanagement']);
                             }, 3000);
                         }, function (err) {
                             console.log(err.statusText);
                             _this.alertService.danger({
-                                html: '<b>' + err.error.error.message + '</b>'
+                                html: '<b>' + err.error.statusText + '</b>'
                             });
                         });
                     }
@@ -870,7 +874,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                     _this.revert();
                     _this.microClientForm.reset();
                     setTimeout(function () {
-                        location.reload();
+                        _this.router.navigate(['townmanagement']);
                     }, 3000);
                 }, function (err) {
                     console.log(err.statusText);
@@ -888,7 +892,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                     _this.revert();
                     _this.microClientForm.reset();
                     setTimeout(function () {
-                        location.reload();
+                        _this.router.navigate(['townmanagement']);
                     }, 3000);
                 }, function (err) {
                     console.log(err.statusText);
@@ -926,7 +930,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                     _this.revert();
                     _this.microClientForm.reset();
                     setTimeout(function () {
-                        location.reload();
+                        _this.router.navigate(['townmanagement']);
                     }, 3000);
                 }, function (err) {
                     console.log(err.statusText);
@@ -944,7 +948,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
                     _this.revert();
                     _this.microClientForm.reset();
                     setTimeout(function () {
-                        location.reload();
+                        _this.router.navigate(['townmanagement']);
                     }, 3000);
                 }, function (err) {
                     console.log(err.statusText);

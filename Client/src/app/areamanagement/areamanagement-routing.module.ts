@@ -48,18 +48,7 @@ const routes: Routes = [
       },
       {
         path: 'selecttowns',
-        component: CreateComponent,
-        // children: [
-        //   {
-        //     path: '',
-        //     pathMatch: 'full',
-        //     redirectTo: 'createtowns',
-        //   },
-        //   {
-        //     path: 'createtowns',
-        //     component: CreateTownsComponent,
-        //   },
-        // ],
+        component: CreateComponent
       },
       {
         path: 'approvals',

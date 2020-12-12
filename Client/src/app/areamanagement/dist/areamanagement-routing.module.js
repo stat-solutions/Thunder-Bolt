@@ -14,7 +14,7 @@ var dashboard_component_1 = require("./components/dashboard/dashboard.component"
 var area_guard_service_1 = require("../shared/services/other-services/route-guards/area-guard.service");
 var profile_component_1 = require("./components/profile/profile.component");
 var create_component_1 = require("./components/create/create.component");
-var create_towns_component_1 = require("./components/create/create-towns/create-towns.component");
+// import { CreateTownsComponent } from './components/create/create-towns/create-towns.component';
 var approvals_component_1 = require("./components/approvals/approvals.component");
 var withdraw_savings_component_1 = require("./components/approvals/loans-approvals/withdraw-savings/withdraw-savings.component");
 var interest_rate_component_1 = require("./components/approvals/loans-approvals/interest-rate/interest-rate.component");
@@ -37,6 +37,7 @@ var towns_paid_ledger_component_1 = require("./components/reports/towns-reports/
 var stations_cash_ledger_component_1 = require("./components/reports/stations-reports/stations-cash-ledger/stations-cash-ledger.component");
 var stations_loans_ledger_component_1 = require("./components/reports/stations-reports/stations-loans-ledger/stations-loans-ledger.component");
 var stations_paid_ledger_component_1 = require("./components/reports/stations-reports/stations-paid-ledger/stations-paid-ledger.component");
+var verify_client_component_1 = require("./components/approvals/verify-client/verify-client.component");
 var routes = [
     {
         path: '',
@@ -53,31 +54,28 @@ var routes = [
                 component: dashboard_component_1.DashboardComponent
             },
             {
-                path: 'create',
-                component: create_component_1.CreateComponent,
-                children: [
-                    {
-                        path: '',
-                        pathMatch: 'full',
-                        redirectTo: 'createtowns'
-                    },
-                    {
-                        path: 'createtowns',
-                        component: create_towns_component_1.CreateTownsComponent
-                    },
-                ]
+                path: 'selecttowns',
+                component: create_component_1.CreateComponent
             },
             {
                 path: 'approvals',
                 component: approvals_component_1.ApprovalsComponent,
                 children: [
                     {
-                        path: 'loansapprovals',
+                        path: 'verifyclients',
+                        component: verify_client_component_1.VerifyClientComponent
+                    },
+                    {
+                        path: 'loanapprovals',
                         component: loans_approvals_component_1.LoansApprovalsComponent,
                         children: [
                             {
                                 path: 'reducerate',
                                 component: reduce_rate_component_1.ReduceRateComponent
+                            },
+                            {
+                                path: 'verifyclients',
+                                component: verify_client_component_1.VerifyClientComponent
                             },
                             {
                                 path: 'reverseprinciple',
@@ -104,7 +102,7 @@ var routes = [
                                 component: loan_limit_component_1.LoanLimitComponent
                             },
                         ]
-                    },
+                    }
                 ]
             },
             {

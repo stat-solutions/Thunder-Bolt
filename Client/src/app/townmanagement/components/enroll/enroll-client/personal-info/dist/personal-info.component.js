@@ -322,8 +322,8 @@ var PersonalInfoComponent = /** @class */ (function () {
                     this.fval.main_contact_number1.value :
                     this.fval.main_contact_number2.value,
                 customerIdType: this.fval.id_type.value.toUpperCase(),
-                customerIdPhotoUrl: this.clientPhotoUrl,
-                customerPhotoUrl: this.clientIdUrl,
+                customerIdPhotoUrl: this.clientIdUrl,
+                customerPhotoUrl: this.clientPhotoUrl,
                 customerDateOfBirth: this.fval.dateOfBirth.value.getFullYear() + "-" + (this.fval.dateOfBirth.value.getMonth() + 1) + "-" + this.fval.dateOfBirth.value.getDate(),
                 customerIdNumber: this.fval.id_number.value.toUpperCase(),
                 customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
@@ -504,11 +504,16 @@ var PersonalInfoComponent = /** @class */ (function () {
                             _this.alertService.success({
                                 html: '<b> Customer was created successfully <b>'
                             });
-                            // this.revert();
-                            // this.bodaClientForm.reset();
-                            // setTimeout(() => {
-                            //     location.reload();
-                            //   }, 3000);
+                            _this.revert();
+                            _this.bodaClientForm.reset();
+                            setTimeout(function () {
+                                _this.goBack();
+                                _this.userForm = _this.createFormGroup();
+                                _this.bodaClientForm = _this.bodaClientFormGroup();
+                                _this.taxiClientForm = _this.taxiClientFormGroup();
+                                _this.microClientForm = _this.microClientFormGroup();
+                                _this.savingsClientForm = _this.savingsClientFormGroup();
+                            }, 3000);
                         }, function (err) {
                             _this.data = [];
                             _this.errored = true;
@@ -581,11 +586,16 @@ var PersonalInfoComponent = /** @class */ (function () {
                             _this.alertService.success({
                                 html: '<b> Customer was created successfully <b>'
                             });
-                            // this.revert();
-                            // this.taxiClientForm.reset();
-                            // setTimeout(() => {
-                            //     location.reload();
-                            //   }, 3000);
+                            _this.revert();
+                            _this.taxiClientForm.reset();
+                            setTimeout(function () {
+                                _this.goBack();
+                                _this.userForm = _this.createFormGroup();
+                                _this.bodaClientForm = _this.bodaClientFormGroup();
+                                _this.taxiClientForm = _this.taxiClientFormGroup();
+                                _this.microClientForm = _this.microClientFormGroup();
+                                _this.savingsClientForm = _this.savingsClientFormGroup();
+                            }, 3000);
                         }, function (err) {
                             _this.data = [];
                             console.log(err.statusText);
@@ -627,7 +637,12 @@ var PersonalInfoComponent = /** @class */ (function () {
                     _this.revert();
                     _this.microClientForm.reset();
                     setTimeout(function () {
-                        location.reload();
+                        _this.goBack();
+                        _this.userForm = _this.createFormGroup();
+                        _this.bodaClientForm = _this.bodaClientFormGroup();
+                        _this.taxiClientForm = _this.taxiClientFormGroup();
+                        _this.microClientForm = _this.microClientFormGroup();
+                        _this.savingsClientForm = _this.savingsClientFormGroup();
                     }, 3000);
                 }, function (err) {
                     _this.data = [];
@@ -663,7 +678,12 @@ var PersonalInfoComponent = /** @class */ (function () {
                     _this.revert();
                     _this.microClientForm.reset();
                     setTimeout(function () {
-                        location.reload();
+                        _this.goBack();
+                        _this.userForm = _this.createFormGroup();
+                        _this.bodaClientForm = _this.bodaClientFormGroup();
+                        _this.taxiClientForm = _this.taxiClientFormGroup();
+                        _this.microClientForm = _this.microClientFormGroup();
+                        _this.savingsClientForm = _this.savingsClientFormGroup();
                     }, 3000);
                 }, function (err) {
                     _this.data = [];

@@ -89,7 +89,9 @@ var CreateStationComponent = /** @class */ (function () {
         this.userForm.reset();
     };
     CreateStationComponent.prototype.refresh = function () {
-        location.reload();
+        this.userForm = this.createFormGroup();
+        this.fval.selectAll.setValue(false);
+        this.initialiseForm();
     };
     Object.defineProperty(CreateStationComponent.prototype, "fval", {
         get: function () {

@@ -146,6 +146,9 @@ export class OthersService {
     getAllTheStationLocationsByTown(id: any): Observable<any> {
       return this.http.get<any>(`${this.API_URL}/api/stationUser/getStationLocationsByTownLocation/?towmLocationId=${id}`);
     }
+    getAllTheStationLocationsByArea(id: any): Observable<any> {
+      return this.http.get<any>(`${this.API_URL}/api/stationUser/getStationLocationsByAreaLocation/?areaLocationId=${id}`);
+    }
     getAllTheStationLocations(): Observable<any> {
       return this.http.get<any>(`${this.API_URL}/api/stationUser/getAllStationLocations`);
     }
@@ -339,29 +342,50 @@ export class OthersService {
     getSavingsCustomersByStation(id: number): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getStationCustomersWithSavingsProduct/?theStationLocationId=${id}`);
     }
-    getSavingsCustomerToApprove(id: number): any{
-      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithSavingsProductForVerify/?theAreaLocationId=${id}`);
+    getAreaSavingsCustomerToApprove(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAreaSavingsCustomersForVerification/?theAreaLocationId=${id}`);
     }
     putVerifySavingsCustomer(postData: Array<object>): any {
       return this.http.post(`${this.API_URL}/api/customer/putVerifySavingsCustomer`, postData, this.httpOptions);
     }
-    getTaxiCustomerToApprove(id: number): any{
-      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithTaxiLoanProductForVerify/?theAreaLocationId=${id}`);
+    putRejectSavingsCustomer(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/customer/putRejectSavingsCustomerVerify`, postData, this.httpOptions);
+    }
+    getAreaTaxiCustomerToApprove(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAreaTaxiCustomerForVerification/?theAreaLocationId=${id}`);
     }
     putVerifyTaxiCustomer(postData: Array<object>): any {
       return this.http.post(`${this.API_URL}/api/customer/putVerifyTaxiCustomer`, postData, this.httpOptions);
     }
-    getMicroCustomerToApprove(id: number): any{
-      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithMicroLoanProductForVerify/?theAreaLocationId=${id}`);
+    putRejectTaxiCustomer(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/customer/putRejectTaxiCustomerVerify`, postData, this.httpOptions);
+    }
+    getAreaMicroCustomerToApprove(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAreaMicroloanCustomerForVerification/?theAreaLocationId=${id}`);
     }
     putVerifyMicroCustomer(postData: Array<object>): any {
       return this.http.post(`${this.API_URL}/api/customer/putVerifyMicroLoanCustomer`, postData, this.httpOptions);
     }
-    getBodaBodaCustomerToApprove(id: number): any{
-      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithSavingsProductForVerify/?theAreaLocationId=${id}`);
+    putRejectMicroCustomer(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/customer/putRejectMicroLoanCustomerVerify`, postData, this.httpOptions);
+    }
+    getAreaBodaBodaCustomerToApprove(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAreaBodabodaCustomerForVerification/?theAreaLocationId=${id}`);
     }
     putVerifyBodaBodaCustomer(postData: Array<object>): any {
-      return this.http.post(`${this.API_URL}/api/customer/putVerifySavingsCustomer`, postData, this.httpOptions);
+      return this.http.post(`${this.API_URL}/api/customer/putVerifyBodaBodaCustomer`, postData, this.httpOptions);
+    }
+    putRejectBodaBodaCustomer(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/customer/putRejectBodaBodaCustomerVerify`, postData, this.httpOptions);
+    }
+    getTxnDetails(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/loan/getTxnDetails}`);
+    }
+    putTxnCustomer(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/loan/postTxnCustomer`, postData, this.httpOptions);
+    }
+    putTxnNoneCustomer(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/loan/postTxnNonCustomer`, postData, this.httpOptions);
     }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 

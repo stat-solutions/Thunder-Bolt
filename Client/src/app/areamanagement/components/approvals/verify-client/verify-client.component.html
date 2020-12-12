@@ -8,35 +8,50 @@
           <h3
             class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
           >
-            Verify Clients
+            Verify {{currentCustomer}} Clients
           </h3>
         </div>
           <div class="col-12 mx-0 px-1">
             <a class="text-info mb-1"> 
-              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Boda Fuel Customers">
+              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Boda Fuel Customers" (click)="getBodaCustomers()">
                 Boda Fuel Customers
               </button>
             </a>
             <a class="text-info mb-1"> 
-              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Taxi Fuel Customers">
+              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Taxi Fuel Customers" (click)="getTaxiCustomers()">
                 Taxi Fuel Customers
               </button>
             </a>
             <a class="text-info mb-1"> 
-              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Taxi Fuel Customers">
+              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Taxi Fuel Customers" (click)="getMicroCustomers()">
                 Micro Loan Customers
               </button>
             </a>
             <a class="text-info mb-1"> 
-              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Savings Customers">
+              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Savings Customers" (click)="getSavingsCustomers()">
                 Savings Customers
               </button>
             </a>
         </div>
       </div>
     </div>
+  <div
+      class="invest-card card-body mt-2 pt-3 pt-md-4 mb-5 mx-0 mx-sm-auto pb-4 px-1 px-lg-auto shadow-lg"
+    [hidden]="(customers.length > 0)"
+    >
+    <div class="row">
+      <div class="col-12">
+        <h3
+          class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
+        >
+          There are no {{currentCustomer}} Clients to verify
+        </h3>
+      </div>
+    </div>
+  </div>
     <div
       class="invest-card card-body mt-2 pt-3 pt-md-4 mb-5 mx-0 mx-sm-auto pb-4 px-1 px-lg-auto shadow-lg"
+    [hidden]="(customers.length === 0)"
     >
       <form [formGroup]="userForm">
         <div class="item-header mb-2">
@@ -56,11 +71,11 @@
             </div>
           </div>
         </div>
-        <div class="iteration" formArrayName="approveWriteOffs">
+        <div class="iteration" formArrayName="customers">
           <div
             class="item-container mt-1"
             *ngFor="
-              let items of fval.approveWriteOffs['controls'];
+              let items of fval.customers['controls'];
               let idx = index
             "
           >
@@ -83,8 +98,8 @@
                   <div class="col-2 col-md-3">
                     <img
                       class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                      src="assets/img/man.svg"
-                      (click)="openModal2(template)"
+                      [src]="fval.customers['controls'][idx]['controls'].customerPhotoUrl.value"
+                      (click)="openModal2(template, fval.customers['controls'][idx]['controls'].customerPhotoUrl.value)"
                     />
                   </div>
                   <div class="col-9 col-md-8">
@@ -97,23 +112,21 @@
                       >
                         <span class="itemCreated">
                           {{
-                            fval.approveWriteOffs["controls"][idx]["controls"]
-                              .client.value
+                            fval.customers["controls"][idx]["controls"].customerName.value
                           }}
                         </span>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-5 col-sm-4 d-flex justify-content-start">
-                        <span class="">Town</span>
+                        <span class="">Station</span>
                       </div>
                       <div
                         class="col-7 col-sm-5 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           {{
-                            fval.approveWriteOffs["controls"][idx]["controls"]
-                              .station.value
+                            fval.customers["controls"][idx]["controls"].station.value
                           }}
                         </span>
                       </div>
@@ -125,7 +138,11 @@
                       <div
                         class="col-7 col-sm-5 d-flex justify-content-start font-weight-bold"
                       >
-                        <span class="itemCreated"> 0753030229 </span>
+                        <span class="itemCreated">
+                          {{
+                            fval.customers["controls"][idx]["controls"].customerPhone1.value
+                          }}
+                        </span>
                       </div>
                     <!-- </div>
                     <div class="row"> -->
@@ -135,7 +152,7 @@
                         <a class="text-dark pointerCursor">
                           <span
                             class="itemCreated"
-                            (click)="openModal(clientdetails)"
+                            (click)="openModal(clientdetails, fval.customers['controls'][idx]['controls'].customerId.value)"
                             >Details
                           </span>
                         </a>
@@ -155,6 +172,17 @@
         >
           <i class="fas fa-check"></i> Approve
         </button>
+        
+        <label class="col" *ngIf="errored" class="text-danger">
+          <!-- <i class="material-icons">Cancel</i> -->
+
+          <ngx-alerts></ngx-alerts>
+        </label>
+
+        <label class="col" *ngIf="posted" class="text-info">
+          <!-- <i class="material-icons">check_circle</i> -->
+          <ngx-alerts></ngx-alerts>
+        </label>
         <button
           class="btn btn-info col-4 col-md-2 mx-auto px-0"
           (click)="rejectItems()"
@@ -183,7 +211,7 @@
       <pinch-zoom>
         <img
           class="modal-img img-circle mx-auto mt-3 mt-md-2 mb-1 pb-0"
-          src="assets/img/man.svg"
+          [src]="imageUrl"
         />
       </pinch-zoom>
     </div>
@@ -227,7 +255,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> 12/10/1976 </span>
+                <span class="itemCreated">{{data.customerDateOfBirth}}</span>
               </div>
             </div>
             <div class="row">
@@ -237,7 +265,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> Kisalosalo, Kyebando </span>
+                <span class="itemCreated"> {{data.customerHomeAreaDetails}} </span>
               </div>
             </div>
             <div class="row">
@@ -247,7 +275,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> 0775292011 </span>
+                <span class="itemCreated"> {{data.customerPhone2}} </span>
               </div>
             </div>
           </div>
@@ -259,8 +287,8 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> National ID </span>
+                <a class="" >
+                  <span class="itemCreated">{{data.customerIdType}}</span>
                 </a>
               </div>
             </div>
@@ -271,8 +299,8 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> CS3022236WRD </span>
+                <a class="">
+                  <span class="itemCreated"> {{data.customerIdNumber}} </span>
                 </a>
               </div>
             </div>
@@ -283,8 +311,8 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> No Issues </span>
+                <a class="">
+                  <span class="itemCreated">{{data.customerComment}} </span>
                 </a>
               </div>
             </div>
@@ -295,7 +323,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/passport-photo.jpg"
+                [src]="data.customerPhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">Passport photo</p>
@@ -306,7 +334,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/national-id.jpg"
+                [src]="data.customerIdPhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">ID image</p>
@@ -316,14 +344,9 @@
         </div>
       </div>
     </div>
-
-    <!--show bodaboda client details-->
-    <!-- <div
-      class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      [formGroupName]="idx"
-    >     -->
     <div
       class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
+      [hidden]="(currentCustomer !== 'BodaBoda Fuel')"
     >
       <div class="list-card-body card-body my-0 py-0 mx-0">
         <div class="row my-0 py-0">
@@ -342,7 +365,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">UFD 298D </span>
+                <span class="itemCreated">{{data.bodabodaCustomerNumberPlate}}</span>
               </div>
             </div>
             <div class="row">
@@ -352,7 +375,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">Boxer </span>
+                <span class="itemCreated">{{data.bodabodaCustomerMakeOrType}} </span>
               </div>
             </div>
             <div class="row">
@@ -362,7 +385,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> Comprehensive </span>
+                <span class="itemCreated">{{data.bodabodaCustomerInsurance}}</span>
               </div>
             </div>
             <div class="row">
@@ -372,8 +395,8 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> Kikubamutwe </span>
+                <a class="">
+                  <span class="itemCreated"> {{data.fkBodabodaStageIdBodabodaCustomer}} </span>
                 </a>
               </div>
             </div>
@@ -387,8 +410,8 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> 11/03/1999 </span>
+                <a class="">
+                  <span class="itemCreated"> {{data.bodabodaCustomerDateOfJoinStage}} </span>
                 </a>
               </div>
             </div>
@@ -399,32 +422,32 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> Hired out </span>
+                <a class="">
+                  <span class="itemCreated"> {{data.bodabodaOwnershipStatus}} </span>
                 </a>
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="data.bodabodaOwnershipStatus !== 'PAIDOUT'">
               <div class="col-5 d-flex justify-content-sm-start">
                 <span class="">Owner Name</span>
               </div>
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> Bazirake Augustine </span>
+                <a class="" >
+                  <span class="itemCreated"> {{data.bodabodaCustomerOwnersName}}</span>
                 </a>
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="data.bodabodaOwnershipStatus !== 'PAIDOUT'">
               <div class="col-5 d-flex justify-content-sm-start">
                 <span class="">Owner PhoneNo.</span>
               </div>
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> 0704383823 </span>
+                <a class="">
+                  <span class="itemCreated"> {{data.bodabodaCustomerOwnersPhone}} </span>
                 </a>
               </div>
             </div>
@@ -437,7 +460,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj-front.jpg"
+                [src]="data.bodabodaCustomerFrontPhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">front image</p>
@@ -448,7 +471,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
+                [src]="data.bodabodaCustomerSidePhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">side image</p>
@@ -459,7 +482,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj-rear.jpg"
+                [src]="data.bodabodaCustomerRearPhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">rear image</p>
@@ -467,15 +490,10 @@
         </div>
       </div>
     </div>
-
-    <!--show taxi client details-->
-    <!-- <div
-      class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      [formGroupName]="idx"
-    >     -->
     <div
       class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-    >
+      [hidden]="(currentCustomer !== 'Taxi Fuel')"
+      >
       <div class="list-card-body card-body my-0 py-0 mx-0">
         <div class="row my-0 py-0">
           <div class="col-12">
@@ -493,7 +511,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">U345298D </span>
+                <span class="itemCreated"> {{data.taxiCustomerDrivingPermitNumber}} </span>
               </div>
             </div>
             <div class="row">
@@ -503,7 +521,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">UFD 298D </span>
+                <span class="itemCreated"> {{data.taxiCustomerNumberPlate}} </span>
               </div>
             </div>
             <div class="row">
@@ -513,7 +531,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">Hiace </span>
+                <span class="itemCreated"> {{data.taxiCustomerMakeOrType}}</span>
               </div>
             </div>
             <div class="row">
@@ -523,7 +541,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> Comprehensive </span>
+                <span class="itemCreated">  {{data.taxiCustomerInsurance}} </span>
               </div>
             </div>
             <div class="row">
@@ -533,8 +551,8 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> Kikubamutwe </span>
+                <a class="">
+                  <span class="itemCreated">  {{data.fkTaxiStageIdTaxiCustomer}} </span>
                 </a>
               </div>
             </div>
@@ -548,8 +566,8 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> 11/03/1999 </span>
+                <a class="">
+                  <span class="itemCreated">  {{data.taxiCustomerDateOfJoinStage}} </span>
                 </a>
               </div>
             </div>
@@ -560,32 +578,32 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> Hired out </span>
+                <a class="">
+                  <span class="itemCreated"> {{data.taxiCustomerOwnershipStatus}}</span>
                 </a>
               </div>
             </div>
-            <div class="row">
+            <div class="row"  *ngIf="data.taxiCustomerOwnershipStatus !== 'PAIDOUT'">
               <div class="col-5 d-flex justify-content-sm-start">
                 <span class="">Owner Name</span>
               </div>
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> Bazirake Augustine </span>
+                <a class="">
+                  <span class="itemCreated">  {{data.taxiCustomerOwnersName}}</span>
                 </a>
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="data.taxiCustomerOwnershipStatus !== 'PAIDOUT'">
               <div class="col-5 d-flex justify-content-sm-start">
                 <span class="">Owner PhoneNo.</span>
               </div>
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> 0704383823 </span>
+                <a class="">
+                  <span class="itemCreated">  {{data.taxiCustomerOwnersPhone}}</span>
                 </a>
               </div>
             </div>
@@ -598,7 +616,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/taxi-front.jpg"
+                [src]=" data.taxiCustomerFrontPhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">front image</p>
@@ -609,7 +627,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/taxi-side.jpg"
+                [src]=" data.taxiCustomerSidePhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">side image</p>
@@ -620,7 +638,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/taxi-rear.jpg"
+                [src]=" data.taxiCustomerRearPhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">rear image</p>
@@ -628,15 +646,10 @@
         </div>
       </div>
     </div>
-
-    <!--show micro client details-->
-    <!-- <div
-      class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      [formGroupName]="idx"
-    > --> 
   <div
       class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-    >
+      [hidden]="(currentCustomer !== 'Micro Loan')"
+      >
       <div class="list-card-body card-body my-0 py-0 mx-0">
         <div class="row my-0 py-0">
           <div class="col-12">
@@ -654,7 +667,7 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">Land pruchase</span>
+                <span class="itemCreated">{{data.microloanCustomerLoanPurpose}}</span>
               </div>
             </div>
             <div class="row">
@@ -664,7 +677,7 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">Food Vendor</span>
+                <span class="itemCreated">{{data.microloanCustomerCurrentBusinessType}}</span>
               </div>
             </div>
             <div class="row">
@@ -674,7 +687,7 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">Kyebando</span>
+                <span class="itemCreated">{{data.microloanCustomerCurrentBusinessLocation}}</span>
               </div>
             </div>
             <div class="row">
@@ -684,7 +697,7 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> 24000 </span>
+                <span class="itemCreated"> {{data.microloanCustomerAverageDailyExpenses | currency: 'UGX '}}</span>
               </div>
             </div>
           </div>
@@ -696,8 +709,8 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> 40000 </span>
+                <a class="">
+                  <span class="itemCreated"> {{data.microloanCustomerAverageDailyIncome | currency: 'UGX '}} </span>
                 </a>
               </div>
             </div>
@@ -709,8 +722,8 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> Kayembe </span>
+                <a class="">
+                  <span class="itemCreated"> {{data.microloanCustomerCurrentResidence}} </span>
                 </a>
               </div>
             </div>
@@ -721,8 +734,8 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated">LandLord </span>
+                <a class="">
+                  <span class="itemCreated">{{data.microloanCustomerResidenceStatus}}</span>
                 </a>
               </div>
             </div>
@@ -733,8 +746,8 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" routerLink="">
-                  <span class="itemCreated"> 5 </span>
+                <a class="" >
+                  <span class="itemCreated">{{data.microloanCustomerNumberOfDependants}}</span>
                 </a>
               </div>
             </div>
@@ -747,7 +760,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/security-1.jpg"
+                src="https://homepages.cae.wisc.edu/~ece533/images/baboon.png"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">Security 1</p>
@@ -758,7 +771,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
+                src="https://homepages.cae.wisc.edu/~ece533/images/baboon.png"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">Security 2</p>
@@ -769,23 +782,18 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
+                src="https://homepages.cae.wisc.edu/~ece533/images/baboon.png"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">Security 3</p>
           </div>
         </div>
       </div>
-    </div>
-
-    <!--show micro client details-->
-    <!-- <div
-      class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      [formGroupName]="idx"
-    > -->    
+    </div>    
     <div
       class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-    >
+      [hidden]="(currentCustomer !== 'Savings')"
+      >
       <div class="list-card-body card-body my-0 py-0 mx-0">
         <div class="row my-0 py-0">
           <div class="col-12">
@@ -803,7 +811,7 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">430000</span>
+                <span class="itemCreated">{{data.savingsCustomerMonthlyIncome | currency: 'UGX '}}</span>
               </div>
             </div>
             <div class="row">
@@ -813,7 +821,7 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">4</span>
+                <span class="itemCreated">{{data.savingsCustomerWithdrawFreequency}}</span>
               </div>
             </div>
             <div class="row">
@@ -823,7 +831,7 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">1000000</span>
+                <span class="itemCreated">{{data.savingsCustomerTarget}}</span>
               </div>
             </div>
           </div>

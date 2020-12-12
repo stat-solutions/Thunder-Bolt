@@ -136,7 +136,7 @@ var RegistrationComponent = /** @class */ (function () {
         this.spinner.hide();
         this.revert();
         setTimeout(function () {
-            _this.router.navigate(['authpage/loginpage']);
+            _this.router.navigate(['']);
         }, 2000);
     };
     RegistrationComponent.prototype.getUnits = function () {
@@ -144,7 +144,7 @@ var RegistrationComponent = /** @class */ (function () {
         this.others.getBussinessUnitLocations().subscribe(function (res) {
             _this.units = res;
             // console.log(this.units);
-        }, function (err) { return console.log(err); });
+        }, function (err) { return console.log(err.statusText); });
     };
     RegistrationComponent.prototype.getRoles = function () {
         var _this = this;
@@ -234,6 +234,7 @@ var RegistrationComponent = /** @class */ (function () {
                     _this.alertService.danger({
                         html: '<b>' + _this.serviceErrors + '</b>' + '<br/>'
                     });
+                    _this.revert();
                 });
             }
             else {

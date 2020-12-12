@@ -383,7 +383,9 @@ export class EditPersonalInfoComponent implements OnInit {
       ),
     });
   }
-
+  console(val: any): any {
+    return console.log(val);
+  }
   getCustomers(val: any): any{
     let theStationLocationId = null;
     for (const station of this.stations){
@@ -649,7 +651,7 @@ export class EditPersonalInfoComponent implements OnInit {
       this.others.getTaxiCustomer(this.currentCustomerId).subscribe(
         res => {
           const customer = res[0];
-          this.taxiCustomerId = 353;
+          this.taxiCustomerId = customer.taxiCustomerId;
           this.taxiFval.taxiCustomerNumberPlate.setValue(customer.taxiCustomerNumberPlate.replace(/\s/g, ''));
           this.taxiFval.taxiCustomerNumberPlate.disable();
           this.taxiFval.drivingPermit.setValue(customer.taxiCustomerDrivingPermitNumber);
@@ -784,7 +786,8 @@ export class EditPersonalInfoComponent implements OnInit {
     this.userForm.reset();
   }
   refresh(): any {
-    location.reload();
+    // location.reload();
+    this.router.navigate(['townmanagement']);
   }
 
   get fval(): any {
@@ -815,8 +818,8 @@ export class EditPersonalInfoComponent implements OnInit {
                             this.fval.main_contact_number1.value :
                             this.fval.main_contact_number2.value,
             customerIdType: this.fval.id_type.value.toUpperCase(),
-            customerIdPhotoUrl: this.clientPhotoUrl,
-            customerPhotoUrl: this.clientIdUrl,
+            customerIdPhotoUrl: this.clientIdUrl,
+      customerPhotoUrl: this.clientPhotoUrl,
             customerDateOfBirth: `${this.fval.dateOfBirth.value.getFullYear()}-${this.fval.dateOfBirth.value.getMonth() + 1}-${this.fval.dateOfBirth.value.getDate()}`,
             customerIdNumber: this.fval.id_number.value.toUpperCase(),
             customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
@@ -852,7 +855,7 @@ export class EditPersonalInfoComponent implements OnInit {
                   this.revert();
                   this.bodaClientForm.reset();
                   setTimeout(() => {
-                      location.reload();
+                    this.router.navigate(['townmanagement']);
                     }, 3000);
                 },
                 err => {
@@ -923,7 +926,7 @@ export class EditPersonalInfoComponent implements OnInit {
             data.bodabodaStageId = bodaStage.bodabodaStageId;
           }
         });
-        // console.log(data);
+        console.log(data);
         if (data.bodabodaStageId  === null) {
           this.errored = true;
           this.alertService.danger({
@@ -942,7 +945,7 @@ export class EditPersonalInfoComponent implements OnInit {
               this.revert();
               this.bodaClientForm.reset();
               setTimeout(() => {
-                  location.reload();
+                this.router.navigate(['townmanagement']);
                 }, 3000);
             },
             err => {
@@ -963,7 +966,7 @@ export class EditPersonalInfoComponent implements OnInit {
               this.revert();
               this.bodaClientForm.reset();
               setTimeout(() => {
-                  location.reload();
+                this.router.navigate(['townmanagement']);
                 }, 3000);
             },
             err => {
@@ -1026,7 +1029,7 @@ export class EditPersonalInfoComponent implements OnInit {
             data.taxiStageId = taxiStage.taxiStageId;
           }
         });
-        // console.log(data);
+        console.log(data);
         if (data.taxiStageId === null) {
             this.errored = true;
             this.alertService.danger({
@@ -1045,7 +1048,7 @@ export class EditPersonalInfoComponent implements OnInit {
                 this.revert();
                 this.taxiClientForm.reset();
                 setTimeout(() => {
-                    location.reload();
+                    this.router.navigate(['townmanagement']);
                   }, 3000);
               },
               err => {
@@ -1065,13 +1068,13 @@ export class EditPersonalInfoComponent implements OnInit {
                 this.revert();
                 this.taxiClientForm.reset();
                 setTimeout(() => {
-                    location.reload();
+                    this.router.navigate(['townmanagement']);
                   }, 3000);
               },
               err => {
                 console.log(err.statusText);
                 this.alertService.danger({
-                    html: '<b>' + err.error.error.message + '</b>'
+                    html: '<b>' + err.error.statusText + '</b>'
                   });
               }
             );
@@ -1111,7 +1114,7 @@ export class EditPersonalInfoComponent implements OnInit {
             this.revert();
             this.microClientForm.reset();
             setTimeout(() => {
-                  location.reload();
+              this.router.navigate(['townmanagement']);
                 }, 3000);
           },
           err => {
@@ -1131,7 +1134,7 @@ export class EditPersonalInfoComponent implements OnInit {
             this.revert();
             this.microClientForm.reset();
             setTimeout(() => {
-                  location.reload();
+              this.router.navigate(['townmanagement']);
                 }, 3000);
           },
           err => {
@@ -1170,7 +1173,7 @@ export class EditPersonalInfoComponent implements OnInit {
             this.revert();
             this.microClientForm.reset();
             setTimeout(() => {
-                  location.reload();
+              this.router.navigate(['townmanagement']);
                 }, 3000);
           },
           err => {
@@ -1190,7 +1193,7 @@ export class EditPersonalInfoComponent implements OnInit {
             this.revert();
             this.microClientForm.reset();
             setTimeout(() => {
-                  location.reload();
+              this.router.navigate(['townmanagement']);
                 }, 3000);
           },
           err => {

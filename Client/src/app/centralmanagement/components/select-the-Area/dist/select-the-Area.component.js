@@ -93,7 +93,9 @@ var SelectTheAreaComponent = /** @class */ (function () {
         this.userForm.reset();
     };
     SelectTheAreaComponent.prototype.refresh = function () {
-        location.reload();
+        this.userForm = this.createFormGroup();
+        this.fval.selectAll.setValue(false);
+        this.initialiseForm();
     };
     Object.defineProperty(SelectTheAreaComponent.prototype, "fval", {
         get: function () {

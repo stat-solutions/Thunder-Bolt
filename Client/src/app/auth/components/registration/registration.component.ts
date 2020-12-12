@@ -201,7 +201,7 @@ returnHome(): any {
     this.revert();
 
     setTimeout(() => {
-      this.router.navigate(['authpage/loginpage']);
+      this.router.navigate(['']);
     }, 2000);
   }
 getUnits(): any {
@@ -210,7 +210,7 @@ getUnits(): any {
       this.units = res;
       // console.log(this.units);
   },
-    err => console.log(err)
+    err => console.log(err.statusText)
   );
 }
 getRoles(): any{
@@ -301,6 +301,7 @@ register(): any {
                 this.alertService.danger({
                   html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
                 });
+                this.revert();
               }
             );
       } else {

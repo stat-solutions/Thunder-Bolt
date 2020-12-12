@@ -87,7 +87,9 @@ var ApproveAreasComponent = /** @class */ (function () {
         this.userForm.reset();
     };
     ApproveAreasComponent.prototype.refresh = function () {
-        location.reload();
+        this.userForm = this.createFormGroup();
+        this.fval.selectAll.setValue(false);
+        this.initialiseForm();
     };
     Object.defineProperty(ApproveAreasComponent.prototype, "fval", {
         get: function () {

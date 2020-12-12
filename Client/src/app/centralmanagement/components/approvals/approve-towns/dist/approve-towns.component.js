@@ -89,7 +89,9 @@ var ApproveTownsComponent = /** @class */ (function () {
         this.userForm.reset();
     };
     ApproveTownsComponent.prototype.refresh = function () {
-        location.reload();
+        this.userForm = this.createFormGroup();
+        this.fval.selectAll.setValue(false);
+        this.initialiseForm();
     };
     Object.defineProperty(ApproveTownsComponent.prototype, "fval", {
         get: function () {
@@ -107,7 +109,7 @@ var ApproveTownsComponent = /** @class */ (function () {
         this.townApprovals.forEach(function (item, i) {
             if (_this.fval.approveTowns.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
-                    townnId: item.townId,
+                    townId: item.townId,
                     townStatus: 2,
                     userId: _this.User.userId
                 });

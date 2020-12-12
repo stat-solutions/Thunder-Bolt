@@ -91,7 +91,9 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
         this.userForm.reset();
     };
     ApproveCentralUsersComponent.prototype.refresh = function () {
-        location.reload();
+        this.userForm = this.createFormGroup();
+        this.fval.selectAll.setValue(false);
+        this.initialiseForm();
     };
     Object.defineProperty(ApproveCentralUsersComponent.prototype, "fval", {
         get: function () {

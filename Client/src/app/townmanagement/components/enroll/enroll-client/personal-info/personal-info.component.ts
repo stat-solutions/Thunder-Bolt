@@ -546,8 +546,8 @@ export class PersonalInfoComponent implements OnInit {
                       this.fval.main_contact_number1.value :
                       this.fval.main_contact_number2.value,
       customerIdType: this.fval.id_type.value.toUpperCase(),
-      customerIdPhotoUrl: this.clientPhotoUrl,
-      customerPhotoUrl: this.clientIdUrl,
+      customerIdPhotoUrl: this.clientIdUrl,
+      customerPhotoUrl: this.clientPhotoUrl,
       customerDateOfBirth: `${this.fval.dateOfBirth.value.getFullYear()}-${this.fval.dateOfBirth.value.getMonth() + 1}-${this.fval.dateOfBirth.value.getDate()}`,
       customerIdNumber: this.fval.id_number.value.toUpperCase(),
       customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
@@ -712,11 +712,16 @@ export class PersonalInfoComponent implements OnInit {
                 this.alertService.success({
                   html: '<b> Customer was created successfully <b>'
                 });
-                // this.revert();
-                // this.bodaClientForm.reset();
-                // setTimeout(() => {
-                //     location.reload();
-                //   }, 3000);
+                this.revert();
+                this.bodaClientForm.reset();
+                setTimeout(() => {
+                  this.goBack();
+                  this.userForm = this.createFormGroup();
+                  this.bodaClientForm = this.bodaClientFormGroup();
+                  this.taxiClientForm = this.taxiClientFormGroup();
+                  this.microClientForm = this.microClientFormGroup();
+                  this.savingsClientForm = this.savingsClientFormGroup();
+                  }, 3000);
               },
               err => {
                 this.data = [];
@@ -793,11 +798,16 @@ export class PersonalInfoComponent implements OnInit {
                 this.alertService.success({
                   html: '<b> Customer was created successfully <b>'
                 });
-                // this.revert();
-                // this.taxiClientForm.reset();
-                // setTimeout(() => {
-                //     location.reload();
-                //   }, 3000);
+                this.revert();
+                this.taxiClientForm.reset();
+                setTimeout(() => {
+                  this.goBack();
+                  this.userForm = this.createFormGroup();
+                  this.bodaClientForm = this.bodaClientFormGroup();
+                  this.taxiClientForm = this.taxiClientFormGroup();
+                  this.microClientForm = this.microClientFormGroup();
+                  this.savingsClientForm = this.savingsClientFormGroup();
+                  }, 3000);
               },
               err => {
                 this.data = [];
@@ -841,7 +851,12 @@ export class PersonalInfoComponent implements OnInit {
             this.revert();
             this.microClientForm.reset();
             setTimeout(() => {
-                  location.reload();
+              this.goBack();
+              this.userForm = this.createFormGroup();
+              this.bodaClientForm = this.bodaClientFormGroup();
+              this.taxiClientForm = this.taxiClientFormGroup();
+              this.microClientForm = this.microClientFormGroup();
+              this.savingsClientForm = this.savingsClientFormGroup();
                 }, 3000);
           },
           err => {
@@ -879,7 +894,12 @@ export class PersonalInfoComponent implements OnInit {
             this.revert();
             this.microClientForm.reset();
             setTimeout(() => {
-                  location.reload();
+                this.goBack();
+                this.userForm = this.createFormGroup();
+                this.bodaClientForm = this.bodaClientFormGroup();
+                this.taxiClientForm = this.taxiClientFormGroup();
+                this.microClientForm = this.microClientFormGroup();
+                this.savingsClientForm = this.savingsClientFormGroup();
                 }, 3000);
           },
           err => {

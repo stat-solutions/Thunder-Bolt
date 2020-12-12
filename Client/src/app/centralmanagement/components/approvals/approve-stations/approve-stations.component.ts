@@ -104,7 +104,9 @@ export class ApproveStationsComponent implements OnInit {
   }
 
   refresh(): any {
-    location.reload();
+    this.userForm = this.createFormGroup();
+    this.fval.selectAll.setValue(false);
+    this.initialiseForm();
   }
 
   get fval(): any {
