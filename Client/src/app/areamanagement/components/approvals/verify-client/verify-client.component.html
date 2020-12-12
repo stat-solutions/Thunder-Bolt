@@ -82,18 +82,18 @@
                   </div>
                   <div class="col-2 col-md-3">
                     <img
-                      class="img-circle mx-auto mt-2 mb-1 pb-0"
+                      class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
                       src="assets/img/man.svg"
                       (click)="openModal2(template)"
                     />
                   </div>
                   <div class="col-9 col-md-8">
                     <div class="row">
-                      <div class="col-4 d-flex justify-content-start">
+                      <div class="col-5 col-sm-4 d-flex justify-content-start">
                         <span class="">Client</span>
                       </div>
                       <div
-                        class="col-5 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-sm-5 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           {{
@@ -104,11 +104,11 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-4 d-flex justify-content-start">
+                      <div class="col-5 col-sm-4 d-flex justify-content-start">
                         <span class="">Town</span>
                       </div>
                       <div
-                        class="col-5 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-sm-5 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           {{
@@ -119,18 +119,18 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-4 d-flex justify-content-start">
+                      <div class="col-5 col-sm-4 d-flex justify-content-start">
                         <span class="">Phone No.</span>
                       </div>
                       <div
-                        class="col-5 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-sm-5 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated"> 0753030229 </span>
                       </div>
                     <!-- </div>
                     <div class="row"> -->
                       <div
-                        class="col-12 col-lg-3 d-flex justify-content-end font-weight-bold"
+                        class="col-12 col-md-3 d-flex justify-content-end font-weight-bold"
                       >
                         <a class="text-dark pointerCursor">
                           <span
@@ -166,8 +166,8 @@
   </div>
 </div>
 <ng-template #template>
-  <div class="modal-header bg-info modal-lg">
-    <h4 class="modal-title text-white-75">Client's Image</h4>
+  <div class="modal-header bg-info">
+    <h4 class="modal-title text-white">Client's Image</h4>
 
     <button
       type="button"
@@ -190,8 +190,8 @@
   </div>
 </ng-template>
 <ng-template #clientdetails>
-  <div class="modal-header bg-info modal-lg">
-    <h4 class="modal-title text-white-75">Client's Details</h4>
+  <div class="modal-header bg-info">
+    <h4 class="modal-title text-white">Client's Details</h4>
 
     <button
       type="button"
@@ -288,10 +288,35 @@
                 </a>
               </div>
             </div>
+        <div class="row my-0 py-0">
+          <div
+            class="col-6 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
+          >
+            <pinch-zoom class="d-flex justify-content-center">
+              <img
+                class="modal-img-2 mx-auto my-0 pb-0"
+                src="assets/img/passport-photo.jpg"
+              />
+            </pinch-zoom>
+            <p class="text-capitalize text-center">Passport photo</p>
+          </div>
+          <div
+            class="col-6 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
+          >
+            <pinch-zoom class="d-flex justify-content-center">
+              <img
+                class="modal-img-2 mx-auto my-0 pb-0"
+                src="assets/img/national-id.jpg"
+              />
+            </pinch-zoom>
+            <p class="text-capitalize text-center">ID image</p>
+          </div>
+        </div>
           </div>
         </div>
       </div>
     </div>
+
     <!--show bodaboda client details-->
     <!-- <div
       class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
@@ -407,48 +432,37 @@
         </div>
         <div class="row my-0 py-0">
           <div
-            class="col-6 col-md-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
+            class="col-6 col-sm-4 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
           >
-            <pinch-zoom>
+            <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
+                src="assets/img/bajaj-front.jpg"
               />
             </pinch-zoom>
-            <p class="text-capitalize text-center">front photo</p>
+            <p class="text-capitalize text-center">front image</p>
           </div>
           <div
-            class="col-6 col-md-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
+            class="col-6 col-sm-4 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
           >
-            <pinch-zoom>
+            <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
                 src="assets/img/bajaj.jpg"
               />
             </pinch-zoom>
-            <p class="text-capitalize text-center">side 1 photo</p>
+            <p class="text-capitalize text-center">side image</p>
           </div>
           <div
-            class="col-6 col-md-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
+            class="col-6 col-sm-4 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
           >
-            <pinch-zoom>
+            <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
+                src="assets/img/bajaj-rear.jpg"
               />
             </pinch-zoom>
-            <p class="text-capitalize text-center">side 2 photo</p>
-          </div>
-          <div
-            class="col-6 col-md-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
-          >
-            <pinch-zoom>
-              <img
-                class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
-              />
-            </pinch-zoom>
-            <p class="text-capitalize text-center">rear photo</p>
+            <p class="text-capitalize text-center">rear image</p>
           </div>
         </div>
       </div>
@@ -579,48 +593,37 @@
         </div>
         <div class="row my-0 py-0">
           <div
-            class="col-6 col-lg-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
+            class="col-6 col-sm-4 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
           >
-            <pinch-zoom>
+            <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
+                src="assets/img/taxi-front.jpg"
               />
             </pinch-zoom>
-            <p class="text-capitalize text-center">front photo</p>
+            <p class="text-capitalize text-center">front image</p>
           </div>
           <div
-            class="col-6 col-lg-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
+            class="col-6 col-sm-4 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
           >
-            <pinch-zoom>
+            <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
+                src="assets/img/taxi-side.jpg"
               />
             </pinch-zoom>
-            <p class="text-capitalize text-center">side 1 photo</p>
+            <p class="text-capitalize text-center">side image</p>
           </div>
           <div
-            class="col-6 col-lg-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
+            class="col-6 col-sm-4 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
           >
-            <pinch-zoom>
+            <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
+                src="assets/img/taxi-rear.jpg"
               />
             </pinch-zoom>
-            <p class="text-capitalize text-center">side 2 photo</p>
-          </div>
-          <div
-            class="col-6 col-lg-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
-          >
-            <pinch-zoom>
-              <img
-                class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
-              />
-            </pinch-zoom>
-            <p class="text-capitalize text-center">rear photo</p>
+            <p class="text-capitalize text-center">rear image</p>
           </div>
         </div>
       </div>
@@ -739,48 +742,37 @@
         </div>
         <div class="row my-0 py-0">
           <div
-            class="col-6 col-lg-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
+            class="col-6 col-sm-4 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
           >
-            <pinch-zoom>
+            <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
+                src="assets/img/security-1.jpg"
               />
             </pinch-zoom>
-            <p class="text-capitalize text-center">front photo</p>
+            <p class="text-capitalize text-center">Security 1</p>
           </div>
           <div
-            class="col-6 col-lg-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
+            class="col-6 col-sm-4 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
           >
-            <pinch-zoom>
+            <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
                 src="assets/img/bajaj.jpg"
               />
             </pinch-zoom>
-            <p class="text-capitalize text-center">side 1 photo</p>
+            <p class="text-capitalize text-center">Security 2</p>
           </div>
           <div
-            class="col-6 col-lg-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
+            class="col-6 col-sm-4 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
           >
-            <pinch-zoom>
+            <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
                 src="assets/img/bajaj.jpg"
               />
             </pinch-zoom>
-            <p class="text-capitalize text-center">side 2 photo</p>
-          </div>
-          <div
-            class="col-6 col-lg-3 d-flex flex-column justify-content-center my-0 pt-1 pb-0"
-          >
-            <pinch-zoom>
-              <img
-                class="modal-img-2 mx-auto my-0 pb-0"
-                src="assets/img/bajaj.jpg"
-              />
-            </pinch-zoom>
-            <p class="text-capitalize text-center">rear photo</p>
+            <p class="text-capitalize text-center">Security 3</p>
           </div>
         </div>
       </div>
