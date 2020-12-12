@@ -127,6 +127,7 @@
           }"
           autocomplete="off"
           placeholder="Select the ID type"
+          (change)='setSelectedChanges(fval.id_type.value)'
         >
           <option>NATIONAL ID</option>
           <option>PASSPORT</option>

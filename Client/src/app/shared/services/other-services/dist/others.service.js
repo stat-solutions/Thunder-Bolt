@@ -361,6 +361,30 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.getSavingsCustomersByStation = function (id) {
         return this.http.get(this.API_URL + "/api/customer/getStationCustomersWithSavingsProduct/?theStationLocationId=" + id);
     };
+    OthersService.prototype.getSavingsCustomerToApprove = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithSavingsProductForVerify/?theAreaLocationId=" + id);
+    };
+    OthersService.prototype.putVerifySavingsCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putVerifySavingsCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.getTaxiCustomerToApprove = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithTaxiLoanProductForVerify/?theAreaLocationId=" + id);
+    };
+    OthersService.prototype.putVerifyTaxiCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putVerifyTaxiCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.getMicroCustomerToApprove = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithMicroLoanProductForVerify/?theAreaLocationId=" + id);
+    };
+    OthersService.prototype.putVerifyMicroCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putVerifyMicroLoanCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.getBodaBodaCustomerToApprove = function (id) {
+        return this.http.get(this.API_URL + "/api/customer/getAllCustomersWithSavingsProductForVerify/?theAreaLocationId=" + id);
+    };
+    OthersService.prototype.putVerifyBodaBodaCustomer = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putVerifySavingsCustomer", postData, this.httpOptions);
+    };
     OthersService.prototype.handleCompanySetupError = function (errorResponse) {
         if (errorResponse.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.

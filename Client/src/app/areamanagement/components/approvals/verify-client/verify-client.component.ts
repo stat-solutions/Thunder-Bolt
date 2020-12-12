@@ -36,25 +36,6 @@ export class VerifyClientComponent implements OnInit {
     { station: 'ndeeba', client: 'kasozi med', ammount: 600000, status: 0 },
     { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
     { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', ammount: 600000, status: 0 },
-    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', ammount: 600000, status: 0 },
-    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', ammount: 600000, status: 0 },
-    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', ammount: 600000, status: 0 },
-    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', ammount: 600000, status: 0 },
-    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', ammount: 600000, status: 0 },
-    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
   ];
   posted = false;
   actionButton: string;
@@ -65,24 +46,24 @@ export class VerifyClientComponent implements OnInit {
 
   constructor(
     private modalService: BsModalService,
-   private authService: AuthServiceService,
+    private authService: AuthServiceService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
   }
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
       approveWriteOffs: this.fb.array([this.writeOffApproval]),
       selectAll: this.fb.control({}),
     });
   }
-  get writeOffApproval() {
+  get writeOffApproval(): any {
     return this.fb.group({
       station: this.fb.control({ value: '' }),
       client: this.fb.control({ value: '' }),
@@ -90,15 +71,15 @@ export class VerifyClientComponent implements OnInit {
       approved: this.fb.control({}),
     });
   }
-  addItem() {
+  addItem(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
     (this.fval.approveWriteOffs as FormArray).push(this.writeOffApproval);
   }
 
-  removeItem(index: number) {
+  removeItem(index: number): any {
     (this.fval.approveWriteOffs as FormArray).removeAt(index);
   }
-  initialiseForm() {
+  initialiseForm(): any {
     let n: number;
     // this.others.getBussinessUnits().subscribe(
     //   units => {
@@ -106,16 +87,16 @@ export class VerifyClientComponent implements OnInit {
     this.writeOffApprovals.forEach((item, i) => {
       // console.log(item.name);
       // console.log(i);
-      this.fval.approveWriteOffs['controls'][i]['controls'].station.setValue(
+      this.fval.approveWriteOffs.controls[i].controls.station.setValue(
         item.station
       );
-      this.fval.approveWriteOffs['controls'][i]['controls'].client.setValue(
+      this.fval.approveWriteOffs.controls[i].controls.client.setValue(
         item.client
       );
-      this.fval.approveWriteOffs['controls'][i]['controls'].ammount.setValue(
+      this.fval.approveWriteOffs.controls[i].controls.ammount.setValue(
         item.ammount
       );
-      this.fval.approveWriteOffs['controls'][i]['controls'].approved.setValue(
+      this.fval.approveWriteOffs.controls[i].controls.approved.setValue(
         false
       );
       this.addItem();
@@ -126,14 +107,14 @@ export class VerifyClientComponent implements OnInit {
     // )
   }
 
-//modal method
-   public openModal(template: TemplateRef<any>) {
+// modal method
+   public openModal(template: TemplateRef<any>): any {
        this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
     );
   }
-   public openModal2(template: TemplateRef<any>) {
+   public openModal2(template: TemplateRef<any>): any {
        this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'white modal-dialog-center' })
@@ -141,55 +122,55 @@ export class VerifyClientComponent implements OnInit {
   }
 
 
-  checkAllItems(val: boolean) {
-    if (val == true) {
+  checkAllItems(val: boolean): any {
+    if (val === true) {
       this.writeOffApprovals.forEach((item, i) => {
-        this.fval.approveWriteOffs['controls'][i]['controls'].approved.setValue(
+        this.fval.approveWriteOffs.controls[i].controls.approved.setValue(
           val
         );
       });
     } else {
       this.writeOffApprovals.forEach((item, i) => {
-        this.fval.approveWriteOffs['controls'][i]['controls'].approved.setValue(
+        this.fval.approveWriteOffs.controls[i].controls.approved.setValue(
           false
         );
       });
     }
   }
-  deselectAll(val: boolean) {
+  deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
     if (
-      this.fval.approveWriteOffs['controls'][val]['controls'].approved.value ==
+      this.fval.approveWriteOffs.controls[val].controls.approved.value ===
       true
     ) {
       this.fval.selectAll.setValue(false);
     }
   }
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  disableForm() {
+  disableForm(): any {
     return this.userForm.disable();
   }
 
-  enableEdit() {
+  enableEdit(): any {
     return this.userForm.enable();
   }
 
-  approveItems() {
+  approveItems(): any {
     const itemsApproved = [];
     this.writeOffApprovals.forEach((item, i) => {
       if (
-        this.fval.approveWriteOffs['controls'][i]['controls'].approved.value ==
+        this.fval.approveWriteOffs.controls[i].controls.approved.value ===
         true
       ) {
         item.status = 2;
@@ -207,11 +188,11 @@ export class VerifyClientComponent implements OnInit {
       return;
     }
   }
-  rejectItems() {
+  rejectItems(): any {
     const itemsRejected = [];
     this.writeOffApprovals.forEach((item, i) => {
       if (
-        this.fval.approveWriteOffs['controls'][i]['controls'].approved.value ==
+        this.fval.approveWriteOffs.controls[i].controls.approved.value ===
         true
       ) {
         item.status = 1;

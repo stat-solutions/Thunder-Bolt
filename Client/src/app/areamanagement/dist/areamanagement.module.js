@@ -27,7 +27,7 @@ var tooltip_1 = require("ngx-bootstrap/tooltip");
 var ngx_spinner_1 = require("ngx-spinner");
 var ng_chartjs_1 = require("ng-chartjs");
 var create_component_1 = require("./components/create/create.component");
-var create_towns_component_1 = require("./components/create/create-towns/create-towns.component");
+// import { CreateTownsComponent } from './components/create/create-towns/create-towns.component';
 var approvals_component_1 = require("./components/approvals/approvals.component");
 var withdraw_savings_component_1 = require("./components/approvals/loans-approvals/withdraw-savings/withdraw-savings.component");
 var interest_rate_component_1 = require("./components/approvals/loans-approvals/interest-rate/interest-rate.component");
@@ -41,6 +41,9 @@ var clients_component_1 = require("./components/reports/clients/clients.componen
 var users_component_1 = require("./components/reports/users/users.component");
 var loans_approvals_component_1 = require("./components/approvals/loans-approvals/loans-approvals.component");
 var personal_profile_component_1 = require("./components/profile/personal-profile/personal-profile.component");
+var verify_client_component_1 = require("./components/approvals/verify-client/verify-client.component");
+var ngx_pinch_zoom_1 = require("ngx-pinch-zoom");
+var ngx_alerts_1 = require("ngx-alerts");
 var AreamanagementModule = /** @class */ (function () {
     function AreamanagementModule() {
     }
@@ -56,7 +59,6 @@ var AreamanagementModule = /** @class */ (function () {
                 dashboard_component_1.DashboardComponent,
                 profile_component_1.ProfileComponent,
                 create_component_1.CreateComponent,
-                create_towns_component_1.CreateTownsComponent,
                 approvals_component_1.ApprovalsComponent,
                 withdraw_savings_component_1.WithdrawSavingsComponent,
                 interest_rate_component_1.InterestRateComponent,
@@ -70,6 +72,7 @@ var AreamanagementModule = /** @class */ (function () {
                 users_component_1.UsersComponent,
                 loans_approvals_component_1.LoansApprovalsComponent,
                 personal_profile_component_1.PersonalProfileComponent,
+                verify_client_component_1.VerifyClientComponent
             ],
             imports: [
                 common_1.CommonModule,
@@ -78,10 +81,12 @@ var AreamanagementModule = /** @class */ (function () {
                 forms_1.ReactiveFormsModule,
                 ngx_spinner_1.NgxSpinnerModule,
                 tabs_1.TabsModule.forRoot(),
+                ngx_pinch_zoom_1.PinchZoomModule,
                 datepicker_1.DatepickerModule,
                 datepicker_1.BsDatepickerModule,
                 modal_1.ModalModule.forRoot(),
                 tooltip_1.TooltipModule.forRoot(),
+                ngx_alerts_1.AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
                 ng_chartjs_1.NgChartjsModule,
                 ng_chartjs_1.NgChartjsModule.registerPlugin(['inlinePlugin'])
             ]

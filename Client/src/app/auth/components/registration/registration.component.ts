@@ -142,7 +142,46 @@ export class RegistrationComponent implements OnInit {
     { validator: CustomValidator.passwordMatchValidator }
     );
   }
-
+  setSelectedChanges(selectedChange: any): any {
+    switch (selectedChange) {
+      case 'Select the ID type':
+        this.fval.id_type.setValue('');
+        this.fval.id_type.setValidators([Validators.required]);
+        break;
+      case 'NATIONAL ID':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          Validators.minLength(14),
+          Validators.maxLength(14)
+        ]);
+        break;
+      case 'VILLAGE ID':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          // Validators.minLength(9),
+          // Validators.maxLength(9)
+        ]);
+        break;
+      case 'PASSPORT':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          // Validators.minLength(20),
+          // Validators.maxLength(20)
+        ]);
+        break;
+      case 'DRIVING PERMIT':
+        this.fval.id_number.setValue('');
+        this.fval.id_number.setValidators([
+          Validators.required,
+          // Validators.minLength(10),
+          // Validators.maxLength(10)
+        ]);
+        break;
+      }
+    }
 revert(): any {
     this.userForm.reset();
   }

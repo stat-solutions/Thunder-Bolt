@@ -40,7 +40,6 @@ var RegistrationComponent = /** @class */ (function () {
                 forms_1.Validators.required,
             ])),
             email: new forms_1.FormControl('', forms_1.Validators.compose([
-                forms_1.Validators.required,
                 forms_1.Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
             ])),
             user_contact_number: new forms_1.FormControl('', forms_1.Validators.compose([
@@ -81,6 +80,40 @@ var RegistrationComponent = /** @class */ (function () {
                 forms_1.Validators.maxLength(4),
             ]))
         }, { validator: custom_validator_1.CustomValidator.passwordMatchValidator });
+    };
+    RegistrationComponent.prototype.setSelectedChanges = function (selectedChange) {
+        switch (selectedChange) {
+            case 'Select the ID type':
+                this.fval.id_type.setValue('');
+                this.fval.id_type.setValidators([forms_1.Validators.required]);
+                break;
+            case 'NATIONAL ID':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(14),
+                    forms_1.Validators.maxLength(14)
+                ]);
+                break;
+            case 'VILLAGE ID':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                ]);
+                break;
+            case 'PASSPORT':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                ]);
+                break;
+            case 'DRIVING PERMIT':
+                this.fval.id_number.setValue('');
+                this.fval.id_number.setValidators([
+                    forms_1.Validators.required,
+                ]);
+                break;
+        }
     };
     RegistrationComponent.prototype.revert = function () {
         this.userForm.reset();

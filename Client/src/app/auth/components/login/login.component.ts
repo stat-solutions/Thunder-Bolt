@@ -145,7 +145,7 @@ export class LoginComponent implements OnInit {
                   this.alertService.success({
                     html: '<strong>Signed In Successfully</strong>'
                   });
-                  console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType);
+                  // console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType);
                   if (this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType === 1) {
                     setTimeout(() => {
                       this.router.navigate(['/stationmanagement']);

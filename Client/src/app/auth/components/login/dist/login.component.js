@@ -113,7 +113,7 @@ var LoginComponent = /** @class */ (function () {
                             _this.alertService.success({
                                 html: '<strong>Signed In Successfully</strong>'
                             });
-                            console.log(_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userType);
+                            // console.log(this.jwtHelper.decodeToken(this.authService.getJwtToken()).userType);
                             if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userType === 1) {
                                 setTimeout(function () {
                                     _this.router.navigate(['/stationmanagement']);
@@ -134,14 +134,14 @@ var LoginComponent = /** @class */ (function () {
                     }
                     else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 3) {
                         _this.alertService.danger({
-                            html: '<strong>This account has been deactivated!, please contact system admin!</strong>'
+                            html: '<strong>This account has been deactivated!, please contact system admin.</strong>'
                         });
                         _this.spinner.hide();
                         return;
                     }
                     else if (_this.jwtHelper.decodeToken(_this.authService.getJwtToken()).userStatus === 1) {
                         _this.alertService.danger({
-                            html: '<strong>This account recquires approval, please contact system admin!</strong>'
+                            html: '<strong>This account requires approval, please contact system admin.</strong>'
                         });
                         _this.spinner.hide();
                         return;
@@ -160,7 +160,7 @@ var LoginComponent = /** @class */ (function () {
                     html: '<b>' + _this.loginStatus + '</b>' + '<br/>'
                 });
                 // this.alertService.warning({html: '<b>Signed In Successfully</b>'});
-                if (_this.loginStatus === 'Authorisation Failed! User Not Registered') {
+                if (_this.loginStatus === 'Authorisation Failed! User Not Registered.') {
                     setTimeout(function () {
                         _this.router.navigate(['authpage/register']);
                     }, 1000);

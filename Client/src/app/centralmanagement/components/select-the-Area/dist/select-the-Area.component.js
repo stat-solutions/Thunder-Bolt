@@ -123,9 +123,9 @@ var SelectTheAreaComponent = /** @class */ (function () {
         // console.log(AreasSelected.length);
         if (areasSelected.length > 0) {
             this.others.createTheArea(areasSelected).subscribe(function (res) {
-                // setTimeout(() => {
-                //   this.refresh();
-                // }, 3000);
+                setTimeout(function () {
+                    _this.refresh();
+                }, 3000);
             }, function (err) { return console.log(err); });
         }
         else {

@@ -339,6 +339,30 @@ export class OthersService {
     getSavingsCustomersByStation(id: number): any{
       return this.http.get<any>(`${this.API_URL}/api/customer/getStationCustomersWithSavingsProduct/?theStationLocationId=${id}`);
     }
+    getSavingsCustomerToApprove(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithSavingsProductForVerify/?theAreaLocationId=${id}`);
+    }
+    putVerifySavingsCustomer(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/customer/putVerifySavingsCustomer`, postData, this.httpOptions);
+    }
+    getTaxiCustomerToApprove(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithTaxiLoanProductForVerify/?theAreaLocationId=${id}`);
+    }
+    putVerifyTaxiCustomer(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/customer/putVerifyTaxiCustomer`, postData, this.httpOptions);
+    }
+    getMicroCustomerToApprove(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithMicroLoanProductForVerify/?theAreaLocationId=${id}`);
+    }
+    putVerifyMicroCustomer(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/customer/putVerifyMicroLoanCustomer`, postData, this.httpOptions);
+    }
+    getBodaBodaCustomerToApprove(id: number): any{
+      return this.http.get<any>(`${this.API_URL}/api/customer/getAllCustomersWithSavingsProductForVerify/?theAreaLocationId=${id}`);
+    }
+    putVerifyBodaBodaCustomer(postData: Array<object>): any {
+      return this.http.post(`${this.API_URL}/api/customer/putVerifySavingsCustomer`, postData, this.httpOptions);
+    }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 
       if (errorResponse.error instanceof ErrorEvent) {

@@ -137,9 +137,9 @@ export class SelectTheAreaComponent implements OnInit {
     if (areasSelected.length > 0) {
         this.others.createTheArea(areasSelected).subscribe(
           res => {
-            // setTimeout(() => {
-            //   this.refresh();
-            // }, 3000);
+            setTimeout(() => {
+              this.refresh();
+            }, 3000);
           }, err => console.log(err)
         );
     } else {

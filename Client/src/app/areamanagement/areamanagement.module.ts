@@ -34,6 +34,8 @@ import { UsersComponent } from './components/reports/users/users.component';
 import { LoansApprovalsComponent } from './components/approvals/loans-approvals/loans-approvals.component';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
 import { VerifyClientComponent } from './components/approvals/verify-client/verify-client.component';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
+import { AlertModule } from 'ngx-alerts';
 
 @NgModule({
   declarations: [
@@ -68,10 +70,12 @@ import { VerifyClientComponent } from './components/approvals/verify-client/veri
     ReactiveFormsModule,
     NgxSpinnerModule,
     TabsModule.forRoot(),
+    PinchZoomModule,
     DatepickerModule,
     BsDatepickerModule,
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
+    AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
     NgChartjsModule,
     NgChartjsModule.registerPlugin(['inlinePlugin'])
   ]
