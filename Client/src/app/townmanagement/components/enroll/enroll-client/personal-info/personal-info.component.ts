@@ -176,9 +176,7 @@ export class PersonalInfoComponent implements OnInit {
   }
   bodaClientFormGroup(): any {
     return new FormGroup({
-      clientName: new FormControl(
-        '',
-      ),
+      clientName: new FormControl(''),
       bodabodaCustomerNumberPlate: new FormControl(
         '',
         Validators.compose([
@@ -199,10 +197,7 @@ export class PersonalInfoComponent implements OnInit {
         '',
         Validators.compose([Validators.required])
       ),
-      bodaStage: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      bodaStage: new FormControl('', Validators.compose([Validators.required])),
       dateOfJoiningStage: new FormControl(
         '',
         Validators.compose([Validators.required])
@@ -226,13 +221,18 @@ export class PersonalInfoComponent implements OnInit {
       ),
       ownersName: new FormControl(
         '',
+        Validators.compose([Validators.required])
       ),
       ownersPhoneNumber: new FormControl(
         '',
         Validators.compose([
-          // Validators.required
+          Validators.required,
+          CustomValidator.patternValidator(
+            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+            { hasNumber: true }
+          ),
         ])
-      )
+      ),
     });
   }
   taxiClientFormGroup(): any {
@@ -291,16 +291,16 @@ export class PersonalInfoComponent implements OnInit {
       ),
       ownersName: new FormControl(
         '',
-        // Validators.compose([Validators.required])
+        Validators.compose([Validators.required])
       ),
       ownersPhoneNumber: new FormControl(
         '',
         Validators.compose([
-          // Validators.required
-          // CustomValidator.patternValidator(
-          //   /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-          //   { hasNumber: true }
-          // ),
+          Validators.required,
+          CustomValidator.patternValidator(
+            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+            { hasNumber: true }
+          ),
         ])
       )
     });
