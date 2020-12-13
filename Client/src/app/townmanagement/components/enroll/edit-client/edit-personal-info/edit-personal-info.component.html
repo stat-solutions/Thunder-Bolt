@@ -1,12 +1,11 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-2 pt-1 pb-0 shadow-lg col-xs-12 col-lg-10"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-2 pt-1 pb-0 shadow-lg col-12 col-lg-11"
 >
   <div class="jumbotron-fluid mb-0 pb-0">
     <!-- this is for personal info -->
     <div [hidden]="!showPersonalForm">
-      <div class="container mt-0 mx-0 shadow-lg">
         <div class="row mt-2 " [formGroup]="searchForm">
-          <div class="col-8 col-md-8">
+          <div class="col-12 col-sm-10 col-md-8">
             <div class="input-group mb-0">
               <div class="input-group-prepend">
                 <div class="input-group-text">
@@ -22,13 +21,13 @@
               formControlName="getCustomers"
               list="getCustomers"
               placeholder="Select a station "
-              class="form-control"
+              class="form-control mx-0"
               [ngClass]="{
                 'is-invalid':
                   (searchForm.controls.getCustomers.touched || searchForm.controls.getCustomers.dirty) &&
                   searchForm.controls.getCustomers.errors
               }"
-              autocomplete="off"
+              autocomplete="on"
               (change)="noCustomers = true"
             />
             <datalist id="getCustomers">
@@ -39,14 +38,16 @@
           </div>
           <button
           type="button"
-          class="btn btn-info col-3 col-md-3 mx-auto"
+          class="btn btn-info"
           [disabled]="!searchForm"
           (click)="getCustomers(searchForm.controls.getCustomers.value)"
         >
           Get Customers
           </button>
         </div>
-        <div class="col-12 mt-2 mb-2" [hidden]="!thereCustomers">
+      <div class="container mt-4 mb-2 mx-0 shadow-lg col-12">
+<div class="row">
+          <div class="col-12" [hidden]="!thereCustomers">
           <h4
             class="rub-head4 text-info text-center font-weight-bold py-1"
           >
@@ -54,14 +55,15 @@
           </h4>
         </div>
       </div>
-    <div class="card-body mt-1 pt-4 mb-0 pb-3 pb-md-1 shadow-lg">
-      <div class="row" *ngIf="(noCustomers === false && searchForm.controls.getCustomers.value !== '')">
-          <h4
-          class="rub-head4 text-info text-center font-weight-bold py-1"
+      </div>
+    <div class="card-body mt-1 pt-4 mb-0 pb-3 shadow-lg">
+      <div class="row d-flex justify-content-center" *ngIf="(noCustomers === false && searchForm.controls.getCustomers.value !== '')">
+          <h5
+          class="rub-head4 text-center py-5"
         >
-          {{searchForm.controls.getCustomers.value}} station has no customers you can register one 
-          <a routerLink = '/townmanagement/enroll/enrollclient'> here</a>
-        </h4>
+          {{searchForm.controls.getCustomers.value}} station has no customers! You can enroll one
+          <a class="" routerLink = '/townmanagement/enroll/enrollclient'> here</a>
+        </h5>
       </div>
       <form [formGroup]="userForm" *ngIf="thereCustomers">
         <div class="row">
@@ -115,8 +117,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
@@ -166,6 +166,57 @@
                 "
               >
                 The client name is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="dateOfBirth"
+                [ngClass]="fval.dateOfBirth.valid ? 'text-info' : ''"
+                >Date Of Birth<i
+                  *ngIf="fval.dateOfBirth.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-calendar-alt text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                  <input
+                  id="dateOfBirth"
+                  formControlName="dateOfBirth"
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.dateOfBirth.touched || fval.dateOfBirth.dirty) &&
+                      fval.dateOfBirth.errors
+                  }"
+                  placeholder="Click to select Date Of Birth"
+                  autocomplete="off"
+                  class="form-control"
+                  bsDatepicker
+                  [bsConfig]="{ contentClass: 'theme-blue', dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
+                  placement="top"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.dateOfBirth.touched || fval.dateOfBirth.dirty) &&
+                  fval.dateOfBirth.errors?.required
+                "
+              >
+                Date Of Birth is required!
               </div>
             </div>
           </div>
@@ -430,7 +481,7 @@
             <div class="form-group text-primary">
               <label
                 for="clientPhotoUrl"
-                
+
                 >Photo
                 <!-- <i
                   *ngIf="fval.clientPhotoUrl.valid"
@@ -526,64 +577,13 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-12 col-md-6">
-            <div class="form-group text-primary">
-              <label
-                for="dateOfBirth"
-                [ngClass]="fval.dateOfBirth.valid ? 'text-info' : ''"
-                >Date Of Birth<i
-                  *ngIf="fval.dateOfBirth.valid"
-                  class="material-icons"
-                  >check_circle</i
-                ></label
-              >
-              <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-image text-primary mx-auto"
-                      style="size: 50px"
-                    ></i>
-                  </div>
-                </div>
-                  <input
-                  id="dateOfBirth"
-                  formControlName="dateOfBirth"
-                  type="text"
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid':
-                      (fval.dateOfBirth.touched || fval.dateOfBirth.dirty) &&
-                      fval.dateOfBirth.errors
-                  }"
-                  placeholder="Click to select Date Of Birth"
-                  autocomplete="off"
-                  class="form-control"
-                  bsDatepicker
-                  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
-                  placement="bottom"
-                />
-              </div>
-              <div
-                class="text-danger col"
-                *ngIf="
-                  (fval.dateOfBirth.touched || fval.dateOfBirth.dirty) &&
-                  fval.dateOfBirth.errors?.required
-                "
-              >
-                Date Of Birth is required!
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="row" *ngIf="currentCustomerId">
-          <div class="col-12 col-md-6">
+          <div class="col-12">
             <label for="products">Customer's Products</label>
             <div class="row mx-auto">
               <button
               type="button"
-              class="btn btn-info col-6 col-md-5  mx-auto"
+              class="btn btn-dark  mx-auto px-4"
               (click)="bodaForm()"
               *ngIf="(this.currentCustomer.productCodes.includes(200))"
               >
@@ -591,7 +591,7 @@
               </button>
               <button
               type="button"
-              class="btn btn-info col-6 col-md-5 mx-auto"
+              class="btn btn-dark mx-auto px-5"
               (click)="taxiForm()"
               *ngIf="(this.currentCustomer.productCodes.includes(300))"
               >
@@ -601,7 +601,7 @@
             <!-- <div class="row mx-auto my-3"> -->
               <button
               type="button"
-              class="btn btn-info col-6 col-md-5 mb-2 mt-2 mx-auto"
+              class="btn btn-dark mt-2 mt-md-0 px-4 mx-auto"
               (click)="microForm()"
               *ngIf="(this.currentCustomer.productCodes.includes(400))"
               >
@@ -609,7 +609,7 @@
               </button>
               <button
               type="button"
-              class="btn btn-info col-6 col-md-5 mb-2 mt-2 mx-auto"
+              class="btn btn-dark mt-2 mt-md-0 px-4 mx-auto"
               (click)="savingForm()"
               *ngIf="(this.currentCustomer.productCodes.includes(100))"
               >
@@ -621,7 +621,7 @@
           <div class="form-group text-primary">
             <label
             *ngIf="addProduct"
-              for="productCode"    
+              for="productCode"
               >Product
               <!-- [ngClass]="fval.productCode.valid" -->
               <!-- <i
@@ -632,13 +632,13 @@
               </label
             >
             <div class="input-group mb-0" >
-              <div [hidden]="!showAddPdtBtn"  class="col-12 col-md-12">
+              <div [hidden]="showAddPdtBtn"  class="col-12 col-md-12">
                 <button
                 type="button"
-                class="btn btn-info col-12 col-md-6 mt-3 mx-auto ml-3"
+                class="btn btn-info mt-3 mx-auto"
                 *ngIf="!addProduct"
                 (click)="addProduct = true"
-                >
+                ><i class="fas fa-plus"></i>
                 Add Product
                 </button>
                 <select
@@ -669,7 +669,7 @@
               fval.productCode.errors?.required
             "
           >
-            initial product is required
+            Initial product is required
             </div>
           </div>
           </div>
@@ -709,7 +709,7 @@
 
   <!-- this is for boda client -->
   <div [hidden]="!showBodaForm">
-    <div class="container mt-0 mb-2 mx-0 shadow-lg">
+    <div class="container my-2 mx-0 shadow-lg col-12">
       <div class="row">
         <div class="col-12">
           <h4
@@ -720,7 +720,7 @@
         </div>
       </div>
     </div>
-    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-0 pb-md-1 shadow-lg">
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg">
       <form [formGroup]="bodaClientForm">
         <div class="row">
         <div class="col-12 col-md-6">
@@ -752,7 +752,7 @@
                   bodaFval.clientName.errors
               }"
               autocomplete="off"
-              placeholder="Enter Customer Name"
+              placeholder="Enter Client Name"
             />
             </div>
             <div
@@ -782,7 +782,7 @@
               <div class="input-group-prepend">
                 <div class="input-group-text">
                   <i
-                    class="fas fa-motorcycle text-primary mx-auto"
+                    class="fas fa-tag text-primary mx-auto"
                     style="size: 50px"
                   >
                   </i>
@@ -881,7 +881,6 @@
                 autocomplete="off"
                 placeholder="Select Insurance status"
               >
-                <option selected>Select Insurance status</option>
                 <option>NONE</option>
                 <option>REGULAR</option>
                 <option>COMPREHENSIVE</option>
@@ -915,6 +914,15 @@
                 ></label
               >
               <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-parking text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
                 <input
                 type="text"
                 list="bodaStage"
@@ -964,6 +972,15 @@
                 ></label
               >
               <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-calendar-alt text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
                 <input
                   id="bodaDateOfJoiningStage"
                   formControlName="dateOfJoiningStage"
@@ -979,8 +996,8 @@
                   autocomplete="off"
                   class="form-control"
                   bsDatepicker
-                  [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
-                  placement="bottom"
+                  [bsConfig]="{ contentClass: 'theme-blue', dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
+                  placement="top"
                 />
               </div>
               <div
@@ -1001,7 +1018,7 @@
             <div class="form-group text-primary">
               <label
                 for="bodabodaCustomerFrontPhotoUrl"
-               
+
                 >Front Image
                  <!-- [ngClass]="bodaFval.bodabodaCustomerFrontPhotoUrl.valid ? 'text-info' : ''" -->
                 <!-- <i
@@ -1051,7 +1068,7 @@
             <div class="form-group text-primary">
               <label
                 for="bodabodaCustomerSidePhotoUrl"
-               
+
                 >Side Image
                  <!-- [ngClass]="bodaFval.bodabodaCustomerSidePhotoUrl.valid ? 'text-info' : ''" -->
                 <!-- <i
@@ -1103,7 +1120,7 @@
             <div class="form-group text-primary">
               <label
                 for="bodabodaCustomerRearPhotoUrl"
-                
+
                 >Rear Image
                 <!-- [ngClass]="bodaFval.bodabodaCustomerRearPhotoUrl.valid ? 'text-info' : ''" -->
                 <!-- <i
@@ -1204,6 +1221,15 @@
                 ></label
               >
               <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-tag text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
                 <input
                   id="ownersName"
                   formControlName="ownersName"
@@ -1479,7 +1505,7 @@
             <div class="form-group text-primary">
               <label
                 for="taxiCustomerFrontPhotoUrl"
-               
+
                 >Front Image
                  <!-- [ngClass]="taxiFval.taxiCustomerFrontPhotoUrl.valid ? 'text-info' : ''"
                 <i
@@ -1500,7 +1526,7 @@
                 </div>
                 <img
                 class="mb-2 pb-0 mx-4 mx-xl-3"
-                
+
               />
               <!-- [src]="" -->
                 <input
@@ -1534,7 +1560,7 @@
             <div class="form-group text-primary">
               <label
                 for="taxiCustomerSidePhotoUrl"
-               
+
                 >Side Image
                 <!-- [ngClass]="taxiFval.taxiCustomerSidePhotoUrl.valid ? 'text-info' : ''"
                 <i
@@ -1586,7 +1612,7 @@
             <div class="form-group text-primary">
               <label
                 for="taxiCustomerRearPhotoUrl"
-                
+
                 >Rear Image
                 <!-- [ngClass]="taxiFval.taxiCustomerRearPhotoUrl.valid ? 'text-info' : ''"
                 <i
@@ -1770,7 +1796,7 @@
               </div>
             </div>
           </div>
-        </div>  
+        </div>
         <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group text-primary">
@@ -2521,7 +2547,7 @@
       (click)="updateCustomerDetails()"
     >
       Save
-    </button>    
+    </button>
     <button
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"
@@ -2530,7 +2556,7 @@
       (click)="save()"
     >
       Save
-    </button>    
+    </button>
     <button
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"
@@ -2539,7 +2565,7 @@
       (click)="save()"
     >
       Save
-    </button>    
+    </button>
     <button
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"
@@ -2548,7 +2574,7 @@
       (click)="save()"
     >
       Save
-    </button> 
+    </button>
     <button
       type="button"
       class="btn btn-info col-5 col-md-3 mx-auto"

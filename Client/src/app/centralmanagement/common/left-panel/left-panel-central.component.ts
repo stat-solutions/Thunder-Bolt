@@ -126,9 +126,9 @@ export class LeftPanelCentralComponent implements OnInit {
         url: '/centralmanagement/reports',
         subMenu: [
           {
-            name: 'Areas',
+            name: 'Regions',
             icon: 'fas fa-file',
-            url: '/centralmanagement/reports/areas',
+            url: '/centralmanagement/reports/regions',
           },
           {
             name: 'Towns',

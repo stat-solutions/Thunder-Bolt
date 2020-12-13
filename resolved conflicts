@@ -1,0 +1,15 @@
+fine tuned verify component
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# interactive rebase in progress; onto 3d5b5ae
+# Last command done (1 command done):
+#    pick f994405 fine tuned verify component
+# Next command to do (1 remaining command):
+#    pick f994405 fine tuned verify component
+# You are currently editing a commit while rebasing branch 'davis-branch-19' on '3d5b5ae'.
+#
+# Changes to be committed:
+#	modified:   Client/debug.log
+#

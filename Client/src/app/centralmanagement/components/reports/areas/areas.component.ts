@@ -55,7 +55,7 @@ export class AreasComponent implements OnInit {
   }
 
   public openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'thunder-modal modal-lg modal-xl modal-dialog-centered' }));
+    this.modalRef = this.modalService.show(template, Object.assign({}, { class: 'modal-dialog-centered' }));
 
   }
 
