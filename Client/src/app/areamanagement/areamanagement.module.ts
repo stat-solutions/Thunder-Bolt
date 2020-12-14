@@ -36,6 +36,7 @@ import { PersonalProfileComponent } from './components/profile/personal-profile/
 import { VerifyClientComponent } from './components/approvals/verify-client/verify-client.component';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
 import { AlertModule } from 'ngx-alerts';
+import { LoansrevenueComponent } from './components/reports/loansrevenue/loansrevenue.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { AlertModule } from 'ngx-alerts';
     UsersComponent,
     LoansApprovalsComponent,
     PersonalProfileComponent,
-    VerifyClientComponent
+    VerifyClientComponent,
+    LoansrevenueComponent
   ],
   imports: [
     CommonModule,

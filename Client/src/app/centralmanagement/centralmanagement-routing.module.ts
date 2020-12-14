@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TownsComponent } from './components/reports/towns/towns.component';
 import { CreateComponent } from './components/create/create.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AreasComponent } from './components/reports/areas/areas.component';
 import { ClientsComponent } from './components/reports/clients/clients.component';
 import { ReportsComponent } from './components/reports/reports.component';
-import { StationsComponent } from './components/reports/stations/stations.component';
 import { UsersComponent } from './components/reports/users/users.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { PagesCoreCentralComponent } from './pages-core/pages-core-central.component';
@@ -200,16 +198,8 @@ const routes: Routes = [
         component: ReportsComponent,
         children: [
           {
-            path: 'regions',
+            path: 'loansrevenue',
             component: AreasComponent,
-          },
-          {
-            path: 'towns',
-            component: TownsComponent,
-          },
-          {
-            path: 'stations',
-            component: StationsComponent,
           },
           {
             path: 'clients',

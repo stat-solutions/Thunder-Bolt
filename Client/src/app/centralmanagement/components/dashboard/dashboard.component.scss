@@ -80,6 +80,13 @@ overflow-y: hidden;
 .list-card:hover, .list-card:focus {
 border-color: #17aee0
 }
+.list-card-1 {
+  height: auto !important;
+  border-left: 3px solid #adabab
+}
+.list-card-1:hover {
+  border-left: 3px solid #17aae0
+}
 
 .list-card-2 {
   height: auto !important;

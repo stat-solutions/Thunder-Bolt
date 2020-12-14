@@ -16,11 +16,11 @@ export interface clientInfo {
   clientSaving: number;
 }
 @Component({
-  selector: 'app-clients',
-  templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.scss'],
+  selector: 'app-loansrevenue',
+  templateUrl: './loansrevenue.component.html',
+  styleUrls: ['./loansrevenue.component.scss'],
 })
-export class ClientsComponent implements OnInit {
+export class LoansrevenueComponent implements OnInit {
   public modalRef: BsModalRef;
   userForm: FormGroup;
   clients: clientInfo;
