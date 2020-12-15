@@ -400,14 +400,29 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.putRejectBodaBodaCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/putRejectBodaBodaCustomerVerify", postData, this.httpOptions);
     };
-    OthersService.prototype.getTxnDetails = function (id) {
-        return this.http.get(this.API_URL + "/api/loan/getTxnDetails}");
+    OthersService.prototype.getTxnDetails = function () {
+        return this.http.get(this.API_URL + "/api/loan/getTxnDetails");
     };
     OthersService.prototype.putTxnCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/postTxnCustomer", postData, this.httpOptions);
     };
     OthersService.prototype.putTxnNoneCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/postTxnNonCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.postSetStationLoanLimit = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postSetStationLoanLimit", postData, this.httpOptions);
+    };
+    OthersService.prototype.postSetStationLoanTenure = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postSetStationLoanTenure", postData, this.httpOptions);
+    };
+    OthersService.prototype.postSetStationNumberOfDaysForAccrualInterest = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postSetStationNumberOfDaysForAccrualInterest", postData, this.httpOptions);
+    };
+    OthersService.prototype.postSetStationCommissionRate = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postSetStationCommissionRate", postData, this.httpOptions);
+    };
+    OthersService.prototype.postSetStationLoanInterestRate = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postSetStationLoanInterestRate", postData, this.httpOptions);
     };
     OthersService.prototype.handleCompanySetupError = function (errorResponse) {
         if (errorResponse.error instanceof ErrorEvent) {

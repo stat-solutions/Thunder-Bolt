@@ -125,13 +125,27 @@ var SelectTheAreaComponent = /** @class */ (function () {
         // console.log(AreasSelected.length);
         if (areasSelected.length > 0) {
             this.others.createTheArea(areasSelected).subscribe(function (res) {
+                _this.posted = true;
+                _this.alertService.success({
+                    html: '<b> Areas were  set successfully</b>'
+                });
                 setTimeout(function () {
-                    _this.refresh();
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
                 }, 3000);
-            }, function (err) { return console.log(err); });
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.ststusText + '</b>'
+                });
+            });
         }
         else {
-            alert('Please select something');
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> Please select something </b>'
+            });
             return;
         }
     };

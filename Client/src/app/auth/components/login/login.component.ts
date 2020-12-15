@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.spinner.show();
     if (this.userForm.invalid === true) {
+      this.spinner.hide();
       return;
     } else {
       const data = {
@@ -89,7 +90,6 @@ export class LoginComponent implements OnInit {
       };
       this.authService
         .loginNormalUser(data)
-
         .subscribe(
           (success: boolean) => {
             if (success) {

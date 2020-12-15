@@ -76,13 +76,13 @@
                   fval.number_plate.errors
               }"
               autocomplete="off"
-              placeholder="Select Number Plate"
-              (click)="openModal(template)"
+              placeholder="Select Number Plate (UAA 878K)"
+              (blur)="checkLoanbility(fval.number_plate.value, template)"
             />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="number_plate">
               <option *ngFor="let item of numberPlates">
-                {{ item.customers_number_plate }}
+                {{ item }}
               </option>
             </datalist>
           </div>
@@ -150,12 +150,12 @@
               }"
               autocomplete="off"
               placeholder="Select Phone number"
-              (click)="openModal(template)"
+              (blur)="checkLoanbility(fval.user_contact_number.value, template)"
             />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="user_contact_number">
               <option *ngFor="let item of phoneNumbers">
-                {{ item.customers_number_plate }}
+                {{ item }}
               </option>
             </datalist>
           </div>
@@ -203,7 +203,7 @@
               }"
               autocomplete="off"
               placeholder="Enter Amount to pay"
-              (keyup)="onKey($event)"
+              (blur)="checkLimit(fval.amount_to_borrow.value)"
             />
           </div>
           <div
@@ -398,7 +398,7 @@
                   >
                     <span class="itemCreated">Phone Number: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{ checkedClient.phone}}</span><br />
-                    <span class="itemCreated">Number Plate: &nbsp;&nbsp;</span
+                    <span class="itemCreated" *ngIf="loanType !== 'Micro Loan'">Number Plate: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{ checkedClient.plate}}</span><br />
 
                     <span class="itemCreated">Name: &nbsp;&nbsp;</span
@@ -407,7 +407,7 @@
                     ><br />
                     <span class="itemCreated">Loan Limit: &nbsp;&nbsp;</span
                       ><span class="itemCreated text-info">{{ checkedClient.loanLimit}}</span>
-</div>
+                </div>
                   <div
                     class="col-12 col-lg-6 mt-2 mb-0 py-0"
                   >
@@ -419,7 +419,7 @@
                     ><span class="itemCreated text-info">{{ checkedClient.loanBalance}}</span><br />
                     <span class="itemCreated">Loan Status: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{ checkedClient.loanStatus}}</span>
-</div>
+                </div>
                   <div
                     class="col-12 mt-2 mb-0 py-0"
                   >

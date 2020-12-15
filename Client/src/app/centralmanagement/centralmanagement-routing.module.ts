@@ -41,6 +41,8 @@ import { TownManagersComponent } from './components/set-managers/town-managers/t
 import { StationManagersComponent } from './components/set-managers/station-managers/station-managers.component';
 import { SetLoanTenureComponent } from './components/transactions/loans/set-loan-tenure/set-loan-tenure.component';
 import { LoanTenureComponent } from './components/transactions/approval/loan-tenure/loan-tenure.component';
+import { SetLoanCommissionComponent } from './components/transactions/loans/set-loan-commision/set-loan-commision.component';
+import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan-accrual/set-loan-accrual.component';
 
 const routes: Routes = [
   {
@@ -138,6 +140,14 @@ const routes: Routes = [
               {
                 path: 'setloantenure',
                 component: SetLoanTenureComponent,
+              },
+              {
+                path: 'setloancommission',
+                component: SetLoanCommissionComponent,
+              },
+              {
+                path: 'setloanaccrual',
+                component: SetLoanAcrualComponent,
               },
             ],
           },

@@ -1,0 +1,149 @@
+.card-body {
+  height: auto;
+  width: 100%;
+  max-width: 300px;
+  min-width: 260px;
+  margin-bottom: 0rem;
+  border-radius: 8px;
+contain: auto;
+}
+
+
+
+//Media queries
+@media (min-width: 320px) {
+  .card-body {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
+  .container-fluid {
+    padding-bottom: 0px !important;
+  }
+  .jumbotron-fluid {
+    margin-bottom: 0px !important;
+  }
+}
+
+
+@media (min-width: 360px) {
+.card-body {
+  max-width: 350px;
+  min-width: 330px;
+  margin-bottom: 30px !important;
+}
+.jumbotron-fluid {
+  margin-bottom: 14px !important;
+}
+
+}
+
+
+@media (min-width: 375px) {
+  .card-body {
+    max-width: 360px;
+    min-width: 350px;
+  }
+  .jumbotron-fluid {
+    padding-top: 30px !important;
+    margin-bottom: 20px !important;
+  }
+
+  }
+
+
+  @media (min-width: 410px) {
+    .card-body {
+      padding-top: 10px !important;
+      margin-bottom: 50px !important;
+    }
+    .jumbotron-fluid {
+      padding-top: 20px !important;
+      margin-bottom: 28px !important;
+    }
+      }
+
+
+      @media (min-width: 440px) {
+        .card-body {
+          margin-bottom: 40px !important;
+        }
+        .container-fluid {
+          padding-bottom: 0px !important;
+        }
+        .jumbotron-fluid {
+          margin-bottom: 10px !important;
+        }
+      }
+
+
+      @media (min-width: 568px) {
+        .jumbotron-fluid {
+          margin-top: 0px !important;
+          padding-top: 1px !important;
+        }
+        .card-body {
+          margin-bottom: 20px !important;
+        }
+}
+
+
+@media (min-width: 768px) {
+  .card-body {
+    padding-top: 15px !important;
+    margin-bottom: 280px !important;
+  }
+  .jumbotron-fluid {
+    margin-bottom: 68px !important;
+  }
+    }
+
+
+    @media (min-width: 812px) {
+  .card-body {
+    margin-bottom: 20px !important;
+  }
+  .container-fluid {
+    padding-bottom: 0px !important;
+  }
+  .jumbotron-fluid {
+    margin-bottom: 0px !important;
+  }
+}
+
+
+@media (min-width: 820px) {
+}
+
+
+@media (min-width: 1020px) {
+  .card-body {
+    padding-top: 20px !important;
+    margin-bottom: 330px !important;
+  }
+  .jumbotron-fluid {
+    margin-bottom: 40px !important;
+  }
+    }
+
+
+    @media (min-width: 1100px) {
+  .card-body {
+    padding-top: 15px !important;
+    margin-bottom: 50px !important;
+  }
+  .jumbotron-fluid {
+    margin-bottom: 40px !important;
+  }
+}
+
+
+@media (min-width: 1260px) {
+  .card-body {
+    padding-top: 15px !important;
+    margin-bottom: 70px !important;
+  }
+  .jumbotron-fluid {
+    margin-bottom: 10px !important;
+  }
+}
+

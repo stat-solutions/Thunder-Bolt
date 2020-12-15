@@ -139,13 +139,27 @@ export class SelectTheAreaComponent implements OnInit {
     if (areasSelected.length > 0) {
         this.others.createTheArea(areasSelected).subscribe(
           res => {
+            this.posted = true;
+            this.alertService.success({
+              html: '<b> Areas were  set successfully</b>'
+            });
             setTimeout(() => {
-              this.refresh();
+              this.userForm = this.createFormGroup();
+              this.fval.selectAll.setValue(false);
+              this.initialiseForm();
             }, 3000);
-          }, err => console.log(err)
+          }, err => {
+            this.errored = true;
+            this.alertService.danger({
+              html: '<b>' + err.error.ststusText + '</b>'
+            });
+          }
         );
     } else {
-      alert('Please select something');
+      this.errored = true;
+      this.alertService.danger({
+              html: '<b> Please select something </b>'
+            });
       return;
     }
   }

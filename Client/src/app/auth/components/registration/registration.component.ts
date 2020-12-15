@@ -9,6 +9,8 @@ import { FormBuilder } from '@angular/forms';
 import { UserRole } from 'src/app/shared/models/user-role';
 import { RegisterUser } from 'src/app/shared/models/register';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
+import { finalize } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-registration',
@@ -35,6 +37,8 @@ export class RegistrationComponent implements OnInit {
   selectedRole: any;
   selectedLocation: any;
   registerUser: RegisterUser;
+  downloadURL: any;
+  userIdPhoto: string;
 
   constructor(
     private authService: AuthServiceService,
@@ -42,7 +46,8 @@ export class RegistrationComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private storage: AngularFireStorage
   ) {}
 
   ngOnInit(): void {
@@ -91,6 +96,7 @@ export class RegistrationComponent implements OnInit {
           town: new FormControl(''),
           station: new FormControl(''),
           id_type: new FormControl('', Validators.compose([Validators.required])),
+          idPhotoUrl: new FormControl('', Validators.compose([])),
           id_number: new FormControl(
             '',
             Validators.compose([
@@ -180,6 +186,26 @@ export class RegistrationComponent implements OnInit {
           // Validators.maxLength(10)
         ]);
         break;
+      case 'AREA USER':
+        this.fval.area.setValidators([
+          Validators.required,
+        ]);
+        break;
+      case 'TOWN USER':
+        this.fval.town.setValidators([
+          Validators.required,
+        ]);
+        break;
+      case 'STATION USER':
+        this.fval.station.setValidators([
+          Validators.required,
+        ]);
+        break;
+      case 'CENTRAL USER':
+        this.fval.central.setValidators([
+          Validators.required,
+        ]);
+        break;
       }
     }
 revert(): any {
@@ -227,10 +253,37 @@ getRoles(): any{
      }
   );
 }
+onFileSelected(event): any {
+  const n = Date.now();
+  const file = event.target.files[0];
+  const filePath = `Users/${n}`;
+  const fileRef = this.storage.ref(filePath);
+  const task = this.storage.upload(`Users/${n}`, file);
+  task
+  .snapshotChanges()
+  .pipe(
+    finalize(() => {
+      this.downloadURL = fileRef.getDownloadURL();
+      this.downloadURL.subscribe(url => {
+        if (url) {
+          this.userIdPhoto = url;
+          // console.log(this.userIdPhoto);
+        }
+      });
+    })
+  )
+  .subscribe(url => {
+    if (url) {
+      // console.log(url);
+    }
+  });
+}
 register(): any {
+    // console.log('hi');
     this.submitted = true;
-    this.spinner.hide();
+    this.spinner.show();
     if (this.userForm.invalid === true) {
+      this.spinner.hide();
       return;
     }
     else {
@@ -270,6 +323,7 @@ register(): any {
         userName: this.fval.full_name.value.toUpperCase(),
         userEmail1: this.fval.email.value,
         userPhone1: `${this.fval.user_contact_number.value}`,
+        userIdPhotoUrl: this.userIdPhoto,
         userIdType: this.fval.id_type.value,
         userIdNumber: `${this.fval.id_number.value.toUpperCase()}`,
         userDateOfBirth: `${this.fval.date_of_birth.value.getFullYear()}-${this.fval.date_of_birth.value.getMonth() + 1}-${this.fval.date_of_birth.value.getDate()}`,
@@ -277,7 +331,6 @@ register(): any {
         fkAccessRightsIdUser: this.selectedRole,
         locationId: this.selectedLocation
       };
-
       // console.log(this.registerUser);
       if ( this.registerUser.locationId){
             this.authService.registerUser(this.registerUser).subscribe(
@@ -290,9 +343,9 @@ register(): any {
                     '</br>' +
                     'Wait for verification'
                 });
-                setTimeout(() => {
-                  this.router.navigate(['authpage/login']);
-                }, 3000);
+                // setTimeout(() => {
+                //   this.router.navigate(['authpage/login']);
+                // }, 3000);
               },
               (error: string) => {
                 this.spinner.hide();

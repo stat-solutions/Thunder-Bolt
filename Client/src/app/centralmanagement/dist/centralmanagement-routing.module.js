@@ -34,7 +34,6 @@ var set_loan_limit_component_1 = require("./components/transactions/loans/set-lo
 var set_loan_rate_component_1 = require("./components/transactions/loans/set-loan-rate/set-loan-rate.component");
 var deposit_float_component_1 = require("./components/transactions/float/deposit-float/deposit-float.component");
 var withdraw_float_component_1 = require("./components/transactions/float/withdraw-float/withdraw-float.component");
-var float_approval_component_1 = require("./components/transactions/approval/float-approval/float-approval.component");
 var interest_rate_component_1 = require("./components/transactions/approval/interest-rate/interest-rate.component");
 var loan_limit_component_1 = require("./components/transactions/approval/loan-limit/loan-limit.component");
 var reduce_rate_component_1 = require("./components/transactions/approval/reduce-rate/reduce-rate.component");
@@ -49,6 +48,10 @@ var set_managers_component_1 = require("./components/set-managers/set-managers.c
 var area_managers_component_1 = require("./components/set-managers/area-managers/area-managers.component");
 var town_managers_component_1 = require("./components/set-managers/town-managers/town-managers.component");
 var station_managers_component_1 = require("./components/set-managers/station-managers/station-managers.component");
+var set_loan_tenure_component_1 = require("./components/transactions/loans/set-loan-tenure/set-loan-tenure.component");
+var loan_tenure_component_1 = require("./components/transactions/approval/loan-tenure/loan-tenure.component");
+var set_loan_commision_component_1 = require("./components/transactions/loans/set-loan-commision/set-loan-commision.component");
+var set_loan_accrual_component_1 = require("./components/transactions/loans/set-loan-accrual/set-loan-accrual.component");
 var routes = [
     {
         path: '',
@@ -69,7 +72,7 @@ var routes = [
                 component: create_component_1.CreateComponent,
                 children: [
                     {
-                        path: 'createarea',
+                        path: 'createregion',
                         component: create_area_component_1.CreateAreaComponent
                     },
                     {
@@ -83,7 +86,7 @@ var routes = [
                 ]
             },
             {
-                path: 'selectarea',
+                path: 'selectregions',
                 component: select_the_Area_component_1.SelectTheAreaComponent
             },
             {
@@ -91,7 +94,7 @@ var routes = [
                 component: set_managers_component_1.SetManagersComponent,
                 children: [
                     {
-                        path: 'areamanagers',
+                        path: 'regionmanagers',
                         component: area_managers_component_1.AreaManagersComponent
                     },
                     {
@@ -101,7 +104,7 @@ var routes = [
                     {
                         path: 'stationmanagers',
                         component: station_managers_component_1.StationManagersComponent
-                    }
+                    },
                 ]
             },
             {
@@ -109,7 +112,7 @@ var routes = [
                 component: approvals_component_1.ApprovalsComponent,
                 children: [
                     {
-                        path: 'approvearea',
+                        path: 'approveregion',
                         component: approve_areas_component_1.ApproveAreasComponent
                     },
                     {
@@ -141,6 +144,18 @@ var routes = [
                             {
                                 path: 'setloanrate',
                                 component: set_loan_rate_component_1.SetLoanRateComponent
+                            },
+                            {
+                                path: 'setloantenure',
+                                component: set_loan_tenure_component_1.SetLoanTenureComponent
+                            },
+                            {
+                                path: 'setloancommission',
+                                component: set_loan_commision_component_1.SetLoanCommissionComponent
+                            },
+                            {
+                                path: 'setloanaccrual',
+                                component: set_loan_accrual_component_1.SetLoanAcrualComponent
                             },
                         ]
                     },
@@ -177,9 +192,9 @@ var routes = [
                                 component: loan_limit_component_1.LoanLimitComponent
                             },
                             {
-                                path: 'floatapproval',
-                                component: float_approval_component_1.FloatApprovalComponent
-                            },
+                                path: 'loantenure',
+                                component: loan_tenure_component_1.LoanTenureComponent
+                            }
                         ]
                     },
                     {
@@ -203,7 +218,7 @@ var routes = [
                 component: reports_component_1.ReportsComponent,
                 children: [
                     {
-                        path: 'areas',
+                        path: 'regions',
                         component: areas_component_1.AreasComponent
                     },
                     {

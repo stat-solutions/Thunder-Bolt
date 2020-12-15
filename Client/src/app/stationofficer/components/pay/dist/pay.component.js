@@ -8,54 +8,256 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.PayComponent = void 0;
 var core_1 = require("@angular/core");
-var jwt_decode = require("jwt-decode");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
 var PayComponent = /** @class */ (function () {
-    function PayComponent(authService, router, spinner, alertService, modalService) {
+    function PayComponent(authService, others, router, spinner, alertService, modalService) {
         this.authService = authService;
+        this.others = others;
         this.router = router;
         this.spinner = spinner;
         this.alertService = alertService;
         this.modalService = modalService;
         this.posted = false;
         this.user = '/../../../assets/img/man.svg';
+        this.numberPlates = [];
+        this.phoneNumbers = [];
+        this.User = this.authService.loggedInUserInfo();
     }
     PayComponent.prototype.ngOnInit = function () {
-        this.getTheNumberPlates();
+        var _this = this;
         this.userForm = this.createFormGroup();
         this.checkedOk = false;
+        this.others.getTxnDetails().subscribe(function (res) {
+            _this.txns = res;
+            // console.log(res);
+        }, function (err) {
+            console.log(err.error.statusText);
+        });
     };
     PayComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
-            loanType: new forms_1.FormControl(['',
-                forms_1.Validators.required]),
-            number_plate: new forms_1.FormControl('', forms_1.Validators.compose([
-                forms_1.Validators.required,
-                forms_1.Validators.minLength(8),
-                forms_1.Validators.maxLength(8)
-            ])),
-            user_contact_number: new forms_1.FormControl('', forms_1.Validators.compose([
-                forms_1.Validators.required,
-                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true })
-            ])),
+            loanType: new forms_1.FormControl(['', forms_1.Validators.required]),
+            number_plate: new forms_1.FormControl(''),
+            user_contact_number: new forms_1.FormControl(''),
             amount_to_pay: new forms_1.FormControl({ value: '', disabled: true }, forms_1.Validators.compose([
                 forms_1.Validators.required,
                 custom_validator_1.CustomValidator.patternValidator(/\d/, { hasNumber: true }),
                 forms_1.Validators.maxLength(6),
-                forms_1.Validators.minLength(3)
+                forms_1.Validators.minLength(3),
             ])),
             pin: new forms_1.FormControl({ value: '', disabled: true }, forms_1.Validators.compose([
                 forms_1.Validators.required,
                 custom_validator_1.CustomValidator.patternValidator(/\d/, { hasNumber: true }),
                 forms_1.Validators.maxLength(4),
-                forms_1.Validators.minLength(4)
+                forms_1.Validators.minLength(4),
             ]))
         });
     };
     PayComponent.prototype.checkLoanType = function (value) {
-        // console.log(value);
-        this.loanType = value;
+        var _this = this;
+        switch (value) {
+            case 'Boda Loan':
+                this.others.getBodaCustomers().subscribe(function (res) {
+                    if (res.length > 0) {
+                        _this.customers = res;
+                        _this.customers.forEach(function (customer) {
+                            _this.numberPlates.push(customer.bodabodaCustomerNumberPlate);
+                        });
+                        _this.loanType = value;
+                        _this.fval.number_plate.setValidators([
+                            forms_1.Validators.required,
+                            forms_1.Validators.minLength(8),
+                            forms_1.Validators.maxLength(8),
+                        ]);
+                    }
+                    else {
+                        _this.errored = true;
+                        _this.choosingPdts();
+                        _this.alertService.danger({
+                            html: '<b>There are no boda boda customers registered</b>'
+                        });
+                    }
+                }, function (err) {
+                    _this.errored = true;
+                    console.log(err);
+                    _this.alertService.danger({
+                        html: '<b>' + err.error.error.message + '</b>'
+                    });
+                });
+                break;
+            case 'Taxi Loan':
+                this.others.getTaxiCustomers().subscribe(function (res) {
+                    if (res.length > 0) {
+                        _this.customers = res;
+                        _this.customers.forEach(function (customer) {
+                            _this.numberPlates.push(customer.taxiCustomerNumberPlate);
+                        });
+                        _this.fval.number_plate.setValidators([
+                            forms_1.Validators.required,
+                            forms_1.Validators.minLength(8),
+                            forms_1.Validators.maxLength(8),
+                        ]);
+                        _this.loanType = value;
+                    }
+                    else {
+                        _this.errored = true;
+                        _this.choosingPdts();
+                        _this.alertService.danger({
+                            html: '<b>There are no Taxi customers registered</b>'
+                        });
+                    }
+                }, function (err) {
+                    _this.errored = true;
+                    _this.alertService.danger({
+                        html: '<b>' + err.error.error.message + '</b>'
+                    });
+                });
+                break;
+            case 'Micro Loan':
+                this.others.getMicroCustomers().subscribe(function (res) {
+                    if (res.length > 0) {
+                        _this.customers = res;
+                        _this.customers.forEach(function (customer) {
+                            _this.phoneNumbers.push(customer.customerPhone1);
+                        });
+                        _this.fval.user_contact_number.setValidators([
+                            forms_1.Validators.required,
+                            custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                        ]);
+                        _this.loanType = value;
+                    }
+                    else {
+                        _this.errored = true;
+                        _this.choosingPdts();
+                        _this.alertService.danger({
+                            html: '<b>There are no Micro loan customers registered</b>'
+                        });
+                    }
+                }, function (err) {
+                    _this.errored = true;
+                    _this.alertService.danger({
+                        html: '<b>' + err.error.error.message + '</b>'
+                    });
+                });
+                break;
+        }
+    };
+    PayComponent.prototype.choosingPdts = function () {
+        this.loanType = '';
+        this.numberPlates = [];
+        this.phoneNumbers = [];
+        this.fval.amount_to_borrow.disable();
+        this.fval.pin.disable();
+    };
+    PayComponent.prototype.enableAmountAndPin = function () {
+        this.fval.amount_to_borrow.enable();
+        this.fval.pin.enable();
+    };
+    PayComponent.prototype.checkLoanbility = function (value, template) {
+        var _this = this;
+        if (value !== '') {
+            switch (this.loanType) {
+                case 'Boda Loan':
+                    this.customers.forEach(function (customer) {
+                        if (customer.bodabodaCustomerNumberPlate === value) {
+                            _this.checkedClient = {
+                                Id: customer.customerId,
+                                name: customer.customerName,
+                                photoUrl: customer.customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? _this.user : customer.customerIdPhotoUrl,
+                                phone: customer.customerPhone1,
+                                plate: customer.bodabodaCustomerNumberPlate,
+                                loanAmount: customer.bodabodaCustomerLoanLimit,
+                                loanLimit: customer.bodabodaCustomerLoanLimit,
+                                loanPaid: customer.bodabodaCustomerLoanLimit,
+                                loanBalance: customer.bodabodaCustomerLoanLimit,
+                                loanStatus: customer.bodabodaCustomerLoanLimit,
+                                comment: customer.customerComment,
+                                pin: customer.customerSecretPin
+                            };
+                            _this.openModal(template);
+                            _this.enableAmountAndPin();
+                        }
+                        else {
+                            _this.errored = true;
+                            _this.alertService.danger({
+                                html: '<b> customer with number plate' + value.toUpperCase() + ' is not registered<b>'
+                            });
+                        }
+                    });
+                    break;
+                case 'Taxi Loan':
+                    this.customers.forEach(function (customer) {
+                        if (customer.taxiCustomerNumberPlate === value) {
+                            _this.checkedClient = {
+                                Id: customer.customerId,
+                                name: customer.customerName,
+                                photoUrl: customer.customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? _this.user : customer.customerIdPhotoUrl,
+                                phone: customer.customerPhone1,
+                                plate: customer.taxiCustomerNumberPlate,
+                                loanAmount: customer.taxiCustomerLoanLimit,
+                                loanLimit: customer.taxiCustomerLoanLimit,
+                                loanPaid: customer.taxiCustomerLoanLimit,
+                                loanBalance: customer.taxiCustomerLoanLimit,
+                                loanStatus: customer.taxiCustomerLoanLimit,
+                                comment: customer.customerComment,
+                                pin: customer.customerSecretPin
+                            };
+                            _this.openModal(template);
+                            _this.enableAmountAndPin();
+                        }
+                        else {
+                            _this.errored = true;
+                            _this.alertService.danger({
+                                html: '<b> customer with number plate' + value.toUpperCase() + ' is not registered<b>'
+                            });
+                        }
+                    });
+                    break;
+                case 'Micro Loan':
+                    this.customers.forEach(function (customer) {
+                        if (customer.customerPhone1 === value) {
+                            _this.checkedClient = {
+                                Id: customer.customerId,
+                                name: customer.customerName,
+                                photoUrl: customer.customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? _this.user : customer.customerIdPhotoUrl,
+                                phone: customer.customerPhone1,
+                                loanAmount: customer.microloanCustomerLoanLimit,
+                                loanLimit: customer.microloanCustomerLoanLimit,
+                                loanPaid: customer.microloanCustomerLoanLimit,
+                                loanBalance: customer.microloanCustomerLoanLimit,
+                                loanStatus: customer.microloanCustomerLoanLimit,
+                                comment: customer.customerComment,
+                                pin: customer.customerSecretPin
+                            };
+                            _this.openModal(template);
+                            _this.enableAmountAndPin();
+                        }
+                        else {
+                            _this.errored = true;
+                            _this.alertService.danger({
+                                html: '<b> customer with number plate' + value.toUpperCase() + ' is not registered<b>'
+                            });
+                        }
+                    });
+                    break;
+            }
+        }
+    };
+    PayComponent.prototype.checkLimit = function (val) {
+        if (val !== '') {
+            val = parseInt(val.replace(/[\D\s\._\-]+/g, ''), 10);
+            if (val > this.checkedClient.loanLimit) {
+                this.errored = true;
+                this.fval.amount_to_borrow.setValue(this.checkedClient.loanLimit);
+                this.alertService.danger({
+                    html: '<b> Amount provided (' + val + ') is greater than the customer loan limit</b>'
+                });
+            }
+            else {
+                this.loanAmount = val;
+            }
+        }
     };
     PayComponent.prototype.revert = function () {
         this.userForm.reset();
@@ -70,102 +272,72 @@ var PayComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    PayComponent.prototype.onKey = function (event) {
-        // without type info
-        this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
-        this.numberValue = this.values ? parseInt(this.values, 10) : 0;
-        // tslint:disable-next-line:no-unused-expression
-        this.values =
-            this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
-        this.userForm.controls.amount_to_pay.setValue(this.values);
-    };
     PayComponent.prototype.openModal = function (template) {
         this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-centered' }));
     };
-    PayComponent.prototype.getTheNumberPlates = function () {
-        // this.pumpService.theNumberPlates(this.station).subscribe(
-        //   data => {
-        //     this.numberPlates = data;
-        //   },
-        //   (error: string) => {
-        //     this.errored = true;
-        //     this.serviceErrors = error;
-        //     this.alertService.danger({
-        //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-        //     });
-        //   }
-        // );
+    // toggle visibility of password field
+    PayComponent.prototype.toggleFieldType = function () {
+        this.fieldType = !this.fieldType;
     };
-    PayComponent.prototype.checkLoanbility = function () {
-        // this.pumpService
-        //   .checkWhetherTheCLoanable(this.userForm.controls.number_plate.value)
-        //   .subscribe(
-        //     data => {
-        //       this.loanDetails = data[0];
-        //       // console.log(this.loanDetails);
-        //       this.checkedOk = true;
-        //       this.secretPin = this.loanDetails.secret_pin;
-        //       this.loanLimit = this.loanDetails.petrol_station_loan_limit;
-        //       this.userForm.controls.number_plate.disable();
-        //       this.userForm.controls.amount_to_pay.enable();
-        //       this.userForm.controls.pin.enable();
-        //     },
-        //     (error: string) => {
-        //       this.errored = true;
-        //       this.serviceErrors = error;
-        //       this.alertService.danger({
-        //         html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-        //       });
-        //     }
-        //   );
-    };
-    PayComponent.prototype.pay = function () {
-        this.userForm.patchValue({
-            amount_to_pay: parseInt(this.userForm.controls.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''), 10)
-        });
-        // tslint:disable-next-line:triple-equals
-        if (!(this.secretPin == this.userForm.controls.pin.value)) {
-            this.alertService.danger({
-                html: '<b>Invalid PIN!</b>'
-            });
-            return;
+    PayComponent.prototype.assignTxnId = function (familyName, typeName) {
+        for (var _i = 0, _a = this.txns; _i < _a.length; _i++) {
+            var txn = _a[_i];
+            if (txn.txnDetailsFamilyName.toUpperCase() === familyName && txn.txnDetailsTypeName.toUpperCase() === typeName) {
+                return txn.txnDetailsId;
+            }
         }
-        else {
-            if (this.userForm.controls.amount_to_pay.value > this.loanLimit) {
-                this.alertService.warning({
-                    html: '<b>Loan Limit Exceeded!</b>' + '<br/>'
+    };
+    PayComponent.prototype.lend = function () {
+        var _this = this;
+        if (this.userForm.valid) {
+            if (Number(this.fval.pin.value) === this.checkedClient.pin) {
+                var data = {
+                    txnAmount: this.loanAmount,
+                    customerId: this.checkedClient.Id,
+                    txnDetailsId: null,
+                    userId: this.User.userId,
+                    productCode: this.loanType === 'Boda Loan' ? 200 :
+                        this.loanType === 'Taxi Loan' ? 300 : 400,
+                    theStationLocationId: this.User.userLocationId
+                };
+                switch (this.loanType) {
+                    case 'Boda Loan':
+                        data.txnDetailsId = this.assignTxnId('BODABODALOAN', 'LOANPAYMENT');
+                        break;
+                    case 'Taxi Loan':
+                        data.txnDetailsId = this.assignTxnId('TAXILOAN', 'LOANPAYMENT');
+                        break;
+                    case 'Micro Loan':
+                        data.txnDetailsId = this.assignTxnId('MICROLOAN', 'LOANPAYMENT');
+                        break;
+                }
+                this.others.putTxnCustomer(data).subscribe(function (res) {
+                    if (res) {
+                        _this.posted = true;
+                        _this.alertService.success({
+                            html: '<b> Payment was successfully</b>'
+                        });
+                        setTimeout(_this.revert(), 3000);
+                    }
+                }, function (err) {
+                    _this.errored = true;
+                    if (err.error.error.status === 500) {
+                        _this.alertService.danger({
+                            html: '<b> Sever Could Not handle this request</b>'
+                        });
+                    }
+                    else {
+                        _this.alertService.danger({
+                            html: '<b>' + err.error.error.message + '</b>'
+                        });
+                    }
                 });
-                return;
             }
             else {
-                this.userForm.controls.number_plate.enable();
-                this.userForm.patchValue({
-                    user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-                    user_id: jwt_decode(this.authService.getJwtToken()).user_id
+                this.errored = true;
+                this.alertService.danger({
+                    html: '<b>Secret pin does not much</b>'
                 });
-                // console.log(this.userForm.value);
-                this.posted = true;
-                this.spinner.show();
-                // this.pumpService.createLoan(this.userForm).subscribe(
-                //   result => {
-                //     this.amountDue = result[0].amount_due;
-                //     this.txnId = result[0].txn_id;
-                //     this.spinner.hide();
-                //     this.openModal();
-                //     this.router.navigate(['dashboardpump/shiftmanagement']);
-                //     setTimeout(() => {
-                //       location.reload();
-                //     }, 3000);
-                //   },
-                //   (error: string) => {
-                //     this.spinner.hide();
-                //     this.errored = true;
-                //     this.serviceErrors = error;
-                //     this.alertService.danger({
-                //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-                //     });
-                //   }
-                // );
             }
         }
     };

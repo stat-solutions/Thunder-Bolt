@@ -116,15 +116,29 @@ var ApproveAreasComponent = /** @class */ (function () {
         // console.log(itemsApproved);
         if (itemsApproved.length > 0) {
             this.others.approveAreas(itemsApproved).subscribe(function (res) {
-                // if (res) {
-                setTimeout(function () {
-                    _this.refresh();
-                }, 3000);
-                // }
-            }, function (err) { return console.log(err); });
+                if (res) {
+                    _this.posted = true;
+                    _this.alertService.success({
+                        html: '<b> Areas were approved successfully</b>'
+                    });
+                    setTimeout(function () {
+                        _this.userForm = _this.createFormGroup();
+                        _this.fval.selectAll.setValue(false);
+                        _this.initialiseForm();
+                    }, 3000);
+                }
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.ststusText + '</b>'
+                });
+            });
         }
         else {
-            alert('Please select something');
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> Please select something </b>'
+            });
             return;
         }
     };
@@ -143,15 +157,29 @@ var ApproveAreasComponent = /** @class */ (function () {
         // console.log(itemsRejected);
         if (itemsRejected.length > 0) {
             this.others.rejectAreas(itemsRejected).subscribe(function (res) {
-                // if (res) {
-                setTimeout(function () {
-                    _this.refresh();
-                }, 3000);
-                // }
-            }, function (err) { return console.log(err); });
+                if (res) {
+                    _this.posted = true;
+                    _this.alertService.success({
+                        html: '<b> Areas were rejected successfully</b>'
+                    });
+                    setTimeout(function () {
+                        _this.userForm = _this.createFormGroup();
+                        _this.fval.selectAll.setValue(false);
+                        _this.initialiseForm();
+                    }, 3000);
+                }
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.ststusText + '</b>'
+                });
+            });
         }
         else {
-            alert('Please select something');
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> Please select something </b>'
+            });
             return;
         }
     };

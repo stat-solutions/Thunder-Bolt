@@ -926,7 +926,7 @@ export class EditPersonalInfoComponent implements OnInit {
             data.bodabodaStageId = bodaStage.bodabodaStageId;
           }
         });
-        console.log(data);
+        // console.log(data);
         if (data.bodabodaStageId  === null) {
           this.errored = true;
           this.alertService.danger({
@@ -1029,7 +1029,7 @@ export class EditPersonalInfoComponent implements OnInit {
             data.taxiStageId = taxiStage.taxiStageId;
           }
         });
-        console.log(data);
+        // console.log(data);
         if (data.taxiStageId === null) {
             this.errored = true;
             this.alertService.danger({

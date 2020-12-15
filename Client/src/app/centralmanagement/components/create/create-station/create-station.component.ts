@@ -15,6 +15,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 export class CreateStationComponent implements OnInit {
   userForm: FormGroup;
   errored: boolean;
+  posted: boolean;
   serviceErrors: string;
   values: any;
   numberValue: number;
@@ -56,14 +57,20 @@ export class CreateStationComponent implements OnInit {
           res => {
             // console.log(res)
             if (res){
-              this.revert();
+              this.posted = true;
               this.alertService.success({
                 html:
                   '<p>Station creation was successful</p>'
               });
+              setTimeout(this.revert(), 3000);
             }
           },
-          err => console.log(err)
+          err => {
+            this.errored = true;
+            this.alertService.danger({
+              html: '<b>' + err.error.ststusText + '</b>'
+            });
+          }
         );
     } else {
       // return;
