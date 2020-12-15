@@ -149,13 +149,27 @@ export class ApproveCentralUsersComponent implements OnInit {
     if (itemsApproved.length > 0) {
       this.others.approveUsers(itemsApproved).subscribe(
         res => {
+          this.posted = true;
+          this.alertService.success({
+            html: '<b> Users where approved successfully</b>'
+          });
           setTimeout(() => {
-            this.refresh();
+              this.userForm = this.createFormGroup();
+              this.fval.selectAll.setValue(false);
+              this.initialiseForm();
           }, 3000);
-        }, err => console.log(err)
+        }, err => {
+          this.errored = true;
+          this.alertService.danger({
+              html: '<b>' + err.error.ststusText + '</b>'
+            });
+        }
       );
     } else {
-      alert('Please select something');
+      this.errored = true;
+      this.alertService.danger({
+              html: '<b> Please select something </b>'
+            });
       return;
     }
   }
@@ -174,13 +188,27 @@ export class ApproveCentralUsersComponent implements OnInit {
     if (itemsRejected.length > 0) {
       this.others.rejectUsers(itemsRejected).subscribe(
         res => {
+          this.posted = true;
+          this.alertService.success({
+            html: '<b> Users where rejected successfully</b>'
+          });
           setTimeout(() => {
-            this.refresh();
+              this.userForm = this.createFormGroup();
+              this.fval.selectAll.setValue(false);
+              this.initialiseForm();
           }, 3000);
-        }, err => console.log(err)
+        }, err => {
+          this.errored = true;
+          this.alertService.danger({
+              html: '<b>' + err.error.ststusText + '</b>'
+            });
+        }
       );
     } else {
-      alert('Please select something');
+      this.errored = true;
+      this.alertService.danger({
+              html: '<b> Please select something </b>'
+            });
       return;
     }
   }

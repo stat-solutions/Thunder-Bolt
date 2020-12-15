@@ -1,0 +1,170 @@
+<div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-0 pt-md-3 pt-xl-0 pb-0 shadow-lg col-xs-12 col-lg-8">
+    <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1">
+        <div class="container mt-3 mb-2 mx-0 shadow-lg">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
+                       Set Number Of Days For Accrual Interest </h4
+                        >
+                </div>
+            </div>
+        </div>
+        <div class="card-body mt-1 py-4 mb-0 mx-auto shadow-lg">
+            <form [formGroup]="userForm" (ngSubmit)="setAccrualDays()">
+      <div class="form-group text-primary">
+        <label
+          for="station_name"
+          [ngClass]="fval.station_name.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.station_name.valid" class="material-icons"
+            >check_circle</i
+          >Station</label
+        >
+        <div class="input-group mb-0">
+          <input
+          type="text"
+          formControlName="station_name"
+          list="station_name"
+          placeholder="Select a station "
+          class="form-control mx-0"
+          [ngClass]="{
+            'is-invalid':
+              (fval.station_name.touched || fval.station_name.dirty) &&
+              fval.station_name.errors
+          }"
+          autocomplete="on"
+        />
+        <datalist id="station_name">
+          <!-- <option selected>Select Station</option> -->
+          <option *ngFor="let station of stations">{{station.stationName.toUpperCase()}}</option>
+        </datalist>
+    </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.station_name.touched || fval.station_name.dirty) &&
+            fval.station_name.errors?.required
+          "
+        >
+          The Station name is required!
+        </div>
+      </div>
+      <div class="form-group text-primary">
+        <label
+          for="loan_product"
+          [ngClass]="fval.loan_product.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.loan_product.valid" class="material-icons"
+            >check_circle</i
+          >Product</label
+        >
+        <div class="input-group mb-0">
+          <select
+          formControlName="loan_product"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              (fval.loan_product.touched || fval.loan_product.dirty) &&
+              fval.loan_product.errors
+          }"
+          autocomplete="off"
+          placeholder="Select Product"
+        >
+          <option></option>
+          <option *ngFor="let pdt of products">{{pdt.productName}}</option>
+        </select>
+    </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.loan_product.touched || fval.loan_product.dirty) &&
+            fval.loan_product.errors?.required
+          "
+        >
+          The Product name is required!
+        </div>
+      </div>
+          <div class="form-group text-primary">
+            <label for="accrualDays" [ngClass]="fval.accrualDays.valid ? 'text-info' : ''">Accrual days<i *ngIf="fval.accrualDays.valid" class="material-icons"
+              >check_circle</i
+            ></label
+          >
+          <div class="input-group mb-0">
+            <input
+            id="accrualDays"
+            formControlName="accrualDays"
+            type="number"
+            class="level-control form-control mx-0"
+            min="0"
+            max="100"
+            [ngClass]="{
+              'is-invalid':
+              (fval.accrualDays.touched || fval.accrualDays.dirty) &&
+              fval.accrualDays.errors
+            }"
+            autocomplete="off"
+            /><i *ngIf="fval.accrualDays.valid" class="material-icons"
+              >check_circle</i
+            >
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.accrualDays.touched || fval.accrualDays.dirty) &&
+              fval.accrualDays.errors?.required
+            "
+          >
+            The accrualDays is required!
+          </div>
+          <div
+          class="col"
+          *ngIf="
+            (fval.accrualDays.touched || fval.accrualDays.dirty) &&
+            fval.accrualDays.invalid
+          "
+          [ngClass]="
+            fval.accrualDays.errors?.required ||
+            fval.accrualDays.errors?.maxlength
+              ? 'text-danger'
+              : 'text-info'
+          "
+        >
+          <i class="material-icons">{{
+            fval.accrualDays.errors?.required ||
+            fval.accrualDays.errors?.maxlength
+              ? "cancel"
+              : "check_circle"
+          }}</i>
+          The accrualDays should be a maximum of 100!
+        </div>
+        </div>
+
+        <div class="d-flex mt-3 mb-1 pt-1 pb-2 mx-auto">
+          <button
+            type="submit"
+            class="btn btn-info col-5 mx-auto"
+            [disabled]="!userForm.valid"
+          >
+            Set
+          </button>
+
+          <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+            <p class="text-light">Please wait...</p>
+          </ngx-spinner>
+          <label class="col" *ngIf="errored" class="text-danger">
+            <!-- <i class="material-icons">Cancel</i> -->
+
+            <ngx-alerts></ngx-alerts>
+          </label>
+          <label class="col" *ngIf="posted" class="text-danger">
+            <!-- <i class="material-icons">Cancel</i> -->
+
+            <ngx-alerts></ngx-alerts>
+          </label>
+
+          <button type="button" class="btn btn-info col-5 mx-auto" (click)="revert()">
+            Cancel
+          </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

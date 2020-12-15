@@ -16,13 +16,24 @@
                 <div class="form-group text-primary">
                     <label for="station">Station</label>
                     <div class="input-group mb-0">
-                        <select formControlName="station" class="form-control">
-              <i *ngIf="fval.station.valid" class="material-icons"
-                >check_circle</i
-              >
-              <option selected>Select Station</option>
-              <option value="kunnyanya">Kunnyanya</option>
-            </select></div>
+                      <input
+                      type="text"
+                      formControlName="station"
+                      list="station"
+                      placeholder="Select a station "
+                      class="form-control mx-0"
+                      [ngClass]="{
+                        'is-invalid':
+                          (fval.station.touched || fval.station.dirty) &&
+                          fval.station.errors
+                      }"
+                      autocomplete="on"
+                    />
+                    <datalist id="station">
+                      <!-- <option selected>Select Station</option> -->
+                      <option *ngFor="let station of stations">{{station.stationName.toUpperCase()}}</option>
+                    </datalist>
+                  </div>
                     <div class="text-danger col" *ngIf="
               (fval.station.touched || fval.station.dirty) &&
               fval.station.errors?.required
@@ -95,9 +106,14 @@
             <p class="text-light">Please wait...</p>
           </ngx-spinner>
           <label class="col" *ngIf="errored" class="text-danger">
-            <i class="material-icons">Cancel</i>
+            <!-- <i class="material-icons">Cancel</i> -->
 
-            <!--ngx-alerts></ngx-alerts-->
+            <ngx-alerts></ngx-alerts>
+          </label> 
+          <label class="col" *ngIf="posted" class="text-danger">
+            <!-- <i class="material-icons">Cancel</i> -->
+
+            <ngx-alerts></ngx-alerts>
           </label>
 
                     <button type="button" class="btn btn-info col-5 mx-auto" (click)="revert()">

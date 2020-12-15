@@ -56,6 +56,9 @@ import { TownManagersComponent } from './components/set-managers/town-managers/t
 import { StationManagersComponent } from './components/set-managers/station-managers/station-managers.component';
 import { SetLoanTenureComponent } from './components/transactions/loans/set-loan-tenure/set-loan-tenure.component';
 import { LoanTenureComponent } from './components/transactions/approval/loan-tenure/loan-tenure.component';
+import { AlertModule } from 'ngx-alerts';
+import { SetLoanCommissionComponent } from './components/transactions/loans/set-loan-commision/set-loan-commision.component';
+import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan-accrual/set-loan-accrual.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +90,8 @@ import { LoanTenureComponent } from './components/transactions/approval/loan-ten
     ApprovalComponent,
     SetLoanLimitComponent,
     SetLoanRateComponent,
+    SetLoanCommissionComponent,
+    SetLoanAcrualComponent,
     DepositFloatComponent,
     WithdrawFloatComponent,
     ReduceRateComponent,
@@ -119,7 +124,8 @@ import { LoanTenureComponent } from './components/transactions/approval/loan-ten
     TabsModule.forRoot(),
     DatepickerModule,
     BsDatepickerModule,
-    NgbModule
+    NgbModule,
+    AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
   ],
 })
 export class CentralmanagementModule {}

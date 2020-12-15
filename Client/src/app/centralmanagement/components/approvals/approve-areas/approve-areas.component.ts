@@ -129,16 +129,30 @@ export class ApproveAreasComponent implements OnInit {
     if (itemsApproved.length > 0) {
       this.others.approveAreas(itemsApproved).subscribe(
         res => {
-          // if (res) {
+          if (res) {
+            this.posted = true;
+            this.alertService.success({
+              html: '<b> Areas were approved successfully</b>'
+            });
             setTimeout(() => {
-              this.refresh();
+              this.userForm = this.createFormGroup();
+              this.fval.selectAll.setValue(false);
+              this.initialiseForm();
             }, 3000);
-          // }
+          }
         },
-        err => console.log(err)
+        err => {
+          this.errored = true;
+          this.alertService.danger({
+              html: '<b>' + err.error.ststusText + '</b>'
+            });
+        }
       );
     } else {
-      alert('Please select something');
+      this.errored = true;
+      this.alertService.danger({
+              html: '<b> Please select something </b>'
+            });
       return;
     }
   }
@@ -157,16 +171,30 @@ export class ApproveAreasComponent implements OnInit {
     if (itemsRejected.length > 0) {
       this.others.rejectAreas(itemsRejected).subscribe(
         res => {
-          // if (res) {
+          if (res) {
+            this.posted = true;
+            this.alertService.success({
+              html: '<b> Areas were rejected successfully</b>'
+            });
             setTimeout(() => {
-              this.refresh();
+              this.userForm = this.createFormGroup();
+              this.fval.selectAll.setValue(false);
+              this.initialiseForm();
             }, 3000);
-          // }
+          }
         },
-        err => console.log(err)
+        err => {
+          this.errored = true;
+          this.alertService.danger({
+              html: '<b>' + err.error.ststusText + '</b>'
+            });
+        }
       );
     } else {
-      alert('Please select something');
+      this.errored = true;
+      this.alertService.danger({
+              html: '<b> Please select something </b>'
+            });
       return;
     }
   }

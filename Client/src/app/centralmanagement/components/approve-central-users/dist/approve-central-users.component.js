@@ -123,13 +123,27 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
         // console.log(itemsApproved.length);
         if (itemsApproved.length > 0) {
             this.others.approveUsers(itemsApproved).subscribe(function (res) {
+                _this.posted = true;
+                _this.alertService.success({
+                    html: '<b> Users where approved successfully</b>'
+                });
                 setTimeout(function () {
-                    _this.refresh();
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
                 }, 3000);
-            }, function (err) { return console.log(err); });
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.ststusText + '</b>'
+                });
+            });
         }
         else {
-            alert('Please select something');
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> Please select something </b>'
+            });
             return;
         }
     };
@@ -148,13 +162,27 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
         // console.log(itemsRejected.length);
         if (itemsRejected.length > 0) {
             this.others.rejectUsers(itemsRejected).subscribe(function (res) {
+                _this.posted = true;
+                _this.alertService.success({
+                    html: '<b> Users where rejected successfully</b>'
+                });
                 setTimeout(function () {
-                    _this.refresh();
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
                 }, 3000);
-            }, function (err) { return console.log(err); });
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.ststusText + '</b>'
+                });
+            });
         }
         else {
-            alert('Please select something');
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> Please select something </b>'
+            });
             return;
         }
     };

@@ -378,14 +378,32 @@ export class OthersService {
     putRejectBodaBodaCustomer(postData: Array<object>): any {
       return this.http.post(`${this.API_URL}/api/customer/putRejectBodaBodaCustomerVerify`, postData, this.httpOptions);
     }
-    getTxnDetails(id: number): any{
-      return this.http.get<any>(`${this.API_URL}/api/loan/getTxnDetails}`);
+    getTxnDetails(): any{
+      return this.http.get<any>(`${this.API_URL}/api/loan/getTxnDetails`);
     }
-    putTxnCustomer(postData: Array<object>): any {
+    putTxnCustomer(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postTxnCustomer`, postData, this.httpOptions);
     }
-    putTxnNoneCustomer(postData: Array<object>): any {
+    putTxnNoneCustomer(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postTxnNonCustomer`, postData, this.httpOptions);
+    }
+    postSetStationLoanLimit(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postSetStationLoanLimit`, postData, this.httpOptions);
+    }
+    postSetStationLoanTenure(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postSetStationLoanTenure`, postData, this.httpOptions);
+    }
+    postSetStationNumberOfDaysForAccrualInterest(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postSetStationNumberOfDaysForAccrualInterest`, postData, this.httpOptions);
+    }
+    postSetStationCommissionRate(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postSetStationCommissionRate`, postData, this.httpOptions);
+    }
+    postSetStationLoanInterestRate(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postSetStationLoanInterestRate`, postData, this.httpOptions);
+    }
+    getLoadDetails(postData: any): any{
+      return this.http.post(`${this.API_URL}/api/loan/getCustomerLoanDetails`, postData);
     }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 

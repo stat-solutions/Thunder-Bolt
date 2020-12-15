@@ -76,13 +76,13 @@
                   fval.number_plate.errors
               }"
               autocomplete="off"
-              placeholder="Select Number Plate"
-              (click)="openModal(template)"
+              placeholder="Select Number Plate (UAA 878K)"
+              (blur)="checkLoanbility(fval.number_plate.value, template)"
             />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="number_plate">
               <option *ngFor="let item of numberPlates">
-                {{ item.customers_number_plate }}
+                {{ item }}
               </option>
             </datalist>
           </div>
@@ -150,12 +150,12 @@
               }"
               autocomplete="off"
               placeholder="Select Phone number"
-              (click)="openModal(template)"
+              (blur)="checkLoanbility(fval.user_contact_number.value, template)"
             />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="user_contact_number">
               <option *ngFor="let item of phoneNumbers">
-                {{ item.customers_number_plate }}
+                {{ item }}
               </option>
             </datalist>
           </div>
@@ -203,7 +203,7 @@
               }"
               autocomplete="off"
               placeholder="Enter Amount to pay"
-              (keyup)="onKey($event)"
+              (blur)="checkLimit(fval.amount_to_pay.value)"
             />
           </div>
           <div
@@ -246,7 +246,7 @@
 
         <div class="form-group text-primary">
           <label for="pin" [ngClass]="fval.pin.valid ? 'text-info' : ''"
-            >PIN<i *ngIf="fval.pin.valid" class="material-icons"
+            >Station Oficer's PIN<i *ngIf="fval.pin.valid" class="material-icons"
               >check_circle</i
             ></label
           >
@@ -339,13 +339,13 @@
           </ngx-spinner>
 
           <label class="col" *ngIf="errored" class="text-danger">
-            <i class="material-icons">cancel</i>
-            <!-- <ngx-alerts></ngx-alerts> -->
+            <!-- <i class="material-icons">cancel</i> -->
+            <ngx-alerts></ngx-alerts>
           </label>
 
           <label class="col" *ngIf="posted" class="text-info">
-            <i class="material-icons">check_circle</i>
-            <!-- <ngx-alerts></ngx-alerts> -->
+            <!-- <i class="material-icons">check_circle</i> -->
+            <ngx-alerts></ngx-alerts>
           </label>
         </div>
       </form>
@@ -387,6 +387,9 @@
                     <img
                       class="details-img img-rounded"
                       [src]=" checkedClient.photoUrl"
+                      height="150em"
+                      width="150em"
+                      style="border-radius: 40em;"
                     />
                   </div>
                   <div
@@ -398,7 +401,7 @@
                   >
                     <span class="itemCreated">Phone Number: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{ checkedClient.phone}}</span><br />
-                    <span class="itemCreated">Number Plate: &nbsp;&nbsp;</span
+                    <span class="itemCreated" *ngIf="loanType !== 'Micro Loan'">Number Plate: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{ checkedClient.plate}}</span><br />
 
                     <span class="itemCreated">Name: &nbsp;&nbsp;</span
@@ -406,20 +409,20 @@
                       >{{ checkedClient.name}}</span
                     ><br />
                     <span class="itemCreated">Loan Limit: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">{{ checkedClient.loanLimit}}</span>
-</div>
+                      ><span class="itemCreated text-info">{{ checkedClient.loanLimit | currency: 'UGX '}}</span>
+                </div>
                   <div
                     class="col-12 col-lg-6 mt-2 mb-0 py-0"
                   >
                     <span class="itemCreated">Loan Taken: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">{{ checkedClient.loanAmount}}</span><br />
+                      ><span class="itemCreated text-info">{{ checkedClient.loanAmount | currency: 'UGX '}}</span><br />
                       <span class="itemCreated">Last Paid: &nbsp;&nbsp;</span
-                        ><span class="itemCreated text-info">{{ checkedClient.loanPaid}}</span><br />
+                        ><span class="itemCreated text-info">{{ checkedClient.loanPaid | currency: 'UGX '}}</span><br />
                           <span class="itemCreated">Outstanding: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">{{ checkedClient.loanBalance}}</span><br />
+                    ><span class="itemCreated text-info">{{ checkedClient.loanBalance | currency: 'UGX '}}</span><br />
                     <span class="itemCreated">Loan Status: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">{{ checkedClient.loanStatus}}</span>
-</div>
+                    ><span class="itemCreated text-info">{{ checkedClient.loanStatus }}</span>
+                </div>
                   <div
                     class="col-12 mt-2 mb-0 py-0"
                   >

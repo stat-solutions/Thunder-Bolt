@@ -79,8 +79,8 @@
                   fval.number_plate.errors
               }"
               autocomplete="off"
-              placeholder="Select Number Plate"
-              (blur)="openModal(template)"
+              placeholder="Select Number Plate (UAA 878K)"
+              (blur)="checkLoanbility(fval.number_plate.value, template)"
             />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="number_plate">
@@ -150,7 +150,7 @@
               }"
               autocomplete="off"
               placeholder="Select Phone number"
-              (blur)="openModal(template)"
+              (blur)="checkLoanbility(fval.user_contact_number.value, template)"
             />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="user_contact_number">
@@ -203,7 +203,7 @@
               }"
               autocomplete="off"
               placeholder="Enter Amount To Borrow"
-              (keyup)="onKey($event)"
+              (blur)="checkLimit(fval.amount_to_borrow.value)"
             />
           </div>
           <div
@@ -243,64 +243,6 @@
             Please enter valid amount to borrow!
           </div>
         </div>
-        <div class="form-group text-primary">
-          <label
-            for="loanTenure"
-            [ngClass]="fval.loanTenure.valid ? 'text-info' : ''"
-            >Tenure<i *ngIf="fval.loanTenure.valid" class="material-icons"
-              >check_circle</i
-            ></label
-          >
-          <div class="input-group mb-0">
-            <input
-              id="loanTenure"
-              formControlName="loanTenure"
-              type="number"
-              class="level-control form-control mx-0"
-              min="0"
-              max="100"
-              [ngClass]="{
-                'is-invalid':
-                  (fval.loanTenure.touched || fval.loanTenure.dirty) &&
-                  fval.loanTenure.errors
-              }"
-              autocomplete="off"
-            /><i *ngIf="fval.loanTenure.valid" class="material-icons"
-              >check_circle</i
-            >
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.loanTenure.touched || fval.loanTenure.dirty) &&
-              fval.loanTenure.errors?.required
-            "
-          >
-            The loan tenure is required!
-          </div>
-          <div
-            class="col"
-            *ngIf="
-              (fval.loanTenure.touched || fval.loanTenure.dirty) &&
-              fval.loanTenure.invalid
-            "
-            [ngClass]="
-              fval.loanTenure.errors?.required ||
-              fval.loanTenure.errors?.maxlength
-                ? 'text-danger'
-                : 'text-info'
-            "
-          >
-            <i class="material-icons">{{
-              fval.loanTenure.errors?.required ||
-              fval.loanTenure.errors?.maxlength
-                ? "cancel"
-                : "check_circle"
-            }}</i>
-            The loan tenure should be a maximum of 100!
-          </div>
-        </div>
-
         <div class="form-group text-primary">
           <label for="pin" [ngClass]="fval.pin.valid ? 'text-info' : ''"
             >PIN<i *ngIf="fval.pin.valid" class="material-icons"
@@ -396,13 +338,13 @@
           </ngx-spinner>
 
           <label class="col" *ngIf="errored" class="text-danger">
-            <i class="material-icons">cancel</i>
-            <!-- <ngx-alerts></ngx-alerts> -->
+            <!-- <i class="material-icons">cancel</i> -->
+            <ngx-alerts></ngx-alerts>
           </label>
 
           <label class="col" *ngIf="posted" class="text-info">
-            <i class="material-icons">check_circle</i>
-            <!-- <ngx-alerts></ngx-alerts> -->
+            <!-- <i class="material-icons">check_circle</i> -->
+            <ngx-alerts></ngx-alerts>
           </label>
         </div>
       </form>
@@ -442,6 +384,9 @@
                 <img
                   class="details-img img-rounded"
                   [src]="checkedClient.photoUrl"
+                  height="150em"
+                  width="150em"
+                  style="border-radius: 40em;"
                 />
               </div>
               <div
@@ -454,8 +399,8 @@
                       checkedClient.phone
                     }}</span
                     ><br />
-                    <span class="itemCreated">Number Plate: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">{{
+                    <span class="itemCreated" *ngIf="loanType !== 'Micro Loan'">Number Plate: &nbsp;&nbsp;</span
+                    ><span class="itemCreated text-info" *ngIf="loanType !== 'Micro Loan'">{{
                       checkedClient.plate
                     }}</span
                     ><br />
@@ -467,23 +412,23 @@
                     ><br />
                     <span class="itemCreated">Loan Limit: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{
-                      checkedClient.loanLimit
+                      checkedClient.loanLimit | currency: 'UGX '
                     }}</span>
                   </div>
                   <div class="col-12 col-lg-6 mt-2 mb-0 py-0">
                     <span class="itemCreated">Loan Taken: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{
-                      checkedClient.loanAmount
+                      checkedClient.loanAmount | currency: 'UGX '
                     }}</span
                     ><br />
                     <span class="itemCreated">Last Paid: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{
-                      checkedClient.loanPaid
+                      checkedClient.loanPaid | currency: 'UGX '
                     }}</span
                     ><br />
                     <span class="itemCreated">Outstanding: &nbsp;&nbsp;</span
                     ><span class="itemCreated text-info">{{
-                      checkedClient.loanBalance
+                      checkedClient.loanBalance | currency: 'UGX '
                     }}</span
                     ><br />
                     <span class="itemCreated">Loan Status: &nbsp;&nbsp;</span

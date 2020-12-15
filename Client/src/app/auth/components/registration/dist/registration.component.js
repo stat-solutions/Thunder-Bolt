@@ -10,14 +10,16 @@ exports.RegistrationComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
+var operators_1 = require("rxjs/operators");
 var RegistrationComponent = /** @class */ (function () {
-    function RegistrationComponent(authService, others, spinner, router, alertService, fb) {
+    function RegistrationComponent(authService, others, spinner, router, alertService, fb, storage) {
         this.authService = authService;
         this.others = others;
         this.spinner = spinner;
         this.router = router;
         this.alertService = alertService;
         this.fb = fb;
+        this.storage = storage;
         this.registered = false;
         this.submitted = false;
         this.errored = false;
@@ -54,6 +56,7 @@ var RegistrationComponent = /** @class */ (function () {
             town: new forms_1.FormControl(''),
             station: new forms_1.FormControl(''),
             id_type: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            idPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([])),
             id_number: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
             ])),
@@ -113,6 +116,26 @@ var RegistrationComponent = /** @class */ (function () {
                     forms_1.Validators.required,
                 ]);
                 break;
+            case 'AREA USER':
+                this.fval.area.setValidators([
+                    forms_1.Validators.required,
+                ]);
+                break;
+            case 'TOWN USER':
+                this.fval.town.setValidators([
+                    forms_1.Validators.required,
+                ]);
+                break;
+            case 'STATION USER':
+                this.fval.station.setValidators([
+                    forms_1.Validators.required,
+                ]);
+                break;
+            case 'CENTRAL USER':
+                this.fval.central.setValidators([
+                    forms_1.Validators.required,
+                ]);
+                break;
         }
     };
     RegistrationComponent.prototype.revert = function () {
@@ -159,11 +182,37 @@ var RegistrationComponent = /** @class */ (function () {
             });
         });
     };
+    RegistrationComponent.prototype.onFileSelected = function (event) {
+        var _this = this;
+        var n = Date.now();
+        var file = event.target.files[0];
+        var filePath = "Users/" + n;
+        var fileRef = this.storage.ref(filePath);
+        var task = this.storage.upload("Users/" + n, file);
+        task
+            .snapshotChanges()
+            .pipe(operators_1.finalize(function () {
+            _this.downloadURL = fileRef.getDownloadURL();
+            _this.downloadURL.subscribe(function (url) {
+                if (url) {
+                    _this.userIdPhoto = url;
+                    // console.log(this.userIdPhoto);
+                }
+            });
+        }))
+            .subscribe(function (url) {
+            if (url) {
+                // console.log(url);
+            }
+        });
+    };
     RegistrationComponent.prototype.register = function () {
         var _this = this;
+        // console.log('hi');
         this.submitted = true;
-        this.spinner.hide();
+        this.spinner.show();
         if (this.userForm.invalid === true) {
+            this.spinner.hide();
             return;
         }
         else {
@@ -207,6 +256,7 @@ var RegistrationComponent = /** @class */ (function () {
                 userName: this.fval.full_name.value.toUpperCase(),
                 userEmail1: this.fval.email.value,
                 userPhone1: "" + this.fval.user_contact_number.value,
+                userIdPhotoUrl: this.userIdPhoto,
                 userIdType: this.fval.id_type.value,
                 userIdNumber: "" + this.fval.id_number.value.toUpperCase(),
                 userDateOfBirth: this.fval.date_of_birth.value.getFullYear() + "-" + (this.fval.date_of_birth.value.getMonth() + 1) + "-" + this.fval.date_of_birth.value.getDate(),
@@ -224,9 +274,9 @@ var RegistrationComponent = /** @class */ (function () {
                             '</br>' +
                             'Wait for verification'
                     });
-                    setTimeout(function () {
-                        _this.router.navigate(['authpage/login']);
-                    }, 3000);
+                    // setTimeout(() => {
+                    //   this.router.navigate(['authpage/login']);
+                    // }, 3000);
                 }, function (error) {
                     _this.spinner.hide();
                     _this.errored = true;

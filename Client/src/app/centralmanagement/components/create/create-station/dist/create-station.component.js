@@ -47,12 +47,18 @@ var CreateStationComponent = /** @class */ (function () {
             this.others.createStation(data).subscribe(function (res) {
                 // console.log(res)
                 if (res) {
-                    _this.revert();
+                    _this.posted = true;
                     _this.alertService.success({
                         html: '<p>Station creation was successful</p>'
                     });
+                    setTimeout(_this.revert(), 3000);
                 }
-            }, function (err) { return console.log(err); });
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.ststusText + '</b>'
+                });
+            });
         }
         else {
             // return;

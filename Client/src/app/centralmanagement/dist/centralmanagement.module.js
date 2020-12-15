@@ -51,10 +51,10 @@ var withdraw_savings_component_1 = require("./components/transactions/approval/w
 var waive_interest_component_1 = require("./components/transactions/approval/waive-interest/waive-interest.component");
 var write_off_component_1 = require("./components/transactions/approval/write-off/write-off.component");
 var loan_limit_component_1 = require("./components/transactions/approval/loan-limit/loan-limit.component");
-var float_approval_component_1 = require("./components/transactions/approval/float-approval/float-approval.component");
 var modal_1 = require("ngx-bootstrap/modal");
 var ng_chartjs_1 = require("ng-chartjs");
 var tabs_1 = require("ngx-bootstrap/tabs");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var datepicker_1 = require("ngx-bootstrap/datepicker");
 var personal_profile_component_1 = require("./components/profile/personal-profile/personal-profile.component");
 var approve_central_users_component_1 = require("./components/approve-central-users/approve-central-users.component");
@@ -63,6 +63,11 @@ var set_managers_component_1 = require("./components/set-managers/set-managers.c
 var area_managers_component_1 = require("./components/set-managers/area-managers/area-managers.component");
 var town_managers_component_1 = require("./components/set-managers/town-managers/town-managers.component");
 var station_managers_component_1 = require("./components/set-managers/station-managers/station-managers.component");
+var set_loan_tenure_component_1 = require("./components/transactions/loans/set-loan-tenure/set-loan-tenure.component");
+var loan_tenure_component_1 = require("./components/transactions/approval/loan-tenure/loan-tenure.component");
+var ngx_alerts_1 = require("ngx-alerts");
+var set_loan_commision_component_1 = require("./components/transactions/loans/set-loan-commision/set-loan-commision.component");
+var set_loan_accrual_component_1 = require("./components/transactions/loans/set-loan-accrual/set-loan-accrual.component");
 var CentralmanagementModule = /** @class */ (function () {
     function CentralmanagementModule() {
     }
@@ -97,6 +102,8 @@ var CentralmanagementModule = /** @class */ (function () {
                 approval_component_1.ApprovalComponent,
                 set_loan_limit_component_1.SetLoanLimitComponent,
                 set_loan_rate_component_1.SetLoanRateComponent,
+                set_loan_commision_component_1.SetLoanCommissionComponent,
+                set_loan_accrual_component_1.SetLoanAcrualComponent,
                 deposit_float_component_1.DepositFloatComponent,
                 withdraw_float_component_1.WithdrawFloatComponent,
                 reduce_rate_component_1.ReduceRateComponent,
@@ -106,7 +113,6 @@ var CentralmanagementModule = /** @class */ (function () {
                 waive_interest_component_1.WaiveInterestComponent,
                 write_off_component_1.WriteOffComponent,
                 loan_limit_component_1.LoanLimitComponent,
-                float_approval_component_1.FloatApprovalComponent,
                 personal_profile_component_1.PersonalProfileComponent,
                 approve_central_users_component_1.ApproveCentralUsersComponent,
                 select_the_Area_component_1.SelectTheAreaComponent,
@@ -114,6 +120,8 @@ var CentralmanagementModule = /** @class */ (function () {
                 area_managers_component_1.AreaManagersComponent,
                 town_managers_component_1.TownManagersComponent,
                 station_managers_component_1.StationManagersComponent,
+                set_loan_tenure_component_1.SetLoanTenureComponent,
+                loan_tenure_component_1.LoanTenureComponent,
             ],
             imports: [
                 common_1.CommonModule,
@@ -127,7 +135,9 @@ var CentralmanagementModule = /** @class */ (function () {
                 ng_chartjs_1.NgChartjsModule.registerPlugin(['inlinePlugin']),
                 tabs_1.TabsModule.forRoot(),
                 datepicker_1.DatepickerModule,
-                datepicker_1.BsDatepickerModule
+                datepicker_1.BsDatepickerModule,
+                ng_bootstrap_1.NgbModule,
+                ngx_alerts_1.AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
             ]
         })
     ], CentralmanagementModule);

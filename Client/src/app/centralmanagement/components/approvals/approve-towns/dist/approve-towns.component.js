@@ -119,14 +119,28 @@ var ApproveTownsComponent = /** @class */ (function () {
         if (itemsApproved.length > 0) {
             this.others.approveTowns(itemsApproved).subscribe(function (res) {
                 if (res) {
+                    _this.posted = true;
+                    _this.alertService.success({
+                        html: '<b> Towns were approved successfully</b>'
+                    });
                     setTimeout(function () {
-                        _this.refresh();
+                        _this.userForm = _this.createFormGroup();
+                        _this.fval.selectAll.setValue(false);
+                        _this.initialiseForm();
                     }, 3000);
                 }
-            }, function (err) { return console.log(err); });
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.ststusText + '</b>'
+                });
+            });
         }
         else {
-            alert('Please select something');
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> Please select something </b>'
+            });
             return;
         }
     };
@@ -145,15 +159,29 @@ var ApproveTownsComponent = /** @class */ (function () {
         // console.log(itemsRejected.length)
         if (itemsRejected.length > 0) {
             this.others.rejectTowns(itemsRejected).subscribe(function (res) {
-                // if (res) {
-                setTimeout(function () {
-                    _this.refresh();
-                }, 3000);
-                // }
-            }, function (err) { return console.log(err); });
+                if (res) {
+                    _this.posted = true;
+                    _this.alertService.success({
+                        html: '<b> Towns were rejected successfully</b>'
+                    });
+                    setTimeout(function () {
+                        _this.userForm = _this.createFormGroup();
+                        _this.fval.selectAll.setValue(false);
+                        _this.initialiseForm();
+                    }, 3000);
+                }
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.ststusText + '</b>'
+                });
+            });
         }
         else {
-            alert('Please select something');
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> Please select something </b>'
+            });
             return;
         }
     };
