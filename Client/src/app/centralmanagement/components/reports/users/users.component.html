@@ -1,203 +1,776 @@
-<div class="container-fluid justify-content-center mb-0 pt-1 pb-0 shadow-lg col-12">
+<div
+  class="container-fluid justify-content-center mb-0 pt-1 pb-0 shadow-lg col-12"
+>
   <div class="jumbotron-fluid mx-0 px-0 my-0 pt-1 pb-0">
-      <div class="container my-2 mx-0 shadow-lg col-12">
-            <div class="row">
-                <div class="col-12">
-                    <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
-                        Client Reports
-                    </h3>
-                </div>
-            </div>
+    <div class="container my-2 mx-0 shadow-lg col-12">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
+            Users Reports
+          </h3>
         </div>
-      <div class="container mx-auto px-0 mb-0 pb-0">
-          <div class="d-flex my-0 py-1 mx-auto px-auto">
-              <div class="col-12 mx-0 px-2 px-lg-3">
-      <form>
-        <div class="row">
-          <div class="col-6 col-md-3 mx-0 px-0">
-            <!--select the kind of report depending on the filter set -->
-            <label
-              for="position"
->Report Type</label
-            >
-            <div class="input-group mb-0">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i
-                    class="fas fa-file text-primary"
-                    style="size: 50px"
+      </div>
+    </div>
+    <div class="container mx-auto px-0 mb-0 pb-2 col-12">
+      <div class="d-flex my-0 py-1 mx-auto px-auto">
+        <div class="col-12 mx-0 px-3 px-sm-2 px-lg-3">
+          <form>
+            <div class="row">
+              <div class="col-6 col-sm-3 mx-0 px-0">
+                <!--select the kind of report depending on the filter set -->
+                <label for="position">Report Type</label>
+                <div class="input-group mb-0">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="fas fa-file text-primary" style="size: 50px">
+                      </i>
+                    </div>
+                  </div>
+                  <select
+                    formControlName="report_type"
+                    class="form-control"
+                    autocomplete="off"
+                    placeholder="Specify Area"
                   >
-                  </i>
-                </div>
-              </div>
-              <select
-                formControlName="report_type"
-                class="form-control"
-                autocomplete="off"
-                placeholder="Specify Area"
-              >
-                <option selected>Specify Area</option>
-                <!-- <option
+                    <option selected>Specify Type</option>
+                    <!-- <option
                   *ngFor="let reports of reportTypes"
                   [ngValue]="reports.reportType"
                 >
                   {{ reports.reportType }}
                 </option> -->
-                <option
-                >
-                </option>
-              </select>
-            </div>
-            <!-- <div
-              class="text-danger col"
-              *ngIf="
-                (fval.report_type.touched || fval.report_type.dirty) &&
-                fval.report_type.errors?.required
-              "
-            >
-              The report type is required!
-            </div> -->
-          </div>
-          <div class="col-1 mx-0 px-0">
-          <div class="ml-2 px-0">
-          <div ngbDropdown class="d-inline-block mt-4 mx-0 px-0">
-            <button
-              class="btn mx-0 px-0"
-              id="dropdownBasic1" tooltip="Filter by"
-              ngbDropdownToggle
-            >
-              <i class="fas fa-filter fa-2x text-info"></i>
-            </button>
-            <div
-              ngbDropdownMenu
-              aria-labelledby="dropdownBasic1"
-              class="dropdown-menu"
-            >
-              <button ngbDropdownItem>Station</button>
-              <button ngbDropdownItem>Paid Loans</button>
-              <button ngbDropdownItem>Defaulters</button>
-              <button ngbDropdownItem>New Loans</button>
-            </div>
-          </div>
-        </div>
-        </div>
-                  <div class="col-6 col-md-3 mx-0 px-0">
-            <!--rangedate-->
-            <label
-              for="range_date"
-            >Select Date
-            </label>
-
-            <div class="input-group mb-0">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i
-                    class="fas fa-calendar-alt text-primary mx-auto"
-                    style="size: 50px"
-                  >
-                  </i>
+                    <option>All Users</option>
+                    <option>Approved Users</option>
+                    <option>Pending Users</option>
+                    <option>Loggedin Users</option>
+                    <option>New Users</option>
+                  </select>
                 </div>
               </div>
-              <input
-                id="range_date"
-                formControlName="range_date"
-                type="text"
-                class="form-control"
-                placeholder="Select date range"
-                  autocomplete="off"
-                  bsDaterangepicker
-                  [bsConfig]="{ containerClass:'theme-blue', dateInputFormat: 'MM/DD/YYYY', isAnimated: true }"
-                  placement="bottom"
-              />
-            </div>
-          </div>
-          <div
-            class="col-4 col-md-2 mx-0 pt-2 px-0"
-          >
-            <button class="btn btn-info mt-1 mt-md-4 ml-2 py-2 px-2" type="submit">
-              <i class="fas fa-search"></i> Search
-            </button>
-          </div>
-          <div class="col-2 mx-0 pt-2">
-          <div ngbDropdown class="d-inline-block mt-4 mx-0 px-0">
-            <button
-              class="btn btn-primary py-2 px-2"
-              id="dropdownBasic1" tooltip="Choose export format"
-              ngbDropdownToggle
-            >
-              <i class="fas fa-file-export"></i> Export
-            </button>
-            <div
-              ngbDropdownMenu
-              aria-labelledby="dropdownBasic1"
-              class="dropdown-menu"
-            >
-              <button ngbDropdownItem>Excel</button>
-              <button ngbDropdownItem>Pdf</button>
-              <button ngbDropdownItem>CSV</button>
-            </div>
-          </div>
-          </div>
-        </div>
-      </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-                <!--table for displaying cash ledger-->
-              <div class="table-col col-12 pt-2 pb-1 mb-0">
-      <div class="container my-2 mx-0 shadow-lg">
-            <div class="row">
-                <div class="col-12">
-                    <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
-                        User Report
-                    </h4>
-                </div>
-            </div>
-        </div>
-                <div class="state-table table-responsive pb-0">
-                    <!---table-->
-                    <table class="table table-hover table-striped table-sm">
-                      <thead class="bg-dark text-white">
-                        <tr class="mx-2">
-                          <th scope="col">ID</th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Photo</th>
-                          <th scope="col">Phone No.</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Area</th>
-                          <th scope="col">Role</th>
-                          <th scope="col">Start Date</th>
-                          <th scope="col">NextOfKin</th>
-                          <th scope="col">NextOfKin Contact</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr
-                        >
-                          <td>
-                          </td>
-                          <td>
-                          </td>
-                          <td>
-                          </td>
-                          <td>
-                          </td>
-                          <td>
-                          </td>
-                          <td>
-                          </td>
-                          <td>
-                          </td>
-                          <td>
-                          </td>
-                          <td>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
+              <div class="col-1 mx-0 px-0">
+                <div class="ml-2 px-0">
+                  <div ngbDropdown class="d-inline-block mt-4 mx-0 px-0">
+                    <button
+                      class="btn mx-0 px-0"
+                      id="dropdownBasic1"
+                      tooltip="Filter by"
+                      ngbDropdownToggle
+                    >
+                      <i class="fas fa-filter fa-2x text-info"></i>
+                    </button>
+                    <div
+                      ngbDropdownMenu
+                      aria-labelledby="dropdownBasic1"
+                      class="dropdown-menu"
+                    >
+                      <button ngbDropdownItem>Region</button>
+                      <button ngbDropdownItem>Town</button>
+                      <button ngbDropdownItem>Station</button>
+                      <button ngbDropdownItem>Client Number</button>
+                      <button ngbDropdownItem>Phone Number</button>
+                    </div>
                   </div>
                 </div>
+              </div>
+              <!--search by set filter parameter-->
+              <!-- <div class="mt-2">
+                  <input
+                    id="search_by"
+                    formControlName="search_by"
+                    type="text"
+                    class="form-control"
+                    placeholder="Search"
+                    autocomplete="off"
+                  />
+              </div> -->
+              <div class="col-6 col-sm-4 col-md-4 col-xl-3 mx-0 px-0">
+                <!--rangedate-->
+                <label for="range_date">Select Date </label>
+
+                <div class="input-group mb-0">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i
+                        class="fas fa-calendar-alt text-primary mx-auto"
+                        style="size: 50px"
+                      >
+                      </i>
+                    </div>
+                  </div>
+                  <input
+                    id="range_date"
+                    formControlName="range_date"
+                    type="text"
+                    class="form-control"
+                    placeholder="Select date range"
+                    autocomplete="off"
+                    bsDaterangepicker
+                    [bsConfig]="{
+                      containerClass: 'theme-blue',
+                      dateInputFormat: 'MM/DD/YYYY',
+                      isAnimated: true
+                    }"
+                    placement="bottom"
+                  />
+                </div>
+              </div>
+              <div class="col-2 mx-0 pt-2 px-0">
+                <button
+                  class="btn btn-info mt-4 mt-sm-4 ml-1 mr-0 py-1 py-sm-2 px-0 px-sm-2"
+                  type="submit"
+                >
+                  <i class="fas fa-search"></i> Search
+                </button>
+              </div>
+              <div class="col-2 ml-4 mr-0 mx-sm-0 ml-xl-5 pt-2">
+                <div ngbDropdown class="d-inline-block mt-4 mx-0 px-0">
+                  <button
+                    class="btn btn-primary py-1 py-sm-2 px-2"
+                    id="dropdownBasic1"
+                    tooltip="Choose export format"
+                    ngbDropdownToggle
+                  >
+                    <i class="fas fa-file-export"></i> Export
+                  </button>
+                  <div
+                    ngbDropdownMenu
+                    aria-labelledby="dropdownBasic1"
+                    class="dropdown-menu"
+                  >
+                    <button ngbDropdownItem>Excel</button>
+                    <button ngbDropdownItem>Pdf</button>
+                    <button ngbDropdownItem>CSV</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--card for displaying All Users Report
+-->
+<div class="container mt-3 mb-0 mx-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
+        All Users Report
+      </h4>
+    </div>
+  </div>
+</div>
+<div class="col-12 pt-2 pb-1 mb-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated"
+        >Eastern
+        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+      </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container mt-1 mx-0 px-0">
+      <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-2 col-xl-1">
+              <img
+                class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
+                src="assets/img/man.svg"
+                (click)="openModal(template)"
+              />
+            </div>
+            <div class="col-10 col-xl-11">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-6 d-flex justify-content-start">
+                      <span class="">User ID</span>
+                    </div>
+                    <div
+                      class="col-6 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-6 d-flex justify-content-start">
+                      <span class="">Name</span>
+                    </div>
+                    <div
+                      class="col-6 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->Keminagano Pulikeria
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-6 d-flex justify-content-start">
+                      <span class="">Phone No.</span>
+                    </div>
+                    <div
+                      class="col-6 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"].station
+                              .value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-6 d-flex justify-content-start">
+                      <span class="">Role</span>
+                    </div>
+                    <div
+                      class="col-6 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--card for displaying Approved Users Report
+-->
+<div class="container mt-3 mb-0 mx-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
+        Approved Users Report
+      </h4>
+    </div>
+  </div>
+</div>
+<div class="col-12 pt-2 pb-1 mb-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated"
+        >Eastern
+        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+      </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container mt-1 mx-0 px-0">
+      <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-2 col-xl-1">
+              <img
+                class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
+                src="assets/img/man.svg"
+                (click)="openModal(template)"
+              />
+            </div>
+            <div class="col-10 col-xl-11">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">User ID</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Name</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->Keminagano Pulikeria
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Phone No.</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"].station
+                              .value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Role</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--card for displaying Approved Users Report
+-->
+<div class="container mt-3 mb-0 mx-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
+        New Users Report
+      </h4>
+    </div>
+  </div>
+</div>
+<div class="col-12 pt-2 pb-1 mb-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated"
+        >Eastern
+        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+      </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container mt-1 mx-0 px-0">
+      <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-2 col-xl-1">
+              <img
+                class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
+                src="assets/img/man.svg"
+                (click)="openModal(template)"
+              />
+            </div>
+            <div class="col-10 col-xl-11">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">User ID</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Name</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->Keminagano Pulikeria
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Phone No.</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"].station
+                              .value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Role</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--card for displaying Pending Users Report
+-->
+<div class="container mt-3 mb-0 mx-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
+        Pending Users Report
+      </h4>
+    </div>
+  </div>
+</div>
+<div class="col-12 pt-2 pb-1 mb-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated"
+        >Eastern
+        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+      </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container mt-1 mx-0 px-0">
+      <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-2 col-xl-1">
+              <img
+                class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
+                src="assets/img/man.svg"
+                (click)="openModal(template)"
+              />
+            </div>
+            <div class="col-10 col-xl-11">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">User ID</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Name</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->Keminagano Pulikeria
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Phone No.</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"].station
+                              .value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Role</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--card for displaying Loggedin Users Report
+-->
+<div class="container mt-3 mb-0 mx-0 shadow-lg">
+  <div class="row">
+    <div class="col-12">
+      <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
+        Loggedin Users Report
+      </h4>
+    </div>
+  </div>
+</div>
+<div class="col-12 pt-2 pb-1 mb-0">
+  <div class="row mx-auto px-auto mb-2">
+    <div class="col-3 d-flex justify-content-start">
+      <span class="">Area: </span>
+    </div>
+    <div class="col-9 d-flex justify-content-start font-weight-bold">
+      <span class="itemCreated"
+        >Eastern
+        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+      </span>
+    </div>
+  </div>
+  <div class="iteration">
+    <div class="item-container mt-1">
+      <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-2 col-xl-1">
+              <img
+                class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
+                src="assets/img/man.svg"
+                (click)="openModal(template)"
+              />
+            </div>
+            <div class="col-10 col-xl-11">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">User ID</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Name</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->Keminagano Pulikeria
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Phone No.</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"].station
+                              .value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Role</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #template>
+                                <div class="modal-header bg-info">
+                                  <h4 class="modal-title text-white">
+                                    User's Image
+                                  </h4>
+
+                                  <button
+                                    type="button"
+                                    class="close pull-right"
+                                    aria-label="Close"
+                                    (click)="modalRef.hide()"
+                                  >
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <div
+                                    class="col-12 d-flex justify-content-center"
+                                  >
+                                    <pinch-zoom>
+                                      <img
+                                        class="modal-img img-circle mx-auto mt-3 mt-md-2 mb-1 pb-0"
+                                        [src]="imageUrl"
+                                      />
+                                    </pinch-zoom>
+                                  </div>
+                                </div>
+                              </ng-template>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
