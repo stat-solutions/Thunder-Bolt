@@ -16,20 +16,13 @@ import { ReversePrincipleComponent } from './components/approvals/loans-approval
 import { WaiveInterestComponent } from './components/approvals/loans-approvals/waive-interest/waive-interest.component';
 import { WriteOffComponent } from './components/approvals/loans-approvals/write-off/write-off.component';
 import { LoansApprovalsComponent } from './components/approvals/loans-approvals/loans-approvals.component';
-import { StationsReportsComponent } from './components/reports/stations-reports/stations-reports.component';
-import { TownsReportsComponent } from './components/reports/towns-reports/towns-reports.component';
 import { ClientsComponent } from './components/reports/clients/clients.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { UsersComponent } from './components/reports/users/users.component';
 // import { UsersReportsComponent } from './components/reports/users-reports/users-reports.component';
 // import { ClientsReportsComponent } from './components/reports/clients-reports/clients-reports.component';
-import { TownsCashLedgerComponent } from './components/reports/towns-reports/towns-cash-ledger/towns-cash-ledger.component';
-import { TownsLoansLedgerComponent } from './components/reports/towns-reports/towns-loans-ledger/towns-loans-ledger.component';
-import { TownsPaidLedgerComponent } from './components/reports/towns-reports/towns-paid-ledger/towns-paid-ledger.component';
-import { StationsCashLedgerComponent } from './components/reports/stations-reports/stations-cash-ledger/stations-cash-ledger.component';
-import { StationsLoansLedgerComponent } from './components/reports/stations-reports/stations-loans-ledger/stations-loans-ledger.component';
-import { StationsPaidLedgerComponent } from './components/reports/stations-reports/stations-paid-ledger/stations-paid-ledger.component';
 import { VerifyClientComponent } from './components/approvals/verify-client/verify-client.component';
+import { LoansrevenueComponent } from './components/reports/loansrevenue/loansrevenue.component';
 
 const routes: Routes = [
   {
@@ -103,40 +96,8 @@ const routes: Routes = [
         component: ReportsComponent,
         children: [
           {
-            path: 'stationsreports',
-            component: StationsReportsComponent,
-            children: [
-              {
-                path: 'stationscashledger',
-                component: StationsCashLedgerComponent,
-              },
-              {
-                path: 'stationsledger',
-                component: StationsLoansLedgerComponent,
-              },
-              {
-                path: 'stationspaymentsledger',
-                component: StationsPaidLedgerComponent,
-              },
-            ],
-          },
-          {
-            path: 'townsreports',
-            component: TownsReportsComponent,
-            children: [
-              {
-                path: 'townscashledger',
-                component: TownsCashLedgerComponent,
-              },
-              {
-                path: 'townsloansledger',
-                component: TownsLoansLedgerComponent,
-              },
-              {
-                path: 'townspaymentsledger',
-                component: TownsPaidLedgerComponent,
-              },
-            ],
+            path: 'loansrevenue',
+            component: LoansrevenueComponent
           },
           {
             path: 'clientsreports',
@@ -146,7 +107,7 @@ const routes: Routes = [
             path: 'usersreports',
             component: UsersComponent,
           },
-        ],
+        ]
       },
       {
         path: 'profile',

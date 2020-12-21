@@ -16,8 +16,6 @@ import { PagesCoreCentralComponent } from './pages-core/pages-core-central.compo
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ReportsComponent } from './components/reports/reports.component';
 import { ClientsComponent } from './components/reports/clients/clients.component';
-import { TownsComponent } from './components/reports/towns/towns.component';
-import { StationsComponent } from './components/reports/stations/stations.component';
 import { UsersComponent } from './components/reports/users/users.component';
 import { CreateComponent } from './components/create/create.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
@@ -66,8 +64,6 @@ import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan
     DashboardComponent,
     ProfileComponent,
     UsersComponent,
-    StationsComponent,
-    TownsComponent,
     ClientsComponent,
     AreasComponent,
     PagesCoreCentralComponent,

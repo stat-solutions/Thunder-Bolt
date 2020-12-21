@@ -1,57 +1,76 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-0 pt-md-1 pt-xl-0 pb-3 px-0 px-sm-2 shadow-lg col-xs-12 col-lg-11"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-0 pt-md-1 pt-xl-0 pb-3 px-0 px-sm-2 shadow-lg col-12 col-lg-11"
 >
   <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-1 col-md-11">
-    <div class="container mt-2 mx-0 shadow-lg col-12">
+    <div class="container my-3 mx-0 shadow-lg col-12">
       <div class="row">
         <div class="col-12">
-          <h3
-            class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
-          >
-            Verify {{currentCustomer}} Clients
+          <h3 class="rub-head4 text-info text-center font-weight-bold py-1">
+            <!-- Verify Clients -->
+            Verify {{ currentCustomer }} Clients
           </h3>
         </div>
-          <div class="col-12 mx-0 px-1">
-            <a class="text-info mb-1">
-              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Boda Fuel Customers" (click)="getBodaCustomers()">
-                Boda Fuel Customers
-              </button>
-            </a>
-            <a class="text-info mb-1">
-              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Taxi Fuel Customers" (click)="getTaxiCustomers()">
-                Taxi Fuel Customers
-              </button>
-            </a>
-            <a class="text-info mb-1">
-              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Taxi Fuel Customers" (click)="getMicroCustomers()">
-                Micro Loan Customers
-              </button>
-            </a>
-            <a class="text-info mb-1">
-              <button class="btn btn-info mb-1 mx-1 px-auto px-lg-4" tooltip="Get Savings Customers" (click)="getSavingsCustomers()">
-                Savings Customers
-              </button>
-            </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mx-0 px-1">
+        <a class="text-info mb-1">
+          <button
+            class="btn btn-info mb-1 mx-1 px-auto"
+            tooltip="Get Boda Fuel Customers"
+            placement="bottom"
+            (click)="getBodaCustomers()"
+          >
+            Boda Fuel Customers
+          </button>
+        </a>
+        <a class="text-info mb-1">
+          <button
+            class="btn btn-info mb-1 mx-1 px-auto"
+            tooltip="Get Taxi Fuel Customers"
+            placement="bottom"
+            (click)="getTaxiCustomers()"
+          >
+            Taxi Fuel Customers
+          </button>
+        </a>
+        <a class="text-info mb-1">
+          <button
+            class="btn btn-info mb-1 mx-1 px-auto"
+            tooltip="Get Taxi Fuel Customers"
+            placement="bottom"
+            (click)="getMicroCustomers()"
+          >
+            Micro-loan Customers
+          </button>
+        </a>
+        <a class="text-info mb-1">
+          <button
+            class="btn btn-info mb-1 mx-1 px-auto"
+            tooltip="Get Savings Customers"
+            placement="bottom"
+            (click)="getSavingsCustomers()"
+          >
+            Savings Customers
+          </button>
+        </a>
+      </div>
+    </div>
+    <div
+      class="invest-card card-body mt-2 py-4 mb-5 mx-0 mx-sm-auto px-1 px-lg-auto shadow-lg"
+      [hidden]="customers.length > 0"
+    >
+      <div class="row">
+        <div class="col-12">
+          <h5 class="rub-head4 text-center font-weight-bold py-1">
+            There are no {{ currentCustomer }} Clients to verify!
+          </h5>
         </div>
       </div>
     </div>
-  <div
-      class="invest-card card-body mt-2 pt-3 pt-md-4 mb-5 mx-0 mx-sm-auto pb-4 px-1 px-lg-auto shadow-lg"
-    [hidden]="(customers.length > 0)"
-    >
-    <div class="row">
-      <div class="col-12">
-        <h3
-          class="rub-head4 text-info text-center font-weight-bold pt-0 py-1"
-        >
-          There are no {{currentCustomer}} Clients to verify
-        </h3>
-      </div>
-    </div>
-  </div>
     <div
       class="invest-card card-body mt-2 pt-3 pt-md-4 mb-5 mx-0 mx-sm-auto pb-4 px-1 px-lg-auto shadow-lg"
-    [hidden]="(customers.length === 0)"
+      [hidden]="customers.length === 0"
     >
       <form [formGroup]="userForm">
         <div class="item-header mb-2">
@@ -74,10 +93,7 @@
         <div class="iteration" formArrayName="customers">
           <div
             class="item-container mt-1"
-            *ngFor="
-              let items of fval.customers['controls'];
-              let idx = index
-            "
+            *ngFor="let items of fval.customers['controls']; let idx = index"
           >
             <div
               class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
@@ -98,8 +114,17 @@
                   <div class="col-2 col-md-3">
                     <img
                       class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                      [src]="fval.customers['controls'][idx]['controls'].customerPhotoUrl.value"
-                      (click)="openModal2(template, fval.customers['controls'][idx]['controls'].customerPhotoUrl.value)"
+                      [src]="
+                        fval.customers['controls'][idx]['controls']
+                          .customerPhotoUrl.value
+                      "
+                      (click)="
+                        openModal2(
+                          template,
+                          fval.customers['controls'][idx]['controls']
+                            .customerPhotoUrl.value
+                        )
+                      "
                     />
                   </div>
                   <div class="col-9 col-md-8">
@@ -112,7 +137,8 @@
                       >
                         <span class="itemCreated">
                           {{
-                            fval.customers["controls"][idx]["controls"].customerName.value
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
                           }}
                         </span>
                       </div>
@@ -126,7 +152,8 @@
                       >
                         <span class="itemCreated">
                           {{
-                            fval.customers["controls"][idx]["controls"].station.value
+                            fval.customers["controls"][idx]["controls"].station
+                              .value
                           }}
                         </span>
                       </div>
@@ -140,11 +167,12 @@
                       >
                         <span class="itemCreated">
                           {{
-                            fval.customers["controls"][idx]["controls"].customerPhone1.value
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
                           }}
                         </span>
                       </div>
-                    <!-- </div>
+                      <!-- </div>
                     <div class="row"> -->
                       <div
                         class="col-12 col-md-3 d-flex justify-content-end font-weight-bold"
@@ -152,7 +180,13 @@
                         <a class="text-dark pointerCursor">
                           <span
                             class="itemCreated"
-                            (click)="openModal(clientdetails, fval.customers['controls'][idx]['controls'].customerId.value)"
+                            (click)="
+                              openModal(
+                                clientdetails,
+                                fval.customers['controls'][idx]['controls']
+                                  .customerId.value
+                              )
+                            "
                             >Details
                           </span>
                         </a>
@@ -235,9 +269,7 @@
       class="list-card card mt-1 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
       [formGroupName]="idx"
     > -->
-    <div
-      class="list-card card mt-1 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-    >
+    <div class="list-card card mt-1 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg">
       <div class="list-card-body card-body my-0 py-0 mx-0">
         <div class="row my-0 py-0">
           <div class="col-12">
@@ -255,7 +287,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{data.customerDateOfBirth}}</span>
+                <span class="itemCreated">{{ data.customerDateOfBirth }}</span>
               </div>
             </div>
             <div class="row">
@@ -265,7 +297,9 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> {{data.customerHomeAreaDetails}} </span>
+                <span class="itemCreated">
+                  {{ data.customerHomeAreaDetails }}
+                </span>
               </div>
             </div>
             <div class="row">
@@ -275,7 +309,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> {{data.customerPhone2}} </span>
+                <span class="itemCreated"> {{ data.customerPhone2 }} </span>
               </div>
             </div>
           </div>
@@ -287,8 +321,8 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" >
-                  <span class="itemCreated">{{data.customerIdType}}</span>
+                <a class="">
+                  <span class="itemCreated">{{ data.customerIdType }}</span>
                 </a>
               </div>
             </div>
@@ -300,7 +334,7 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated"> {{data.customerIdNumber}} </span>
+                  <span class="itemCreated"> {{ data.customerIdNumber }} </span>
                 </a>
               </div>
             </div>
@@ -312,41 +346,41 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated">{{data.customerComment}} </span>
+                  <span class="itemCreated">{{ data.customerComment }} </span>
                 </a>
               </div>
             </div>
-        <div class="row my-0 py-0">
-          <div
-            class="col-6 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
-          >
-            <pinch-zoom class="d-flex justify-content-center">
-              <img
-                class="modal-img-2 mx-auto my-0 pb-0"
-                [src]="data.customerPhotoUrl"
-              />
-            </pinch-zoom>
-            <p class="text-capitalize text-center">Passport photo</p>
-          </div>
-          <div
-            class="col-6 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
-          >
-            <pinch-zoom class="d-flex justify-content-center">
-              <img
-                class="modal-img-2 mx-auto my-0 pb-0"
-                [src]="data.customerIdPhotoUrl"
-              />
-            </pinch-zoom>
-            <p class="text-capitalize text-center">ID image</p>
-          </div>
-        </div>
+            <div class="row my-0 py-0">
+              <div
+                class="col-6 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
+              >
+                <pinch-zoom class="d-flex justify-content-center">
+                  <img
+                    class="modal-img-2 mx-auto my-0 pb-0"
+                    [src]="data.customerPhotoUrl"
+                  />
+                </pinch-zoom>
+                <p class="text-capitalize text-center">Passport photo</p>
+              </div>
+              <div
+                class="col-6 d-flex flex-column justify-content-center mx-auto my-0 pt-1 pb-0"
+              >
+                <pinch-zoom class="d-flex justify-content-center">
+                  <img
+                    class="modal-img-2 mx-auto my-0 pb-0"
+                    [src]="data.customerIdPhotoUrl"
+                  />
+                </pinch-zoom>
+                <p class="text-capitalize text-center">ID image</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div
       class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      [hidden]="(currentCustomer !== 'BodaBoda Fuel')"
+      [hidden]="currentCustomer !== 'BodaBoda Fuel'"
     >
       <div class="list-card-body card-body my-0 py-0 mx-0">
         <div class="row my-0 py-0">
@@ -365,7 +399,9 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{data.bodabodaCustomerNumberPlate}}</span>
+                <span class="itemCreated">{{
+                  data.bodabodaCustomerNumberPlate
+                }}</span>
               </div>
             </div>
             <div class="row">
@@ -375,7 +411,9 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{data.bodabodaCustomerMakeOrType}} </span>
+                <span class="itemCreated"
+                  >{{ data.bodabodaCustomerMakeOrType }}
+                </span>
               </div>
             </div>
             <div class="row">
@@ -385,7 +423,9 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{data.bodabodaCustomerInsurance}}</span>
+                <span class="itemCreated">{{
+                  data.bodabodaCustomerInsurance
+                }}</span>
               </div>
             </div>
             <div class="row">
@@ -396,7 +436,9 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated"> {{data.fkBodabodaStageIdBodabodaCustomer}} </span>
+                  <span class="itemCreated">
+                    {{ data.fkBodabodaStageIdBodabodaCustomer }}
+                  </span>
                 </a>
               </div>
             </div>
@@ -411,7 +453,9 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated"> {{data.bodabodaCustomerDateOfJoinStage}} </span>
+                  <span class="itemCreated">
+                    {{ data.bodabodaCustomerDateOfJoinStage }}
+                  </span>
                 </a>
               </div>
             </div>
@@ -423,7 +467,9 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated"> {{data.bodabodaOwnershipStatus}} </span>
+                  <span class="itemCreated">
+                    {{ data.bodabodaOwnershipStatus }}
+                  </span>
                 </a>
               </div>
             </div>
@@ -434,8 +480,10 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" >
-                  <span class="itemCreated"> {{data.bodabodaCustomerOwnersName}}</span>
+                <a class="">
+                  <span class="itemCreated">
+                    {{ data.bodabodaCustomerOwnersName }}</span
+                  >
                 </a>
               </div>
             </div>
@@ -447,7 +495,9 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated"> {{data.bodabodaCustomerOwnersPhone}} </span>
+                  <span class="itemCreated">
+                    {{ data.bodabodaCustomerOwnersPhone }}
+                  </span>
                 </a>
               </div>
             </div>
@@ -492,8 +542,8 @@
     </div>
     <div
       class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      [hidden]="(currentCustomer !== 'Taxi Fuel')"
-      >
+      [hidden]="currentCustomer !== 'Taxi Fuel'"
+    >
       <div class="list-card-body card-body my-0 py-0 mx-0">
         <div class="row my-0 py-0">
           <div class="col-12">
@@ -511,7 +561,9 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> {{data.taxiCustomerDrivingPermitNumber}} </span>
+                <span class="itemCreated">
+                  {{ data.taxiCustomerDrivingPermitNumber }}
+                </span>
               </div>
             </div>
             <div class="row">
@@ -521,7 +573,9 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> {{data.taxiCustomerNumberPlate}} </span>
+                <span class="itemCreated">
+                  {{ data.taxiCustomerNumberPlate }}
+                </span>
               </div>
             </div>
             <div class="row">
@@ -531,7 +585,9 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> {{data.taxiCustomerMakeOrType}}</span>
+                <span class="itemCreated">
+                  {{ data.taxiCustomerMakeOrType }}</span
+                >
               </div>
             </div>
             <div class="row">
@@ -541,7 +597,9 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">  {{data.taxiCustomerInsurance}} </span>
+                <span class="itemCreated">
+                  {{ data.taxiCustomerInsurance }}
+                </span>
               </div>
             </div>
             <div class="row">
@@ -552,7 +610,9 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated">  {{data.fkTaxiStageIdTaxiCustomer}} </span>
+                  <span class="itemCreated">
+                    {{ data.fkTaxiStageIdTaxiCustomer }}
+                  </span>
                 </a>
               </div>
             </div>
@@ -567,7 +627,9 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated">  {{data.taxiCustomerDateOfJoinStage}} </span>
+                  <span class="itemCreated">
+                    {{ data.taxiCustomerDateOfJoinStage }}
+                  </span>
                 </a>
               </div>
             </div>
@@ -579,11 +641,16 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated"> {{data.taxiCustomerOwnershipStatus}}</span>
+                  <span class="itemCreated">
+                    {{ data.taxiCustomerOwnershipStatus }}</span
+                  >
                 </a>
               </div>
             </div>
-            <div class="row"  *ngIf="data.taxiCustomerOwnershipStatus !== 'PAIDOUT'">
+            <div
+              class="row"
+              *ngIf="data.taxiCustomerOwnershipStatus !== 'PAIDOUT'"
+            >
               <div class="col-5 d-flex justify-content-sm-start">
                 <span class="">Owner Name</span>
               </div>
@@ -591,11 +658,16 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated">  {{data.taxiCustomerOwnersName}}</span>
+                  <span class="itemCreated">
+                    {{ data.taxiCustomerOwnersName }}</span
+                  >
                 </a>
               </div>
             </div>
-            <div class="row" *ngIf="data.taxiCustomerOwnershipStatus !== 'PAIDOUT'">
+            <div
+              class="row"
+              *ngIf="data.taxiCustomerOwnershipStatus !== 'PAIDOUT'"
+            >
               <div class="col-5 d-flex justify-content-sm-start">
                 <span class="">Owner PhoneNo.</span>
               </div>
@@ -603,7 +675,9 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated">  {{data.taxiCustomerOwnersPhone}}</span>
+                  <span class="itemCreated">
+                    {{ data.taxiCustomerOwnersPhone }}</span
+                  >
                 </a>
               </div>
             </div>
@@ -616,7 +690,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                [src]=" data.taxiCustomerFrontPhotoUrl"
+                [src]="data.taxiCustomerFrontPhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">front image</p>
@@ -627,7 +701,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                [src]=" data.taxiCustomerSidePhotoUrl"
+                [src]="data.taxiCustomerSidePhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">side image</p>
@@ -638,7 +712,7 @@
             <pinch-zoom class="d-flex justify-content-center">
               <img
                 class="modal-img-2 mx-auto my-0 pb-0"
-                [src]=" data.taxiCustomerRearPhotoUrl"
+                [src]="data.taxiCustomerRearPhotoUrl"
               />
             </pinch-zoom>
             <p class="text-capitalize text-center">rear image</p>
@@ -646,10 +720,10 @@
         </div>
       </div>
     </div>
-  <div
+    <div
       class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      [hidden]="(currentCustomer !== 'Micro Loan')"
-      >
+      [hidden]="currentCustomer !== 'Micro Loan'"
+    >
       <div class="list-card-body card-body my-0 py-0 mx-0">
         <div class="row my-0 py-0">
           <div class="col-12">
@@ -667,7 +741,9 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{data.microloanCustomerLoanPurpose}}</span>
+                <span class="itemCreated">{{
+                  data.microloanCustomerLoanPurpose
+                }}</span>
               </div>
             </div>
             <div class="row">
@@ -677,7 +753,9 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{data.microloanCustomerCurrentBusinessType}}</span>
+                <span class="itemCreated">{{
+                  data.microloanCustomerCurrentBusinessType
+                }}</span>
               </div>
             </div>
             <div class="row">
@@ -687,7 +765,9 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{data.microloanCustomerCurrentBusinessLocation}}</span>
+                <span class="itemCreated">{{
+                  data.microloanCustomerCurrentBusinessLocation
+                }}</span>
               </div>
             </div>
             <div class="row">
@@ -697,7 +777,12 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> {{data.microloanCustomerAverageDailyExpenses | currency: 'UGX '}}</span>
+                <span class="itemCreated">
+                  {{
+                    data.microloanCustomerAverageDailyExpenses
+                      | currency: "UGX "
+                  }}</span
+                >
               </div>
             </div>
           </div>
@@ -710,7 +795,12 @@
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated"> {{data.microloanCustomerAverageDailyIncome | currency: 'UGX '}} </span>
+                  <span class="itemCreated">
+                    {{
+                      data.microloanCustomerAverageDailyIncome
+                        | currency: "UGX "
+                    }}
+                  </span>
                 </a>
               </div>
             </div>
@@ -723,7 +813,9 @@
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated"> {{data.microloanCustomerCurrentResidence}} </span>
+                  <span class="itemCreated">
+                    {{ data.microloanCustomerCurrentResidence }}
+                  </span>
                 </a>
               </div>
             </div>
@@ -735,7 +827,9 @@
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated">{{data.microloanCustomerResidenceStatus}}</span>
+                  <span class="itemCreated">{{
+                    data.microloanCustomerResidenceStatus
+                  }}</span>
                 </a>
               </div>
             </div>
@@ -746,8 +840,10 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <a class="" >
-                  <span class="itemCreated">{{data.microloanCustomerNumberOfDependants}}</span>
+                <a class="">
+                  <span class="itemCreated">{{
+                    data.microloanCustomerNumberOfDependants
+                  }}</span>
                 </a>
               </div>
             </div>
@@ -792,8 +888,8 @@
     </div>
     <div
       class="list-card card mt-2 pt-1 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      [hidden]="(currentCustomer !== 'Savings')"
-      >
+      [hidden]="currentCustomer !== 'Savings'"
+    >
       <div class="list-card-body card-body my-0 py-0 mx-0">
         <div class="row my-0 py-0">
           <div class="col-12">
@@ -811,7 +907,9 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{data.savingsCustomerMonthlyIncome | currency: 'UGX '}}</span>
+                <span class="itemCreated">{{
+                  data.savingsCustomerMonthlyIncome | currency: "UGX "
+                }}</span>
               </div>
             </div>
             <div class="row">
@@ -821,7 +919,9 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{data.savingsCustomerWithdrawFreequency}}</span>
+                <span class="itemCreated">{{
+                  data.savingsCustomerWithdrawFreequency
+                }}</span>
               </div>
             </div>
             <div class="row">
@@ -831,7 +931,9 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{data.savingsCustomerTarget}}</span>
+                <span class="itemCreated">{{
+                  data.savingsCustomerTarget
+                }}</span>
               </div>
             </div>
           </div>
