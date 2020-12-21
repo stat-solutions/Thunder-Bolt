@@ -240,11 +240,12 @@ export class LendComponent implements OnInit {
                     photoUrl: bodaCustomers[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? this.user : bodaCustomers[0].customerIdPhotoUrl,
                     phone: bodaCustomers[0].customerPhone1,
                     plate: bodaCustomers[0].bodabodaCustomerNumberPlate,
-                    loanAmount: res[0].loanAmountTaken,
+                    loanAmount: res.length === 1 ? res[0].loanAmountTaken : 0,
                     loanLimit: bodaCustomers[0].bodabodaCustomerLoanLimit,
-                    loanPaid: res[0].loanAmountPaid,
-                    loanBalance: res[0].loanAmountRemaining,
-                    loanStatus: res[0].loanStatus === 2 ? 'RUNNING' : res[0].loanStatus === 3 ? 'COMPLETE' : 'CREATED',
+                    loanPaid: res.length === 1 ? res[0].loanAmountPaid : 0,
+                    loanBalance: res.length === 1 ? res[0].loanAmountRemaining : 0,
+                    loanStatus: res.length === 1 ? res[0].loanStatus === 2 ? 'RUNNING' :
+                                res[0].loanStatus === 3 ? 'COMPLETE' : 'CREATED' : 'COMPLETE',
                     comment: bodaCustomers[0].customerComment,
                     pin: bodaCustomers[0].customerSecretPin,
                   };
@@ -278,11 +279,12 @@ export class LendComponent implements OnInit {
                   photoUrl: taxiCustomers[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? this.user : taxiCustomers[0].customerIdPhotoUrl ,
                   phone: taxiCustomers[0].customerPhone1,
                   plate: taxiCustomers[0].taxiCustomerNumberPlate,
-                  loanAmount: res[0].loanAmountTaken,
                   loanLimit: taxiCustomers[0].taxiCustomerLoanLimit,
-                  loanPaid: res[0].loanAmountPaid,
-                  loanBalance: res[0].loanAmountRemaining,
-                  loanStatus: res[0].loanStatus === 2 ? 'RUNNING' : res[0].loanStatus === 3 ? 'COMPLETE' : 'CREATED',
+                  loanAmount: res.length === 1 ? res[0].loanAmountTaken : 0,
+                  loanPaid: res.length === 1 ? res[0].loanAmountPaid : 0,
+                  loanBalance: res.length === 1 ? res[0].loanAmountRemaining : 0,
+                  loanStatus: res.length === 1 ? res[0].loanStatus === 2 ? 'RUNNING' :
+                              res[0].loanStatus === 3 ? 'COMPLETE' : 'CREATED' : 'COMPLETE',
                   comment: taxiCustomers[0].customerComment,
                   pin: taxiCustomers[0].customerSecretPin,
                 };

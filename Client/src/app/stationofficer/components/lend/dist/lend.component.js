@@ -203,11 +203,12 @@ var LendComponent = /** @class */ (function () {
                                 photoUrl: bodaCustomers_1[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? _this.user : bodaCustomers_1[0].customerIdPhotoUrl,
                                 phone: bodaCustomers_1[0].customerPhone1,
                                 plate: bodaCustomers_1[0].bodabodaCustomerNumberPlate,
-                                loanAmount: res[0].loanAmountTaken,
+                                loanAmount: res.length === 1 ? res[0].loanAmountTaken : 0,
                                 loanLimit: bodaCustomers_1[0].bodabodaCustomerLoanLimit,
-                                loanPaid: res[0].loanAmountPaid,
-                                loanBalance: res[0].loanAmountRemaining,
-                                loanStatus: res[0].loanStatus === 2 ? 'RUNNING' : res[0].loanStatus === 3 ? 'COMPLETE' : 'CREATED',
+                                loanPaid: res.length === 1 ? res[0].loanAmountPaid : 0,
+                                loanBalance: res.length === 1 ? res[0].loanAmountRemaining : 0,
+                                loanStatus: res.length === 1 ? res[0].loanStatus === 2 ? 'RUNNING' :
+                                    res[0].loanStatus === 3 ? 'COMPLETE' : 'CREATED' : 'COMPLETE',
                                 comment: bodaCustomers_1[0].customerComment,
                                 pin: bodaCustomers_1[0].customerSecretPin
                             };
@@ -239,11 +240,12 @@ var LendComponent = /** @class */ (function () {
                                 photoUrl: taxiCustomers_1[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? _this.user : taxiCustomers_1[0].customerIdPhotoUrl,
                                 phone: taxiCustomers_1[0].customerPhone1,
                                 plate: taxiCustomers_1[0].taxiCustomerNumberPlate,
-                                loanAmount: res[0].loanAmountTaken,
                                 loanLimit: taxiCustomers_1[0].taxiCustomerLoanLimit,
-                                loanPaid: res[0].loanAmountPaid,
-                                loanBalance: res[0].loanAmountRemaining,
-                                loanStatus: res[0].loanStatus === 2 ? 'RUNNING' : res[0].loanStatus === 3 ? 'COMPLETE' : 'CREATED',
+                                loanAmount: res.length === 1 ? res[0].loanAmountTaken : 0,
+                                loanPaid: res.length === 1 ? res[0].loanAmountPaid : 0,
+                                loanBalance: res.length === 1 ? res[0].loanAmountRemaining : 0,
+                                loanStatus: res.length === 1 ? res[0].loanStatus === 2 ? 'RUNNING' :
+                                    res[0].loanStatus === 3 ? 'COMPLETE' : 'CREATED' : 'COMPLETE',
                                 comment: taxiCustomers_1[0].customerComment,
                                 pin: taxiCustomers_1[0].customerSecretPin
                             };
