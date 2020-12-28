@@ -107,9 +107,10 @@ var PersonalInfoComponent = /** @class */ (function () {
             bodabodaCustomerSidePhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             bodabodaCustomerRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownershipStatus: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            ownersName: new forms_1.FormControl(''),
+            ownersName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownersPhoneNumber: new forms_1.FormControl('', forms_1.Validators.compose([
-            // Validators.required
+                forms_1.Validators.required,
+                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
             ]))
         });
     };
@@ -130,20 +131,16 @@ var PersonalInfoComponent = /** @class */ (function () {
             taxiCustomerSidePhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             taxiCustomerRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownershipStatus: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            ownersName: new forms_1.FormControl(''),
+            ownersName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownersPhoneNumber: new forms_1.FormControl('', forms_1.Validators.compose([
-            // Validators.required
-            // CustomValidator.patternValidator(
-            //   /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-            //   { hasNumber: true }
-            // ),
+                forms_1.Validators.required,
+                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
             ]))
         });
     };
     PersonalInfoComponent.prototype.microClientFormGroup = function () {
         return new forms_1.FormGroup({
             clientName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            loanpurpose: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             currentBusinesstype: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             businessLocation: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             averageDailyExpenses: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
@@ -473,9 +470,11 @@ var PersonalInfoComponent = /** @class */ (function () {
                         bodabodaOwnershipStatus: this.bodaFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
                             1 : this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                             2 : 3,
-                        bodabodaCustomerOwnersName: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                        bodabodaCustomerOwnersName: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                            this.fval.customer_name.value.toUpperCase() :
                             this.bodaFval.ownersName.value.toUpperCase(),
-                        bodabodaCustomerOwnersPhone1: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                        bodabodaCustomerOwnersPhone1: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                            this.fval.main_contact_number1.value :
                             this.bodaFval.ownersPhoneNumber.value,
                         bodabodaCustomerFrontPhotoUrl: this.bodaFrontUrl,
                         bodabodaCustomerSidePhotoUrl: this.bodaSideUrl,
@@ -555,9 +554,11 @@ var PersonalInfoComponent = /** @class */ (function () {
                         taxiCustomerOwnershipStatus: this.taxiFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
                             1 : this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                             2 : 3,
-                        taxiCustomerOwnersName: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                        taxiCustomerOwnersName: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                            this.fval.customer_name.value.toUpperCase() :
                             this.taxiFval.ownersName.value.toUpperCase(),
-                        taxiCustomerOwnersPhone: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+                        taxiCustomerOwnersPhone: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                            this.fval.main_contact_number1.value :
                             this.taxiFval.ownersPhoneNumber.value,
                         taxiCustomerFrontPhotoUrl: this.taxiFrontUrl,
                         taxiCustomerSidePhotoUrl: this.taxiSideUrl,
@@ -616,7 +617,6 @@ var PersonalInfoComponent = /** @class */ (function () {
         else if (this.showMicroForm) {
             if (this.microClientForm.valid) {
                 this.data.push({
-                    microloanCustomerLoanPurpose: this.microFval.loanpurpose.value.toUpperCase(),
                     microloanCustomerCurrentBusinessType: this.microFval.currentBusinesstype.value.toUpperCase(),
                     microloanCustomerCurrentBusinessLocation: this.microFval.businessLocation.value.toUpperCase(),
                     microloanCustomerAverageDailyExpenses: this.microFval.averageDailyExpenses.value,

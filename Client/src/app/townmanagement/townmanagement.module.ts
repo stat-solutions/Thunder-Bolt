@@ -39,6 +39,10 @@ import { EditStageComponent } from './components/enroll/edit-stage/edit-stage.co
 import { EditBodaStageComponent } from './components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component';
 import { EditTaxiStageComponent } from './components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component';
 import { AlertModule } from 'ngx-alerts';
+import { MicroLoansComponent } from './components/micro-loans/micro-loans.component';
+import { GetLoanComponent } from './components/micro-loans/get-loan/get-loan.component';
+import { PayLoanComponent } from './components/micro-loans/pay-loan/pay-loan.component';
+import { ComfirmLoanComponent } from './components/micro-loans/comfirm-loan/comfirm-loan.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +56,10 @@ import { AlertModule } from 'ngx-alerts';
     ContentSectionTownComponent,
     EnrollComponent,
     EnrollClientComponent,
+    MicroLoansComponent,
+    GetLoanComponent,
+    ComfirmLoanComponent,
+    PayLoanComponent,
     PersonalInfoComponent,
     EnrollStageComponent,
     EnrollBodaStageComponent,

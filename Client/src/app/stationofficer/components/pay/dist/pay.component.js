@@ -45,8 +45,11 @@ var PayComponent = /** @class */ (function () {
     PayComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
             loanType: new forms_1.FormControl(['', forms_1.Validators.required]),
-            number_plate: new forms_1.FormControl(''),
-            user_contact_number: new forms_1.FormControl(''),
+            number_plate: new forms_1.FormControl('', forms_1.Validators.compose([
+                forms_1.Validators.required,
+                forms_1.Validators.minLength(8),
+                forms_1.Validators.maxLength(8),
+            ])),
             amount_to_pay: new forms_1.FormControl({ value: '', disabled: true }, forms_1.Validators.compose([
                 forms_1.Validators.required,
                 custom_validator_1.CustomValidator.patternValidator(/\d/, { hasNumber: true }),
@@ -80,11 +83,6 @@ var PayComponent = /** @class */ (function () {
                         _this.customers.forEach(function (customer) {
                             _this.numberPlates.push(customer.bodabodaCustomerNumberPlate);
                         });
-                        _this.fval.number_plate.setValidators([
-                            forms_1.Validators.required,
-                            forms_1.Validators.minLength(8),
-                            forms_1.Validators.maxLength(8),
-                        ]);
                     }
                     else {
                         _this.errored = true;
@@ -117,11 +115,6 @@ var PayComponent = /** @class */ (function () {
                         _this.customers.forEach(function (customer) {
                             _this.numberPlates.push(customer.taxiCustomerNumberPlate);
                         });
-                        _this.fval.number_plate.setValidators([
-                            forms_1.Validators.required,
-                            forms_1.Validators.minLength(8),
-                            forms_1.Validators.maxLength(8),
-                        ]);
                     }
                     else {
                         _this.errored = true;
@@ -199,7 +192,7 @@ var PayComponent = /** @class */ (function () {
                                 Id: bodaCustomers_1[0].customerId,
                                 name: bodaCustomers_1[0].customerName,
                                 // tslint:disable-next-line: max-line-length
-                                photoUrl: bodaCustomers_1[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? _this.user : bodaCustomers_1[0].customerIdPhotoUrl,
+                                photoUrl: bodaCustomers_1[0].customerPhotoUrl === 'customerPhotoUrl.com' ? _this.user : bodaCustomers_1[0].customerPhotoUrl,
                                 phone: bodaCustomers_1[0].customerPhone1,
                                 plate: bodaCustomers_1[0].bodabodaCustomerNumberPlate,
                                 loanAmount: res.length === 1 ? res[0].loanAmountTaken : 0,
@@ -236,7 +229,7 @@ var PayComponent = /** @class */ (function () {
                                 Id: taxiCustomers_1[0].customerId,
                                 name: taxiCustomers_1[0].customerName,
                                 // tslint:disable-next-line: max-line-length
-                                photoUrl: taxiCustomers_1[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? _this.user : taxiCustomers_1[0].customerIdPhotoUrl,
+                                photoUrl: taxiCustomers_1[0].customerPhotoUrl === 'customerPhotoUrl.com' ? _this.user : taxiCustomers_1[0].customerPhotoUrl,
                                 phone: taxiCustomers_1[0].customerPhone1,
                                 plate: taxiCustomers_1[0].taxiCustomerNumberPlate,
                                 loanLimit: taxiCustomers_1[0].taxiCustomerLoanLimit,
@@ -301,7 +294,7 @@ var PayComponent = /** @class */ (function () {
             val = parseInt(val.replace(/[\D\s\._\-]+/g, ''), 10);
             if (val > this.checkedClient.loanBalance) {
                 this.errored = true;
-                this.fval.amount_to_pay.setValue(this.checkedClient.loanBalance);
+                this.fval.amount_to_pay.setValue('');
                 this.alertService.danger({
                     html: '<b> Amount provided (' + val + ') is greater than the customer loan limit</b>'
                 });
@@ -342,54 +335,61 @@ var PayComponent = /** @class */ (function () {
     PayComponent.prototype.pay = function () {
         var _this = this;
         if (this.userForm.valid && this.checkedClient.Id && this.loanAmount) {
-            // if (Number(this.fval.pin.value) === this.checkedClient.pin){
-            var data = {
-                txnAmount: this.loanAmount,
-                customerId: this.checkedClient.Id,
-                txnDetailsId: null,
-                userId: this.User.userId,
-                productCode: this.loanType === 'Boda Loan' ? 200 :
-                    this.loanType === 'Taxi Loan' ? 300 : 400,
-                theStationLocationId: this.User.userLocationId
-            };
-            switch (this.loanType) {
-                case 'Boda Loan':
-                    data.txnDetailsId = this.assignTxnId('BODABODALOAN', 'LOANPAYMENT');
-                    break;
-                case 'Taxi Loan':
-                    data.txnDetailsId = this.assignTxnId('TAXILOAN', 'LOANPAYMENT');
-                    break;
-                case 'Micro Loan':
-                    data.txnDetailsId = this.assignTxnId('MICROLOAN', 'LOANPAYMENT');
-                    break;
-            }
-            this.others.putTxnCustomer(data).subscribe(function (res) {
+            this.others.verifyUserWithPin({ userPhone1: this.User.userPhone, userPassword: Number(this.fval.pin.value) }).subscribe(function (res) {
                 if (res) {
-                    _this.posted = true;
-                    _this.alertService.success({
-                        html: '<b> Payment was successfully</b>'
-                    });
-                    setTimeout(_this.revert(), 3000);
-                }
-            }, function (err) {
-                _this.errored = true;
-                if (err.error.error.status === 500) {
-                    _this.alertService.danger({
-                        html: '<b> Sever Could Not handle this request</b>'
+                    var data = {
+                        txnAmount: _this.loanAmount,
+                        customerId: _this.checkedClient.Id,
+                        txnDetailsId: null,
+                        userId: _this.User.userId,
+                        productCode: _this.loanType === 'Boda Loan' ? 200 : 300,
+                        theStationLocationId: _this.User.userLocationId
+                    };
+                    switch (_this.loanType) {
+                        case 'Boda Loan':
+                            data.txnDetailsId = _this.assignTxnId('BODABODALOAN', 'LOANPAYMENT');
+                            break;
+                        case 'Taxi Loan':
+                            data.txnDetailsId = _this.assignTxnId('TAXILOAN', 'LOANPAYMENT');
+                            break;
+                        case 'Micro Loan':
+                            data.txnDetailsId = _this.assignTxnId('MICROLOAN', 'LOANPAYMENT');
+                            break;
+                    }
+                    _this.others.putTxnCustomer(data).subscribe(function (response) {
+                        if (response === true) {
+                            _this.posted = true;
+                            _this.alertService.success({
+                                html: '<b> Payment was successfully</b>'
+                            });
+                            setTimeout(_this.revert(), 3000);
+                        }
+                    }, function (err) {
+                        _this.errored = true;
+                        if (err.error.error.status === 500) {
+                            _this.alertService.danger({
+                                html: '<b> Sever Could Not handle this request</b>'
+                            });
+                        }
+                        else {
+                            _this.alertService.danger({
+                                html: '<b>' + err.error.error.message + '</b>'
+                            });
+                        }
                     });
                 }
                 else {
+                    _this.errored = true;
                     _this.alertService.danger({
-                        html: '<b>' + err.error.error.message + '</b>'
+                        html: '<b> Passwords do not match<b>'
                     });
                 }
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.error.message + '<b>'
+                });
             });
-            // } else {
-            //   this.errored = true;
-            //   this.alertService.danger({
-            //     html: '<b>Secret pin does not much</b>'
-            //   });
-            // }
         }
     };
     PayComponent = __decorate([

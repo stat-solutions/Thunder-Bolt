@@ -9,14 +9,12 @@ exports.__esModule = true;
 exports.CentralmanagementRoutingModule = void 0;
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var towns_component_1 = require("./components/reports/towns/towns.component");
 var create_component_1 = require("./components/create/create.component");
 var dashboard_component_1 = require("./components/dashboard/dashboard.component");
 var profile_component_1 = require("./components/profile/profile.component");
 var areas_component_1 = require("./components/reports/areas/areas.component");
 var clients_component_1 = require("./components/reports/clients/clients.component");
 var reports_component_1 = require("./components/reports/reports.component");
-var stations_component_1 = require("./components/reports/stations/stations.component");
 var users_component_1 = require("./components/reports/users/users.component");
 var transactions_component_1 = require("./components/transactions/transactions.component");
 var pages_core_central_component_1 = require("./pages-core/pages-core-central.component");
@@ -52,6 +50,7 @@ var set_loan_tenure_component_1 = require("./components/transactions/loans/set-l
 var loan_tenure_component_1 = require("./components/transactions/approval/loan-tenure/loan-tenure.component");
 var set_loan_commision_component_1 = require("./components/transactions/loans/set-loan-commision/set-loan-commision.component");
 var set_loan_accrual_component_1 = require("./components/transactions/loans/set-loan-accrual/set-loan-accrual.component");
+var micro_loan_component_1 = require("./components/transactions/approval/micro-loan/micro-loan.component");
 var routes = [
     {
         path: '',
@@ -164,6 +163,10 @@ var routes = [
                         component: approval_component_1.ApprovalComponent,
                         children: [
                             {
+                                path: 'microloan',
+                                component: micro_loan_component_1.MicroLoanComponent
+                            },
+                            {
                                 path: 'reducerate',
                                 component: reduce_rate_component_1.ReduceRateComponent
                             },
@@ -218,16 +221,8 @@ var routes = [
                 component: reports_component_1.ReportsComponent,
                 children: [
                     {
-                        path: 'regions',
+                        path: 'loansrevenue',
                         component: areas_component_1.AreasComponent
-                    },
-                    {
-                        path: 'towns',
-                        component: towns_component_1.TownsComponent
-                    },
-                    {
-                        path: 'stations',
-                        component: stations_component_1.StationsComponent
                     },
                     {
                         path: 'clients',

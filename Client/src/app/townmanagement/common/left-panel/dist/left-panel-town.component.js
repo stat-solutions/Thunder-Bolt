@@ -38,13 +38,18 @@ var LeftPanelTownComponent = /** @class */ (function () {
                 url: '/townmanagement/dashboard'
             },
             {
-                name: 'Create Station',
+                name: 'Select Stations',
                 icon: 'fas fa-gas-pump',
                 url: '/townmanagement/createstation'
             },
             {
+                name: 'Micro Loan',
+                icon: 'fas fa-gas-pump',
+                url: '/townmanagement/microloan'
+            },
+            {
                 name: 'Enroll',
-                icon: 'fas fa-user',
+                icon: 'fas fa-user-plus',
                 url: '/townmanagement/enroll',
                 subMenu: [
                     {
@@ -96,27 +101,10 @@ var LeftPanelTownComponent = /** @class */ (function () {
                     }
                 ]
             },
-            // {
-            //   name: 'Approve Users',
-            //   icon: 'fas fa-user-check',
-            //   url: '/townmanagement/approveusers',
-            //       },
             {
                 name: 'Profile',
                 icon: 'fas fa-user-cog',
-                url: '/townmanagement/profile',
-                subMenu: [
-                    {
-                        name: 'Personal Info',
-                        icon: 'fas fa-user',
-                        url: '/townmanagement/profile/personalprofile'
-                    },
-                    {
-                        name: 'Set PIN',
-                        icon: 'fas fa-lock',
-                        url: '/townmanagement/profile/setpassword'
-                    }
-                ]
+                url: '/townmanagement/profile'
             }
         ];
     };

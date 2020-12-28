@@ -384,6 +384,9 @@ export class OthersService {
     putTxnCustomer(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postTxnCustomer`, postData, this.httpOptions);
     }
+    putTxnCustomerApproval(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postTxnCustomerApproval`, postData, this.httpOptions);
+    }
     putTxnNoneCustomer(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postTxnNonCustomer`, postData, this.httpOptions);
     }
@@ -404,6 +407,18 @@ export class OthersService {
     }
     getLoadDetails(postData: any): any{
       return this.http.post(`${this.API_URL}/api/loan/getCustomerLoanDetails`, postData);
+    }
+    getSecurityType(): any{
+      return this.http.get(`${this.API_URL}/api/loan/getSecurityType`);
+    }
+    verifyUserWithPin(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/user/verifyUserWithPin`, postData );
+    }
+    createMicroLoan(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postCreateMicroloanApproval`, postData );
+    }
+    confirmMicroLoan(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/user/verifyUserWithPin`, postData );
     }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 

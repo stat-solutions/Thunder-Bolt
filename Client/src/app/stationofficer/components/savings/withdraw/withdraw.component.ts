@@ -8,6 +8,7 @@ import { AlertService } from 'ngx-alerts';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
   selector: 'app-withdraw',
@@ -25,23 +26,19 @@ export class WithdrawComponent implements OnInit {
   status: boolean;
   checkedOk: boolean;
   fieldType: boolean;
-  station: string;
-  theCompany: string;
-  closingBal: string;
-  numberPlates: [];
-  phoneNumbers: [];
-  loanDetails: any;
-  secretPin: number;
-  loanLimit: number;
-  amountDue: number;
-  txnId: number;
-  numberValue: number;
-  values: any;
+  customers: any;
+  loanType: string;
+  amountBorrowed: number;
+  canLend = false;
   user = '/../../../assets/img/man.svg';
-  clientName: string;
+  checkedClient: any;
+  phoneNumbers: Array<string> = [];
+  User = this.authService.loggedInUserInfo();
+  txns: any;
 
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
@@ -49,22 +46,45 @@ export class WithdrawComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getTheNumberPlates();
     this.userForm = this.createFormGroup();
     this.checkedOk = false;
+    this.others.getSavingsCustomers().subscribe(
+          res => {
+            if (res.length > 0){
+              this.customers = res;
+              this.phoneNumbers = [];
+              this.checkedClient = {};
+              this.customers.forEach((customer) => {
+                this.phoneNumbers.push(customer.customerPhone1);
+              });
+            } else {
+              this.errored = true;
+              this.alertService.danger({
+                html: '<b>There are no Savings customers registered</b>'
+              });
+            }
+          },
+          err => {
+            this.errored = true;
+            console.log(err);
+            this.alertService.danger({
+              html: '<b>' + err.error.error.message + '</b>'
+            });
+          }
+      );
+    this.others.getTxnDetails().subscribe(
+        res => {
+          this.txns = res;
+          // console.log(res);
+        },
+        err => {
+          console.log(err.error.statusText);
+        }
+      );
   }
 
   createFormGroup(): any {
     return new FormGroup({
-      loanType: new FormControl(['', Validators.required]),
-      number_plate: new FormControl(
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(8),
-        ])
-      ),
       user_contact_number: new FormControl(
         '',
         Validators.compose([
@@ -76,7 +96,7 @@ export class WithdrawComponent implements OnInit {
         ])
       ),
       amount_to_pay: new FormControl(
-        { value: '', disabled: true },
+        { value: '', disabled: false },
         Validators.compose([
           Validators.required,
           CustomValidator.patternValidator(/\d/, { hasNumber: true }),
@@ -85,7 +105,7 @@ export class WithdrawComponent implements OnInit {
         ])
       ),
       pin: new FormControl(
-        { value: '', disabled: true },
+        { value: '', disabled: false },
         Validators.compose([
           Validators.required,
           CustomValidator.patternValidator(/\d/, { hasNumber: true }),
@@ -95,6 +115,14 @@ export class WithdrawComponent implements OnInit {
       ),
     });
   }
+  checkLoanbility(value: any, template: any): any {
+    if (value !== ''){
+        let savingsCustomers =  [...this.customers];
+        savingsCustomers = savingsCustomers.filter((customer) => customer.customerPhone1 === value);
+        this.checkedClient = savingsCustomers[0];
+        this.openModal(template);
+    }
+  }
 
   revert(): any {
     this.userForm.reset();
@@ -103,22 +131,18 @@ export class WithdrawComponent implements OnInit {
   refresh(): any {
     location.reload();
   }
+  assignTxnId(familyName: string, typeName: string): number{
+    for (const txn of this.txns){
+      if (txn.txnDetailsFamilyName.toUpperCase() === familyName && txn.txnDetailsTypeName.toUpperCase() === typeName){
+        return txn.txnDetailsId;
+      }
+    }
+  }
 
   get fval(): any {
     return this.userForm.controls;
   }
-  onKey(event: any): any {
-    // without type info
-    this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
 
-    this.numberValue = this.values ? parseInt(this.values, 10) : 0;
-
-    // tslint:disable-next-line:no-unused-expression
-    this.values =
-      this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
-
-    this.userForm.controls.amount_to_borrow.setValue(this.values);
-  }
 
   public openModal(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(
@@ -127,103 +151,52 @@ export class WithdrawComponent implements OnInit {
     );
   }
 
-  getTheNumberPlates(): any {
-    // this.pumpService.theNumberPlates(this.station).subscribe(
-    //   data => {
-    //     this.numberPlates = data;
-    //   },
-    //   (error: string) => {
-    //     this.errored = true;
-    //     this.serviceErrors = error;
-    //     this.alertService.danger({
-    //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-    //     });
-    //   }
-    // );
-  }
-
-  checkLoanbility(): any {
-    // this.pumpService
-    //   .checkWhetherTheCLoanable(this.userForm.controls.number_plate.value)
-    //   .subscribe(
-    //     data => {
-    //       this.loanDetails = data[0];
-    //       // console.log(this.loanDetails);
-    //       this.checkedOk = true;
-    //       this.secretPin = this.loanDetails.secret_pin;
-    //       this.loanLimit = this.loanDetails.petrol_station_loan_limit;
-    //       this.userForm.controls.number_plate.disable();
-    //       this.userForm.controls.amount_to_borrow.enable();
-    //       this.userForm.controls.pin.enable();
-    //     },
-    //     (error: string) => {
-    //       this.errored = true;
-    //       this.serviceErrors = error;
-    //       this.alertService.danger({
-    //         html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-    //       });
-    //     }
-    //   );
-  }
-
   // toggle visibility of password field
   toggleFieldType(): any {
     this.fieldType = !this.fieldType;
   }
 
   withdraw(): any {
-    this.userForm.patchValue({
-      amount_to_borrow: parseInt(
-        this.userForm.controls.amount_to_borrow.value.replace(
-          /[\D\s\._\-]+/g,
-          ''
-        ),
-        10
-      ),
-    });
-
-    // tslint:disable-next-line:triple-equals
-    if (!(this.secretPin == this.userForm.controls.pin.value)) {
-      this.alertService.danger({
-        html: '<b>Invalid PIN!</b>',
-      });
-      return;
-    } else {
-      if (this.userForm.controls.amount_to_borrow.value > this.loanLimit) {
-        this.alertService.warning({
-          html: '<b>Loan Limit Exceeded!</b>' + '<br/>',
-        });
-        return;
+    if (this.userForm.valid){
+      if (Number(this.fval.pin.value) === this.checkedClient.customerSecretPin){
+        const data = {
+          txnAmount: parseInt(this.fval.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''), 10),
+          customerId: this.checkedClient.customerId,
+          txnDetailsId: this.assignTxnId('INDIVIDUALSAVING ', 'SAVINGWITHDRAW'),
+          userId: this.User.userId,
+          productCode: 100,
+          theStationLocationId: this.User.userLocationId
+        };
+        this.others.putTxnCustomer(data).subscribe(
+          res => {
+            if (res){
+              this.posted = true;
+              this.alertService.success({
+                html: '<b> Deposit was successfully</b>'
+              });
+              setTimeout(() => {
+                this.userForm = this.createFormGroup();
+              }, 3000);
+            }
+          },
+          err => {
+            this.errored = true;
+            if (err.error.error.status === 500) {
+              this.alertService.danger({
+                html: '<b> Sever Could Not handle this request</b>'
+              });
+            } else {
+              this.alertService.danger({
+                html: '<b>' + err.error.error.message + '</b>'
+              });
+            }
+          }
+        );
       } else {
-        this.userForm.controls.number_plate.enable();
-        this.userForm.patchValue({
-          user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-          user_id: jwt_decode(this.authService.getJwtToken()).user_id,
+        this.errored = true;
+        this.alertService.danger({
+          html: '<b>Secret pin does not much</b>'
         });
-        // console.log(this.userForm.value);
-        this.posted = true;
-        this.spinner.show();
-        // this.pumpService.createLoan(this.userForm).subscribe(
-        //   result => {
-        //     this.amountDue = result[0].amount_due;
-        //     this.txnId = result[0].txn_id;
-        //     this.spinner.hide();
-        //     this.openModal();
-        //     this.router.navigate(['dashboardpump/shiftmanagement']);
-        //     setTimeout(() => {
-        //       location.reload();
-        //     }, 3000);
-        //   },
-
-        //   (error: string) => {
-        //     this.spinner.hide();
-        //     this.errored = true;
-        //     this.serviceErrors = error;
-        //     this.alertService.danger({
-        //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-        //     });
-        //   }
-        // );
       }
     }
   }

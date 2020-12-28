@@ -31,12 +31,6 @@
               formControlName="loanType" required
               (change)="checkLoanType(fval.loanType.value)"
             />&nbsp; Taxi Loan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input
-              type="radio"
-              value="Micro Loan"
-              formControlName="loanType" required
-              (change)="checkLoanType(fval.loanType.value)"
-            />&nbsp; Micro Loan
           </div>
           <div
             class="text-danger col"
@@ -114,73 +108,6 @@
             The number plate should have a maximum of 8 characters!
           </div>
         </div>
-
-        <div
-          class="form-group text-primary"
-          *ngIf="loanType == 'Micro Loan'"
-        >
-          <label
-            for="user_contact_number"
-            [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''"
-            >Phone Number<i
-              *ngIf="fval.user_contact_number.valid"
-              class="material-icons"
-              >check_circle</i
-            ></label
-          >
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i
-                  class="fas fa-phone text-primary mx-auto"
-                  style="size: 50px"
-                ></i>
-              </div>
-            </div>
-            <input
-              type="text"
-              list="user_contact_number"
-              formControlName="user_contact_number"
-              class="form-control"
-              [ngClass]="{
-                'is-invalid':
-                  (fval.user_contact_number.touched ||
-                    fval.user_contact_number.dirty) &&
-                  fval.user_contact_number.errors
-              }"
-              autocomplete="off"
-              placeholder="Select Phone number"
-              (blur)="checkLoanbility(fval.user_contact_number.value, template)"
-            />
-            <!-- numberPlates: NumberPlates[]; -->
-            <datalist id="user_contact_number">
-              <option *ngFor="let item of phoneNumbers">
-                {{ item }}
-              </option>
-            </datalist>
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.user_contact_number.touched ||
-                fval.user_contact_number.dirty) &&
-              fval.user_contact_number.errors?.required
-            "
-          >
-            The phone number is required!
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.user_contact_number.touched ||
-                fval.user_contact_number.dirty) &&
-              fval.user_contact_number.errors?.hasNumber
-            "
-          >
-            The phone number should be equal to 10 "digits"!
-          </div>
-        </div>
-        <!--/end-->
 
         <div class="form-group text-primary">
           <label

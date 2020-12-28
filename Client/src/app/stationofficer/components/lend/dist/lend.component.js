@@ -46,8 +46,11 @@ var LendComponent = /** @class */ (function () {
     LendComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
             loanType: new forms_1.FormControl(['', forms_1.Validators.required]),
-            number_plate: new forms_1.FormControl(''),
-            user_contact_number: new forms_1.FormControl(''),
+            number_plate: new forms_1.FormControl('', forms_1.Validators.compose([
+                forms_1.Validators.required,
+                forms_1.Validators.minLength(8),
+                forms_1.Validators.maxLength(8),
+            ])),
             amount_to_borrow: new forms_1.FormControl({ value: '', disabled: true }, forms_1.Validators.compose([
                 forms_1.Validators.required,
                 custom_validator_1.CustomValidator.patternValidator(/\d/, { hasNumber: true }),
@@ -81,11 +84,6 @@ var LendComponent = /** @class */ (function () {
                         _this.customers.forEach(function (customer) {
                             _this.numberPlates.push(customer.bodabodaCustomerNumberPlate);
                         });
-                        _this.fval.number_plate.setValidators([
-                            forms_1.Validators.required,
-                            forms_1.Validators.minLength(8),
-                            forms_1.Validators.maxLength(8),
-                        ]);
                     }
                     else {
                         _this.errored = true;
@@ -138,47 +136,11 @@ var LendComponent = /** @class */ (function () {
                     });
                 });
                 break;
-            case 'Micro Loan':
-                this.others.getMicroCustomers().subscribe(function (res) {
-                    if (res.length > 0) {
-                        _this.customers = [];
-                        _this.customers = res;
-                        _this.checkedClient = {};
-                        _this.loanType = value;
-                        _this.fval.user_contact_number.setValue('');
-                        _this.fval.amount_to_borrow.setValue('');
-                        _this.fval.pin.setValue('');
-                        _this.fval.amount_to_borrow.disable();
-                        _this.fval.pin.disable();
-                        _this.phoneNumbers = [];
-                        _this.customers.forEach(function (customer) {
-                            _this.phoneNumbers.push(customer.customerPhone1);
-                        });
-                        _this.fval.user_contact_number.setValidators([
-                            forms_1.Validators.required,
-                            custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
-                        ]);
-                    }
-                    else {
-                        _this.errored = true;
-                        _this.choosingPdts();
-                        _this.alertService.danger({
-                            html: '<b>There are no Micro loan customers registered</b>'
-                        });
-                    }
-                }, function (err) {
-                    _this.errored = true;
-                    _this.alertService.danger({
-                        html: '<b>' + err.error.error.message + '</b>'
-                    });
-                });
-                break;
         }
     };
     LendComponent.prototype.choosingPdts = function () {
         this.loanType = '';
         this.numberPlates = [];
-        this.phoneNumbers = [];
         this.fval.amount_to_borrow.disable();
         this.fval.pin.disable();
     };
@@ -200,7 +162,7 @@ var LendComponent = /** @class */ (function () {
                                 Id: bodaCustomers_1[0].customerId,
                                 name: bodaCustomers_1[0].customerName,
                                 // tslint:disable-next-line: max-line-length
-                                photoUrl: bodaCustomers_1[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? _this.user : bodaCustomers_1[0].customerIdPhotoUrl,
+                                photoUrl: bodaCustomers_1[0].customerPhotoUrl === 'customerPhotoUrl.com' ? _this.user : bodaCustomers_1[0].customerPhotoUrl,
                                 phone: bodaCustomers_1[0].customerPhone1,
                                 plate: bodaCustomers_1[0].bodabodaCustomerNumberPlate,
                                 loanAmount: res.length === 1 ? res[0].loanAmountTaken : 0,
@@ -237,7 +199,7 @@ var LendComponent = /** @class */ (function () {
                                 Id: taxiCustomers_1[0].customerId,
                                 name: taxiCustomers_1[0].customerName,
                                 // tslint:disable-next-line: max-line-length
-                                photoUrl: taxiCustomers_1[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? _this.user : taxiCustomers_1[0].customerIdPhotoUrl,
+                                photoUrl: taxiCustomers_1[0].customerPhotoUrl === 'customerPhotoUrl.com' ? _this.user : taxiCustomers_1[0].customerPhotoUrl,
                                 phone: taxiCustomers_1[0].customerPhone1,
                                 plate: taxiCustomers_1[0].taxiCustomerNumberPlate,
                                 loanLimit: taxiCustomers_1[0].taxiCustomerLoanLimit,
@@ -265,34 +227,6 @@ var LendComponent = /** @class */ (function () {
                         });
                     }
                     break;
-                case 'Micro Loan':
-                    var microCustomers = __spreadArrays(this.customers);
-                    microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
-                    if (microCustomers.length === 1) {
-                        this.checkedClient = {
-                            Id: microCustomers[0].customerId,
-                            name: microCustomers[0].customerName,
-                            // tslint:disable-next-line: max-line-length
-                            photoUrl: microCustomers[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? this.user : microCustomers[0].customerIdPhotoUrl,
-                            phone: microCustomers[0].customerPhone1,
-                            loanAmount: microCustomers[0].microloanCustomerLoanLimit,
-                            loanLimit: microCustomers[0].microloanCustomerLoanLimit,
-                            loanPaid: microCustomers[0].microloanCustomerLoanLimit,
-                            loanBalance: microCustomers[0].microloanCustomerLoanLimit,
-                            loanStatus: microCustomers[0].microloanCustomerLoanLimit,
-                            comment: microCustomers[0].customerComment,
-                            pin: microCustomers[0].customerSecretPin
-                        };
-                        this.openModal(template);
-                        this.enableAmountAndPin();
-                    }
-                    else {
-                        this.errored = true;
-                        this.alertService.danger({
-                            html: '<b> customer with number plate ' + value.toUpperCase() + ' is not registered<b>'
-                        });
-                    }
-                    break;
             }
         }
     };
@@ -301,7 +235,7 @@ var LendComponent = /** @class */ (function () {
             val = parseInt(val.replace(/[\D\s\._\-]+/g, ''), 10);
             if (val > this.checkedClient.loanLimit) {
                 this.errored = true;
-                this.fval.amount_to_borrow.setValue(this.checkedClient.loanLimit);
+                this.fval.amount_to_borrow.setValue('');
                 this.canLend = false;
                 this.alertService.danger({
                     html: '<b> Amount provided (' + val + ') is greater than the customer loan limit</b>'
@@ -349,8 +283,7 @@ var LendComponent = /** @class */ (function () {
                     customerId: this.checkedClient.Id,
                     txnDetailsId: null,
                     userId: this.User.userId,
-                    productCode: this.loanType === 'Boda Loan' ? 200 :
-                        this.loanType === 'Taxi Loan' ? 300 : 400,
+                    productCode: this.loanType === 'Boda Loan' ? 200 : 300,
                     theStationLocationId: this.User.userLocationId
                 };
                 switch (this.loanType) {

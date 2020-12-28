@@ -1,0 +1,928 @@
+<div
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-1 pb-0 shadow-lg col-12 col-lg-11"
+>
+  <div class="jumbotron-fluid mb-0 pb-0">
+  <div>
+    <div class="container my-2 mx-0 shadow-lg col-12">
+      <div class="row">
+        <div class="col-12">
+          <h4
+            class="rub-head4 text-info text-center font-weight-bold py-1"
+          >
+            {{ header }}
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg" [hidden]='!showUserForm'>
+      <form [formGroup]="userForm">
+        <div class="row">
+          <div class="col-12 col-md-6">
+        <div class="form-group text-primary">
+          <label
+            for="user_contact_number"
+            [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''"
+            >Phone Number<i
+              *ngIf="fval.user_contact_number.valid"
+              class="material-icons"
+              >check_circle</i
+            ></label
+          >
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i
+                  class="fas fa-phone text-primary mx-auto"
+                  style="size: 50px"
+                ></i>
+              </div>
+            </div>
+            <input
+              type="text"
+              list="user_contact_number"
+              formControlName="user_contact_number"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.user_contact_number.touched ||
+                    fval.user_contact_number.dirty) &&
+                  fval.user_contact_number.errors
+              }"
+              autocomplete="off"
+              placeholder="Select Phone number"
+              (blur)="checkLoanbility(fval.user_contact_number.value)"
+            />
+            <!-- numberPlates: NumberPlates[]; -->
+            <datalist id="user_contact_number">
+              <option *ngFor="let item of phoneNumbers">
+                {{ item }}
+              </option>
+            </datalist>
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.user_contact_number.touched ||
+                fval.user_contact_number.dirty) &&
+              fval.user_contact_number.errors?.required
+            "
+          >
+            The phone number is required!
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.user_contact_number.touched ||
+                fval.user_contact_number.dirty) &&
+              fval.user_contact_number.errors?.hasNumber
+            "
+          >
+            The phone number should be equal to 10 "digits"!
+          </div>
+        </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group text-primary">
+            <label
+              for="loanpurpose"
+              [ngClass]="
+              fval.loanpurpose.valid ? 'text-info' : ''
+              "
+              >Loan Purpose<i
+                *ngIf="fval.loanpurpose.valid"
+                class="material-icons"
+                >check_circle</i
+              ></label
+            >
+            <div class="input-group mb-0">
+              <input
+                type="text"
+                formControlName="loanpurpose"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (fval.loanpurpose.touched ||
+                    fval.loanpurpose.dirty) &&
+                    fval.loanpurpose.errors
+                }"
+                autocomplete="off"
+                placeholder="Loan purpose"
+              />
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (fval.loanpurpose.touched ||
+                fval.loanpurpose.dirty) &&
+                fval.loanpurpose.errors?.required
+              "
+            >
+              The loan purpose is required!
+            </div>
+          </div>  
+        </div>
+      </div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="form-group text-primary">
+              <label
+                for="amount_to_pay"
+                [ngClass]="fval.amount_to_pay.valid ? 'text-info' : ''"
+                >Amount<i *ngIf="fval.amount_to_pay.valid" class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <input
+                  type="text"
+                  list="amount_to_pay"
+                  formControlName="amount_to_pay"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (fval.amount_to_pay.touched ||
+                        fval.amount_to_pay.dirty) &&
+                      fval.amount_to_pay.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter amount to deposit"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
+                  fval.amount_to_pay.errors?.required
+                "
+              >
+                The amount to deposit is required!
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
+                  fval.amount_to_pay.errors?.maxLength
+                "
+              >
+                Please enter valid amount to be borrowed!
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
+                  fval.amount_to_pay.errors?.minlength
+                "
+              >
+                Please enter valid amount to be borrowed!
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
+                  fval.amount_to_pay.errors?.hasNumber
+                "
+              >
+                Please enter valid amount to be borrowed!
+              </div>
+            </div>
+            </div>
+          <div class="col-12 col-md-6">
+             <div class="form-group text-primary">
+          <label for="pin" [ngClass]="fval.pin.valid ? 'text-info' : ''"
+            >PIN<i *ngIf="fval.pin.valid" class="material-icons"
+              >check_circle</i
+            ></label
+          >
+
+          <div class="input-group mb-0">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i
+                  class="fas fa-lock text-primary mx-auto"
+                  style="size: 50px"
+                ></i>
+              </div>
+            </div>
+            <input
+              type="password"
+              formControlName="pin"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.pin.touched || fval.pin.dirty) && fval.pin.errors
+              }"
+              placeholder="Enter your PIN"
+              autocomplete="off"
+            />
+          <div class="input-group-append">
+            <span class="input-group-text">
+              <i
+                class="fas"
+                [ngClass]="{
+                  'fa-eye-slash': !fieldType,
+                  'fa-eye': fieldType
+                }"
+                (click)="toggleFieldType()"
+              ></i>
+            </span>
+          </div>
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.required
+            "
+          >
+            The PIN is required!
+          </div>
+
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.maxlength
+            "
+          >
+            Please enter a valid pin!
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.hasNumber
+            "
+          >
+            Only digits are allowed!
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.minlength
+            "
+          >
+            Please enter a valid pin!
+          </div>
+        </div>
+          </div>
+        </div>
+        <div class='row'>
+          <div class="col-12 col-md-6">
+            <div class="d-flex my-3 pt-2 pb-3 mx-auto">
+          <button
+            type="submit"
+            class="btn btn-info col-5 mx-auto"
+            [disabled]="!userForm.valid"
+            (click)='saveAndNew()'
+          >
+            Next
+          </button>
+          <button
+            type="button"
+            class="btn btn-info col-5 mx-auto"
+            routerLink = '/townmanagement'
+          >
+            Cancel
+          </button>
+          </div>
+        </div>
+        </div>
+      </form>
+    </div> 
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg" [hidden]='!showGarantorForm'>
+      <form [formGroup]="garantorsForm">
+        <div class="row">
+        <div class="col-12 col-md-6">
+          <div class="form-group text-primary">
+              <label
+                for="name"
+                [ngClass]="garantorFval.name.valid ? 'text-info' : ''"
+                >Guarantor's Name<i
+                  *ngIf="garantorFval.name.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (garantorFval.name.touched ||
+                        garantorFval.name.dirty) &&
+                        garantorFval.name.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter Customer Name"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (garantorFval.name.touched || garantorFval.name.dirty) &&
+                  garantorFval.name.errors?.required
+                "
+              >
+                The guarantor's name is required!
+              </div>
+            </div>
+          </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group text-primary">
+                <label
+                  for="url"
+                  [ngClass]="garantorFval.url.valid ? 'text-info' : ''"
+                  >Guarantor's Image<i
+                    *ngIf="garantorFval.url.valid"
+                    class="material-icons"
+                    >check_circle</i
+                  ></label
+                >
+                <div class="input-group mb-0">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i
+                        class="fas fa-image text-primary mx-auto"
+                        style="size: 50px"
+                      ></i>
+                    </div>
+                  </div>
+                  <input
+                    id="guarantorUrl"
+                    formControlName="url"
+                    type="file"
+                    src="image/*"
+                    capture
+                    (change)="onFileSelected($event)"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid':
+                        (garantorFval.url.touched ||
+                        garantorFval.url.dirty) &&
+                        garantorFval.url.errors
+                    }"
+                  />
+                </div>
+                <div
+                  class="text-danger col"
+                  *ngIf="
+                    (garantorFval.url.touched || garantorFval.url.dirty) &&
+                    garantorFval.url.errors?.required
+                  "
+                >
+                  Please upload a photo of the guarantor!
+                </div>
+              </div>
+            </div>
+        </div>
+      <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="main_contact_number1"
+                [ngClass]="garantorFval.main_contact_number1.valid ? 'text-info' : ''"
+                >Phone Number 1<i
+                  *ngIf="garantorFval.main_contact_number1.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-phone text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="main_contact_number1"
+                  formControlName="main_contact_number1"
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (garantorFval.main_contact_number1.touched ||
+                      garantorFval.main_contact_number1.dirty) &&
+                      garantorFval.main_contact_number1.errors
+                  }"
+                  placeholder="e.g. 07XXXXXXXX"
+                  autocomplete="off"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (garantorFval.main_contact_number1.touched ||
+                  garantorFval.main_contact_number1.dirty) &&
+                  garantorFval.main_contact_number1.errors?.required
+                "
+              >
+                The phone number is required!
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (garantorFval.main_contact_number1.touched ||
+                  garantorFval.main_contact_number1.dirty) &&
+                  garantorFval.main_contact_number1.errors?.hasNumber
+                "
+              >
+                The phone number should be equal to 10 "digits"!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="main_contact_number2"
+                [ngClass]="garantorFval.main_contact_number2.valid ? 'text-info' : ''"
+                >Phone Number 2(Optional)
+                <!-- <i
+                  *ngIf="fval.main_contact_number2.valid"
+                  class="material-icons"
+                  >check_circle</i
+                > -->
+                </label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-phone text-primary mx-auto"
+                      style="size: 50px"
+                    ></i>
+                  </div>
+                </div>
+                <input
+                  id="main_contact_number2"
+                  formControlName="main_contact_number2"
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (garantorFval.main_contact_number2.touched ||
+                      garantorFval.main_contact_number2.dirty) &&
+                      garantorFval.main_contact_number2.errors
+                  }"
+                  placeholder="e.g. 07XXXXXXXX (Optional)"
+                  autocomplete="off"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (garantorFval.main_contact_number2.touched ||
+                  garantorFval.main_contact_number2.dirty) &&
+                  garantorFval.main_contact_number2.errors?.hasNumber
+                "
+              >
+                The phone number should be equal to 10 "digits"!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="currentBusinesstype"
+                [ngClass]="
+                garantorFval.currentBusinesstype.valid ? 'text-info' : ''
+                "
+                >Current Business<i
+                  *ngIf="garantorFval.currentBusinesstype.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <input
+                  type="text"
+                  formControlName="currentBusinesstype"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (garantorFval.currentBusinesstype.touched ||
+                      garantorFval.currentBusinesstype.dirty) &&
+                      garantorFval.currentBusinesstype.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Current business type"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (garantorFval.currentBusinesstype.touched ||
+                  garantorFval.currentBusinesstype.dirty) &&
+                  garantorFval.currentBusinesstype.errors?.required
+                "
+              >
+                The current business type is required!
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="businessLocation"
+                [ngClass]="
+                garantorFval.businessLocation.valid ? 'text-info' : ''
+                "
+                >Business Location<i
+                  *ngIf="garantorFval.businessLocation.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-map-marker-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="businessLocation"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (garantorFval.businessLocation.touched ||
+                      garantorFval.businessLocation.dirty) &&
+                      garantorFval.businessLocation.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Business location"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (garantorFval.businessLocation.touched ||
+                  garantorFval.businessLocation.dirty) &&
+                  garantorFval.businessLocation.errors?.required
+                "
+              >
+                The business location is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="currentResidence"
+                [ngClass]="
+                garantorFval.currentResidence.valid
+                    ? 'text-info'
+                    : ''
+                "
+                >Current Residence<i
+                  *ngIf="garantorFval.currentResidence.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-location-arrow text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="currentResidence"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (garantorFval.currentResidence.touched ||
+                      garantorFval.currentResidence.dirty) &&
+                      garantorFval.currentResidence.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Current residence"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (garantorFval.currentResidence.touched ||
+                  garantorFval.currentResidence.dirty) &&
+                  garantorFval.currentResidence.errors?.required
+                "
+              >
+                Current residence is required!
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='row'>
+          <div class="col-12 col-md-6">
+            <div class="d-flex my-3 pt-2 pb-3 mx-auto">
+              <button
+                type="submit"
+                class="btn btn-info col-5 mx-auto"
+                [disabled]="!garantorsForm.valid"
+                (click)='saveAndNew()'
+              >
+                Save and Add
+              </button>
+              <button
+                type="submit"
+                class="btn btn-info col-5 mx-auto"
+                [disabled]="!garantorsForm.valid"
+                (click)='saveAndNext()'
+              >
+                Save and Next
+              </button>
+              <button
+                type="button"
+                class="btn btn-info col-5 mx-auto"
+                (click)="skip()"
+              >
+                Skip
+              </button>
+              <button
+                type="button"
+                class="btn btn-info col-5 mx-auto"
+                routerLink = '/townmanagement'
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+    </form>
+    </div>
+    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg" [hidden]='!showSecurityForm'>
+      <form [formGroup]="securityForm">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="type"
+                [ngClass]="securityFval.name.valid ? 'text-info' : ''"
+                >Security Type<i
+                  *ngIf="securityFval.type.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="type"
+                  list='type'
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (securityFval.type.touched ||
+                      securityFval.type.dirty) &&
+                      securityFval.type.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter Security Type"
+                />
+                <datalist id="type">
+                  <option *ngFor="let item of securityTypes">
+                    {{ item.securityTypeName }}
+                  </option>
+                </datalist>
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (securityFval.type.touched || securityFval.type.dirty) &&
+                  securityFval.type.errors?.required
+                "
+              >
+                The security type is required!
+              </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="form-group text-primary">
+              <label
+                for="name"
+                [ngClass]="securityFval.name.valid ? 'text-info' : ''"
+                >Security Name<i
+                  *ngIf="securityFval.name.valid"
+                  class="material-icons"
+                  >check_circle</i
+                ></label
+              >
+              <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i
+                      class="fas fa-user-alt text-primary mx-auto"
+                      style="size: 50px"
+                    >
+                    </i>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="form-control"
+                  [ngClass]="{
+                    'is-invalid':
+                      (securityFval.name.touched ||
+                      securityFval.name.dirty) &&
+                      securityFval.name.errors
+                  }"
+                  autocomplete="off"
+                  placeholder="Enter Security Name"
+                />
+              </div>
+              <div
+                class="text-danger col"
+                *ngIf="
+                  (securityFval.name.touched || securityFval.name.dirty) &&
+                  securityFval.name.errors?.required
+                "
+              >
+                The security name is required!
+              </div>
+            </div>
+        </div>
+        </div>
+        <div class='row'> 
+        <div class="col-12 col-md-6">
+          <div class="form-group text-primary">
+            <label
+              for="location"
+              [ngClass]="securityFval.location.valid ? 'text-info' : ''"
+              >Security Location<i
+                *ngIf="securityFval.location.valid"
+                class="material-icons"
+                >check_circle</i
+              ></label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-user-alt text-primary mx-auto"
+                    style="size: 50px"
+                  >
+                  </i>
+                </div>
+              </div>
+              <input
+                type="text"
+                formControlName="location"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (securityFval.location.touched ||
+                    securityFval.location.dirty) &&
+                    securityFval.location.errors
+                }"
+                autocomplete="off"
+                placeholder="Enter Security Location"
+              />
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (securityFval.location.touched || securityFval.location.dirty) &&
+                securityFval.location.errors?.required
+              "
+            >
+              The security location is required!
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group text-primary">
+            <label
+              for="url"
+              [ngClass]="securityFval.url.valid ? 'text-info' : ''"
+              >Security Image<i
+                *ngIf="securityFval.url.valid"
+                class="material-icons"
+                >check_circle</i
+              ></label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-image text-primary mx-auto"
+                    style="size: 50px"
+                  ></i>
+                </div>
+              </div>
+              <input
+                id="securityUrl"
+                formControlName="url"
+                type="file"
+                src="image/*"
+                capture
+                (change)="onFileSelected($event)"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (securityFval.url.touched ||
+                    securityFval.url.dirty) &&
+                    securityFval.url.errors
+                }"
+              />
+            </div>
+            <div
+              class="text-danger col"
+              *ngIf="
+                (securityFval.url.touched || securityFval.url.dirty) &&
+                securityFval.url.errors?.required
+              "
+            >
+              Please upload a photo of the security!
+            </div>
+            </div>
+          </div>
+      </div>
+          <div class="row">
+          <div class="col-12 col-md-6">
+            <div class="d-flex my-3 pt-2 pb-3 mx-auto">
+          <button
+            type="submit"
+            class="btn btn-info col-5 mx-auto"
+            [disabled]="!securityForm.valid"
+            (click)='saveAndNew()'
+          >
+            Save and Add
+          </button>
+          <button
+            type="submit"
+            class="btn btn-info col-5 mx-auto"
+            [disabled]="!securityForm.valid"
+            (click)='saveAndNext()'
+          >
+            Save and Finish
+          </button>
+          <button
+                type="button"
+                class="btn btn-info col-5 mx-auto"
+                (click)="skip()"
+              >
+                Skip and Finish
+              </button>
+          <button
+            type="button"
+            class="btn btn-info col-5 mx-auto"
+            routerLink = '/townmanagement'
+          >
+            Cancel
+          </button>
+          </div>
+        </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- action buttons -->
+  <div class="d-flex mt-3 mb-2 mb-xl-0 py-2 mx-auto">
+    <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+      <p class="text-light">Please wait...</p>
+    </ngx-spinner>
+    <label class="col" *ngIf="errored" class="text-danger">
+      <!-- <i class="material-icons">Cancel</i> -->
+      <ngx-alerts></ngx-alerts>
+    </label>
+    <label class="col" *ngIf="posted" class="text-info">
+      <!-- <i class="material-icons">check_circle</i> -->
+      <ngx-alerts></ngx-alerts>
+    </label>
+  </div>
+  </div>
+</div>

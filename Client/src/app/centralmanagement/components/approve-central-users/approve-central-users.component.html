@@ -9,7 +9,7 @@
               </div>
           </div>
       </div>
-      <div class="invest-card card-body mt-2 pt-3 pt-md-4 mb-5 mx-auto pb-4 px-1 px-lg-auto shadow-lg">
+      <div class="invest-card card-body mt-2 pt-3 pt-md-4 mb-5 mx-auto pb-4 px-1 px-lg-auto shadow-lg" [hidden]='!loaded'>
           <form [formGroup]="userForm">
               <div class="item-header mb-2">
                   <div class="row">

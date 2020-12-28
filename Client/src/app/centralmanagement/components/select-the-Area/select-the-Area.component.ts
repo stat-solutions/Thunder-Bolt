@@ -18,6 +18,7 @@ export class SelectTheAreaComponent implements OnInit {
   userForm: FormGroup;
   approvedAreas: any;
   posted = false;
+  loaded = false;
   actionButton: string;
   errored: boolean;
   serviceErrors: string;
@@ -76,6 +77,7 @@ export class SelectTheAreaComponent implements OnInit {
           n = i + 1;
         });
         this.removeItem(n);
+        this.loaded = true;
       }
     );
   }

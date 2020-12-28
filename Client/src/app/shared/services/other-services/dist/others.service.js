@@ -406,6 +406,9 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.putTxnCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/postTxnCustomer", postData, this.httpOptions);
     };
+    OthersService.prototype.putTxnCustomerApproval = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postTxnCustomerApproval", postData, this.httpOptions);
+    };
     OthersService.prototype.putTxnNoneCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/postTxnNonCustomer", postData, this.httpOptions);
     };
@@ -426,6 +429,18 @@ var OthersService = /** @class */ (function () {
     };
     OthersService.prototype.getLoadDetails = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/getCustomerLoanDetails", postData);
+    };
+    OthersService.prototype.getSecurityType = function () {
+        return this.http.get(this.API_URL + "/api/loan/getSecurityType");
+    };
+    OthersService.prototype.verifyUserWithPin = function (postData) {
+        return this.http.post(this.API_URL + "/api/user/verifyUserWithPin", postData);
+    };
+    OthersService.prototype.createMicroLoan = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postCreateMicroloanApproval", postData);
+    };
+    OthersService.prototype.confirmMicroLoan = function (postData) {
+        return this.http.post(this.API_URL + "/api/user/verifyUserWithPin", postData);
     };
     OthersService.prototype.handleCompanySetupError = function (errorResponse) {
         if (errorResponse.error instanceof ErrorEvent) {

@@ -70,9 +70,11 @@ export class PayComponent implements OnInit {
       loanType: new FormControl(['', Validators.required]),
       number_plate: new FormControl(
         '',
-      ),
-      user_contact_number: new FormControl(
-        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(8),
+        ])
       ),
       amount_to_pay: new FormControl(
         { value: '', disabled: true },
@@ -113,11 +115,6 @@ export class PayComponent implements OnInit {
               this.customers.forEach((customer) => {
                 this.numberPlates.push(customer.bodabodaCustomerNumberPlate);
               });
-              this.fval.number_plate.setValidators([
-                Validators.required,
-                Validators.minLength(8),
-                Validators.maxLength(8),
-              ]);
             } else {
               this.errored = true;
               this.choosingPdts();
@@ -152,11 +149,6 @@ export class PayComponent implements OnInit {
               this.customers.forEach((customer) => {
                 this.numberPlates.push(customer.taxiCustomerNumberPlate);
               });
-              this.fval.number_plate.setValidators([
-                Validators.required,
-                Validators.minLength(8),
-                Validators.maxLength(8),
-              ]);
             } else {
               this.errored = true;
               this.choosingPdts();
@@ -242,7 +234,7 @@ export class PayComponent implements OnInit {
                   Id: bodaCustomers[0].customerId,
                   name: bodaCustomers[0].customerName,
                   // tslint:disable-next-line: max-line-length
-                  photoUrl: bodaCustomers[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? this.user : bodaCustomers[0].customerIdPhotoUrl,
+                  photoUrl: bodaCustomers[0].customerPhotoUrl === 'customerPhotoUrl.com' ? this.user : bodaCustomers[0].customerPhotoUrl,
                   phone: bodaCustomers[0].customerPhone1,
                   plate: bodaCustomers[0].bodabodaCustomerNumberPlate,
                   loanAmount: res.length === 1 ? res[0].loanAmountTaken : 0,
@@ -281,7 +273,7 @@ export class PayComponent implements OnInit {
                 Id: taxiCustomers[0].customerId,
                 name: taxiCustomers[0].customerName,
                 // tslint:disable-next-line: max-line-length
-                photoUrl: taxiCustomers[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? this.user : taxiCustomers[0].customerIdPhotoUrl ,
+                photoUrl: taxiCustomers[0].customerPhotoUrl === 'customerPhotoUrl.com' ? this.user : taxiCustomers[0].customerPhotoUrl ,
                 phone: taxiCustomers[0].customerPhone1,
                 plate: taxiCustomers[0].taxiCustomerNumberPlate,
                 loanLimit: taxiCustomers[0].taxiCustomerLoanLimit,
@@ -347,7 +339,7 @@ export class PayComponent implements OnInit {
       val = parseInt(val.replace(/[\D\s\._\-]+/g, ''), 10);
       if (val > this.checkedClient.loanBalance) {
         this.errored = true;
-        this.fval.amount_to_pay.setValue(this.checkedClient.loanBalance);
+        this.fval.amount_to_pay.setValue('');
         this.alertService.danger({
           html: '<b> Amount provided (' + val + ') is greater than the customer loan limit</b>'
         });
@@ -389,56 +381,65 @@ export class PayComponent implements OnInit {
 
   pay(): any {
     if (this.userForm.valid &&  this.checkedClient.Id && this.loanAmount){
-      // if (Number(this.fval.pin.value) === this.checkedClient.pin){
-        const data = {
-          txnAmount: this.loanAmount,
-          customerId: this.checkedClient.Id,
-          txnDetailsId: null,
-          userId: this.User.userId,
-          productCode: this.loanType === 'Boda Loan' ? 200 :
-                        this.loanType === 'Taxi Loan' ? 300 : 400,
-          theStationLocationId: this.User.userLocationId
-        };
-        switch (this.loanType) {
-          case 'Boda Loan':
-            data.txnDetailsId = this.assignTxnId('BODABODALOAN', 'LOANPAYMENT');
-            break;
-          case 'Taxi Loan':
-            data.txnDetailsId = this.assignTxnId('TAXILOAN', 'LOANPAYMENT');
-            break;
-          case 'Micro Loan':
-            data.txnDetailsId = this.assignTxnId('MICROLOAN', 'LOANPAYMENT');
-            break;
-        }
-        this.others.putTxnCustomer(data).subscribe(
+        this.others.verifyUserWithPin({userPhone1: this.User.userPhone, userPassword: Number(this.fval.pin.value)}).subscribe(
           res => {
             if (res){
-              this.posted = true;
-              this.alertService.success({
-                html: '<b> Payment was successfully</b>'
+              const data = {
+                txnAmount: this.loanAmount,
+                customerId: this.checkedClient.Id,
+                txnDetailsId: null,
+                userId: this.User.userId,
+                productCode: this.loanType === 'Boda Loan' ? 200 : 300,
+                theStationLocationId: this.User.userLocationId
+              };
+              switch (this.loanType) {
+                case 'Boda Loan':
+                  data.txnDetailsId = this.assignTxnId('BODABODALOAN', 'LOANPAYMENT');
+                  break;
+                case 'Taxi Loan':
+                  data.txnDetailsId = this.assignTxnId('TAXILOAN', 'LOANPAYMENT');
+                  break;
+                case 'Micro Loan':
+                  data.txnDetailsId = this.assignTxnId('MICROLOAN', 'LOANPAYMENT');
+                  break;
+              }
+              this.others.putTxnCustomer(data).subscribe(
+                response => {
+                  if (response === true){
+                    this.posted = true;
+                    this.alertService.success({
+                      html: '<b> Payment was successfully</b>'
+                    });
+                    setTimeout(this.revert(), 3000);
+                  }
+                },
+                err => {
+                  this.errored = true;
+                  if (err.error.error.status === 500) {
+                    this.alertService.danger({
+                      html: '<b> Sever Could Not handle this request</b>'
+                    });
+                  } else {
+                    this.alertService.danger({
+                      html: '<b>' + err.error.error.message + '</b>'
+                    });
+                  }
+                }
+              );
+            } else {
+              this.errored = true;
+              this.alertService.danger({
+                html: '<b> Passwords do not match<b>'
               });
-              setTimeout(this.revert(), 3000);
             }
           },
           err => {
             this.errored = true;
-            if (err.error.error.status === 500) {
-              this.alertService.danger({
-                html: '<b> Sever Could Not handle this request</b>'
-              });
-            } else {
-              this.alertService.danger({
-                html: '<b>' + err.error.error.message + '</b>'
-              });
-            }
+            this.alertService.danger({
+              html: '<b>' + err.error.error.message + '<b>'
+            });
           }
         );
-      // } else {
-      //   this.errored = true;
-      //   this.alertService.danger({
-      //     html: '<b>Secret pin does not much</b>'
-      //   });
-      // }
     }
   }
 }

@@ -115,12 +115,13 @@ export class AuthServiceService {
     }
     loggedInUserInfo(): any {
       // console.log(this.jwtHelper.decodeToken(this.getJwtToken()));
+      const xn = this.jwtHelper.decodeToken(this.getJwtToken());
       return {
-        userName: this.jwtHelper.decodeToken(this.getJwtToken()).userName,
-        userId: this.jwtHelper.decodeToken(this.getJwtToken()).userId,
-        userPhone: this.jwtHelper.decodeToken(this.getJwtToken()).userPhone1,
-        userLocationId: this.jwtHelper.decodeToken(this.getJwtToken()).locationId,
-        accessRights: this.jwtHelper.decodeToken(this.getJwtToken()).fkAccessRightsIdUser,
+        userName: xn.userName,
+        userId: xn.userId,
+        userPhone: xn.userPhone1,
+        userLocationId: xn.locationId,
+        accessRights: xn.fkAccessRightsIdUser,
       };
     }
 

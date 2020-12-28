@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <div class="invest-card card-body mt-2 pt-2 pt-md-4 mb-3 mx-auto pb-4 shadow-lg">
+    <div class="invest-card card-body mt-2 pt-2 pt-md-4 mb-3 mx-auto pb-4 shadow-lg" [hidden]='!loaded'>
       <form [formGroup]="userForm">
         <div class="item-header">
           <div class="row">

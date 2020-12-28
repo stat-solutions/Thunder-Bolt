@@ -24,6 +24,7 @@ export class ApproveStationsComponent implements OnInit {
   userForm: FormGroup;
   stationApproval: any;
   posted = false;
+  loaded = false;
   actionButton: string;
   errored: boolean;
   serviceErrors: string;
@@ -77,6 +78,7 @@ export class ApproveStationsComponent implements OnInit {
               this.addItem();
               n = i + 1;
             });
+        this.loaded =  true;
         this.removeItem(n);
       }
     );

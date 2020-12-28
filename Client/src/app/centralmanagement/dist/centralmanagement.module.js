@@ -25,8 +25,6 @@ var pages_core_central_component_1 = require("./pages-core/pages-core-central.co
 var tooltip_1 = require("ngx-bootstrap/tooltip");
 var reports_component_1 = require("./components/reports/reports.component");
 var clients_component_1 = require("./components/reports/clients/clients.component");
-var towns_component_1 = require("./components/reports/towns/towns.component");
-var stations_component_1 = require("./components/reports/stations/stations.component");
 var users_component_1 = require("./components/reports/users/users.component");
 var create_component_1 = require("./components/create/create.component");
 var transactions_component_1 = require("./components/transactions/transactions.component");
@@ -68,6 +66,7 @@ var loan_tenure_component_1 = require("./components/transactions/approval/loan-t
 var ngx_alerts_1 = require("ngx-alerts");
 var set_loan_commision_component_1 = require("./components/transactions/loans/set-loan-commision/set-loan-commision.component");
 var set_loan_accrual_component_1 = require("./components/transactions/loans/set-loan-accrual/set-loan-accrual.component");
+var micro_loan_component_1 = require("./components/transactions/approval/micro-loan/micro-loan.component");
 var CentralmanagementModule = /** @class */ (function () {
     function CentralmanagementModule() {
     }
@@ -78,8 +77,6 @@ var CentralmanagementModule = /** @class */ (function () {
                 dashboard_component_1.DashboardComponent,
                 profile_component_1.ProfileComponent,
                 users_component_1.UsersComponent,
-                stations_component_1.StationsComponent,
-                towns_component_1.TownsComponent,
                 clients_component_1.ClientsComponent,
                 areas_component_1.AreasComponent,
                 pages_core_central_component_1.PagesCoreCentralComponent,
@@ -104,6 +101,7 @@ var CentralmanagementModule = /** @class */ (function () {
                 set_loan_rate_component_1.SetLoanRateComponent,
                 set_loan_commision_component_1.SetLoanCommissionComponent,
                 set_loan_accrual_component_1.SetLoanAcrualComponent,
+                micro_loan_component_1.MicroLoanComponent,
                 deposit_float_component_1.DepositFloatComponent,
                 withdraw_float_component_1.WithdrawFloatComponent,
                 reduce_rate_component_1.ReduceRateComponent,

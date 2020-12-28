@@ -30,6 +30,10 @@ var edit_client_component_1 = require("./components/enroll/edit-client/edit-clie
 var edit_boda_stage_component_1 = require("./components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component");
 var edit_stage_component_1 = require("./components/enroll/edit-stage/edit-stage.component");
 var edit_taxi_stage_component_1 = require("./components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component");
+var micro_loans_component_1 = require("./components/micro-loans/micro-loans.component");
+var get_loan_component_1 = require("./components/micro-loans/get-loan/get-loan.component");
+var pay_loan_component_1 = require("./components/micro-loans/pay-loan/pay-loan.component");
+var comfirm_loan_component_1 = require("./components/micro-loans/comfirm-loan/comfirm-loan.component");
 var routes = [
     { path: '',
         component: pages_core_town_component_1.PagesCoreTownComponent,
@@ -47,6 +51,29 @@ var routes = [
             {
                 path: 'createstation',
                 component: create_station_component_1.CreateStationComponent
+            },
+            {
+                path: 'microloan',
+                component: micro_loans_component_1.MicroLoansComponent,
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'getloan',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'getloan',
+                        component: get_loan_component_1.GetLoanComponent
+                    },
+                    {
+                        path: 'confirm',
+                        component: comfirm_loan_component_1.ComfirmLoanComponent
+                    },
+                    {
+                        path: 'payloan',
+                        component: pay_loan_component_1.PayLoanComponent
+                    },
+                ]
             },
             {
                 path: 'enroll',

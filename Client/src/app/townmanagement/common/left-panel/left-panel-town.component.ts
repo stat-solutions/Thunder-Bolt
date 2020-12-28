@@ -62,6 +62,11 @@ export class LeftPanelTownComponent implements OnInit {
         url: '/townmanagement/createstation'
       },
       {
+        name: 'Micro Loan',
+        icon: 'fas fa-gas-pump',
+        url: '/townmanagement/microloan'
+      },
+      {
         name: 'Enroll',
         icon: 'fas fa-user-plus',
         url: '/townmanagement/enroll',

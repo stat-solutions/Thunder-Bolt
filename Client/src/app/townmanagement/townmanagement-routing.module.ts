@@ -23,6 +23,10 @@ import { EditClientComponent } from './components/enroll/edit-client/edit-client
 import { EditBodaStageComponent } from './components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component';
 import { EditStageComponent } from './components/enroll/edit-stage/edit-stage.component';
 import { EditTaxiStageComponent } from './components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component';
+import { MicroLoansComponent } from './components/micro-loans/micro-loans.component';
+import { GetLoanComponent } from './components/micro-loans/get-loan/get-loan.component';
+import { PayLoanComponent } from './components/micro-loans/pay-loan/pay-loan.component';
+import { ComfirmLoanComponent } from './components/micro-loans/comfirm-loan/comfirm-loan.component';
 
 const routes: Routes = [
   { path: '',
@@ -41,6 +45,29 @@ const routes: Routes = [
       {
         path: 'createstation',
         component: CreateStationComponent
+      },
+      {
+        path: 'microloan',
+        component: MicroLoansComponent,
+        children: [
+          {
+            path: '',
+            redirectTo: 'getloan',
+            pathMatch: 'full'
+          },
+          {
+            path: 'getloan',
+            component: GetLoanComponent,
+          }, 
+          {
+            path: 'confirm',
+            component: ComfirmLoanComponent,
+          },
+          {
+            path: 'payloan',
+            component: PayLoanComponent,
+          },
+        ]
       },
       {
         path: 'enroll',

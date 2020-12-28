@@ -19,6 +19,7 @@ export interface AreaApprovals {
 export class ApproveAreasComponent implements OnInit {
   userForm: FormGroup;
   posted = false;
+  loaded = false;
   errored: boolean;
   serviceErrors: string;
   status: boolean;
@@ -73,6 +74,7 @@ export class ApproveAreasComponent implements OnInit {
         this.addItem();
         n = i + 1;
       });
+        this.loaded = true;
         this.removeItem(n);
       },
       err => console.log(err)

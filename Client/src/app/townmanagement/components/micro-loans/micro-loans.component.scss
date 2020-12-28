@@ -1,0 +1,78 @@
+.jumbotron-fluid {
+  height: inherit !important;
+}
+
+.rub-head4 {
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+}
+
+.btn {
+  padding: .340rem 0rem;
+  font-size: .8rem;
+}
+
+
+
+//media queries
+@media (min-width: 320px) {
+  .jumbotron-fluid {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+}
+@media (min-width: 375px) {
+  .jumbotron-fluid {
+    padding-bottom: .3rem !important;
+  }
+}
+
+@media (min-width: 640px) {
+  .container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  .jumbotron-fluid {
+    padding-top: 0.65rem !important;
+    padding-bottom: 0.65rem !important;
+  }
+}
+
+@media (min-width: 812px) {
+  .jumbotron-fluid {
+    padding-top: 0px !important;
+    padding-bottom: .35rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .jumbotron-fluid {
+    padding-top: .8rem !important;
+    padding-bottom: 1.2rem !important;
+  }
+}
+
+@media (min-width: 1100px) {
+  .jumbotron-fluid {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: .65rem !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media (min-width: 1320px) {
+}

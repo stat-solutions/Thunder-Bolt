@@ -25,6 +25,7 @@ export class ApproveCentralUsersComponent implements OnInit {
   userForm: FormGroup;
   centralUserApprovals: any;
   posted = false;
+  loaded = false;
   actionButton: string;
   errored: boolean;
   serviceErrors: string;
@@ -39,6 +40,11 @@ export class ApproveCentralUsersComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
+  ngOnChanges(): void {
+    this.userForm = this.createFormGroup();
+    this.fval.selectAll.setValue(false);
+    this.initialiseForm();
+  }
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
@@ -84,6 +90,7 @@ export class ApproveCentralUsersComponent implements OnInit {
         this.addItem();
         n = i + 1;
       });
+        this.loaded = true;
         this.removeItem(n);
       }
     );

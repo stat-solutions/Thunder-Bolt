@@ -41,6 +41,7 @@ import { SetLoanTenureComponent } from './components/transactions/loans/set-loan
 import { LoanTenureComponent } from './components/transactions/approval/loan-tenure/loan-tenure.component';
 import { SetLoanCommissionComponent } from './components/transactions/loans/set-loan-commision/set-loan-commision.component';
 import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan-accrual/set-loan-accrual.component';
+import { MicroLoanComponent } from './components/transactions/approval/micro-loan/micro-loan.component';
 
 const routes: Routes = [
   {
@@ -153,6 +154,10 @@ const routes: Routes = [
             path: 'approve',
             component: ApprovalComponent,
             children: [
+              {
+                path: 'microloan',
+                component: MicroLoanComponent,
+              },
               {
                 path: 'reducerate',
                 component: ReduceRateComponent,

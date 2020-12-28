@@ -24,6 +24,7 @@ var tabs_1 = require("ngx-bootstrap/tabs");
 var tooltip_1 = require("ngx-bootstrap/tooltip");
 var ngx_spinner_1 = require("ngx-spinner");
 var modal_1 = require("ngx-bootstrap/modal");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var datepicker_1 = require("ngx-bootstrap/datepicker");
 var enroll_component_1 = require("./components/enroll/enroll.component");
 var enroll_client_component_1 = require("./components/enroll/enroll-client/enroll-client.component");
@@ -46,6 +47,10 @@ var edit_stage_component_1 = require("./components/enroll/edit-stage/edit-stage.
 var edit_boda_stage_component_1 = require("./components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component");
 var edit_taxi_stage_component_1 = require("./components/enroll/edit-stage/edit-taxi-stage/edit-taxi-stage.component");
 var ngx_alerts_1 = require("ngx-alerts");
+var micro_loans_component_1 = require("./components/micro-loans/micro-loans.component");
+var get_loan_component_1 = require("./components/micro-loans/get-loan/get-loan.component");
+var pay_loan_component_1 = require("./components/micro-loans/pay-loan/pay-loan.component");
+var comfirm_loan_component_1 = require("./components/micro-loans/comfirm-loan/comfirm-loan.component");
 var TownmanagementModule = /** @class */ (function () {
     function TownmanagementModule() {
     }
@@ -62,6 +67,10 @@ var TownmanagementModule = /** @class */ (function () {
                 content_section_town_component_1.ContentSectionTownComponent,
                 enroll_component_1.EnrollComponent,
                 enroll_client_component_1.EnrollClientComponent,
+                micro_loans_component_1.MicroLoansComponent,
+                get_loan_component_1.GetLoanComponent,
+                comfirm_loan_component_1.ComfirmLoanComponent,
+                pay_loan_component_1.PayLoanComponent,
                 personal_info_component_1.PersonalInfoComponent,
                 enroll_stage_component_1.EnrollStageComponent,
                 enroll_boda_stage_component_1.EnrollBodaStageComponent,
@@ -90,6 +99,7 @@ var TownmanagementModule = /** @class */ (function () {
                 tabs_1.TabsModule.forRoot(),
                 datepicker_1.DatepickerModule,
                 datepicker_1.BsDatepickerModule,
+                ng_bootstrap_1.NgbModule,
                 modal_1.ModalModule.forRoot(),
                 tooltip_1.TooltipModule.forRoot(),
                 ngx_alerts_1.AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),

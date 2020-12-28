@@ -18,6 +18,7 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 export class TownManagersComponent implements OnInit {
   managersForm: FormGroup;
   posted = false;
+  loaded = false;
   showLevels: number;
   actionButton: string;
   errored: boolean;
@@ -84,6 +85,7 @@ export class TownManagersComponent implements OnInit {
         this.addItem();
         n = i + 1;
       });
+        this.loaded = true;
         this.removeItem(n);
         this.disableForms();
       },

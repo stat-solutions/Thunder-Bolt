@@ -1874,46 +1874,6 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-md-6">
-          <div class="form-group text-primary">
-            <label
-              for="loanpurpose"
-              [ngClass]="
-              microFval.loanpurpose.valid ? 'text-info' : ''
-              "
-              >Loan Purpose<i
-                *ngIf="microFval.loanpurpose.valid"
-                class="material-icons"
-                >check_circle</i
-              ></label
-            >
-            <div class="input-group mb-0">
-              <input
-                type="text"
-                formControlName="loanpurpose"
-                class="form-control"
-                [ngClass]="{
-                  'is-invalid':
-                    (microFval.loanpurpose.touched ||
-                    microFval.loanpurpose.dirty) &&
-                    microFval.loanpurpose.errors
-                }"
-                autocomplete="off"
-                placeholder="Loan purpose"
-              />
-            </div>
-            <div
-              class="text-danger col"
-              *ngIf="
-                (microFval.loanpurpose.touched ||
-                microFval.loanpurpose.dirty) &&
-                microFval.loanpurpose.errors?.required
-              "
-            >
-              The loan purpose is required!
-            </div>
-          </div>
-        </div>
     </div>
           <div class="row">
           <div class="col-12 col-md-6">

@@ -65,9 +65,11 @@ export class LendComponent implements OnInit {
       loanType: new FormControl(['', Validators.required]),
       number_plate: new FormControl(
         '',
-      ),
-      user_contact_number: new FormControl(
-        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(8),
+        ])
       ),
       amount_to_borrow: new FormControl(
         { value: '', disabled: true },
@@ -108,11 +110,6 @@ export class LendComponent implements OnInit {
               this.customers.forEach((customer) => {
                 this.numberPlates.push(customer.bodabodaCustomerNumberPlate);
               });
-              this.fval.number_plate.setValidators([
-                Validators.required,
-                Validators.minLength(8),
-                Validators.maxLength(8),
-              ]);
             } else {
               this.errored = true;
               this.choosingPdts();
@@ -168,53 +165,12 @@ export class LendComponent implements OnInit {
           }
         );
         break;
-      case 'Micro Loan':
-        this.others.getMicroCustomers().subscribe(
-          res => {
-            if (res.length > 0){
-              this.customers = [];
-              this.customers = res;
-              this.checkedClient = {};
-              this.loanType = value;
-              this.fval.user_contact_number.setValue('');
-              this.fval.amount_to_borrow.setValue('');
-              this.fval.pin.setValue('');
-              this.fval.amount_to_borrow.disable();
-              this.fval.pin.disable();
-              this.phoneNumbers = [];
-              this.customers.forEach((customer) => {
-                this.phoneNumbers.push(customer.customerPhone1);
-              });
-              this.fval.user_contact_number.setValidators([
-                Validators.required,
-                CustomValidator.patternValidator(
-                  /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-                  { hasNumber: true }
-                ),
-              ]);
-            } else {
-              this.errored = true;
-              this.choosingPdts();
-              this.alertService.danger({
-                html: '<b>There are no Micro loan customers registered</b>'
-              });
-            }
-          },
-          err => {
-            this.errored = true;
-            this.alertService.danger({
-              html: '<b>' + err.error.error.message + '</b>'
-            });
-          }
-        );
-        break;
     }
   }
 
   choosingPdts(): any{
     this.loanType = '';
     this.numberPlates = [];
-    this.phoneNumbers = [];
     this.fval.amount_to_borrow.disable();
     this.fval.pin.disable();
   }
@@ -237,7 +193,7 @@ export class LendComponent implements OnInit {
                     Id: bodaCustomers[0].customerId,
                     name: bodaCustomers[0].customerName,
                     // tslint:disable-next-line: max-line-length
-                    photoUrl: bodaCustomers[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? this.user : bodaCustomers[0].customerIdPhotoUrl,
+                    photoUrl: bodaCustomers[0].customerPhotoUrl === 'customerPhotoUrl.com' ? this.user : bodaCustomers[0].customerPhotoUrl,
                     phone: bodaCustomers[0].customerPhone1,
                     plate: bodaCustomers[0].bodabodaCustomerNumberPlate,
                     loanAmount: res.length === 1 ? res[0].loanAmountTaken : 0,
@@ -276,7 +232,7 @@ export class LendComponent implements OnInit {
                   Id: taxiCustomers[0].customerId,
                   name: taxiCustomers[0].customerName,
                   // tslint:disable-next-line: max-line-length
-                  photoUrl: taxiCustomers[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? this.user : taxiCustomers[0].customerIdPhotoUrl ,
+                  photoUrl: taxiCustomers[0].customerPhotoUrl === 'customerPhotoUrl.com' ? this.user : taxiCustomers[0].customerPhotoUrl ,
                   phone: taxiCustomers[0].customerPhone1,
                   plate: taxiCustomers[0].taxiCustomerNumberPlate,
                   loanLimit: taxiCustomers[0].taxiCustomerLoanLimit,
@@ -304,33 +260,6 @@ export class LendComponent implements OnInit {
               });
           }
           break;
-        case 'Micro Loan':
-          let microCustomers =  [...this.customers];
-          microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value.toUpperCase());
-          if (microCustomers.length === 1){
-            this.checkedClient = {
-              Id: microCustomers[0].customerId,
-              name: microCustomers[0].customerName,
-              // tslint:disable-next-line: max-line-length
-              photoUrl: microCustomers[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? this.user : microCustomers[0].customerIdPhotoUrl,
-              phone: microCustomers[0].customerPhone1,
-              loanAmount: microCustomers[0].microloanCustomerLoanLimit,
-              loanLimit: microCustomers[0].microloanCustomerLoanLimit,
-              loanPaid: microCustomers[0].microloanCustomerLoanLimit,
-              loanBalance: microCustomers[0].microloanCustomerLoanLimit,
-              loanStatus: microCustomers[0].microloanCustomerLoanLimit,
-              comment: microCustomers[0].customerComment,
-              pin: microCustomers[0].customerSecretPin,
-            };
-            this.openModal(template);
-            this.enableAmountAndPin();
-          } else {
-              this.errored = true;
-              this.alertService.danger({
-                html: '<b> customer with number plate ' + value.toUpperCase() + ' is not registered<b>'
-              });
-            }
-          break;
       }
     }
   }
@@ -340,7 +269,7 @@ export class LendComponent implements OnInit {
       val = parseInt(val.replace(/[\D\s\._\-]+/g, ''), 10);
       if (val > this.checkedClient.loanLimit) {
         this.errored = true;
-        this.fval.amount_to_borrow.setValue(this.checkedClient.loanLimit);
+        this.fval.amount_to_borrow.setValue('');
         this.canLend = false;
         this.alertService.danger({
           html: '<b> Amount provided (' + val + ') is greater than the customer loan limit</b>'
@@ -389,8 +318,7 @@ export class LendComponent implements OnInit {
           customerId: this.checkedClient.Id,
           txnDetailsId: null,
           userId: this.User.userId,
-          productCode: this.loanType === 'Boda Loan' ? 200 :
-                        this.loanType === 'Taxi Loan' ? 300 : 400,
+          productCode: this.loanType === 'Boda Loan' ? 200 : 300,
           theStationLocationId: this.User.userLocationId
         };
         switch (this.loanType) {

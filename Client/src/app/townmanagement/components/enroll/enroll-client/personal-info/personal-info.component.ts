@@ -311,10 +311,6 @@ export class PersonalInfoComponent implements OnInit {
         '',
         Validators.compose([Validators.required])
       ),
-      loanpurpose: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
       currentBusinesstype: new FormControl(
         '',
         Validators.compose([Validators.required])
@@ -681,10 +677,12 @@ export class PersonalInfoComponent implements OnInit {
             bodabodaOwnershipStatus: this.bodaFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
                                         1 : this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                                         2 : 3,
-            bodabodaCustomerOwnersName: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+            bodabodaCustomerOwnersName: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                                        this.fval.customer_name.value.toUpperCase() :
                                         this.bodaFval.ownersName.value.toUpperCase(),
-            bodabodaCustomerOwnersPhone1: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
-                                        this.bodaFval.ownersPhoneNumber.value,
+            bodabodaCustomerOwnersPhone1: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                                          this.fval.main_contact_number1.value :
+                                          this.bodaFval.ownersPhoneNumber.value,
             bodabodaCustomerFrontPhotoUrl: this.bodaFrontUrl,
             bodabodaCustomerSidePhotoUrl: this.bodaSideUrl,
             bodabodaCustomerRearPhotoUrl: this.bodaRearUrl,
@@ -767,9 +765,11 @@ export class PersonalInfoComponent implements OnInit {
             taxiCustomerOwnershipStatus: this.taxiFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
                                         1 : this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                                         2 : 3,
-            taxiCustomerOwnersName: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+            taxiCustomerOwnersName: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                                    this.fval.customer_name.value.toUpperCase() :
                                     this.taxiFval.ownersName.value.toUpperCase(),
-            taxiCustomerOwnersPhone: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+            taxiCustomerOwnersPhone: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                                    this.fval.main_contact_number1.value :
                                     this.taxiFval.ownersPhoneNumber.value,
             taxiCustomerFrontPhotoUrl: this.taxiFrontUrl,
             taxiCustomerSidePhotoUrl: this.taxiSideUrl,
@@ -829,7 +829,6 @@ export class PersonalInfoComponent implements OnInit {
     else if (this.showMicroForm){
       if (this.microClientForm.valid) {
         this.data.push({
-          microloanCustomerLoanPurpose: this.microFval.loanpurpose.value.toUpperCase(),
           microloanCustomerCurrentBusinessType: this.microFval.currentBusinesstype.value.toUpperCase(),
           microloanCustomerCurrentBusinessLocation: this.microFval.businessLocation.value.toUpperCase(),
           microloanCustomerAverageDailyExpenses: this.microFval.averageDailyExpenses.value,

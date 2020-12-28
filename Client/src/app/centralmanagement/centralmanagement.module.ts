@@ -57,6 +57,7 @@ import { LoanTenureComponent } from './components/transactions/approval/loan-ten
 import { AlertModule } from 'ngx-alerts';
 import { SetLoanCommissionComponent } from './components/transactions/loans/set-loan-commision/set-loan-commision.component';
 import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan-accrual/set-loan-accrual.component';
+import { MicroLoanComponent } from './components/transactions/approval/micro-loan/micro-loan.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan
     SetLoanRateComponent,
     SetLoanCommissionComponent,
     SetLoanAcrualComponent,
+    MicroLoanComponent,
     DepositFloatComponent,
     WithdrawFloatComponent,
     ReduceRateComponent,

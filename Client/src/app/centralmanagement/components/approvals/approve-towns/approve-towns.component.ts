@@ -23,6 +23,7 @@ export class ApproveTownsComponent implements OnInit {
   userForm: FormGroup;
   townApprovals: any;
   posted = false;
+  loaded = false;
   actionButton: string;
   errored: boolean;
   serviceErrors: string;
@@ -79,6 +80,7 @@ export class ApproveTownsComponent implements OnInit {
               this.addItem();
               n = i + 1;
             });
+        this.loaded = true;
         this.removeItem(n);
       }
     );

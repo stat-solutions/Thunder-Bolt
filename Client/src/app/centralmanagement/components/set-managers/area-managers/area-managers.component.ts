@@ -18,6 +18,7 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 export class AreaManagersComponent implements OnInit {
   managersForm: FormGroup;
   posted = false;
+  loaded = false;
   showLevels: number;
   actionButton: string;
   errored: boolean;
@@ -79,6 +80,7 @@ export class AreaManagersComponent implements OnInit {
           this.addItem();
           n = i + 1;
         });
+        this.loaded = true;
         this.removeItem(n);
         // console.log(this.fval.areaManagers);
         this.disableForms();

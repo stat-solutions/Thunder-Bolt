@@ -329,10 +329,6 @@ export class EditPersonalInfoComponent implements OnInit {
         '',
         Validators.compose([Validators.required])
       ),
-      loanpurpose: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
       currentBusinesstype: new FormControl(
         '',
         Validators.compose([Validators.required])
@@ -609,28 +605,88 @@ export class EditPersonalInfoComponent implements OnInit {
     if (this.currentCustomer.productCodes.includes(200)){
       this.others.getBodaCustomer(this.currentCustomerId).subscribe(
         res => {
-          const customer = res[0];
-          this.bodabodaCustomerId = customer.bodabodaCustomerId;
-          this.bodaFval.bodabodaCustomerNumberPlate.setValue(customer.bodabodaCustomerNumberPlate.replace(/\s/g, ''));
-          this.bodaFval.bodabodaCustomerNumberPlate.disable();
-          this.bodaFval.bodaMakeorType.setValue(customer.bodabodaCustomerMakeOrType);
-          this.bodaFval.bodaInsuarance.setValue(customer.bodabodaCustomerInsurance === 1 ?
-                                            'NONE' : customer.bodabodaCustomerInsurance === 2 ?
+          if (res.length === 1){
+            const customer = res[0];
+            this.bodabodaCustomerId = customer.bodabodaCustomerId;
+            this.bodaFval.bodabodaCustomerNumberPlate.setValue(customer.bodabodaCustomerNumberPlate.replace(/\s/g, ''));
+            this.bodaFval.bodabodaCustomerNumberPlate.disable();
+            this.bodaFval.bodaMakeorType.setValue(customer.bodabodaCustomerMakeOrType);
+            this.bodaFval.bodaInsuarance.setValue(customer.bodabodaCustomerInsurance === 1 ?
+                                              'NONE' : customer.bodabodaCustomerInsurance === 2 ?
+                                              'REGULAR' : 'COMPREHENSIVE');
+            this.bodaFval.dateOfJoiningStage.setValue(new Date(customer.bodabodaCustomerDateOfJoinStage));
+            this.bodaFval.ownershipStatus.setValue(customer.bodabodaOwnershipStatus === 1 ?
+                                              'ONLOAN' : customer.bodabodaOwnershipStatus === 2 ?
+                                              'PAIDOUT' : 'HIREDOUT');
+            this.bodaFval.ownersName.setValue(customer.bodabodaCustomerOwnersName);
+            this.bodaFval.ownersPhoneNumber.setValue(customer.bodabodaCustomerOwnersPhone);
+            this.bodaFrontUrl = customer.bodabodaCustomerFrontPhotoUrl;
+            this.bodaSideUrl = customer.bodabodaCustomerSidePhotoUrl;
+            this.bodaRearUrl = customer.bodabodaCustomerRearPhotoUrl;
+            this.bodaStages.forEach(bodaStage => {
+              if (bodaStage.bodabodaStageId === customer.fkBodabodaStageIdBodabodaCustomer){
+                this.bodaFval.bodaStage.setValue(bodaStage.bodabodaStageName.toUpperCase());
+              }
+            });
+            this.showPersonalForm = false;
+            this.showBodaForm = true;
+            this.bodaFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+            this.bodaFval.clientName.disable();
+        } else {
+          this.errored = true;
+          this.alertService.danger({
+              html: '<b>' +  this.fval.customer_name.value.toUpperCase() + ' Has no BodaBoda details</b>'
+            });
+        }
+        },
+        err => {
+          this.errored = true;
+          console.log(err.statusText);
+          this.alertService.danger({
+              html: '<b>' + err.statusText + '</b>'
+        });
+        }
+      );
+    }
+  }
+  taxiForm(): any{
+    if (this.currentCustomer.productCodes.includes(300)){
+      this.others.getTaxiCustomer(this.currentCustomerId).subscribe(
+        res => {
+          if (res.length === 1){
+            const customer = res[0];
+            this.taxiCustomerId = customer.taxiCustomerId;
+            this.taxiFval.taxiCustomerNumberPlate.setValue(customer.taxiCustomerNumberPlate.replace(/\s/g, ''));
+            this.taxiFval.taxiCustomerNumberPlate.disable();
+            this.taxiFval.drivingPermit.setValue(customer.taxiCustomerDrivingPermitNumber);
+            this.taxiFval.taxiMakeorType.setValue(customer.taxiCustomerMakeOrType);
+            this.taxiFval.taxiInsuarance.setValue(customer.taxiCustomerInsurance === 1 ?
+                                            'NONE' : customer.taxiCustomerInsurance === 2 ?
                                             'REGULAR' : 'COMPREHENSIVE');
-          this.bodaFval.dateOfJoiningStage.setValue(new Date(customer.bodabodaCustomerDateOfJoinStage));
-          this.bodaFval.ownershipStatus.setValue(customer.bodabodaOwnershipStatus === 1 ?
-                                            'ONLOAN' : customer.bodabodaOwnershipStatus === 2 ?
+            this.taxiFval.dateOfJoiningStage.setValue(new Date(customer.taxiCustomerDateOfJoinStage));
+            this.taxiFval.ownershipStatus.setValue(customer.taxiOwnershipStatus === 1 ?
+                                            'ONLOAN' : customer.taxiOwnershipStatus === 2 ?
                                             'PAIDOUT' : 'HIREDOUT');
-          this.bodaFval.ownersName.setValue(customer.bodabodaCustomerOwnersName);
-          this.bodaFval.ownersPhoneNumber.setValue(customer.bodabodaCustomerOwnersPhone);
-          this.bodaFrontUrl = customer.bodabodaCustomerFrontPhotoUrl;
-          this.bodaSideUrl = customer.bodabodaCustomerSidePhotoUrl;
-          this.bodaRearUrl = customer.bodabodaCustomerRearPhotoUrl;
-          this.bodaStages.forEach(bodaStage => {
-            if (bodaStage.bodabodaStageId === customer.fkBodabodaStageIdBodabodaCustomer){
-              this.bodaFval.bodaStage.setValue(bodaStage.bodabodaStageName.toUpperCase());
+            this.taxiFval.ownersName.setValue(customer.taxiCustomerOwnersName);
+            this.taxiFval.ownersPhoneNumber.setValue(customer.taxiCustomerOwnersPhone);
+            this.taxiFrontUrl = customer.taxiCustomerFrontPhotoUrl;
+            this.taxiSideUrl = customer.taxiCustomerSidePhotoUrl;
+            this.taxiRearUrl = customer.taxiCustomerRearPhotoUrl;
+            for (const stage of this.taxiStages){
+              if (stage.taxiStageId === customer.fkTaxiStageIdTaxiCustomer){
+                this.taxiFval.taxiStage.setValue(stage.taxiStageName.toUpperCase());
+              }
             }
-          });
+            this.showPersonalForm = false;
+            this.showTaxiForm = true;
+            this.taxiFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+            this.taxiFval.clientName.disable();
+        } else {
+          this.errored = true;
+          this.alertService.danger({
+              html: '<b>' +  this.fval.customer_name.value.toUpperCase() + ' Has no Taxi details</b>'
+            });
+        }
         },
         err => {
           this.errored = true;
@@ -641,37 +697,33 @@ export class EditPersonalInfoComponent implements OnInit {
         }
       );
     }
-    this.showPersonalForm = false;
-    this.showBodaForm = true;
-    this.bodaFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-    this.bodaFval.clientName.disable();
   }
-  taxiForm(): any{
-    if (this.currentCustomer.productCodes.includes(300)){
-      this.others.getTaxiCustomer(this.currentCustomerId).subscribe(
+  microForm(): any{
+    if (this.currentCustomer.productCodes.includes(400)){
+      this.others.getMicroCustomer(this.currentCustomerId).subscribe(
         res => {
-          const customer = res[0];
-          this.taxiCustomerId = customer.taxiCustomerId;
-          this.taxiFval.taxiCustomerNumberPlate.setValue(customer.taxiCustomerNumberPlate.replace(/\s/g, ''));
-          this.taxiFval.taxiCustomerNumberPlate.disable();
-          this.taxiFval.drivingPermit.setValue(customer.taxiCustomerDrivingPermitNumber);
-          this.taxiFval.taxiMakeorType.setValue(customer.taxiCustomerMakeOrType);
-          this.taxiFval.taxiInsuarance.setValue(customer.taxiCustomerInsurance === 1 ?
-                                          'NONE' : customer.taxiCustomerInsurance === 2 ?
-                                          'REGULAR' : 'COMPREHENSIVE');
-          this.taxiFval.dateOfJoiningStage.setValue(new Date(customer.taxiCustomerDateOfJoinStage));
-          this.taxiFval.ownershipStatus.setValue(customer.taxiOwnershipStatus === 1 ?
-                                          'ONLOAN' : customer.taxiOwnershipStatus === 2 ?
-                                          'PAIDOUT' : 'HIREDOUT');
-          this.taxiFval.ownersName.setValue(customer.taxiCustomerOwnersName);
-          this.taxiFval.ownersPhoneNumber.setValue(customer.taxiCustomerOwnersPhone);
-          this.taxiFrontUrl = customer.taxiCustomerFrontPhotoUrl;
-          this.taxiSideUrl = customer.taxiCustomerSidePhotoUrl;
-          this.taxiRearUrl = customer.taxiCustomerRearPhotoUrl;
-          for (const stage of this.taxiStages){
-            if (stage.taxiStageId === customer.fkTaxiStageIdTaxiCustomer){
-              this.taxiFval.taxiStage.setValue(stage.taxiStageName.toUpperCase());
-            }
+          if (res.length === 1){
+            const customer = res[0];
+            this.microloanCustomerId = customer.microloanCustomerId;
+            this.microFval.loanpurpose.setValue(customer.microloanCustomerLoanPurpose);
+            this.microFval.currentBusinesstype.setValue(customer.microloanCustomerCurrentBusinessType);
+            this.microFval.businessLocation.setValue(customer.microloanCustomerCurrentBusinessLocation);
+            this.microFval.averageDailyExpenses.setValue(customer.microloanCustomerAverageDailyExpenses);
+            this.microFval.averageDailyIncome.setValue(customer.microloanCustomerAverageDailyIncome);
+            this.microFval.currentResidence.setValue(customer.microloanCustomerCurrentResidence);
+            this.microFval.residenceStatus.setValue(customer.microloanCustomerResidenceStatus);
+            this.microFval.numberOfDependants.setValue(customer.microloanCustomerNumberOfDependants);
+            this.showPersonalForm = false;
+            this.showMicroForm = true;
+            this.microFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+            this.microFval.clientName.disable();
+            this.microFval.currentResidence.setValue(this.fval.homeDetails.value.toUpperCase());
+            this.microFval.currentResidence.disable();
+          } else {
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b>' +  this.fval.customer_name.value.toUpperCase() + ' Has no Micro Loan details</b>'
+              });
           }
         },
         err => {
@@ -683,51 +735,28 @@ export class EditPersonalInfoComponent implements OnInit {
         }
       );
     }
-    this.showPersonalForm = false;
-    this.showTaxiForm = true;
-    this.taxiFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-    this.taxiFval.clientName.disable();
-  }
-  microForm(): any{
-    if (this.currentCustomer.productCodes.includes(400)){
-      this.others.getMicroCustomer(this.currentCustomerId).subscribe(
-        res => {
-          const customer = res[0];
-          this.microloanCustomerId = customer.microloanCustomerId;
-          this.microFval.loanpurpose.setValue(customer.microloanCustomerLoanPurpose);
-          this.microFval.currentBusinesstype.setValue(customer.microloanCustomerCurrentBusinessType);
-          this.microFval.businessLocation.setValue(customer.microloanCustomerCurrentBusinessLocation);
-          this.microFval.averageDailyExpenses.setValue(customer.microloanCustomerAverageDailyExpenses);
-          this.microFval.averageDailyIncome.setValue(customer.microloanCustomerAverageDailyIncome);
-          this.microFval.currentResidence.setValue(customer.microloanCustomerCurrentResidence);
-          this.microFval.residenceStatus.setValue(customer.microloanCustomerResidenceStatus);
-          this.microFval.numberOfDependants.setValue(customer.microloanCustomerNumberOfDependants);
-        },
-        err => {
-          this.errored = true;
-          console.log(err.statusText);
-          this.alertService.danger({
-              html: '<b>' + err.statusText + '</b>'
-            });
-        }
-      );
-    }
-    this.showPersonalForm = false;
-    this.showMicroForm = true;
-    this.microFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-    this.microFval.clientName.disable();
-    this.microFval.currentResidence.setValue(this.fval.homeDetails.value.toUpperCase());
-    this.microFval.currentResidence.disable();
   }
   savingForm(): any{
     if (this.currentCustomer.productCodes.includes(100)){
       this.others.getSavingsCustomer(this.currentCustomerId).subscribe(
         res => {
-          const customer = res[0];
-          this.savingsCustomerId = customer.savingsCustomerId;
-          this.savFval.monthlyIncome.setValue(customer.savingsCustomerMonthlyIncome);
-          this.savFval.withdrawFreequency.setValue(customer.savingsCustomerWithdrawFreequency);
-          this.savFval.customerTarget.setValue(customer.savingsCustomerTarget);
+          if (res.length === 1){
+            const customer = res[0];
+            this.savingsCustomerId = customer.savingsCustomerId;
+            this.savFval.monthlyIncome.setValue(customer.savingsCustomerMonthlyIncome);
+            this.savFval.withdrawFreequency.setValue(customer.savingsCustomerWithdrawFreequency);
+            this.savFval.customerTarget.setValue(customer.savingsCustomerTarget);
+            this.fval.productCode.setValue(' ');
+            this.showPersonalForm = false;
+            this.showSaveForm = true;
+            this.savFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
+            this.savFval.clientName.disable();
+          } else {
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b>' +  this.fval.customer_name.value.toUpperCase() + ' Has no Savings details</b>'
+              });
+          }
         },
         err => {
           this.errored = true;
@@ -738,11 +767,6 @@ export class EditPersonalInfoComponent implements OnInit {
         }
       );
     }
-    this.fval.productCode.setValue(' ');
-    this.showPersonalForm = false;
-    this.showSaveForm = true;
-    this.savFval.clientName.setValue(this.fval.customer_name.value.toUpperCase());
-    this.savFval.clientName.disable();
   }
 
   onCustomerNameChange(val: string): any{
@@ -819,7 +843,7 @@ export class EditPersonalInfoComponent implements OnInit {
                             this.fval.main_contact_number2.value,
             customerIdType: this.fval.id_type.value.toUpperCase(),
             customerIdPhotoUrl: this.clientIdUrl,
-      customerPhotoUrl: this.clientPhotoUrl,
+            customerPhotoUrl: this.clientPhotoUrl,
             customerDateOfBirth: `${this.fval.dateOfBirth.value.getFullYear()}-${this.fval.dateOfBirth.value.getMonth() + 1}-${this.fval.dateOfBirth.value.getDate()}`,
             customerIdNumber: this.fval.id_number.value.toUpperCase(),
             customerHomeAreaDetails: this.fval.homeDetails.value.toUpperCase(),
@@ -911,10 +935,13 @@ export class EditPersonalInfoComponent implements OnInit {
           bodabodaOwnershipStatus: this.bodaFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
                                       1 : this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                                       2 : 3,
-          bodabodaCustomerOwnersName: this.bodaFval.ownersName.value.toUpperCase(),
-          bodabodaCustomerOwnersPhone1: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+          bodabodaCustomerOwnersName: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                                      this.fval.customer_name.value.toUpperCase() :
+                                      this.bodaFval.ownersName.value.toUpperCase(),
+          bodabodaCustomerOwnersPhone1: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                                        this.fval.main_contact_number1.value :
                                         this.bodaFval.ownersPhoneNumber.value,
-          bodabodaCustomerFrontPhotoUrl: this.bodaFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' : this.bodaFrontUrl,
+          bodabodaCustomerFrontPhotoUrl: this.bodaFrontUrl,
           bodabodaCustomerSidePhotoUrl: this.bodaSideUrl,
           bodabodaCustomerRearPhotoUrl: this.bodaRearUrl,
           customerId: this.currentCustomerId,
@@ -1013,9 +1040,11 @@ export class EditPersonalInfoComponent implements OnInit {
           taxiCustomerOwnershipStatus: this.taxiFval.ownershipStatus.value.toUpperCase() === 'ONLOAN' ?
                                       1 : this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
                                       2 : 3,
-          taxiCustomerOwnersName: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+          taxiCustomerOwnersName: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                                  this.fval.customer_name.value.toUpperCase() :
                                   this.taxiFval.ownersName.value.toUpperCase(),
-          taxiCustomerOwnersPhone: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ? '' :
+          taxiCustomerOwnersPhone: this.taxiFval.ownershipStatus.value.toUpperCase() === 'PAIDOUT' ?
+                                  this.fval.main_contact_number1.value :
                                   this.taxiFval.ownersPhoneNumber.value,
           taxiCustomerFrontPhotoUrl: this.taxiFrontUrl,
           taxiCustomerSidePhotoUrl: this.taxiSideUrl,
@@ -1091,7 +1120,6 @@ export class EditPersonalInfoComponent implements OnInit {
   microCustomer(): any {
     if (this.microClientForm.valid) {
       let data = {
-        microloanCustomerLoanPurpose: this.microFval.loanpurpose.value.toUpperCase(),
         microloanCustomerCurrentBusinessType: this.microFval.currentBusinesstype.value.toUpperCase(),
         microloanCustomerCurrentBusinessLocation: this.microFval.businessLocation.value.toUpperCase(),
         microloanCustomerAverageDailyExpenses: this.microFval.averageDailyExpenses.value,
