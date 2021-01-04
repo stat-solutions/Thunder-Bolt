@@ -38,6 +38,16 @@
 .form-control {
     height: calc(.8em + .75rem + 2px);
 }
+.img-circle{
+  width: 22px;
+  height: 22px;
+}
+.text-dark span{
+  color: #124472
+}
+.text-dark span:hover,.text-dark span:focus{
+  color: #17aae0
+}
 
 
 
@@ -78,6 +88,10 @@
       margin-left: auto !important;
       margin-right: auto !important;
   }
+.img-circle{
+  width: 25px;
+  height: 25px;
+}
 }
 
 @media (min-width: 768px) {
@@ -90,6 +104,10 @@
   }
 .iteration {
   max-height: 600px;
+}
+.img-circle{
+  width: 30px;
+  height: 30px;
 }
 }
 

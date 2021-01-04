@@ -5,8 +5,6 @@
 .rub-head4 {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
-  margin-right: 0px !important;
-  contain: auto;
 }
 
 .card-body {
@@ -18,72 +16,11 @@
 contain: auto;
 }
 
-.btn {
-  border-radius: 15px;
-}
-
-.text-info {
-  color: #17aae0ee !important
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important
-}
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee
-}
-  .btn-info:hover, .btn-info:focus {
-    color: #d9dbdd;
-    background-color: #17aae0ee;
-    border-color: #17aae0ee
-  }
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 .2rem #0e99ccee
-}
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec
-}
-
-.pointerCursor {
-  cursor: pointer;
-}
-
-//styling of color of placeholder
-::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-  color:    rgb(187, 190, 192);
-}
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color:    rgb(187, 190, 192);
-  opacity:  1;
-}
-::-moz-placeholder { /* Mozilla Firefox 19+ */
- color:    rgb(187, 190, 192);
- opacity:  1;
-}
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color:    rgb(187, 190, 192);
-}
-::-ms-input-placeholder { /* Microsoft Edge */
-  color:    rgb(187, 190, 192);
-}
-::placeholder { /* Most modern browsers support this now. */
-  color:    rgb(187, 190, 192);
-}
-
 
 
 //media queries
 @media (min-width: 320px) {
   .card-body {
-    max-width: 320px;
-    min-width: 290px;
     max-height: 180px;
     min-height: 150px;
     padding-top: 22px !important;
@@ -99,7 +36,6 @@ a.text-info:hover {
 @media (min-width: 360px) {
   .card-body {
     max-width: 360px;
-    min-width: 330px;
     margin-bottom: 40px !important;
   }
   .jumbotron-fluid {

@@ -8,7 +8,7 @@
           <h4
             class="rub-head4 text-info text-center font-weight-bold py-1"
           >
-            Set Loan Tenure
+            Micro Loans
           </h4>
         </div>
       </div>
@@ -52,7 +52,7 @@
           >
             <div
               class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-              [formGroupName]="idx"
+              [formGroupName]="idx" (click)="openModal(template)"
             >
               <div class="list-card-body card-body my-0 py-0 mx-0">
                 <div class="row my-0 py-0">
@@ -87,12 +87,6 @@
                     </span>
                   </div>
                   <div class="col-2 d-flex justify-content-center text-center">
-                    <!-- <span class="rate-selected align-self-center">
-                      {{
-                        fval.approveWave["controls"][idx]["controls"].ammount
-                          .value
-                      }}
-                    </span> -->
                     <input
                       id="floatAmount"
                       formControlName="floatAmount"
@@ -106,27 +100,6 @@
                       }"
                       autocomplete="off"
                     />
-                    <!-- <i *ngIf="fval.floatAmount.valid" class="material-icons"
-              >check_circle</i
-            > -->
-                    <!-- <div
-            class="text-danger col"
-            *ngIf="
-              (fval.floatAmount.touched || fval.floatAmount.dirty) &&
-              fval.floatAmount.errors?.required
-            "
-          >
-            The float amount is required!
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.floatAmount.touched || fval.floatAmount.dirty) &&
-              fval.floatAmount.errors?.hasNumber
-            "
-          >
-            The float amount should be in digits/numbers!
-          </div> -->
                   </div>
                   <div class="col-3 justify-content-lg-center text-center">
                     <span class="itemCreated">
@@ -157,3 +130,279 @@
     </div>
   </div>
 </div>
+<ng-template #template>
+  <div class="modal-header bg-info">
+    <h4 class="modal-title text-white">Loan Details</h4>
+
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="list-card card mt-1 pt-3 mb-0 mx-auto px-0 pb-2 shadow-lg">
+      <div class="list-card-body card-body my-0 py-0 mx-0">
+        <div class="row my-0 py-0">
+              <div
+                class="col-2 col-xl-1 mt-0 mb-0 pt-0 pt-md-3 pt-xl-1 pb-0 px-xl-0"
+              >
+                <!--add data from the database next to the span after &nbsp;-->
+                <pinch-zoom class="d-flex justify-content-center">
+                <img
+                  class="img-rounded"
+                  [src]="checkedClient.photoUrl"
+                  height="35em"
+                  width="35em"
+                  style="border-radius: 40em;"
+                />
+</pinch-zoom>
+              </div>
+          <div class="col-10 col-xl-11">
+            <div class="row">
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Client Name</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated">{{ data.customerDateOfBirth }}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Phone Number</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated">
+                  {{ data.customerHomeAreaDetails }}
+                </span>
+              </div>
+            </div>
+                      </div>
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-5 d-flex justify-content-sm-start">
+                <span class="">Loan Purpose</span>
+              </div>
+              <div
+                class="col-7 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated"> {{ data.customerPhone2 }} </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-5 d-flex justify-content-sm-start">
+                <span class="">Loan Amount</span>
+              </div>
+              <div
+                class="col-7 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <a class="">
+                  <span class="itemCreated">{{ data.customerIdType }}</span>
+                </a>
+              </div>
+</div>
+</div>
+            </div>
+          </div>
+        </div>
+        <div class="row my-1 py-0">
+          <div class="col-12">
+            <h5 class="rub-head4 text-info text-center font-weight-bold py-1">
+              Guarantor Information
+            </h5>
+          </div>
+        </div>
+        <div class="row my-0 py-0">
+              <div
+                class="col-2 col-xl-1 mt-0 mb-0 pt-0 pt-md-4 pt-xl-3 pb-0 px-xl-0"
+              >
+                <!--add data from the database next to the span after &nbsp;-->
+                <pinch-zoom class="d-flex justify-content-center">
+                <img
+                  class="img-rounded"
+                  [src]="checkedClient.photoUrl"
+                  height="35em"
+                  width="35em"
+                  style="border-radius: 40em;"
+                />
+</pinch-zoom>
+              </div>
+          <div class="col-10 col-xl-11">
+            <div class="row">
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Name</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated">{{
+                  data.bodabodaCustomerNumberPlate
+                }}</span>
+              </div>
+            </div>
+</div>
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Phone No.1</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated"
+                  >{{ data.bodabodaCustomerMakeOrType }}
+                </span>
+              </div>
+            </div>
+</div>
+            </div>
+                        <div class="row">
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Phone No.2</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated">{{
+                  data.bodabodaCustomerInsurance
+                }}</span>
+              </div>
+            </div>
+</div>
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Business Type</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <a class="">
+                  <span class="itemCreated">
+                    {{ data.fkBodabodaStageIdBodabodaCustomer }}
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+</div>
+            <div class="row">
+          <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <!--stage start date-->
+                <span class="">Business Location</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <a class="">
+                  <span class="itemCreated">
+                    {{ data.bodabodaCustomerDateOfJoinStage }}
+                  </span>
+                </a>
+              </div>
+</div>
+            </div>
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Current Location</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <a class="">
+                  <span class="itemCreated">
+                    {{ data.bodabodaOwnershipStatus }}
+                  </span>
+                </a>
+              </div>
+            </div>
+</div>
+          </div>
+</div>
+        </div>
+
+        <div class="row my-1 py-0">
+          <div class="col-12">
+            <h5 class="rub-head4 text-info text-center font-weight-bold py-1">
+              Security Information
+            </h5>
+          </div>
+        </div>
+        <div class="row my-0 pt-0 pb-2">
+              <div
+                class="col-2 col-xl-1 mt-0 mb-0 pt-0 pt-md-2 pt-xl-0 pb-0 px-xl-0"
+              >
+                <!--add data from the database next to the span after &nbsp;-->
+                <pinch-zoom class="d-flex justify-content-center">
+                <img
+                  class="img-rounded"
+                  [src]="checkedClient.photoUrl"
+                  height="35em"
+                  width="35em"
+                  style="border-radius: 20em;"
+                />
+</pinch-zoom>
+              </div>
+          <div class="col-10 col-xl-11">
+            <div class="row">
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-5 d-flex justify-content-sm-start">
+                <span class="">Security Type</span>
+              </div>
+              <div
+                class="col-7 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated">
+                  {{ data.taxiCustomerDrivingPermitNumber }}
+                </span>
+              </div>
+            </div>
+</div>
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Security Name</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated">
+                  {{ data.taxiCustomerNumberPlate }}
+                </span>
+              </div>
+</div>
+</div>
+            </div>
+            </div>
+            </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-info col-3 col-xl-2 pull-right"
+      (click)="modalRef.hide()"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
+
