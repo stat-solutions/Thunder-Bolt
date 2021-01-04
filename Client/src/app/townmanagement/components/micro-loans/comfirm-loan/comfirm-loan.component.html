@@ -1,23 +1,18 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-1 pb-0 shadow-lg col-12 col-lg-11"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-xl-0 pt-0 pt-md-3 pt-xl-1 pb-3 pb-md-5 pb-xl-2 shadow-lg col-12 col-lg-8"
 >
-  <div class="jumbotron-fluid mb-0 pb-0">
-  <div>
-    <div class="container my-2 mx-0 shadow-lg col-12">
-      <div class="row">
-        <div class="col-12">
-          <h4
-            class="rub-head4 text-info text-center font-weight-bold py-1"
-          >
-            Confirm Loan 
+  <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-0">
+    <div class="container mt-3 mb-2 mx-0 shadow-lg">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
+            Confirm Loan
           </h4>
         </div>
       </div>
     </div>
-    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg">
+        <div class="card-body mt-2 pt-3 mb-0 mx-0 pb-5 shadow-lg">
       <form [formGroup]="userForm">
-        <div class="row">
-          <div class="col-12 col-md-6">
         <div class="form-group text-primary">
           <label
             for="user_contact_number"
@@ -80,10 +75,6 @@
             The phone number should be equal to 10 "digits"!
           </div>
         </div>
-        </div>
-      </div>
-          <div class="row">
-          <div class="col-12 col-md-6">
              <div class="form-group text-primary">
           <label for="pin" [ngClass]="fval.pin.valid ? 'text-info' : ''"
             >PIN<i *ngIf="fval.pin.valid" class="material-icons"
@@ -158,11 +149,7 @@
             Please enter a valid pin!
           </div>
         </div>
-          </div>
-        </div>
-        <div class='row'>
-          <div class="col-12 col-md-6">
-            <div class="d-flex my-3 pt-2 pb-3 mx-auto">
+        <div class="d-flex mt-1 mb-0 py-0 mx-auto">
           <button
             type="submit"
             class="btn btn-info col-5 mx-auto"
@@ -179,25 +166,21 @@
             Cancel
           </button>
           </div>
-        </div>
-        </div>
       </form>
-    </div> 
+    </div>
+    <!-- action buttons -->
+    <div class="d-flex mt-3 mb-2 mb-xl-0 py-2 mx-auto">
+      <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+        <p class="text-light">Please wait...</p>
+      </ngx-spinner>
+      <label class="col" *ngIf="errored" class="text-danger">
+        <!-- <i class="material-icons">Cancel</i> -->
+        <ngx-alerts></ngx-alerts>
+      </label>
+      <label class="col" *ngIf="posted" class="text-info">
+        <!-- <i class="material-icons">check_circle</i> -->
+        <ngx-alerts></ngx-alerts>
+      </label>
+    </div>
   </div>
-
-  <!-- action buttons -->
-  <div class="d-flex mt-3 mb-2 mb-xl-0 py-2 mx-auto">
-    <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
-      <p class="text-light">Please wait...</p>
-    </ngx-spinner>
-    <label class="col" *ngIf="errored" class="text-danger">
-      <!-- <i class="material-icons">Cancel</i> -->
-      <ngx-alerts></ngx-alerts>
-    </label>
-    <label class="col" *ngIf="posted" class="text-info">
-      <!-- <i class="material-icons">check_circle</i> -->
-      <ngx-alerts></ngx-alerts>
-    </label>
   </div>
-  </div>
-</div>

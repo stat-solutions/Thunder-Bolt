@@ -16,9 +16,6 @@ import { ClusterAndTaxiparkComponent } from './components/enroll/cluster-and-tax
 import { EnrollClusterComponent } from './components/enroll/cluster-and-taxipark/enroll-cluster/enroll-cluster.component';
 import { EnrollTaxiParkComponent } from './components/enroll/cluster-and-taxipark/enroll-taxi-park/enroll-taxi-park.component';
 import { ReportsComponent } from '../centralmanagement/components/reports/reports.component';
-import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
-import { LoansLedgerComponent } from './components/reports/loans-ledger/loans-ledger.component';
-import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledger.component';
 import { EditClientComponent } from './components/enroll/edit-client/edit-client.component';
 import { EditBodaStageComponent } from './components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component';
 import { EditStageComponent } from './components/enroll/edit-stage/edit-stage.component';
@@ -27,6 +24,9 @@ import { MicroLoansComponent } from './components/micro-loans/micro-loans.compon
 import { GetLoanComponent } from './components/micro-loans/get-loan/get-loan.component';
 import { PayLoanComponent } from './components/micro-loans/pay-loan/pay-loan.component';
 import { ComfirmLoanComponent } from './components/micro-loans/comfirm-loan/comfirm-loan.component';
+import { ClientsComponent } from './components/reports/clients/clients.component';
+import { UsersComponent } from './components/reports/users/users.component';
+import { AreaComponent } from './components/reports/area/area.component';
 
 const routes: Routes = [
   { path: '',
@@ -58,7 +58,7 @@ const routes: Routes = [
           {
             path: 'getloan',
             component: GetLoanComponent,
-          }, 
+          },
           {
             path: 'confirm',
             component: ComfirmLoanComponent,
@@ -130,16 +130,16 @@ const routes: Routes = [
         component: ReportsComponent,
         children: [
           {
-            path: 'cashledger',
-            component: CashLedgerComponent
+            path: 'loansrevenue',
+            component: AreaComponent
           },
           {
-            path: 'loansledger',
-            component: LoansLedgerComponent
+            path: 'clients',
+            component: ClientsComponent
           },
           {
-            path: 'paidledger',
-            component: PaidLedgerComponent
+            path: 'users',
+            component: UsersComponent
           }
         ]
           },

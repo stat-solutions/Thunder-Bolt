@@ -29,9 +29,6 @@ import { EnrollClusterComponent } from './components/enroll/cluster-and-taxipark
 import { EnrollTaxiParkComponent } from './components/enroll/cluster-and-taxipark/enroll-taxi-park/enroll-taxi-park.component';
 import { CreateStationComponent } from './components/create-station/create-station.component';
 import { ReportsComponent } from './components/reports/reports.component';
-import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
-import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledger.component';
-import { LoansLedgerComponent } from './components/reports/loans-ledger/loans-ledger.component';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
 import { EditClientComponent } from './components/enroll/edit-client/edit-client.component';
 import { EditPersonalInfoComponent } from './components/enroll/edit-client/edit-personal-info/edit-personal-info.component';
@@ -43,6 +40,9 @@ import { MicroLoansComponent } from './components/micro-loans/micro-loans.compon
 import { GetLoanComponent } from './components/micro-loans/get-loan/get-loan.component';
 import { PayLoanComponent } from './components/micro-loans/pay-loan/pay-loan.component';
 import { ComfirmLoanComponent } from './components/micro-loans/comfirm-loan/comfirm-loan.component';
+import { AreaComponent } from './components/reports/area/area.component';
+import { ClientsComponent } from './components/reports/clients/clients.component';
+import { UsersComponent } from './components/reports/users/users.component';
 
 @NgModule({
   declarations: [
@@ -69,15 +69,15 @@ import { ComfirmLoanComponent } from './components/micro-loans/comfirm-loan/comf
     EnrollTaxiParkComponent,
     CreateStationComponent,
     ReportsComponent,
-    CashLedgerComponent,
-    PaidLedgerComponent,
-    LoansLedgerComponent,
     PersonalProfileComponent,
     EditClientComponent,
     EditPersonalInfoComponent,
     EditStageComponent,
     EditBodaStageComponent,
     EditTaxiStageComponent,
+    AreaComponent,
+    ClientsComponent,
+    UsersComponent,
   ],
   imports: [
     CommonModule,
