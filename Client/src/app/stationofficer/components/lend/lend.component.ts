@@ -290,6 +290,7 @@ export class LendComponent implements OnInit {
     return this.userForm.controls;
   }
 
+//client modal method
   public openModal(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(
       template,

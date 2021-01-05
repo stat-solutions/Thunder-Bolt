@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 // import * as jwt_decode from 'jwt-decode';
 import {
   FormGroup,
@@ -11,8 +11,8 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
-// import { BsModalService } from 'ngx-bootstrap/modal';
-// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 export interface IntRateApprovals {
   station: string;
@@ -27,6 +27,7 @@ export interface IntRateApprovals {
   styleUrls: ['./micro-loan.component.scss'],
 })
 export class MicroLoanComponent implements OnInit {
+  public modalRef: BsModalRef;
   userForm: FormGroup;
   ratesApprovals: IntRateApprovals[] = [
     { station: 'nsambya', client: 'Kasule Joseph', rate: 5, status: 0 },
@@ -49,6 +50,7 @@ export class MicroLoanComponent implements OnInit {
   constructor(
     private authService: AuthServiceService,
     private router: Router,
+    private modalService: BsModalService,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
     private fb: FormBuilder
@@ -118,6 +120,16 @@ export class MicroLoanComponent implements OnInit {
       this.fval.selectAll.setValue(false);
     }
   }
+
+  // loan modal method
+  public openModal(template: TemplateRef<any>): any {
+    // this.imageUrl = imageUrl;
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+    );
+  }
+
   revert(): any {
     this.userForm.reset();
   }

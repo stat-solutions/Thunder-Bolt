@@ -58,6 +58,7 @@ import { AlertModule } from 'ngx-alerts';
 import { SetLoanCommissionComponent } from './components/transactions/loans/set-loan-commision/set-loan-commision.component';
 import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan-accrual/set-loan-accrual.component';
 import { MicroLoanComponent } from './components/transactions/approval/micro-loan/micro-loan.component';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 @NgModule({
   declarations: [
@@ -122,6 +123,7 @@ import { MicroLoanComponent } from './components/transactions/approval/micro-loa
     TabsModule.forRoot(),
     DatepickerModule,
     BsDatepickerModule,
+    PinchZoomModule,
     NgbModule,
     AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
   ],

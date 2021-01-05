@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 // import * as jwt_decode from 'jwt-decode';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
-// import { BsModalService } from 'ngx-bootstrap/modal';
-// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 export interface WriteOffApprovals {
-  station: string,
-  client: string,
-  ammount: number,
-  status: number
+  station: string;
+  client: string;
+  ammount: number;
+  status: number;
 }
 
 @Component({
@@ -40,10 +40,12 @@ export class WriteOffComponent implements OnInit {
   serviceErrors: string;
   status: boolean;
   checkedOk: boolean;
+  modalRef: BsModalRef;
 
   constructor(
     private authService: AuthServiceService,
     private router: Router,
+    private modalService: BsModalService,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
     private fb: FormBuilder
@@ -136,6 +138,14 @@ export class WriteOffComponent implements OnInit {
 
   get fval() {
     return this.userForm.controls;
+  }
+
+  //client modal method
+  public openModal(template: TemplateRef<any>): any {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
+    );
   }
 
   disableForm() {
