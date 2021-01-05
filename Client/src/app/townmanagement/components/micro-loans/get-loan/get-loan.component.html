@@ -1,23 +1,19 @@
 <div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-1 pt-1 pb-0 shadow-lg col-12 col-lg-11"
+  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-xl-0 pt-0 pt-md-3 pt-xl-1 pb-3 pb-md-5 pb-xl-2 shadow-lg col-xs-12 col-lg-8"
 >
-  <div class="jumbotron-fluid mb-0 pb-0">
-  <div>
-    <div class="container my-2 mx-0 shadow-lg col-12">
-      <div class="row">
-        <div class="col-12">
-          <h4
-            class="rub-head4 text-info text-center font-weight-bold py-1"
-          >
+  <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-0">
+    <div class="container mt-3 mb-2 mx-0 shadow-lg">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
+
             {{ header }}
           </h4>
         </div>
       </div>
     </div>
-    <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg" [hidden]='!showUserForm'>
+        <div class="card-body mt-2 pt-3 mb-0 mx-0 pb-5 shadow-lg">
       <form [formGroup]="userForm">
-        <div class="row">
-          <div class="col-12 col-md-6">
         <div class="form-group text-primary">
           <label
             for="user_contact_number"
@@ -80,9 +76,8 @@
             The phone number should be equal to 10 "digits"!
           </div>
         </div>
-        </div>
-        <div class="col-12 col-md-6">
           <div class="form-group text-primary">
+<<<<<<< HEAD
             <label
               for="loanpurpose"
               [ngClass]="
@@ -119,74 +114,68 @@
             >
               The loan purpose is required!
             </div>
-          </div>  
-        </div>
-      </div>
-          <div class="row">
-            <div class="col-12 col-md-6">
+          </div>
               <div class="form-group text-primary">
-              <label
-                for="amount_to_pay"
-                [ngClass]="fval.amount_to_pay.valid ? 'text-info' : ''"
-                >Amount<i *ngIf="fval.amount_to_pay.valid" class="material-icons"
-                  >check_circle</i
-                ></label
-              >
-              <div class="input-group mb-0">
-                <input
-                  type="text"
-                  list="amount_to_pay"
-                  formControlName="amount_to_pay"
-                  class="form-control"
-                  [ngClass]="{
-                    'is-invalid':
-                      (fval.amount_to_pay.touched ||
-                        fval.amount_to_pay.dirty) &&
-                      fval.amount_to_pay.errors
-                  }"
-                  autocomplete="off"
-                  placeholder="Enter amount to deposit"
-                />
-              </div>
-              <div
-                class="text-danger col"
-                *ngIf="
-                  (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
-                  fval.amount_to_pay.errors?.required
-                "
-              >
-                The amount to deposit is required!
-              </div>
-              <div
-                class="text-danger col"
-                *ngIf="
-                  (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
-                  fval.amount_to_pay.errors?.maxLength
-                "
-              >
-                Please enter valid amount to be borrowed!
-              </div>
-              <div
-                class="text-danger col"
-                *ngIf="
-                  (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
-                  fval.amount_to_pay.errors?.minlength
-                "
-              >
-                Please enter valid amount to be borrowed!
-              </div>
-              <div
-                class="text-danger col"
-                *ngIf="
-                  (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
-                  fval.amount_to_pay.errors?.hasNumber
-                "
-              >
-                Please enter valid amount to be borrowed!
-              </div>
-            </div>
-            </div>
-          <div class="col-12 col-md-6">
+          <label
+            for="amount_to_pay"
+            [ngClass]="fval.amount_to_pay.valid ? 'text-info' : ''"
+            >Amount<i *ngIf="fval.amount_to_pay.valid" class="material-icons"
+              >check_circle</i
+            ></label
+          >
+          <div class="input-group mb-0">
+            <input
+              type="text"
+              list="amount_to_pay"
+              formControlName="amount_to_pay"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  (fval.amount_to_pay.touched ||
+                    fval.amount_to_pay.dirty) &&
+                  fval.amount_to_pay.errors
+              }"
+              autocomplete="off"
+              placeholder="Enter loan amount"
+            />
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
+              fval.amount_to_pay.errors?.required
+            "
+          >
+            The amount to loan is required!
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
+              fval.amount_to_pay.errors?.maxLength
+            "
+          >
+            Please enter valid amount to be borrowed!
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
+              fval.amount_to_pay.errors?.minlength
+            "
+          >
+            Please enter valid amount to be borrowed!
+          </div>
+          <div
+            class="text-danger col"
+            *ngIf="
+              (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
+              fval.amount_to_pay.errors?.hasNumber
+            "
+          >
+            Please enter valid amount to be borrowed!
+          </div>
+        </div>
              <div class="form-group text-primary">
           <label for="pin" [ngClass]="fval.pin.valid ? 'text-info' : ''"
             >PIN<i *ngIf="fval.pin.valid" class="material-icons"
@@ -261,11 +250,7 @@
             Please enter a valid pin!
           </div>
         </div>
-          </div>
-        </div>
-        <div class='row'>
-          <div class="col-12 col-md-6">
-            <div class="d-flex my-3 pt-2 pb-3 mx-auto">
+            <div class="d-flex mt-1 mb-0 py-0 mx-auto">
           <button
             type="submit"
             class="btn btn-info col-5 mx-auto"
@@ -282,10 +267,8 @@
             Cancel
           </button>
           </div>
-        </div>
-        </div>
       </form>
-    </div> 
+    </div>
     <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg" [hidden]='!showGarantorForm'>
       <form [formGroup]="garantorsForm">
         <div class="row">
@@ -321,7 +304,7 @@
                         garantorFval.name.errors
                   }"
                   autocomplete="off"
-                  placeholder="Enter Customer Name"
+                  placeholder="Enter Guarantor's Name"
                 />
               </div>
               <div
@@ -566,7 +549,7 @@
                       garantorFval.businessLocation.errors
                   }"
                   autocomplete="off"
-                  placeholder="Business location"
+                  placeholder="Enter Business location"
                 />
               </div>
               <div
@@ -619,7 +602,7 @@
                       garantorFval.currentResidence.errors
                   }"
                   autocomplete="off"
-                  placeholder="Current residence"
+                  placeholder="Enter Current residence"
                 />
               </div>
               <div
@@ -635,35 +618,35 @@
             </div>
           </div>
         </div>
-        <div class='row'>
-          <div class="col-12 col-md-6">
-            <div class="d-flex my-3 pt-2 pb-3 mx-auto">
+        <div class="row">
+          <div class="col-12">
+            <div class="d-flex mt-1 mb-0 py-0 mx-auto">
               <button
                 type="submit"
-                class="btn btn-info col-5 mx-auto"
+                class="btn btn-info col-5 col-md-2 mx-auto"
                 [disabled]="!garantorsForm.valid"
                 (click)='saveAndNew()'
               >
-                Save and Add
+                Save & Add
               </button>
               <button
                 type="submit"
-                class="btn btn-info col-5 mx-auto"
+                class="btn btn-info col-5 col-md-2 mx-auto"
                 [disabled]="!garantorsForm.valid"
                 (click)='saveAndNext()'
               >
-                Save and Next
+                Save & Next
               </button>
               <button
                 type="button"
-                class="btn btn-info col-5 mx-auto"
+                class="btn btn-info col-5 col-md-2 mx-auto"
                 (click)="skip()"
               >
                 Skip
               </button>
               <button
                 type="button"
-                class="btn btn-info col-5 mx-auto"
+                class="btn btn-info col-5 col-md-2 mx-auto"
                 routerLink = '/townmanagement'
               >
                 Cancel
@@ -675,8 +658,6 @@
     </div>
     <div class="card-body mt-1 pt-4 mb-0 mb-md-3 pb-3 shadow-lg" [hidden]='!showSecurityForm'>
       <form [formGroup]="securityForm">
-        <div class="row">
-          <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
                 for="type"
@@ -688,15 +669,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
                   formControlName="type"
@@ -727,8 +699,6 @@
                 The security type is required!
               </div>
             </div>
-        </div>
-        <div class="col-12 col-md-6">
             <div class="form-group text-primary">
               <label
                 for="name"
@@ -740,15 +710,6 @@
                 ></label
               >
               <div class="input-group mb-0">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <i
-                      class="fas fa-user-alt text-primary mx-auto"
-                      style="size: 50px"
-                    >
-                    </i>
-                  </div>
-                </div>
                 <input
                   type="text"
                   formControlName="name"
@@ -773,10 +734,6 @@
                 The security name is required!
               </div>
             </div>
-        </div>
-        </div>
-        <div class='row'> 
-        <div class="col-12 col-md-6">
           <div class="form-group text-primary">
             <label
               for="location"
@@ -788,15 +745,6 @@
               ></label
             >
             <div class="input-group mb-0">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i
-                    class="fas fa-user-alt text-primary mx-auto"
-                    style="size: 50px"
-                  >
-                  </i>
-                </div>
-              </div>
               <input
                 type="text"
                 formControlName="location"
@@ -821,8 +769,6 @@
               The security location is required!
             </div>
           </div>
-        </div>
-        <div class="col-12 col-md-6">
           <div class="form-group text-primary">
             <label
               for="url"
@@ -868,61 +814,54 @@
               Please upload a photo of the security!
             </div>
             </div>
-          </div>
-      </div>
-          <div class="row">
-          <div class="col-12 col-md-6">
-            <div class="d-flex my-3 pt-2 pb-3 mx-auto">
+            <div class="d-flex mt-1 mb-0 py-0 mx-auto">
           <button
             type="submit"
-            class="btn btn-info col-5 mx-auto"
+            class="btn btn-info col-5 col-md-3 mx-auto"
             [disabled]="!securityForm.valid"
             (click)='saveAndNew()'
           >
-            Save and Add
+            Save & Add
           </button>
           <button
             type="submit"
-            class="btn btn-info col-5 mx-auto"
+            class="btn btn-info col-5 col-md-3 mx-auto"
             [disabled]="!securityForm.valid"
             (click)='saveAndNext()'
           >
-            Save and Finish
+            Save & Finish
           </button>
           <button
                 type="button"
-                class="btn btn-info col-5 mx-auto"
+                class="btn btn-info col-5 col-md-3 mx-auto"
                 (click)="skip()"
               >
-                Skip and Finish
+                Skip & Finish
               </button>
           <button
             type="button"
-            class="btn btn-info col-5 mx-auto"
+            class="btn btn-info col-5 col-md-3 mx-auto"
             routerLink = '/townmanagement'
           >
             Cancel
           </button>
           </div>
-        </div>
-        </div>
       </form>
+    </div>
+    <!-- action buttons -->
+    <div class="d-flex mt-3 mb-2 mb-xl-0 py-2 mx-auto">
+      <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+        <p class="text-light">Please wait...</p>
+      </ngx-spinner>
+      <label class="col" *ngIf="errored" class="text-danger">
+        <!-- <i class="material-icons">Cancel</i> -->
+        <ngx-alerts></ngx-alerts>
+      </label>
+      <label class="col" *ngIf="posted" class="text-info">
+        <!-- <i class="material-icons">check_circle</i> -->
+        <ngx-alerts></ngx-alerts>
+      </label>
     </div>
   </div>
 
-  <!-- action buttons -->
-  <div class="d-flex mt-3 mb-2 mb-xl-0 py-2 mx-auto">
-    <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
-      <p class="text-light">Please wait...</p>
-    </ngx-spinner>
-    <label class="col" *ngIf="errored" class="text-danger">
-      <!-- <i class="material-icons">Cancel</i> -->
-      <ngx-alerts></ngx-alerts>
-    </label>
-    <label class="col" *ngIf="posted" class="text-info">
-      <!-- <i class="material-icons">check_circle</i> -->
-      <ngx-alerts></ngx-alerts>
-    </label>
   </div>
-  </div>
-</div>
