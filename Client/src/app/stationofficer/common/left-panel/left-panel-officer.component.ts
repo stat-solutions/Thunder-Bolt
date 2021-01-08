@@ -54,72 +54,18 @@ export class LeftPanelOfficerComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/stationofficer/dashboard'
+        url: '/stationofficer/dashboard',
       },
       {
         name: 'Lend',
         icon: 'fas fa-balance-scale-left',
-        url: '/stationofficer/lend'
+        url: '/stationofficer/lend',
       },
       {
         name: 'Pay',
         icon: 'fas fa-exchange-alt',
-        url: '/stationofficer/pay'
+        url: '/stationofficer/pay',
       },
-      // {
-      //   name: 'Adjustments',
-      //   icon: 'fas fa-tools',
-      //   url: '/stationofficer/adjustments',
-      //   subMenu: [
-      //     {
-      //       name: 'Reduce Rate',
-      //       icon: 'fas fa-balance-scale',
-      //       url: '/stationofficer/adjustments/reduceinterestrate'
-      //     },
-      //     {
-      //       name: 'Reverse Principle',
-      //       icon: 'fas fa-balance-scale',
-      //       url: '/stationofficer/adjustments/reverse-principle'
-      //     },
-      //     {
-      //       name: 'Interest Rate',
-      //       icon: 'fas fa-balance-scale',
-      //       url: '/stationofficer/adjustments/setinterestrate'
-      //     },
-      //     {
-      //       name: 'Loan Limit',
-      //       icon: 'fas fa-balance-scale',
-      //       url: '/stationofficer/adjustments/setloanlimit'
-      //     },
-      //     {
-      //       name: 'Waive Interest',
-      //       icon: 'fas fa-balance-scale',
-      //       url: '/stationofficer/adjustments/waive-interest'
-      //     },
-      //     {
-      //       name: 'Writeoff Principle',
-      //       icon: 'fas fa-balance-scale',
-      //       url: '/stationofficer/adjustments/writeoffprinciple'
-      //     }
-      //   ]
-      // },
-      // {
-      //   name: 'Enroll',
-      //   icon: 'fas fa-user',
-      //   url: '/stationofficer/enroll',
-      //   subMenu: [
-      //     {
-      //       name: 'Enroll Client',
-      //       icon: 'fas fa-user',
-      //       url: '/stationofficer/enroll/enrollclient'
-      //     },
-      //     {
-      //       name: 'Enroll Stage',
-      //       icon: 'fas fa-parking',
-      //       url: '/stationofficer/enroll/enrollstage'
-      //     }
-      //   ]
-      // },
       {
         name: 'Savings',
         icon: 'fas fa-piggy-bank',
@@ -128,14 +74,51 @@ export class LeftPanelOfficerComponent implements OnInit {
           {
             name: 'Deposit',
             icon: 'fas fa-piggy-bank',
-            url: '/stationofficer/savings/deposit'
+            url: '/stationofficer/savings/deposit',
           },
           {
             name: 'Withdraw',
             icon: 'fas fa-piggy-bank',
-            url: '/stationofficer/savings/withdraw'
-          }
-        ]
+            url: '/stationofficer/savings/withdraw',
+          },
+        ],
+      },
+      {
+        name: 'Adjustments',
+        icon: 'fas fa-tools',
+        url: '/stationofficer/adjustments',
+        subMenu: [
+          {
+            name: 'Set Loan limit',
+            icon: 'fas fa-wrench',
+            url: '/stationofficer/adjustments/setloanlimit',
+          },
+          {
+            name: 'Reduce Interest rate',
+            icon: 'fas fa-wrench',
+            url: '/stationofficer/adjustments/reduceinterestrate',
+          },
+          {
+            name: 'Waive Interest',
+            icon: 'fas fa-wrench',
+            url: '/stationofficer/adjustments/waiveinterest',
+          },
+          {
+            name: 'Write-Off Principal',
+            icon: 'fas fa-wrench',
+            url: '/stationofficer/adjustments/writeoffprincipal',
+          },
+          {
+            name: 'Reverse Principal',
+            icon: 'fas fa-wrench',
+            url: '/stationofficer/adjustments/reverseprincipal',
+          },
+          {
+            name: 'Set Interest rate',
+            icon: 'fas fa-wrench',
+            url: '/stationofficer/adjustments/setinterestrate',
+          },
+        ],
       },
       {
         name: 'Reports',
@@ -143,22 +126,27 @@ export class LeftPanelOfficerComponent implements OnInit {
         url: '/stationofficer/reports',
         subMenu: [
           {
-            name: 'Cash Ledger',
+            name: 'Loans and Revenue',
             icon: 'fas fa-clipboard-list',
-            url: '/stationofficer/reports/cashledger'
+            url: '/stationofficer/reports/loansrevenue',
           },
           {
-            name: 'Loans Report',
+            name: 'Client Reports',
             icon: 'fas fa-clipboard-list',
-            url: '/stationofficer/reports/loansreport'
-          }
-        ]
+            url: '/stationofficer/reports/clients',
+          },
+          {
+            name: 'User Reports',
+            icon: 'fas fa-clipboard-list',
+            url: '/stationofficer/reports/users',
+          },
+        ],
       },
       {
         name: 'Profile',
         icon: 'fas fa-user-cog',
         url: '/stationofficer/profile',
-      }
+      },
     ];
   }
 }

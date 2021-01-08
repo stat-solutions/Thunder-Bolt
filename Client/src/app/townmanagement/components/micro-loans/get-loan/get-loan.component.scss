@@ -1,10 +1,10 @@
 .jumbotron-fluid {
-  height: inherit !important;
+  height: auto !important;
 }
 
 .rub-head4 {
-  margin-top: 2px !important;
-  margin-bottom: 2px !important;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 .card-body {
@@ -29,35 +29,23 @@
 @media (min-width: 360px) {
   .card-body {
     max-width: 350px;
-    padding-top: 1.1rem !important;
-    margin-bottom: .6rem !important;
   }
   .jumbotron-fluid {
-    padding-top: 1.1rem !important;
-    padding-bottom: 1.8rem !important;
+    padding-top: .7rem !important;
+    padding-bottom: .5rem !important;
   }
 }
 
 @media (min-width: 375px) {
-  .card-body {
-    max-width: 360px;
-    margin-bottom: .65rem !important;
-  }
 }
 
 @media (min-width: 410px) {
-  .card-body {
-    margin-bottom: 1.6rem !important;
-  }
 }
 
 @media (min-width: 445px) {
 }
 
 @media (min-width: 568px) {
-  .card-body {
-    margin-bottom: 0rem !important;
-  }
   .jumbotron-fluid {
     padding-bottom: .8rem !important;
   }
@@ -75,18 +63,12 @@
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
-  .card-body {
-    margin-bottom: 6rem !important;
-  }
   .jumbotron-fluid {
     padding-bottom: 10rem !important;
   }
 }
 
 @media (min-width: 812px) {
-  .card-body {
-    margin-bottom: 0rem !important;
-  }
   .jumbotron-fluid {
     padding-bottom: 1rem !important;
   }
@@ -97,21 +79,17 @@
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
-  .card-body {
-    margin-bottom: 9rem !important;
-  }
   .jumbotron-fluid {
     padding-bottom: 20rem !important;
   }
 }
 
 @media (min-width: 1100px) {
-  .card-body {
-    margin-bottom: .4rem !important;
-  }
   .jumbotron-fluid {
-    padding-top: .3rem !important;
-    padding-bottom: 1rem !important;
+    margin-top: 0rem !important;
+    padding-top: 0rem !important;
+    padding-bottom: 0rem !important;
+    margin-bottom: 0rem !important;
   }
 }
 

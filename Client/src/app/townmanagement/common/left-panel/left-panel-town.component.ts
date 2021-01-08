@@ -104,19 +104,19 @@ export class LeftPanelTownComponent implements OnInit {
         url: '/townmanagement/reports',
         subMenu: [
           {
-            name: 'Cash Ledger',
+            name: 'Loans and Revenue',
             icon: 'fas fa-clipboard-list',
-            url: '/townmanagement/reports/cashledger'
+            url: '/townmanagement/reports/loansrevenue'
           },
           {
-            name: 'Loans Ledger',
+            name: 'Clients',
             icon: 'fas fa-clipboard-list',
-            url: '/townmanagement/reports/loansledger'
+            url: '/townmanagement/reports/clients'
           },
           {
-            name: 'Payments Ledger',
+            name: 'Users',
             icon: 'fas fa-clipboard-list',
-            url: '/townmanagement/reports/paidledger'
+            url: '/townmanagement/reports/users'
           }
                 ]
       },

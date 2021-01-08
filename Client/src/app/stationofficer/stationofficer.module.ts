@@ -26,13 +26,12 @@ import { ReversePrincipleComponent } from './components/adjustments/reverse-prin
 import { WaiveInterestComponent } from './components/adjustments/waive-interest/waive-interest.component';
 import { WriteOffComponent } from './components/adjustments/write-off/write-off.component';
 import { ReportsComponent } from './components/reports/reports.component';
-import { LoansReportComponent } from './components/reports/loans-report/loans-report.component';
-import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgChartjsModule } from 'ng-chartjs';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { EnrollClientComponent } from './components/enroll/enroll-client/enroll-client.component';
 import { EnrollStageComponent } from './components/enroll/enroll-stage/enroll-stage.component';
@@ -41,6 +40,9 @@ import { EnrollBodaStageComponent } from './components/enroll/enroll-stage/enrol
 import { PersonalInfoComponent } from './components/enroll/enroll-client/personal-info/personal-info.component';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
 import { AlertModule } from 'ngx-alerts';
+import { AreaComponent } from './components/reports/area/area.component';
+import { ClientsComponent } from './components/reports/clients/clients.component';
+import { UsersComponent } from './components/reports/users/users.component';
 
 
 @NgModule({
@@ -67,14 +69,15 @@ import { AlertModule } from 'ngx-alerts';
     WaiveInterestComponent,
     WriteOffComponent,
     ReportsComponent,
-    LoansReportComponent,
-    CashLedgerComponent,
     EnrollClientComponent,
     EnrollStageComponent,
     EnrollTaxiStageComponent,
     EnrollBodaStageComponent,
     PersonalInfoComponent,
     PersonalProfileComponent,
+    AreaComponent,
+    ClientsComponent,
+    UsersComponent,
   ],
 
   imports: [
@@ -90,6 +93,7 @@ import { AlertModule } from 'ngx-alerts';
     TooltipModule.forRoot(),
     NgChartjsModule,
     NgChartjsModule.registerPlugin(['inlinePlugin']),
+    NgbModule,
     AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
   ]
 })

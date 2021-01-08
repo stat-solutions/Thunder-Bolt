@@ -16,13 +16,13 @@ export interface clientInfo {
   clientSaving: number;
 }
 @Component({
-  selector: 'app-cash-ledger',
-  templateUrl: './cash-ledger.component.html',
-  styleUrls: ['./cash-ledger.component.scss'],
+  selector: 'app-area',
+  templateUrl: './area.component.html',
+  styleUrls: ['./area.component.scss'],
 })
-export class CashLedgerComponent implements OnInit {
+export class AreaComponent implements OnInit {
   public modalRef: BsModalRef;
-  userform: FormGroup;
+  userForm: FormGroup;
   clients: clientInfo;
   user = '/../../../assets/img/man.svg';
 
@@ -42,9 +42,9 @@ export class CashLedgerComponent implements OnInit {
   public openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(
       template,
-      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
+      Object.assign({}, { class: 'modal-dialog-centered' })
     );
   }
 
-  save() {}
+  createArea() {}
 }

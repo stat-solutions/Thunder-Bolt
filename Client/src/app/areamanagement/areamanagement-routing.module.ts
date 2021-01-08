@@ -100,11 +100,11 @@ const routes: Routes = [
             component: LoansrevenueComponent
           },
           {
-            path: 'clientsreports',
+            path: 'clients',
             component: ClientsComponent,
           },
           {
-            path: 'usersreports',
+            path: 'users',
             component: UsersComponent,
           },
         ]
