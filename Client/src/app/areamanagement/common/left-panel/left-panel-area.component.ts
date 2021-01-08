@@ -75,7 +75,7 @@ export class LeftPanelAreaComponent implements OnInit {
             name: 'Loan Approvals',
             icon: 'fas fa-clipboard-list',
             url: '/areamanagement/approvals/loanapprovals',
-          }
+          },
         ],
       },
       {
@@ -84,26 +84,21 @@ export class LeftPanelAreaComponent implements OnInit {
         url: '/areamanagement/reports',
         subMenu: [
           {
-            name: 'Towns',
+            name: 'Loans and Revenue',
             icon: 'fas fa-clipboard-list',
-            url: '/areamanagement/reports/townsreports'
-          },
-          {
-            name: 'Stations',
-            icon: 'fas fa-clipboard-list',
-            url: '/areamanagement/reports/stationsreports'
+            url: '/areamanagement/reports/loansrevenue',
           },
           {
             name: 'Clients',
             icon: 'fas fa-clipboard-list',
-            url: '/areamanagement/reports/clientsreports'
+            url: '/areamanagement/reports/clients',
           },
           {
             name: 'Users',
-            icon: 'fas fa-user-cog',
-            url: '/areamanagement/reports/usersreports'
-          }
-        ]
+            icon: 'fas fa-clipboard-list',
+            url: '/areamanagement/reports/users',
+          },
+        ],
       },
       {
         name: 'Profile',

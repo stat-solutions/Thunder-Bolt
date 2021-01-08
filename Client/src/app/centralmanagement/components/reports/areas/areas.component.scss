@@ -14,6 +14,10 @@
   contain: auto;
 }
 
+button, button:focus, button:active {
+  outline: 0;
+}
+
 .invest-card {
   height: auto;
   margin-bottom: 20px !important;

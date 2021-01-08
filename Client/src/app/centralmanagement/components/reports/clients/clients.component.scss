@@ -14,6 +14,10 @@
   contain: auto;
 }
 
+button, button:focus, button:active {
+  outline: 0;
+}
+
 .invest-card {
   height: auto;
   margin-bottom: 20px !important;
@@ -178,6 +182,10 @@
 .img-circle{
   width: 50px;
   height: 50px;
+}
+.img-circle-1{
+  width: 30px;
+  height: 30px;
 }
 .modal-img{
   width: 200px;

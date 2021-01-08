@@ -17,35 +17,37 @@ import { EnrollComponent } from './components/enroll/enroll.component';
 import { LendComponent } from './components/lend/lend.component';
 import { PayComponent } from './components/pay/pay.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
-import { LoansReportComponent } from './components/reports/loans-report/loans-report.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { DepositComponent } from './components/savings/deposit/deposit.component';
 import { SavingsComponent } from './components/savings/savings.component';
 import { WithdrawComponent } from './components/savings/withdraw/withdraw.component';
 import { PagesCoreOfficerComponent } from './pages-core/pages-core-officer.component';
+import { ClientsComponent } from './components/reports/clients/clients.component';
+import { UsersComponent } from './components/reports/users/users.component';
+import { AreaComponent } from './components/reports/area/area.component';
 
 const routes: Routes = [
-  { path: '',
+  {
+    path: '',
     component: PagesCoreOfficerComponent,
     canActivateChild: [OfficerGuard],
     children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'dashboard',
       },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
       },
       {
         path: 'lend',
-        component: LendComponent
+        component: LendComponent,
       },
       {
         path: 'pay',
-        component: PayComponent
+        component: PayComponent,
       },
       {
         path: 'enroll',
@@ -61,15 +63,15 @@ const routes: Routes = [
             children: [
               {
                 path: 'enrolltaxistage',
-                component: EnrollTaxiStageComponent
+                component: EnrollTaxiStageComponent,
               },
               {
                 path: 'enrollbodastage',
-                component: EnrollBodaStageComponent
-              }
-            ]
-              }
-        ]
+                component: EnrollBodaStageComponent,
+              },
+            ],
+          },
+        ],
       },
       {
         path: 'savings',
@@ -77,13 +79,13 @@ const routes: Routes = [
         children: [
           {
             path: 'deposit',
-            component: DepositComponent
+            component: DepositComponent,
           },
           {
             path: 'withdraw',
-            component: WithdrawComponent
-          }
-        ]
+            component: WithdrawComponent,
+          },
+        ],
       },
       {
         path: 'adjustments',
@@ -91,50 +93,55 @@ const routes: Routes = [
         children: [
           {
             path: 'setloanlimit',
-            component: SetLoanLimitComponent
+            component: SetLoanLimitComponent,
           },
           {
             path: 'reduceinterestrate',
-            component: ReduceRateComponent
+            component: ReduceRateComponent,
           },
           {
-            path: 'reverse-principle',
-            component: ReversePrincipleComponent
+            path: 'reverseprincipal',
+            component: ReversePrincipleComponent,
           },
           {
             path: 'setinterestrate',
-            component: SetInterestRateComponent
+            component: SetInterestRateComponent,
           },
           {
-            path: 'waive-interest',
-            component: WaiveInterestComponent
+            path: 'waiveinterest',
+            component: WaiveInterestComponent,
           },
           {
-            path: 'writeoffprinciple',
-            component: WriteOffComponent
+            path: 'writeoffprincipal',
+            component: WriteOffComponent,
           },
-        ]
+        ],
       },
       {
         path: 'reports',
         component: ReportsComponent,
         children: [
           {
-            path: 'cashledger',
-            component: CashLedgerComponent
+            path: 'loansrevenue',
+            component: AreaComponent,
           },
           {
-            path: 'loansreport',
-            component: LoansReportComponent
-          }
-        ]
+            path: 'users',
+            component: UsersComponent,
+          },
+          {
+            path: 'clients',
+            component: ClientsComponent,
+          },
+        ],
       },
       {
         path: 'profile',
         component: ProfileComponent,
-      }
-    ]
-}];
+      },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

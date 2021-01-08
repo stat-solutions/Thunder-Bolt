@@ -7,71 +7,14 @@
   margin-bottom: 2px !important;
 }
 
+button {
+  outline: 0;
+}
+
 .btn {
   padding: .340rem 0rem;
-  font-size: .8rem;
-  line-height: 1.0;
-  border-radius: 15px;
+  outline: 0;
 }
-
-.text-info {
-  color: #17aae0ee !important;
-}
-
-a.text-info:focus,
-a.text-info:hover {
-  color: #48bae4f5 !important;
-}
-.btn-info {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: #17aae0ee;
-}
-.btn-info:hover,
-.btn-info:focus {
-  color: #d9dbdd;
-  background-color: #17aae0ee;
-  border-color: #17aae0ee;
-}
-.btn-info.focus,
-.btn-info:focus {
-  box-shadow: 0 0 0 0.2rem #0e99ccee;
-}
-.btn-info.disabled,
-.btn-info:disabled {
-  color: #1b9eceec;
-  background-color: transparent;
-  border-color: #1b9eceec;
-}
-.btn-infob {
-  color: #7d8388;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn-infob:hover,
-.btn-infob:focus {
-  color: #17aae0ee;
-  background-color: transparent;
-  border-color: transparent;
-}
-.btn-infob.focus,
-.btn-infob:focus {
-  box-shadow: 0 0 0 0.2rem transparent;
-}
-.btn-infob.disabled,
-.btn-infob:disabled {
-  color: #89898a;
-  background-color: transparent;
-  border-color: transparent;
-}
-
-.pointerCursor {
-  cursor: pointer;
-}
-
-.the-footer {
-    margin-top: 1rem;
-  }
 
 
 
@@ -80,37 +23,6 @@ a.text-info:hover {
   .jumbotron-fluid {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
-  }
-}
-
-@media (min-width: 360px) {
-.the-footer {
-    margin-top: 1rem !important;
-    padding-top: 0px !important;
-  }
-}
-
-@media (min-width: 375px) {
-.the-footer {
-    margin-top: 1.6rem !important;
-  }
-}
-
-@media (min-width: 410px) {
-}
-
-@media (min-width: 445px) {
-}
-
-@media (min-width: 568px) {
-  .card-body {
-    padding-top: 4px !important;
-  }
-  .jumbotron-fluid {
-    padding-top: 0px !important;
-  }
-.the-footer {
-    margin-top: .7rem !important;
   }
 }
 
@@ -126,19 +38,9 @@ a.text-info:hover {
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
-.the-footer {
-    margin-top: 2rem !important;
-  }
 }
 
 @media (min-width: 812px) {
-  .jumbotron-fluid {
-    padding-top: 0px !important;
-    padding-bottom: 5px !important;
-  }
-.the-footer {
-    margin-top: 2.6rem !important;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -149,17 +51,17 @@ a.text-info:hover {
 }
 
 @media (min-width: 1100px) {
+  .jumbotron-fluid {
+    margin-top: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: .65rem !important;
+  }
 }
 
 @media (min-width: 1280px) {
   .container {
     margin-left: auto !important;
     margin-right: auto !important;
-  }
-  .jumbotron-fluid {
-    margin-top: 0px !important;
-    padding-top: 0px !important;
-    padding-bottom: .65rem !important;
   }
 }
 

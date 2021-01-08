@@ -156,7 +156,7 @@ export class ComfirmLoanComponent implements OnInit {
       } else {
         this.errored = true;
         this.alertService.danger({
-          html: '<b>Secret pin does not much</b>'
+          html: '<b>Secret pin does not much!/b>'
         });
       }
     }
@@ -182,7 +182,7 @@ export class ComfirmLoanComponent implements OnInit {
             this.errored = true;
             if (err.error.error.status === 500) {
               this.alertService.danger({
-                html: '<b> Sever Could Not handle this request</b>'
+                html: '<b> Server Could Not handle this request!</b>'
               });
             } else {
               this.alertService.danger({
