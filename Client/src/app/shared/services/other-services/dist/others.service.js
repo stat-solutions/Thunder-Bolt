@@ -439,8 +439,26 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.createMicroLoan = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/postCreateMicroloanApproval", postData);
     };
+    OthersService.prototype.getTxnForApproval = function () {
+        return this.http.get(this.API_URL + "/api/loan/getTxnsForApprovalMicroloan");
+    };
+    OthersService.prototype.approveTransaction = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postApproveTxnMicron", postData);
+    };
+    OthersService.prototype.getTxnApproved = function () {
+        return this.http.get(this.API_URL + "/api/loan/getApprovedTxnsMicroloan");
+    };
+    OthersService.prototype.getTxnRejected = function () {
+        return this.http.get(this.API_URL + "api/loan/getRejectedTxnsMicroloan");
+    };
     OthersService.prototype.confirmMicroLoan = function (postData) {
         return this.http.post(this.API_URL + "/api/user/verifyUserWithPin", postData);
+    };
+    OthersService.prototype.setIdividualLoanLimit = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanLimit", postData);
+    };
+    OthersService.prototype.getIdividualLoanLimit = function (postData) {
+        return this.http.get(this.API_URL + "/api/customer/getIndividualLoanLimitForApproval");
     };
     OthersService.prototype.handleCompanySetupError = function (errorResponse) {
         if (errorResponse.error instanceof ErrorEvent) {

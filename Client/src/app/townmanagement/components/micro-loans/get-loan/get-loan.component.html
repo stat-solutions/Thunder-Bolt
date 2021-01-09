@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-        <div class="card-body mt-2 pt-2 mb-0 mx-0 pb-4 shadow-lg">
+        <div class="card-body mt-2 pt-2 mb-0 mx-0 pb-4 shadow-lg" [hidden]="!showUserForm">
       <form [formGroup]="userForm">
         <div class="form-group text-primary">
           <label

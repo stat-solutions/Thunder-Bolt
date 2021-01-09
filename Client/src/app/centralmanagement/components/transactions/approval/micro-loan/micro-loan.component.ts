@@ -13,14 +13,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
-export interface IntRateApprovals {
-  station: string;
-  client: string;
-  rate: number;
-  status: number;
-}
-
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 @Component({
   selector: 'app-micro-loan',
   templateUrl: './micro-loan.component.html',
@@ -29,16 +22,7 @@ export interface IntRateApprovals {
 export class MicroLoanComponent implements OnInit {
   public modalRef: BsModalRef;
   userForm: FormGroup;
-  ratesApprovals: IntRateApprovals[] = [
-    { station: 'nsambya', client: 'Kasule Joseph', rate: 5, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
-    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
-    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
-    { station: 'bwayise', client: 'Kasule Jose', rate: 2, status: 0 },
-  ];
+  txnsApprovals = [];
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -47,8 +31,11 @@ export class MicroLoanComponent implements OnInit {
   checkedOk: boolean;
   station: string;
   theCompany: string;
+  User = this.authService.loggedInUserInfo();
+  checkedLoan: any;
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private router: Router,
     private modalService: BsModalService,
     private spinner: NgxSpinnerService,
@@ -62,72 +49,76 @@ export class MicroLoanComponent implements OnInit {
   }
   createFormGroup(): any {
     return this.fb.group({
-      approveRates: this.fb.array([this.rateApproval]),
+      txnApprovals: this.fb.array([this.txnApproval]),
       selectAll: this.fb.control({}),
     });
   }
-  get rateApproval(): any {
+  get txnApproval(): any {
     return this.fb.group({
-      station: this.fb.control({ value: '' }),
+      loanId: this.fb.control({ value: '' }),
       client: this.fb.control({ value: '' }),
-      rate: this.fb.control({ value: '' }),
+      amount: this.fb.control({ value: '' }),
+      purpose: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
   }
   addItem(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.approveRates as FormArray).push(this.rateApproval);
+    (this.fval.txnApprovals as FormArray).push(this.txnApproval);
   }
 
   removeItem(index: number): any {
-    (this.fval.approveRates as FormArray).removeAt(index);
+    (this.fval.txnApprovals as FormArray).removeAt(index);
   }
   initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    //   units => {
-    //     this.approvals = units;
-    this.ratesApprovals.forEach((item, i) => {
-      // console.log(item.name);
-      // console.log(i);
-      this.fval.approveRates.controls[i].controls.station.setValue(
-        item.station
-      );
-      this.fval.approveRates.controls[i].controls.client.setValue(item.client);
-      this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
-      this.fval.approveRates.controls[i].controls.approved.setValue(false);
-      this.addItem();
-      n = i + 1;
-    });
-    this.removeItem(n);
-    // }
-    // )
+    this.others.getTxnForApproval().subscribe(
+      items => {
+        this.txnsApprovals = items;
+        this.txnsApprovals.forEach((item, i) => {
+        this.fval.txnApprovals.controls[i].controls.loanId.setValue(item.client);
+        this.fval.txnApprovals.controls[i].controls.client.setValue(item.client);
+        this.fval.txnApprovals.controls[i].controls.amount.setValue(item.rate);
+        this.fval.txnApprovals.controls[i].controls.purpose.setValue(item.rate);
+        this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
+        this.addItem();
+        n = i + 1;
+      });
+        this.removeItem(n);
+    }, err => {
+      console.log(err.error.error.message);
+    }
+    );
   }
   checkAllItems(val: boolean): any {
     if (val === true) {
-      this.ratesApprovals.forEach((item, i) => {
-        this.fval.approveRates.controls[i].controls.approved.setValue(val);
+      this.txnsApprovals.forEach((item, i) => {
+        this.fval.txnApprovals.controls[i].controls.approved.setValue(val);
       });
     } else {
-      this.ratesApprovals.forEach((item, i) => {
-        this.fval.approveRates.controls[i].controls.approved.setValue(false);
+      this.txnsApprovals.forEach((item, i) => {
+        this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
       });
     }
   }
   deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-    if (this.fval.approveRates.controls[val].controls.approved.value === true) {
+    if (this.fval.txnApprovals.controls[val].controls.approved.value === true) {
       this.fval.selectAll.setValue(false);
     }
   }
 
   // loan modal method
-  public openModal(template: TemplateRef<any>): any {
-    // this.imageUrl = imageUrl;
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
-    );
+  public openModal(template: TemplateRef<any>, id: number): any {
+    this.txnsApprovals.forEach(item => {
+      if (item.microLoanId === id) {
+        this.checkedLoan = item;
+        this.modalRef = this.modalService.show(
+          template,
+          Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+        );
+      }
+    });
   }
 
   revert(): any {
@@ -152,8 +143,8 @@ export class MicroLoanComponent implements OnInit {
 
   approveItems(): any {
     const itemsApproved = [];
-    this.ratesApprovals.forEach((item, i) => {
-      if (this.fval.approveRates.controls[i].controls.approved.value === true) {
+    this.txnsApprovals.forEach((item, i) => {
+      if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         item.status = 2;
         itemsApproved.push(item);
       }
@@ -171,8 +162,8 @@ export class MicroLoanComponent implements OnInit {
   }
   rejectItems(): any {
     const itemsRejected = [];
-    this.ratesApprovals.forEach((item, i) => {
-      if (this.fval.approveRates.controls[i].controls.approved.value === true) {
+    this.txnsApprovals.forEach((item, i) => {
+      if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         item.status = 1;
         itemsRejected.push(item);
       }
