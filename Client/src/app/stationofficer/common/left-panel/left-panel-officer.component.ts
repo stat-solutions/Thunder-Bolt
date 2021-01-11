@@ -83,43 +83,43 @@ export class LeftPanelOfficerComponent implements OnInit {
           },
         ],
       },
-      {
-        name: 'Adjustments',
-        icon: 'fas fa-tools',
-        url: '/stationofficer/adjustments',
-        subMenu: [
-          {
-            name: 'Set Loan limit',
-            icon: 'fas fa-wrench',
-            url: '/stationofficer/adjustments/setloanlimit',
-          },
-          {
-            name: 'Reduce Interest rate',
-            icon: 'fas fa-wrench',
-            url: '/stationofficer/adjustments/reduceinterestrate',
-          },
-          {
-            name: 'Waive Interest',
-            icon: 'fas fa-wrench',
-            url: '/stationofficer/adjustments/waiveinterest',
-          },
-          {
-            name: 'Write-Off Principal',
-            icon: 'fas fa-wrench',
-            url: '/stationofficer/adjustments/writeoffprincipal',
-          },
-          {
-            name: 'Reverse Principal',
-            icon: 'fas fa-wrench',
-            url: '/stationofficer/adjustments/reverseprincipal',
-          },
-          {
-            name: 'Set Interest rate',
-            icon: 'fas fa-wrench',
-            url: '/stationofficer/adjustments/setinterestrate',
-          },
-        ],
-      },
+      // {
+      //   name: 'Adjustments',
+      //   icon: 'fas fa-tools',
+      //   url: '/stationofficer/adjustments',
+      //   subMenu: [
+      //     {
+      //       name: 'Set Loan limit',
+      //       icon: 'fas fa-wrench',
+      //       url: '/stationofficer/adjustments/setloanlimit',
+      //     },
+      //     {
+      //       name: 'Reduce Interest rate',
+      //       icon: 'fas fa-wrench',
+      //       url: '/stationofficer/adjustments/reduceinterestrate',
+      //     },
+      //     {
+      //       name: 'Waive Interest',
+      //       icon: 'fas fa-wrench',
+      //       url: '/stationofficer/adjustments/waiveinterest',
+      //     },
+      //     {
+      //       name: 'Write-Off Principal',
+      //       icon: 'fas fa-wrench',
+      //       url: '/stationofficer/adjustments/writeoffprincipal',
+      //     },
+      //     {
+      //       name: 'Reverse Principal',
+      //       icon: 'fas fa-wrench',
+      //       url: '/stationofficer/adjustments/reverseprincipal',
+      //     },
+      //     {
+      //       name: 'Set Interest rate',
+      //       icon: 'fas fa-wrench',
+      //       url: '/stationofficer/adjustments/setinterestrate',
+      //     },
+      //   ],
+      // },
       {
         name: 'Reports',
         icon: 'fas fa-chart-line',

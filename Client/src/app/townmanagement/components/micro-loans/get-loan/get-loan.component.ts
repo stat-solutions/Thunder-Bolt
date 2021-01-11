@@ -28,7 +28,7 @@ export class GetLoanComponent implements OnInit {
   securityForm: FormGroup;
   state: string;
   header: string;
-  showUserForm = false;
+  showUserForm = true;
   showGarantorForm = false;
   showSecurityForm = false;
   nextGarantorForm = false;
@@ -46,8 +46,6 @@ export class GetLoanComponent implements OnInit {
   securityPhotoUrl: string;
   securityTypes: any;
   customers: any;
-  stations: any;
-  stationLocationId: number;
   checkedClient: any;
   constructor(
     private authService: AuthServiceService,
@@ -65,13 +63,6 @@ export class GetLoanComponent implements OnInit {
     this.userForm = this.createFormGroup();
     this.garantorsForm = this.garantorsFormGroup();
     this.securityForm = this.securityFormGroup();
-    this.others.getAllTheStationLocationsByTown(this.User.userLocationId).subscribe(
-      res => {
-        this.stations = res;
-      // tslint:disable-next-line: only-arrow-functions
-      },
-      err => console.log(err.statusText)
-    );
     this.others.getSecurityType().subscribe(
       res => {
         this.securityTypes = res;
@@ -125,10 +116,6 @@ export class GetLoanComponent implements OnInit {
   }
   createFormGroup(): any {
     return new FormGroup({
-      station: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
       user_contact_number: new FormControl(
         '',
         Validators.compose([
@@ -227,23 +214,6 @@ export class GetLoanComponent implements OnInit {
     });
   }
 
-  onChages(selectedChange: any): any {
-      if (selectedChange !== '') {
-        for (const station of this.stations){
-          if (station.stationName.toUpperCase() === selectedChange){
-            this.stationLocationId = station.theStationLocationId;
-            this.showUserForm = true;
-           } else {
-             this.errored = true;
-             this.alertService.danger({
-               html: '<b> The station provided does not exist. </v>'
-             });
-             this.showUserForm = false;
-             this.stationLocationId = null;
-           }
-        }
-      }
-    }
   refresh(): any {
     location.reload();
   }
@@ -363,14 +333,14 @@ export class GetLoanComponent implements OnInit {
                 userId: this.User.userId,
                 productCode: 400,
                 microLoanPurpose: this.fval.loanpurpose.value.toUpperCase(),
-                theStationLocationId: this.stationLocationId
+                theStationLocationId: this.User.userLocationId
         };
         if (txn.txnDetailsId){
           this.data.push(txn);
           // console.log(this.data);
           this.posted = true;
           this.alertService.success({
-            html: '<b> saved successfully</b>'
+            html: '<b> Saved successfully</b>'
           });
           this.showUserForm = false;
           this.showGarantorForm =  true;
@@ -398,7 +368,7 @@ export class GetLoanComponent implements OnInit {
         // console.log(this.guarantors);
         this.posted = true;
         this.alertService.success({
-          html: '<b> saved successfully</b>'
+          html: '<b> Saved successfully</b>'
         });
         this.garantorsForm = this.garantorsFormGroup();
       }, 1000);
@@ -415,13 +385,13 @@ export class GetLoanComponent implements OnInit {
           // console.log(this.securities);
           this.posted = true;
           this.alertService.success({
-            html: '<b> saved successfully</b>'
+            html: '<b> Saved successfully</b>'
           });
           this.securityForm = this.securityFormGroup();
         } else {
           this.errored = true;
           this.alertService.danger({
-            html: '<b> The security Type choosen does not exist</b>'
+            html: '<b> The security Type chosen does not exist</b>'
           });
         }
       }, 3000);
@@ -443,7 +413,7 @@ export class GetLoanComponent implements OnInit {
         // console.log(this.guarantors);
         this.posted = true;
         this.alertService.success({
-          html: '<b> saved successfully</b>'
+          html: '<b> Saved successfully</b>'
         });
         this.showGarantorForm = false;
         this.showSecurityForm = true;
@@ -463,7 +433,7 @@ export class GetLoanComponent implements OnInit {
         } else {
           this.errored = true;
           this.alertService.danger({
-            html: '<b> The security Type choosen does not exist</b>'
+            html: '<b> The security Type chosen does not exist</b>'
           });
         }
       }, 3000);

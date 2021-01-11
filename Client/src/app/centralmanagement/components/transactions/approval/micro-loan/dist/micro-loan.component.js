@@ -9,47 +9,41 @@ exports.__esModule = true;
 exports.MicroLoanComponent = void 0;
 var core_1 = require("@angular/core");
 var MicroLoanComponent = /** @class */ (function () {
-    function MicroLoanComponent(authService, others, router, modalService, spinner, alertService, fb) {
+    function MicroLoanComponent(authService, router, spinner, alertService, fb) {
         this.authService = authService;
-        this.others = others;
         this.router = router;
-        this.modalService = modalService;
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
-        this.txnsApprovals = [];
+        this.ratesApprovals = [
+            { station: 'nsambya', client: 'Kasule Joseph', rate: 5, status: 0 },
+            { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+            { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+            { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+            { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
+            { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
+            { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
+            { station: 'bwayise', client: 'Kasule Jose', rate: 2, status: 0 },
+        ];
         this.posted = false;
-        this.loaded = false;
-        this.errored = false;
-        this.User = this.authService.loggedInUserInfo();
     }
     MicroLoanComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.others.getSecurityType().subscribe(function (res) {
-            _this.securityTypes = res;
-        }, function (err) {
-            _this.errored = true;
-            _this.alertService.danger({
-                html: '<b>' + err.error.error.message + '</b>'
-            });
-        });
         this.userForm = this.createFormGroup();
         this.fval.selectAll.setValue(false);
         this.initialiseForm();
     };
     MicroLoanComponent.prototype.createFormGroup = function () {
         return this.fb.group({
-            txnApprovals: this.fb.array([this.txnApproval]),
+            approveRates: this.fb.array([this.rateApproval]),
             selectAll: this.fb.control({})
         });
     };
-    Object.defineProperty(MicroLoanComponent.prototype, "txnApproval", {
+    Object.defineProperty(MicroLoanComponent.prototype, "rateApproval", {
         get: function () {
             return this.fb.group({
-                loanId: this.fb.control({ value: '' }),
+                station: this.fb.control({ value: '' }),
                 client: this.fb.control({ value: '' }),
-                amount: this.fb.control({ value: '' }),
-                purpose: this.fb.control({ value: '' }),
+                rate: this.fb.control({ value: '' }),
                 approved: this.fb.control({})
             });
         },
@@ -58,99 +52,49 @@ var MicroLoanComponent = /** @class */ (function () {
     });
     MicroLoanComponent.prototype.addItem = function () {
         // this.unitForm.controls.bussinessUnits  as FormArray
-        this.fval.txnApprovals.push(this.txnApproval);
+        this.fval.approveRates.push(this.rateApproval);
     };
     MicroLoanComponent.prototype.removeItem = function (index) {
-        this.fval.txnApprovals.removeAt(index);
+        this.fval.approveRates.removeAt(index);
     };
     MicroLoanComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.others.getMicroCustomers().subscribe(function (res) {
-            _this.customers = res;
-            _this.others.getTxnForApproval().subscribe(function (items) {
-                _this.txnsApprovals = items;
-                _this.txnsApprovals.forEach(function (item, i) {
-                    _this.fval.txnApprovals.controls[i].controls.loanId.setValue(item.txnApprovalDetailsMicroId);
-                    var details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-                    for (var _i = 0, _a = _this.customers; _i < _a.length; _i++) {
-                        var customer = _a[_i];
-                        if (customer.customerId === details[0].customerId) {
-                            _this.fval.txnApprovals.controls[i].controls.client.setValue(customer.customerName);
-                        }
-                    }
-                    _this.fval.txnApprovals.controls[i].controls.amount.setValue(Number(details[0].txnAmount));
-                    _this.fval.txnApprovals.controls[i].controls.purpose.setValue(details[0].microLoanPurpose);
-                    _this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
-                    _this.addItem();
-                    n = i + 1;
-                });
-                _this.removeItem(n);
-                _this.loaded = true;
-            }, function (err) {
-                _this.loaded = false;
-                console.log(err.error.error.message);
-            });
-        }, function (err) {
-            _this.errored = true;
-            console.log(err);
-            _this.alertService.danger({
-                html: '<b>' + err.error.error.message + '</b>'
-            });
+        // this.others.getBussinessUnits().subscribe(
+        //   units => {
+        //     this.approvals = units;
+        this.ratesApprovals.forEach(function (item, i) {
+            // console.log(item.name);
+            // console.log(i);
+            _this.fval.approveRates.controls[i].controls.station.setValue(item.station);
+            _this.fval.approveRates.controls[i].controls.client.setValue(item.client);
+            _this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
+            _this.fval.approveRates.controls[i].controls.approved.setValue(false);
+            _this.addItem();
+            n = i + 1;
         });
+        this.removeItem(n);
+        // }
+        // )
     };
     MicroLoanComponent.prototype.checkAllItems = function (val) {
         var _this = this;
         if (val === true) {
-            this.txnsApprovals.forEach(function (item, i) {
-                _this.fval.txnApprovals.controls[i].controls.approved.setValue(val);
+            this.ratesApprovals.forEach(function (item, i) {
+                _this.fval.approveRates.controls[i].controls.approved.setValue(val);
             });
         }
         else {
-            this.txnsApprovals.forEach(function (item, i) {
-                _this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
+            this.ratesApprovals.forEach(function (item, i) {
+                _this.fval.approveRates.controls[i].controls.approved.setValue(false);
             });
         }
     };
     MicroLoanComponent.prototype.deselectAll = function (val) {
         // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-        if (this.fval.txnApprovals.controls[val].controls.approved.value === true) {
+        if (this.fval.approveRates.controls[val].controls.approved.value === true) {
             this.fval.selectAll.setValue(false);
         }
-    };
-    // loan modal method
-    MicroLoanComponent.prototype.openModal = function (template, id) {
-        var _this = this;
-        this.txnsApprovals.forEach(function (item) {
-            if (item.txnApprovalDetailsMicroId === id) {
-                var client = void 0;
-                var details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-                for (var _i = 0, _a = _this.customers; _i < _a.length; _i++) {
-                    var customer = _a[_i];
-                    if (customer.customerId === details[0].customerId) {
-                        client = customer;
-                    }
-                }
-                _this.checkedLoan = {
-                    url: client.customerPhotoUrl,
-                    name: client.customerName,
-                    phone: client.customerPhone1,
-                    data: details
-                };
-                if (_this.checkedLoan.data[1][1].length > 0) {
-                    for (var _b = 0, _c = _this.checkedLoan.data[1][1]; _b < _c.length; _b++) {
-                        var itm = _c[_b];
-                        for (var _d = 0, _e = _this.securityTypes; _d < _e.length; _d++) {
-                            var security = _e[_d];
-                            if (security.securityTypeCode === itm.securityTypeCode) {
-                                itm.securityTypeName = security.securityTypeName;
-                            }
-                        }
-                    }
-                }
-                _this.modalRef = _this.modalService.show(template, Object.assign({}, { "class": 'white modal-lg modal-dialog-center' }));
-            }
-        });
     };
     MicroLoanComponent.prototype.revert = function () {
         this.userForm.reset();
@@ -174,77 +118,40 @@ var MicroLoanComponent = /** @class */ (function () {
     MicroLoanComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
-        this.txnsApprovals.forEach(function (item, i) {
-            if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
-                itemsApproved.push({
-                    txnApprovalDetailsMircroId: _this.fval.txnApprovals.controls[i].controls.loanId.value,
-                    userId: _this.User.userId
-                });
+        this.ratesApprovals.forEach(function (item, i) {
+            if (_this.fval.approveRates.controls[i].controls.approved.value === true) {
+                item.status = 2;
+                itemsApproved.push(item);
             }
         });
+        console.log(itemsApproved.length);
         if (itemsApproved.length > 0) {
-            this.others.approveMicroTransaction(itemsApproved).subscribe(function (res) {
-                _this.posted = true;
-                _this.alertService.success({
-                    html: '<b> Micro Loan Approved Was Successfully </b>'
-                });
-                setTimeout(function () {
-                    itemsApproved = [];
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
-            }, function (err) {
-                _this.errored = true;
-                _this.alertService.danger({
-                    html: '<b>' + err.error.error.message + '</b>'
-                });
-            });
+            setTimeout(function () {
+                _this.router.navigate(['centralmanagement/dashboard']);
+            }, 3000);
         }
         else {
-            this.errored = true;
-            this.alertService.danger({
-                html: '<b> Please select a loan first </b>'
-            });
+            // alert("Please select something")
             return;
         }
     };
     MicroLoanComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
-        this.txnsApprovals.forEach(function (item, i) {
-            if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
+        this.ratesApprovals.forEach(function (item, i) {
+            if (_this.fval.approveRates.controls[i].controls.approved.value === true) {
                 item.status = 1;
-                itemsRejected.push({
-                    txnApprovalDetailsMircroId: _this.fval.txnApprovals.controls[i].controls.loanId.value,
-                    userId: _this.User.userId
-                });
+                itemsRejected.push(item);
             }
         });
+        console.log(itemsRejected.length);
         if (itemsRejected.length > 0) {
-            this.others.rejectMicroTransaction(itemsRejected).subscribe(function (res) {
-                _this.posted = true;
-                _this.alertService.success({
-                    html: '<b> Micro Loan Rejection Was Successfully </b>'
-                });
-                setTimeout(function () {
-                    itemsRejected = [];
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
-            }, function (err) {
-                _this.errored = true;
-                _this.alertService.danger({
-                    html: '<b>' + err.error.error.message + '</b>'
-                });
-            });
+            setTimeout(function () {
+                _this.router.navigate(['centralmanagement/dashboard']);
+            }, 3000);
         }
         else {
-            this.errored = true;
-            this.alertService.danger({
-                html: '<b> Please select a loan first </b>'
-            });
+            // alert("Please select something")
             return;
         }
     };

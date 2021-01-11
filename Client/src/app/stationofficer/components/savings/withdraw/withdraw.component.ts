@@ -195,7 +195,7 @@ export class WithdrawComponent implements OnInit {
       } else {
         this.errored = true;
         this.alertService.danger({
-          html: '<b>Secret pin does not match</b>'
+          html: '<b>Secret pin does not much</b>'
         });
       }
     }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CashLedgerComponent } from './cash-ledger.component';
+import { SetLoanLimitComponent } from './set-loan-limit.component';
 
-describe('CashLedgerComponent', () => {
-  let component: CashLedgerComponent;
-  let fixture: ComponentFixture<CashLedgerComponent>;
+describe('SetLoanLimitComponent', () => {
+  let component: SetLoanLimitComponent;
+  let fixture: ComponentFixture<SetLoanLimitComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CashLedgerComponent ]
+      declarations: [ SetLoanLimitComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CashLedgerComponent);
+    fixture = TestBed.createComponent(SetLoanLimitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

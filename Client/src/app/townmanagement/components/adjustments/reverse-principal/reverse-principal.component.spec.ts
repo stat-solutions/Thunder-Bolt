@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PaidLedgerComponent } from './paid-ledger.component';
+import { ReversePrincipalComponent } from './reverse-principal.component';
 
-describe('PaidLedgerComponent', () => {
-  let component: PaidLedgerComponent;
-  let fixture: ComponentFixture<PaidLedgerComponent>;
+describe('ReversePrincipalComponent', () => {
+  let component: ReversePrincipalComponent;
+  let fixture: ComponentFixture<ReversePrincipalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaidLedgerComponent ]
+      declarations: [ ReversePrincipalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PaidLedgerComponent);
+    fixture = TestBed.createComponent(ReversePrincipalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

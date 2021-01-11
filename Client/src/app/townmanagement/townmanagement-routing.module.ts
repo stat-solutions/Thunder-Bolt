@@ -27,24 +27,37 @@ import { ComfirmLoanComponent } from './components/micro-loans/comfirm-loan/comf
 import { ClientsComponent } from './components/reports/clients/clients.component';
 import { UsersComponent } from './components/reports/users/users.component';
 import { AreaComponent } from './components/reports/area/area.component';
+import { ReduceRateComponent } from './components/adjustments/reduce-rate/reduce-rate.component';
+import { WaiveInterestComponent } from './components/adjustments/waive-interest/waive-interest.component';
+import { WriteOffComponent } from './components/adjustments/write-off/write-off.component';
+import { SetLoanLimitComponent } from './components/adjustments/set-loan-limit/set-loan-limit.component';
+import { AdjustmentsComponent } from './components/adjustments/adjustments.component';
+import { SetInterestRateComponent } from './components/adjustments/set-interest-rate/set-interest-rate.component';
+import { ReversePrincipalComponent } from './components/adjustments/reverse-principal/reverse-principal.component';
+import { ClientCommentsComponent } from './components/client-comments/client-comments.component';
 
 const routes: Routes = [
-  { path: '',
+  {
+    path: '',
     component: PagesCoreTownComponent,
     canActivateChild: [TownGuard],
     children: [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'dashboard'
+        redirectTo: 'dashboard',
       },
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
       },
       {
         path: 'createstation',
-        component: CreateStationComponent
+        component: CreateStationComponent,
+      },
+      {
+        path: 'clientcomments',
+        component: ClientCommentsComponent,
       },
       {
         path: 'microloan',
@@ -53,7 +66,7 @@ const routes: Routes = [
           {
             path: '',
             redirectTo: 'getloan',
-            pathMatch: 'full'
+            pathMatch: 'full',
           },
           {
             path: 'getloan',
@@ -67,7 +80,7 @@ const routes: Routes = [
             path: 'payloan',
             component: PayLoanComponent,
           },
-        ]
+        ],
       },
       {
         path: 'enroll',
@@ -83,47 +96,77 @@ const routes: Routes = [
             children: [
               {
                 path: 'enrolltaxistage',
-                component: EnrollTaxiStageComponent
+                component: EnrollTaxiStageComponent,
               },
               {
                 path: 'enrollbodastage',
-                component: EnrollBodaStageComponent
-              }
-            ]
+                component: EnrollBodaStageComponent,
+              },
+            ],
+          },
+          {
+            path: 'clustertaxipark',
+            component: ClusterAndTaxiparkComponent,
+            children: [
+              {
+                path: 'enrollcluster',
+                component: EnrollClusterComponent,
               },
               {
-                path: 'clustertaxipark',
-                component: ClusterAndTaxiparkComponent,
-                children: [
-                  {
-                    path: 'enrollcluster',
-                    component: EnrollClusterComponent
-                  },
-                  {
-                    path: 'enrolltaxipark',
-                    component: EnrollTaxiParkComponent
-                  }
-                ]
-                  },
-                  {
-                    path: 'editclient',
-                    component: EditClientComponent,
-                  },
-                  {
-                    path: 'editstage',
-                    component: EditStageComponent,
-                    children: [
-                      {
-                        path: 'edittaxistage',
-                        component: EditTaxiStageComponent
-                      },
-                      {
-                        path: 'editbodastage',
-                        component: EditBodaStageComponent
-                      }
-                    ]
-                      }
-                    ]
+                path: 'enrolltaxipark',
+                component: EnrollTaxiParkComponent,
+              },
+            ],
+          },
+          {
+            path: 'editclient',
+            component: EditClientComponent,
+          },
+          {
+            path: 'editstage',
+            component: EditStageComponent,
+            children: [
+              {
+                path: 'edittaxistage',
+                component: EditTaxiStageComponent,
+              },
+              {
+                path: 'editbodastage',
+                component: EditBodaStageComponent,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'adjustments',
+        component: AdjustmentsComponent,
+        children: [
+          {
+            path: 'setloanlimit',
+            component: SetLoanLimitComponent,
+          },
+          {
+            path: 'reduceinterestrate',
+            component: ReduceRateComponent,
+          },
+          {
+            path: 'reverseprincipal',
+            component: ReversePrincipalComponent,
+          },
+          {
+            path: 'setinterestrate',
+            component: SetInterestRateComponent,
+          },
+          {
+            path: 'waiveinterest',
+            component: WaiveInterestComponent,
+          },
+          {
+            path: 'writeoffprincipal',
+            component: WriteOffComponent,
+          },
+        ],
       },
       {
         path: 'reports',
@@ -131,25 +174,26 @@ const routes: Routes = [
         children: [
           {
             path: 'loansrevenue',
-            component: AreaComponent
+            component: AreaComponent,
           },
           {
             path: 'clients',
-            component: ClientsComponent
+            component: ClientsComponent,
           },
           {
             path: 'users',
-            component: UsersComponent
-          }
-        ]
+            component: UsersComponent,
           },
+        ],
+      },
 
       {
         path: 'profile',
         component: ProfileComponent,
-      }
-    ]
-  }];
+      },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -62,20 +62,10 @@ export class LeftPanelStationComponent implements OnInit {
         url: '/stationmanagement/reports',
         subMenu: [
           {
-            name: 'Borrowed Ledger',
-            icon: 'fas fa-chart-line',
-            url: '/stationmanagement/reports/borrowedledger',
-          },
-          {
-            name: 'Cash Ledger',
-            icon: 'fas fa-chart-line',
-            url: '/stationmanagement/reports/cashledger',
-          },
-          {
-            name: 'Paid Ledger',
-            icon: 'fas fa-chart-line',
-            url: '/stationmanagement/reports/paidledger',
-          },
+            name: 'Ledgers',
+            icon: 'fas fa-clipboard-list',
+            url: '/stationmanagement/reports/ledgers',
+          }
         ],
       },
       {

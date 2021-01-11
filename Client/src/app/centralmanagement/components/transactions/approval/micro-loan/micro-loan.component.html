@@ -14,12 +14,13 @@
       </div>
     </div>
     <div
-      class="invest-card card-body mt-2 pt-3 pt-md-4 mb-5 mx-auto pb-4 px-1 px-lg-auto shadow-lg" [hidden]='!loaded'>
+      class="invest-card card-body mt-2 pt-2 mb-5 mx-auto pb-4 px-1 px-lg-auto shadow-lg"
+    >
       <form [formGroup]="userForm">
         <div class="item-header mb-2">
           <div class="row">
             <!--select all items-->
-            <div class="col-1 ml-0 pl-0 mx-sm-auto px-sm-auto pt-1">
+            <div class="col-12 ml-0 pl-0 mx-sm-auto px-sm-auto pt-1">
               <input
                 id="allSelected"
                 formControlName="selectAll"
@@ -27,32 +28,21 @@
                 type="checkbox"
                 value=""
                 class="ml-4 text-info"
-                tooltip="Select All"
-              />
-            </div>
-            <div class="col-4">
-              <h5 class="text-center text-info">Client</h5>
-            </div>
-            <div class="col-3 mx-0 px-0">
-              <h5 class="text-center text-info">Amount</h5>
-            </div>
-            <div class="col-4 mx-0 px-0 px-sm-3 px-lg-5">
-              <h5 class="text-left text-info mx-0 px-0">Purpose</h5>
+                tooltip="Select All Loans"
+              /> Select All
             </div>
           </div>
         </div>
-        <div class="iteration" formArrayName="txnApprovals">
+        <div class="iteration" formArrayName="approveRates">
           <div
             class="item-container mt-1"
-            *ngFor="let items of fval.txnApprovals['controls']; let idx = index"
+            *ngFor="let items of fval.approveRates['controls']; let idx = index"
           >
-            <div
-              class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-              [formGroupName]="idx" 
-            >
-              <div class="list-card-body card-body my-0 py-0 mx-0">
-                <div class="row my-0 py-0">
-                  <div class="col-1 ml-0 pl-1">
+      <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx" (click)="openModal(template)"
+>
+        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="row my-0 py-0">
+            <div class="col-1">
                     <!--select an item-->
                     <input
                       formControlName="approved"
@@ -61,51 +51,130 @@
                       value=""
                       class="ml-1 text-info"
                     />
-                  </div>
-                  <div
-                    class="col-3 d-flex justify-content-sm-start text-center"
-                  >
-                    <span class="itemCreated">
-                      {{
-                        fval.txnApprovals["controls"][idx]["controls"].client
-                          .value
-                      }}
-                    </span>
-                  </div>
-                  <div 
-                  class="col-2 d-flex justify-content-center text-center"
-                  >
-                    <span class="itemCreated">
-                      {{fval.txnApprovals["controls"][idx]["controls"].amount.value  | currency: "UGX "}}
-                    </span>
-                  </div>
-                  <div 
-                    class="col-4 justify-content-lg-center text-center"
-
+            </div>
+            <div class="col-11">
+              <div class="row">
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Client ID</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
                     >
-                    <span class="itemCreated">
-                      {{fval.txnApprovals["controls"][idx]["controls"].purpose.value}}
-                    </span>
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+                      </span>
+                    </div>
                   </div>
-                  <div
-                        class="col-2 justify-content-end font-weight-bold"
-                      >
-                        <a class="text-dark pointerCursor">
-                          <span
-                            class="itemCreated"
-                            (click)="
-                              openModal(
-                                template, fval.txnApprovals['controls'][idx]['controls'].loanId.value
-                              )
-                            "
-                            >Details
-                          </span>
-                        </a>
-                      </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Client</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->Keminagano Pulikeria
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Station</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->Keminagano
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Product</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->Keminagano
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Amount</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"].station
+                              .value
+                          }} -->
+                    <input
+                      id="floatAmount"
+                      formControlName="floatAmount"
+                      type="text"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid':
+                          (fval.floatAmount.touched ||
+                            fval.floatAmount.dirty) &&
+                          fval.floatAmount.errors
+                      }"
+                      autocomplete="off"
+                    />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-xl-4">
+                  <div class="row">
+                    <div class="col-5 d-flex justify-content-start">
+                      <span class="">Comment</span>
+                    </div>
+                    <div
+                      class="col-7 d-flex justify-content-start font-weight-bold"
+                    >
+                      <span class="itemCreated">
+                        <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+</div>
         </div>
       </form>
       <div class="d-flex mt-3 mb-0 py-2 mx-auto">
@@ -121,19 +190,6 @@
         >
           <i class="fas fa-times"></i> Reject
         </button>
-      </div>
-      <div class="d-flex mt-3 mb-2 mb-xl-0 py-2 mx-auto">
-        <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
-          <p class="text-light">Please wait...</p>
-        </ngx-spinner>
-        <label class="col" *ngIf="errored" class="text-danger">
-          <!-- <i class="material-icons">Cancel</i> -->
-          <ngx-alerts></ngx-alerts>
-        </label>
-        <label class="col" *ngIf="posted" class="text-info">
-          <!-- <i class="material-icons">check_circle</i> -->
-          <ngx-alerts></ngx-alerts>
-        </label>
       </div>
     </div>
   </div>
@@ -158,11 +214,11 @@
               <div
                 class="col-2 col-xl-1 mt-0 mb-0 pt-0 pt-md-3 pt-xl-1 pb-0 px-xl-0"
               >
-                <!--add checkedLoan from the checkedLoanbase next to the span after &nbsp;-->
+                <!--add data from the database next to the span after &nbsp;-->
                 <pinch-zoom class="d-flex justify-content-center">
                 <img
                   class="img-rounded"
-                  [src]="checkedLoan.url"
+                  [src]="checkedClient.photoUrl"
                   height="35em"
                   width="35em"
                   style="border-radius: 40em;"
@@ -179,7 +235,7 @@
               <div
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated">{{ checkedLoan.name }}</span>
+                <span class="itemCreated">{{ data.customerDateOfBirth }}</span>
               </div>
             </div>
             <div class="row">
@@ -190,7 +246,7 @@
                 class="col-6 d-flex justify-content-sm-start font-weight-bold"
               >
                 <span class="itemCreated">
-                  {{ checkedLoan.phone }}
+                  {{ data.customerHomeAreaDetails }}
                 </span>
               </div>
             </div>
@@ -203,7 +259,7 @@
               <div
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
-                <span class="itemCreated"> {{ checkedLoan.data[0].microLoanPurpose }} </span>
+                <span class="itemCreated"> {{ data.customerPhone2 }} </span>
               </div>
             </div>
             <div class="row">
@@ -214,192 +270,189 @@
                 class="col-7 d-flex justify-content-sm-start font-weight-bold"
               >
                 <a class="">
-                  <span class="itemCreated">{{ checkedLoan.data[0].txnAmount }}</span>
+                  <span class="itemCreated">{{ data.customerIdType }}</span>
                 </a>
               </div>
-              </div>
-              </div>
+</div>
+</div>
             </div>
           </div>
         </div>
-        <div *ngFor="let item of checkedLoan.data[1][0]; let i = index">
-          <div class="row my-1 py-0">
-            <div class="col-12">
-              <h5 class="rub-head4 text-info text-center font-weight-bold py-1">
-                Guarantor {{ i + 1 }}'s Information
-              </h5>
-            </div>
-          </div>
-          <div class="row my-0 py-0">
-                <div
-                  class="col-2 col-xl-1 mt-0 mb-0 pt-0 pt-md-4 pt-xl-3 pb-0 px-xl-0"
-                >
-                  <!--add checkedLoan from the checkedLoanbase next to the span after &nbsp;-->
-                  <pinch-zoom class="d-flex justify-content-center">
-                  <img
-                    class="img-rounded"
-                    [src]="item.microLoanGuarantorPhotoUrl"
-                    height="35em"
-                    width="35em"
-                    style="border-radius: 40em;"
-                  />
-            </pinch-zoom>
-                </div>
-            <div class="col-10 col-xl-11">
-              <div class="row">
-                <div class="col-12 col-lg-6">
-              <div class="row">
-                <div class="col-6 d-flex justify-content-sm-start">
-                  <span class="">Name</span>
-                </div>
-                <div
-                  class="col-6 d-flex justify-content-sm-start font-weight-bold"
-                >
-                  <span class="itemCreated">{{
-                    item.microLoanGuarantorName
-                  }}</span>
-                </div>
-              </div>
-              </div>
-                <div class="col-12 col-lg-6">
-              <div class="row">
-                <div class="col-6 d-flex justify-content-sm-start">
-                  <span class="">Phone No.1</span>
-                </div>
-                <div
-                  class="col-6 d-flex justify-content-sm-start font-weight-bold"
-                >
-                  <span class="itemCreated"
-                    >{{ item.microLoanGuarantorPhone1 }}
-                  </span>
-                </div>
-              </div>
-            </div>
-              </div>
-                          <div class="row">
-                <div class="col-12 col-lg-6">
-              <div class="row">
-                <div class="col-6 d-flex justify-content-sm-start">
-                  <span class="">Phone No.2</span>
-                </div>
-                <div
-                  class="col-6 d-flex justify-content-sm-start font-weight-bold"
-                >
-                  <span class="itemCreated">{{
-                    item.microLoanGuarantorPhone2
-                  }}</span>
-                </div>
-              </div>
-              </div>
-                <div class="col-12 col-lg-6">
-              <div class="row">
-                <div class="col-6 d-flex justify-content-sm-start">
-                  <span class="">Business Type</span>
-                </div>
-                <div
-                  class="col-6 d-flex justify-content-sm-start font-weight-bold"
-                >
-                  <a class="">
-                    <span class="itemCreated">
-                      {{ item.microLoanGuarantorTypeOfBusiness }}
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            </div>
-              <div class="row">
-            <div class="col-12 col-lg-6">
-              <div class="row">
-                <div class="col-6 d-flex justify-content-sm-start">
-                  <!--stage start date-->
-                  <span class="">Business Location</span>
-                </div>
-                <div
-                  class="col-6 d-flex justify-content-sm-start font-weight-bold"
-                >
-                  <a class="">
-                    <span class="itemCreated">
-                      {{ item.microLoanGuarantorBusinessLocation }}
-                    </span>
-                  </a>
-                </div>
-              </div>
-              </div>
-                <div class="col-12 col-lg-6">
-              <div class="row">
-                <div class="col-6 d-flex justify-content-sm-start">
-                  <span class="">Current Location</span>
-                </div>
-                <div
-                  class="col-6 d-flex justify-content-sm-start font-weight-bold"
-                >
-                  <a class="">
-                    <span class="itemCreated">
-                      {{ item.microLoanGuarantorPlaceOfResidense }}
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-            </div>
-          </div>
+        <div class="row my-1 py-0">
+          <div class="col-12">
+            <h5 class="rub-head4 text-info text-center font-weight-bold py-1">
+              Guarantor Information
+            </h5>
           </div>
         </div>
-        <div *ngFor="let item of checkedLoan.data[1][1]; let i = index">
-          <div class="row my-1 py-0">
-            <div class="col-12">
-              <h5 class="rub-head4 text-info text-center font-weight-bold py-1">
-                Security {{ i + 1 }}'s Information
-              </h5>
+        <div class="row my-0 py-0">
+              <div
+                class="col-2 col-xl-1 mt-0 mb-0 pt-0 pt-md-4 pt-xl-3 pb-0 px-xl-0"
+              >
+                <!--add data from the database next to the span after &nbsp;-->
+                <pinch-zoom class="d-flex justify-content-center">
+                <img
+                  class="img-rounded"
+                  [src]="checkedClient.photoUrl"
+                  height="35em"
+                  width="35em"
+                  style="border-radius: 40em;"
+                />
+</pinch-zoom>
+              </div>
+          <div class="col-10 col-xl-11">
+            <div class="row">
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Name</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated">{{
+                  data.bodabodaCustomerNumberPlate
+                }}</span>
+              </div>
             </div>
-          </div>
-          <div class="row my-0 pt-0 pb-2">
-                <div
-                  class="col-2 col-xl-1 mt-0 mb-0 pt-0 pt-md-2 pt-xl-0 pb-0 px-xl-0"
-                >
-                  <!--add checkedLoan from the checkedLoanbase next to the span after &nbsp;-->
-                  <pinch-zoom class="d-flex justify-content-center">
-                  <img
-                    class="img-rounded"
-                    [src]="item.microLoanSecurityPhotoUrl"
-                    height="35em"
-                    width="35em"
-                    style="border-radius: 20em;"
-                  />
-          </pinch-zoom>
-                </div>
-            <div class="col-10 col-xl-11">
-              <div class="row">
-                <div class="col-12 col-lg-6">
-              <div class="row">
-                <div class="col-5 d-flex justify-content-sm-start">
-                  <span class="">Security Type</span>
-                </div>
-                <div
-                  class="col-7 d-flex justify-content-sm-start font-weight-bold"
-                >
+</div>
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Phone No.1</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated"
+                  >{{ data.bodabodaCustomerMakeOrType }}
+                </span>
+              </div>
+            </div>
+</div>
+            </div>
+                        <div class="row">
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Phone No.2</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated">{{
+                  data.bodabodaCustomerInsurance
+                }}</span>
+              </div>
+            </div>
+</div>
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Business Type</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <a class="">
                   <span class="itemCreated">
-                    {{ item.securityTypeName }}
+                    {{ data.fkBodabodaStageIdBodabodaCustomer }}
                   </span>
-                </div>
+                </a>
               </div>
-              </div>
-                <div class="col-12 col-lg-6">
-              <div class="row">
-                <div class="col-6 d-flex justify-content-sm-start">
-                  <span class="">Security Name</span>
-                </div>
-                <div
-                  class="col-6 d-flex justify-content-sm-start font-weight-bold"
-                >
-                  <span class="itemCreated">
-                    {{ item.microLoanSecurityName }}
-                  </span>
-                </div>
             </div>
-        </div>
           </div>
+</div>
+            <div class="row">
+          <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <!--stage start date-->
+                <span class="">Business Location</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <a class="">
+                  <span class="itemCreated">
+                    {{ data.bodabodaCustomerDateOfJoinStage }}
+                  </span>
+                </a>
+              </div>
+</div>
+            </div>
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Current Location</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <a class="">
+                  <span class="itemCreated">
+                    {{ data.bodabodaOwnershipStatus }}
+                  </span>
+                </a>
+              </div>
+            </div>
+</div>
+          </div>
+</div>
+        </div>
+
+        <div class="row my-1 py-0">
+          <div class="col-12">
+            <h5 class="rub-head4 text-info text-center font-weight-bold py-1">
+              Security Information
+            </h5>
+          </div>
+        </div>
+        <div class="row my-0 pt-0 pb-2">
+              <div
+                class="col-2 col-xl-1 mt-0 mb-0 pt-0 pt-md-2 pt-xl-0 pb-0 px-xl-0"
+              >
+                <!--add data from the database next to the span after &nbsp;-->
+                <pinch-zoom class="d-flex justify-content-center">
+                <img
+                  class="img-rounded"
+                  [src]="checkedClient.photoUrl"
+                  height="35em"
+                  width="35em"
+                  style="border-radius: 20em;"
+                />
+</pinch-zoom>
+              </div>
+          <div class="col-10 col-xl-11">
+            <div class="row">
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-5 d-flex justify-content-sm-start">
+                <span class="">Security Type</span>
+              </div>
+              <div
+                class="col-7 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated">
+                  {{ data.taxiCustomerDrivingPermitNumber }}
+                </span>
+              </div>
+            </div>
+</div>
+              <div class="col-12 col-lg-6">
+            <div class="row">
+              <div class="col-6 d-flex justify-content-sm-start">
+                <span class="">Security Name</span>
+              </div>
+              <div
+                class="col-6 d-flex justify-content-sm-start font-weight-bold"
+              >
+                <span class="itemCreated">
+                  {{ data.taxiCustomerNumberPlate }}
+                </span>
+              </div>
+</div>
+</div>
             </div>
             </div>
             </div>

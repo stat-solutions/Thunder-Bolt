@@ -21,6 +21,8 @@ export class ComfirmLoanComponent implements OnInit {
   submitted = false;
   errored = false;
   posted = false;
+  showFinalBtn = false;
+  showcompleteBtn = true;
   userForm: FormGroup;
   serviceErrors: any = {};
   value: string;
@@ -28,10 +30,11 @@ export class ComfirmLoanComponent implements OnInit {
   User = this.authService.loggedInUserInfo();
   txns: any;
   phoneNumbers: Array<string> = [];
-  approvedLoans: any;
+  garantorsPhotoUrl: string;
+  securityPhotoUrl: string;
+  securityTypes: any;
   customers: any;
   checkedClient: any;
-  loanId: number;
   constructor(
     private authService: AuthServiceService,
     private others: OthersService,
@@ -45,56 +48,41 @@ export class ComfirmLoanComponent implements OnInit {
     this.errored = false;
     this.posted = false;
     this.userForm = this.createFormGroup();
-    this.others.getTxnApproved().subscribe(
+    this.others.getSecurityType().subscribe(
       res => {
-        if (res.length > 0){
-          this.approvedLoans = res;
-          this.others.getMicroCustomers().subscribe(
-            feed => {
-              if (res.length > 0){
-                this.customers = feed;
-                this.phoneNumbers = [];
-                this.customers.forEach((customer) => {
-                  this.approvedLoans.forEach(loan => {
-                    if (JSON.parse(loan.txnApprovalDetailsMicroPayLoad)[0].customerId === customer.customerId) {
-                      if (this.phoneNumbers.includes(customer.customerPhone1)){
-                        //  don't add that number
-                      } else {
-                        this.phoneNumbers.push(customer.customerPhone1);
-                      }
-                    }
-                  });
-                });
-              } else {
-                this.errored = true;
-                this.alertService.danger({
-                  html: '<b>There are no Micro Loan customers registered</b>'
-                });
-              }
-            },
-            err => {
-              this.errored = true;
-              console.log(err);
-              this.alertService.danger({
-                html: '<b>' + err.error.error.mesage + '</b>'
-              });
-            }
-        );
-      } else {
-        this.errored = true;
-        this.alertService.danger({
-          html: '<b>There are no approved loans to confirm</b>'
-        });
-      }
-    },
+        this.securityTypes = res;
+      },
       err => {
         this.errored = true;
-        console.log(err.error.error.message);
         this.alertService.danger({
           html: '<b>' + err.error.error.message + '</b>'
         });
       }
     );
+    this.others.getMicroCustomers().subscribe(
+      res => {
+        if (res.length > 0){
+          this.customers = res;
+          this.phoneNumbers = [];
+          this.checkedClient = {};
+          this.customers.forEach((customer) => {
+            this.phoneNumbers.push(customer.customerPhone1);
+          });
+        } else {
+          this.errored = true;
+          this.alertService.danger({
+            html: '<b>There are no Micro Loan customers registered</b>'
+          });
+        }
+      },
+      err => {
+        this.errored = true;
+        console.log(err);
+        this.alertService.danger({
+          html: '<b>' + err.error.error.mesage + '</b>'
+        });
+      }
+  );
   }
   createFormGroup(): any {
     return new FormGroup({
@@ -123,6 +111,15 @@ export class ComfirmLoanComponent implements OnInit {
     location.reload();
   }
 
+  checkLoanbility(value: any): any {
+    if (value !== ''){
+        let microCustomers =  [...this.customers];
+        microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value);
+        this.checkedClient = microCustomers[0];
+        // this.openModal(template);
+    }
+  }
+
   // toggle visibility of password field
   toggleFieldType(): any {
     this.fieldType = !this.fieldType;
@@ -135,33 +132,46 @@ export class ComfirmLoanComponent implements OnInit {
   get fval(): any {
     return this.userForm.controls;
   }
-  checkLoan(value: any): any {
-    if (value !== ''){
-      this.customers.forEach((customer) => {
-        if (customer.customerPhone1 === value) {
-          this.checkedClient = customer;
-          this.approvedLoans.forEach(loan => {
-            if (JSON.parse(loan.txnApprovalDetailsMicroPayLoad)[0].customerId === customer.customerId) {
-              this.loanId = loan.txnApprovalDetailsMicroId;
-            }
-          });
-        }
-      });
+
+  getSecurityTypeCode(typeName: string): number{
+    for (const item of this.securityTypes){
+      if (item.securityTypeName === typeName){
+        return item.securityTypeCode;
+      }
     }
   }
+
+  saveAndNew(): any{
+    if (this.userForm.valid){
+      if (Number(this.fval.pin.value) === this.checkedClient.customerSecretPin){
+        // const txn = {
+        //   txnAmount:  parseInt(this.fval.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''), 10),
+        //         customerId: this.checkedClient.customerId,
+        //         txnDetailsId: this.assignTxnId('MICROLOAN', 'LOANDISBURSEMENT'),
+        //         userId: this.User.userId,
+        //         productCode: 400,
+        //         microLoanPurpose: this.fval.loanpurpose.value.toUpperCase(),
+        //         theStationLocationId: this.User.userLocationId
+        // };
+      } else {
+        this.errored = true;
+        this.alertService.danger({
+          html: '<b>Secret pin does not much!/b>'
+        });
+      }
+    }
+  }
+
   postLoan(): any {
     if (this.userForm.valid){
       if (Number(this.fval.pin.value) === this.checkedClient.customerSecretPin){
-        const data = {
-          txnApprovalDetailsMircroId: this.loanId,
-          userId: this.User.userId
-        };
-        this.others.confirmMicroLoan([data]).subscribe(
+        const data = {};
+        this.others.putTxnCustomerApproval(data).subscribe(
           res => {
             if (res){
               this.posted = true;
               this.alertService.success({
-                html: '<b> Loan was complete</b>'
+                html: '<b> Deposit was successfully</b>'
               });
               setTimeout(() => {
                 this.userForm = this.createFormGroup();

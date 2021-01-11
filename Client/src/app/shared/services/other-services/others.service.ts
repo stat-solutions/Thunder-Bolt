@@ -417,29 +417,8 @@ export class OthersService {
     createMicroLoan(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postCreateMicroloanApproval`, postData );
     }
-    getTxnForApproval(): any{
-      return this.http.get(`${this.API_URL}/api/loan/getTxnsForApprovalMicroloan`);
-    }
-    approveMicroTransaction(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/loan/postApproveTxnMicron`, postData );
-    }
-    rejectMicroTransaction(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/loan/postRejectTxnMicron`, postData );
-    }
-    getTxnApproved(): any{
-      return this.http.get(`${this.API_URL}/api/loan/getApprovedTxnsMicroloan`);
-    }
-    getTxnRejected(): any{
-      return this.http.get(`${this.API_URL}api/loan/getRejectedTxnsMicroloan`);
-    }
     confirmMicroLoan(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/loan/postConfirmApprovedTxnMicron`, postData );
-    }
-    setIdividualLoanLimit(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );
-    }
-    getIdividualLoanLimit(postData: any): any {
-      return this.http.get(`${this.API_URL}/api/customer/getIndividualLoanLimitForApproval`);
+      return this.http.post(`${this.API_URL}/api/user/verifyUserWithPin`, postData );
     }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 
