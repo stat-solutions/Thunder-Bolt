@@ -47,11 +47,16 @@ var GetLoanComponent = /** @class */ (function () {
     GetLoanComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.errored = false;
+        this.showSecurityForm = false;
         this.posted = false;
         this.header = 'Get Loan';
         this.userForm = this.createFormGroup();
         this.garantorsForm = this.garantorsFormGroup();
         this.securityForm = this.securityFormGroup();
+        this.others.getAllTheStationLocationsByTown(this.User.userLocationId).subscribe(function (res) {
+            _this.stations = res;
+            // tslint:disable-next-line: only-arrow-functions
+        }, function (err) { return console.log(err.statusText); });
         this.others.getSecurityType().subscribe(function (res) {
             _this.securityTypes = res;
         }, function (err) {
@@ -267,14 +272,14 @@ var GetLoanComponent = /** @class */ (function () {
                     userId: this.User.userId,
                     productCode: 400,
                     microLoanPurpose: this.fval.loanpurpose.value.toUpperCase(),
-                    theStationLocationId: this.User.userLocationId
+                    theStationLocationId: this.checkedClient.fktheStationLocationIdCustomer
                 };
                 if (txn.txnDetailsId) {
                     this.data.push(txn);
                     // console.log(this.data);
                     this.posted = true;
                     this.alertService.success({
-                        html: '<b> saved successfully</b>'
+                        html: '<b> Saved successfully</b>'
                     });
                     this.showUserForm = false;
                     this.showGarantorForm = true;
@@ -305,7 +310,7 @@ var GetLoanComponent = /** @class */ (function () {
                 // console.log(this.guarantors);
                 _this.posted = true;
                 _this.alertService.success({
-                    html: '<b> saved successfully</b>'
+                    html: '<b> Saved successfully</b>'
                 });
                 _this.garantorsForm = _this.garantorsFormGroup();
             }, 1000);
@@ -323,14 +328,14 @@ var GetLoanComponent = /** @class */ (function () {
                     // console.log(this.securities);
                     _this.posted = true;
                     _this.alertService.success({
-                        html: '<b> saved successfully</b>'
+                        html: '<b> Saved successfully</b>'
                     });
                     _this.securityForm = _this.securityFormGroup();
                 }
                 else {
                     _this.errored = true;
                     _this.alertService.danger({
-                        html: '<b> The security Type choosen does not exist</b>'
+                        html: '<b> The security Type chosen does not exist</b>'
                     });
                 }
             }, 3000);
@@ -353,7 +358,7 @@ var GetLoanComponent = /** @class */ (function () {
                 // console.log(this.guarantors);
                 _this.posted = true;
                 _this.alertService.success({
-                    html: '<b> saved successfully</b>'
+                    html: '<b> Saved successfully</b>'
                 });
                 _this.showGarantorForm = false;
                 _this.showSecurityForm = true;
@@ -375,7 +380,7 @@ var GetLoanComponent = /** @class */ (function () {
                 else {
                     _this.errored = true;
                     _this.alertService.danger({
-                        html: '<b> The security Type choosen does not exist</b>'
+                        html: '<b> The security Type chosen does not exist</b>'
                     });
                 }
             }, 3000);

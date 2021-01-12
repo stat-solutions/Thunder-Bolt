@@ -46,6 +46,8 @@ export class GetLoanComponent implements OnInit {
   securityPhotoUrl: string;
   securityTypes: any;
   customers: any;
+  stations: any;
+  stationLocationId: number;
   checkedClient: any;
   constructor(
     private authService: AuthServiceService,
@@ -58,11 +60,19 @@ export class GetLoanComponent implements OnInit {
 
   ngOnInit(): void {
     this.errored = false;
+    this.showSecurityForm = false;
     this.posted = false;
     this.header = 'Get Loan';
     this.userForm = this.createFormGroup();
     this.garantorsForm = this.garantorsFormGroup();
     this.securityForm = this.securityFormGroup();
+    this.others.getAllTheStationLocationsByTown(this.User.userLocationId).subscribe(
+      res => {
+        this.stations = res;
+      // tslint:disable-next-line: only-arrow-functions
+      },
+      err => console.log(err.statusText)
+    );
     this.others.getSecurityType().subscribe(
       res => {
         this.securityTypes = res;
@@ -333,7 +343,7 @@ export class GetLoanComponent implements OnInit {
                 userId: this.User.userId,
                 productCode: 400,
                 microLoanPurpose: this.fval.loanpurpose.value.toUpperCase(),
-                theStationLocationId: this.User.userLocationId
+                theStationLocationId: this.checkedClient.fktheStationLocationIdCustomer
         };
         if (txn.txnDetailsId){
           this.data.push(txn);
