@@ -420,8 +420,11 @@ export class OthersService {
     getTxnForApproval(): any{
       return this.http.get(`${this.API_URL}/api/loan/getTxnsForApprovalMicroloan`);
     }
-    approveTransaction(postData: any): any {
+    approveMicroTransaction(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postApproveTxnMicron`, postData );
+    }
+    rejectMicroTransaction(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postRejectTxnMicron`, postData );
     }
     getTxnApproved(): any{
       return this.http.get(`${this.API_URL}/api/loan/getApprovedTxnsMicroloan`);
@@ -430,7 +433,7 @@ export class OthersService {
       return this.http.get(`${this.API_URL}api/loan/getRejectedTxnsMicroloan`);
     }
     confirmMicroLoan(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/user/verifyUserWithPin`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/postConfirmApprovedTxnMicron`, postData );
     }
     setIdividualLoanLimit(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );

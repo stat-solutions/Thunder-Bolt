@@ -429,7 +429,7 @@ export class PayComponent implements OnInit {
             } else {
               this.errored = true;
               this.alertService.danger({
-                html: '<b> Passwords do not match<b>'
+                html: "<b> User's pin does not match<b>"
               });
             }
           },

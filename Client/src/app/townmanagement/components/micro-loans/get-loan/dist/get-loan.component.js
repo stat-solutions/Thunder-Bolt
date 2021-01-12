@@ -32,7 +32,7 @@ var GetLoanComponent = /** @class */ (function () {
         this.posted = false;
         this.showFinalBtn = false;
         this.showcompleteBtn = true;
-        this.showUserForm = true;
+        this.showUserForm = false;
         this.showGarantorForm = false;
         this.showSecurityForm = false;
         this.nextGarantorForm = false;
@@ -52,6 +52,10 @@ var GetLoanComponent = /** @class */ (function () {
         this.userForm = this.createFormGroup();
         this.garantorsForm = this.garantorsFormGroup();
         this.securityForm = this.securityFormGroup();
+        this.others.getAllTheStationLocationsByTown(this.User.userLocationId).subscribe(function (res) {
+            _this.stations = res;
+            // tslint:disable-next-line: only-arrow-functions
+        }, function (err) { return console.log(err.statusText); });
         this.others.getSecurityType().subscribe(function (res) {
             _this.securityTypes = res;
         }, function (err) {
@@ -97,6 +101,7 @@ var GetLoanComponent = /** @class */ (function () {
     };
     GetLoanComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
+            station: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             user_contact_number: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
                 custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
@@ -139,6 +144,25 @@ var GetLoanComponent = /** @class */ (function () {
             location: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             url: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
         });
+    };
+    GetLoanComponent.prototype.onChages = function (selectedChange) {
+        if (selectedChange !== '') {
+            for (var _i = 0, _a = this.stations; _i < _a.length; _i++) {
+                var station = _a[_i];
+                if (station.stationName.toUpperCase() === selectedChange) {
+                    this.stationLocationId = station.theStationLocationId;
+                    this.showUserForm = true;
+                }
+                else {
+                    this.errored = true;
+                    this.alertService.danger({
+                        html: '<b> The station provided does not exist. </v>'
+                    });
+                    this.showUserForm = false;
+                    this.stationLocationId = null;
+                }
+            }
+        }
     };
     GetLoanComponent.prototype.refresh = function () {
         location.reload();
@@ -267,7 +291,7 @@ var GetLoanComponent = /** @class */ (function () {
                     userId: this.User.userId,
                     productCode: 400,
                     microLoanPurpose: this.fval.loanpurpose.value.toUpperCase(),
-                    theStationLocationId: this.User.userLocationId
+                    theStationLocationId: this.stationLocationId
                 };
                 if (txn.txnDetailsId) {
                     this.data.push(txn);

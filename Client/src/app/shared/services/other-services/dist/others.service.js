@@ -442,8 +442,11 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.getTxnForApproval = function () {
         return this.http.get(this.API_URL + "/api/loan/getTxnsForApprovalMicroloan");
     };
-    OthersService.prototype.approveTransaction = function (postData) {
+    OthersService.prototype.approveMicroTransaction = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/postApproveTxnMicron", postData);
+    };
+    OthersService.prototype.rejectMicroTransaction = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postRejectTxnMicron", postData);
     };
     OthersService.prototype.getTxnApproved = function () {
         return this.http.get(this.API_URL + "/api/loan/getApprovedTxnsMicroloan");
@@ -452,7 +455,7 @@ var OthersService = /** @class */ (function () {
         return this.http.get(this.API_URL + "api/loan/getRejectedTxnsMicroloan");
     };
     OthersService.prototype.confirmMicroLoan = function (postData) {
-        return this.http.post(this.API_URL + "/api/user/verifyUserWithPin", postData);
+        return this.http.post(this.API_URL + "/api/loan/postConfirmApprovedTxnMicron", postData);
     };
     OthersService.prototype.setIdividualLoanLimit = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanLimit", postData);

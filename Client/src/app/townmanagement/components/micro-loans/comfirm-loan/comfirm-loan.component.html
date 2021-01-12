@@ -45,9 +45,10 @@
               }"
               autocomplete="off"
               placeholder="Select Phone number"
-              (blur)="checkLoanbility(fval.user_contact_number.value)"
+              (blur)="checkLoan(fval.user_contact_number.value)"
             />
             <!-- numberPlates: NumberPlates[]; -->
+            
             <datalist id="user_contact_number">
               <option *ngFor="let item of phoneNumbers">
                 {{ item }}
@@ -154,9 +155,9 @@
             type="submit"
             class="btn btn-info col-5 mx-auto"
             [disabled]="!userForm.valid"
-            (click)='saveAndNew()'
+            (click)='postLoan()'
           >
-            Next
+            Confirm
           </button>
           <button
             type="button"

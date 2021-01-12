@@ -45,6 +45,7 @@
               }"
               autocomplete="off"
               placeholder="Select Phone number"
+              (blur)="checkLoanbility(fval.user_contact_number.value)"
             />
             <!-- (blur)="checkLoanbility(fval.user_contact_number.value, template)" -->
             <!-- numberPlates: NumberPlates[]; -->
@@ -99,6 +100,7 @@
               }"
               autocomplete="off"
               placeholder="Enter amount to pay"
+              (blur)="checkLimit(fval.amount_to_pay.value)"
             />
           </div>
           <div

@@ -28,7 +28,7 @@ export class GetLoanComponent implements OnInit {
   securityForm: FormGroup;
   state: string;
   header: string;
-  showUserForm = true;
+  showUserForm = false;
   showGarantorForm = false;
   showSecurityForm = false;
   nextGarantorForm = false;
@@ -46,6 +46,8 @@ export class GetLoanComponent implements OnInit {
   securityPhotoUrl: string;
   securityTypes: any;
   customers: any;
+  stations: any;
+  stationLocationId: number;
   checkedClient: any;
   constructor(
     private authService: AuthServiceService,
@@ -63,6 +65,13 @@ export class GetLoanComponent implements OnInit {
     this.userForm = this.createFormGroup();
     this.garantorsForm = this.garantorsFormGroup();
     this.securityForm = this.securityFormGroup();
+    this.others.getAllTheStationLocationsByTown(this.User.userLocationId).subscribe(
+      res => {
+        this.stations = res;
+      // tslint:disable-next-line: only-arrow-functions
+      },
+      err => console.log(err.statusText)
+    );
     this.others.getSecurityType().subscribe(
       res => {
         this.securityTypes = res;
@@ -116,6 +125,10 @@ export class GetLoanComponent implements OnInit {
   }
   createFormGroup(): any {
     return new FormGroup({
+      station: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
       user_contact_number: new FormControl(
         '',
         Validators.compose([
@@ -214,6 +227,23 @@ export class GetLoanComponent implements OnInit {
     });
   }
 
+  onChages(selectedChange: any): any {
+      if (selectedChange !== '') {
+        for (const station of this.stations){
+          if (station.stationName.toUpperCase() === selectedChange){
+            this.stationLocationId = station.theStationLocationId;
+            this.showUserForm = true;
+           } else {
+             this.errored = true;
+             this.alertService.danger({
+               html: '<b> The station provided does not exist. </v>'
+             });
+             this.showUserForm = false;
+             this.stationLocationId = null;
+           }
+        }
+      }
+    }
   refresh(): any {
     location.reload();
   }
@@ -333,7 +363,7 @@ export class GetLoanComponent implements OnInit {
                 userId: this.User.userId,
                 productCode: 400,
                 microLoanPurpose: this.fval.loanpurpose.value.toUpperCase(),
-                theStationLocationId: this.User.userLocationId
+                theStationLocationId: this.stationLocationId
         };
         if (txn.txnDetailsId){
           this.data.push(txn);
@@ -459,7 +489,7 @@ export class GetLoanComponent implements OnInit {
               });
               setTimeout(() => {
                 this.router.navigate(['/townmanagement/microloan/confirm']);
-              }, 3000);       
+              }, 3000);
             }
           },
           err => {
