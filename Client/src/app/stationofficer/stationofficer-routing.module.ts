@@ -1,12 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AdjustmentsComponent } from './components/adjustments/adjustments.component';
-import { ReduceRateComponent } from './components/adjustments/reduce-rate/reduce-rate.component';
-import { ReversePrincipleComponent } from './components/adjustments/reverse-principle/reverse-principle.component';
-import { SetInterestRateComponent } from './components/adjustments/set-interest-rate/set-interest-rate.component';
-import { SetLoanLimitComponent } from './components/adjustments/set-loan-limit/set-loan-limit.component';
-import { WaiveInterestComponent } from './components/adjustments/waive-interest/waive-interest.component';
-import { WriteOffComponent } from './components/adjustments/write-off/write-off.component';
 import { OfficerGuard } from '../shared/services/other-services/route-guards/officer-guard.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EnrollClientComponent } from './components/enroll/enroll-client/enroll-client.component';
@@ -87,36 +80,36 @@ const routes: Routes = [
           },
         ],
       },
-      {
-        path: 'adjustments',
-        component: AdjustmentsComponent,
-        children: [
-          {
-            path: 'setloanlimit',
-            component: SetLoanLimitComponent,
-          },
-          {
-            path: 'reduceinterestrate',
-            component: ReduceRateComponent,
-          },
-          {
-            path: 'reverseprincipal',
-            component: ReversePrincipleComponent,
-          },
-          {
-            path: 'setinterestrate',
-            component: SetInterestRateComponent,
-          },
-          {
-            path: 'waiveinterest',
-            component: WaiveInterestComponent,
-          },
-          {
-            path: 'writeoffprincipal',
-            component: WriteOffComponent,
-          },
-        ],
-      },
+      // {
+      //   path: 'adjustments',
+      //   component: AdjustmentsComponent,
+      //   children: [
+      //     {
+      //       path: 'setloanlimit',
+      //       component: SetLoanLimitComponent,
+      //     },
+      //     {
+      //       path: 'reduceinterestrate',
+      //       component: ReduceRateComponent,
+      //     },
+      //     {
+      //       path: 'reverseprincipal',
+      //       component: ReversePrincipleComponent,
+      //     },
+      //     {
+      //       path: 'setinterestrate',
+      //       component: SetInterestRateComponent,
+      //     },
+      //     {
+      //       path: 'waiveinterest',
+      //       component: WaiveInterestComponent,
+      //     },
+      //     {
+      //       path: 'writeoffprincipal',
+      //       component: WriteOffComponent,
+      //     },
+      //   ],
+      // },
       {
         path: 'reports',
         component: ReportsComponent,

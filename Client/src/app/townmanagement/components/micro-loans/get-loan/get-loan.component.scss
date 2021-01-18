@@ -15,6 +15,10 @@
   border-radius: 8px;
   contain: auto;
 }
+.form-2 {
+  max-width: 300px;
+  min-width: 260px;
+}
 
 
 
@@ -30,6 +34,9 @@
   .card-body {
     max-width: 350px;
   }
+.form-2 {
+  max-width: 350px;
+}
   .jumbotron-fluid {
     padding-top: .7rem !important;
     padding-bottom: .5rem !important;
@@ -40,15 +47,33 @@
 }
 
 @media (min-width: 410px) {
+.form-2 {
+  max-width: 380px;
+}
+.form-3 {
+  max-width: 380px;
+}
 }
 
 @media (min-width: 445px) {
+.form-2 {
+  max-width: 440px;
+}
+.form-3 {
+  max-width: 440px;
+}
 }
 
 @media (min-width: 568px) {
   .jumbotron-fluid {
     padding-bottom: .8rem !important;
   }
+.form-2 {
+  max-width: 460px;
+}
+.form-3 {
+  max-width: 460px;
+}
 }
 
 @media (min-width: 640px) {
@@ -56,6 +81,12 @@
     margin-left: auto !important;
     margin-right: auto !important;
   }
+.form-2 {
+  max-width: 550px;
+}
+.form-3 {
+  max-width: 550px;
+}
 }
 
 @media (min-width: 768px) {
@@ -66,12 +97,18 @@
   .jumbotron-fluid {
     padding-bottom: 10rem !important;
   }
+.form-2 {
+  max-width: 680px;
+}
 }
 
 @media (min-width: 812px) {
   .jumbotron-fluid {
     padding-bottom: 1rem !important;
   }
+.form-2 {
+  max-width: 720px;
+}
 }
 
 @media (min-width: 1024px) {
@@ -82,6 +119,9 @@
   .jumbotron-fluid {
     padding-bottom: 20rem !important;
   }
+.form-2 {
+  max-width: 940px;
+}
 }
 
 @media (min-width: 1100px) {
@@ -94,6 +134,9 @@
 }
 
 @media (min-width: 1280px) {
+.form-2 {
+  max-width: 1100px;
+}
 }
 
 @media (min-width: 1320px) {

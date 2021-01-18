@@ -59,6 +59,8 @@ import { SetLoanCommissionComponent } from './components/transactions/loans/set-
 import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan-accrual/set-loan-accrual.component';
 import { MicroLoanComponent } from './components/transactions/approval/micro-loan/micro-loan.component';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
+import { LoanCommissionRateComponent } from './components/transactions/approval/loan-commission-rate/loan-commission-rate.component';
+import { LoanAccrualDaysComponent } from './components/transactions/approval/loan-accrual-days/loan-accrual-days.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +111,8 @@ import { PinchZoomModule } from 'ngx-pinch-zoom';
     StationManagersComponent,
     SetLoanTenureComponent,
     LoanTenureComponent,
+    LoanCommissionRateComponent,
+    LoanAccrualDaysComponent,
   ],
   imports: [
     CommonModule,

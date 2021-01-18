@@ -43,6 +43,13 @@ import { ComfirmLoanComponent } from './components/micro-loans/comfirm-loan/comf
 import { AreaComponent } from './components/reports/area/area.component';
 import { ClientsComponent } from './components/reports/clients/clients.component';
 import { UsersComponent } from './components/reports/users/users.component';
+import { AdjustmentsComponent } from './components/adjustments/adjustments.component';
+import { WriteOffComponent } from './components/adjustments/write-off/write-off.component';
+import { WaiveInterestComponent } from './components/adjustments/waive-interest/waive-interest.component';
+import { SetLoanLimitComponent } from './components/adjustments/set-loan-limit/set-loan-limit.component';
+import { SetInterestRateComponent } from './components/adjustments/set-interest-rate/set-interest-rate.component';
+import { ReversePrincipalComponent } from './components/adjustments/reverse-principal/reverse-principal.component';
+import { ReduceRateComponent } from './components/adjustments/reduce-rate/reduce-rate.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +85,13 @@ import { UsersComponent } from './components/reports/users/users.component';
     AreaComponent,
     ClientsComponent,
     UsersComponent,
+    AdjustmentsComponent,
+    WriteOffComponent,
+    WaiveInterestComponent,
+    SetLoanLimitComponent,
+    SetInterestRateComponent,
+    ReversePrincipalComponent,
+    ReduceRateComponent,
   ],
   imports: [
     CommonModule,

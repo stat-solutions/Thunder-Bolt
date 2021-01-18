@@ -54,17 +54,17 @@ export class LeftPanelTownComponent implements OnInit {
       {
         name: 'Dashboard',
         icon: 'fas fa-tachometer-alt',
-        url: '/townmanagement/dashboard'
+        url: '/townmanagement/dashboard',
       },
       {
         name: 'Select Stations',
         icon: 'fas fa-gas-pump',
-        url: '/townmanagement/createstation'
+        url: '/townmanagement/createstation',
       },
       {
         name: 'Micro Loan',
-        icon: 'fas fa-gas-pump',
-        url: '/townmanagement/microloan'
+        icon: 'fas fa-money-bill',
+        url: '/townmanagement/microloan',
       },
       {
         name: 'Enroll',
@@ -74,29 +74,71 @@ export class LeftPanelTownComponent implements OnInit {
           {
             name: 'Enroll Client',
             icon: 'fas fa-user',
-            url: '/townmanagement/enroll/enrollclient'
+            url: '/townmanagement/enroll/enrollclient',
           },
           {
             name: 'Enroll Stage',
             icon: 'fas fa-parking',
-            url: '/townmanagement/enroll/enrollstage'
+            url: '/townmanagement/enroll/enrollstage',
           },
           {
             name: 'Cluster & Taxi Park',
             icon: 'fas fa-parking',
-            url: '/townmanagement/enroll/clustertaxipark'
+            url: '/townmanagement/enroll/clustertaxipark',
           },
           {
             name: 'Edit Client',
             icon: 'fas fa-user',
-            url: '/townmanagement/enroll/editclient'
+            url: '/townmanagement/enroll/editclient',
           },
           {
             name: 'Edit Stage',
             icon: 'fas fa-parking',
-            url: '/townmanagement/enroll/editstage'
+            url: '/townmanagement/enroll/editstage',
           },
-        ]
+        ],
+      },
+      {
+        name: 'Adjustments',
+        icon: 'fas fa-tools',
+        url: '/townmanagement/adjustments',
+        subMenu: [
+          {
+            name: 'Set Loan limit',
+            icon: 'fas fa-wrench',
+            url: '/townmanagement/adjustments/setloanlimit',
+          },
+          {
+            name: 'Set Interest rate',
+            icon: 'fas fa-wrench',
+            url: '/townmanagement/adjustments/setinterestrate',
+          },
+          {
+            name: 'Reduce Interest rate',
+            icon: 'fas fa-wrench',
+            url: '/townmanagement/adjustments/reduceinterestrate',
+          },
+          {
+            name: 'Waive Interest',
+            icon: 'fas fa-wrench',
+            url: '/townmanagement/adjustments/waiveinterest',
+          },
+          {
+            name: 'Write-Off Principal',
+            icon: 'fas fa-wrench',
+            url: '/townmanagement/adjustments/writeoffprincipal',
+          },
+          {
+            name: 'Reverse Principal',
+            icon: 'fas fa-wrench',
+            url: '/townmanagement/adjustments/reverseprincipal',
+          },
+        ],
+      },
+      {
+        name: 'Client Comments',
+        icon: 'fas fa-comments',
+        url: '/townmanagement/clientcomments',
       },
       {
         name: 'Reports',
@@ -106,25 +148,25 @@ export class LeftPanelTownComponent implements OnInit {
           {
             name: 'Loans and Revenue',
             icon: 'fas fa-clipboard-list',
-            url: '/townmanagement/reports/loansrevenue'
+            url: '/townmanagement/reports/loansrevenue',
           },
           {
             name: 'Clients',
             icon: 'fas fa-clipboard-list',
-            url: '/townmanagement/reports/clients'
+            url: '/townmanagement/reports/clients',
           },
           {
             name: 'Users',
             icon: 'fas fa-clipboard-list',
-            url: '/townmanagement/reports/users'
-          }
-                ]
+            url: '/townmanagement/reports/users',
+          },
+        ],
       },
       {
         name: 'Profile',
         icon: 'fas fa-user-cog',
         url: '/townmanagement/profile',
-      }
+      },
     ];
   }
 }

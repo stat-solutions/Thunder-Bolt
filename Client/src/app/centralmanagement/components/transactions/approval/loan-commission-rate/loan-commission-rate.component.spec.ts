@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BorrowedLedgerComponent } from './borrowed-ledger.component';
+import { LoanCommissionRateComponent } from './loan-commission-rate.component';
 
-describe('BorrowedLedgerComponent', () => {
-  let component: BorrowedLedgerComponent;
-  let fixture: ComponentFixture<BorrowedLedgerComponent>;
+describe('LoanCommissionRateComponent', () => {
+  let component: LoanCommissionRateComponent;
+  let fixture: ComponentFixture<LoanCommissionRateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BorrowedLedgerComponent ]
+      declarations: [ LoanCommissionRateComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BorrowedLedgerComponent);
+    fixture = TestBed.createComponent(LoanCommissionRateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
