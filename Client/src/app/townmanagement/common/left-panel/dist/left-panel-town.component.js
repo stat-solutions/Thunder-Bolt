@@ -44,7 +44,7 @@ var LeftPanelTownComponent = /** @class */ (function () {
             },
             {
                 name: 'Micro Loan',
-                icon: 'fas fa-gas-pump',
+                icon: 'fas fa-money-bill',
                 url: '/townmanagement/microloan'
             },
             {
@@ -80,32 +80,79 @@ var LeftPanelTownComponent = /** @class */ (function () {
                 ]
             },
             {
+                name: 'Adjustments',
+                icon: 'fas fa-tools',
+                url: '/townmanagement/adjustments',
+                subMenu: [
+                    {
+                        name: 'Set Loan limit',
+                        icon: 'fas fa-wrench',
+                        url: '/townmanagement/adjustments/setloanlimit'
+                    },
+                    {
+                        name: 'Set Interest rate',
+                        icon: 'fas fa-wrench',
+                        url: '/townmanagement/adjustments/setinterestrate'
+                    },
+                    {
+                        name: 'Set Loan Tenure',
+                        icon: 'fas fa-wrench',
+                        url: '/townmanagement/adjustments/loantenure'
+                    },
+                    {
+                        name: 'Set Loan Accrual Days',
+                        icon: 'fas fa-wrench',
+                        url: '/townmanagement/adjustments/accrualdays'
+                    },
+                    {
+                        name: 'Waive Interest',
+                        icon: 'fas fa-wrench',
+                        url: '/townmanagement/adjustments/waiveinterest'
+                    },
+                    {
+                        name: 'Write-Off Principal',
+                        icon: 'fas fa-wrench',
+                        url: '/townmanagement/adjustments/writeoffprincipal'
+                    },
+                    {
+                        name: 'Reverse Principal',
+                        icon: 'fas fa-wrench',
+                        url: '/townmanagement/adjustments/reverseprincipal'
+                    },
+                ]
+            },
+            {
+                name: 'Client Comments',
+                icon: 'fas fa-comments',
+                url: '/townmanagement/clientcomments'
+            },
+            {
                 name: 'Reports',
                 icon: 'fas fa-chart-line',
                 url: '/townmanagement/reports',
                 subMenu: [
                     {
-                        name: 'Cash Ledger',
+                        name: 'Loans and Revenue',
                         icon: 'fas fa-clipboard-list',
-                        url: '/townmanagement/reports/cashledger'
+                        url: '/townmanagement/reports/loansrevenue'
                     },
                     {
-                        name: 'Loans Ledger',
+                        name: 'Clients',
                         icon: 'fas fa-clipboard-list',
-                        url: '/townmanagement/reports/loansledger'
+                        url: '/townmanagement/reports/clients'
                     },
                     {
-                        name: 'Payments Ledger',
+                        name: 'Users',
                         icon: 'fas fa-clipboard-list',
-                        url: '/townmanagement/reports/paidledger'
-                    }
+                        url: '/townmanagement/reports/users'
+                    },
                 ]
             },
             {
                 name: 'Profile',
                 icon: 'fas fa-user-cog',
                 url: '/townmanagement/profile'
-            }
+            },
         ];
     };
     __decorate([

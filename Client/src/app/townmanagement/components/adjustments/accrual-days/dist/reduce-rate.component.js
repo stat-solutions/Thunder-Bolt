@@ -13,12 +13,13 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 exports.__esModule = true;
-exports.LendComponent = void 0;
+exports.ReduceRateComponent = void 0;
 var core_1 = require("@angular/core");
+var jwt_decode = require("jwt-decode");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
-var LendComponent = /** @class */ (function () {
-    function LendComponent(authService, others, router, spinner, alertService, modalService) {
+var ReduceRateComponent = /** @class */ (function () {
+    function ReduceRateComponent(authService, others, router, spinner, alertService, modalService) {
         this.authService = authService;
         this.others = others;
         this.router = router;
@@ -26,24 +27,16 @@ var LendComponent = /** @class */ (function () {
         this.alertService = alertService;
         this.modalService = modalService;
         this.posted = false;
-        this.canLend = false;
         this.user = '/../../../assets/img/man.svg';
         this.numberPlates = [];
         this.phoneNumbers = [];
         this.User = this.authService.loggedInUserInfo();
     }
-    LendComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    ReduceRateComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
         this.checkedOk = false;
-        this.others.getTxnDetails().subscribe(function (res) {
-            _this.txns = res;
-            // console.log(res);
-        }, function (err) {
-            console.log(err.error.statusText);
-        });
     };
-    LendComponent.prototype.createFormGroup = function () {
+    ReduceRateComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
             loanType: new forms_1.FormControl(['', forms_1.Validators.required]),
             number_plate: new forms_1.FormControl('', forms_1.Validators.compose([
@@ -51,12 +44,11 @@ var LendComponent = /** @class */ (function () {
                 forms_1.Validators.minLength(8),
                 forms_1.Validators.maxLength(8),
             ])),
-            amount_to_borrow: new forms_1.FormControl({ value: '', disabled: true }, forms_1.Validators.compose([
+            user_contact_number: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
-                custom_validator_1.CustomValidator.patternValidator(/\d/, { hasNumber: true }),
-                forms_1.Validators.maxLength(12),
-                forms_1.Validators.minLength(3),
+                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
             ])),
+            itemRate: new forms_1.FormControl({ value: '', disabled: true }, forms_1.Validators.compose([forms_1.Validators.required, custom_validator_1.CustomValidator.maxValue(100)])),
             pin: new forms_1.FormControl({ value: '', disabled: true }, forms_1.Validators.compose([
                 forms_1.Validators.required,
                 custom_validator_1.CustomValidator.patternValidator(/\d/, { hasNumber: true }),
@@ -65,7 +57,7 @@ var LendComponent = /** @class */ (function () {
             ]))
         });
     };
-    LendComponent.prototype.checkLoanType = function (value) {
+    ReduceRateComponent.prototype.checkLoanType = function (value) {
         var _this = this;
         switch (value) {
             case 'Boda Loan':
@@ -75,9 +67,9 @@ var LendComponent = /** @class */ (function () {
                         _this.customers = [];
                         _this.customers = res;
                         _this.fval.number_plate.setValue('');
-                        _this.fval.amount_to_borrow.setValue('');
+                        _this.fval.amount_to_pay.setValue('');
                         _this.fval.pin.setValue('');
-                        _this.fval.amount_to_borrow.disable();
+                        _this.fval.amount_to_pay.disable();
                         _this.fval.pin.disable();
                         _this.numberPlates = [];
                         _this.checkedClient = {};
@@ -108,19 +100,14 @@ var LendComponent = /** @class */ (function () {
                         _this.customers = res;
                         _this.loanType = value;
                         _this.fval.number_plate.setValue('');
-                        _this.fval.amount_to_borrow.setValue('');
+                        _this.fval.amount_to_pay.setValue('');
                         _this.fval.pin.setValue('');
-                        _this.fval.amount_to_borrow.disable();
+                        _this.fval.amount_to_pay.disable();
                         _this.fval.pin.disable();
                         _this.numberPlates = [];
                         _this.customers.forEach(function (customer) {
                             _this.numberPlates.push(customer.taxiCustomerNumberPlate);
                         });
-                        _this.fval.number_plate.setValidators([
-                            forms_1.Validators.required,
-                            forms_1.Validators.minLength(8),
-                            forms_1.Validators.maxLength(8),
-                        ]);
                     }
                     else {
                         _this.errored = true;
@@ -136,19 +123,55 @@ var LendComponent = /** @class */ (function () {
                     });
                 });
                 break;
+            case 'Micro Loan':
+                this.others.getMicroCustomers().subscribe(function (res) {
+                    if (res.length > 0) {
+                        _this.customers = [];
+                        _this.customers = res;
+                        _this.checkedClient = {};
+                        _this.loanType = value;
+                        _this.fval.user_contact_number.setValue('');
+                        _this.fval.amount_to_pay.setValue('');
+                        _this.fval.pin.setValue('');
+                        _this.fval.amount_to_pay.disable();
+                        _this.fval.pin.disable();
+                        _this.phoneNumbers = [];
+                        _this.customers.forEach(function (customer) {
+                            _this.phoneNumbers.push(customer.customerPhone1);
+                        });
+                        _this.fval.user_contact_number.setValidators([
+                            forms_1.Validators.required,
+                            custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                        ]);
+                    }
+                    else {
+                        _this.errored = true;
+                        _this.choosingPdts();
+                        _this.alertService.danger({
+                            html: '<b>There are no Micro loan customers registered</b>'
+                        });
+                    }
+                }, function (err) {
+                    _this.errored = true;
+                    _this.alertService.danger({
+                        html: '<b>' + err.error.error.message + '</b>'
+                    });
+                });
+                break;
         }
     };
-    LendComponent.prototype.choosingPdts = function () {
+    ReduceRateComponent.prototype.choosingPdts = function () {
         this.loanType = '';
         this.numberPlates = [];
-        this.fval.amount_to_borrow.disable();
+        this.phoneNumbers = [];
+        this.fval.amount_to_pay.disable();
         this.fval.pin.disable();
     };
-    LendComponent.prototype.enableAmountAndPin = function () {
-        this.fval.amount_to_borrow.enable();
+    ReduceRateComponent.prototype.enableAmountAndPin = function () {
+        this.fval.amount_to_pay.enable();
         this.fval.pin.enable();
     };
-    LendComponent.prototype.checkLoanbility = function (value, template) {
+    ReduceRateComponent.prototype.checkLoanbility = function (value, template) {
         var _this = this;
         if (value !== '') {
             // console.log(this.loanType);
@@ -227,113 +250,114 @@ var LendComponent = /** @class */ (function () {
                         });
                     }
                     break;
+                case 'Micro Loan':
+                    var microCustomers = __spreadArrays(this.customers);
+                    microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
+                    if (microCustomers.length === 1) {
+                        this.checkedClient = {
+                            Id: microCustomers[0].customerId,
+                            name: microCustomers[0].customerName,
+                            // tslint:disable-next-line: max-line-length
+                            photoUrl: microCustomers[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? this.user : microCustomers[0].customerIdPhotoUrl,
+                            phone: microCustomers[0].customerPhone1,
+                            loanAmount: microCustomers[0].microloanCustomerLoanLimit,
+                            loanLimit: microCustomers[0].microloanCustomerLoanLimit,
+                            loanPaid: microCustomers[0].microloanCustomerLoanLimit,
+                            loanBalance: microCustomers[0].microloanCustomerLoanLimit,
+                            loanStatus: microCustomers[0].microloanCustomerLoanLimit,
+                            comment: microCustomers[0].customerComment,
+                            pin: microCustomers[0].customerSecretPin
+                        };
+                        this.enableAmountAndPin();
+                    }
+                    else {
+                        this.errored = true;
+                        this.checkedClient = {};
+                        this.alertService.danger({
+                            html: '<b> customer with number plate ' + value.toUpperCase() + ' is not registered<b>'
+                        });
+                    }
+                    break;
             }
         }
     };
-    LendComponent.prototype.checkLimit = function (val) {
-        if (val !== '') {
-            val = parseInt(val.replace(/[\D\s\._\-]+/g, ''), 10);
-            if (val > this.checkedClient.loanLimit) {
-                this.errored = true;
-                this.fval.amount_to_borrow.setValue('');
-                this.canLend = false;
-                this.alertService.danger({
-                    html: '<b> Amount provided (' + val + ') is greater than the customer loan limit</b>'
-                });
-            }
-            else {
-                this.amountBorrowed = val;
-            }
-        }
-    };
-    LendComponent.prototype.revert = function () {
+    ReduceRateComponent.prototype.revert = function () {
         this.userForm.reset();
     };
-    LendComponent.prototype.refresh = function () {
+    ReduceRateComponent.prototype.refresh = function () {
         location.reload();
     };
-    Object.defineProperty(LendComponent.prototype, "fval", {
+    Object.defineProperty(ReduceRateComponent.prototype, "fval", {
         get: function () {
             return this.userForm.controls;
         },
         enumerable: false,
         configurable: true
     });
-    // client modal method
-    LendComponent.prototype.openModal = function (template) {
+    ReduceRateComponent.prototype.openModal = function (template) {
         this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-centered' }));
     };
     // toggle visibility of password field
-    LendComponent.prototype.toggleFieldType = function () {
+    ReduceRateComponent.prototype.toggleFieldType = function () {
         this.fieldType = !this.fieldType;
     };
-    LendComponent.prototype.assignTxnId = function (familyName, typeName) {
-        for (var _i = 0, _a = this.txns; _i < _a.length; _i++) {
-            var txn = _a[_i];
-            if (txn.txnDetailsFamilyName.toUpperCase() === familyName && txn.txnDetailsTypeName.toUpperCase() === typeName) {
-                return txn.txnDetailsId;
-            }
+    ReduceRateComponent.prototype.reduceRate = function () {
+        this.userForm.patchValue({
+            amount_to_pay: parseInt(this.userForm.controls.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''), 10)
+        });
+        // tslint:disable-next-line:triple-equals
+        if (!(this.secretPin == this.userForm.controls.pin.value)) {
+            this.alertService.danger({
+                html: '<b>Invalid PIN!</b>'
+            });
+            return;
         }
-    };
-    LendComponent.prototype.lend = function () {
-        var _this = this;
-        if (this.userForm.valid) {
-            if (Number(this.fval.pin.value) === this.checkedClient.pin) {
-                var data = {
-                    txnAmount: this.amountBorrowed,
-                    customerId: this.checkedClient.Id,
-                    txnDetailsId: null,
-                    userId: this.User.userId,
-                    productCode: this.loanType === 'Boda Loan' ? 200 : 300,
-                    theStationLocationId: this.User.userLocationId
-                };
-                switch (this.loanType) {
-                    case 'Boda Loan':
-                        data.txnDetailsId = this.assignTxnId('BODABODALOAN', 'LOANDISBURSEMENT');
-                        break;
-                    case 'Taxi Loan':
-                        data.txnDetailsId = this.assignTxnId('TAXILOAN', 'LOANDISBURSEMENT');
-                        break;
-                }
-                this.others.putTxnCustomer(data).subscribe(function (res) {
-                    if (res) {
-                        _this.posted = true;
-                        _this.alertService.success({
-                            html: '<b> Loan was successfully</b>'
-                        });
-                        setTimeout(function () {
-                            _this.userForm = _this.createFormGroup();
-                        }, 3000);
-                    }
-                }, function (err) {
-                    _this.errored = true;
-                    if (err.error.error.status === 500) {
-                        _this.alertService.danger({
-                            html: '<b> Sever Could Not handle this request</b>'
-                        });
-                    }
-                    else {
-                        _this.alertService.danger({
-                            html: '<b>' + err.error.error.message + '</b>'
-                        });
-                    }
+        else {
+            if (this.userForm.controls.amount_to_pay.value > this.loanLimit) {
+                this.alertService.warning({
+                    html: '<b>Loan Limit Exceeded!</b>' + '<br/>'
                 });
+                return;
             }
             else {
-                this.errored = true;
-                this.alertService.danger({
-                    html: '<b>Secret pin does not match</b>'
+                this.userForm.controls.number_plate.enable();
+                this.userForm.patchValue({
+                    user_station: jwt_decode(this.authService.getJwtToken()).user_station,
+                    user_id: jwt_decode(this.authService.getJwtToken()).user_id
                 });
+                // console.log(this.userForm.value);
+                this.posted = true;
+                this.spinner.show();
+                // this.pumpService.createLoan(this.userForm).subscribe(
+                //   result => {
+                //     this.amountDue = result[0].amount_due;
+                //     this.txnId = result[0].txn_id;
+                //     this.spinner.hide();
+                //     this.openModal();
+                //     this.router.navigate(['dashboardpump/shiftmanagement']);
+                //     setTimeout(() => {
+                //       location.reload();
+                //     }, 3000);
+                //   },
+                //   (error: string) => {
+                //     this.spinner.hide();
+                //     this.errored = true;
+                //     this.serviceErrors = error;
+                //     this.alertService.danger({
+                //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
+                //     });
+                //   }
+                // );
             }
         }
     };
-    LendComponent = __decorate([
+    ReduceRateComponent = __decorate([
         core_1.Component({
-            selector: 'app-lend',
-            templateUrl: './lend.component.html',
-            styleUrls: ['./lend.component.scss']
+            selector: 'app-reduce-rate',
+            templateUrl: './reduce-rate.component.html',
+            styleUrls: ['./reduce-rate.component.scss']
         })
-    ], LendComponent);
-    return LendComponent;
+    ], ReduceRateComponent);
+    return ReduceRateComponent;
 }());
-exports.LendComponent = LendComponent;
+exports.ReduceRateComponent = ReduceRateComponent;

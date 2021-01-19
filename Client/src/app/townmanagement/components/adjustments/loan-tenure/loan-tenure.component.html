@@ -8,7 +8,7 @@
           <h3
             class="rub-head4 text-info text-center font-weight-bold py-1"
           >
-            Reduce Interest (%)
+            Set Loan Tenure
           </h3>
         </div>
       </div>
@@ -77,12 +77,12 @@
               }"
               autocomplete="off"
               placeholder="Select Number Plate"
-              (click)="openModal(template)"
+              (blur)="checkLoanbility(fval.number_plate.value)"
             />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="number_plate">
               <option *ngFor="let item of numberPlates">
-                {{ item.customers_number_plate }}
+                {{ item }}
               </option>
             </datalist>
           </div>
@@ -150,11 +150,11 @@
               }"
               autocomplete="off"
               placeholder="Select Phone number"
-              (click)="openModal(template)"
+              (blur)="checkLoanbility(fval.user_contact_number.value)"
             />
             <datalist id="user_contact_number">
               <option *ngFor="let item of phoneNumbers">
-                {{ item.customers_number_plate }}
+                {{ item }}
               </option>
             </datalist>
           </div>
@@ -185,33 +185,33 @@
 
 
         <div class="form-group text-primary">
-          <label for="itemRate" [ngClass]="fval.itemRate.valid ? 'text-info' : ''">Rate<i *ngIf="fval.itemRate.valid" class="material-icons"
+          <label for="tenure" [ngClass]="fval.tenure.valid ? 'text-info' : ''">Tenure<i *ngIf="fval.tenure.valid" class="material-icons"
     >check_circle</i
   ></label
 >
 <div class="input-group mb-0">
   <input
-  id="itemRate"
-  formControlName="itemRate"
+  id="tenure"
+  formControlName="tenure"
   type="number"
   class="level-control form-control mx-0"
   min="0"
   max="100"
   [ngClass]="{
     'is-invalid':
-    (fval.itemRate.touched || fval.itemRate.dirty) &&
-    fval.itemRate.errors
+    (fval.tenure.touched || fval.tenure.dirty) &&
+    fval.tenure.errors
   }"
   autocomplete="off"
-  /><i *ngIf="fval.itemRate.valid" class="material-icons"
+  /><i *ngIf="fval.tenure.valid" class="material-icons"
     >check_circle</i
   >
 </div>
 <div
   class="text-danger col"
   *ngIf="
-    (fval.itemRate.touched || fval.itemRate.dirty) &&
-    fval.itemRate.errors?.required
+    (fval.tenure.touched || fval.tenure.dirty) &&
+    fval.tenure.errors?.required
   "
 >
   The loan rate is required!
@@ -219,19 +219,19 @@
 <div
 class="col"
 *ngIf="
-  (fval.itemRate.touched || fval.itemRate.dirty) &&
-  fval.itemRate.invalid
+  (fval.tenure.touched || fval.tenure.dirty) &&
+  fval.tenure.invalid
 "
 [ngClass]="
-  fval.itemRate.errors?.required ||
-  fval.itemRate.errors?.maxlength
+  fval.tenure.errors?.required ||
+  fval.tenure.errors?.maxlength
     ? 'text-danger'
     : 'text-info'
 "
 >
 <i class="material-icons">{{
-  fval.itemRate.errors?.required ||
-  fval.itemRate.errors?.maxlength
+  fval.tenure.errors?.required ||
+  fval.tenure.errors?.maxlength
     ? "cancel"
     : "check_circle"
 }}</i>
@@ -333,108 +333,17 @@ The loan interest rate should be a maximum of 100
           </ngx-spinner>
 
           <label class="col" *ngIf="errored" class="text-danger">
-            <i class="material-icons">cancel</i>
-            <!-- <ngx-alerts></ngx-alerts> -->
+            <!-- <i class="material-icons">cancel</i> -->
+            <ngx-alerts></ngx-alerts>
           </label>
 
           <label class="col" *ngIf="posted" class="text-info">
-            <i class="material-icons">check_circle</i>
-            <!-- <ngx-alerts></ngx-alerts> -->
+            <!-- <i class="material-icons">check_circle</i> -->
+            <ngx-alerts></ngx-alerts>
           </label>
         </div>
       </form>
     </div>
   </div>
 </div>
-<ng-template #template>
-  <div class="modal-header modal-lg bg-info">
-<span class="d-flex justify-content-center">
-    <h4 class="modal-title text-center text-white">
-      {{ checkedClient.name }}'s Loan Details
-    </h4>
-</span>
-    <button
-      type="button"
-      class="pull-right close"
-      data-dismiss="modal"
-      aria-
-      label="Close"
-      (click)="modalRef.hide()"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body modal-lg">
-        <div class="row">
-          <div class="col-xs-12 col-lg-12">
-            <div
-              class="list-card card mt-2 pt-1 mb-1 mx-auto px-auto pb-0 shadow-lg"
-            >
-              <div
-                class="list-card-body card-body mt-0 pt-1 mb-0 pb-0 mx-auto px-0 px-xl-4"
-              >
-                <div class="row mt-0 pt-3 mb-0 pb-0 mx-auto px-auto">
-                  <div
-                    class="d-flex col-12 col-md-4 col-xl-3 mt-0 mb-0 pt-0 pt-md-4 pt-xl-3 pb-0"
-                  >
-                    <!--add data from the database next to the span after &nbsp;-->
-                    <img
-                      class="details-img img-rounded"
-                      [src]=" checkedClient.photoUrl"
-                    />
-                  </div>
-                  <div
-                    class="col-12 col-md-8 col-xl-9 mt-0 mb-0 pt-2 pt-md-5 pt-xl-4 pb-0"
-                  >
-                <div class="row my-0 py-0">
-                  <div
-                    class="col-12 col-lg-6 mt-2 mb-0 py-0"
-                  >
-                    <span class="itemCreated">Phone Number: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">{{ checkedClient.phone}}</span><br />
-                    <span class="itemCreated">Number Plate: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">{{ checkedClient.plate}}</span><br />
 
-                    <span class="itemCreated">Name: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info"
-                      >{{ checkedClient.name}}</span
-                    ><br />
-                    <span class="itemCreated">Loan Limit: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">{{ checkedClient.loanLimit}}</span>
-</div>
-                  <div
-                    class="col-12 col-lg-6 mt-2 mb-0 py-0"
-                  >
-                    <span class="itemCreated">Loan Taken: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">{{ checkedClient.loanAmount}}</span><br />
-                      <span class="itemCreated">Last Paid: &nbsp;&nbsp;</span
-                        ><span class="itemCreated text-info">{{ checkedClient.loanPaid}}</span><br />
-                          <span class="itemCreated">Outstanding: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">{{ checkedClient.loanBalance}}</span><br />
-                    <span class="itemCreated">Loan Status: &nbsp;&nbsp;</span
-                    ><span class="itemCreated text-info">{{ checkedClient.loanStatus}}</span>
-</div>
-                  <div
-                    class="col-12 mt-2 mb-0 py-0"
-                  >
-                    <span class="itemCreated">Comment: &nbsp;&nbsp;</span
-                      ><span class="itemCreated text-info">{{ checkedClient.comment}}</span>
-                  </div>
-                </div>
-                </div>
-                              </div>
-              </div>
-            </div>
-          </div>
-        </div>
-  </div>
-  <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-info col-3 col-xl-2 pull-right"
-        (click)="modalRef.hide()"
-      >
-        Ok
-      </button>
-</div>
-</ng-template>

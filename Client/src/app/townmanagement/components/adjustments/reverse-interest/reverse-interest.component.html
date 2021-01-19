@@ -8,13 +8,13 @@
           <h3
             class="rub-head4 text-info text-center font-weight-bold py-1"
           >
-          Waive Interest
+          Reverse Interest
           </h3>
         </div>
       </div>
     </div>
     <div class="invest-card card-body mt-2 pt-3 mb-0 mx-auto pb-2 shadow-lg">
-      <form [formGroup]="userForm" (ngSubmit)="waiveInterest()">
+      <form [formGroup]="userForm" (ngSubmit)="reversePrinciple()">
         <div class="form-group text-primary">
           <label for="loanType">Loan Type</label>
           <div class="input-group mb-0">
@@ -22,8 +22,8 @@
               type="radio"
               value="Boda Loan"
               formControlName="loanType"
-              checked required
               (change)="checkLoanType(fval.loanType.value)"
+              checked required
             />&nbsp; Boda Loan &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <input
               type="radio"
@@ -201,7 +201,7 @@
                   fval.amount.errors
               }"
               autocomplete="off"
-              placeholder="Enter amount to waive"
+              placeholder="Enter amount to reverse"
             />
           </div>
           <div
@@ -211,7 +211,7 @@
               fval.amount.errors?.required
             "
           >
-            The amount to waive is required!
+            The amount to reverse is required!
           </div>
           <div
             class="text-danger col"
@@ -220,7 +220,7 @@
               fval.amount.errors?.maxLength
             "
           >
-            Not a valid amount to waive!
+          Not a valid amount to reverse!
           </div>
           <div
             class="text-danger col"
@@ -229,7 +229,7 @@
               fval.amount.errors?.minlength
             "
           >
-          Not a valid amount to waive!
+          Not a valid amount to reverse!
         </div>
           <div
             class="text-danger col"
@@ -238,7 +238,7 @@
               fval.amount.errors?.hasNumber
             "
           >
-          Not a valid amount to waive!
+          Not a valid amount to reverse!
         </div>
         </div>
 
@@ -322,7 +322,7 @@
             class="btn btn-info col-5 mx-auto"
             [disabled]="!userForm.valid"
           >
-            Waive
+            Reverse
           </button>
           <button
             type="button"

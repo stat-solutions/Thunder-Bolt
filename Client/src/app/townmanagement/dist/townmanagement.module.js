@@ -37,9 +37,6 @@ var enroll_cluster_component_1 = require("./components/enroll/cluster-and-taxipa
 var enroll_taxi_park_component_1 = require("./components/enroll/cluster-and-taxipark/enroll-taxi-park/enroll-taxi-park.component");
 var create_station_component_1 = require("./components/create-station/create-station.component");
 var reports_component_1 = require("./components/reports/reports.component");
-var cash_ledger_component_1 = require("./components/reports/cash-ledger/cash-ledger.component");
-var paid_ledger_component_1 = require("./components/reports/paid-ledger/paid-ledger.component");
-var loans_ledger_component_1 = require("./components/reports/loans-ledger/loans-ledger.component");
 var personal_profile_component_1 = require("./components/profile/personal-profile/personal-profile.component");
 var edit_client_component_1 = require("./components/enroll/edit-client/edit-client.component");
 var edit_personal_info_component_1 = require("./components/enroll/edit-client/edit-personal-info/edit-personal-info.component");
@@ -51,6 +48,17 @@ var micro_loans_component_1 = require("./components/micro-loans/micro-loans.comp
 var get_loan_component_1 = require("./components/micro-loans/get-loan/get-loan.component");
 var pay_loan_component_1 = require("./components/micro-loans/pay-loan/pay-loan.component");
 var comfirm_loan_component_1 = require("./components/micro-loans/comfirm-loan/comfirm-loan.component");
+var area_component_1 = require("./components/reports/area/area.component");
+var clients_component_1 = require("./components/reports/clients/clients.component");
+var users_component_1 = require("./components/reports/users/users.component");
+var adjustments_component_1 = require("./components/adjustments/adjustments.component");
+var write_off_component_1 = require("./components/adjustments/write-off/write-off.component");
+var waive_interest_component_1 = require("./components/adjustments/waive-interest/waive-interest.component");
+var set_loan_limit_component_1 = require("./components/adjustments/set-loan-limit/set-loan-limit.component");
+var set_interest_rate_component_1 = require("./components/adjustments/set-interest-rate/set-interest-rate.component");
+var reverse_principal_component_1 = require("./components/adjustments/reverse-principal/reverse-principal.component");
+var loan_tenure_component_1 = require("./components/adjustments/loan-tenure/loan-tenure.component");
+var accrual_days_component_1 = require("./components/adjustments/accrual-days/accrual-days.component");
 var TownmanagementModule = /** @class */ (function () {
     function TownmanagementModule() {
     }
@@ -80,15 +88,23 @@ var TownmanagementModule = /** @class */ (function () {
                 enroll_taxi_park_component_1.EnrollTaxiParkComponent,
                 create_station_component_1.CreateStationComponent,
                 reports_component_1.ReportsComponent,
-                cash_ledger_component_1.CashLedgerComponent,
-                paid_ledger_component_1.PaidLedgerComponent,
-                loans_ledger_component_1.LoansLedgerComponent,
                 personal_profile_component_1.PersonalProfileComponent,
                 edit_client_component_1.EditClientComponent,
                 edit_personal_info_component_1.EditPersonalInfoComponent,
                 edit_stage_component_1.EditStageComponent,
                 edit_boda_stage_component_1.EditBodaStageComponent,
                 edit_taxi_stage_component_1.EditTaxiStageComponent,
+                area_component_1.AreaComponent,
+                clients_component_1.ClientsComponent,
+                users_component_1.UsersComponent,
+                adjustments_component_1.AdjustmentsComponent,
+                write_off_component_1.WriteOffComponent,
+                waive_interest_component_1.WaiveInterestComponent,
+                set_loan_limit_component_1.SetLoanLimitComponent,
+                set_interest_rate_component_1.SetInterestRateComponent,
+                reverse_principal_component_1.ReversePrincipalComponent,
+                loan_tenure_component_1.LoanTenureComponent,
+                accrual_days_component_1.AccrualDaysComponent,
             ],
             imports: [
                 common_1.CommonModule,

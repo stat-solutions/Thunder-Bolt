@@ -11,11 +11,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
-  selector: 'app-set-interest-rate',
-  templateUrl: './set-interest-rate.component.html',
-  styleUrls: ['./set-interest-rate.component.scss'],
+  selector: 'app-reverse-interest',
+  templateUrl: './reverse-interest.component.html',
+  styleUrls: ['./reverse-interest.component.scss'],
 })
-export class SetInterestRateComponent implements OnInit {
+export class ReverseInterestComponent implements OnInit {
   modalRef: BsModalRef;
   userForm: FormGroup;
   posted = false;
@@ -57,7 +57,6 @@ export class SetInterestRateComponent implements OnInit {
 
   createFormGroup(): any {
     return new FormGroup({
-      category: new FormControl(['', Validators.required]),
       loanType: new FormControl(['', Validators.required]),
       number_plate: new FormControl(
         '',
@@ -65,9 +64,14 @@ export class SetInterestRateComponent implements OnInit {
       user_contact_number: new FormControl(
         '',
       ),
-      itemRate: new FormControl(
+      amount: new FormControl(
         { value: '', disabled: false },
-        Validators.compose([Validators.required, CustomValidator.maxValue(100)])
+        Validators.compose([
+          Validators.required,
+          CustomValidator.patternValidator(/\d/, { hasNumber: true }),
+          Validators.maxLength(6),
+          Validators.minLength(3),
+        ])
       ),
       pin: new FormControl(
         { value: '', disabled: false },
@@ -90,7 +94,7 @@ export class SetInterestRateComponent implements OnInit {
               this.customers = [];
               this.customers = res;
               this.fval.number_plate.setValue('');
-              this.fval.itemRate.setValue('');
+              this.fval.amount.setValue('');
               this.fval.pin.setValue('');
               this.numberPlates = [];
               this.checkedClient = {};
@@ -128,7 +132,7 @@ export class SetInterestRateComponent implements OnInit {
               this.customers = res;
               this.loanType = value;
               this.fval.number_plate.setValue('');
-              this.fval.itemRate.setValue('');
+              this.fval.amount.setValue('');
               this.fval.pin.setValue('');
               this.numberPlates = [];
               this.customers.forEach((customer) => {
@@ -164,7 +168,7 @@ export class SetInterestRateComponent implements OnInit {
               this.checkedClient = {};
               this.loanType = value;
               this.fval.user_contact_number.setValue('');
-              this.fval.itemRate.setValue('');
+              this.fval.amount.setValue('');
               this.fval.pin.setValue('');
               this.phoneNumbers = [];
               this.customers.forEach((customer) => {
@@ -270,8 +274,8 @@ export class SetInterestRateComponent implements OnInit {
     this.fieldType = !this.fieldType;
   }
 
-  setInterestRate(): any {
-    const itemRate = this.fval.itemRate.value;
+  reversePrinciple(): any {
+    const amount = parseInt(this.fval.amount.value.replace(/[\D\s\._\-]+/g, ''), 10);
     if (this.userForm.valid){
       this.others.verifyUserWithPin({userPhone1: this.User.userPhone, userPassword: Number(this.fval.pin.value)}).subscribe(
         res => {
@@ -280,16 +284,16 @@ export class SetInterestRateComponent implements OnInit {
               customerId: this.checkedClient.customerId,
               theStationLocationId: this.checkedClient.fktheStationLocationIdCustomer,
               productCode: this.loanType === 'Boda Loan' ? 200 : this.loanType === 'Taxi Loan' ? 300 : 400,
-              theLoanInterestRate: itemRate,
+              theInterestToBeReversed: amount,
               userId: this.User.userId,
-              comment: `This customer's interest rate should be changed to ${itemRate}%`
+              comment: `Please reverse interest of ${amount} on this customer`
             };
-            this.others.setIdividualLoanLimit(data).subscribe(
+            this.others.reverseInterest(data).subscribe(
               response => {
                 if (response === true){
                   this.posted = true;
                   this.alertService.success({
-                    html: '<b> Individual Interest Rate was Initiated Successfully, wait for approval</b>'
+                    html: '<b> Reversing of Interest was Initiated Successfully, wait for approval</b>'
                   });
                   setTimeout(this.revert(), 3000);
                 }

@@ -11,11 +11,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
-  selector: 'app-set-interest-rate',
-  templateUrl: './set-interest-rate.component.html',
-  styleUrls: ['./set-interest-rate.component.scss'],
+  selector: 'app-loan-tenure',
+  templateUrl: './loan-tenure.component.html',
+  styleUrls: ['./loan-tenure.component.scss'],
 })
-export class SetInterestRateComponent implements OnInit {
+export class LoanTenureComponent implements OnInit {
   modalRef: BsModalRef;
   userForm: FormGroup;
   posted = false;
@@ -57,7 +57,6 @@ export class SetInterestRateComponent implements OnInit {
 
   createFormGroup(): any {
     return new FormGroup({
-      category: new FormControl(['', Validators.required]),
       loanType: new FormControl(['', Validators.required]),
       number_plate: new FormControl(
         '',
@@ -65,7 +64,7 @@ export class SetInterestRateComponent implements OnInit {
       user_contact_number: new FormControl(
         '',
       ),
-      itemRate: new FormControl(
+      tenure: new FormControl(
         { value: '', disabled: false },
         Validators.compose([Validators.required, CustomValidator.maxValue(100)])
       ),
@@ -80,6 +79,7 @@ export class SetInterestRateComponent implements OnInit {
       ),
     });
   }
+
   checkLoanType(value: string): any {
     switch (value) {
       case 'Boda Loan':
@@ -90,18 +90,13 @@ export class SetInterestRateComponent implements OnInit {
               this.customers = [];
               this.customers = res;
               this.fval.number_plate.setValue('');
-              this.fval.itemRate.setValue('');
+              this.fval.tenure.setValue('');
               this.fval.pin.setValue('');
               this.numberPlates = [];
               this.checkedClient = {};
               this.customers.forEach((customer) => {
                 this.numberPlates.push(customer.bodabodaCustomerNumberPlate);
               });
-              this.fval.number_plate.setValidators([
-                Validators.required,
-                Validators.minLength(8),
-                Validators.maxLength(8),
-              ]);
             } else {
               this.errored = true;
               this.choosingPdts();
@@ -128,7 +123,7 @@ export class SetInterestRateComponent implements OnInit {
               this.customers = res;
               this.loanType = value;
               this.fval.number_plate.setValue('');
-              this.fval.itemRate.setValue('');
+              this.fval.tenure.setValue('');
               this.fval.pin.setValue('');
               this.numberPlates = [];
               this.customers.forEach((customer) => {
@@ -164,7 +159,7 @@ export class SetInterestRateComponent implements OnInit {
               this.checkedClient = {};
               this.loanType = value;
               this.fval.user_contact_number.setValue('');
-              this.fval.itemRate.setValue('');
+              this.fval.tenure.setValue('');
               this.fval.pin.setValue('');
               this.phoneNumbers = [];
               this.customers.forEach((customer) => {
@@ -270,8 +265,8 @@ export class SetInterestRateComponent implements OnInit {
     this.fieldType = !this.fieldType;
   }
 
-  setInterestRate(): any {
-    const itemRate = this.fval.itemRate.value;
+  reduceRate(): any {
+    const tenure = this.fval.tenure.value;
     if (this.userForm.valid){
       this.others.verifyUserWithPin({userPhone1: this.User.userPhone, userPassword: Number(this.fval.pin.value)}).subscribe(
         res => {
@@ -280,16 +275,16 @@ export class SetInterestRateComponent implements OnInit {
               customerId: this.checkedClient.customerId,
               theStationLocationId: this.checkedClient.fktheStationLocationIdCustomer,
               productCode: this.loanType === 'Boda Loan' ? 200 : this.loanType === 'Taxi Loan' ? 300 : 400,
-              theLoanInterestRate: itemRate,
+              theLoanTenure: tenure,
               userId: this.User.userId,
-              comment: `This customer's interest rate should be changed to ${itemRate}%`
+              comment: `This customer's loan tenure should be changed to ${tenure} days`
             };
-            this.others.setIdividualLoanLimit(data).subscribe(
+            this.others.setIndividualLoanTenure(data).subscribe(
               response => {
                 if (response === true){
                   this.posted = true;
                   this.alertService.success({
-                    html: '<b> Individual Interest Rate was Initiated Successfully, wait for approval</b>'
+                    html: '<b> Individual Loan Tenure was Initiated Successfully, wait for approval</b>'
                   });
                   setTimeout(this.revert(), 3000);
                 }

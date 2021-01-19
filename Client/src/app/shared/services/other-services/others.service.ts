@@ -438,8 +438,113 @@ export class OthersService {
     setIdividualLoanLimit(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );
     }
-    getIdividualLoanLimit(postData: any): any {
+    getIdividualLoanLimit(): any {
       return this.http.get(`${this.API_URL}/api/customer/getIndividualLoanLimitForApproval`);
+    }
+    approveIdividualLoanLimit(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postApproveIndividualLoanLimit`, postData );
+    }
+    rejectIdividualLoanLimit(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postRejectIndividualLoanLimit`, postData );
+    }
+    setIndividualLoanTenure(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanTenure`, postData );
+    }
+    getIndividualLoanTenure(): any {
+      return this.http.get(`${this.API_URL}/api/customer/getIndividualLoanTenureForApproval`);
+    }
+    approveIndividualLoanTenure(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postApproveIndividualLoanTenure`, postData );
+    }
+    rejectIndividualLoanTenure(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postRejectIndividualLoanTenure`, postData );
+    }
+    setIdividualLoanInterestRate(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanInterestRate`, postData );
+    }
+    getIdividualLoanInterestRate(): any {
+      return this.http.get(`${this.API_URL}/api/customer/getIndividualLoanInterestRateForApproval`);
+    }
+    approveIdividualLoanInterestRate(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/getIndividualLoanInterestRateForApproval`, postData );
+    }
+    rejectIdividualLoanInterestRate(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );
+    }
+    setIdividualLoanAccrualDays(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanAccrualDays`, postData );
+    }
+    getIdividualLoanAccrualDays(): any {
+      return this.http.get(`${this.API_URL}/api/customer/getIndividualLoanAccrualDaysForApproval`);
+    }
+    approveIdividualLoanAccrualDays(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postApproveIndividualLoanAccrualDays`, postData );
+    }
+    rejectIdividualLoanAccrualDays(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );
+    }
+    waiveInterest(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/waiveInterest`, postData );
+    }
+    getWaivedInterestsForApproval(): any {
+      return this.http.get(`${this.API_URL}/api/customer/getWaivedInterestsForApproval`);
+    }
+    postApproveWaivedInterest(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postApproveWaivedInterest`, postData );
+    }
+    postRejectWaivedInterest(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );
+    }
+    waivePrincimpal(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/waivePrincimpal`, postData );
+    }
+    getWaivedPrincipalForApproval(): any {
+      return this.http.get(`${this.API_URL}/api/customer/getWaivedPrincipalForApproval`);
+    }
+    postApproveWaivedPrincipal(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postApproveWaivedPrincipal`, postData );
+    }
+    postRejectWaivedPrincipal(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postRejectWaivedPrincipal`, postData );
+    }
+    reverseInterest(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/ReverseInterest`, postData );
+    }
+    getReversedInterestsForApproval(): any {
+      return this.http.get(`${this.API_URL}/api/customer/getReversedInterestsForApproval`);
+    }
+    postApproveReverseInterest(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postApproveReverseInterest`, postData );
+    }
+    postRejectReverseInterest(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postRejectReverseInterest`, postData );
+    }
+    reversePrincimpal(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/reversePrincimpal`, postData );
+    }
+    getReversedPrincipalForApproval(): any {
+      return this.http.get(`${this.API_URL}/api/customer/getReversedPrincipalForApproval`);
+    }
+    postApproveReversePrincipal(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postApproveReversePrincipal`, postData );
+    }
+    postRejectReversePrincipal(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postRejectReversePrincipal`, postData );
+    }
+    getAllLoans(postData: any): any {
+      return this.http.get(`${this.API_URL}/api/reports/getAllLoans`);
+    }
+    getAllLoansByRegion(id: any): any {
+      return this.http.get(`${this.API_URL}api/reports/getAllLoansByRegion?theAreaLocationId=${id}`);
+    }
+    getAllLoansByTown(id: any): any {
+      return this.http.get(`${this.API_URL}api/reports/getAllLoansByTown?theTownLocationId=${id}`);
+    }
+    getAllLoansByStation(id: any): any {
+      return this.http.get(`${this.API_URL}api/reports/getAllLoansByStation?theStationLocationId=${id}`);
+    }
+    getAllClients(postData: any): any {
+      return this.http.get(`${this.API_URL}/api/reports/getAllClients`);
     }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 

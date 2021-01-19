@@ -11,11 +11,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
-  selector: 'app-set-interest-rate',
-  templateUrl: './set-interest-rate.component.html',
-  styleUrls: ['./set-interest-rate.component.scss'],
+  selector: 'app-accrual-days',
+  templateUrl: './accrual-days.component.html',
+  styleUrls: ['./accrual-days.component.scss'],
 })
-export class SetInterestRateComponent implements OnInit {
+export class AccrualDaysComponent implements OnInit {
   modalRef: BsModalRef;
   userForm: FormGroup;
   posted = false;
@@ -57,7 +57,6 @@ export class SetInterestRateComponent implements OnInit {
 
   createFormGroup(): any {
     return new FormGroup({
-      category: new FormControl(['', Validators.required]),
       loanType: new FormControl(['', Validators.required]),
       number_plate: new FormControl(
         '',
@@ -65,7 +64,7 @@ export class SetInterestRateComponent implements OnInit {
       user_contact_number: new FormControl(
         '',
       ),
-      itemRate: new FormControl(
+      days: new FormControl(
         { value: '', disabled: false },
         Validators.compose([Validators.required, CustomValidator.maxValue(100)])
       ),
@@ -80,6 +79,7 @@ export class SetInterestRateComponent implements OnInit {
       ),
     });
   }
+
   checkLoanType(value: string): any {
     switch (value) {
       case 'Boda Loan':
@@ -90,7 +90,7 @@ export class SetInterestRateComponent implements OnInit {
               this.customers = [];
               this.customers = res;
               this.fval.number_plate.setValue('');
-              this.fval.itemRate.setValue('');
+              this.fval.days.setValue('');
               this.fval.pin.setValue('');
               this.numberPlates = [];
               this.checkedClient = {};
@@ -128,7 +128,7 @@ export class SetInterestRateComponent implements OnInit {
               this.customers = res;
               this.loanType = value;
               this.fval.number_plate.setValue('');
-              this.fval.itemRate.setValue('');
+              this.fval.days.setValue('');
               this.fval.pin.setValue('');
               this.numberPlates = [];
               this.customers.forEach((customer) => {
@@ -164,7 +164,7 @@ export class SetInterestRateComponent implements OnInit {
               this.checkedClient = {};
               this.loanType = value;
               this.fval.user_contact_number.setValue('');
-              this.fval.itemRate.setValue('');
+              this.fval.days.setValue('');
               this.fval.pin.setValue('');
               this.phoneNumbers = [];
               this.customers.forEach((customer) => {
@@ -270,8 +270,8 @@ export class SetInterestRateComponent implements OnInit {
     this.fieldType = !this.fieldType;
   }
 
-  setInterestRate(): any {
-    const itemRate = this.fval.itemRate.value;
+  setAccrualDyas(): any {
+    const days = this.fval.days.value;
     if (this.userForm.valid){
       this.others.verifyUserWithPin({userPhone1: this.User.userPhone, userPassword: Number(this.fval.pin.value)}).subscribe(
         res => {
@@ -280,16 +280,16 @@ export class SetInterestRateComponent implements OnInit {
               customerId: this.checkedClient.customerId,
               theStationLocationId: this.checkedClient.fktheStationLocationIdCustomer,
               productCode: this.loanType === 'Boda Loan' ? 200 : this.loanType === 'Taxi Loan' ? 300 : 400,
-              theLoanInterestRate: itemRate,
+              theLoanAccrualDays: days,
               userId: this.User.userId,
-              comment: `This customer's interest rate should be changed to ${itemRate}%`
+              comment: `This customer's loan accrual days should be changed to ${days} days`
             };
-            this.others.setIdividualLoanLimit(data).subscribe(
+            this.others.setIdividualLoanAccrualDays(data).subscribe(
               response => {
                 if (response === true){
                   this.posted = true;
                   this.alertService.success({
-                    html: '<b> Individual Interest Rate was Initiated Successfully, wait for approval</b>'
+                    html: '<b> Individual Loan Accrual Days was Initiated Successfully, wait for approval</b>'
                   });
                   setTimeout(this.revert(), 3000);
                 }

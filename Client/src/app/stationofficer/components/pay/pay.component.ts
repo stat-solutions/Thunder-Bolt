@@ -165,46 +165,6 @@ export class PayComponent implements OnInit {
           }
         );
         break;
-      case 'Micro Loan':
-        this.others.getMicroCustomers().subscribe(
-          res => {
-            if (res.length > 0){
-              this.customers = [];
-              this.customers = res;
-              this.checkedClient = {};
-              this.loanType = value;
-              this.fval.user_contact_number.setValue('');
-              this.fval.amount_to_pay.setValue('');
-              this.fval.pin.setValue('');
-              this.fval.amount_to_pay.disable();
-              this.fval.pin.disable();
-              this.phoneNumbers = [];
-              this.customers.forEach((customer) => {
-                this.phoneNumbers.push(customer.customerPhone1);
-              });
-              this.fval.user_contact_number.setValidators([
-                Validators.required,
-                CustomValidator.patternValidator(
-                  /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-                  { hasNumber: true }
-                ),
-              ]);
-            } else {
-              this.errored = true;
-              this.choosingPdts();
-              this.alertService.danger({
-                html: '<b>There are no Micro loan customers registered</b>'
-              });
-            }
-          },
-          err => {
-            this.errored = true;
-            this.alertService.danger({
-              html: '<b>' + err.error.error.message + '</b>'
-            });
-          }
-        );
-        break;
     }
   }
 
@@ -301,34 +261,6 @@ export class PayComponent implements OnInit {
             });
         }
         break;
-        case 'Micro Loan':
-          let microCustomers =  [...this.customers];
-          microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value.toUpperCase());
-          if (microCustomers.length === 1){
-            this.checkedClient = {
-              Id: microCustomers[0].customerId,
-              name: microCustomers[0].customerName,
-              // tslint:disable-next-line: max-line-length
-              photoUrl: microCustomers[0].customerIdPhotoUrl === 'customerIdPhotoUrl.com' ? this.user : microCustomers[0].customerIdPhotoUrl,
-              phone: microCustomers[0].customerPhone1,
-              loanAmount: microCustomers[0].microloanCustomerLoanLimit,
-              loanLimit: microCustomers[0].microloanCustomerLoanLimit,
-              loanPaid: microCustomers[0].microloanCustomerLoanLimit,
-              loanBalance: microCustomers[0].microloanCustomerLoanLimit,
-              loanStatus: microCustomers[0].microloanCustomerLoanLimit,
-              comment: microCustomers[0].customerComment,
-              pin: microCustomers[0].customerSecretPin,
-            };
-            this.openModal(template);
-            this.enableAmountAndPin();
-          } else {
-              this.errored = true;
-              this.checkedClient = {};
-              this.alertService.danger({
-                html: '<b> customer with number plate ' + value.toUpperCase() + ' is not registered<b>'
-              });
-            }
-          break;
       }
     }
   }
@@ -398,9 +330,6 @@ export class PayComponent implements OnInit {
                   break;
                 case 'Taxi Loan':
                   data.txnDetailsId = this.assignTxnId('TAXILOAN', 'LOANPAYMENT');
-                  break;
-                case 'Micro Loan':
-                  data.txnDetailsId = this.assignTxnId('MICROLOAN', 'LOANPAYMENT');
                   break;
               }
               this.others.putTxnCustomer(data).subscribe(

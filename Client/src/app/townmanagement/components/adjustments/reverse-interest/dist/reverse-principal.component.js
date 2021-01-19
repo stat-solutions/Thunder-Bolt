@@ -13,12 +13,12 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 exports.__esModule = true;
-exports.PayComponent = void 0;
+exports.ReversePrincipalComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
-var PayComponent = /** @class */ (function () {
-    function PayComponent(authService, others, router, spinner, alertService, modalService) {
+var ReversePrincipalComponent = /** @class */ (function () {
+    function ReversePrincipalComponent(authService, others, router, spinner, alertService, modalService) {
         this.authService = authService;
         this.others = others;
         this.router = router;
@@ -31,18 +31,11 @@ var PayComponent = /** @class */ (function () {
         this.phoneNumbers = [];
         this.User = this.authService.loggedInUserInfo();
     }
-    PayComponent.prototype.ngOnInit = function () {
-        var _this = this;
+    ReversePrincipalComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
         this.checkedOk = false;
-        this.others.getTxnDetails().subscribe(function (res) {
-            _this.txns = res;
-            // console.log(res);
-        }, function (err) {
-            console.log(err.error.statusText);
-        });
     };
-    PayComponent.prototype.createFormGroup = function () {
+    ReversePrincipalComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
             loanType: new forms_1.FormControl(['', forms_1.Validators.required]),
             number_plate: new forms_1.FormControl('', forms_1.Validators.compose([
@@ -50,7 +43,11 @@ var PayComponent = /** @class */ (function () {
                 forms_1.Validators.minLength(8),
                 forms_1.Validators.maxLength(8),
             ])),
-            amount_to_pay: new forms_1.FormControl({ value: '', disabled: true }, forms_1.Validators.compose([
+            user_contact_number: new forms_1.FormControl('', forms_1.Validators.compose([
+                forms_1.Validators.required,
+                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+            ])),
+            amount: new forms_1.FormControl({ value: '', disabled: true }, forms_1.Validators.compose([
                 forms_1.Validators.required,
                 custom_validator_1.CustomValidator.patternValidator(/\d/, { hasNumber: true }),
                 forms_1.Validators.maxLength(6),
@@ -64,7 +61,7 @@ var PayComponent = /** @class */ (function () {
             ]))
         });
     };
-    PayComponent.prototype.checkLoanType = function (value) {
+    ReversePrincipalComponent.prototype.checkLoanType = function (value) {
         var _this = this;
         switch (value) {
             case 'Boda Loan':
@@ -74,10 +71,8 @@ var PayComponent = /** @class */ (function () {
                         _this.customers = [];
                         _this.customers = res;
                         _this.fval.number_plate.setValue('');
-                        _this.fval.amount_to_pay.setValue('');
+                        _this.fval.days.setValue('');
                         _this.fval.pin.setValue('');
-                        _this.fval.amount_to_pay.disable();
-                        _this.fval.pin.disable();
                         _this.numberPlates = [];
                         _this.checkedClient = {};
                         _this.customers.forEach(function (customer) {
@@ -107,14 +102,17 @@ var PayComponent = /** @class */ (function () {
                         _this.customers = res;
                         _this.loanType = value;
                         _this.fval.number_plate.setValue('');
-                        _this.fval.amount_to_pay.setValue('');
+                        _this.fval.days.setValue('');
                         _this.fval.pin.setValue('');
-                        _this.fval.amount_to_pay.disable();
-                        _this.fval.pin.disable();
                         _this.numberPlates = [];
                         _this.customers.forEach(function (customer) {
                             _this.numberPlates.push(customer.taxiCustomerNumberPlate);
                         });
+                        _this.fval.number_plate.setValidators([
+                            forms_1.Validators.required,
+                            forms_1.Validators.minLength(8),
+                            forms_1.Validators.maxLength(8),
+                        ]);
                     }
                     else {
                         _this.errored = true;
@@ -130,53 +128,55 @@ var PayComponent = /** @class */ (function () {
                     });
                 });
                 break;
+            case 'Micro Loan':
+                this.others.getMicroCustomers().subscribe(function (res) {
+                    if (res.length > 0) {
+                        _this.customers = [];
+                        _this.customers = res;
+                        _this.checkedClient = {};
+                        _this.loanType = value;
+                        _this.fval.user_contact_number.setValue('');
+                        _this.fval.days.setValue('');
+                        _this.fval.pin.setValue('');
+                        _this.phoneNumbers = [];
+                        _this.customers.forEach(function (customer) {
+                            _this.phoneNumbers.push(customer.customerPhone1);
+                        });
+                        _this.fval.user_contact_number.setValidators([
+                            forms_1.Validators.required,
+                            custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+                        ]);
+                    }
+                    else {
+                        _this.errored = true;
+                        _this.choosingPdts();
+                        _this.alertService.danger({
+                            html: '<b>There are no Micro loan customers registered</b>'
+                        });
+                    }
+                }, function (err) {
+                    _this.errored = true;
+                    _this.alertService.danger({
+                        html: '<b>' + err.error.error.message + '</b>'
+                    });
+                });
+                break;
         }
     };
-    PayComponent.prototype.choosingPdts = function () {
+    ReversePrincipalComponent.prototype.choosingPdts = function () {
         this.loanType = '';
         this.numberPlates = [];
         this.phoneNumbers = [];
-        this.fval.amount_to_pay.disable();
-        this.fval.pin.disable();
     };
-    PayComponent.prototype.enableAmountAndPin = function () {
-        this.fval.amount_to_pay.enable();
-        this.fval.pin.enable();
-    };
-    PayComponent.prototype.checkLoanbility = function (value, template) {
-        var _this = this;
+    ReversePrincipalComponent.prototype.checkLoanbility = function (value) {
         if (value !== '') {
             // console.log(this.loanType);
             switch (this.loanType) {
                 case 'Boda Loan':
-                    var bodaCustomers_1 = __spreadArrays(this.customers);
-                    bodaCustomers_1 = bodaCustomers_1.filter(function (customer) { return customer.bodabodaCustomerNumberPlate === value.toUpperCase(); });
-                    if (bodaCustomers_1.length === 1) {
-                        this.others.getLoadDetails({ customerId: bodaCustomers_1[0].customerId, productCode: 200 }).subscribe(function (res) {
-                            _this.checkedClient = {
-                                Id: bodaCustomers_1[0].customerId,
-                                name: bodaCustomers_1[0].customerName,
-                                // tslint:disable-next-line: max-line-length
-                                photoUrl: bodaCustomers_1[0].customerPhotoUrl === 'customerPhotoUrl.com' ? _this.user : bodaCustomers_1[0].customerPhotoUrl,
-                                phone: bodaCustomers_1[0].customerPhone1,
-                                plate: bodaCustomers_1[0].bodabodaCustomerNumberPlate,
-                                loanAmount: res.length === 1 ? res[0].loanAmountTaken : 0,
-                                loanLimit: bodaCustomers_1[0].bodabodaCustomerLoanLimit,
-                                loanPaid: res.length === 1 ? res[0].loanAmountPaid : 0,
-                                loanBalance: res.length === 1 ? res[0].loanAmountRemaining : 0,
-                                loanStatus: res.length === 1 ? res[0].loanStatus === 2 ? 'RUNNING' :
-                                    res[0].loanStatus === 3 ? 'COMPLETE' : 'CREATED' : 'COMPLETE',
-                                comment: bodaCustomers_1[0].customerComment,
-                                pin: bodaCustomers_1[0].customerSecretPin
-                            };
-                            _this.openModal(template);
-                            _this.enableAmountAndPin();
-                        }, function (err) {
-                            _this.errored = true;
-                            _this.alertService.danger({
-                                html: '<b>' + err.error.error.message + '<b>'
-                            });
-                        });
+                    var bodaCustomers = __spreadArrays(this.customers);
+                    bodaCustomers = bodaCustomers.filter(function (customer) { return customer.bodabodaCustomerNumberPlate === value.toUpperCase(); });
+                    if (bodaCustomers.length === 1) {
+                        this.checkedClient = bodaCustomers[0];
                     }
                     else {
                         this.errored = true;
@@ -186,34 +186,10 @@ var PayComponent = /** @class */ (function () {
                     }
                     break;
                 case 'Taxi Loan':
-                    var taxiCustomers_1 = __spreadArrays(this.customers);
-                    taxiCustomers_1 = taxiCustomers_1.filter(function (customer) { return customer.taxiCustomerNumberPlate === value.toUpperCase(); });
-                    if (taxiCustomers_1.length === 1) {
-                        this.others.getLoadDetails({ customerId: taxiCustomers_1[0].customerId, productCode: 200 }).subscribe(function (res) {
-                            _this.checkedClient = {
-                                Id: taxiCustomers_1[0].customerId,
-                                name: taxiCustomers_1[0].customerName,
-                                // tslint:disable-next-line: max-line-length
-                                photoUrl: taxiCustomers_1[0].customerPhotoUrl === 'customerPhotoUrl.com' ? _this.user : taxiCustomers_1[0].customerPhotoUrl,
-                                phone: taxiCustomers_1[0].customerPhone1,
-                                plate: taxiCustomers_1[0].taxiCustomerNumberPlate,
-                                loanLimit: taxiCustomers_1[0].taxiCustomerLoanLimit,
-                                loanAmount: res.length === 1 ? res[0].loanAmountTaken : 0,
-                                loanPaid: res.length === 1 ? res[0].loanAmountPaid : 0,
-                                loanBalance: res.length === 1 ? res[0].loanAmountRemaining : 0,
-                                loanStatus: res.length === 1 ? res[0].loanStatus === 2 ? 'RUNNING' :
-                                    res[0].loanStatus === 3 ? 'COMPLETE' : 'CREATED' : 'COMPLETE',
-                                comment: taxiCustomers_1[0].customerComment,
-                                pin: taxiCustomers_1[0].customerSecretPin
-                            };
-                            _this.openModal(template);
-                            _this.enableAmountAndPin();
-                        }, function (err) {
-                            _this.errored = true;
-                            _this.alertService.danger({
-                                html: '<b>' + err.error.error.message + '<b>'
-                            });
-                        });
+                    var taxiCustomers = __spreadArrays(this.customers);
+                    taxiCustomers = taxiCustomers.filter(function (customer) { return customer.taxiCustomerNumberPlate === value.toUpperCase(); });
+                    if (taxiCustomers.length === 1) {
+                        this.checkedClient = taxiCustomers[0];
                     }
                     else {
                         this.errored = true;
@@ -222,78 +198,62 @@ var PayComponent = /** @class */ (function () {
                         });
                     }
                     break;
+                case 'Micro Loan':
+                    var microCustomers = __spreadArrays(this.customers);
+                    microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
+                    if (microCustomers.length === 1) {
+                        this.checkedClient = microCustomers[0];
+                    }
+                    else {
+                        this.errored = true;
+                        this.checkedClient = {};
+                        this.alertService.danger({
+                            html: '<b> customer phone number ' + value.toUpperCase() + ' is not registered<b>'
+                        });
+                    }
+                    break;
             }
         }
     };
-    PayComponent.prototype.checkLimit = function (val) {
-        if (val !== '') {
-            val = parseInt(val.replace(/[\D\s\._\-]+/g, ''), 10);
-            if (val > this.checkedClient.loanBalance) {
-                this.errored = true;
-                this.fval.amount_to_pay.setValue('');
-                this.alertService.danger({
-                    html: '<b> Amount provided (' + val + ') is greater than the customer loan limit</b>'
-                });
-            }
-            else {
-                this.loanAmount = val;
-            }
-        }
-    };
-    PayComponent.prototype.revert = function () {
+    ReversePrincipalComponent.prototype.revert = function () {
         this.userForm.reset();
     };
-    PayComponent.prototype.refresh = function () {
+    ReversePrincipalComponent.prototype.refresh = function () {
         location.reload();
     };
-    Object.defineProperty(PayComponent.prototype, "fval", {
+    Object.defineProperty(ReversePrincipalComponent.prototype, "fval", {
         get: function () {
             return this.userForm.controls;
         },
         enumerable: false,
         configurable: true
     });
-    PayComponent.prototype.openModal = function (template) {
+    ReversePrincipalComponent.prototype.openModal = function (template) {
         this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-centered' }));
     };
     // toggle visibility of password field
-    PayComponent.prototype.toggleFieldType = function () {
+    ReversePrincipalComponent.prototype.toggleFieldType = function () {
         this.fieldType = !this.fieldType;
     };
-    PayComponent.prototype.assignTxnId = function (familyName, typeName) {
-        for (var _i = 0, _a = this.txns; _i < _a.length; _i++) {
-            var txn = _a[_i];
-            if (txn.txnDetailsFamilyName.toUpperCase() === familyName && txn.txnDetailsTypeName.toUpperCase() === typeName) {
-                return txn.txnDetailsId;
-            }
-        }
-    };
-    PayComponent.prototype.pay = function () {
+    ReversePrincipalComponent.prototype.reversePrinciple = function () {
         var _this = this;
-        if (this.userForm.valid && this.checkedClient.Id && this.loanAmount) {
+        var days = this.fval.days.value;
+        if (this.userForm.valid) {
             this.others.verifyUserWithPin({ userPhone1: this.User.userPhone, userPassword: Number(this.fval.pin.value) }).subscribe(function (res) {
                 if (res) {
                     var data = {
-                        txnAmount: _this.loanAmount,
-                        customerId: _this.checkedClient.Id,
-                        txnDetailsId: null,
+                        customerId: _this.checkedClient.customerId,
+                        theStationLocationId: _this.checkedClient.fktheStationLocationIdCustomer,
+                        productCode: _this.loanType === 'Boda Loan' ? 200 : _this.loanType === 'Taxi Loan' ? 300 : 400,
+                        theInterestToBeReversed: days,
                         userId: _this.User.userId,
-                        productCode: _this.loanType === 'Boda Loan' ? 200 : 300,
-                        theStationLocationId: _this.User.userLocationId
+                        comment: "This customer's loan accrual days should be changed to " + days + " days"
                     };
-                    switch (_this.loanType) {
-                        case 'Boda Loan':
-                            data.txnDetailsId = _this.assignTxnId('BODABODALOAN', 'LOANPAYMENT');
-                            break;
-                        case 'Taxi Loan':
-                            data.txnDetailsId = _this.assignTxnId('TAXILOAN', 'LOANPAYMENT');
-                            break;
-                    }
-                    _this.others.putTxnCustomer(data).subscribe(function (response) {
+                    _this.others.setIdividualLoanAccrualDays(data).subscribe(function (response) {
                         if (response === true) {
                             _this.posted = true;
                             _this.alertService.success({
-                                html: '<b> Payment was successfully</b>'
+                                html: '<b> Individual Loan Accrual Days was Initiated Successfully, wait for approval</b>'
                             });
                             setTimeout(_this.revert(), 3000);
                         }
@@ -325,13 +285,13 @@ var PayComponent = /** @class */ (function () {
             });
         }
     };
-    PayComponent = __decorate([
+    ReversePrincipalComponent = __decorate([
         core_1.Component({
-            selector: 'app-pay',
-            templateUrl: './pay.component.html',
-            styleUrls: ['./pay.component.scss']
+            selector: 'app-reverse-principal',
+            templateUrl: './reverse-principal.component.html',
+            styleUrls: ['./reverse-principal.component.scss']
         })
-    ], PayComponent);
-    return PayComponent;
+    ], ReversePrincipalComponent);
+    return ReversePrincipalComponent;
 }());
-exports.PayComponent = PayComponent;
+exports.ReversePrincipalComponent = ReversePrincipalComponent;

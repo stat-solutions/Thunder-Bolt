@@ -460,8 +460,113 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.setIdividualLoanLimit = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanLimit", postData);
     };
-    OthersService.prototype.getIdividualLoanLimit = function (postData) {
+    OthersService.prototype.getIdividualLoanLimit = function () {
         return this.http.get(this.API_URL + "/api/customer/getIndividualLoanLimitForApproval");
+    };
+    OthersService.prototype.approveIdividualLoanLimit = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postApproveIndividualLoanLimit", postData);
+    };
+    OthersService.prototype.rejectIdividualLoanLimit = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postRejectIndividualLoanLimit", postData);
+    };
+    OthersService.prototype.setIndividualLoanTenure = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanTenure", postData);
+    };
+    OthersService.prototype.getIndividualLoanTenure = function () {
+        return this.http.get(this.API_URL + "/api/customer/getIndividualLoanTenureForApproval");
+    };
+    OthersService.prototype.approveIndividualLoanTenure = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postApproveIndividualLoanTenure", postData);
+    };
+    OthersService.prototype.rejectIndividualLoanTenure = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postRejectIndividualLoanTenure", postData);
+    };
+    OthersService.prototype.setIdividualLoanInterestRate = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanInterestRate", postData);
+    };
+    OthersService.prototype.getIdividualLoanInterestRate = function () {
+        return this.http.get(this.API_URL + "/api/customer/getIndividualLoanInterestRateForApproval");
+    };
+    OthersService.prototype.approveIdividualLoanInterestRate = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/getIndividualLoanInterestRateForApproval", postData);
+    };
+    OthersService.prototype.rejectIdividualLoanInterestRate = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanLimit", postData);
+    };
+    OthersService.prototype.setIdividualLoanAccrualDays = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanAccrualDays", postData);
+    };
+    OthersService.prototype.getIdividualLoanAccrualDays = function () {
+        return this.http.get(this.API_URL + "/api/customer/getIndividualLoanAccrualDaysForApproval");
+    };
+    OthersService.prototype.approveIdividualLoanAccrualDays = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postApproveIndividualLoanAccrualDays", postData);
+    };
+    OthersService.prototype.rejectIdividualLoanAccrualDays = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanLimit", postData);
+    };
+    OthersService.prototype.waiveInterest = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/waiveInterest", postData);
+    };
+    OthersService.prototype.getWaivedInterestsForApproval = function () {
+        return this.http.get(this.API_URL + "/api/customer/getWaivedInterestsForApproval");
+    };
+    OthersService.prototype.postApproveWaivedInterest = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postApproveWaivedInterest", postData);
+    };
+    OthersService.prototype.postRejectWaivedInterest = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanLimit", postData);
+    };
+    OthersService.prototype.waivePrincimpal = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/waivePrincimpal", postData);
+    };
+    OthersService.prototype.getWaivedPrincipalForApproval = function () {
+        return this.http.get(this.API_URL + "/api/customer/getWaivedPrincipalForApproval");
+    };
+    OthersService.prototype.postApproveWaivedPrincipal = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postApproveWaivedPrincipal", postData);
+    };
+    OthersService.prototype.postRejectWaivedPrincipal = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postRejectWaivedPrincipal", postData);
+    };
+    OthersService.prototype.reverseInterest = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/ReverseInterest", postData);
+    };
+    OthersService.prototype.getReversedInterestsForApproval = function () {
+        return this.http.get(this.API_URL + "/api/customer/getReversedInterestsForApproval");
+    };
+    OthersService.prototype.postApproveReverseInterest = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postApproveReverseInterest", postData);
+    };
+    OthersService.prototype.postRejectReverseInterest = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postRejectReverseInterest", postData);
+    };
+    OthersService.prototype.reversePrincimpal = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/reversePrincimpal", postData);
+    };
+    OthersService.prototype.getReversedPrincipalForApproval = function () {
+        return this.http.get(this.API_URL + "/api/customer/getReversedPrincipalForApproval");
+    };
+    OthersService.prototype.postApproveReversePrincipal = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postApproveReversePrincipal", postData);
+    };
+    OthersService.prototype.postRejectReversePrincipal = function (postData) {
+        return this.http.post(this.API_URL + "/api/customer/postRejectReversePrincipal", postData);
+    };
+    OthersService.prototype.getAllLoans = function (postData) {
+        return this.http.get(this.API_URL + "/api/reports/getAllLoans");
+    };
+    OthersService.prototype.getAllLoansByRegion = function (id) {
+        return this.http.get(this.API_URL + "api/reports/getAllLoansByRegion?theAreaLocationId=" + id);
+    };
+    OthersService.prototype.getAllLoansByTown = function (id) {
+        return this.http.get(this.API_URL + "api/reports/getAllLoansByTown?theTownLocationId=" + id);
+    };
+    OthersService.prototype.getAllLoansByStation = function (id) {
+        return this.http.get(this.API_URL + "api/reports/getAllLoansByStation?theStationLocationId=" + id);
+    };
+    OthersService.prototype.getAllClients = function (postData) {
+        return this.http.get(this.API_URL + "/api/reports/getAllClients");
     };
     OthersService.prototype.handleCompanySetupError = function (errorResponse) {
         if (errorResponse.error instanceof ErrorEvent) {

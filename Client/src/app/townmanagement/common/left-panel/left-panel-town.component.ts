@@ -114,9 +114,14 @@ export class LeftPanelTownComponent implements OnInit {
             url: '/townmanagement/adjustments/setinterestrate',
           },
           {
-            name: 'Reduce Interest rate',
+            name: 'Set Loan Tenure',
             icon: 'fas fa-wrench',
-            url: '/townmanagement/adjustments/reduceinterestrate',
+            url: '/townmanagement/adjustments/loantenure',
+          },
+          {
+            name: 'Set Loan Accrual Days',
+            icon: 'fas fa-wrench',
+            url: '/townmanagement/adjustments/accrualdays',
           },
           {
             name: 'Waive Interest',
@@ -127,6 +132,11 @@ export class LeftPanelTownComponent implements OnInit {
             name: 'Write-Off Principal',
             icon: 'fas fa-wrench',
             url: '/townmanagement/adjustments/writeoffprincipal',
+          },
+          {
+            name: 'Reverse Interest',
+            icon: 'fas fa-wrench',
+            url: '/townmanagement/adjustments/reverseinterest',
           },
           {
             name: 'Reverse Principal',

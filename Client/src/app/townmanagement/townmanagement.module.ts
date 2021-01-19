@@ -49,7 +49,9 @@ import { WaiveInterestComponent } from './components/adjustments/waive-interest/
 import { SetLoanLimitComponent } from './components/adjustments/set-loan-limit/set-loan-limit.component';
 import { SetInterestRateComponent } from './components/adjustments/set-interest-rate/set-interest-rate.component';
 import { ReversePrincipalComponent } from './components/adjustments/reverse-principal/reverse-principal.component';
-import { ReduceRateComponent } from './components/adjustments/reduce-rate/reduce-rate.component';
+import { ReverseInterestComponent } from './components/adjustments/reverse-interest/reverse-interest.component';
+import { LoanTenureComponent } from './components/adjustments/loan-tenure/loan-tenure.component';
+import { AccrualDaysComponent } from './components/adjustments/accrual-days/accrual-days.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { ReduceRateComponent } from './components/adjustments/reduce-rate/reduce
     SetLoanLimitComponent,
     SetInterestRateComponent,
     ReversePrincipalComponent,
-    ReduceRateComponent,
+    LoanTenureComponent,
+    AccrualDaysComponent,
+    ReverseInterestComponent,
   ],
   imports: [
     CommonModule,

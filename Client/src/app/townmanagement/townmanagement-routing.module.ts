@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-
 import { PagesCoreTownComponent } from './pages-core/pages-core-town.component';
 import { TownGuard } from '../shared/services/other-services/route-guards/town-guard.service';
 import { EnrollClientComponent } from './components/enroll/enroll-client/enroll-client.component';
@@ -27,14 +26,16 @@ import { ComfirmLoanComponent } from './components/micro-loans/comfirm-loan/comf
 import { ClientsComponent } from './components/reports/clients/clients.component';
 import { UsersComponent } from './components/reports/users/users.component';
 import { AreaComponent } from './components/reports/area/area.component';
-import { ReduceRateComponent } from './components/adjustments/reduce-rate/reduce-rate.component';
+import { LoanTenureComponent } from './components/adjustments/loan-tenure/loan-tenure.component';
 import { WaiveInterestComponent } from './components/adjustments/waive-interest/waive-interest.component';
 import { WriteOffComponent } from './components/adjustments/write-off/write-off.component';
 import { SetLoanLimitComponent } from './components/adjustments/set-loan-limit/set-loan-limit.component';
 import { AdjustmentsComponent } from './components/adjustments/adjustments.component';
 import { SetInterestRateComponent } from './components/adjustments/set-interest-rate/set-interest-rate.component';
 import { ReversePrincipalComponent } from './components/adjustments/reverse-principal/reverse-principal.component';
+import { ReverseInterestComponent } from './components/adjustments/reverse-interest/reverse-interest.component';
 import { ClientCommentsComponent } from './components/client-comments/client-comments.component';
+import { AccrualDaysComponent } from './components/adjustments/accrual-days/accrual-days.component';
 
 const routes: Routes = [
   {
@@ -147,8 +148,16 @@ const routes: Routes = [
             component: SetLoanLimitComponent,
           },
           {
-            path: 'reduceinterestrate',
-            component: ReduceRateComponent,
+            path: 'loantenure',
+            component: LoanTenureComponent,
+          },
+          {
+            path: 'accrualdays',
+            component: AccrualDaysComponent,
+          },
+          {
+            path: 'reverseinterest',
+            component: ReverseInterestComponent,
           },
           {
             path: 'reverseprincipal',

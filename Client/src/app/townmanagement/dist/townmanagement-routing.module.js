@@ -23,9 +23,6 @@ var cluster_and_taxipark_component_1 = require("./components/enroll/cluster-and-
 var enroll_cluster_component_1 = require("./components/enroll/cluster-and-taxipark/enroll-cluster/enroll-cluster.component");
 var enroll_taxi_park_component_1 = require("./components/enroll/cluster-and-taxipark/enroll-taxi-park/enroll-taxi-park.component");
 var reports_component_1 = require("../centralmanagement/components/reports/reports.component");
-var cash_ledger_component_1 = require("./components/reports/cash-ledger/cash-ledger.component");
-var loans_ledger_component_1 = require("./components/reports/loans-ledger/loans-ledger.component");
-var paid_ledger_component_1 = require("./components/reports/paid-ledger/paid-ledger.component");
 var edit_client_component_1 = require("./components/enroll/edit-client/edit-client.component");
 var edit_boda_stage_component_1 = require("./components/enroll/edit-stage/edit-boda-stage/edit-boda-stage.component");
 var edit_stage_component_1 = require("./components/enroll/edit-stage/edit-stage.component");
@@ -34,8 +31,22 @@ var micro_loans_component_1 = require("./components/micro-loans/micro-loans.comp
 var get_loan_component_1 = require("./components/micro-loans/get-loan/get-loan.component");
 var pay_loan_component_1 = require("./components/micro-loans/pay-loan/pay-loan.component");
 var comfirm_loan_component_1 = require("./components/micro-loans/comfirm-loan/comfirm-loan.component");
+var clients_component_1 = require("./components/reports/clients/clients.component");
+var users_component_1 = require("./components/reports/users/users.component");
+var area_component_1 = require("./components/reports/area/area.component");
+var loan_tenure_component_1 = require("./components/adjustments/loan-tenure/loan-tenure.component");
+var waive_interest_component_1 = require("./components/adjustments/waive-interest/waive-interest.component");
+var write_off_component_1 = require("./components/adjustments/write-off/write-off.component");
+var set_loan_limit_component_1 = require("./components/adjustments/set-loan-limit/set-loan-limit.component");
+var adjustments_component_1 = require("./components/adjustments/adjustments.component");
+var set_interest_rate_component_1 = require("./components/adjustments/set-interest-rate/set-interest-rate.component");
+var reverse_principal_component_1 = require("./components/adjustments/reverse-principal/reverse-principal.component");
+var reverse_interest_component_1 = require("./components/adjustments/reverse-interest/reverse-interest.component");
+var client_comments_component_1 = require("./components/client-comments/client-comments.component");
+var accrual_days_component_1 = require("./components/adjustments/accrual-days/accrual-days.component");
 var routes = [
-    { path: '',
+    {
+        path: '',
         component: pages_core_town_component_1.PagesCoreTownComponent,
         canActivateChild: [town_guard_service_1.TownGuard],
         children: [
@@ -51,6 +62,10 @@ var routes = [
             {
                 path: 'createstation',
                 component: create_station_component_1.CreateStationComponent
+            },
+            {
+                path: 'clientcomments',
+                component: client_comments_component_1.ClientCommentsComponent
             },
             {
                 path: 'microloan',
@@ -94,7 +109,7 @@ var routes = [
                             {
                                 path: 'enrollbodastage',
                                 component: enroll_boda_stage_component_1.EnrollBodaStageComponent
-                            }
+                            },
                         ]
                     },
                     {
@@ -108,7 +123,7 @@ var routes = [
                             {
                                 path: 'enrolltaxipark',
                                 component: enroll_taxi_park_component_1.EnrollTaxiParkComponent
-                            }
+                            },
                         ]
                     },
                     {
@@ -126,9 +141,47 @@ var routes = [
                             {
                                 path: 'editbodastage',
                                 component: edit_boda_stage_component_1.EditBodaStageComponent
-                            }
+                            },
                         ]
-                    }
+                    },
+                ]
+            },
+            {
+                path: 'adjustments',
+                component: adjustments_component_1.AdjustmentsComponent,
+                children: [
+                    {
+                        path: 'setloanlimit',
+                        component: set_loan_limit_component_1.SetLoanLimitComponent
+                    },
+                    {
+                        path: 'loantenure',
+                        component: loan_tenure_component_1.LoanTenureComponent
+                    },
+                    {
+                        path: 'accrualdays',
+                        component: accrual_days_component_1.AccrualDaysComponent
+                    },
+                    {
+                        path: 'reverseprincipal',
+                        component: reverse_interest_component_1.ReverseInterestComponent
+                    },
+                    {
+                        path: 'reverseprincipal',
+                        component: reverse_principal_component_1.ReversePrincipalComponent
+                    },
+                    {
+                        path: 'setinterestrate',
+                        component: set_interest_rate_component_1.SetInterestRateComponent
+                    },
+                    {
+                        path: 'waiveinterest',
+                        component: waive_interest_component_1.WaiveInterestComponent
+                    },
+                    {
+                        path: 'writeoffprincipal',
+                        component: write_off_component_1.WriteOffComponent
+                    },
                 ]
             },
             {
@@ -136,25 +189,25 @@ var routes = [
                 component: reports_component_1.ReportsComponent,
                 children: [
                     {
-                        path: 'cashledger',
-                        component: cash_ledger_component_1.CashLedgerComponent
+                        path: 'loansrevenue',
+                        component: area_component_1.AreaComponent
                     },
                     {
-                        path: 'loansledger',
-                        component: loans_ledger_component_1.LoansLedgerComponent
+                        path: 'clients',
+                        component: clients_component_1.ClientsComponent
                     },
                     {
-                        path: 'paidledger',
-                        component: paid_ledger_component_1.PaidLedgerComponent
-                    }
+                        path: 'users',
+                        component: users_component_1.UsersComponent
+                    },
                 ]
             },
             {
                 path: 'profile',
                 component: profile_component_1.ProfileComponent
-            }
+            },
         ]
-    }
+    },
 ];
 var TownmanagementRoutingModule = /** @class */ (function () {
     function TownmanagementRoutingModule() {

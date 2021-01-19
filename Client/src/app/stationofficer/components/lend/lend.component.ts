@@ -290,7 +290,7 @@ export class LendComponent implements OnInit {
     return this.userForm.controls;
   }
 
-//client modal method
+// client modal method
   public openModal(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(
       template,
@@ -328,9 +328,6 @@ export class LendComponent implements OnInit {
             break;
           case 'Taxi Loan':
             data.txnDetailsId = this.assignTxnId('TAXILOAN', 'LOANDISBURSEMENT');
-            break;
-          case 'Micro Loan':
-            data.txnDetailsId = this.assignTxnId('MICROLOAN', 'LOANDISBURSEMENT');
             break;
         }
         this.others.putTxnCustomer(data).subscribe(

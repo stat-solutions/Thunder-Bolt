@@ -8,6 +8,7 @@ import { AlertService } from 'ngx-alerts';
 import { CustomValidator } from 'src/app/validators/custom-validator';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
   selector: 'app-waive-interest',
@@ -28,40 +29,28 @@ export class WaiveInterestComponent implements OnInit {
   station: string;
   theCompany: string;
   closingBal: string;
-  numberPlates: [];
-  phoneNumbers: [];
   loanDetails: any;
   loanType: string;
-  secretPin: number;
-  loanLimit: number;
-  amountDue: number;
-  txnId: number;
-  numberValue: number;
   values: any;
   user = '/../../../assets/img/man.svg';
-  checkedClient: {
-    name: string;
-    photoUrl: string;
-    phone: any;
-    plate: any;
-    loanAmount: number;
-    loanLimit: number;
-    loanPaid: number;
-    loanBalance: number;
-    loanStatus: string;
-    comment: string;
-  };
+  loanAmount: number;
+  customers: any;
+  comment: string;
+  checkedClient: any;
+  numberPlates: Array<string> = [];
+  phoneNumbers: Array<string> = [];
+  User = this.authService.loggedInUserInfo();
 
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
     private modalService: BsModalService
   ) {}
 
-  ngOnInit(): void {
-    this.getTheNumberPlates();
+  ngOnInit(): any {
     this.userForm = this.createFormGroup();
     this.checkedOk = false;
   }
@@ -71,24 +60,12 @@ export class WaiveInterestComponent implements OnInit {
       loanType: new FormControl(['', Validators.required]),
       number_plate: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(8),
-        ])
       ),
       user_contact_number: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-            { hasNumber: true }
-          ),
-        ])
       ),
       amount: new FormControl(
-        { value: '', disabled: true },
+        { value: '', disabled: false },
         Validators.compose([
           Validators.required,
           CustomValidator.patternValidator(/\d/, { hasNumber: true }),
@@ -97,7 +74,7 @@ export class WaiveInterestComponent implements OnInit {
         ])
       ),
       pin: new FormControl(
-        { value: '', disabled: true },
+        { value: '', disabled: false },
         Validators.compose([
           Validators.required,
           CustomValidator.patternValidator(/\d/, { hasNumber: true }),
@@ -108,9 +85,171 @@ export class WaiveInterestComponent implements OnInit {
     });
   }
   checkLoanType(value: string): any {
-    // console.log(value);
-    this.loanType = value;
+    switch (value) {
+      case 'Boda Loan':
+        this.others.getBodaCustomers().subscribe(
+          res => {
+            if (res.length > 0){
+              this.loanType = value;
+              this.customers = [];
+              this.customers = res;
+              this.fval.number_plate.setValue('');
+              this.fval.amount.setValue('');
+              this.fval.pin.setValue('');
+              this.numberPlates = [];
+              this.checkedClient = {};
+              this.customers.forEach((customer) => {
+                this.numberPlates.push(customer.bodabodaCustomerNumberPlate);
+              });
+              this.fval.number_plate.setValidators([
+                Validators.required,
+                Validators.minLength(8),
+                Validators.maxLength(8),
+              ]);
+            } else {
+              this.errored = true;
+              this.choosingPdts();
+              this.alertService.danger({
+                html: '<b>There are no boda boda customers registered</b>'
+              });
+            }
+          },
+          err => {
+            this.errored = true;
+            console.log(err);
+            this.alertService.danger({
+              html: '<b>' + err.error.error.message + '</b>'
+            });
+          }
+        );
+        break;
+      case 'Taxi Loan':
+        this.others.getTaxiCustomers().subscribe(
+          res => {
+            if (res.length > 0){
+              this.customers = [];
+              this.checkedClient = {};
+              this.customers = res;
+              this.loanType = value;
+              this.fval.number_plate.setValue('');
+              this.fval.amount.setValue('');
+              this.fval.pin.setValue('');
+              this.numberPlates = [];
+              this.customers.forEach((customer) => {
+                this.numberPlates.push(customer.taxiCustomerNumberPlate);
+              });
+              this.fval.number_plate.setValidators([
+                Validators.required,
+                Validators.minLength(8),
+                Validators.maxLength(8),
+              ]);
+            } else {
+              this.errored = true;
+              this.choosingPdts();
+              this.alertService.danger({
+                html: '<b>There are no Taxi customers registered</b>'
+              });
+            }
+          },
+          err => {
+            this.errored = true;
+            this.alertService.danger({
+              html: '<b>' + err.error.error.message + '</b>'
+            });
+          }
+        );
+        break;
+      case 'Micro Loan':
+        this.others.getMicroCustomers().subscribe(
+          res => {
+            if (res.length > 0){
+              this.customers = [];
+              this.customers = res;
+              this.checkedClient = {};
+              this.loanType = value;
+              this.fval.user_contact_number.setValue('');
+              this.fval.amount.setValue('');
+              this.fval.pin.setValue('');
+              this.phoneNumbers = [];
+              this.customers.forEach((customer) => {
+                this.phoneNumbers.push(customer.customerPhone1);
+              });
+              this.fval.user_contact_number.setValidators([
+                Validators.required,
+                CustomValidator.patternValidator(
+                  /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
+                  { hasNumber: true }
+                ),
+              ]);
+            } else {
+              this.errored = true;
+              this.choosingPdts();
+              this.alertService.danger({
+                html: '<b>There are no Micro loan customers registered</b>'
+              });
+            }
+          },
+          err => {
+            this.errored = true;
+            this.alertService.danger({
+              html: '<b>' + err.error.error.message + '</b>'
+            });
+          }
+        );
+        break;
+    }
   }
+  choosingPdts(): any{
+    this.loanType = '';
+    this.numberPlates = [];
+    this.phoneNumbers = [];
+  }
+
+  checkLoanbility(value: any): any {
+    if (value !== ''){
+      // console.log(this.loanType);
+      switch (this.loanType) {
+        case 'Boda Loan':
+          let bodaCustomers =  [...this.customers];
+          bodaCustomers = bodaCustomers.filter((customer) => customer.bodabodaCustomerNumberPlate === value.toUpperCase());
+          if (bodaCustomers.length === 1){
+            this.checkedClient = bodaCustomers[0];
+          } else {
+            this.errored = true;
+            this.alertService.danger({
+              html: '<b> customer with number plate ' + value.toUpperCase() + ' is not registered<b>'
+            });
+          }
+          break;
+      case 'Taxi Loan':
+        let taxiCustomers =  [...this.customers];
+        taxiCustomers = taxiCustomers.filter((customer) => customer.taxiCustomerNumberPlate === value.toUpperCase());
+        if (taxiCustomers.length === 1){
+          this.checkedClient = taxiCustomers[0];
+        } else {
+          this.errored = true;
+          this.alertService.danger({
+              html: '<b> customer with number plate ' + value.toUpperCase() + ' is not registered<b>'
+            });
+        }
+        break;
+        case 'Micro Loan':
+          let microCustomers =  [...this.customers];
+          microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value.toUpperCase());
+          if (microCustomers.length === 1){
+            this.checkedClient = microCustomers[0];
+          } else {
+              this.errored = true;
+              this.checkedClient = {};
+              this.alertService.danger({
+                html: '<b> customer phone number ' + value.toUpperCase() + ' is not registered<b>'
+              });
+            }
+          break;
+      }
+    }
+  }
+
   revert(): any {
     this.userForm.reset();
   }
@@ -122,78 +261,12 @@ export class WaiveInterestComponent implements OnInit {
   get fval(): any {
     return this.userForm.controls;
   }
-  onKey(event: any): any {
-    // without type info
-    this.values = event.target.value.replace(/[\D\s\._\-]+/g, '');
-
-    this.numberValue = this.values ? parseInt(this.values, 10) : 0;
-
-    // tslint:disable-next-line:no-unused-expression
-    this.values =
-      this.numberValue === 0 ? '' : this.numberValue.toLocaleString('en-US');
-
-    this.userForm.controls.amount_to_pay.setValue(this.values);
-  }
 
   public openModal(template: TemplateRef<any>): any {
-    //  FIRST SEARCH THE CLIENT DETAILS USING THE PASSED IN USERID A
-    // ND ASSIGN IT TO THE CHECKED CLIENT
-    console.log(this.fval.number_plate.value);
-    this.checkedClient = {
-      name: 'Mukwaya',
-      photoUrl: this.user,
-      phone: '0788883887',
-      plate: 'UAB456Z',
-      loanAmount: 50000,
-      loanLimit: 58000,
-      loanPaid: 7000,
-      loanBalance: 4500,
-      loanStatus: 'RUNNING',
-      comment: 'User promised to pay',
-    };
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
     );
-  }
-
-  getTheNumberPlates(): any {
-    // this.pumpService.theNumberPlates(this.station).subscribe(
-    //   data => {
-    //     this.numberPlates = data;
-    //   },
-    //   (error: string) => {
-    //     this.errored = true;
-    //     this.serviceErrors = error;
-    //     this.alertService.danger({
-    //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-    //     });
-    //   }
-    // );
-  }
-
-  checkLoanbility(): any {
-    // this.pumpService
-    //   .checkWhetherTheCLoanable(this.userForm.controls.number_plate.value)
-    //   .subscribe(
-    //     data => {
-    //       this.loanDetails = data[0];
-    //       // console.log(this.loanDetails);
-    //       this.checkedOk = true;
-    //       this.secretPin = this.loanDetails.secret_pin;
-    //       this.loanLimit = this.loanDetails.petrol_station_loan_limit;
-    //       this.userForm.controls.number_plate.disable();
-    //       this.userForm.controls.amount_to_pay.enable();
-    //       this.userForm.controls.pin.enable();
-    //     },
-    //     (error: string) => {
-    //       this.errored = true;
-    //       this.serviceErrors = error;
-    //       this.alertService.danger({
-    //         html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-    //       });
-    //     }
-    //   );
   }
 
   // toggle visibility of password field
@@ -202,56 +275,56 @@ export class WaiveInterestComponent implements OnInit {
   }
 
   waiveInterest(): any {
-    this.userForm.patchValue({
-      amount_to_pay: parseInt(
-        this.userForm.controls.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''),
-        10
-      ),
-    });
-
-    // tslint:disable-next-line:triple-equals
-    if (!(this.secretPin == this.userForm.controls.pin.value)) {
-      this.alertService.danger({
-        html: '<b>Invalid PIN!</b>',
-      });
-      return;
-    } else {
-      if (this.userForm.controls.amount_to_pay.value > this.loanLimit) {
-        this.alertService.warning({
-          html: '<b>Loan Limit Exceeded!</b>' + '<br/>',
-        });
-        return;
-      } else {
-        this.userForm.controls.number_plate.enable();
-        this.userForm.patchValue({
-          user_station: jwt_decode(this.authService.getJwtToken()).user_station,
-          user_id: jwt_decode(this.authService.getJwtToken()).user_id,
-        });
-        // console.log(this.userForm.value);
-        this.posted = true;
-        this.spinner.show();
-        // this.pumpService.createLoan(this.userForm).subscribe(
-        //   result => {
-        //     this.amountDue = result[0].amount_due;
-        //     this.txnId = result[0].txn_id;
-        //     this.spinner.hide();
-        //     this.openModal();
-        //     this.router.navigate(['dashboardpump/shiftmanagement']);
-        //     setTimeout(() => {
-        //       location.reload();
-        //     }, 3000);
-        //   },
-
-        //   (error: string) => {
-        //     this.spinner.hide();
-        //     this.errored = true;
-        //     this.serviceErrors = error;
-        //     this.alertService.danger({
-        //       html: '<b>' + this.serviceErrors + '</b>' + '<br/>'
-        //     });
-        //   }
-        // );
-      }
+    const amount = parseInt(this.fval.amount.value.replace(/[\D\s\._\-]+/g, ''), 10);
+    if (this.userForm.valid){
+      this.others.verifyUserWithPin({userPhone1: this.User.userPhone, userPassword: Number(this.fval.pin.value)}).subscribe(
+        res => {
+          if (res){
+            const data = {
+              customerId: this.checkedClient.customerId,
+              theStationLocationId: this.checkedClient.fktheStationLocationIdCustomer,
+              productCode: this.loanType === 'Boda Loan' ? 200 : this.loanType === 'Taxi Loan' ? 300 : 400,
+              theInterestToBeWiaved: amount,
+              userId: this.User.userId,
+              comment: `Please waive interest of ${amount} on this customer`
+            };
+            this.others.waiveInterest(data).subscribe(
+              response => {
+                if (response === true){
+                  this.posted = true;
+                  this.alertService.success({
+                    html: '<b> Waiving of Interest was Initiated Successfully, wait for approval</b>'
+                  });
+                  setTimeout(this.revert(), 3000);
+                }
+              },
+              err => {
+                this.errored = true;
+                if (err.error.error.status === 500) {
+                  this.alertService.danger({
+                    html: '<b> Sever Could Not handle this request</b>'
+                  });
+                } else {
+                  this.alertService.danger({
+                    html: '<b>' + err.error.error.message + '</b>'
+                  });
+                }
+              }
+            );
+          } else {
+            this.errored = true;
+            this.alertService.danger({
+              html: "<b> User's pin does not match<b>"
+            });
+          }
+        },
+        err => {
+          this.errored = true;
+          this.alertService.danger({
+            html: '<b>' + err.error.error.message + '<b>'
+          });
+        }
+      );
     }
   }
 }
