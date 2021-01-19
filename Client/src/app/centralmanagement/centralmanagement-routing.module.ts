@@ -42,8 +42,6 @@ import { LoanTenureComponent } from './components/transactions/approval/loan-ten
 import { SetLoanCommissionComponent } from './components/transactions/loans/set-loan-commision/set-loan-commision.component';
 import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan-accrual/set-loan-accrual.component';
 import { MicroLoanComponent } from './components/transactions/approval/micro-loan/micro-loan.component';
-import { LoanAccrualDaysComponent } from './components/transactions/approval/loan-accrual-days/loan-accrual-days.component';
-import { LoanCommissionRateComponent } from './components/transactions/approval/loan-commission-rate/loan-commission-rate.component';
 
 const routes: Routes = [
   {
@@ -165,7 +163,7 @@ const routes: Routes = [
                 component: ReduceRateComponent,
               },
               {
-                path: 'reverse',
+                path: 'reverseprinciple',
                 component: ReversePrincipleComponent,
               },
               {
@@ -183,14 +181,6 @@ const routes: Routes = [
               {
                 path: 'writeoff',
                 component: WriteOffComponent,
-              },
-              {
-                path: 'loanaccrualdays',
-                component: LoanAccrualDaysComponent,
-              },
-              {
-                path: 'loancommissionrate',
-                component: LoanCommissionRateComponent,
               },
               {
                 path: 'loanlimit',

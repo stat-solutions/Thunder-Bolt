@@ -5,7 +5,9 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PagesCoreStationComponent } from './pages-core/pages-core-station.component';
 import { StManagerGuard } from '../shared/services/other-services/route-guards/stmanager-guard.service';
 import { ReportsComponent } from './components/reports/reports.component';
-import { LedgersComponent } from './components/reports/ledgers/ledgers.component';
+import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
+import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledger.component';
+import { BorrowedLedgerComponent } from './components/reports/borrowed-ledger/borrowed-ledger.component';
 
 const routes: Routes = [
   {
@@ -27,9 +29,17 @@ const routes: Routes = [
         component: ReportsComponent,
         children: [
           {
-            path: 'ledgers',
-            component: LedgersComponent,
-          }
+            path: 'cashledger',
+            component: CashLedgerComponent,
+          },
+          {
+            path: 'paidledger',
+            component: PaidLedgerComponent,
+          },
+          {
+            path: 'borrowedledger',
+            component: BorrowedLedgerComponent,
+          },
         ],
       },
       {

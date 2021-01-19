@@ -18,9 +18,11 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { DatepickerModule, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { CashLedgerComponent } from './components/reports/cash-ledger/cash-ledger.component';
+import { PaidLedgerComponent } from './components/reports/paid-ledger/paid-ledger.component';
+import { BorrowedLedgerComponent } from './components/reports/borrowed-ledger/borrowed-ledger.component';
 import { NgChartjsModule } from 'ng-chartjs';
 import { PersonalProfileComponent } from './components/profile/personal-profile/personal-profile.component';
-import { LedgersComponent } from './components/reports/ledgers/ledgers.component';
 
 @NgModule({
   declarations: [
@@ -33,8 +35,10 @@ import { LedgersComponent } from './components/reports/ledgers/ledgers.component
     HeaderStationComponent,
     ContentSectionStationComponent,
     ReportsComponent,
+    CashLedgerComponent,
+    PaidLedgerComponent,
+    BorrowedLedgerComponent,
     PersonalProfileComponent,
-    LedgersComponent,
   ],
   imports: [
     CommonModule,

@@ -31,25 +31,12 @@
 
 .list-card {
   height: auto !important;
-  border-left: 3px solid #adabab
-}
-.list-card:hover {
-  border-left: 3px solid #17aae0
-}
-.list-card-1 {
-  height: auto !important;
 }
 .list-card-body {
   width: 100%;
 }
 .form-control {
     height: calc(.8em + .75rem + 2px);
-}
-.text-dark span{
-  color: #124472
-}
-.text-dark span:hover,.text-dark span:focus{
-  color: #17aae0
 }
 
 
@@ -66,12 +53,18 @@
 }
 
 @media (min-width: 360px) {
+  .jumbotron-fluid {
+      padding-bottom: 10px !important;
+  }
 }
 
 @media (min-width: 375px) {
 }
 
 @media (min-width: 410px) {
+  .jumbotron-fluid {
+      padding-bottom: 10px !important;
+  }
 .iteration {
   max-height: 320px;
 }

@@ -5,13 +5,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 exports.__esModule = true;
 exports.ComfirmLoanComponent = void 0;
 var core_1 = require("@angular/core");
@@ -29,8 +22,6 @@ var ComfirmLoanComponent = /** @class */ (function () {
         this.submitted = false;
         this.errored = false;
         this.posted = false;
-        this.showFinalBtn = false;
-        this.showcompleteBtn = true;
         this.serviceErrors = {};
         this.User = this.authService.loggedInUserInfo();
         this.phoneNumbers = [];
@@ -40,34 +31,51 @@ var ComfirmLoanComponent = /** @class */ (function () {
         this.errored = false;
         this.posted = false;
         this.userForm = this.createFormGroup();
-        this.others.getSecurityType().subscribe(function (res) {
-            _this.securityTypes = res;
-        }, function (err) {
-            _this.errored = true;
-            _this.alertService.danger({
-                html: '<b>' + err.error.error.message + '</b>'
-            });
-        });
-        this.others.getMicroCustomers().subscribe(function (res) {
+        this.others.getTxnApproved().subscribe(function (res) {
             if (res.length > 0) {
-                _this.customers = res;
-                _this.phoneNumbers = [];
-                _this.checkedClient = {};
-                _this.customers.forEach(function (customer) {
-                    _this.phoneNumbers.push(customer.customerPhone1);
+                _this.approvedLoans = res;
+                _this.others.getMicroCustomers().subscribe(function (feed) {
+                    if (res.length > 0) {
+                        _this.customers = feed;
+                        _this.phoneNumbers = [];
+                        _this.customers.forEach(function (customer) {
+                            _this.approvedLoans.forEach(function (loan) {
+                                if (JSON.parse(loan.txnApprovalDetailsMicroPayLoad)[0].customerId === customer.customerId) {
+                                    if (_this.phoneNumbers.includes(customer.customerPhone1)) {
+                                        //  don't add that number
+                                    }
+                                    else {
+                                        _this.phoneNumbers.push(customer.customerPhone1);
+                                    }
+                                }
+                            });
+                        });
+                    }
+                    else {
+                        _this.errored = true;
+                        _this.alertService.danger({
+                            html: '<b>There are no Micro Loan customers registered</b>'
+                        });
+                    }
+                }, function (err) {
+                    _this.errored = true;
+                    console.log(err);
+                    _this.alertService.danger({
+                        html: '<b>' + err.error.error.mesage + '</b>'
+                    });
                 });
             }
             else {
                 _this.errored = true;
                 _this.alertService.danger({
-                    html: '<b>There are no Micro Loan customers registered</b>'
+                    html: '<b>There are no approved loans to confirm</b>'
                 });
             }
         }, function (err) {
             _this.errored = true;
-            console.log(err);
+            console.log(err.error.error.message);
             _this.alertService.danger({
-                html: '<b>' + err.error.error.mesage + '</b>'
+                html: '<b>' + err.error.error.message + '</b>'
             });
         });
     };
@@ -88,14 +96,6 @@ var ComfirmLoanComponent = /** @class */ (function () {
     ComfirmLoanComponent.prototype.refresh = function () {
         location.reload();
     };
-    ComfirmLoanComponent.prototype.checkLoanbility = function (value) {
-        if (value !== '') {
-            var microCustomers = __spreadArrays(this.customers);
-            microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value; });
-            this.checkedClient = microCustomers[0];
-            // this.openModal(template);
-        }
-    };
     // toggle visibility of password field
     ComfirmLoanComponent.prototype.toggleFieldType = function () {
         this.fieldType = !this.fieldType;
@@ -110,45 +110,34 @@ var ComfirmLoanComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    ComfirmLoanComponent.prototype.getSecurityTypeCode = function (typeName) {
-        for (var _i = 0, _a = this.securityTypes; _i < _a.length; _i++) {
-            var item = _a[_i];
-            if (item.securityTypeName === typeName) {
-                return item.securityTypeCode;
-            }
-        }
-    };
-    ComfirmLoanComponent.prototype.saveAndNew = function () {
-        if (this.userForm.valid) {
-            if (Number(this.fval.pin.value) === this.checkedClient.customerSecretPin) {
-                // const txn = {
-                //   txnAmount:  parseInt(this.fval.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''), 10),
-                //         customerId: this.checkedClient.customerId,
-                //         txnDetailsId: this.assignTxnId('MICROLOAN', 'LOANDISBURSEMENT'),
-                //         userId: this.User.userId,
-                //         productCode: 400,
-                //         microLoanPurpose: this.fval.loanpurpose.value.toUpperCase(),
-                //         theStationLocationId: this.User.userLocationId
-                // };
-            }
-            else {
-                this.errored = true;
-                this.alertService.danger({
-                    html: '<b>Secret pin does not much</b>'
-                });
-            }
+    ComfirmLoanComponent.prototype.checkLoan = function (value) {
+        var _this = this;
+        if (value !== '') {
+            this.customers.forEach(function (customer) {
+                if (customer.customerPhone1 === value) {
+                    _this.checkedClient = customer;
+                    _this.approvedLoans.forEach(function (loan) {
+                        if (JSON.parse(loan.txnApprovalDetailsMicroPayLoad)[0].customerId === customer.customerId) {
+                            _this.loanId = loan.txnApprovalDetailsMicroId;
+                        }
+                    });
+                }
+            });
         }
     };
     ComfirmLoanComponent.prototype.postLoan = function () {
         var _this = this;
         if (this.userForm.valid) {
             if (Number(this.fval.pin.value) === this.checkedClient.customerSecretPin) {
-                var data = {};
-                this.others.putTxnCustomerApproval(data).subscribe(function (res) {
+                var data = {
+                    txnApprovalDetailsMircroId: this.loanId,
+                    userId: this.User.userId
+                };
+                this.others.confirmMicroLoan([data]).subscribe(function (res) {
                     if (res) {
                         _this.posted = true;
                         _this.alertService.success({
-                            html: '<b> Deposit was successfully</b>'
+                            html: '<b> Loan was complete</b>'
                         });
                         setTimeout(function () {
                             _this.userForm = _this.createFormGroup();
@@ -158,7 +147,7 @@ var ComfirmLoanComponent = /** @class */ (function () {
                     _this.errored = true;
                     if (err.error.error.status === 500) {
                         _this.alertService.danger({
-                            html: '<b> Sever Could Not handle this request</b>'
+                            html: '<b> Server Could Not handle this request!</b>'
                         });
                     }
                     else {

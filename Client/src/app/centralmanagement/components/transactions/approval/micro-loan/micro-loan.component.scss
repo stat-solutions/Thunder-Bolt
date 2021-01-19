@@ -31,13 +31,6 @@
 
 .list-card {
   height: auto !important;
-  border-left: 3px solid #adabab
-}
-.list-card:hover {
-  border-left: 3px solid #17aae0
-}
-.list-card-1 {
-  height: auto !important;
 }
 .list-card-body {
   width: 100%;
@@ -71,6 +64,9 @@
 }
 
 @media (min-width: 360px) {
+  .jumbotron-fluid {
+      padding-bottom: 7px !important;
+  }
 }
 
 @media (min-width: 375px) {
