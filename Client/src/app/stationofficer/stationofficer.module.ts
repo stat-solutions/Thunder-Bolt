@@ -43,7 +43,7 @@ import { AlertModule } from 'ngx-alerts';
 import { AreaComponent } from './components/reports/area/area.component';
 import { ClientsComponent } from './components/reports/clients/clients.component';
 import { UsersComponent } from './components/reports/users/users.component';
-
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 @NgModule({
   declarations: [
@@ -94,6 +94,7 @@ import { UsersComponent } from './components/reports/users/users.component';
     NgChartjsModule,
     NgChartjsModule.registerPlugin(['inlinePlugin']),
     NgbModule,
+    PinchZoomModule,
     AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
   ]
 })

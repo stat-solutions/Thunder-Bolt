@@ -6,12 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.InterestRateComponent = void 0;
+exports.ReduceRateComponent = void 0;
 var core_1 = require("@angular/core");
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-var InterestRateComponent = /** @class */ (function () {
-    function InterestRateComponent(authService, others, router, spinner, alertService, fb) {
+var ReduceRateComponent = /** @class */ (function () {
+    function ReduceRateComponent(authService, others, router, spinner, alertService, fb) {
         this.authService = authService;
         this.others = others;
         this.router = router;
@@ -20,18 +20,18 @@ var InterestRateComponent = /** @class */ (function () {
         this.fb = fb;
         this.posted = false;
     }
-    InterestRateComponent.prototype.ngOnInit = function () {
+    ReduceRateComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
         this.fval.selectAll.setValue(false);
         this.initialiseForm();
     };
-    InterestRateComponent.prototype.createFormGroup = function () {
+    ReduceRateComponent.prototype.createFormGroup = function () {
         return this.fb.group({
-            approveRates: this.fb.array([this.rateApproval]),
+            approveReduceRates: this.fb.array([this.rateApproval]),
             selectAll: this.fb.control({})
         });
     };
-    Object.defineProperty(InterestRateComponent.prototype, "rateApproval", {
+    Object.defineProperty(ReduceRateComponent.prototype, "rateApproval", {
         get: function () {
             return this.fb.group({
                 station: this.fb.control({ value: '' }),
@@ -43,76 +43,74 @@ var InterestRateComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    InterestRateComponent.prototype.addItem = function () {
-        this.fval.approveRates.push(this.rateApproval);
+    ReduceRateComponent.prototype.addItem = function () {
+        // this.unitForm.controls.bussinessUnits  as FormArray
+        this.fval.approveReduceRates.push(this.rateApproval);
     };
-    InterestRateComponent.prototype.removeItem = function (index) {
-        this.fval.approveRates.removeAt(index);
+    ReduceRateComponent.prototype.removeItem = function (index) {
+        this.fval.approveReduceRates.removeAt(index);
     };
-    InterestRateComponent.prototype.initialiseForm = function () {
+    ReduceRateComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.others.getIdividualLoanInterestRate().subscribe(function (res) {
+        this.others.getReversedInterestsForApproval().subscribe(function (res) {
             _this.ratesApprovals = res;
-            // this.ratesApprovals.forEach((item, i) => {
-            //   this.fval.approveRates.controls[i].controls.station.setValue(item.station);
-            //   for (const customer of this.customers){
-            //     if (customer.customerId === details[0].customerId) {
-            //       this.fval.approveRates.controls[i].controls.client.setValue(customer.customerName);
-            //     }
-            //   }
-            //   this.fval.approveRates.controls[i].controls.client.setValue(item.client);
-            //   this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
-            //   this.fval.approveRates.controls[i].controls.approved.setValue(false);
-            //   this.addItem();
-            //   n = i + 1;
-            // });
+            _this.ratesApprovals.forEach(function (item, i) {
+                _this.fval.approveReduceRates.controls[i].controls.station.setValue(item.station);
+                _this.fval.approveReduceRates.controls[i].controls.client.setValue(item.client);
+                _this.fval.approveReduceRates.controls[i].controls.rate.setValue(item.rate);
+                _this.fval.approveReduceRates.controls[i].controls.approved.setValue(false);
+                _this.addItem();
+                n = i + 1;
+            });
             _this.removeItem(n);
         });
     };
-    InterestRateComponent.prototype.checkAllItems = function (val) {
+    ReduceRateComponent.prototype.checkAllItems = function (val) {
         var _this = this;
-        if (val === true) {
+        if (val == true) {
             this.ratesApprovals.forEach(function (item, i) {
-                _this.fval.approveRates.controls[i].controls.approved.setValue(val);
+                _this.fval.approveReduceRates.controls[i].controls.approved.setValue(val);
             });
         }
         else {
             this.ratesApprovals.forEach(function (item, i) {
-                _this.fval.approveRates.controls[i].controls.approved.setValue(false);
+                _this.fval.approveReduceRates.controls[i].controls.approved.setValue(false);
             });
         }
     };
-    InterestRateComponent.prototype.deselectAll = function (val) {
+    ReduceRateComponent.prototype.deselectAll = function (val) {
         // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-        if (this.fval.approveRates.controls[val].controls.approved.value === true) {
+        if (this.fval.approveReduceRates.controls[val].controls.approved
+            .value === true) {
             this.fval.selectAll.setValue(false);
         }
     };
-    InterestRateComponent.prototype.revert = function () {
+    ReduceRateComponent.prototype.revert = function () {
         this.userForm.reset();
     };
-    InterestRateComponent.prototype.refresh = function () {
+    ReduceRateComponent.prototype.refresh = function () {
         location.reload();
     };
-    Object.defineProperty(InterestRateComponent.prototype, "fval", {
+    Object.defineProperty(ReduceRateComponent.prototype, "fval", {
         get: function () {
             return this.userForm.controls;
         },
         enumerable: false,
         configurable: true
     });
-    InterestRateComponent.prototype.disableForm = function () {
+    ReduceRateComponent.prototype.disableForm = function () {
         return this.userForm.disable();
     };
-    InterestRateComponent.prototype.enableEdit = function () {
+    ReduceRateComponent.prototype.enableEdit = function () {
         return this.userForm.enable();
     };
-    InterestRateComponent.prototype.approveItems = function () {
+    ReduceRateComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
         this.ratesApprovals.forEach(function (item, i) {
-            if (_this.fval.approveRates.controls[i].controls.approved.value === true) {
+            if (_this.fval.approveReduceRates.controls[i].controls.approved
+                .value == true) {
                 item.status = 2;
                 itemsApproved.push(item);
             }
@@ -128,11 +126,12 @@ var InterestRateComponent = /** @class */ (function () {
             return;
         }
     };
-    InterestRateComponent.prototype.rejectItems = function () {
+    ReduceRateComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
         this.ratesApprovals.forEach(function (item, i) {
-            if (_this.fval.approveRates.controls[i].controls.approved.value === true) {
+            if (_this.fval.approveReduceRates.controls[i].controls.approved
+                .value == true) {
                 item.status = 1;
                 itemsRejected.push(item);
             }
@@ -148,13 +147,13 @@ var InterestRateComponent = /** @class */ (function () {
             return;
         }
     };
-    InterestRateComponent = __decorate([
+    ReduceRateComponent = __decorate([
         core_1.Component({
-            selector: 'app-interest-rate',
-            templateUrl: './interest-rate.component.html',
-            styleUrls: ['./interest-rate.component.scss']
+            selector: 'app-reduce-rate',
+            templateUrl: './reduce-rate.component.html',
+            styleUrls: ['./reduce-rate.component.scss']
         })
-    ], InterestRateComponent);
-    return InterestRateComponent;
+    ], ReduceRateComponent);
+    return ReduceRateComponent;
 }());
-exports.InterestRateComponent = InterestRateComponent;
+exports.ReduceRateComponent = ReduceRateComponent;

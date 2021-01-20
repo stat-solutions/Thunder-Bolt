@@ -42,7 +42,7 @@ var set_loan_limit_component_1 = require("./components/transactions/loans/set-lo
 var set_loan_rate_component_1 = require("./components/transactions/loans/set-loan-rate/set-loan-rate.component");
 var deposit_float_component_1 = require("./components/transactions/float/deposit-float/deposit-float.component");
 var withdraw_float_component_1 = require("./components/transactions/float/withdraw-float/withdraw-float.component");
-var reduce_rate_component_1 = require("./components/transactions/approval/reduce-rate/reduce-rate.component");
+var reverse_interest_component_1 = require("./components/transactions/approval/reduce-rate/reverse-interest.component");
 var reverse_principle_component_1 = require("./components/transactions/approval/reverse-principle/reverse-principle.component");
 var interest_rate_component_1 = require("./components/transactions/approval/interest-rate/interest-rate.component");
 var withdraw_savings_component_1 = require("./components/transactions/approval/withdraw-savings/withdraw-savings.component");
@@ -67,6 +67,9 @@ var ngx_alerts_1 = require("ngx-alerts");
 var set_loan_commision_component_1 = require("./components/transactions/loans/set-loan-commision/set-loan-commision.component");
 var set_loan_accrual_component_1 = require("./components/transactions/loans/set-loan-accrual/set-loan-accrual.component");
 var micro_loan_component_1 = require("./components/transactions/approval/micro-loan/micro-loan.component");
+var ngx_pinch_zoom_1 = require("ngx-pinch-zoom");
+var loan_commission_rate_component_1 = require("./components/transactions/approval/loan-commission-rate/loan-commission-rate.component");
+var loan_accrual_days_component_1 = require("./components/transactions/approval/loan-accrual-days/loan-accrual-days.component");
 var CentralmanagementModule = /** @class */ (function () {
     function CentralmanagementModule() {
     }
@@ -104,7 +107,7 @@ var CentralmanagementModule = /** @class */ (function () {
                 micro_loan_component_1.MicroLoanComponent,
                 deposit_float_component_1.DepositFloatComponent,
                 withdraw_float_component_1.WithdrawFloatComponent,
-                reduce_rate_component_1.ReduceRateComponent,
+                reverse_interest_component_1.ReverseInterestComponent,
                 reverse_principle_component_1.ReversePrincipleComponent,
                 interest_rate_component_1.InterestRateComponent,
                 withdraw_savings_component_1.WithdrawSavingsComponent,
@@ -120,6 +123,8 @@ var CentralmanagementModule = /** @class */ (function () {
                 station_managers_component_1.StationManagersComponent,
                 set_loan_tenure_component_1.SetLoanTenureComponent,
                 loan_tenure_component_1.LoanTenureComponent,
+                loan_commission_rate_component_1.LoanCommissionRateComponent,
+                loan_accrual_days_component_1.LoanAccrualDaysComponent,
             ],
             imports: [
                 common_1.CommonModule,
@@ -134,6 +139,7 @@ var CentralmanagementModule = /** @class */ (function () {
                 tabs_1.TabsModule.forRoot(),
                 datepicker_1.DatepickerModule,
                 datepicker_1.BsDatepickerModule,
+                ngx_pinch_zoom_1.PinchZoomModule,
                 ng_bootstrap_1.NgbModule,
                 ngx_alerts_1.AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
             ]

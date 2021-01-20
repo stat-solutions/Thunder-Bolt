@@ -5,15 +5,10 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
+
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
-export interface WaveIntApprovals {
-  station: string,
-  client: string,
-  ammount: number,
-  status: number
-}
 
 @Component({
   selector: 'app-waive-interest',
@@ -22,34 +17,7 @@ export interface WaveIntApprovals {
 })
 export class WaiveInterestComponent implements OnInit {
   userForm: FormGroup;
-  waveApprovals: WaveIntApprovals[] = [
-    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
-    {
-      station: 'nsambya',
-      client: 'Kasule Joseph',
-      ammount: 5000000,
-      status: 0,
-    },
-    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    {
-      station: 'nsambya',
-      client: 'Kasule Joseph',
-      ammount: 5000000,
-      status: 0,
-    },
-    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    {
-      station: 'nsambya',
-      client: 'Kasule Joseph',
-      ammount: 5000000,
-      status: 0,
-    },
-    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', ammount: 600000, status: 0 },
-  ];
+  waveApprovals: any;
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -58,23 +26,24 @@ export class WaiveInterestComponent implements OnInit {
   checkedOk: boolean;
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-  ngOnInit() {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
   }
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
       approveWave: this.fb.array([this.waveApproval]),
       selectAll: this.fb.control({}),
     });
   }
-  get waveApproval() {
+  get waveApproval(): any {
     return this.fb.group({
       station: this.fb.control({ value: '' }),
       client: this.fb.control({ value: '' }),
@@ -82,85 +51,85 @@ export class WaiveInterestComponent implements OnInit {
       approved: this.fb.control({}),
     });
   }
-  addItem() {
+  addItem(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
     (this.fval.approveWave as FormArray).push(this.waveApproval);
   }
 
-  removeItem(index: number) {
+  removeItem(index: number): any {
     (this.fval.approveWave as FormArray).removeAt(index);
   }
-  initialiseForm() {
+  initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    //   units => {
-    //     this.approvals = units;
-    this.waveApprovals.forEach((item, i) => {
-      // console.log(item.name);
-      // console.log(i);
-      this.fval.approveWave['controls'][i]['controls'].station.setValue(
-        item.station
-      );
-      this.fval.approveWave['controls'][i]['controls'].client.setValue(
-        item.client
-      );
-      this.fval.approveWave['controls'][i]['controls'].ammount.setValue(
-        item.ammount
-      );
-      this.fval.approveWave['controls'][i]['controls'].approved.setValue(false);
-      this.addItem();
-      n = i + 1;
-    });
-    this.removeItem(n);
-    // }
-    // )
+    this.others.getWaivedInterestsForApproval().subscribe(
+      res => {
+        this.waveApprovals = res;
+        this.waveApprovals.forEach((item, i) => {
+          // console.log(item.name);
+          // console.log(i);
+          this.fval.approveWave.controls[i].controls.station.setValue(
+            item.station
+          );
+          this.fval.approveWave.controls[i].controls.client.setValue(
+            item.client
+          );
+          this.fval.approveWave.controls[i].controls.ammount.setValue(
+            item.ammount
+          );
+          this.fval.approveWave.controls[i].controls.approved.setValue(false);
+          this.addItem();
+          n = i + 1;
+        });
+        this.removeItem(n);
+        }
+    );
   }
-  checkAllItems(val: boolean) {
-    if (val == true) {
+  checkAllItems(val: boolean): any {
+    if (val === true) {
       this.waveApprovals.forEach((item, i) => {
-        this.fval.approveWave['controls'][i]['controls'].approved.setValue(val);
+        this.fval.approveWave.controls[i].controls.approved.setValue(val);
       });
     } else {
       this.waveApprovals.forEach((item, i) => {
-        this.fval.approveWave['controls'][i]['controls'].approved.setValue(
+        this.fval.approveWave.controls[i].controls.approved.setValue(
           false
         );
       });
     }
   }
-  deselectAll(val: boolean) {
+  deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
     if (
-      this.fval.approveWave['controls'][val]['controls'].approved.value == true
+      this.fval.approveWave.controls[val].controls.approved.value === true
     ) {
       this.fval.selectAll.setValue(false);
     }
   }
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  disableForm() {
+  disableForm(): any {
     return this.userForm.disable();
   }
 
-  enableEdit() {
+  enableEdit(): any {
     return this.userForm.enable();
   }
 
-  approveItems() {
+  approveItems(): any {
     const itemsApproved = [];
     this.waveApprovals.forEach((item, i) => {
       if (
-        this.fval.approveWave['controls'][i]['controls'].approved.value == true
+        this.fval.approveWave.controls[i].controls.approved.value == true
       ) {
         item.status = 2;
         itemsApproved.push(item);
@@ -177,11 +146,11 @@ export class WaiveInterestComponent implements OnInit {
       return;
     }
   }
-  rejectItems() {
+  rejectItems(): any {
     const itemsRejected = [];
     this.waveApprovals.forEach((item, i) => {
       if (
-        this.fval.approveWave['controls'][i]['controls'].approved.value == true
+        this.fval.approveWave.controls[i].controls.approved.value === true
       ) {
         item.status = 1;
         itemsRejected.push(item);

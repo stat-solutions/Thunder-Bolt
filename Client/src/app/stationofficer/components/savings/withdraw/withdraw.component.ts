@@ -167,7 +167,7 @@ export class WithdrawComponent implements OnInit {
           productCode: 100,
           theStationLocationId: this.User.userLocationId
         };
-        this.others.putTxnCustomer(data).subscribe(
+        this.others.putTxnCustomerApproval(data).subscribe(
           res => {
             if (res){
               this.posted = true;

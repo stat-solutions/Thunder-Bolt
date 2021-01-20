@@ -9,6 +9,7 @@ import { map, tap, catchError, mapTo } from 'rxjs/operators';
 import { UserRole } from '../models/user-role';
 import { RegisterUser } from '../models/register';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { OthersService } from './other-services/others.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,13 @@ export class AuthServiceService {
         'Content-Type': 'application/json'
       })
     };
-
-    constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService) { }
+    stations: any;
+    constructor(
+      private http: HttpClient,
+      private router: Router,
+      private jwtHelper: JwtHelperService,
+      private others: OthersService,
+      ) { }
 
     loginNormalUser(postData: any): any {
       return this.http.post<any>(`${this.API_URL}/api/user/loginUser`, postData, this.httpOptions)
@@ -121,6 +127,7 @@ export class AuthServiceService {
         userId: xn.userId,
         userPhone: xn.userPhone1,
         userLocationId: xn.locationId,
+        userlocationName: locationName,
         accessRights: xn.fkAccessRightsIdUser,
       };
     }

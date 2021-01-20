@@ -1,6 +1,11 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertService } from 'ngx-alerts';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 export interface clientInfo {
   clientId: number;
@@ -26,11 +31,21 @@ export class AreasComponent implements OnInit {
   clients: clientInfo;
   user = '/../../../assets/img/man.svg';
 
-  constructor(private fb: FormBuilder,
-    private modalService: BsModalService
+  constructor(
+    private modalService: BsModalService,
+    private authService: AuthServiceService,
+    private others: OthersService,
+    private router: Router,
+    private spinner: NgxSpinnerService,
+    private alertService: AlertService,
+    private fb: FormBuilder
     ) { }
 
   ngOnInit(): void {
+    this.others.getAllLoans().subscribe(
+      res => console.log(res),
+      err => console.log(err)
+    );
   }
 
   createFormGroup () {

@@ -409,8 +409,20 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.putTxnCustomerApproval = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/postTxnCustomerApproval", postData, this.httpOptions);
     };
+    OthersService.prototype.getTxnsForApproval = function () {
+        return this.http.get(this.API_URL + "/api/loan/getTxnsForApproval");
+    };
+    OthersService.prototype.postApproveTxns = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postApproveTxns", postData, this.httpOptions);
+    };
+    OthersService.prototype.postRejectTxns = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postRejectTxns", postData, this.httpOptions);
+    };
     OthersService.prototype.putTxnNoneCustomer = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/postTxnNonCustomer", postData, this.httpOptions);
+    };
+    OthersService.prototype.postTxnNonCustomerApproval = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postTxnNonCustomerApproval", postData, this.httpOptions);
     };
     OthersService.prototype.postSetStationLoanLimit = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/postSetStationLoanLimit", postData, this.httpOptions);

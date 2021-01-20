@@ -33,7 +33,7 @@ import { SetLoanLimitComponent } from './components/transactions/loans/set-loan-
 import { SetLoanRateComponent } from './components/transactions/loans/set-loan-rate/set-loan-rate.component';
 import { DepositFloatComponent } from './components/transactions/float/deposit-float/deposit-float.component';
 import { WithdrawFloatComponent } from './components/transactions/float/withdraw-float/withdraw-float.component';
-import { ReduceRateComponent } from './components/transactions/approval/reduce-rate/reduce-rate.component';
+import { ReverseInterestComponent } from './components/transactions/approval/reduce-rate/reverse-interest.component';
 import { ReversePrincipleComponent } from './components/transactions/approval/reverse-principle/reverse-principle.component';
 import { InterestRateComponent } from './components/transactions/approval/interest-rate/interest-rate.component';
 import { WithdrawSavingsComponent } from './components/transactions/approval/withdraw-savings/withdraw-savings.component';
@@ -59,7 +59,6 @@ import { SetLoanCommissionComponent } from './components/transactions/loans/set-
 import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan-accrual/set-loan-accrual.component';
 import { MicroLoanComponent } from './components/transactions/approval/micro-loan/micro-loan.component';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
-import { LoanCommissionRateComponent } from './components/transactions/approval/loan-commission-rate/loan-commission-rate.component';
 import { LoanAccrualDaysComponent } from './components/transactions/approval/loan-accrual-days/loan-accrual-days.component';
 
 @NgModule({
@@ -95,7 +94,7 @@ import { LoanAccrualDaysComponent } from './components/transactions/approval/loa
     MicroLoanComponent,
     DepositFloatComponent,
     WithdrawFloatComponent,
-    ReduceRateComponent,
+    ReverseInterestComponent,
     ReversePrincipleComponent,
     InterestRateComponent,
     WithdrawSavingsComponent,
@@ -111,7 +110,6 @@ import { LoanAccrualDaysComponent } from './components/transactions/approval/loa
     StationManagersComponent,
     SetLoanTenureComponent,
     LoanTenureComponent,
-    LoanCommissionRateComponent,
     LoanAccrualDaysComponent,
   ],
   imports: [

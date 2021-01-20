@@ -387,8 +387,20 @@ export class OthersService {
     putTxnCustomerApproval(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postTxnCustomerApproval`, postData, this.httpOptions);
     }
+    getTxnsForApproval(): any{
+      return this.http.get<any>(`${this.API_URL}/api/loan/getTxnsForApproval`);
+    }
+    postApproveTxns(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postApproveTxns`, postData, this.httpOptions);
+    }
+    postRejectTxns(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postRejectTxns`, postData, this.httpOptions);
+    }
     putTxnNoneCustomer(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postTxnNonCustomer`, postData, this.httpOptions);
+    }
+    postTxnNonCustomerApproval(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postTxnNonCustomerApproval`, postData, this.httpOptions);
     }
     postSetStationLoanLimit(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postSetStationLoanLimit`, postData, this.httpOptions);
@@ -484,54 +496,54 @@ export class OthersService {
       return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );
     }
     waiveInterest(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/waiveInterest`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/waiveInterest`, postData );
     }
     getWaivedInterestsForApproval(): any {
-      return this.http.get(`${this.API_URL}/api/customer/getWaivedInterestsForApproval`);
+      return this.http.get(`${this.API_URL}/api/loan/getWaivedInterestsForApproval`);
     }
     postApproveWaivedInterest(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/postApproveWaivedInterest`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/postApproveWaivedInterest`, postData );
     }
     postRejectWaivedInterest(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/putSetIndividualLoanLimit`, postData );
     }
     waivePrincimpal(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/waivePrincimpal`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/waivePrincimpal`, postData );
     }
     getWaivedPrincipalForApproval(): any {
-      return this.http.get(`${this.API_URL}/api/customer/getWaivedPrincipalForApproval`);
+      return this.http.get(`${this.API_URL}/api/loan/getWaivedPrincipalForApproval`);
     }
     postApproveWaivedPrincipal(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/postApproveWaivedPrincipal`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/postApproveWaivedPrincipal`, postData );
     }
     postRejectWaivedPrincipal(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/postRejectWaivedPrincipal`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/postRejectWaivedPrincipal`, postData );
     }
     reverseInterest(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/ReverseInterest`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/ReverseInterest`, postData );
     }
     getReversedInterestsForApproval(): any {
-      return this.http.get(`${this.API_URL}/api/customer/getReversedInterestsForApproval`);
+      return this.http.get(`${this.API_URL}/api/loan/getReversedInterestsForApproval`);
     }
     postApproveReverseInterest(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/postApproveReverseInterest`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/postApproveReverseInterest`, postData );
     }
     postRejectReverseInterest(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/postRejectReverseInterest`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/postRejectReverseInterest`, postData );
     }
     reversePrincimpal(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/reversePrincimpal`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/reversePrincimpal`, postData );
     }
     getReversedPrincipalForApproval(): any {
-      return this.http.get(`${this.API_URL}/api/customer/getReversedPrincipalForApproval`);
+      return this.http.get(`${this.API_URL}/api/loan/getReversedPrincipalForApproval`);
     }
     postApproveReversePrincipal(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/postApproveReversePrincipal`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/postApproveReversePrincipal`, postData );
     }
     postRejectReversePrincipal(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/postRejectReversePrincipal`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/postRejectReversePrincipal`, postData );
     }
-    getAllLoans(postData: any): any {
+    getAllLoans(): any {
       return this.http.get(`${this.API_URL}/api/reports/getAllLoans`);
     }
     getAllLoansByRegion(id: any): any {
@@ -543,8 +555,17 @@ export class OthersService {
     getAllLoansByStation(id: any): any {
       return this.http.get(`${this.API_URL}api/reports/getAllLoansByStation?theStationLocationId=${id}`);
     }
-    getAllClients(postData: any): any {
+    getAllClients(): any {
       return this.http.get(`${this.API_URL}/api/reports/getAllClients`);
+    }
+    getCashLedgerArea(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/reports/getCashLedgerArea`, postData);
+    }
+    getCashLedgerTown(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/reports/getCashLedgerTown`, postData);
+    }
+    getCashLedgerStation(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/reports/getCashLedgerStation`, postData);
     }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 

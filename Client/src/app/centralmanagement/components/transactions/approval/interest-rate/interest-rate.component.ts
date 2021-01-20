@@ -5,15 +5,10 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
+
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
-export interface IntRateApprovals {
-  station: string;
-  client: string;
-  rate: number;
-  status: number;
-}
 
 @Component({
   selector: 'app-interest-rate',
@@ -22,16 +17,7 @@ export interface IntRateApprovals {
 })
 export class InterestRateComponent implements OnInit {
   userForm: FormGroup;
-  ratesApprovals: IntRateApprovals[] = [
-    { station: 'nsambya', client: 'Kasule Joseph', rate: 5, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
-    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
-    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
-    { station: 'bwayise', client: 'Kasule Jose', rate: 2, status: 0 },
-  ];
+  ratesApprovals: any;
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -42,6 +28,7 @@ export class InterestRateComponent implements OnInit {
   theCompany: string;
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
@@ -67,7 +54,6 @@ export class InterestRateComponent implements OnInit {
     });
   }
   addItem(): any {
-    // this.unitForm.controls.bussinessUnits  as FormArray
     (this.fval.approveRates as FormArray).push(this.rateApproval);
   }
 
@@ -76,24 +62,25 @@ export class InterestRateComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    //   units => {
-    //     this.approvals = units;
-    this.ratesApprovals.forEach((item, i) => {
-      // console.log(item.name);
-      // console.log(i);
-      this.fval.approveRates.controls[i].controls.station.setValue(
-        item.station
-      );
-      this.fval.approveRates.controls[i].controls.client.setValue(item.client);
-      this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
-      this.fval.approveRates.controls[i].controls.approved.setValue(false);
-      this.addItem();
-      n = i + 1;
-    });
-    this.removeItem(n);
-    // }
-    // )
+    this.others.getIdividualLoanInterestRate().subscribe(
+      res => {
+        this.ratesApprovals = res;
+        // this.ratesApprovals.forEach((item, i) => {
+        //   this.fval.approveRates.controls[i].controls.station.setValue(item.station);
+        //   for (const customer of this.customers){
+        //     if (customer.customerId === details[0].customerId) {
+        //       this.fval.approveRates.controls[i].controls.client.setValue(customer.customerName);
+        //     }
+        //   }
+        //   this.fval.approveRates.controls[i].controls.client.setValue(item.client);
+        //   this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
+        //   this.fval.approveRates.controls[i].controls.approved.setValue(false);
+        //   this.addItem();
+        //   n = i + 1;
+        // });
+        this.removeItem(n);
+      }
+    );
   }
   checkAllItems(val: boolean): any {
     if (val === true) {

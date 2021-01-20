@@ -1,43 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 // import * as jwt_decode from 'jwt-decode';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder,
-  FormArray,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
-export interface IntRateApprovals {
-  station: string;
-  client: string;
-  rate: number;
-  status: number;
-}
-
 @Component({
-  selector: 'app-loan-commission-rate',
-  templateUrl: './loan-commission-rate.component.html',
-  styleUrls: ['./loan-commission-rate.component.scss'],
+  selector: 'app-reverse-interest',
+  templateUrl: './reverse-interest.component.html',
+  styleUrls: ['./reverse-interest.component.scss'],
 })
-export class LoanCommissionRateComponent implements OnInit {
+export class ReverseInterestComponent implements OnInit {
   userForm: FormGroup;
-  ratesApprovals: IntRateApprovals[] = [
-    { station: 'nsambya', client: 'Kasule Joseph', rate: 5, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
-    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', rate: 8, status: 0 },
-    { station: 'ndeeba', client: 'kasozi med', rate: 3, status: 0 },
-    { station: 'kibuye', client: 'Kasule Joseph', rate: 4, status: 0 },
-    { station: 'bwayise', client: 'Kasule Jose', rate: 2, status: 0 },
-  ];
+  ratesApprovals:any;
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -48,19 +27,20 @@ export class LoanCommissionRateComponent implements OnInit {
   theCompany: string;
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-  ngOnInit(): any {
+  ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
   }
   createFormGroup(): any {
     return this.fb.group({
-      approveRates: this.fb.array([this.rateApproval]),
+      approveReduceRates: this.fb.array([this.rateApproval]),
       selectAll: this.fb.control({}),
     });
   }
@@ -74,47 +54,54 @@ export class LoanCommissionRateComponent implements OnInit {
   }
   addItem(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.approveRates as FormArray).push(this.rateApproval);
+    (this.fval.approveReduceRates as FormArray).push(this.rateApproval);
   }
 
   removeItem(index: number): any {
-    (this.fval.approveRates as FormArray).removeAt(index);
+    (this.fval.approveReduceRates as FormArray).removeAt(index);
   }
   initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    //   units => {
-    //     this.approvals = units;
-    this.ratesApprovals.forEach((item, i) => {
-      // console.log(item.name);
-      // console.log(i);
-      this.fval.approveRates.controls[i].controls.station.setValue(
-        item.station
-      );
-      this.fval.approveRates.controls[i].controls.client.setValue(item.client);
-      this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
-      this.fval.approveRates.controls[i].controls.approved.setValue(false);
-      this.addItem();
-      n = i + 1;
-    });
-    this.removeItem(n);
-    // }
-    // )
+    this.others.getReversedInterestsForApproval().subscribe(
+      res => {
+        this.ratesApprovals = res;
+        this.ratesApprovals.forEach((item, i) => {
+          this.fval.approveReduceRates.controls[i].controls.station.setValue(
+            item.station
+          );
+          this.fval.approveReduceRates.controls[i].controls.client.setValue(
+            item.client
+          );
+          this.fval.approveReduceRates.controls[i].controls.rate.setValue(
+            item.rate
+          );
+          this.fval.approveReduceRates.controls[i].controls.approved.setValue(
+            false
+          );
+          this.addItem();
+          n = i + 1;
+        });
+        this.removeItem(n);
+        }
+    );
   }
   checkAllItems(val: boolean): any {
-    if (val === true) {
+    if (val == true) {
       this.ratesApprovals.forEach((item, i) => {
-        this.fval.approveRates.controls[i].controls.approved.setValue(val);
+        this.fval.approveReduceRates.controls[i].controls.approved.setValue(val);
       });
     } else {
       this.ratesApprovals.forEach((item, i) => {
-        this.fval.approveRates.controls[i].controls.approved.setValue(false);
+        this.fval.approveReduceRates.controls[i].controls.approved.setValue(false);
       });
     }
   }
   deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-    if (this.fval.approveRates.controls[val].controls.approved.value === true) {
+    if (
+      this.fval.approveReduceRates.controls[val].controls.approved
+        .value === true
+    ) {
       this.fval.selectAll.setValue(false);
     }
   }
@@ -141,7 +128,10 @@ export class LoanCommissionRateComponent implements OnInit {
   approveItems(): any {
     const itemsApproved = [];
     this.ratesApprovals.forEach((item, i) => {
-      if (this.fval.approveRates.controls[i].controls.approved.value === true) {
+      if (
+        this.fval.approveReduceRates.controls[i].controls.approved
+          .value == true
+      ) {
         item.status = 2;
         itemsApproved.push(item);
       }
@@ -160,7 +150,10 @@ export class LoanCommissionRateComponent implements OnInit {
   rejectItems(): any {
     const itemsRejected = [];
     this.ratesApprovals.forEach((item, i) => {
-      if (this.fval.approveRates.controls[i].controls.approved.value === true) {
+      if (
+        this.fval.approveReduceRates.controls[i].controls.approved
+          .value == true
+      ) {
         item.status = 1;
         itemsRejected.push(item);
       }
@@ -176,3 +169,4 @@ export class LoanCommissionRateComponent implements OnInit {
     }
   }
 }
+

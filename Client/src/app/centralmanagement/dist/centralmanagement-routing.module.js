@@ -34,7 +34,7 @@ var deposit_float_component_1 = require("./components/transactions/float/deposit
 var withdraw_float_component_1 = require("./components/transactions/float/withdraw-float/withdraw-float.component");
 var interest_rate_component_1 = require("./components/transactions/approval/interest-rate/interest-rate.component");
 var loan_limit_component_1 = require("./components/transactions/approval/loan-limit/loan-limit.component");
-var reduce_rate_component_1 = require("./components/transactions/approval/reduce-rate/reduce-rate.component");
+var reverse_interest_component_1 = require("./components/transactions/approval/reduce-rate/reverse-interest.component");
 var reverse_principle_component_1 = require("./components/transactions/approval/reverse-principle/reverse-principle.component");
 var waive_interest_component_1 = require("./components/transactions/approval/waive-interest/waive-interest.component");
 var withdraw_savings_component_1 = require("./components/transactions/approval/withdraw-savings/withdraw-savings.component");
@@ -51,6 +51,8 @@ var loan_tenure_component_1 = require("./components/transactions/approval/loan-t
 var set_loan_commision_component_1 = require("./components/transactions/loans/set-loan-commision/set-loan-commision.component");
 var set_loan_accrual_component_1 = require("./components/transactions/loans/set-loan-accrual/set-loan-accrual.component");
 var micro_loan_component_1 = require("./components/transactions/approval/micro-loan/micro-loan.component");
+var loan_accrual_days_component_1 = require("./components/transactions/approval/loan-accrual-days/loan-accrual-days.component");
+var loan_commission_rate_component_1 = require("./components/transactions/approval/loan-commission-rate/loan-commission-rate.component");
 var routes = [
     {
         path: '',
@@ -167,11 +169,11 @@ var routes = [
                                 component: micro_loan_component_1.MicroLoanComponent
                             },
                             {
-                                path: 'reducerate',
-                                component: reduce_rate_component_1.ReduceRateComponent
+                                path: 'reverseinterest',
+                                component: reverse_interest_component_1.ReverseInterestComponent
                             },
                             {
-                                path: 'reverseprinciple',
+                                path: 'reverseprincipal',
                                 component: reverse_principle_component_1.ReversePrincipleComponent
                             },
                             {
@@ -189,6 +191,14 @@ var routes = [
                             {
                                 path: 'writeoff',
                                 component: write_off_component_1.WriteOffComponent
+                            },
+                            {
+                                path: 'loanaccrualdays',
+                                component: loan_accrual_days_component_1.LoanAccrualDaysComponent
+                            },
+                            {
+                                path: 'loancommissionrate',
+                                component: loan_commission_rate_component_1.LoanCommissionRateComponent
                             },
                             {
                                 path: 'loanlimit',

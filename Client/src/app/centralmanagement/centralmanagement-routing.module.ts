@@ -25,7 +25,7 @@ import { DepositFloatComponent } from './components/transactions/float/deposit-f
 import { WithdrawFloatComponent } from './components/transactions/float/withdraw-float/withdraw-float.component';
 import { InterestRateComponent } from './components/transactions/approval/interest-rate/interest-rate.component';
 import { LoanLimitComponent } from './components/transactions/approval/loan-limit/loan-limit.component';
-import { ReduceRateComponent } from './components/transactions/approval/reduce-rate/reduce-rate.component';
+import { ReverseInterestComponent } from './components/transactions/approval/reduce-rate/reverse-interest.component';
 import { ReversePrincipleComponent } from './components/transactions/approval/reverse-principle/reverse-principle.component';
 import { WaiveInterestComponent } from './components/transactions/approval/waive-interest/waive-interest.component';
 import { WithdrawSavingsComponent } from './components/transactions/approval/withdraw-savings/withdraw-savings.component';
@@ -43,7 +43,6 @@ import { SetLoanCommissionComponent } from './components/transactions/loans/set-
 import { SetLoanAcrualComponent } from './components/transactions/loans/set-loan-accrual/set-loan-accrual.component';
 import { MicroLoanComponent } from './components/transactions/approval/micro-loan/micro-loan.component';
 import { LoanAccrualDaysComponent } from './components/transactions/approval/loan-accrual-days/loan-accrual-days.component';
-import { LoanCommissionRateComponent } from './components/transactions/approval/loan-commission-rate/loan-commission-rate.component';
 
 const routes: Routes = [
   {
@@ -161,11 +160,11 @@ const routes: Routes = [
                 component: MicroLoanComponent,
               },
               {
-                path: 'reducerate',
-                component: ReduceRateComponent,
+                path: 'reverseinterest',
+                component: ReverseInterestComponent,
               },
               {
-                path: 'reverse',
+                path: 'reverseprincipal',
                 component: ReversePrincipleComponent,
               },
               {
@@ -187,10 +186,6 @@ const routes: Routes = [
               {
                 path: 'loanaccrualdays',
                 component: LoanAccrualDaysComponent,
-              },
-              {
-                path: 'loancommissionrate',
-                component: LoanCommissionRateComponent,
               },
               {
                 path: 'loanlimit',

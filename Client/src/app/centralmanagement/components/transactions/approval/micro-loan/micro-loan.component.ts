@@ -14,6 +14,7 @@ import { AlertService } from 'ngx-alerts';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
+
 @Component({
   selector: 'app-micro-loan',
   templateUrl: './micro-loan.component.html',

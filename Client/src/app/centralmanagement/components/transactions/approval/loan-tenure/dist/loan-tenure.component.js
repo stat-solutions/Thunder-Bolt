@@ -6,12 +6,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.InterestRateComponent = void 0;
+exports.LoanTenureComponent = void 0;
 var core_1 = require("@angular/core");
 // import { BsModalService } from 'ngx-bootstrap/modal';
 // import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-var InterestRateComponent = /** @class */ (function () {
-    function InterestRateComponent(authService, others, router, spinner, alertService, fb) {
+var LoanTenureComponent = /** @class */ (function () {
+    function LoanTenureComponent(authService, others, router, spinner, alertService, fb) {
         this.authService = authService;
         this.others = others;
         this.router = router;
@@ -20,18 +20,18 @@ var InterestRateComponent = /** @class */ (function () {
         this.fb = fb;
         this.posted = false;
     }
-    InterestRateComponent.prototype.ngOnInit = function () {
+    LoanTenureComponent.prototype.ngOnInit = function () {
         this.userForm = this.createFormGroup();
         this.fval.selectAll.setValue(false);
         this.initialiseForm();
     };
-    InterestRateComponent.prototype.createFormGroup = function () {
+    LoanTenureComponent.prototype.createFormGroup = function () {
         return this.fb.group({
             approveRates: this.fb.array([this.rateApproval]),
             selectAll: this.fb.control({})
         });
     };
-    Object.defineProperty(InterestRateComponent.prototype, "rateApproval", {
+    Object.defineProperty(LoanTenureComponent.prototype, "rateApproval", {
         get: function () {
             return this.fb.group({
                 station: this.fb.control({ value: '' }),
@@ -43,34 +43,32 @@ var InterestRateComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    InterestRateComponent.prototype.addItem = function () {
+    LoanTenureComponent.prototype.addItem = function () {
+        // this.unitForm.controls.bussinessUnits  as FormArray
         this.fval.approveRates.push(this.rateApproval);
     };
-    InterestRateComponent.prototype.removeItem = function (index) {
+    LoanTenureComponent.prototype.removeItem = function (index) {
         this.fval.approveRates.removeAt(index);
     };
-    InterestRateComponent.prototype.initialiseForm = function () {
+    LoanTenureComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.others.getIdividualLoanInterestRate().subscribe(function (res) {
+        this.others.getIndividualLoanTenure().subscribe(function (res) {
             _this.ratesApprovals = res;
-            // this.ratesApprovals.forEach((item, i) => {
-            //   this.fval.approveRates.controls[i].controls.station.setValue(item.station);
-            //   for (const customer of this.customers){
-            //     if (customer.customerId === details[0].customerId) {
-            //       this.fval.approveRates.controls[i].controls.client.setValue(customer.customerName);
-            //     }
-            //   }
-            //   this.fval.approveRates.controls[i].controls.client.setValue(item.client);
-            //   this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
-            //   this.fval.approveRates.controls[i].controls.approved.setValue(false);
-            //   this.addItem();
-            //   n = i + 1;
-            // });
+            _this.ratesApprovals.forEach(function (item, i) {
+                // console.log(item.name);
+                // console.log(i);
+                _this.fval.approveRates.controls[i].controls.station.setValue(item.station);
+                _this.fval.approveRates.controls[i].controls.client.setValue(item.client);
+                _this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
+                _this.fval.approveRates.controls[i].controls.approved.setValue(false);
+                _this.addItem();
+                n = i + 1;
+            });
             _this.removeItem(n);
         });
     };
-    InterestRateComponent.prototype.checkAllItems = function (val) {
+    LoanTenureComponent.prototype.checkAllItems = function (val) {
         var _this = this;
         if (val === true) {
             this.ratesApprovals.forEach(function (item, i) {
@@ -83,32 +81,32 @@ var InterestRateComponent = /** @class */ (function () {
             });
         }
     };
-    InterestRateComponent.prototype.deselectAll = function (val) {
+    LoanTenureComponent.prototype.deselectAll = function (val) {
         // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
         if (this.fval.approveRates.controls[val].controls.approved.value === true) {
             this.fval.selectAll.setValue(false);
         }
     };
-    InterestRateComponent.prototype.revert = function () {
+    LoanTenureComponent.prototype.revert = function () {
         this.userForm.reset();
     };
-    InterestRateComponent.prototype.refresh = function () {
+    LoanTenureComponent.prototype.refresh = function () {
         location.reload();
     };
-    Object.defineProperty(InterestRateComponent.prototype, "fval", {
+    Object.defineProperty(LoanTenureComponent.prototype, "fval", {
         get: function () {
             return this.userForm.controls;
         },
         enumerable: false,
         configurable: true
     });
-    InterestRateComponent.prototype.disableForm = function () {
+    LoanTenureComponent.prototype.disableForm = function () {
         return this.userForm.disable();
     };
-    InterestRateComponent.prototype.enableEdit = function () {
+    LoanTenureComponent.prototype.enableEdit = function () {
         return this.userForm.enable();
     };
-    InterestRateComponent.prototype.approveItems = function () {
+    LoanTenureComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
         this.ratesApprovals.forEach(function (item, i) {
@@ -128,7 +126,7 @@ var InterestRateComponent = /** @class */ (function () {
             return;
         }
     };
-    InterestRateComponent.prototype.rejectItems = function () {
+    LoanTenureComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
         this.ratesApprovals.forEach(function (item, i) {
@@ -148,13 +146,13 @@ var InterestRateComponent = /** @class */ (function () {
             return;
         }
     };
-    InterestRateComponent = __decorate([
+    LoanTenureComponent = __decorate([
         core_1.Component({
-            selector: 'app-interest-rate',
-            templateUrl: './interest-rate.component.html',
-            styleUrls: ['./interest-rate.component.scss']
+            selector: 'app-loan-tenure',
+            templateUrl: './loan-tenure.component.html',
+            styleUrls: ['./loan-tenure.component.scss']
         })
-    ], InterestRateComponent);
-    return InterestRateComponent;
+    ], LoanTenureComponent);
+    return LoanTenureComponent;
 }());
-exports.InterestRateComponent = InterestRateComponent;
+exports.LoanTenureComponent = LoanTenureComponent;
