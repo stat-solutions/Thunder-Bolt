@@ -1,12 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
-import { CustomValidator } from 'src/app/validators/custom-validator';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
