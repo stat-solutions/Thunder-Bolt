@@ -9,7 +9,7 @@ import { CustomValidator } from 'src/app/validators/custom-validator';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
-  selector: 'app-set-loan-tenure',
+  selector: 'app-set-loan-accrual',
   templateUrl: './set-loan-accrual.component.html',
   styleUrls: ['./set-loan-accrual.component.scss'],
 })
@@ -103,7 +103,7 @@ export class SetLoanAcrualComponent implements OnInit {
       if (data.theStationLocationId === null){
         this.errored = true;
         this.alertService.danger({
-         html: '<b> The station chose do not exist</b>'
+         html: '<b> The station chosen does not exist</b>'
         });
        //  this.errored = false;
         return;
@@ -120,7 +120,7 @@ export class SetLoanAcrualComponent implements OnInit {
             this.errored = true;
             if (err.error.status === 500) {
               this.alertService.danger({
-                html: '<b> Sever Could Not handle this request</b>'
+                html: '<b> Server Could Not handle this request</b>'
               });
             } else {
               this.alertService.danger({
@@ -133,7 +133,7 @@ export class SetLoanAcrualComponent implements OnInit {
     } else {
         this.errored = true;
         this.alertService.danger({
-          html: '<b> the provided form details are invalid </b>'
+          html: '<b> The provided form details are invalid </b>'
         });
       }
     }

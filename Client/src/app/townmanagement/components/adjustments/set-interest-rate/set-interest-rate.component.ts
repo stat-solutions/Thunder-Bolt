@@ -258,6 +258,7 @@ export class SetInterestRateComponent implements OnInit {
     return this.userForm.controls;
   }
 
+//modal
   public openModal(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(
       template,

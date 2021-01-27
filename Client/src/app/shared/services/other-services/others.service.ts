@@ -547,13 +547,13 @@ export class OthersService {
       return this.http.get(`${this.API_URL}/api/reports/getAllLoans`);
     }
     getAllLoansByRegion(id: any): any {
-      return this.http.get(`${this.API_URL}api/reports/getAllLoansByRegion?theAreaLocationId=${id}`);
+      return this.http.get(`${this.API_URL}/api/reports/getAllLoansByRegion?theAreaLocationId=${id}`);
     }
     getAllLoansByTown(id: any): any {
-      return this.http.get(`${this.API_URL}api/reports/getAllLoansByTown?theTownLocationId=${id}`);
+      return this.http.get(`${this.API_URL}/api/reports/getAllLoansByTown?theTownLocationId=${id}`);
     }
     getAllLoansByStation(id: any): any {
-      return this.http.get(`${this.API_URL}api/reports/getAllLoansByStation?theStationLocationId=${id}`);
+      return this.http.get(`${this.API_URL}/api/reports/getAllLoansByStation?theStationLocationId=${id}`);
     }
     getAllClients(): any {
       return this.http.get(`${this.API_URL}/api/reports/getAllClients`);

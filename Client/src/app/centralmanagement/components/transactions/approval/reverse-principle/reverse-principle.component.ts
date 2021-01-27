@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
-// import { BsModalService } from 'ngx-bootstrap/modal';
-// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-reverse-principle',
@@ -15,6 +15,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
   styleUrls: ['./reverse-principle.component.scss'],
 })
 export class ReversePrincipleComponent implements OnInit {
+  modalRef: BsModalRef;
   userForm: FormGroup;
   reverseApprovals: any;
   posted = false;
@@ -30,7 +31,8 @@ export class ReversePrincipleComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: BsModalService
   ) {}
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
@@ -61,51 +63,42 @@ export class ReversePrincipleComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getReversedPrincipalForApproval().subscribe(
-      res => {
-        this.reverseApprovals = res;
-        this.reverseApprovals.forEach((item, i) => {
-          // console.log(item.name);
-          // console.log(i);
-          this.fval.approveReverse.controls[i].controls.station.setValue(
-            item.station
-          );
-          this.fval.approveReverse.controls[i].controls.client.setValue(
-            item.client
-          );
-          this.fval.approveReverse.controls[i].controls.ammount.setValue(
-            item.ammount
-          );
-          this.fval.approveReverse.controls[i].controls.approved.setValue(
-            false
-          );
-          this.addItem();
-          n = i + 1;
-        });
-        this.removeItem(n);
-      }
-    );
+    this.others.getReversedPrincipalForApproval().subscribe((res) => {
+      this.reverseApprovals = res;
+      this.reverseApprovals.forEach((item, i) => {
+        // console.log(item.name);
+        // console.log(i);
+        this.fval.approveReverse.controls[i].controls.station.setValue(
+          item.station
+        );
+        this.fval.approveReverse.controls[i].controls.client.setValue(
+          item.client
+        );
+        this.fval.approveReverse.controls[i].controls.ammount.setValue(
+          item.ammount
+        );
+        this.fval.approveReverse.controls[i].controls.approved.setValue(false);
+        this.addItem();
+        n = i + 1;
+      });
+      this.removeItem(n);
+    });
   }
   checkAllItems(val: boolean): any {
     if (val === true) {
       this.reverseApprovals.forEach((item, i) => {
-        this.fval.approveReverse.controls[i].controls.approved.setValue(
-          val
-        );
+        this.fval.approveReverse.controls[i].controls.approved.setValue(val);
       });
     } else {
       this.reverseApprovals.forEach((item, i) => {
-        this.fval.approveReverse.controls[i].controls.approved.setValue(
-          false
-        );
+        this.fval.approveReverse.controls[i].controls.approved.setValue(false);
       });
     }
   }
   deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
     if (
-      this.fval.approveReverse.controls[val].controls.approved.value ==
-      true
+      this.fval.approveReverse.controls[val].controls.approved.value == true
     ) {
       this.fval.selectAll.setValue(false);
     }
@@ -134,8 +127,7 @@ export class ReversePrincipleComponent implements OnInit {
     const itemsApproved = [];
     this.reverseApprovals.forEach((item, i) => {
       if (
-        this.fval.approveReverse.controls[i].controls.approved.value ==
-        true
+        this.fval.approveReverse.controls[i].controls.approved.value == true
       ) {
         item.status = 2;
         itemsApproved.push(item);
@@ -156,8 +148,7 @@ export class ReversePrincipleComponent implements OnInit {
     const itemsRejected = [];
     this.reverseApprovals.forEach((item, i) => {
       if (
-        this.fval.approveReverse.controls[i].controls.approved.value ==
-        true
+        this.fval.approveReverse.controls[i].controls.approved.value == true
       ) {
         item.status = 1;
         itemsRejected.push(item);

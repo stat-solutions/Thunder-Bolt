@@ -42,6 +42,22 @@
 .list-card-body {
   width: 100%;
 }
+    .client-modal .card-body {
+      margin-bottom: 0rem !important;
+    }
+.list-card-1 {
+  height: auto !important;
+  font-size: .8em;
+  border-left: 3px solid #adabab
+}
+.list-card-1:hover {
+  border-left: 3px solid #17aae0
+}
+.list-card-body-1 {
+  width: 100%;
+      margin-bottom: 0rem !important;
+}
+
 .form-control {
     height: calc(.8em + .75rem + 2px);
 }

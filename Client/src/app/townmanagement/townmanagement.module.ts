@@ -52,6 +52,8 @@ import { ReversePrincipalComponent } from './components/adjustments/reverse-prin
 import { ReverseInterestComponent } from './components/adjustments/reverse-interest/reverse-interest.component';
 import { LoanTenureComponent } from './components/adjustments/loan-tenure/loan-tenure.component';
 import { AccrualDaysComponent } from './components/adjustments/accrual-days/accrual-days.component';
+import { LoanAmortizeTypeComponent } from './components/adjustments/loan-amortize-type/loan-amortize-type.component';
+import { LoanAmortizeCycleComponent } from './components/adjustments/loan-amortize-cycle/loan-amortize-cycle.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +98,8 @@ import { AccrualDaysComponent } from './components/adjustments/accrual-days/accr
     LoanTenureComponent,
     AccrualDaysComponent,
     ReverseInterestComponent,
+    LoanAmortizeTypeComponent,
+    LoanAmortizeCycleComponent,
   ],
   imports: [
     CommonModule,

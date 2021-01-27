@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 // import * as jwt_decode from 'jwt-decode';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
@@ -6,9 +6,8 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
-
-// import { BsModalService } from 'ngx-bootstrap/modal';
-// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-interest-rate',
@@ -16,6 +15,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
   styleUrls: ['./interest-rate.component.scss'],
 })
 export class InterestRateComponent implements OnInit {
+  modalRef: BsModalRef;
   userForm: FormGroup;
   ratesApprovals: any;
   posted = false;
@@ -32,7 +32,8 @@ export class InterestRateComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: BsModalService
   ) {}
   ngOnInit(): any {
     this.userForm = this.createFormGroup();
@@ -62,25 +63,23 @@ export class InterestRateComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getIdividualLoanInterestRate().subscribe(
-      res => {
-        this.ratesApprovals = res;
-        // this.ratesApprovals.forEach((item, i) => {
-        //   this.fval.approveRates.controls[i].controls.station.setValue(item.station);
-        //   for (const customer of this.customers){
-        //     if (customer.customerId === details[0].customerId) {
-        //       this.fval.approveRates.controls[i].controls.client.setValue(customer.customerName);
-        //     }
-        //   }
-        //   this.fval.approveRates.controls[i].controls.client.setValue(item.client);
-        //   this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
-        //   this.fval.approveRates.controls[i].controls.approved.setValue(false);
-        //   this.addItem();
-        //   n = i + 1;
-        // });
-        this.removeItem(n);
-      }
-    );
+    this.others.getIdividualLoanInterestRate().subscribe((res) => {
+      this.ratesApprovals = res;
+      // this.ratesApprovals.forEach((item, i) => {
+      //   this.fval.approveRates.controls[i].controls.station.setValue(item.station);
+      //   for (const customer of this.customers){
+      //     if (customer.customerId === details[0].customerId) {
+      //       this.fval.approveRates.controls[i].controls.client.setValue(customer.customerName);
+      //     }
+      //   }
+      //   this.fval.approveRates.controls[i].controls.client.setValue(item.client);
+      //   this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
+      //   this.fval.approveRates.controls[i].controls.approved.setValue(false);
+      //   this.addItem();
+      //   n = i + 1;
+      // });
+      this.removeItem(n);
+    });
   }
   checkAllItems(val: boolean): any {
     if (val === true) {
@@ -101,6 +100,14 @@ export class InterestRateComponent implements OnInit {
   }
   revert(): any {
     this.userForm.reset();
+  }
+
+  //modal
+  public openModal(template: TemplateRef<any>): any {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
+    );
   }
 
   refresh(): any {

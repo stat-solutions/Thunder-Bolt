@@ -253,6 +253,7 @@ export class LoanTenureComponent implements OnInit {
     return this.userForm.controls;
   }
 
+//modal method
   public openModal(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(
       template,

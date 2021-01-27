@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 // import * as jwt_decode from 'jwt-decode';
 import {
   FormGroup,
@@ -12,9 +12,8 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
-
-// import { BsModalService } from 'ngx-bootstrap/modal';
-// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-loan-tenure',
@@ -22,6 +21,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
   styleUrls: ['./loan-tenure.component.scss'],
 })
 export class LoanTenureComponent implements OnInit {
+  modalRef: BsModalRef;
   userForm: FormGroup;
   ratesApprovals: any;
   posted = false;
@@ -38,7 +38,8 @@ export class LoanTenureComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: BsModalService
   ) {}
   ngOnInit(): any {
     this.userForm = this.createFormGroup();
@@ -69,24 +70,24 @@ export class LoanTenureComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getIndividualLoanTenure().subscribe(
-      res => {
-        this.ratesApprovals = res;
-        this.ratesApprovals.forEach((item, i) => {
-          // console.log(item.name);
-          // console.log(i);
-          this.fval.approveRates.controls[i].controls.station.setValue(
-            item.station
-          );
-          this.fval.approveRates.controls[i].controls.client.setValue(item.client);
-          this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
-          this.fval.approveRates.controls[i].controls.approved.setValue(false);
-          this.addItem();
-          n = i + 1;
-        });
-        this.removeItem(n);
-      }
-    );
+    this.others.getIndividualLoanTenure().subscribe((res) => {
+      this.ratesApprovals = res;
+      this.ratesApprovals.forEach((item, i) => {
+        // console.log(item.name);
+        // console.log(i);
+        this.fval.approveRates.controls[i].controls.station.setValue(
+          item.station
+        );
+        this.fval.approveRates.controls[i].controls.client.setValue(
+          item.client
+        );
+        this.fval.approveRates.controls[i].controls.rate.setValue(item.rate);
+        this.fval.approveRates.controls[i].controls.approved.setValue(false);
+        this.addItem();
+        n = i + 1;
+      });
+      this.removeItem(n);
+    });
   }
   checkAllItems(val: boolean): any {
     if (val === true) {
@@ -123,6 +124,14 @@ export class LoanTenureComponent implements OnInit {
 
   enableEdit(): any {
     return this.userForm.enable();
+  }
+
+  //modal
+  public openModal(template: TemplateRef<any>): any {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
+    );
   }
 
   approveItems(): any {

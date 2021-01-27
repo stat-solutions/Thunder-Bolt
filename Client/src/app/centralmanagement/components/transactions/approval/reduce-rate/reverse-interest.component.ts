@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 // import * as jwt_decode from 'jwt-decode';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
-// import { BsModalService } from 'ngx-bootstrap/modal';
-// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-reverse-interest',
@@ -15,8 +15,9 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
   styleUrls: ['./reverse-interest.component.scss'],
 })
 export class ReverseInterestComponent implements OnInit {
+  modalRef: BsModalRef;
   userForm: FormGroup;
-  ratesApprovals:any;
+  ratesApprovals: any;
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -31,7 +32,8 @@ export class ReverseInterestComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: BsModalService
   ) {}
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
@@ -62,51 +64,61 @@ export class ReverseInterestComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getReversedInterestsForApproval().subscribe(
-      res => {
-        this.ratesApprovals = res;
-        this.ratesApprovals.forEach((item, i) => {
-          this.fval.approveReduceRates.controls[i].controls.station.setValue(
-            item.station
-          );
-          this.fval.approveReduceRates.controls[i].controls.client.setValue(
-            item.client
-          );
-          this.fval.approveReduceRates.controls[i].controls.rate.setValue(
-            item.rate
-          );
-          this.fval.approveReduceRates.controls[i].controls.approved.setValue(
-            false
-          );
-          this.addItem();
-          n = i + 1;
-        });
-        this.removeItem(n);
-        }
-    );
+    this.others.getReversedInterestsForApproval().subscribe((res) => {
+      this.ratesApprovals = res;
+      this.ratesApprovals.forEach((item, i) => {
+        this.fval.approveReduceRates.controls[i].controls.station.setValue(
+          item.station
+        );
+        this.fval.approveReduceRates.controls[i].controls.client.setValue(
+          item.client
+        );
+        this.fval.approveReduceRates.controls[i].controls.rate.setValue(
+          item.rate
+        );
+        this.fval.approveReduceRates.controls[i].controls.approved.setValue(
+          false
+        );
+        this.addItem();
+        n = i + 1;
+      });
+      this.removeItem(n);
+    });
   }
   checkAllItems(val: boolean): any {
     if (val == true) {
       this.ratesApprovals.forEach((item, i) => {
-        this.fval.approveReduceRates.controls[i].controls.approved.setValue(val);
+        this.fval.approveReduceRates.controls[i].controls.approved.setValue(
+          val
+        );
       });
     } else {
       this.ratesApprovals.forEach((item, i) => {
-        this.fval.approveReduceRates.controls[i].controls.approved.setValue(false);
+        this.fval.approveReduceRates.controls[i].controls.approved.setValue(
+          false
+        );
       });
     }
   }
   deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
     if (
-      this.fval.approveReduceRates.controls[val].controls.approved
-        .value === true
+      this.fval.approveReduceRates.controls[val].controls.approved.value ===
+      true
     ) {
       this.fval.selectAll.setValue(false);
     }
   }
   revert(): any {
     this.userForm.reset();
+  }
+
+  //modal
+  public openModal(template: TemplateRef<any>): any {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
+    );
   }
 
   refresh(): any {
@@ -129,8 +141,7 @@ export class ReverseInterestComponent implements OnInit {
     const itemsApproved = [];
     this.ratesApprovals.forEach((item, i) => {
       if (
-        this.fval.approveReduceRates.controls[i].controls.approved
-          .value == true
+        this.fval.approveReduceRates.controls[i].controls.approved.value == true
       ) {
         item.status = 2;
         itemsApproved.push(item);
@@ -151,8 +162,7 @@ export class ReverseInterestComponent implements OnInit {
     const itemsRejected = [];
     this.ratesApprovals.forEach((item, i) => {
       if (
-        this.fval.approveReduceRates.controls[i].controls.approved
-          .value == true
+        this.fval.approveReduceRates.controls[i].controls.approved.value == true
       ) {
         item.status = 1;
         itemsRejected.push(item);

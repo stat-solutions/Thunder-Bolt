@@ -36,6 +36,8 @@ import { ReversePrincipalComponent } from './components/adjustments/reverse-prin
 import { ReverseInterestComponent } from './components/adjustments/reverse-interest/reverse-interest.component';
 import { ClientCommentsComponent } from './components/client-comments/client-comments.component';
 import { AccrualDaysComponent } from './components/adjustments/accrual-days/accrual-days.component';
+import { LoanAmortizeCycleComponent } from './components/adjustments/loan-amortize-cycle/loan-amortize-cycle.component';
+import { LoanAmortizeTypeComponent } from './components/adjustments/loan-amortize-type/loan-amortize-type.component';
 
 const routes: Routes = [
   {
@@ -154,6 +156,14 @@ const routes: Routes = [
           {
             path: 'accrualdays',
             component: AccrualDaysComponent,
+          },
+          {
+            path: 'loanamortizetype',
+            component: LoanAmortizeTypeComponent,
+          },
+          {
+            path: 'loanamortizecycle',
+            component: LoanAmortizeCycleComponent,
           },
           {
             path: 'reverseinterest',

@@ -94,6 +94,7 @@ export class AreaComponent implements OnInit {
         );
         break;
       case 'All Loans':
+      console.log(typeOfReport);
       this.others.getAllLoansByStation(this.User.userLocationId).subscribe(
           res => {
             if (res.length === 1) {

@@ -127,7 +127,7 @@ export class AuthServiceService {
         userId: xn.userId,
         userPhone: xn.userPhone1,
         userLocationId: xn.locationId,
-        userlocationName: locationName,
+        userlocationName: xn.locationName,
         accessRights: xn.fkAccessRightsIdUser,
       };
     }

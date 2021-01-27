@@ -170,7 +170,7 @@ export class MicroLoanComponent implements OnInit {
         }
         this.modalRef = this.modalService.show(
           template,
-          Object.assign({}, { class: 'white modal-lg modal-dialog-center' })
+          Object.assign({}, { class: 'modal-lg modal-dialog-center' })
         );
       }
     });

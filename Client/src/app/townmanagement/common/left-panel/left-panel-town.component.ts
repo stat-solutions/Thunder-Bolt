@@ -104,24 +104,34 @@ export class LeftPanelTownComponent implements OnInit {
         url: '/townmanagement/adjustments',
         subMenu: [
           {
-            name: 'Set Loan limit',
+            name: 'Loan limit',
             icon: 'fas fa-wrench',
             url: '/townmanagement/adjustments/setloanlimit',
           },
           {
-            name: 'Set Interest rate',
+            name: 'Interest rate',
             icon: 'fas fa-wrench',
             url: '/townmanagement/adjustments/setinterestrate',
           },
           {
-            name: 'Set Loan Tenure',
+            name: 'Loan Tenure',
             icon: 'fas fa-wrench',
             url: '/townmanagement/adjustments/loantenure',
           },
           {
-            name: 'Set Loan Accrual Days',
+            name: 'Loan Accrual Days',
             icon: 'fas fa-wrench',
             url: '/townmanagement/adjustments/accrualdays',
+          },
+          {
+            name: 'Loan Amortization Cycle',
+            icon: 'fas fa-wrench',
+            url: '/townmanagement/adjustments/loanamortizecycle',
+          },
+          {
+            name: 'Loan Amortization Type',
+            icon: 'fas fa-wrench',
+            url: '/townmanagement/adjustments/loanamortizetype',
           },
           {
             name: 'Waive Interest',

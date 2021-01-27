@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -10,13 +10,16 @@ import * as jwt_decode from 'jwt-decode';
 import { NgTranscludeDirective } from 'ngx-bootstrap/tabs';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-get-loan',
   templateUrl: './get-loan.component.html',
-  styleUrls: ['./get-loan.component.scss']
+  styleUrls: ['./get-loan.component.scss'],
 })
 export class GetLoanComponent implements OnInit {
+  modalRef: BsModalRef;
   registered = false;
   submitted = false;
   errored = false;
@@ -55,7 +58,8 @@ export class GetLoanComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private router: Router,
     private alertService: AlertService,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
@@ -66,39 +70,41 @@ export class GetLoanComponent implements OnInit {
     this.userForm = this.createFormGroup();
     this.garantorsForm = this.garantorsFormGroup();
     this.securityForm = this.securityFormGroup();
-    this.others.getAllTheStationLocationsByTown(this.User.userLocationId).subscribe(
-      res => {
-        this.stations = res;
-      // tslint:disable-next-line: only-arrow-functions
-      },
-      err => console.log(err.statusText)
-    );
+    this.others
+      .getAllTheStationLocationsByTown(this.User.userLocationId)
+      .subscribe(
+        (res) => {
+          this.stations = res;
+          // tslint:disable-next-line: only-arrow-functions
+        },
+        (err) => console.log(err.statusText)
+      );
     this.others.getSecurityType().subscribe(
-      res => {
+      (res) => {
         this.securityTypes = res;
       },
-      err => {
+      (err) => {
         this.errored = true;
         this.alertService.danger({
-          html: '<b>' + err.error.error.message + '</b>'
+          html: '<b>' + err.error.error.message + '</b>',
         });
       }
     );
     this.others.getTxnDetails().subscribe(
-      res => {
+      (res) => {
         this.txns = res;
         // console.log(res);
       },
-      err => {
+      (err) => {
         this.errored = true;
         this.alertService.danger({
-          html: '<b>' + err.error.error.message + '</b>'
+          html: '<b>' + err.error.error.message + '</b>',
         });
       }
     );
     this.others.getMicroCustomers().subscribe(
-      res => {
-        if (res.length > 0){
+      (res) => {
+        if (res.length > 0) {
           this.customers = res;
           this.phoneNumbers = [];
           this.checkedClient = {};
@@ -111,18 +117,18 @@ export class GetLoanComponent implements OnInit {
           this.showGarantorForm = false;
           this.showSecurityForm = false;
           this.alertService.danger({
-            html: '<b>There are no Micro Loan customers registered</b>'
+            html: '<b>There are no Micro Loan customers registered</b>',
           });
         }
       },
-      err => {
+      (err) => {
         this.errored = true;
         console.log(err);
         this.alertService.danger({
-          html: '<b>' + err.error.error.message + '</b>'
+          html: '<b>' + err.error.error.message + '</b>',
         });
       }
-  );
+    );
   }
   createFormGroup(): any {
     return new FormGroup({
@@ -162,10 +168,7 @@ export class GetLoanComponent implements OnInit {
   }
   garantorsFormGroup(): any {
     return new FormGroup({
-      name: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      name: new FormControl('', Validators.compose([Validators.required])),
       main_contact_number1: new FormControl(
         '',
         Validators.compose([
@@ -185,10 +188,7 @@ export class GetLoanComponent implements OnInit {
           ),
         ])
       ),
-      url: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      url: new FormControl('', Validators.compose([Validators.required])),
       currentResidence: new FormControl(
         '',
         Validators.compose([Validators.required])
@@ -200,27 +200,15 @@ export class GetLoanComponent implements OnInit {
       businessLocation: new FormControl(
         '',
         Validators.compose([Validators.required])
-      )
+      ),
     });
   }
   securityFormGroup(): any {
     return new FormGroup({
-      type: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      name: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      location: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
-      url: new FormControl(
-        '',
-        Validators.compose([Validators.required])
-      ),
+      type: new FormControl('', Validators.compose([Validators.required])),
+      name: new FormControl('', Validators.compose([Validators.required])),
+      location: new FormControl('', Validators.compose([Validators.required])),
+      url: new FormControl('', Validators.compose([Validators.required])),
     });
   }
 
@@ -229,19 +217,21 @@ export class GetLoanComponent implements OnInit {
   }
 
   checkLoanbility(value: any): any {
-    if (value !== ''){
-        let microCustomers =  [...this.customers];
-        microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value);
-        if (microCustomers.length === 1){
-          this.checkedClient = microCustomers[0];
-        } else {
-          this.errored = true;
-          this.alertService.danger({
-            html: '<b> client does not exist</b>'
-          });
-          this.fval.user_contact_number.setValue('');
-        }
-        // this.openModal(template);
+    if (value !== '') {
+      let microCustomers = [...this.customers];
+      microCustomers = microCustomers.filter(
+        (customer) => customer.customerPhone1 === value
+      );
+      if (microCustomers.length === 1) {
+        this.checkedClient = microCustomers[0];
+      } else {
+        this.errored = true;
+        this.alertService.danger({
+          html: '<b> client does not exist</b>',
+        });
+        this.fval.user_contact_number.setValue('');
+      }
+      // this.openModal(template);
     }
   }
   onFileSelected(event): any {
@@ -269,7 +259,7 @@ export class GetLoanComponent implements OnInit {
       .pipe(
         finalize(() => {
           const downloadURL = fileRef.getDownloadURL();
-          downloadURL.subscribe(url => {
+          downloadURL.subscribe((url) => {
             if (url) {
               switch (inputType) {
                 case 'guarantorUrl':
@@ -285,14 +275,14 @@ export class GetLoanComponent implements OnInit {
           });
         })
       )
-      .subscribe(url => {
+      .subscribe((url) => {
         if (url) {
           // console.log(url);
         }
       });
   }
 
-  goBack(): any{
+  goBack(): any {
     this.fval.productCode.setValue(this.fval.productCode.value);
     this.showFinalBtn = false;
     this.showcompleteBtn = true;
@@ -301,6 +291,14 @@ export class GetLoanComponent implements OnInit {
   // toggle visibility of password field
   toggleFieldType(): any {
     this.fieldType = !this.fieldType;
+  }
+
+  //modal
+  public openModal(template: TemplateRef<any>): any {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
+    );
   }
 
   revert(): any {
@@ -317,143 +315,160 @@ export class GetLoanComponent implements OnInit {
     return this.securityForm.controls;
   }
 
-  assignTxnId(familyName: string, typeName: string): number{
-    for (const txn of this.txns){
-      if (txn.txnDetailsFamilyName.toUpperCase() === familyName && txn.txnDetailsTypeName.toUpperCase() === typeName){
+  assignTxnId(familyName: string, typeName: string): number {
+    for (const txn of this.txns) {
+      if (
+        txn.txnDetailsFamilyName.toUpperCase() === familyName &&
+        txn.txnDetailsTypeName.toUpperCase() === typeName
+      ) {
         return txn.txnDetailsId;
       }
     }
   }
 
-  getSecurityTypeCode(typeName: string): number{
-    for (const item of this.securityTypes){
-      if (item.securityTypeName === typeName){
+  getSecurityTypeCode(typeName: string): number {
+    for (const item of this.securityTypes) {
+      if (item.securityTypeName === typeName) {
         return item.securityTypeCode;
       }
     }
   }
 
-  saveAndNew(): any{
-    if (this.showUserForm){
-      if (Number(this.fval.pin.value) === this.checkedClient.customerSecretPin){
+  saveAndNew(): any {
+    if (this.showUserForm) {
+      if (
+        Number(this.fval.pin.value) === this.checkedClient.customerSecretPin
+      ) {
         const txn = {
-          txnAmount:  parseInt(this.fval.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''), 10),
-                customerId: this.checkedClient.customerId,
-                txnDetailsId: this.assignTxnId('MICROLOAN', 'LOANDISBURSEMENT'),
-                userId: this.User.userId,
-                productCode: 400,
-                microLoanPurpose: this.fval.loanpurpose.value.toUpperCase(),
-                theStationLocationId: this.checkedClient.fktheStationLocationIdCustomer
+          txnAmount: parseInt(
+            this.fval.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''),
+            10
+          ),
+          customerId: this.checkedClient.customerId,
+          txnDetailsId: this.assignTxnId('MICROLOAN', 'LOANDISBURSEMENT'),
+          userId: this.User.userId,
+          productCode: 400,
+          microLoanPurpose: this.fval.loanpurpose.value.toUpperCase(),
+          theStationLocationId: this.checkedClient
+            .fktheStationLocationIdCustomer,
         };
-        if (txn.txnDetailsId){
+        if (txn.txnDetailsId) {
           this.data.push(txn);
           // console.log(this.data);
           this.posted = true;
           this.alertService.success({
-            html: '<b> Saved successfully</b>'
+            html: '<b> Saved successfully</b>',
           });
           this.showUserForm = false;
-          this.showGarantorForm =  true;
+          this.showGarantorForm = true;
         } else {
           return;
         }
       } else {
         this.errored = true;
         this.alertService.danger({
-          html: '<b>Secret pin does not much</b>'
+          html: '<b>Secret pin does not much</b>',
         });
       }
-    } else if (this.showGarantorForm){
+    } else if (this.showGarantorForm) {
       setTimeout(() => {
         this.guarantors.push({
           microLoanGuarantorName: this.garantorFval.name.value.toUpperCase(),
           microLoanGuarantorPhone1: this.garantorFval.main_contact_number1.value.toUpperCase(),
-          microLoanGuarantorPhone2: this.garantorFval.main_contact_number2.value === '' ? this.garantorFval.main_contact_number1.value :
-                                   this.garantorFval.main_contact_number2.value,
+          microLoanGuarantorPhone2:
+            this.garantorFval.main_contact_number2.value === ''
+              ? this.garantorFval.main_contact_number1.value
+              : this.garantorFval.main_contact_number2.value,
           microLoanGuarantorPlaceOfResidense: this.garantorFval.currentResidence.value.toUpperCase(),
           microLoanGuarantorTypeOfBusiness: this.garantorFval.currentBusinesstype.value.toUpperCase(),
           microLoanGuarantorBusinessLocation: this.garantorFval.businessLocation.value.toUpperCase(),
-          microLoanGuarantorPhotoUrl: this.garantorsPhotoUrl
+          microLoanGuarantorPhotoUrl: this.garantorsPhotoUrl,
         });
         // console.log(this.guarantors);
         this.posted = true;
         this.alertService.success({
-          html: '<b> Saved successfully</b>'
+          html: '<b> Saved successfully</b>',
         });
         this.garantorsForm = this.garantorsFormGroup();
       }, 1000);
-    } else if (this.showSecurityForm){
+    } else if (this.showSecurityForm) {
       setTimeout(() => {
         const security = {
-          securityTypeCode: this.getSecurityTypeCode(this.securityFval.type.value.toUpperCase()),
+          securityTypeCode: this.getSecurityTypeCode(
+            this.securityFval.type.value.toUpperCase()
+          ),
           microLoanSecurityName: this.securityFval.name.value.toUpperCase(),
           microLoanSecurityLocation: this.securityFval.location.value.toUpperCase(),
-          microLoanSecurityPhotoUrl: this.securityPhotoUrl
+          microLoanSecurityPhotoUrl: this.securityPhotoUrl,
         };
-        if (security.securityTypeCode){
+        if (security.securityTypeCode) {
           this.securities.push(security);
           // console.log(this.securities);
           this.posted = true;
           this.alertService.success({
-            html: '<b> Saved successfully</b>'
+            html: '<b> Saved successfully</b>',
           });
           this.securityForm = this.securityFormGroup();
         } else {
           this.errored = true;
           this.alertService.danger({
-            html: '<b> The security Type chosen does not exist</b>'
+            html: '<b> The security Type chosen does not exist</b>',
           });
         }
       }, 3000);
     }
   }
-  saveAndNext(): any{
-    if (this.showGarantorForm){
+  saveAndNext(): any {
+    if (this.showGarantorForm) {
       setTimeout(() => {
         this.guarantors.push({
           microLoanGuarantorName: this.garantorFval.name.value.toUpperCase(),
           microLoanGuarantorPhone1: this.garantorFval.main_contact_number1.value.toUpperCase(),
-          microLoanGuarantorPhone2: this.garantorFval.main_contact_number2.value === '' ? this.garantorFval.main_contact_number1.value :
-                                   this.garantorFval.main_contact_number2.value,
+          microLoanGuarantorPhone2:
+            this.garantorFval.main_contact_number2.value === ''
+              ? this.garantorFval.main_contact_number1.value
+              : this.garantorFval.main_contact_number2.value,
           microLoanGuarantorPlaceOfResidense: this.garantorFval.currentResidence.value.toUpperCase(),
           microLoanGuarantorTypeOfBusiness: this.garantorFval.currentBusinesstype.value.toUpperCase(),
           microLoanGuarantorBusinessLocation: this.garantorFval.businessLocation.value.toUpperCase(),
-          microLoanGuarantorPhotoUrl: this.garantorsPhotoUrl
+          microLoanGuarantorPhotoUrl: this.garantorsPhotoUrl,
         });
         // console.log(this.guarantors);
         this.posted = true;
         this.alertService.success({
-          html: '<b> Saved successfully</b>'
+          html: '<b> Saved successfully</b>',
         });
         this.showGarantorForm = false;
         this.showSecurityForm = true;
       }, 1000);
-    } else if (this.showSecurityForm){
+    } else if (this.showSecurityForm) {
       setTimeout(() => {
         const security = {
-          securityTypeCode: this.getSecurityTypeCode(this.securityFval.type.value.toUpperCase()),
+          securityTypeCode: this.getSecurityTypeCode(
+            this.securityFval.type.value.toUpperCase()
+          ),
           microLoanSecurityName: this.securityFval.name.value.toUpperCase(),
           microLoanSecurityLocation: this.securityFval.location.value.toUpperCase(),
-          microLoanSecurityPhotoUrl: this.securityPhotoUrl
+          microLoanSecurityPhotoUrl: this.securityPhotoUrl,
         };
-        if (security.securityTypeCode){
+        if (security.securityTypeCode) {
           this.securities.push(security);
           // console.log(this.securities);
           this.postLoan();
         } else {
           this.errored = true;
           this.alertService.danger({
-            html: '<b> The security Type chosen does not exist</b>'
+            html: '<b> The security Type chosen does not exist</b>',
           });
         }
       }, 3000);
     }
   }
-  skip(): any{
-    if (this.showGarantorForm){
-        this.showGarantorForm = false;
-        this.showSecurityForm = true;
-    } else if (this.showSecurityForm){
+  skip(): any {
+    if (this.showGarantorForm) {
+      this.showGarantorForm = false;
+      this.showSecurityForm = true;
+    } else if (this.showSecurityForm) {
       this.postLoan();
     }
   }
@@ -461,29 +476,30 @@ export class GetLoanComponent implements OnInit {
     this.data.push([this.guarantors, this.securities]);
     // console.log(this.data);
     this.others.createMicroLoan(this.data).subscribe(
-          res => {
-            if (res){
-              this.posted = true;
-              this.alertService.success({
-                html: '<b> Loan was initiated successfully, wait for approval and confirm</b>'
-              });
-              setTimeout(() => {
-                this.router.navigate(['/townmanagement/microloan/confirm']);
-              }, 3000);
-            }
-          },
-          err => {
-            this.errored = true;
-            if (err.error.error.status === 500) {
-              this.alertService.danger({
-                html: '<b> Sever Could Not handle this request</b>'
-              });
-            } else {
-              this.alertService.danger({
-                html: '<b>' + err.error.error.message + '</b>'
-              });
-            }
-          }
-        );
+      (res) => {
+        if (res) {
+          this.posted = true;
+          this.alertService.success({
+            html:
+              '<b> Loan was initiated successfully, wait for approval and confirm</b>',
+          });
+          setTimeout(() => {
+            this.router.navigate(['/townmanagement/microloan/confirm']);
+          }, 3000);
+        }
+      },
+      (err) => {
+        this.errored = true;
+        if (err.error.error.status === 500) {
+          this.alertService.danger({
+            html: '<b> Sever Could Not handle this request</b>',
+          });
+        } else {
+          this.alertService.danger({
+            html: '<b>' + err.error.error.message + '</b>',
+          });
+        }
       }
-    }
+    );
+  }
+}
