@@ -558,7 +558,7 @@ export class PersonalInfoComponent implements OnInit {
      if (this.data[0].theStationLocationId === null || this.data[0].productCode === null){
        this.errored = true;
        this.alertService.danger({
-        html: '<b> The station or initial products chose do not exist</b>'
+        html: '<b> The station or initial products chosen do not exist</b>'
        });
        this.data = [];
       //  this.errored = false;

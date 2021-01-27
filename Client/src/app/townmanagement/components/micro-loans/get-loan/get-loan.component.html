@@ -1,7 +1,7 @@
 <div
   class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-xl-0 pt-0 pt-md-3 pt-xl-1 pb-3 pb-md-5 pb-xl-0 shadow-lg col-12 col-lg-11"
 >
-  <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-0 col-12 col-lg-11">
+  <div class="jumbotron-fluid col-12 col-md-10">
     <div class="container my-2 mx-0 shadow-lg">
             <div class="row">
                 <div class="col-12">
@@ -13,8 +13,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center">
-    <div class="col-12 col-lg-6">
-        <div class="card-body mt-2 pt-2 mb-0 mx-auto pb-4 shadow-lg" [hidden]="!showUserForm">
+        <div class="card-body col-12 col-md-7 col-xl-5 my-0 pt-3 mx-auto pb-4 shadow-lg" [hidden]="!showUserForm">
       <form [formGroup]="userForm">
         <div class="form-group text-primary">
           <label
@@ -48,7 +47,7 @@
               }"
               autocomplete="off"
               placeholder="Select Phone number"
-              (blur)="checkLoanbility(fval.user_contact_number.value)" (click)="openModal(template)"
+              (blur)="checkLoanbility(fval.user_contact_number.value)" (blur)="openModal(template)"
             />
             <!-- numberPlates: NumberPlates[]; -->
             <datalist id="user_contact_number">
@@ -239,7 +238,7 @@
             Please enter a valid pin!
           </div>
         </div>
-            <div class="d-flex my-0 py-0 mx-auto">
+            <div class="d-flex mt-0 mb-2 py-0 mx-auto">
           <button
             type="submit"
             class="btn btn-info col-5 mx-auto"
@@ -257,12 +256,11 @@
           </button>
           </div>
       </form>
-    </div>
   </div>
     </div>
     <div class="d-flex justify-content-center">
         <!-- <div class="col-12"> -->
-    <div class="form-2 card-body mt-2 pt-2 mb-0 mx-auto pb-4 shadow-lg" [hidden]="!showGarantorForm">
+    <div class="form-2 card-body col-12 col-md-10 mt-0 mb-2 pt-3 mx-auto pb-4 shadow-lg" [hidden]="!showGarantorForm">
       <form [formGroup]="garantorsForm">
         <div class="row">
         <div class="col-12 col-md-6">
@@ -613,7 +611,7 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <div class="d-flex mt-1 mb-0 py-0 mx-0 px-0">
+            <div class="d-flex mt-1 mb-2 py-0 mx-0 px-0">
               <button
                 type="submit"
                 class="btn btn-info col-md-2 mx-auto"
@@ -652,8 +650,7 @@
     </div>
     </div>
     <div class="d-flex justify-content-center">
-    <div class="col-12 col-md-8 col-lg-6">
-    <div class="form-3 card-body mt-2 pt-2 mb-0 mx-auto pb-4 shadow-lg" [hidden]="!showSecurityForm">
+    <div class="form-3 card-body col-12 mt-0 mb-2 pt-3 mx-auto pb-4 shadow-lg" [hidden]="!showSecurityForm">
       <form [formGroup]="securityForm">
             <div class="form-group text-primary">
               <label
@@ -819,7 +816,7 @@
               Please upload a photo of the security!
             </div>
             </div>
-            <div class="d-flex mt-1 mb-0 py-0 mx-0 px-0">
+            <div class="d-flex mt-0 mb-2 py-0 mx-0 px-0">
           <button
             type="submit"
             class="btn btn-info mx-auto"
@@ -852,7 +849,6 @@
           </button>
           </div>
       </form>
-</div>
 </div>
     </div>
     <div class="d-flex mt-3 mb-2 mb-xl-0 py-2 mx-auto">

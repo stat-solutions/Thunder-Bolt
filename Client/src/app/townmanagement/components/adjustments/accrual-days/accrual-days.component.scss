@@ -13,10 +13,12 @@
   border-radius: 8px;
 contain: auto;
 }
-
+    .client-modal .card-body {
+      margin-bottom: 0rem !important;
+    }
 .list-card {
   height: auto;
-  font-size: .8em;
+  font-size: .9em;
   border-left: 3px solid #adabab
 }
 .list-card:hover {
@@ -30,12 +32,6 @@ contain: auto;
   .card-body {
     margin-bottom: 0.5rem !important;
   }
-    .client-modal .card-body {
-      margin-bottom: 0rem !important;
-    }
-    .list-card-body {
-      margin-bottom: 0rem !important;
-    }
   .jumbotron-fluid {
     padding-top: 0px !important;
   }
@@ -60,12 +56,6 @@ contain: auto;
   }
     .card-body {
       margin-bottom: 6rem !important;
-    }
-    .client-modal .card-body {
-      margin-bottom: 0rem !important;
-    }
-    .list-card-body {
-      margin-bottom: 0rem !important;
     }
     .jumbotron-fluid {
       padding-bottom: 11rem !important;

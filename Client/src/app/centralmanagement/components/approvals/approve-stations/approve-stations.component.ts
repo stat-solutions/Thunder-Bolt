@@ -124,7 +124,7 @@ export class ApproveStationsComponent implements OnInit {
       if (this.fval.approveStations.controls[i].controls.approved.value === true) {
         itemsApproved.push({
           stationId: item.stationId,
-          stationStatus: 3,
+          stationStatus: 2,
           userId: this.User.userId
         });
       }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 // import * as jwt_decode from 'jwt-decode';
 import {
   FormGroup,
@@ -11,8 +11,8 @@ import { AuthServiceService } from 'src/app/shared/services/auth-service.service
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
-// import { BsModalService } from 'ngx-bootstrap/modal';
-// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 export interface IntRateApprovals {
   station: string;
@@ -27,6 +27,7 @@ export interface IntRateApprovals {
   styleUrls: ['./loan-commission-rate.component.scss'],
 })
 export class LoanCommissionRateComponent implements OnInit {
+  modalRef: BsModalRef;
   userForm: FormGroup;
   ratesApprovals: IntRateApprovals[] = [
     { station: 'nsambya', client: 'Kasule Joseph', rate: 5, status: 0 },
@@ -51,7 +52,8 @@ export class LoanCommissionRateComponent implements OnInit {
     private router: Router,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: BsModalService
   ) {}
   ngOnInit(): any {
     this.userForm = this.createFormGroup();
@@ -120,6 +122,14 @@ export class LoanCommissionRateComponent implements OnInit {
   }
   revert(): any {
     this.userForm.reset();
+  }
+
+  //modal
+  public openModal(template: TemplateRef<any>): any {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
+    );
   }
 
   refresh(): any {
