@@ -145,25 +145,28 @@
     <div class="row mx-auto px-auto mb-2">
       <div class="col-3 d-flex justify-content-start">
         <span class="">
-          Area: 
+          Station: 
         </span>
       </div>
       <div class="col-9 d-flex justify-content-start font-weight-bold">
         <span class="itemCreated">
-          Eastern
+          {{ User.userLocationName }}
         </span>
       </div>
     </div>
     <div class="iteration">
       <div class="item-container mt-1">
-        <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg">
+        <div 
+        class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
+        *ngFor="let itm of singleReport; let i = index"
+        >
           <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
             <div class="row my-0 py-0">
               <div class="col-2 col-xl-1">
                 <img
                   class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                  src="assets/img/man.svg"
-                  (click)="openModal(template)"
+                  [src]="itm.customerPhotoUrl"
+                  (click)="openModal(template, itm.customerPhotoUrl)"
                 />
               </div>
               <div class="col-10 col-xl-11">
@@ -175,7 +178,7 @@
                       </div>
                       <div class="col-7 d-flex justify-content-start font-weight-bold">
                         <span class="itemCreated">
-                         
+                         {{itm.customerId}}
                         </span>
                       </div>
                     </div>
@@ -187,7 +190,7 @@
                       </div>
                       <div class="col-7 d-flex justify-content-start font-weight-bold">
                         <span class="itemCreated">
-                          Keminagano Pulikeria
+                          {{itm.customerName}}
                         </span>
                       </div>
                     </div>
@@ -199,7 +202,7 @@
                       </div>
                       <div class="col-7 d-flex justify-content-start font-weight-bold">
                         <span class="itemCreated">
-                         
+                         {{itm.customerPhone1}}
                         </span>
                       </div>
                     </div>
@@ -213,7 +216,11 @@
                       </div>
                       <div class="col-7 d-flex justify-content-start font-weight-bold">
                         <span class="itemCreated">
-                          micro loan
+                         {{
+                           itm.productCode === 100 ? 'SAVINGS' :
+                           itm.productCode === 200 ? 'BODA BODA FUEL LOAN' :
+                           itm.productCode === 200 ? 'TAXI FUEL LOAN' : 'MICRO LOAN'
+                           }}
                         </span>
                       </div>
                     </div>
@@ -225,7 +232,7 @@
                       </div>
                       <div class="col-7 d-flex justify-content-start font-weight-bold">
                         <span class="itemCreated">
-                         14th
+                         {{itm.dateTaken}}
                         </span>
                       </div>
                     </div>
@@ -237,7 +244,7 @@
                       </div>
                       <div class="col-7 d-flex justify-content-start font-weight-bold">
                         <span class="itemCreated">
-                          hours
+                          {{itm.timeTaken}}
                         </span>
                       </div>
                     </div>
@@ -251,7 +258,7 @@
                       </div>
                       <div class="col-6 d-flex justify-content-start font-weight-bold">
                         <span class="itemCreated">
-                          8000
+                          {{itm.loanAmountTaken | number}}
                         </span>
                       </div>
                     </div>
@@ -259,11 +266,11 @@
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
                       <div class="col-6 d-flex justify-content-start">
-                        <span class="">Loan + Int. Expected</span>
+                        <span class="">Loan Int. Expected</span>
                       </div>
                       <div class="col-6 d-flex justify-content-start font-weight-bold">
                         <span class="itemCreated">
-                          30000
+                          {{itm.loanInterestTaken | number}}
                         </span>
                       </div>
                     </div>
@@ -271,11 +278,11 @@
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
                       <div class="col-6 d-flex justify-content-start">
-                        <span class="">Loan + Int. Paid</span>
+                        <span class="">Loan Int. Paid</span>
                       </div>
                       <div class="col-6 d-flex justify-content-start font-weight-bold">
                         <span class="itemCreated">
-                         7000
+                         {{itm.loanInterestPaid | number}}
                         </span>
                       </div>
                     </div>
@@ -285,13 +292,13 @@
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
                       <div class="col-6 d-flex justify-content-start">
-                        <span class="">Loan + Int. Left</span>
+                        <span class="">Loan Int. Left</span>
                       </div>
                       <div
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                         8000000
+                         {{itm.loanInterestRemain | number}}
                         </span>
                       </div>
                     </div>
@@ -299,13 +306,41 @@
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
                       <div class="col-5 col d-flex justify-content-start">
-                        <span class="">Days Unpaid</span>
+                        <span class="">Loan Int. Written Off</span>
                       </div>
                       <div
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          9
+                          {{itm.loanInterestWrittenOff}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 col d-flex justify-content-start">
+                        <span class="">Loan Aging</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.loanAging}} Day
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 col d-flex justify-content-start">
+                        <span class="">Loan Int. Rate Used</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.interestRateUsed}}% per year
                         </span>
                       </div>
                     </div>
@@ -319,7 +354,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          00  
+                          {{itm.customerComment}}
                         </span>
                       </div>
                     </div>
@@ -351,7 +386,7 @@
       </div>
       <div class="col-9 d-flex justify-content-start font-weight-bold">
         <span class="itemCreated">
-         {{User.userlocationName}}
+         {{User.userLocationName}}
         </span>
       </div>
     </div>
@@ -538,7 +573,7 @@
 </div>
 </div>
 <!--card for displaying paid ledger-->
-<div *ngIf="(type === 'All Loans' || type === 'Paid Ledger')">
+<div *ngIf="(type === 'Paid Ledger')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -725,7 +760,7 @@
   </div>
 </div>
   <!--card for displaying Borrowed ledger-->
-<div *ngIf="(type === 'All Loans' || type === 'Borrowed Ledger')">
+<div *ngIf="(type === 'Borrowed Ledger')">
     <div class="container mt-3 mb-0 mx-0 shadow-lg" >
       <div class="row">
         <div class="col-12">
@@ -912,7 +947,7 @@
     </div>
 </div>
 <!--card for displaying Float deposit ledger-->
-<div  *ngIf="(type === 'All Loans' || type === 'Float Deposits')">
+<div  *ngIf="(type === 'Float Deposits')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -1099,7 +1134,7 @@
   </div>
 </div>
 <!--card for displaying float withdraw ledger-->
-<div *ngIf="(type === 'All Loans' || type === 'Float Withdraws')">
+<div *ngIf="(type === 'Float Withdraws')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg" >
     <div class="row">
       <div class="col-12">
@@ -1321,7 +1356,7 @@
   </div>
 </div>
 <!--card for displaying float deposit and withdraw ledger-->
-<div *ngIf="(type === 'All Loans' || type === 'Float Deposit & Withdraw')">
+<div *ngIf="(type === 'Float Deposit & Withdraw')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -1562,7 +1597,7 @@
   </div>
 </div>
 <!--card for displaying individual savings report-->
-<div *ngIf="(type === 'All Loans' || type === 'Savings')">
+<div *ngIf="(type === 'Savings')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -1807,7 +1842,7 @@
     </div>
 </div>
 <!--card for displaying general savings report-->
-<div *ngIf="(type === 'All Loans' || type === 'General Savings')">
+<div *ngIf="(type === 'General Savings')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg" >
     <div class="row">
       <div class="col-12">
@@ -2052,7 +2087,7 @@
     </div>
 </div>
 <!--card for displaying revenue report-->
-<div *ngIf="(type === 'All Loans' || type === 'Revenue')">
+<div *ngIf="(type === 'Revenue')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -2263,7 +2298,7 @@
  </div>
 </div>
 <!--card for displaying lost revenue report-->
-<div *ngIf="(type === 'All Loans' || type === 'Lost Revenue')">
+<div *ngIf="(type === 'Lost Revenue')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -2285,10 +2320,7 @@
     >
       <span class="itemCreated"
         >Eastern
-        <!-- {{
-            fval.customers["controls"][idx]["controls"]
-              .customerName.value
-          }} -->
+        
       </span>
     </div>
   </div>
@@ -2319,10 +2351,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-            fval.customers["controls"][idx]["controls"]
-              .customerPhone1.value
-          }} -->
+                        
                       </span>
                     </div>
                   </div>
@@ -2338,10 +2367,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-            fval.customers["controls"][idx]["controls"]
-              .customerName.value
-          }} -->
+                        
                       </span>
                     </div>
                   </div>
@@ -2357,10 +2383,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-            fval.customers["controls"][idx]["controls"]
-              .customerPhone1.value
-          }} -->
+                        
                       </span>
                     </div>
                   </div>
@@ -2378,10 +2401,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-            fval.customers["controls"][idx]["controls"]
-              .customerName.value
-          }} -->
+                        
                       </span>
                     </div>
                   </div>
@@ -2397,10 +2417,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-            fval.customers["controls"][idx]["controls"]
-              .customerPhone1.value
-          }} -->
+                        
                       </span>
                     </div>
                   </div>
@@ -2416,10 +2433,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-            fval.customers["controls"][idx]["controls"]
-              .customerPhone1.value
-          }} -->
+                        
                       </span>
                     </div>
                   </div>
@@ -2437,11 +2451,9 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-            fval.customers["controls"][idx]["controls"]
-              .customerName.value
-          }} -->
-                      </span>
+                        
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -2450,8 +2462,7 @@
           </div>
         </div>
       </div>
-    </div>
-<div class="row mx-auto px-auto py-2 border-bottom">
+    <div class="row mx-auto px-auto py-2 border-bottom">
       <div class="col-12 col-md-6 col-xl-4">
         <div class="row">
           <div class="col-5 d-flex justify-content-start">
@@ -2461,20 +2472,17 @@
             class="col-7 d-flex justify-content-start font-weight-bold"
           >
             <span class="itemCreated">
-              <!-- {{
-                fval.customers["controls"][idx]["controls"]
-                  .customerName.value
-              }} -->
+              
             </span>
           </div>
         </div>
       </div>
-</div>    
-</div>
+    </div>    
+    </div>
   </div>
 </div>
 <!--card for displaying Defaulters Report-->
-<div  *ngIf="(type === 'All Loans' || type === 'Defaulters')">
+<div  *ngIf="(type === 'Defaulters')">
       <div class="container mt-3 mb-0 mx-0 shadow-lg">
         <div class="row">
           <div class="col-12">
@@ -2737,7 +2745,7 @@
                       </div>
 </div>
 <!--card for displaying Recovery Report-->
-<div  *ngIf="(type === 'All Loans' || type === 'Recovery')">
+<div  *ngIf="(type === 'Recovery')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -2759,10 +2767,6 @@
     >
       <span class="itemCreated"
         >Eastern
-        <!-- {{
-        fval.customers["controls"][idx]["controls"]
-          .customerName.value
-      }} -->
       </span>
     </div>
   </div>
@@ -2789,10 +2793,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerName.value
-                            }} -->
+                          
                         </span>
                       </div>
                     </div>
@@ -2806,10 +2807,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerName.value
-                            }} -->Keminagano Pulikeria
+                          Keminagano Pulikeria
                         </span>
                       </div>
                     </div>
@@ -2823,10 +2821,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"].station
-                                .value
-                            }} -->
+                          
                         </span>
                       </div>
                     </div>
@@ -2842,10 +2837,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerPhone1.value
-                            }} -->
+                          
                         </span>
                       </div>
                     </div>
@@ -2859,10 +2851,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerPhone1.value
-                            }} -->
+                         
                         </span>
                       </div>
                     </div>
@@ -2876,10 +2865,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerPhone1.value
-                            }} -->
+                          
                         </span>
                       </div>
                     </div>
@@ -2895,10 +2881,7 @@
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerName.value
-                            }} -->
+                          
                         </span>
                       </div>
                     </div>
@@ -2912,10 +2895,7 @@
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerName.value
-                            }} -->
+                          
                         </span>
                       </div>
                     </div>
@@ -2929,10 +2909,7 @@
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerName.value
-                            }} -->
+                          
                         </span>
                       </div>
                     </div>
@@ -2948,10 +2925,7 @@
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerName.value
-                            }} -->
+                          
                         </span>
                       </div>
                     </div>
@@ -2965,10 +2939,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerName.value
-                            }} -->
+                          
                         </span>
                       </div>
                     </div>
@@ -2982,10 +2953,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-                              fval.customers["controls"][idx]["controls"]
-                                .customerName.value
-                            }} -->
+                          
                         </span>
                       </div>
                     </div>
@@ -3000,7 +2968,7 @@
 </div>
 </div>
 <!--card for displaying Enforcement Report-->
-<div  *ngIf="(type === 'All Loans' || type === 'Enforcement')">
+<div  *ngIf="(type === 'Enforcement')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -3263,7 +3231,7 @@
 </div>
 </div>
 <!--card for displaying PreCovid Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Pre-covid')">
+<div *ngIf="(type === 'Pre-covid')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -3526,7 +3494,7 @@
 </div>
 </div>
 <!--card for displaying Normal Loans Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Normal Loans')">
+<div *ngIf="(type === 'Normal Loans')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -3789,7 +3757,7 @@
 </div>
 </div>
 <!--card for displaying Reverse Principal Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Reversed Principal')">
+<div *ngIf="(type === 'Reversed Principal')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -3811,10 +3779,6 @@
     >
       <span class="itemCreated"
         >Eastern
-        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerName.value
-   -->
       </span>
     </div>
   </div>
@@ -3849,10 +3813,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerName.value
-   -->
+                        
                       </span>
                     </div>
                   </div>
@@ -3870,10 +3831,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerName.value
-   -->
+                       
                       </span>
                     </div>
                   </div>
@@ -3893,10 +3851,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"].station
-  .value
-   -->
+                        
                       </span>
                     </div>
                   </div>
@@ -3918,10 +3873,7 @@ fval.customers["controls"][idx]["controls"].station
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerPhone1.value
-   -->
+                        
                       </span>
                     </div>
                   </div>
@@ -3941,10 +3893,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerPhone1.value
-   -->
+                       
                       </span>
                     </div>
                   </div>
@@ -3964,10 +3913,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerPhone1.value
-   -->
+                      
                       </span>
                     </div>
                   </div>
@@ -3989,10 +3935,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerName.value
-   -->
+                        
                       </span>
                     </div>
                   </div>
@@ -4012,10 +3955,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerName.value
-   -->
+
                       </span>
                     </div>
                   </div>
@@ -4035,10 +3975,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerName.value
-   -->
+                       
                       </span>
                     </div>
                   </div>
@@ -4060,10 +3997,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerName.value
-   -->
+                        
                       </span>
                     </div>
                   </div>
@@ -4083,10 +4017,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerName.value
-   -->
+                        
                       </span>
                     </div>
                   </div>
@@ -4106,10 +4037,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-fval.customers["controls"][idx]["controls"]
-  .customerName.value
-   -->
+                        
                       </span>
                     </div>
                   </div>
@@ -4124,7 +4052,7 @@ fval.customers["controls"][idx]["controls"]
 </div>
 </div>
 <!--card for displaying commission report-->
-<div *ngIf="(type === 'All Loans' || type === 'Commission')">
+<div *ngIf="(type === 'Commission')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -4302,7 +4230,7 @@ fval.customers["controls"][idx]["controls"]
   </div>
 </div>
 <!--card for displaying Loan Transactions Report-->                         
-<div *ngIf="(type === 'All Loans' || type === 'Loan Transaction')">
+<div *ngIf="(type === 'Loan Transaction')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -4536,7 +4464,7 @@ fval.customers["controls"][idx]["controls"]
 </div>
 </div>
 <!--card for displaying Float Balance Per Day report-->
-<div *ngIf="(type === 'All Loans' || type === 'Float Balance Per Day')">
+<div *ngIf="(type === 'Float Balance Per Day')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -4651,7 +4579,7 @@ fval.customers["controls"][idx]["controls"]
   </div>
 </div>
 <!--card for displaying Interest Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Interest')">
+<div *ngIf="(type === 'Interest')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -4862,7 +4790,7 @@ fval.customers["controls"][idx]["controls"]
 </div>
 </div>
 <!--card for displaying Security Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Security')">
+<div *ngIf="(type === 'Security')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -5040,7 +4968,7 @@ fval.customers["controls"][idx]["controls"]
 </div>
 </div>
 <!--card for displaying Taxi Loan Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Taxi Loan')">
+<div *ngIf="(type === 'Taxi Loan')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -5281,7 +5209,7 @@ fval.customers["controls"][idx]["controls"]
   </div>
 </div>
 <!--card for displaying Micro Loan Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Micro Loan')">
+<div *ngIf="(type === 'Micro Loan')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -5499,7 +5427,7 @@ fval.customers["controls"][idx]["controls"]
   </div>
 </div>
 <!--card for displaying Bodaboda Loan Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Bodaboda Loan')">
+<div *ngIf="(type === 'Bodaboda Loan')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -5728,7 +5656,7 @@ fval.customers["controls"][idx]["controls"]
   </div>
 </div>
 <!--card for displaying Micro-loan guarantor Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Micro Loan Guarantor')">
+<div *ngIf="(type === 'Micro Loan Guarantor')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -5922,7 +5850,7 @@ fval.customers["controls"][idx]["controls"]
   </div>
 </div>
 <!--card for displaying Micro-loan Amortization schedule-->
-<div *ngIf="(type === 'All Loans' || type === 'Micro Loan Amortization')">
+<div *ngIf="(type === 'Micro Loan Amortization')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
     <div class="col-12">
@@ -6340,7 +6268,7 @@ fval.customers["controls"][idx]["controls"]
 </div>
 </div>
 <!--card for displaying Completed Loans Report -->
-<div *ngIf="(type === 'All Loans' || type === 'Completed Loans')">
+<div *ngIf="(type === 'Completed Loans')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -6568,7 +6496,7 @@ fval.customers["controls"][idx]["controls"]
       </div>
 </div>
 <!--card for displaying Reversed principal  Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Reversed Principal')">
+<div *ngIf="(type === 'Reversed Principal')">
     <div class="container mt-3 mb-0 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">
@@ -6862,7 +6790,7 @@ fval.customers["controls"][idx]["controls"]
       </div>
 </div>
 <!--card for displaying Transaction Details Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Transaction Details')">
+<div *ngIf="(type === 'Transaction Details')">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -6989,7 +6917,7 @@ fval.customers["controls"][idx]["controls"]
     </div>
 </div>
 <!--card for displaying Waived Interest Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Waived Interest')">
+<div *ngIf="(type === 'Waived Interest')">
       <div class="container mt-3 mb-0 mx-0 shadow-lg">
         <div class="row">
           <div class="col-12">
@@ -7284,7 +7212,7 @@ fval.customers["controls"][idx]["controls"]
         </div>
 </div>
 <!--card for displaying Waived principal  Report-->
-<div *ngIf="(type === 'All Loans' || type === 'Waived Principal')">
+<div *ngIf="(type === 'Waived Principal')">
     <div class="container mt-3 mb-0 mx-0 shadow-lg">
       <div class="row">
         <div class="col-12">

@@ -25,7 +25,7 @@ import { DepositFloatComponent } from './components/transactions/float/deposit-f
 import { WithdrawFloatComponent } from './components/transactions/float/withdraw-float/withdraw-float.component';
 import { InterestRateComponent } from './components/transactions/approval/interest-rate/interest-rate.component';
 import { LoanLimitComponent } from './components/transactions/approval/loan-limit/loan-limit.component';
-import { ReverseInterestComponent } from './components/transactions/approval/reduce-rate/reverse-interest.component';
+import { ReverseInterestComponent } from './components/transactions/approval/reverse-interest/reverse-interest.component';
 import { ReversePrincipleComponent } from './components/transactions/approval/reverse-principle/reverse-principle.component';
 import { WaiveInterestComponent } from './components/transactions/approval/waive-interest/waive-interest.component';
 import { WithdrawSavingsComponent } from './components/transactions/approval/withdraw-savings/withdraw-savings.component';

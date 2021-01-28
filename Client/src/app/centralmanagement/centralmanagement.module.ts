@@ -33,7 +33,7 @@ import { SetLoanLimitComponent } from './components/transactions/loans/set-loan-
 import { SetLoanRateComponent } from './components/transactions/loans/set-loan-rate/set-loan-rate.component';
 import { DepositFloatComponent } from './components/transactions/float/deposit-float/deposit-float.component';
 import { WithdrawFloatComponent } from './components/transactions/float/withdraw-float/withdraw-float.component';
-import { ReverseInterestComponent } from './components/transactions/approval/reduce-rate/reverse-interest.component';
+import { ReverseInterestComponent } from './components/transactions/approval/reverse-interest/reverse-interest.component';
 import { ReversePrincipleComponent } from './components/transactions/approval/reverse-principle/reverse-principle.component';
 import { InterestRateComponent } from './components/transactions/approval/interest-rate/interest-rate.component';
 import { WithdrawSavingsComponent } from './components/transactions/approval/withdraw-savings/withdraw-savings.component';

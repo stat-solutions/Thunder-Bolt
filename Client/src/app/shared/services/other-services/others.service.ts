@@ -534,6 +534,12 @@ export class OthersService {
     reversePrincimpal(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/reversePrincimpal`, postData );
     }
+    getPrincipalTxnsForReversal(phone: any): any {
+      return this.http.get(`${this.API_URL}/api/loan/getPrincipalTxnsForReversal?customerPhone1=${phone}`);
+    }
+    getPrincipalTxnsForReversalTaxiBoda(plate: any): any {
+      return this.http.get(`${this.API_URL}/api/loan/getPrincipalTxnsForReversal?numberPlate=${plate}`);
+    }
     getReversedPrincipalForApproval(): any {
       return this.http.get(`${this.API_URL}/api/loan/getReversedPrincipalForApproval`);
     }

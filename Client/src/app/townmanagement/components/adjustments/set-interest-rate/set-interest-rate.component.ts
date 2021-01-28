@@ -258,7 +258,7 @@ export class SetInterestRateComponent implements OnInit {
     return this.userForm.controls;
   }
 
-//modal
+// modal
   public openModal(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(
       template,
@@ -285,7 +285,7 @@ export class SetInterestRateComponent implements OnInit {
               userId: this.User.userId,
               comment: `This customer's interest rate should be changed to ${itemRate}%`
             };
-            this.others.setIdividualLoanLimit(data).subscribe(
+            this.others.setIdividualLoanInterestRate(data).subscribe(
               response => {
                 if (response === true){
                   this.posted = true;

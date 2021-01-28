@@ -94,16 +94,9 @@ export class AreaComponent implements OnInit {
         );
         break;
       case 'All Loans':
-      console.log(typeOfReport);
       this.others.getAllLoansByStation(this.User.userLocationId).subscribe(
           res => {
-            if (res.length === 1) {
-              this.totals = res[0];
-              this.singleReport = [];
-            }else {
-              // this.totals = res.pop();
-              this.singleReport = res;
-            }
+            this.singleReport = res;
           },
           err => {
             console.log(err);
@@ -111,12 +104,11 @@ export class AreaComponent implements OnInit {
         );
     }
   }
-  public openModal(template: TemplateRef<any>): any {
+  public openModal(template: TemplateRef<any>, photoUrl: string): any {
+    this.imageUrl = photoUrl;
     this.modalRef = this.modalService.show(
       template,
       Object.assign({}, { class: 'modal-dialog-centered' })
     );
   }
-
-  createArea(): any {}
 }
