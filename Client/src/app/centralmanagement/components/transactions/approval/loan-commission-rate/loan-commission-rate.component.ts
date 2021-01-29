@@ -44,7 +44,7 @@ export class LoanCommissionRateComponent implements OnInit {
     private modalService: BsModalService,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {}
   ngOnInit(): any {
     this.others.getSecurityType().subscribe(

@@ -36,6 +36,17 @@
                     <option *ngFor="let report of reports; let i = index">{{ report }}</option>
                   </select>
                 </div>
+                <!--input field form control to search reports by set filter-->
+                <div class="col">
+                  <input
+                    id="search_by"
+                    formControlName="search_by"
+                    type="text"
+                    class="form-control mt-2"
+                    autocomplete="off"
+                  />
+                </div>
+                <!--/end-->
               </div>
               <div class="col-1 mx-0 px-0">
                 <div class="ml-2 px-0">
@@ -62,7 +73,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6 col-sm-4 col-md-4 col-xl-3 mx-0 px-0">
+              <div class="col-6 col-sm-3 mx-0 px-0">
                 <!--rangedate-->
                 <label for="range_date">Select Date </label>
 
@@ -154,7 +165,7 @@
     </div>
     <div class="iteration">
       <div class="item-container mt-1">
-        <div 
+        <div
           class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
           *ngFor="let itm of singleReport; let i = index"
           >
@@ -1007,7 +1018,7 @@
          </div>
         </div>
 </div>
-  
+
 <!--card for displaying Stage Report-->
 <div *ngIf="(type === 'Stages')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
@@ -1122,7 +1133,7 @@
       </div>
    </div>
 </div>
-  
+
 <!--card for displaying Stage Clients Report-->
 <div *ngIf="(type === 'Stage Clients')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
@@ -1244,7 +1255,7 @@
       </div>
   </div>
 </div>
-  
+
 <!--card for displaying Savings Clients Report-->
 <div *ngIf="(type === 'Savings Clients')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
@@ -1400,7 +1411,7 @@
       </div>
   </div>
 </div>
-  
+
 <!--card for displaying Stage chairmen Report-->
 <div *ngIf="(type === 'Stage Chairmen')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
@@ -1514,7 +1525,7 @@
         </div>
       </div>
 </div>
-</div> 
+</div>
 <ng-template #template>
   <div class="modal-header bg-info">
     <h4 class="modal-title text-white">

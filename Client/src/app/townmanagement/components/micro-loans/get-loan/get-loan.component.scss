@@ -10,8 +10,6 @@
 .card-body {
   width: 100%;
   height: auto;
-  max-width: 300px;
-  min-width: 260px;
   border-radius: 8px;
   contain: auto;
 }
@@ -47,9 +45,6 @@
 }
 
 @media (min-width: 360px) {
-  .card-body {
-    max-width: 350px;
-  }
 .form-2 {
   max-width: 350px;
 }

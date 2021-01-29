@@ -190,3 +190,331 @@
     </div>
   </div>
 </div>
+
+<ng-template #template>
+  <div class="modal-header bg-info">
+    <h4 class="modal-title text-white">
+      {{ checkedClient.name }}'s Statement
+    </h4>
+    <button
+      type="button"
+      class="pull-right close"
+      data-dismiss="modal"
+      aria-
+      label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+                            <div class="col-12 pt-0 pb-1 mb-0">
+    <div class="client-modal card mt-0 pt-0 px-0 shadow-lg">
+    <div class="card-body mt-0 pt-1 pb-2 mx-0 px-2">
+                              <div class="iteration">
+                                <div class="item-container mt-1 pt-0">
+                                  <div
+                                    class="list-card-1 card my-0 py-1 mx-auto px-0 shadow-lg"
+                                  >
+                                    <div
+                                      class="list-card-body-1 card-body my-0 py-0 mx-0"
+                                    >
+                                      <div class="row my-0 py-0">
+                                        <div class="col-12 my-0 py-0">
+                                          <div class="row">
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 col-xl-7 d-flex justify-content-start"
+                                                >
+                                                  <span class="">Txn ID</span>
+                                                </div>
+                                                <div
+                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 col-xl-7 d-flex justify-content-start"
+                                                >
+                                                  <span class="">Txn Date</span>
+                                                </div>
+                                                <div
+                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerName.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 col-xl-7 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Txn Time</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"].station
+                              .value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 col-xl-7 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Txn Type</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 col-xl-7 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Loan Amount
+                                                  </span>
+                                                </div>
+                                                <div
+                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                           <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 col-xl-7 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Principal Amount</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 col-xl-7 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Interest Amount</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->34550000
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Interest Rate</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Amount Paid</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Principal Paid</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Interest Paid</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Balance</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                                                                </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              </div>
+                              </div>
+                              </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-info col-3 col-xl-2 pull-right"
+      (click)="modalRef.hide()"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
+
