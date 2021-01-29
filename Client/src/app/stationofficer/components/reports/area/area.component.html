@@ -35,6 +35,17 @@
                     <option *ngFor="let report of reports; let i = index">{{ report }}</option>
                   </select>
                 </div>
+                <!--input field form control to search reports by set filter-->
+                <div class="col">
+                  <input
+                    id="search_by"
+                    formControlName="search_by"
+                    type="text"
+                    class="form-control mt-2"
+                    autocomplete="off"
+                  />
+                </div>
+                <!--/end-->
               </div>
               <div class="col-1 mx-0 px-0">
                 <div class="ml-2 px-0">
@@ -61,7 +72,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6 col-sm-4 col-md-4 col-xl-3 mx-0 px-0">
+              <div class="col-6 col-sm-3 mx-0 px-0">
                 <!--rangedate-->
                 <label for="range_date">Select Date </label>
 
@@ -2269,9 +2280,6 @@
                       </div>
                     </div>
                   </div>
-<<<<<<< HEAD
-                </div>
-=======
 </div>
               </div>
             </div>
@@ -2334,12 +2342,9 @@
     </div>
     </div>
 </div>
+
 <!--card for displaying revenue report-->
-<<<<<<< HEAD
-<div *ngIf="(type === 'Revenue')">
-=======
 <div *ngIf="(type === 'All Loans' || type === 'Revenue')">
->>>>>>> 370fa38... rebased commit with reports and adjustments
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">

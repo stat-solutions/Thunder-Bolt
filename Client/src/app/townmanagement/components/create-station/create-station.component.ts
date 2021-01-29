@@ -66,7 +66,7 @@ export class CreateStationComponent implements OnInit {
         // console.log(this.approvedStations)
         this.approvedStations.forEach((item, i) => {
           this.fval.selectedStations.controls[i].controls.stationId.setValue(
-            item.theStationLocationId
+            item.stationId
           );
           this.fval.selectedStations.controls[i].controls.stationName.setValue(
             item.stationName
@@ -131,8 +131,8 @@ export class CreateStationComponent implements OnInit {
     this.approvedStations.forEach((item, i) => {
       if (this.fval.selectedStations.controls[i].controls.approved.value === true) {
         stationsSelected.push({
-            theStationLocationId: item.theStationLocationId,
-            locationId: this.User.userLocationId,
+            stationId: item.stationId,
+            theTownLocationId: this.User.userLocationId,
             userId: this.User.userId
         });
       }

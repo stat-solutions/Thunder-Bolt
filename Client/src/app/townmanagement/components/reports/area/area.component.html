@@ -12,9 +12,9 @@
     <div class="container mx-auto px-0 mb-0 pb-2 col-12">
       <div class="d-flex my-0 py-1 mx-auto px-auto">
         <div class="col-12 mx-0 px-3 px-sm-2 px-lg-3">
-          <form [formGroup]='userForm'>
+          <form [formGroup]="userForm">
             <div class="row">
-              <div class="col-11 col-sm-7 col-lg-3 mx-0 px-0">
+              <div class="col-11 col-sm-7 col-md-4 col-lg-3 mx-0 px-0">
                 <!--select the kind of report depending on the filter set -->
                 <label for="position">Report Type</label>
                 <div class="input-group mb-0">
@@ -35,6 +35,17 @@
                     <option *ngFor="let report of reports; let i = index">{{ report }}</option>
                   </select>
                 </div>
+                <!--input field form control to search reports by set filter-->
+                <div class="col">
+                  <input
+                    id="search_by"
+                    formControlName="search_by"
+                    type="text"
+                    class="form-control mt-2"
+                    autocomplete="off"
+                  />
+                </div>
+                <!--/end-->
               </div>
               <div class="col-1 mx-0 px-0">
                 <div class="ml-2 px-0">
@@ -62,10 +73,10 @@
                   </div>
                 </div>
               </div>
-              <div class="col-6 col-sm-4 col-md-4 col-xl-3 mx-0 px-0">
+              <div class="col-6 col-sm-3 mx-0 px-0">
                 <!--rangedate-->
                 <label for="range_date">Select Date </label>
-          
+
                 <div class="input-group mb-0">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
@@ -146,7 +157,7 @@
     <div class="row mx-auto px-auto mb-2">
       <div class="col-3 d-flex justify-content-start">
         <span class="">
-          Station: 
+          Area:
         </span>
       </div>
       <div class="col-9 d-flex justify-content-start font-weight-bold">
@@ -157,7 +168,7 @@
     </div>
     <div class="iteration">
       <div class="item-container mt-1">
-        <div 
+        <div
         class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
         *ngFor="let itm of singleReport; let i = index"
         >
@@ -366,8 +377,8 @@
           </div>
         </div>
       </div>
-    </div>  
-  </div>  
+    </div>
+  </div>
 </div>
 <!--card for displaying cash ledger-->
 <div *ngIf="(type === 'Cash Ledger')">
@@ -454,7 +465,7 @@
                     </div>
                     <div
                       class="col-7 d-flex justify-content-start font-weight-bold"
-                      
+
                     >
                       <span class="itemCreated" [hidden]="itm.narration2X1 === 'null'">
                         {{ itm.narration2X1 }}
@@ -592,7 +603,7 @@
       <div class="col-9 d-flex justify-content-start font-weight-bold">
         <span class="itemCreated"
           >Eastern
-          
+
         </span>
       </div>
     </div>
@@ -614,7 +625,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                         
+
                         </span>
                       </div>
                     </div>
@@ -628,7 +639,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -642,7 +653,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -658,7 +669,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -672,7 +683,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -686,7 +697,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -702,7 +713,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -723,7 +734,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                         
+
                         </span>
                       </div>
                     </div>
@@ -737,7 +748,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -751,7 +762,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -779,7 +790,7 @@
         <div class="col-9 d-flex justify-content-start font-weight-bold">
           <span class="itemCreated"
             >Eastern
-           
+
           </span>
         </div>
       </div>
@@ -801,7 +812,7 @@
                           class="col-7 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                            
+
                           </span>
                         </div>
                       </div>
@@ -815,7 +826,7 @@
                           class="col-7 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                            
+
                           </span>
                         </div>
                       </div>
@@ -829,7 +840,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -845,7 +856,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -859,7 +870,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -873,7 +884,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                      
+
                       </span>
                     </div>
                   </div>
@@ -889,7 +900,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -910,7 +921,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -924,7 +935,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -938,7 +949,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -966,7 +977,7 @@
       <div class="col-9 d-flex justify-content-start font-weight-bold">
         <span class="itemCreated"
           >Eastern
-          
+
         </span>
       </div>
     </div>
@@ -988,7 +999,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                         
+
                         </span>
                       </div>
                     </div>
@@ -1002,7 +1013,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                         
+
                         </span>
                       </div>
                     </div>
@@ -1016,7 +1027,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -1032,7 +1043,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                         
+
                         </span>
                       </div>
                     </div>
@@ -1046,7 +1057,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -1066,7 +1077,7 @@
                 class="col-7 d-flex justify-content-start font-weight-bold"
               >
                 <span class="itemCreated">
-                  
+
                 </span>
               </div>
             </div>
@@ -1080,7 +1091,7 @@
                 class="col-7 d-flex justify-content-start font-weight-bold"
               >
                 <span class="itemCreated">
-                  
+
                 </span>
               </div>
             </div>
@@ -1097,7 +1108,7 @@
                   class="col-6 d-flex justify-content-start font-weight-bold"
                 >
                   <span class="itemCreated">
-                    
+
                   </span>
                 </div>
               </div>
@@ -1111,7 +1122,7 @@
                   class="col-6 d-flex justify-content-start font-weight-bold"
                 >
                   <span class="itemCreated">
-                    
+
                   </span>
                 </div>
               </div>
@@ -1125,7 +1136,7 @@
                   class="col-7 d-flex justify-content-start font-weight-bold"
                 >
                   <span class="itemCreated">
-                    
+
                   </span>
                 </div>
               </div>
@@ -2321,7 +2332,7 @@
     >
       <span class="itemCreated"
         >Eastern
-        
+
       </span>
     </div>
   </div>
@@ -2352,7 +2363,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -2368,7 +2379,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -2384,7 +2395,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -2402,7 +2413,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -2418,7 +2429,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -2434,7 +2445,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -2452,7 +2463,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                         </span>
                       </div>
                     </div>
@@ -2473,12 +2484,12 @@
             class="col-7 d-flex justify-content-start font-weight-bold"
           >
             <span class="itemCreated">
-              
+
             </span>
           </div>
         </div>
       </div>
-    </div>    
+    </div>
     </div>
   </div>
 </div>
@@ -2794,7 +2805,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -2822,7 +2833,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -2838,7 +2849,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -2852,7 +2863,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                         
+
                         </span>
                       </div>
                     </div>
@@ -2866,7 +2877,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -2882,7 +2893,7 @@
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -2896,7 +2907,7 @@
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -2910,7 +2921,7 @@
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -2926,7 +2937,7 @@
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -2940,7 +2951,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -2954,7 +2965,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -3814,7 +3825,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -3832,7 +3843,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -3852,7 +3863,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -3874,7 +3885,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -3894,7 +3905,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -3914,7 +3925,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                      
+
                       </span>
                     </div>
                   </div>
@@ -3936,7 +3947,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -3976,7 +3987,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -3998,7 +4009,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -4018,7 +4029,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -4038,7 +4049,7 @@
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -4230,7 +4241,7 @@ fval.customers["controls"][idx]["controls"]
     </div>
   </div>
 </div>
-<!--card for displaying Loan Transactions Report-->                         
+<!--card for displaying Loan Transactions Report-->
 <div *ngIf="(type === 'Loan Transaction')">
 <div class="container mt-3 mb-0 mx-0 shadow-lg">
   <div class="row">
@@ -5580,7 +5591,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                      
+
                       </span>
                     </div>
                   </div>
@@ -5600,7 +5611,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -5622,7 +5633,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -5642,7 +5653,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                  
+
                       </span>
                     </div>
                     </div>
@@ -5679,7 +5690,7 @@ fval.customers["controls"][idx]["controls"]
     >
       <span class="itemCreated"
         >Eastern
-       
+
       </span>
     </div>
   </div>
@@ -5714,7 +5725,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -5732,7 +5743,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -5752,7 +5763,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -5774,7 +5785,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -5794,7 +5805,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -5814,7 +5825,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -5836,7 +5847,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                      
+
                       </span>
                     </div>
                   </div>
@@ -5873,7 +5884,7 @@ fval.customers["controls"][idx]["controls"]
     >
       <span class="itemCreated"
         >Eastern
-        
+
       </span>
     </div>
   </div>
@@ -5908,7 +5919,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -5926,7 +5937,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -5944,7 +5955,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -5964,7 +5975,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -5984,7 +5995,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                    
+
                       </span>
                     </div>
                   </div>
@@ -6002,7 +6013,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -6022,7 +6033,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                    
+
                       </span>
                     </div>
                   </div>
@@ -6042,7 +6053,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -6060,7 +6071,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                      
+
                       </span>
                     </div>
                   </div>
@@ -6080,7 +6091,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                      
+
                       </span>
                     </div>
                   </div>
@@ -6100,7 +6111,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -6118,7 +6129,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -6138,7 +6149,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                       
+
                       </span>
                     </div>
                   </div>
@@ -6158,7 +6169,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                     
+
                       </span>
                     </div>
                   </div>
@@ -6176,7 +6187,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        
+
                       </span>
                     </div>
                   </div>
@@ -6196,7 +6207,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                     
+
                       </span>
                     </div>
                   </div>
@@ -6216,7 +6227,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                   
+
                       </span>
                     </div>
                   </div>
@@ -6234,7 +6245,7 @@ fval.customers["controls"][idx]["controls"]
                       class="col-6 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                     
+
                       </span>
                     </div>
                   </div>
@@ -6254,7 +6265,7 @@ fval.customers["controls"][idx]["controls"]
                     class="col-6 d-flex justify-content-start font-weight-bold"
                   >
                     <span class="itemCreated">
-                      
+
                     </span>
                   </div>
                 </div>
@@ -6291,7 +6302,7 @@ fval.customers["controls"][idx]["controls"]
       >
         <span class="itemCreated"
           >Eastern
-         
+
         </span>
       </div>
     </div>
@@ -6322,7 +6333,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                         
+
                         </span>
                       </div>
                     </div>
@@ -6350,7 +6361,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6366,7 +6377,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6380,7 +6391,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6394,7 +6405,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6410,7 +6421,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6424,7 +6435,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6438,7 +6449,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6454,7 +6465,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6468,7 +6479,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6482,7 +6493,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6521,7 +6532,7 @@ fval.customers["controls"][idx]["controls"]
         >
           <span class="itemCreated"
             >Eastern
-            
+
           </span>
         </div>
       </div>
@@ -6556,7 +6567,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                            
+
                           </span>
                         </div>
                       </div>
@@ -6594,7 +6605,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                        
+
                           </span>
                         </div>
                       </div>
@@ -6616,7 +6627,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                        
+
                           </span>
                         </div>
                       </div>
@@ -6636,7 +6647,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                        
+
                           </span>
                         </div>
                       </div>
@@ -6656,7 +6667,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                          
+
                           </span>
                         </div>
                       </div>
@@ -6676,7 +6687,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                           
+
                           </span>
                         </div>
                       </div>
@@ -6696,7 +6707,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                          
+
                           </span>
                         </div>
                       </div>
@@ -6714,7 +6725,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                         
+
                           </span>
                         </div>
                       </div>
@@ -6736,7 +6747,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                         
+
                           </span>
                         </div>
                       </div>
@@ -6756,7 +6767,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                           
+
                           </span>
                         </div>
                       </div>
@@ -6776,7 +6787,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-7 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                           
+
                           </span>
                         </div>
                       </div>
@@ -6815,7 +6826,7 @@ fval.customers["controls"][idx]["controls"]
       >
         <span class="itemCreated"
           >Eastern
-         
+
         </span>
       </div>
     </div>
@@ -6843,7 +6854,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6861,7 +6872,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                        
+
                         </span>
                       </div>
                     </div>
@@ -6881,7 +6892,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                    
+
                         </span>
                       </div>
                     </div>
@@ -6903,7 +6914,7 @@ fval.customers["controls"][idx]["controls"]
                         class="col-6 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          
+
                         </span>
                       </div>
                     </div>
@@ -6942,7 +6953,7 @@ fval.customers["controls"][idx]["controls"]
           >
             <span class="itemCreated"
               >Eastern
-    
+
             </span>
           </div>
         </div>
@@ -6977,7 +6988,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-6 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-                              
+
                             </span>
                           </div>
                         </div>
@@ -6995,7 +7006,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-6 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-                             
+
                      Keminagano Pulikeria
                             </span>
                           </div>
@@ -7016,7 +7027,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-6 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-                       
+
                             </span>
                           </div>
                         </div>
@@ -7038,7 +7049,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-6 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-                         
+
                             </span>
                           </div>
                         </div>
@@ -7058,7 +7069,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-6 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-                      
+
                             </span>
                           </div>
                         </div>
@@ -7078,7 +7089,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-6 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-                         
+
                             </span>
                           </div>
                         </div>
@@ -7098,7 +7109,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-6 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-                  
+
                             </span>
                           </div>
                         </div>
@@ -7118,7 +7129,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-6 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-                    
+
                             </span>
                           </div>
                         </div>
@@ -7136,7 +7147,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-6 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-                     
+
                             </span>
                           </div>
                         </div>
@@ -7158,7 +7169,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-6 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-              
+
                             </span>
                           </div>
                         </div>
@@ -7178,7 +7189,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-7 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-        
+
                             </span>
                           </div>
                         </div>
@@ -7198,7 +7209,7 @@ fval.customers["controls"][idx]["controls"]
                             class="col-7 d-flex justify-content-start font-weight-bold"
                           >
                             <span class="itemCreated">
-                          
+
                             </span>
                           </div>
                         </div>
@@ -7237,7 +7248,7 @@ fval.customers["controls"][idx]["controls"]
         >
           <span class="itemCreated"
             >Eastern
-       
+
           </span>
         </div>
       </div>
@@ -7272,7 +7283,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                   
+
                           </span>
                         </div>
                       </div>
@@ -7310,7 +7321,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-      
+
                           </span>
                         </div>
                       </div>
@@ -7332,7 +7343,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-  
+
                           </span>
                         </div>
                       </div>
@@ -7352,7 +7363,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-            
+
                           </span>
                         </div>
                       </div>
@@ -7372,7 +7383,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-      
+
                           </span>
                         </div>
                       </div>
@@ -7392,7 +7403,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-          
+
                           </span>
                         </div>
                       </div>
@@ -7412,7 +7423,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-         
+
                           </span>
                         </div>
                       </div>
@@ -7430,7 +7441,7 @@ fval.customers["controls"][idx]["controls"]
                           class="col-6 d-flex justify-content-start font-weight-bold"
                         >
                           <span class="itemCreated">
-                           
+
                           </span>
                         </div>
                       </div>
@@ -7542,4 +7553,3 @@ fval.customers["controls"][idx]["controls"]
     </div>
   </div>
 </ng-template>
-                              
