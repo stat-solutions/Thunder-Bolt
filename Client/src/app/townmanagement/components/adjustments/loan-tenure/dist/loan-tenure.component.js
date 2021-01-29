@@ -156,7 +156,7 @@ var LoanTenureComponent = /** @class */ (function () {
         this.numberPlates = [];
         this.phoneNumbers = [];
     };
-    LoanTenureComponent.prototype.checkLoanbility = function (value) {
+    LoanTenureComponent.prototype.checkLoanbility = function (value, template) {
         if (value !== '') {
             // console.log(this.loanType);
             switch (this.loanType) {
@@ -165,6 +165,7 @@ var LoanTenureComponent = /** @class */ (function () {
                     bodaCustomers = bodaCustomers.filter(function (customer) { return customer.bodabodaCustomerNumberPlate === value.toUpperCase(); });
                     if (bodaCustomers.length === 1) {
                         this.checkedClient = bodaCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -178,6 +179,7 @@ var LoanTenureComponent = /** @class */ (function () {
                     taxiCustomers = taxiCustomers.filter(function (customer) { return customer.taxiCustomerNumberPlate === value.toUpperCase(); });
                     if (taxiCustomers.length === 1) {
                         this.checkedClient = taxiCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -191,6 +193,7 @@ var LoanTenureComponent = /** @class */ (function () {
                     microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
                     if (microCustomers.length === 1) {
                         this.checkedClient = microCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -216,6 +219,7 @@ var LoanTenureComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    // modal method
     LoanTenureComponent.prototype.openModal = function (template) {
         this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-centered' }));
     };
@@ -235,7 +239,7 @@ var LoanTenureComponent = /** @class */ (function () {
                         productCode: _this.loanType === 'Boda Loan' ? 200 : _this.loanType === 'Taxi Loan' ? 300 : 400,
                         theLoanTenure: tenure,
                         userId: _this.User.userId,
-                        comment: "This customer's loan tenure should be changed to " + tenure + " days"
+                        comment: "Please set loan tenure of this customer to " + tenure + " days"
                     };
                     _this.others.setIndividualLoanTenure(data).subscribe(function (response) {
                         if (response === true) {

@@ -172,7 +172,7 @@ export class WithdrawComponent implements OnInit {
             if (res){
               this.posted = true;
               this.alertService.success({
-                html: '<b> Deposit was successfully</b>'
+                html: '<b>Withdraw was initiated successfully, please wait for approval</b>'
               });
               setTimeout(() => {
                 this.userForm = this.createFormGroup();

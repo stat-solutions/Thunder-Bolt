@@ -310,7 +310,6 @@ var PersonalInfoComponent = /** @class */ (function () {
         setTimeout(this.completeForm(), 5000);
     };
     PersonalInfoComponent.prototype.completeForm = function () {
-        var _this = this;
         if (this.fval.productCode.value) {
             this.data.push({
                 customerName: this.fval.customer_name.value.toUpperCase(),
@@ -329,11 +328,20 @@ var PersonalInfoComponent = /** @class */ (function () {
                 userId: this.User.userId,
                 productCode: null
             });
-            this.products.forEach(function (pdt) {
-                if (pdt.productName === _this.fval.productCode.value) {
-                    _this.data[0].productCode = pdt.productCode;
-                }
-            });
+            switch (this.fval.productCode.value) {
+                case 'BODABODA LOAN PRODUCT':
+                    this.data[0].productCode = 200;
+                    break;
+                case 'TAXI LOAN PRODUCT':
+                    this.data[0].productCode = 300;
+                    break;
+                case 'MICROLOAN PRODUCT':
+                    this.data[0].productCode = 400;
+                    break;
+                case 'SAVINGS PRODUCT':
+                    this.data[0].productCode = 100;
+                    break;
+            }
             for (var _i = 0, _a = this.stations; _i < _a.length; _i++) {
                 var station = _a[_i];
                 if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()) {
@@ -627,7 +635,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                     //  customerId: 400000000,
                     productCode: this.data[0].productCode
                 });
-                console.log(this.data);
+                // console.log(this.data);
                 this.others.createCustomer(this.data).subscribe(function (res) {
                     _this.posted = true;
                     _this.data = [];
@@ -663,12 +671,12 @@ var PersonalInfoComponent = /** @class */ (function () {
             if (this.savingsClientForm.valid) {
                 this.data.push({
                     savingsCustomerMonthlyIncome: this.savFval.monthlyIncome.value,
-                    savingsCustomerWithdrawFreequency: this.savFval.withdrawFreequency.value.toUpperCase(),
+                    savingsCustomerWithdrawFreequency: this.savFval.withdrawFreequency.value,
                     savingsCustomerTarget: this.savFval.customerTarget.value.toUpperCase(),
                     // customerId: 400000000,
                     productCode: this.data[0].productCode
                 });
-                console.log(this.data);
+                // console.log(this.data);
                 this.others.createCustomer(this.data).subscribe(function (res) {
                     _this.posted = true;
                     _this.data = [];
@@ -687,7 +695,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                     }, 3000);
                 }, function (err) {
                     _this.data = [];
-                    console.log(err.statusText);
+                    // console.log(err.statusText);
                     _this.alertService.danger({
                         html: '<b>' + err.error.error.message + '</b>'
                     });

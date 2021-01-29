@@ -309,7 +309,6 @@ export class EditPersonalInfoComponent implements OnInit {
       ),
       ownersName: new FormControl(
         '',
-        // Validators.compose([Validators.required])
       ),
       ownersPhoneNumber: new FormControl(
         '',
@@ -1184,7 +1183,7 @@ export class EditPersonalInfoComponent implements OnInit {
     if (this.savingsClientForm.valid) {
       let data = {
         savingsCustomerMonthlyIncome: this.savFval.monthlyIncome.value,
-        savingsCustomerWithdrawFreequency: this.savFval.withdrawFreequency.value.toUpperCase(),
+        savingsCustomerWithdrawFreequency: this.savFval.withdrawFreequency.value,
         savingsCustomerTarget: this.savFval.customerTarget.value.toUpperCase(),
         customerId: this.currentCustomerId,
         productCode: 100

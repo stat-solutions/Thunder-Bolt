@@ -166,7 +166,7 @@ var ReverseInterestComponent = /** @class */ (function () {
         this.numberPlates = [];
         this.phoneNumbers = [];
     };
-    ReverseInterestComponent.prototype.checkLoanbility = function (value) {
+    ReverseInterestComponent.prototype.checkLoanbility = function (value, template) {
         if (value !== '') {
             // console.log(this.loanType);
             switch (this.loanType) {
@@ -175,6 +175,7 @@ var ReverseInterestComponent = /** @class */ (function () {
                     bodaCustomers = bodaCustomers.filter(function (customer) { return customer.bodabodaCustomerNumberPlate === value.toUpperCase(); });
                     if (bodaCustomers.length === 1) {
                         this.checkedClient = bodaCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -188,6 +189,7 @@ var ReverseInterestComponent = /** @class */ (function () {
                     taxiCustomers = taxiCustomers.filter(function (customer) { return customer.taxiCustomerNumberPlate === value.toUpperCase(); });
                     if (taxiCustomers.length === 1) {
                         this.checkedClient = taxiCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -201,6 +203,7 @@ var ReverseInterestComponent = /** @class */ (function () {
                     microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
                     if (microCustomers.length === 1) {
                         this.checkedClient = microCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;

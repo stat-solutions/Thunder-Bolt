@@ -201,7 +201,7 @@ export class SetInterestRateComponent implements OnInit {
     this.phoneNumbers = [];
   }
 
-  checkLoanbility(value: any): any {
+  checkLoanbility(value: any, template: TemplateRef<any>): any {
     if (value !== ''){
       // console.log(this.loanType);
       switch (this.loanType) {
@@ -210,6 +210,7 @@ export class SetInterestRateComponent implements OnInit {
           bodaCustomers = bodaCustomers.filter((customer) => customer.bodabodaCustomerNumberPlate === value.toUpperCase());
           if (bodaCustomers.length === 1){
             this.checkedClient = bodaCustomers[0];
+            this.openModal(template);
           } else {
             this.errored = true;
             this.alertService.danger({
@@ -222,6 +223,7 @@ export class SetInterestRateComponent implements OnInit {
         taxiCustomers = taxiCustomers.filter((customer) => customer.taxiCustomerNumberPlate === value.toUpperCase());
         if (taxiCustomers.length === 1){
           this.checkedClient = taxiCustomers[0];
+          this.openModal(template);
         } else {
           this.errored = true;
           this.alertService.danger({
@@ -234,6 +236,7 @@ export class SetInterestRateComponent implements OnInit {
           microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value.toUpperCase());
           if (microCustomers.length === 1){
             this.checkedClient = microCustomers[0];
+            this.openModal(template);
           } else {
               this.errored = true;
               this.checkedClient = {};
@@ -283,7 +286,7 @@ export class SetInterestRateComponent implements OnInit {
               productCode: this.loanType === 'Boda Loan' ? 200 : this.loanType === 'Taxi Loan' ? 300 : 400,
               theLoanInterestRate: itemRate,
               userId: this.User.userId,
-              comment: `This customer's interest rate should be changed to ${itemRate}%`
+              comment: `Please set interest rate of this customer to ${itemRate}%`
             };
             this.others.setIdividualLoanInterestRate(data).subscribe(
               response => {

@@ -57,8 +57,12 @@ var waive_interest_component_1 = require("./components/adjustments/waive-interes
 var set_loan_limit_component_1 = require("./components/adjustments/set-loan-limit/set-loan-limit.component");
 var set_interest_rate_component_1 = require("./components/adjustments/set-interest-rate/set-interest-rate.component");
 var reverse_principal_component_1 = require("./components/adjustments/reverse-principal/reverse-principal.component");
+var reverse_interest_component_1 = require("./components/adjustments/reverse-interest/reverse-interest.component");
 var loan_tenure_component_1 = require("./components/adjustments/loan-tenure/loan-tenure.component");
 var accrual_days_component_1 = require("./components/adjustments/accrual-days/accrual-days.component");
+var loan_amortize_type_component_1 = require("./components/adjustments/loan-amortize-type/loan-amortize-type.component");
+var loan_amortize_cycle_component_1 = require("./components/adjustments/loan-amortize-cycle/loan-amortize-cycle.component");
+var ngx_pinch_zoom_1 = require("ngx-pinch-zoom");
 var TownmanagementModule = /** @class */ (function () {
     function TownmanagementModule() {
     }
@@ -105,6 +109,9 @@ var TownmanagementModule = /** @class */ (function () {
                 reverse_principal_component_1.ReversePrincipalComponent,
                 loan_tenure_component_1.LoanTenureComponent,
                 accrual_days_component_1.AccrualDaysComponent,
+                reverse_interest_component_1.ReverseInterestComponent,
+                loan_amortize_type_component_1.LoanAmortizeTypeComponent,
+                loan_amortize_cycle_component_1.LoanAmortizeCycleComponent,
             ],
             imports: [
                 common_1.CommonModule,
@@ -116,6 +123,7 @@ var TownmanagementModule = /** @class */ (function () {
                 datepicker_1.DatepickerModule,
                 datepicker_1.BsDatepickerModule,
                 ng_bootstrap_1.NgbModule,
+                ngx_pinch_zoom_1.PinchZoomModule,
                 modal_1.ModalModule.forRoot(),
                 tooltip_1.TooltipModule.forRoot(),
                 ngx_alerts_1.AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),

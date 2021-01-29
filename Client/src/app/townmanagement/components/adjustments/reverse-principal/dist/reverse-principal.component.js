@@ -166,7 +166,7 @@ var ReversePrincipalComponent = /** @class */ (function () {
         this.numberPlates = [];
         this.phoneNumbers = [];
     };
-    ReversePrincipalComponent.prototype.checkLoanbility = function (value) {
+    ReversePrincipalComponent.prototype.checkLoanbility = function (value, template) {
         if (value !== '') {
             // console.log(this.loanType);
             switch (this.loanType) {
@@ -175,6 +175,7 @@ var ReversePrincipalComponent = /** @class */ (function () {
                     bodaCustomers = bodaCustomers.filter(function (customer) { return customer.bodabodaCustomerNumberPlate === value.toUpperCase(); });
                     if (bodaCustomers.length === 1) {
                         this.checkedClient = bodaCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -188,6 +189,7 @@ var ReversePrincipalComponent = /** @class */ (function () {
                     taxiCustomers = taxiCustomers.filter(function (customer) { return customer.taxiCustomerNumberPlate === value.toUpperCase(); });
                     if (taxiCustomers.length === 1) {
                         this.checkedClient = taxiCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -201,6 +203,7 @@ var ReversePrincipalComponent = /** @class */ (function () {
                     microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
                     if (microCustomers.length === 1) {
                         this.checkedClient = microCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -239,7 +242,7 @@ var ReversePrincipalComponent = /** @class */ (function () {
         if (this.userForm.valid) {
             this.others.verifyUserWithPin({ userPhone1: this.User.userPhone, userPassword: Number(this.fval.pin.value) }).subscribe(function (res) {
                 if (res) {
-                    var data = {
+                    var data_1 = {
                         customerId: _this.checkedClient.customerId,
                         theStationLocationId: _this.checkedClient.fktheStationLocationIdCustomer,
                         productCode: _this.loanType === 'Boda Loan' ? 200 : _this.loanType === 'Taxi Loan' ? 300 : 400,
@@ -248,13 +251,35 @@ var ReversePrincipalComponent = /** @class */ (function () {
                         userId: _this.User.userId,
                         comment: "Please reverse principal of " + amount + " on this customer"
                     };
-                    _this.others.reversePrincimpal(data).subscribe(function (response) {
-                        if (response === true) {
-                            _this.posted = true;
-                            _this.alertService.success({
-                                html: '<b> Reversing of Principal was Initiated Successfully, wait for approval</b>'
+                    _this.others.getPrincipalTxnsForReversal(_this.checkedClient.customerPhone1).subscribe(function (result) {
+                        if (result === true) {
+                            _this.others.reversePrincimpal(data_1).subscribe(function (response) {
+                                if (response === true) {
+                                    _this.posted = true;
+                                    _this.alertService.success({
+                                        html: '<b> Reversing of Principal was Initiated Successfully, wait for approval</b>'
+                                    });
+                                    setTimeout(_this.revert(), 3000);
+                                }
+                            }, function (err) {
+                                _this.errored = true;
+                                if (err.error.error.status === 500) {
+                                    _this.alertService.danger({
+                                        html: '<b> Sever Could Not handle this request</b>'
+                                    });
+                                }
+                                else {
+                                    _this.alertService.danger({
+                                        html: '<b>' + err.error.error.message + '</b>'
+                                    });
+                                }
                             });
-                            setTimeout(_this.revert(), 3000);
+                        }
+                        else {
+                            _this.errored = true;
+                            _this.alertService.danger({
+                                html: '<b> This customer has no Principal to reverse</b>'
+                            });
                         }
                     }, function (err) {
                         _this.errored = true;

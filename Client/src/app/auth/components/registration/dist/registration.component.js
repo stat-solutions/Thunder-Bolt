@@ -274,9 +274,9 @@ var RegistrationComponent = /** @class */ (function () {
                             '</br>' +
                             'Wait for verification'
                     });
-                    // setTimeout(() => {
-                    //   this.router.navigate(['authpage/login']);
-                    // }, 3000);
+                    setTimeout(function () {
+                        _this.router.navigate(['authpage/login']);
+                    }, 3000);
                 }, function (error) {
                     _this.spinner.hide();
                     _this.errored = true;

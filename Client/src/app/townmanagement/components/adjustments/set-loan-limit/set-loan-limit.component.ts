@@ -205,7 +205,7 @@ export class SetLoanLimitComponent implements OnInit {
     this.phoneNumbers = [];
   }
 
-  checkLoanbility(value: any): any {
+  checkLoanbility(value: any, template: TemplateRef<any>): any {
     if (value !== ''){
       // console.log(this.loanType);
       switch (this.loanType) {
@@ -214,6 +214,7 @@ export class SetLoanLimitComponent implements OnInit {
           bodaCustomers = bodaCustomers.filter((customer) => customer.bodabodaCustomerNumberPlate === value.toUpperCase());
           if (bodaCustomers.length === 1){
             this.checkedClient = bodaCustomers[0];
+            this.openModal(template);
           } else {
             this.errored = true;
             this.alertService.danger({
@@ -226,6 +227,7 @@ export class SetLoanLimitComponent implements OnInit {
         taxiCustomers = taxiCustomers.filter((customer) => customer.taxiCustomerNumberPlate === value.toUpperCase());
         if (taxiCustomers.length === 1){
           this.checkedClient = taxiCustomers[0];
+          this.openModal(template);
         } else {
           this.errored = true;
           this.alertService.danger({
@@ -238,6 +240,7 @@ export class SetLoanLimitComponent implements OnInit {
           microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value.toUpperCase());
           if (microCustomers.length === 1){
             this.checkedClient = microCustomers[0];
+            this.openModal(template);
           } else {
               this.errored = true;
               this.checkedClient = {};
@@ -286,7 +289,7 @@ export class SetLoanLimitComponent implements OnInit {
               productCode: this.loanType === 'Boda Loan' ? 200 : this.loanType === 'Taxi Loan' ? 300 : 400,
               theLoanLimit: itemLimit,
               userId: this.User.userId,
-              comment: `This customer's loan limit should be changed to ${itemLimit} amount`
+              comment: `Please set loan limit of this customer to ${itemLimit}`
             };
             this.others.setIdividualLoanLimit(data).subscribe(
               response => {

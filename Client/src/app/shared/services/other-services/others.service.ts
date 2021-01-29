@@ -447,6 +447,30 @@ export class OthersService {
     confirmMicroLoan(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postConfirmApprovedTxnMicron`, postData );
     }
+    putSetIndividualLoanAmortizationCycle(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanAmortizationCycle`, postData );
+    }
+    getIndividualLoanAmortizationCycleForApproval(): any {
+      return this.http.get(`${this.API_URL}/api/customer/getIndividualLoanAmortizationCycleForApproval`);
+    }
+    postApproveIndividualLoanAmortizationCycle(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postApproveIndividualLoanAmortizationCycle`, postData );
+    }
+    postRejectIndividualLoanAmortizationCycle(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postRejectIndividualLoanAmortizationCycle`, postData );
+    }
+    putSetIndividualLoanAmortizationType(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanAmortizationType`, postData );
+    }
+    getIndividualLoanAmortizationTypeForApproval(): any {
+      return this.http.get(`${this.API_URL}/api/customer/getIndividualLoanAmortizationTypeForApproval`);
+    }
+    postApproveIndividualLoanAmortizationType(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postApproveIndividualLoanAmortizationType`, postData );
+    }
+    postRejectIndividualLoanAmortizationType(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/customer/postRejectIndividualLoanAmortizationType`, postData );
+    }
     setIdividualLoanLimit(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );
     }
@@ -537,9 +561,6 @@ export class OthersService {
     getPrincipalTxnsForReversal(phone: any): any {
       return this.http.get(`${this.API_URL}/api/loan/getPrincipalTxnsForReversal?customerPhone1=${phone}`);
     }
-    getPrincipalTxnsForReversalTaxiBoda(plate: any): any {
-      return this.http.get(`${this.API_URL}/api/loan/getPrincipalTxnsForReversal?numberPlate=${plate}`);
-    }
     getReversedPrincipalForApproval(): any {
       return this.http.get(`${this.API_URL}/api/loan/getReversedPrincipalForApproval`);
     }
@@ -572,6 +593,12 @@ export class OthersService {
     }
     getCashLedgerStation(postData: any): any {
       return this.http.post(`${this.API_URL}/api/reports/getCashLedgerStation`, postData);
+    }
+    bodaAndTaxiCustomerStatement(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/reports/bodaAndTaxiCustomerStatement`, postData);
+    }
+    microCustomerStatement(phone: any): any {
+      return this.http.get(`${this.API_URL}/api/reports/microCustomerStatement?customerPhoneNumber=${phone}`);
     }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 

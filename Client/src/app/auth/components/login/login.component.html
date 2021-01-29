@@ -130,7 +130,7 @@ class="container-fluid d-flex flex-row justify-content-center mb-0 mt-0 pt-4 pt-
           </div>
         </div>
         <div class="col-6 d-flex flex-row justify-content-start mt-0 pt-0">
-          <div class="form-group">
+          <div class="form-group" [hidden]="fval.userPhone1 ===''">
             <a class="text-info mr-0" routerLink="../changepassword">
               Forgot PIN?
             </a>

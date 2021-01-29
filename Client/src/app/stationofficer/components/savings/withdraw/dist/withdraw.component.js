@@ -132,11 +132,11 @@ var WithdrawComponent = /** @class */ (function () {
                     productCode: 100,
                     theStationLocationId: this.User.userLocationId
                 };
-                this.others.putTxnCustomer(data).subscribe(function (res) {
+                this.others.putTxnCustomerApproval(data).subscribe(function (res) {
                     if (res) {
                         _this.posted = true;
                         _this.alertService.success({
-                            html: '<b> Deposit was successfully</b>'
+                            html: '<b>Withdraw was initiated successfully, please wait for approval</b>'
                         });
                         setTimeout(function () {
                             _this.userForm = _this.createFormGroup();
@@ -159,7 +159,7 @@ var WithdrawComponent = /** @class */ (function () {
             else {
                 this.errored = true;
                 this.alertService.danger({
-                    html: '<b>Secret pin does not much</b>'
+                    html: '<b>Secret pin does not match</b>'
                 });
             }
         }

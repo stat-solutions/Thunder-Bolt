@@ -196,7 +196,7 @@ export class LoanTenureComponent implements OnInit {
     this.phoneNumbers = [];
   }
 
-  checkLoanbility(value: any): any {
+  checkLoanbility(value: any, template: TemplateRef<any>): any {
     if (value !== ''){
       // console.log(this.loanType);
       switch (this.loanType) {
@@ -205,6 +205,7 @@ export class LoanTenureComponent implements OnInit {
           bodaCustomers = bodaCustomers.filter((customer) => customer.bodabodaCustomerNumberPlate === value.toUpperCase());
           if (bodaCustomers.length === 1){
             this.checkedClient = bodaCustomers[0];
+            this.openModal(template);
           } else {
             this.errored = true;
             this.alertService.danger({
@@ -217,6 +218,7 @@ export class LoanTenureComponent implements OnInit {
         taxiCustomers = taxiCustomers.filter((customer) => customer.taxiCustomerNumberPlate === value.toUpperCase());
         if (taxiCustomers.length === 1){
           this.checkedClient = taxiCustomers[0];
+          this.openModal(template);
         } else {
           this.errored = true;
           this.alertService.danger({
@@ -229,6 +231,7 @@ export class LoanTenureComponent implements OnInit {
           microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value.toUpperCase());
           if (microCustomers.length === 1){
             this.checkedClient = microCustomers[0];
+            this.openModal(template);
           } else {
               this.errored = true;
               this.checkedClient = {};
@@ -278,7 +281,7 @@ export class LoanTenureComponent implements OnInit {
               productCode: this.loanType === 'Boda Loan' ? 200 : this.loanType === 'Taxi Loan' ? 300 : 400,
               theLoanTenure: tenure,
               userId: this.User.userId,
-              comment: `This customer's loan tenure should be changed to ${tenure} days`
+              comment: `Please set loan tenure of this customer to ${tenure} days`
             };
             this.others.setIndividualLoanTenure(data).subscribe(
               response => {

@@ -205,7 +205,7 @@ export class ReversePrincipalComponent implements OnInit {
     this.phoneNumbers = [];
   }
 
-  checkLoanbility(value: any): any {
+  checkLoanbility(value: any, template: TemplateRef<any>): any {
     if (value !== ''){
       // console.log(this.loanType);
       switch (this.loanType) {
@@ -214,6 +214,7 @@ export class ReversePrincipalComponent implements OnInit {
           bodaCustomers = bodaCustomers.filter((customer) => customer.bodabodaCustomerNumberPlate === value.toUpperCase());
           if (bodaCustomers.length === 1){
             this.checkedClient = bodaCustomers[0];
+            this.openModal(template);
           } else {
             this.errored = true;
             this.alertService.danger({
@@ -226,6 +227,7 @@ export class ReversePrincipalComponent implements OnInit {
         taxiCustomers = taxiCustomers.filter((customer) => customer.taxiCustomerNumberPlate === value.toUpperCase());
         if (taxiCustomers.length === 1){
           this.checkedClient = taxiCustomers[0];
+          this.openModal(template);
         } else {
           this.errored = true;
           this.alertService.danger({
@@ -238,6 +240,7 @@ export class ReversePrincipalComponent implements OnInit {
           microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value.toUpperCase());
           if (microCustomers.length === 1){
             this.checkedClient = microCustomers[0];
+            this.openModal(template);
           } else {
               this.errored = true;
               this.checkedClient = {};
@@ -289,14 +292,37 @@ export class ReversePrincipalComponent implements OnInit {
               userId: this.User.userId,
               comment: `Please reverse principal of ${amount} on this customer`
             };
-            this.others.reversePrincimpal(data).subscribe(
-              response => {
-                if (response === true){
-                  this.posted = true;
-                  this.alertService.success({
-                    html: '<b> Reversing of Principal was Initiated Successfully, wait for approval</b>'
+            this.others.getPrincipalTxnsForReversal(this.checkedClient.customerPhone1).subscribe(
+              result => {
+                if (result === true){
+                  this.others.reversePrincimpal(data).subscribe(
+                    response => {
+                      if (response === true){
+                        this.posted = true;
+                        this.alertService.success({
+                          html: '<b> Reversing of Principal was Initiated Successfully, wait for approval</b>'
+                        });
+                        setTimeout(this.revert(), 3000);
+                      }
+                    },
+                    err => {
+                      this.errored = true;
+                      if (err.error.error.status === 500) {
+                        this.alertService.danger({
+                          html: '<b> Sever Could Not handle this request</b>'
+                        });
+                      } else {
+                        this.alertService.danger({
+                          html: '<b>' + err.error.error.message + '</b>'
+                        });
+                      }
+                    }
+                  );
+                } else {
+                  this.errored = true;
+                  this.alertService.danger({
+                    html: '<b> This customer has no Principal to reverse</b>'
                   });
-                  setTimeout(this.revert(), 3000);
                 }
               },
               err => {

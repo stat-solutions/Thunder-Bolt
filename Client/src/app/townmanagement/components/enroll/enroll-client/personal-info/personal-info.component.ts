@@ -221,17 +221,9 @@ export class PersonalInfoComponent implements OnInit {
       ),
       ownersName: new FormControl(
         '',
-        Validators.compose([Validators.required])
       ),
       ownersPhoneNumber: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-            { hasNumber: true }
-          ),
-        ])
       ),
     });
   }
@@ -291,17 +283,9 @@ export class PersonalInfoComponent implements OnInit {
       ),
       ownersName: new FormControl(
         '',
-        Validators.compose([Validators.required])
       ),
       ownersPhoneNumber: new FormControl(
         '',
-        Validators.compose([
-          Validators.required,
-          CustomValidator.patternValidator(
-            /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-            { hasNumber: true }
-          ),
-        ])
       )
     });
   }
@@ -552,11 +536,20 @@ export class PersonalInfoComponent implements OnInit {
       userId: this.User.userId,
       productCode: null
      });
-     this.products.forEach(pdt => {
-       if (pdt.productName === this.fval.productCode.value){
-        this.data[0].productCode = pdt.productCode;
-       }
-     });
+     switch (this.fval.productCode.value) {
+      case 'BODABODA LOAN PRODUCT':
+        this.data[0].productCode = 200;
+        break;
+      case 'TAXI LOAN PRODUCT':
+        this.data[0].productCode = 300;
+        break;
+      case 'MICROLOAN PRODUCT':
+        this.data[0].productCode = 400;
+        break;
+      case 'SAVINGS PRODUCT':
+        this.data[0].productCode = 100;
+        break;
+     }
      for (const station of this.stations){
       if (station.stationName.toUpperCase() === this.fval.station.value.toUpperCase()){
         this.data[0].theStationLocationId = station.theStationLocationId;
@@ -839,7 +832,7 @@ export class PersonalInfoComponent implements OnInit {
       //  customerId: 400000000,
          productCode: this.data[0].productCode
         });
-        console.log(this.data);
+        // console.log(this.data);
         this.others.createCustomer(this.data).subscribe(
           res => {
             this.posted = true;
@@ -877,12 +870,12 @@ export class PersonalInfoComponent implements OnInit {
       if (this.savingsClientForm.valid) {
         this.data.push({
           savingsCustomerMonthlyIncome: this.savFval.monthlyIncome.value,
-          savingsCustomerWithdrawFreequency: this.savFval.withdrawFreequency.value.toUpperCase(),
+          savingsCustomerWithdrawFreequency: this.savFval.withdrawFreequency.value,
           savingsCustomerTarget: this.savFval.customerTarget.value.toUpperCase(),
           // customerId: 400000000,
           productCode: this.data[0].productCode
         });
-        console.log(this.data);
+        // console.log(this.data);
         this.others.createCustomer(this.data).subscribe(
           res => {
             this.posted = true;
@@ -903,7 +896,7 @@ export class PersonalInfoComponent implements OnInit {
           },
           err => {
             this.data = [];
-            console.log(err.statusText);
+            // console.log(err.statusText);
             this.alertService.danger({
                   html: '<b>' + err.error.error.message + '</b>'
                 });
