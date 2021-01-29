@@ -166,7 +166,7 @@ var SetLoanLimitComponent = /** @class */ (function () {
         this.numberPlates = [];
         this.phoneNumbers = [];
     };
-    SetLoanLimitComponent.prototype.checkLoanbility = function (value) {
+    SetLoanLimitComponent.prototype.checkLoanbility = function (value, template) {
         if (value !== '') {
             // console.log(this.loanType);
             switch (this.loanType) {
@@ -175,6 +175,7 @@ var SetLoanLimitComponent = /** @class */ (function () {
                     bodaCustomers = bodaCustomers.filter(function (customer) { return customer.bodabodaCustomerNumberPlate === value.toUpperCase(); });
                     if (bodaCustomers.length === 1) {
                         this.checkedClient = bodaCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -188,6 +189,7 @@ var SetLoanLimitComponent = /** @class */ (function () {
                     taxiCustomers = taxiCustomers.filter(function (customer) { return customer.taxiCustomerNumberPlate === value.toUpperCase(); });
                     if (taxiCustomers.length === 1) {
                         this.checkedClient = taxiCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -201,6 +203,7 @@ var SetLoanLimitComponent = /** @class */ (function () {
                     microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
                     if (microCustomers.length === 1) {
                         this.checkedClient = microCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -245,7 +248,7 @@ var SetLoanLimitComponent = /** @class */ (function () {
                         productCode: _this.loanType === 'Boda Loan' ? 200 : _this.loanType === 'Taxi Loan' ? 300 : 400,
                         theLoanLimit: itemLimit,
                         userId: _this.User.userId,
-                        comment: "This customer's loan limit should be changed to " + itemLimit + " amount"
+                        comment: "Please set loan limit of this customer to " + itemLimit
                     };
                     _this.others.setIdividualLoanLimit(data).subscribe(function (response) {
                         if (response === true) {

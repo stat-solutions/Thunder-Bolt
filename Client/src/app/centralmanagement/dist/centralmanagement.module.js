@@ -42,7 +42,7 @@ var set_loan_limit_component_1 = require("./components/transactions/loans/set-lo
 var set_loan_rate_component_1 = require("./components/transactions/loans/set-loan-rate/set-loan-rate.component");
 var deposit_float_component_1 = require("./components/transactions/float/deposit-float/deposit-float.component");
 var withdraw_float_component_1 = require("./components/transactions/float/withdraw-float/withdraw-float.component");
-var reverse_interest_component_1 = require("./components/transactions/approval/reduce-rate/reverse-interest.component");
+var reverse_interest_component_1 = require("./components/transactions/approval/reverse-interest/reverse-interest.component");
 var reverse_principle_component_1 = require("./components/transactions/approval/reverse-principle/reverse-principle.component");
 var interest_rate_component_1 = require("./components/transactions/approval/interest-rate/interest-rate.component");
 var withdraw_savings_component_1 = require("./components/transactions/approval/withdraw-savings/withdraw-savings.component");
@@ -68,8 +68,10 @@ var set_loan_commision_component_1 = require("./components/transactions/loans/se
 var set_loan_accrual_component_1 = require("./components/transactions/loans/set-loan-accrual/set-loan-accrual.component");
 var micro_loan_component_1 = require("./components/transactions/approval/micro-loan/micro-loan.component");
 var ngx_pinch_zoom_1 = require("ngx-pinch-zoom");
-var loan_commission_rate_component_1 = require("./components/transactions/approval/loan-commission-rate/loan-commission-rate.component");
 var loan_accrual_days_component_1 = require("./components/transactions/approval/loan-accrual-days/loan-accrual-days.component");
+var loan_amortize_cycle_component_1 = require("./components/transactions/approval/loan-amortize-cycle/loan-amortize-cycle.component");
+var loan_amortize_type_component_1 = require("./components/transactions/approval/loan-amortize-type/loan-amortize-type.component");
+var loan_commission_rate_component_1 = require("./components/transactions/approval/loan-commission-rate/loan-commission-rate.component");
 var CentralmanagementModule = /** @class */ (function () {
     function CentralmanagementModule() {
     }
@@ -123,8 +125,10 @@ var CentralmanagementModule = /** @class */ (function () {
                 station_managers_component_1.StationManagersComponent,
                 set_loan_tenure_component_1.SetLoanTenureComponent,
                 loan_tenure_component_1.LoanTenureComponent,
-                loan_commission_rate_component_1.LoanCommissionRateComponent,
                 loan_accrual_days_component_1.LoanAccrualDaysComponent,
+                loan_amortize_cycle_component_1.LoanAmortizeCycleComponent,
+                loan_amortize_type_component_1.LoanAmortizeTypeComponent,
+                loan_commission_rate_component_1.LoanCommissionRateComponent
             ],
             imports: [
                 common_1.CommonModule,

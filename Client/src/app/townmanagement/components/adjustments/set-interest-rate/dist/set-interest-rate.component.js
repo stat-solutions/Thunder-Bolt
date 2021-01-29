@@ -162,7 +162,7 @@ var SetInterestRateComponent = /** @class */ (function () {
         this.numberPlates = [];
         this.phoneNumbers = [];
     };
-    SetInterestRateComponent.prototype.checkLoanbility = function (value) {
+    SetInterestRateComponent.prototype.checkLoanbility = function (value, template) {
         if (value !== '') {
             // console.log(this.loanType);
             switch (this.loanType) {
@@ -171,6 +171,7 @@ var SetInterestRateComponent = /** @class */ (function () {
                     bodaCustomers = bodaCustomers.filter(function (customer) { return customer.bodabodaCustomerNumberPlate === value.toUpperCase(); });
                     if (bodaCustomers.length === 1) {
                         this.checkedClient = bodaCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -184,6 +185,7 @@ var SetInterestRateComponent = /** @class */ (function () {
                     taxiCustomers = taxiCustomers.filter(function (customer) { return customer.taxiCustomerNumberPlate === value.toUpperCase(); });
                     if (taxiCustomers.length === 1) {
                         this.checkedClient = taxiCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -197,6 +199,7 @@ var SetInterestRateComponent = /** @class */ (function () {
                     microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
                     if (microCustomers.length === 1) {
                         this.checkedClient = microCustomers[0];
+                        this.openModal(template);
                     }
                     else {
                         this.errored = true;
@@ -222,6 +225,7 @@ var SetInterestRateComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    // modal
     SetInterestRateComponent.prototype.openModal = function (template) {
         this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-centered' }));
     };
@@ -241,9 +245,9 @@ var SetInterestRateComponent = /** @class */ (function () {
                         productCode: _this.loanType === 'Boda Loan' ? 200 : _this.loanType === 'Taxi Loan' ? 300 : 400,
                         theLoanInterestRate: itemRate,
                         userId: _this.User.userId,
-                        comment: "This customer's interest rate should be changed to " + itemRate + "%"
+                        comment: "Please set interest rate of this customer to " + itemRate + "%"
                     };
-                    _this.others.setIdividualLoanLimit(data).subscribe(function (response) {
+                    _this.others.setIdividualLoanInterestRate(data).subscribe(function (response) {
                         if (response === true) {
                             _this.posted = true;
                             _this.alertService.success({

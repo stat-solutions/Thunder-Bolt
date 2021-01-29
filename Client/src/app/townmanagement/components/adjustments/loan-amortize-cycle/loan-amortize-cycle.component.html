@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="card-body mt-1 pt-3 pb-4 mb-0 mx-auto shadow-lg">
-            <form [formGroup]="userForm" (ngSubmit)="setAccrualDays()">
+            <form [formGroup]="userForm" (ngSubmit)="setAmortizationCycle()">
           <div
             class="form-group text-primary"
           >
@@ -45,11 +45,12 @@
                 }"
                 autocomplete="off"
                 placeholder="Select Phone number"
-                 (click)="openModal(template)"
+                (blur)="checkLoanbility(fval.user_contact_number.value, template)"
               />
               <datalist id="user_contact_number">
-                <option >
-0784333333                </option>
+                <option *ngFor="let item of phoneNumbers">
+                  {{ item }}
+                </option>
               </datalist>
           </div>
           <div
@@ -73,111 +74,35 @@
             The phone number should be equal to 10 "digits"!
           </div>
         </div>
-      <div class="form-group text-primary">
-        <label
-          for="station_name"
-          [ngClass]="fval.station_name.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.station_name.valid" class="material-icons"
-            >check_circle</i
-          >Station</label
-        >
+          <div class="form-group text-primary">
+            <label for="cycle" [ngClass]="fval.cycle.valid ? 'text-info' : ''">Amortization Cycle<i *ngIf="fval.cycle.valid" class="material-icons"
+              >check_circle</i
+            ></label
+          >
         <div class="input-group mb-0">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i
-                    class="fas fa-gas-pump text-primary mx-auto"
-                    style="size: 50px"
-                  ></i>
-                </div>
-              </div>
           <input
-          type="text"
-          formControlName="station_name"
-          list="station_name"
-          placeholder="Select a station "
-          class="form-control mx-0"
+          formControlName="cycle"
+          class="form-control"
+          list='cycle'
           [ngClass]="{
             'is-invalid':
-              (fval.station_name.touched || fval.station_name.dirty) &&
-              fval.station_name.errors
+              (fval.cycle.touched || fval.cycle.dirty) &&
+              fval.cycle.errors
           }"
-          autocomplete="on"
+          autocomplete="off"
+          placeholder="Select Amortization Cycle"
         />
-        <datalist id="station_name">
-          <!-- <option selected>Select Station</option> -->
-          <option *ngFor="let station of stations">{{station.stationName.toUpperCase()}}</option>
+        <datalist id="cycle">
+          <option *ngFor="let item of cycles">
+            {{ item.name }}
+          </option>
         </datalist>
     </div>
         <div
           class="text-danger col"
           *ngIf="
-            (fval.station_name.touched || fval.station_name.dirty) &&
-            fval.station_name.errors?.required
-          "
-        >
-          The Station name is required!
-        </div>
-      </div>
-      <div class="form-group text-primary">
-        <label
-          for="loan_product"
-          [ngClass]="fval.loan_product.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.loan_product.valid" class="material-icons"
-            >check_circle</i
-          >Product</label
-        >
-        <div class="input-group mb-0">
-          <select
-          formControlName="loan_product"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid':
-              (fval.loan_product.touched || fval.loan_product.dirty) &&
-              fval.loan_product.errors
-          }"
-          autocomplete="off"
-          placeholder="Select Product"
-        >
-          <option></option>
-          <option *ngFor="let pdt of products">{{pdt.productName}}</option>
-        </select>
-    </div>
-        <div
-          class="text-danger col"
-          *ngIf="
-            (fval.loan_product.touched || fval.loan_product.dirty) &&
-            fval.loan_product.errors?.required
-          "
-        >
-          The Product name is required!
-        </div>
-      </div>
-          <div class="form-group text-primary">
-            <label for="accrualDays" [ngClass]="fval.accrualDays.valid ? 'text-info' : ''">Amortization Cycle<i *ngIf="fval.accrualDays.valid" class="material-icons"
-              >check_circle</i
-            ></label
-          >
-        <div class="input-group mb-0">
-          <select
-          formControlName="loan_product"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid':
-              (fval.loan_product.touched || fval.loan_product.dirty) &&
-              fval.loan_product.errors
-          }"
-          autocomplete="off"
-          placeholder="Select Amortization Cycle"
-        >
-          <option>month</option>
-          <option>week</option>
-        </select>
-    </div>
-        <div
-          class="text-danger col"
-          *ngIf="
-            (fval.loan_product.touched || fval.loan_product.dirty) &&
-            fval.loan_product.errors?.required
+            (fval.cycle.touched || fval.cycle.dirty) &&
+            fval.cycle.errors?.required
           "
         >
           The Amortization cycle is required!
@@ -261,10 +186,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
+                                                   
                                                   </span>
                                                 </div>
                                               </div>
@@ -282,10 +204,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
+                                                   
                                                   </span>
                                                 </div>
                                               </div>
@@ -305,10 +224,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"].station
-                              .value
-                          }} -->
+                                                    
                                                   </span>
                                                 </div>
                                               </div>
@@ -328,10 +244,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                  
                                                   </span>
                                                 </div>
                                               </div>
@@ -351,10 +264,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                    
                                                   </span>
                                                 </div>
                                               </div>
@@ -374,10 +284,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                    
                                                   </span>
                                                 </div>
                                               </div>
@@ -397,10 +304,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->34550000
+                                                    34550000
                                                   </span>
                                                 </div>
                                               </div>
@@ -420,10 +324,7 @@
                                                   class="col-6 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                    
                                                   </span>
                                                 </div>
                                               </div>

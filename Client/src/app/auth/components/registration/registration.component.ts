@@ -343,9 +343,9 @@ register(): any {
                     '</br>' +
                     'Wait for verification'
                 });
-                // setTimeout(() => {
-                //   this.router.navigate(['authpage/login']);
-                // }, 3000);
+                setTimeout(() => {
+                  this.router.navigate(['authpage/login']);
+                }, 3000);
               },
               (error: string) => {
                 this.spinner.hide();

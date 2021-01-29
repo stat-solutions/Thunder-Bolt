@@ -8,35 +8,48 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.ReversePrincipleComponent = void 0;
 var core_1 = require("@angular/core");
-// import { BsModalService } from 'ngx-bootstrap/modal';
-// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 var ReversePrincipleComponent = /** @class */ (function () {
-    function ReversePrincipleComponent(authService, others, router, spinner, alertService, fb) {
+    function ReversePrincipleComponent(authService, others, router, modalService, spinner, alertService, fb) {
         this.authService = authService;
         this.others = others;
         this.router = router;
+        this.modalService = modalService;
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
+        this.txnsApprovals = [];
         this.posted = false;
+        this.loaded = false;
+        this.errored = false;
+        this.User = this.authService.loggedInUserInfo();
     }
     ReversePrincipleComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.others.getSecurityType().subscribe(function (res) {
+            _this.securityTypes = res;
+        }, function (err) {
+            _this.errored = true;
+            _this.alertService.danger({
+                html: '<b>' + err.error.error.message + '</b>'
+            });
+        });
         this.userForm = this.createFormGroup();
         this.fval.selectAll.setValue(false);
         this.initialiseForm();
     };
     ReversePrincipleComponent.prototype.createFormGroup = function () {
         return this.fb.group({
-            approveReverse: this.fb.array([this.reverseApproval]),
+            txnApprovals: this.fb.array([this.txnApproval]),
             selectAll: this.fb.control({})
         });
     };
-    Object.defineProperty(ReversePrincipleComponent.prototype, "reverseApproval", {
+    Object.defineProperty(ReversePrincipleComponent.prototype, "txnApproval", {
         get: function () {
             return this.fb.group({
-                station: this.fb.control({ value: '' }),
+                loanId: this.fb.control({ value: '' }),
                 client: this.fb.control({ value: '' }),
-                ammount: this.fb.control({ value: '' }),
+                amount: this.fb.control({ value: '' }),
+                purpose: this.fb.control({ value: '' }),
                 approved: this.fb.control({})
             });
         },
@@ -45,48 +58,99 @@ var ReversePrincipleComponent = /** @class */ (function () {
     });
     ReversePrincipleComponent.prototype.addItem = function () {
         // this.unitForm.controls.bussinessUnits  as FormArray
-        this.fval.approveReverse.push(this.reverseApproval);
+        this.fval.txnApprovals.push(this.txnApproval);
     };
     ReversePrincipleComponent.prototype.removeItem = function (index) {
-        this.fval.approveReverse.removeAt(index);
+        this.fval.txnApprovals.removeAt(index);
     };
     ReversePrincipleComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.others.getReversedPrincipalForApproval().subscribe(function (res) {
-            _this.reverseApprovals = res;
-            _this.reverseApprovals.forEach(function (item, i) {
-                // console.log(item.name);
-                // console.log(i);
-                _this.fval.approveReverse.controls[i].controls.station.setValue(item.station);
-                _this.fval.approveReverse.controls[i].controls.client.setValue(item.client);
-                _this.fval.approveReverse.controls[i].controls.ammount.setValue(item.ammount);
-                _this.fval.approveReverse.controls[i].controls.approved.setValue(false);
-                _this.addItem();
-                n = i + 1;
+        this.others.getMicroCustomers().subscribe(function (res) {
+            _this.customers = res;
+            _this.others.getTxnForApproval().subscribe(function (items) {
+                _this.txnsApprovals = items;
+                _this.txnsApprovals.forEach(function (item, i) {
+                    _this.fval.txnApprovals.controls[i].controls.loanId.setValue(item.txnApprovalDetailsMicroId);
+                    var details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
+                    for (var _i = 0, _a = _this.customers; _i < _a.length; _i++) {
+                        var customer = _a[_i];
+                        if (customer.customerId === details[0].customerId) {
+                            _this.fval.txnApprovals.controls[i].controls.client.setValue(customer.customerName);
+                        }
+                    }
+                    _this.fval.txnApprovals.controls[i].controls.amount.setValue(Number(details[0].txnAmount));
+                    _this.fval.txnApprovals.controls[i].controls.purpose.setValue(details[0].microLoanPurpose);
+                    _this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
+                    _this.addItem();
+                    n = i + 1;
+                });
+                _this.removeItem(n);
+                _this.loaded = true;
+            }, function (err) {
+                _this.loaded = false;
+                console.log(err.error.error.message);
             });
-            _this.removeItem(n);
+        }, function (err) {
+            _this.errored = true;
+            console.log(err);
+            _this.alertService.danger({
+                html: '<b>' + err.error.error.message + '</b>'
+            });
         });
     };
     ReversePrincipleComponent.prototype.checkAllItems = function (val) {
         var _this = this;
         if (val === true) {
-            this.reverseApprovals.forEach(function (item, i) {
-                _this.fval.approveReverse.controls[i].controls.approved.setValue(val);
+            this.txnsApprovals.forEach(function (item, i) {
+                _this.fval.txnApprovals.controls[i].controls.approved.setValue(val);
             });
         }
         else {
-            this.reverseApprovals.forEach(function (item, i) {
-                _this.fval.approveReverse.controls[i].controls.approved.setValue(false);
+            this.txnsApprovals.forEach(function (item, i) {
+                _this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
             });
         }
     };
     ReversePrincipleComponent.prototype.deselectAll = function (val) {
         // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-        if (this.fval.approveReverse.controls[val].controls.approved.value ==
-            true) {
+        if (this.fval.txnApprovals.controls[val].controls.approved.value === true) {
             this.fval.selectAll.setValue(false);
         }
+    };
+    // loan modal method
+    ReversePrincipleComponent.prototype.openModal = function (template, id) {
+        var _this = this;
+        this.txnsApprovals.forEach(function (item) {
+            if (item.txnApprovalDetailsMicroId === id) {
+                var client = void 0;
+                var details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
+                for (var _i = 0, _a = _this.customers; _i < _a.length; _i++) {
+                    var customer = _a[_i];
+                    if (customer.customerId === details[0].customerId) {
+                        client = customer;
+                    }
+                }
+                _this.checkedLoan = {
+                    url: client.customerPhotoUrl,
+                    name: client.customerName,
+                    phone: client.customerPhone1,
+                    data: details
+                };
+                if (_this.checkedLoan.data[1][1].length > 0) {
+                    for (var _b = 0, _c = _this.checkedLoan.data[1][1]; _b < _c.length; _b++) {
+                        var itm = _c[_b];
+                        for (var _d = 0, _e = _this.securityTypes; _d < _e.length; _d++) {
+                            var security = _e[_d];
+                            if (security.securityTypeCode === itm.securityTypeCode) {
+                                itm.securityTypeName = security.securityTypeName;
+                            }
+                        }
+                    }
+                }
+                _this.modalRef = _this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-center' }));
+            }
+        });
     };
     ReversePrincipleComponent.prototype.revert = function () {
         this.userForm.reset();
@@ -110,42 +174,77 @@ var ReversePrincipleComponent = /** @class */ (function () {
     ReversePrincipleComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
-        this.reverseApprovals.forEach(function (item, i) {
-            if (_this.fval.approveReverse.controls[i].controls.approved.value ==
-                true) {
-                item.status = 2;
-                itemsApproved.push(item);
+        this.txnsApprovals.forEach(function (item, i) {
+            if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
+                itemsApproved.push({
+                    txnApprovalDetailsMircroId: _this.fval.txnApprovals.controls[i].controls.loanId.value,
+                    userId: _this.User.userId
+                });
             }
         });
-        console.log(itemsApproved.length);
         if (itemsApproved.length > 0) {
-            setTimeout(function () {
-                _this.router.navigate(['centralmanagement/dashboard']);
-            }, 3000);
+            this.others.approveMicroTransaction(itemsApproved).subscribe(function (res) {
+                _this.posted = true;
+                _this.alertService.success({
+                    html: '<b> Micro Loan Approved Was Successfully </b>'
+                });
+                setTimeout(function () {
+                    itemsApproved = [];
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
+                }, 3000);
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.error.message + '</b>'
+                });
+            });
         }
         else {
-            // alert("Please select something")
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> Please select a loan first </b>'
+            });
             return;
         }
     };
     ReversePrincipleComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
-        this.reverseApprovals.forEach(function (item, i) {
-            if (_this.fval.approveReverse.controls[i].controls.approved.value ==
-                true) {
+        this.txnsApprovals.forEach(function (item, i) {
+            if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 item.status = 1;
-                itemsRejected.push(item);
+                itemsRejected.push({
+                    txnApprovalDetailsMircroId: _this.fval.txnApprovals.controls[i].controls.loanId.value,
+                    userId: _this.User.userId
+                });
             }
         });
-        console.log(itemsRejected.length);
         if (itemsRejected.length > 0) {
-            setTimeout(function () {
-                _this.router.navigate(['centralmanagement/dashboard']);
-            }, 3000);
+            this.others.rejectMicroTransaction(itemsRejected).subscribe(function (res) {
+                _this.posted = true;
+                _this.alertService.success({
+                    html: '<b> Micro Loan Rejection Was Successfully </b>'
+                });
+                setTimeout(function () {
+                    itemsRejected = [];
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
+                }, 3000);
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.error.message + '</b>'
+                });
+            });
         }
         else {
-            // alert("Please select something")
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> Please select a loan first </b>'
+            });
             return;
         }
     };

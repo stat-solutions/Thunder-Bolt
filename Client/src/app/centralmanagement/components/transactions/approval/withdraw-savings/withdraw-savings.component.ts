@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 // import * as jwt_decode from 'jwt-decode';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+  FormArray,
+} from '@angular/forms';
 import { AuthServiceService } from 'src/app/shared/services/auth-service.service';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AlertService } from 'ngx-alerts';
-// import { BsModalService } from 'ngx-bootstrap/modal';
-// import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-
-export interface WithdrawApprovals {
-  station: string,
-  client: string,
-  ammount: number,
-  status: number
-}
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { OthersService } from 'src/app/shared/services/other-services/others.service';
 
 @Component({
   selector: 'app-withdraw-savings',
@@ -21,175 +21,212 @@ export interface WithdrawApprovals {
   styleUrls: ['./withdraw-savings.component.scss'],
 })
 export class WithdrawSavingsComponent implements OnInit {
+  public modalRef: BsModalRef;
   userForm: FormGroup;
-  withdrawApprovals: WithdrawApprovals[] = [
-    { station: 'ndejje', client: 'kasozi med', ammount: 600000, status: 0 },
-    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
-    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
-    { station: 'nsambya', client: 'Kasule Joseph', ammount: 500000, status: 0 },
-    { station: 'kyengera', client: 'mukasa rony', ammount: 850000, status: 0 },
-    { station: 'kibuye', client: 'Kasule Joseph', ammount: 400000, status: 0 },
-    { station: 'bwayise', client: 'Kasule Jose', ammount: 250000, status: 0 },
-  ];
+  txnsApprovals = [];
   posted = false;
+  loaded = false;
   actionButton: string;
-  errored: boolean;
+  errored = false;
   serviceErrors: string;
   status: boolean;
   checkedOk: boolean;
-
+  station: string;
+  theCompany: string;
+  User = this.authService.loggedInUserInfo();
+  checkedLoan: any;
+  customers: any;
+  securityTypes: any;
   constructor(
     private authService: AuthServiceService,
+    private others: OthersService,
     private router: Router,
+    private modalService: BsModalService,
     private spinner: NgxSpinnerService,
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-
-  ngOnInit() {
+  ngOnInit(): any {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
   }
-  createFormGroup() {
+  createFormGroup(): any {
     return this.fb.group({
-      approveWithdraws: this.fb.array([this.withdrawApproval]),
+      txnApprovals: this.fb.array([this.txnApproval]),
       selectAll: this.fb.control({}),
     });
   }
-  get withdrawApproval() {
+  get txnApproval(): any {
     return this.fb.group({
-      station: this.fb.control({ value: '' }),
+      comment: this.fb.control({ value: '' }),
       client: this.fb.control({ value: '' }),
-      ammount: this.fb.control({ value: '' }),
+      amount: this.fb.control({ value: '' }),
+      station: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
   }
-  addItem() {
+  addItem(): any {
     // this.unitForm.controls.bussinessUnits  as FormArray
-    (this.fval.approveWithdraws as FormArray).push(this.withdrawApproval);
+    (this.fval.txnApprovals as FormArray).push(this.txnApproval);
   }
 
-  removeItem(index: number) {
-    (this.fval.approveWithdraws as FormArray).removeAt(index);
+  removeItem(index: number): any {
+    (this.fval.txnApprovals as FormArray).removeAt(index);
   }
-  initialiseForm() {
+  initialiseForm(): any {
     let n: number;
-    // this.others.getBussinessUnits().subscribe(
-    //   units => {
-    //     this.approvals = units;
-    this.withdrawApprovals.forEach((item, i) => {
-      // console.log(item.name);
-      // console.log(i);
-      this.fval.approveWithdraws['controls'][i]['controls'].station.setValue(
-        item.station
-      );
-      this.fval.approveWithdraws['controls'][i]['controls'].client.setValue(
-        item.client
-      );
-      this.fval.approveWithdraws['controls'][i]['controls'].ammount.setValue(
-        item.ammount
-      );
-      this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(
-        false
-      );
-      this.addItem();
-      n = i + 1;
-    });
-    this.removeItem(n);
-    // }
-    // )
-  }
-  checkAllItems(val: boolean) {
-    if (val == true) {
-      this.withdrawApprovals.forEach((item, i) => {
-        this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(
-          val
+    this.others.getSavingsCustomers().subscribe(
+      res => {
+        this.customers = res;
+        this.others.getTxnsForApproval().subscribe(
+          items => {
+            this.txnsApprovals = items;
+            this.txnsApprovals.forEach((item, i) => {
+            this.fval.txnApprovals.controls[i].controls.station.setValue(item.txnApprovalDetailsMicroId);
+            const details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
+            for (const customer of this.customers){
+              if (customer.customerId === details[0].customerId) {
+                this.fval.txnApprovals.controls[i].controls.client.setValue(customer.customerName);
+              }
+            }
+            this.fval.txnApprovals.controls[i].controls.amount.setValue(Number(details[0].txnAmount));
+            this.fval.txnApprovals.controls[i].controls.comment.setValue(details[0].microLoanPurpose);
+            this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
+            this.addItem();
+            n = i + 1;
+          });
+            this.removeItem(n);
+            this.loaded = true;
+        }, err => {
+          this.loaded = false;
+          console.log(err.error.error.message);
+        }
         );
+      },
+      err => {
+        this.errored = true;
+        console.log(err);
+        this.alertService.danger({
+          html: '<b>' + err.error.error.message + '</b>'
+        });
+      }
+    );
+  }
+  checkAllItems(val: boolean): any {
+    if (val === true) {
+      this.txnsApprovals.forEach((item, i) => {
+        this.fval.txnApprovals.controls[i].controls.approved.setValue(val);
       });
     } else {
-      this.withdrawApprovals.forEach((item, i) => {
-        this.fval.approveWithdraws['controls'][i]['controls'].approved.setValue(
-          false
-        );
+      this.txnsApprovals.forEach((item, i) => {
+        this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
       });
     }
   }
-  deselectAll(val: boolean) {
+  deselectAll(val: number): any {
     // console.log(this.fval.approveAreas["controls"][val]["controls"].approved.value)
-    if (
-      this.fval.approveWithdraws['controls'][val]['controls'].approved.value ==
-      true
-    ) {
+    if (this.fval.txnApprovals.controls[val].controls.approved.value === true) {
       this.fval.selectAll.setValue(false);
     }
   }
-  revert() {
+  revert(): any {
     this.userForm.reset();
   }
 
-  refresh() {
+  refresh(): any {
     location.reload();
   }
 
-  get fval() {
+  get fval(): any {
     return this.userForm.controls;
   }
 
-  disableForm() {
+  disableForm(): any {
     return this.userForm.disable();
   }
 
-  enableEdit() {
+  enableEdit(): any {
     return this.userForm.enable();
   }
 
-  approveItems() {
-    const itemsApproved = [];
-    this.withdrawApprovals.forEach((item, i) => {
-      if (
-        this.fval.approveWithdraws['controls'][i]['controls'].approved.value ==
-        true
-      ) {
-        item.status = 2;
-        itemsApproved.push(item);
+  approveItems(): any {
+    let itemsApproved = [];
+    this.txnsApprovals.forEach((item, i) => {
+      if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
+        itemsApproved.push({
+          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
+          userId: this.User.userId
+        });
       }
     });
-
-    console.log(itemsApproved.length);
     if (itemsApproved.length > 0) {
-      setTimeout(() => {
-        this.router.navigate(['centralmanagement/dashboard']);
-      }, 3000);
+      this.others.postApproveTxns(itemsApproved).subscribe(
+        res => {
+          this.posted = true;
+          this.alertService.success({
+            html: '<b> Micro Loan Approved Was Successfully </b>'
+          });
+          setTimeout(() => {
+            itemsApproved = [];
+            this.userForm = this.createFormGroup();
+            this.fval.selectAll.setValue(false);
+            this.initialiseForm();
+          }, 3000);
+        },
+        err =>  {
+          this.errored = true;
+          this.alertService.danger({
+            html: '<b>' + err.error.error.message + '</b>'
+          });
+        }
+      );
     } else {
-      // alert("Please select something")
+      this.errored = true;
+      this.alertService.danger({
+            html: '<b> Please select a loan first </b>'
+          });
       return;
     }
   }
-  rejectItems() {
-    const itemsRejected = [];
-    this.withdrawApprovals.forEach((item, i) => {
-      if (
-        this.fval.approveWithdraws['controls'][i]['controls'].approved.value ==
-        true
-      ) {
+  rejectItems(): any {
+    let itemsRejected = [];
+    this.txnsApprovals.forEach((item, i) => {
+      if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         item.status = 1;
-        itemsRejected.push(item);
+        itemsRejected.push({
+          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
+          userId: this.User.userId
+        });
       }
     });
-    console.log(itemsRejected.length);
     if (itemsRejected.length > 0) {
-      setTimeout(() => {
-        this.router.navigate(['centralmanagement/dashboard']);
-      }, 3000);
+      this.others.postRejectTxns(itemsRejected).subscribe(
+        res => {
+          this.posted = true;
+          this.alertService.success({
+            html: '<b> Micro Loan Rejection Was Successfully </b>'
+          });
+          setTimeout(() => {
+            itemsRejected = [];
+            this.userForm = this.createFormGroup();
+            this.fval.selectAll.setValue(false);
+            this.initialiseForm();
+          }, 3000);
+        },
+        err =>  {
+          this.errored = true;
+          this.alertService.danger({
+            html: '<b>' + err.error.error.message + '</b>'
+          });
+        }
+      );
     } else {
-      // alert("Please select something")
+      this.errored = true;
+      this.alertService.danger({
+            html: '<b> Please select a loan first </b>'
+          });
       return;
     }
   }
 }
-

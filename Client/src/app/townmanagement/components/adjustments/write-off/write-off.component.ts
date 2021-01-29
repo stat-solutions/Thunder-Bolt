@@ -204,7 +204,7 @@ export class WriteOffComponent implements OnInit {
     this.phoneNumbers = [];
   }
 
-  checkLoanbility(value: any): any {
+  checkLoanbility(value: any, template: TemplateRef<any>): any {
     if (value !== ''){
       // console.log(this.loanType);
       switch (this.loanType) {
@@ -213,6 +213,7 @@ export class WriteOffComponent implements OnInit {
           bodaCustomers = bodaCustomers.filter((customer) => customer.bodabodaCustomerNumberPlate === value.toUpperCase());
           if (bodaCustomers.length === 1){
             this.checkedClient = bodaCustomers[0];
+            this.openModal(template);
           } else {
             this.errored = true;
             this.alertService.danger({
@@ -225,6 +226,7 @@ export class WriteOffComponent implements OnInit {
         taxiCustomers = taxiCustomers.filter((customer) => customer.taxiCustomerNumberPlate === value.toUpperCase());
         if (taxiCustomers.length === 1){
           this.checkedClient = taxiCustomers[0];
+          this.openModal(template);
         } else {
           this.errored = true;
           this.alertService.danger({
@@ -237,6 +239,7 @@ export class WriteOffComponent implements OnInit {
           microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value.toUpperCase());
           if (microCustomers.length === 1){
             this.checkedClient = microCustomers[0];
+            this.openModal(template);
           } else {
               this.errored = true;
               this.checkedClient = {};

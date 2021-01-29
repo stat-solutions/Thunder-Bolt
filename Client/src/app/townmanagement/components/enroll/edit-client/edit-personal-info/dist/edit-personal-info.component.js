@@ -949,7 +949,7 @@ var EditPersonalInfoComponent = /** @class */ (function () {
         if (this.savingsClientForm.valid) {
             var data = {
                 savingsCustomerMonthlyIncome: this.savFval.monthlyIncome.value,
-                savingsCustomerWithdrawFreequency: this.savFval.withdrawFreequency.value.toUpperCase(),
+                savingsCustomerWithdrawFreequency: this.savFval.withdrawFreequency.value,
                 savingsCustomerTarget: this.savFval.customerTarget.value.toUpperCase(),
                 customerId: this.currentCustomerId,
                 productCode: 100

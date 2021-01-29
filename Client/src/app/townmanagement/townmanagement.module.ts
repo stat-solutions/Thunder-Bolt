@@ -54,6 +54,7 @@ import { LoanTenureComponent } from './components/adjustments/loan-tenure/loan-t
 import { AccrualDaysComponent } from './components/adjustments/accrual-days/accrual-days.component';
 import { LoanAmortizeTypeComponent } from './components/adjustments/loan-amortize-type/loan-amortize-type.component';
 import { LoanAmortizeCycleComponent } from './components/adjustments/loan-amortize-cycle/loan-amortize-cycle.component';
+import { PinchZoomModule } from 'ngx-pinch-zoom';
 
 @NgModule({
   declarations: [
@@ -111,6 +112,7 @@ import { LoanAmortizeCycleComponent } from './components/adjustments/loan-amorti
     DatepickerModule,
     BsDatepickerModule,
     NgbModule,
+    PinchZoomModule,
     ModalModule.forRoot(),
     TooltipModule.forRoot(),
     AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
