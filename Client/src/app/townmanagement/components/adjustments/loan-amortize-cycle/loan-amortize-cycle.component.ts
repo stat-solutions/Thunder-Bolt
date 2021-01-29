@@ -33,7 +33,7 @@ export class LoanAmortizeCycleComponent implements OnInit {
     {name: 'QUATERLY', code: 5}, {name: 'HALF YEARLY', code: 6},
     {name: 'ANNUALLY', code: 7}, {name: 'BIANNIALY', code: 8},
   ];
-  phoneNumbers: Array<string> = [];
+  phoneNumbers:  Array<string> = [];
   customers: any;
 
   constructor(
@@ -47,6 +47,18 @@ export class LoanAmortizeCycleComponent implements OnInit {
 
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
+    this.others.getProducts().subscribe(
+      (res) => {
+        this.products = res;
+        // tslint:disable-next-line: only-arrow-functions
+        this.products = this.products.map(function (pdt: any): any {
+          return {
+            productCode: pdt.productCode,
+            productName: pdt.productName.replace(/_/g, ' ').toUpperCase(),
+          };
+        });
+      }
+    );
     this.others.getMicroCustomers().subscribe(
       res => {
         if (res.length > 0){
@@ -78,14 +90,11 @@ export class LoanAmortizeCycleComponent implements OnInit {
         '',
         Validators.compose([Validators.required, CustomValidator.maxValue(100)])
       ),
-      user_contact_number: new FormControl('',
-      Validators.compose([
-        Validators.required,
-        CustomValidator.patternValidator(
-          /^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/,
-          { hasNumber: true }
-        ),
-      ])),
+      user_contact_number: new FormControl(''),
+      loan_product: new FormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
     });
   }
   revert(): any {
