@@ -63,6 +63,8 @@ import { LoanAccrualDaysComponent } from './components/transactions/approval/loa
 import { LoanAmortizeCycleComponent } from './components/transactions/approval/loan-amortize-cycle/loan-amortize-cycle.component';
 import { LoanAmortizeTypeComponent } from './components/transactions/approval/loan-amortize-type/loan-amortize-type.component';
 import { LoanCommissionRateComponent } from './components/transactions/approval/loan-commission-rate/loan-commission-rate.component';
+import { SetLoanAmortizeCycleComponent } from './components/transactions/loans/set-loan-amortize-cycle/set-loan-amortize-cycle.component';
+import { SetLoanAmortizeTypeComponent } from './components/transactions/loans/set-loan-amortize-type/set-loan-amortize-type.component';
 
 @NgModule({
   declarations: [
@@ -116,6 +118,8 @@ import { LoanCommissionRateComponent } from './components/transactions/approval/
     LoanAccrualDaysComponent,
     LoanAmortizeCycleComponent,
     LoanAmortizeTypeComponent,
+    SetLoanAmortizeCycleComponent,
+    SetLoanAmortizeTypeComponent,
     LoanCommissionRateComponent
   ],
   imports: [
