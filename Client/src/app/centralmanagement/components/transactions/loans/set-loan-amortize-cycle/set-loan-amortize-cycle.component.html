@@ -1,59 +1,57 @@
-<div
-  class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 mt-xl-0 pt-0 pt-md-3 pt-xl-1 pb-3 pb-md-5 pb-xl-2 shadow-lg col-xs-12 col-lg-8"
->
-  <div class="jumbotron-fluid mx-0 px-0 mb-0 pb-0">
-    <div class="container mt-1 mb-2 mx-0 shadow-lg">
+<div class="container-fluid d-flex flex-row justify-content-center mb-0 mt-md-1 pt-0 pt-md-3 pt-xl-0 pb-0 shadow-lg col-xs-12 col-lg-8">
+    <div class="jumbotron-fluid col-12 col-sm-8 col-md-7 col-xl-6 mb-0 pb-0">
+        <div class="container mt-3 mb-2 mx-0 shadow-lg">
             <div class="row">
                 <div class="col-12">
                     <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
-            Pay Loan
-          </h4>
-        </div>
-      </div>
-    </div>
-        <div class="card-body my-0 pt-3 mx-0 pb-5 shadow-lg">
-      <form [formGroup]="userForm" (ngSubmit)="pay()">
-        <div class="form-group text-primary">
-          <label
-            for="user_contact_number"
-            [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''"
-            >Phone Number<i
-              *ngIf="fval.user_contact_number.valid"
-              class="material-icons"
-              >check_circle</i
-            ></label
-          >
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i
-                  class="fas fa-phone text-primary mx-auto"
-                  style="size: 50px"
-                ></i>
-              </div>
+                       Loan Amortization Cycle </h4
+                        >
+                </div>
             </div>
-            <input
-              type="text"
-              list="user_contact_number"
-              formControlName="user_contact_number"
-              class="form-control"
-              [ngClass]="{
-                'is-invalid':
-                  (fval.user_contact_number.touched ||
-                    fval.user_contact_number.dirty) &&
-                  fval.user_contact_number.errors
-              }"
-              autocomplete="off"
-              placeholder="Select Phone number"
-              (blur)="checkLoanbility(fval.user_contact_number.value)" (blur)="openModal(template)"
-            />
-            <!-- (blur)="checkLoanbility(fval.user_contact_number.value, template)" -->
-            <!-- numberPlates: NumberPlates[]; -->
-            <datalist id="user_contact_number">
-              <option *ngFor="let item of phoneNumbers">
-                {{ item }}
-              </option>
-            </datalist>
+        </div>
+        <div class="card-body mt-1 pt-3 pb-4 mb-0 mx-auto shadow-lg">
+            <form [formGroup]="userForm" (ngSubmit)="setAmortizationCycle()">
+          <div
+            class="form-group text-primary"
+          >
+            <label
+              for="user_contact_number"
+              [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''"
+              >Station<i
+                *ngIf="fval.user_contact_number.valid"
+                class="material-icons"
+                >check_circle</i
+              ></label
+            >
+            <div class="input-group mb-0">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i
+                    class="fas fa-phone text-primary mx-auto"
+                    style="size: 50px"
+                  ></i>
+                </div>
+              </div>
+              <input
+                type="text"
+                list="user_contact_number"
+                formControlName="user_contact_number"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid':
+                    (fval.user_contact_number.touched ||
+                      fval.user_contact_number.dirty) &&
+                    fval.user_contact_number.errors
+                }"
+                autocomplete="off"
+                placeholder="Select Phone number"
+                (blur)="checkLoanbility(fval.user_contact_number.value, template)"
+              />
+              <datalist id="user_contact_number">
+                <option *ngFor="let item of phoneNumbers">
+                  {{ item }}
+                </option>
+              </datalist>
           </div>
           <div
             class="text-danger col"
@@ -76,181 +74,108 @@
             The phone number should be equal to 10 "digits"!
           </div>
         </div>
-        <!--/end-->
-
-        <div class="form-group text-primary">
-          <label
-            for="amount_to_pay"
-            [ngClass]="fval.amount_to_pay.valid ? 'text-info' : ''"
-            >Amount<i *ngIf="fval.amount_to_pay.valid" class="material-icons"
+      <div class="form-group text-primary">
+        <label
+          for="loan_product"
+          [ngClass]="fval.loan_product.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.loan_product.valid" class="material-icons"
+            >check_circle</i
+          >Product</label
+        >
+        <div class="input-group mb-0">
+          <select
+          formControlName="loan_product"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              (fval.loan_product.touched || fval.loan_product.dirty) &&
+              fval.loan_product.errors
+          }"
+          autocomplete="off"
+          placeholder="Select Product"
+        >
+          <option></option>
+          <option *ngFor="let pdt of products">{{pdt.productName}}</option>
+        </select>
+    </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.loan_product.touched || fval.loan_product.dirty) &&
+            fval.loan_product.errors?.required
+          "
+        >
+          The Product name is required!
+        </div>
+      </div>
+          <div class="form-group text-primary">
+            <label for="cycle" [ngClass]="fval.cycle.valid ? 'text-info' : ''">Amortization Cycle<i *ngIf="fval.cycle.valid" class="material-icons"
               >check_circle</i
             ></label
           >
-          <div class="input-group mb-0">
-            <input
-              type="text"
-              list="amount_to_pay"
-              formControlName="amount_to_pay"
-              class="form-control"
-              [ngClass]="{
-                'is-invalid':
-                  (fval.amount_to_pay.touched ||
-                    fval.amount_to_pay.dirty) &&
-                  fval.amount_to_pay.errors
-              }"
-              autocomplete="off"
-              placeholder="Enter amount to pay"
-              (blur)="checkLimit(fval.amount_to_pay.value)"
-            />
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
-              fval.amount_to_pay.errors?.required
-            "
-          >
-            The amount to pay is required!
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
-              fval.amount_to_pay.errors?.maxLength
-            "
-          >
-            Please enter valid amount to pay!
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
-              fval.amount_to_pay.errors?.minlength
-            "
-          >
-            Please enter valid amount to deposit!
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.amount_to_pay.touched || fval.amount_to_pay.dirty) &&
-              fval.amount_to_pay.errors?.hasNumber
-            "
-          >
-            Please enter valid amount to pay!
-          </div>
+        <div class="input-group mb-0">
+          <input
+          formControlName="loan_product"
+          class="form-control"
+          list='loan_product'
+          [ngClass]="{
+            'is-invalid':
+              (fval.cycle.touched || fval.cycle.dirty) &&
+              fval.cycle.errors
+          }"
+          autocomplete="off"
+          placeholder="Select Amortization Cycle"
+        />
+        <datalist id="loan_product">
+          <option *ngFor="let item of cycles">
+            {{ item.name }}
+          </option>
+        </datalist>
+    </div>
+        <div
+          class="text-danger col"
+          *ngIf="
+            (fval.cycle.touched || fval.cycle.dirty) &&
+            fval.cycle.errors?.required
+          "
+        >
+          The Amortization cycle is required!
+        </div>
         </div>
 
-        <div class="form-group text-primary">
-          <label for="pin" [ngClass]="fval.pin.valid ? 'text-info' : ''"
-            >PIN<i *ngIf="fval.pin.valid" class="material-icons"
-              >check_circle</i
-            ></label
-          >
-
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i
-                  class="fas fa-lock text-primary mx-auto"
-                  style="size: 50px"
-                ></i>
-              </div>
-            </div>
-            <input
-              type="password"
-              formControlName="pin"
-              class="form-control"
-              [ngClass]="{
-                'is-invalid':
-                  (fval.pin.touched || fval.pin.dirty) && fval.pin.errors
-              }"
-              placeholder="Enter your PIN"
-              autocomplete="off"
-            />
-          <div class="input-group-append">
-            <span class="input-group-text">
-              <i
-                class="fas"
-                [ngClass]="{
-                  'fa-eye-slash': !fieldType,
-                  'fa-eye': fieldType
-                }"
-                (click)="toggleFieldType()"
-              ></i>
-            </span>
-          </div>
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.required
-            "
-          >
-            The PIN is required!
-          </div>
-
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.maxlength
-            "
-          >
-            Please enter a valid pin!
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.hasNumber
-            "
-          >
-            Only digits are allowed!
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.minlength
-            "
-          >
-            Please enter a valid pin!
-          </div>
-        </div>
-        <div class="d-flex mt-1 mb-0 py-0 mx-auto">
+        <div class="d-flex mt-3 mb-1 pt-1 pb-2 mx-auto">
           <button
             type="submit"
             class="btn btn-info col-5 mx-auto"
             [disabled]="!userForm.valid"
           >
-            Pay
+            Save
           </button>
-          <button
-            type="button"
-            class="btn btn-info col-5 mx-auto"
-            (click)="revert()"
-          >
+
+          <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+            <p class="text-light">Please wait...</p>
+          </ngx-spinner>
+          <label class="col" *ngIf="errored" class="text-danger">
+            <!-- <i class="material-icons">Cancel</i> -->
+
+            <ngx-alerts></ngx-alerts>
+          </label>
+          <label class="col" *ngIf="posted" class="text-danger">
+            <!-- <i class="material-icons">Cancel</i> -->
+
+            <ngx-alerts></ngx-alerts>
+          </label>
+
+          <button type="button" class="btn btn-info col-5 mx-auto" (click)="revert()">
             Cancel
           </button>
-          <!-- <ngx-alerts></ngx-alerts> -->
-          <ngx-spinner class="bg-success" size="medium" type="line-spin-fade">
-            <p class="text-light">Please Wait...</p>
-          </ngx-spinner>
-
-          <label class="col" *ngIf="errored" class="text-danger">
-            <!-- <i class="material-icons">cancel</i> -->
-            <ngx-alerts></ngx-alerts>
-          </label>
-
-          <label class="col" *ngIf="posted" class="text-info">
-            <!-- <i class="material-icons">check_circle</i> -->
-            <ngx-alerts></ngx-alerts>
-          </label>
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
-  </div>
+</div>
 
-  <ng-template #template>
+<ng-template #template>
   <div class="modal-header bg-info">
     <h4 class="modal-title text-white">
       {{ checkedClient.name }}'s Statement
@@ -295,10 +220,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
+
                                                   </span>
                                                 </div>
                                               </div>
@@ -310,16 +232,13 @@
                                                 <div
                                                   class="col-6 col-xl-7 d-flex justify-content-start"
                                                 >
-                                                  <span class="">Txn Status</span>
+                                                  <span class="">Txn Date</span>
                                                 </div>
                                                 <div
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
+
                                                   </span>
                                                 </div>
                                               </div>
@@ -332,17 +251,14 @@
                                                   class="col-6 col-xl-7 d-flex justify-content-start"
                                                 >
                                                   <span class=""
-                                                    >Amount Disbursed</span
+                                                    >Txn Time</span
                                                   >
                                                 </div>
                                                 <div
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"].station
-                              .value
-                          }} -->
+
                                                   </span>
                                                 </div>
                                               </div>
@@ -355,17 +271,14 @@
                                                   class="col-6 col-xl-7 d-flex justify-content-start"
                                                 >
                                                   <span class=""
-                                                    >Amount Paid</span
+                                                    >Txn Type</span
                                                   >
                                                 </div>
                                                 <div
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+
                                                   </span>
                                                 </div>
                                               </div>
@@ -378,17 +291,14 @@
                                                   class="col-6 col-xl-7 d-flex justify-content-start"
                                                 >
                                                   <span class=""
-                                                    >Amount WrittenOff
+                                                    >Loan Amount
                                                   </span>
                                                 </div>
                                                 <div
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+
                                                   </span>
                                                 </div>
                                               </div>
@@ -401,17 +311,14 @@
                                                   class="col-6 col-xl-7 d-flex justify-content-start"
                                                 >
                                                   <span class=""
-                                                    >Amount Reversed</span
+                                                    >Principal Amount</span
                                                   >
                                                 </div>
                                                 <div
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+
                                                   </span>
                                                 </div>
                                               </div>
@@ -424,17 +331,14 @@
                                                   class="col-6 col-xl-7 d-flex justify-content-start"
                                                 >
                                                   <span class=""
-                                                    >Amount Remaining</span
+                                                    >Interest Amount</span
                                                   >
                                                 </div>
                                                 <div
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->34550000
+                                                    34550000
                                                   </span>
                                                 </div>
                                               </div>
@@ -447,7 +351,7 @@
                                                   class="col-6 d-flex justify-content-start"
                                                 >
                                                   <span class=""
-                                                    >Txn Date</span
+                                                    >Interest Rate</span
                                                   >
                                                 </div>
                                                 <div
@@ -458,6 +362,95 @@
                             fval.customers["controls"][idx]["controls"]
                               .customerPhone1.value
                           }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Amount Paid</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Principal Paid</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Interest Paid</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+                                                    <!-- {{
+                            fval.customers["controls"][idx]["controls"]
+                              .customerPhone1.value
+                          }} -->
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="col-12 col-md-6 col-xl-4"
+                                            >
+                                              <div class="row">
+                                                <div
+                                                  class="col-6 d-flex justify-content-start"
+                                                >
+                                                  <span class=""
+                                                    >Balance</span
+                                                  >
+                                                </div>
+                                                <div
+                                                  class="col-6 d-flex justify-content-start font-weight-bold"
+                                                >
+                                                  <span class="itemCreated">
+
                                                   </span>
                                                 </div>
                                               </div>
