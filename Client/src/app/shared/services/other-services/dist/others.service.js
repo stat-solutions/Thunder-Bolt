@@ -439,6 +439,12 @@ var OthersService = /** @class */ (function () {
     OthersService.prototype.postSetStationLoanInterestRate = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/postSetStationLoanInterestRate", postData, this.httpOptions);
     };
+    OthersService.prototype.postSetStationAmortCycle = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postSetStationAmortCycle", postData, this.httpOptions);
+    };
+    OthersService.prototype.postSetStationAmortType = function (postData) {
+        return this.http.post(this.API_URL + "/api/loan/postSetStationAmortType", postData, this.httpOptions);
+    };
     OthersService.prototype.getLoadDetails = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/getCustomerLoanDetails", postData);
     };
@@ -515,7 +521,7 @@ var OthersService = /** @class */ (function () {
         return this.http.post(this.API_URL + "/api/customer/postApproveIndividualLoanTenure", postData);
     };
     OthersService.prototype.rejectIndividualLoanTenure = function (postData) {
-        return this.http.post(this.API_URL + "/api/customer/postRejectIndividualLoanTenure", postData);
+        return this.http.post(this.API_URL + "/api/customer/", postData);
     };
     OthersService.prototype.setIdividualLoanInterestRate = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanInterestRate", postData);
@@ -621,6 +627,18 @@ var OthersService = /** @class */ (function () {
     };
     OthersService.prototype.microCustomerStatement = function (phone) {
         return this.http.get(this.API_URL + "/api/reports/microCustomerStatement?customerPhoneNumber=" + phone);
+    };
+    OthersService.prototype.getAllRevenue = function (postData) {
+        return this.http.post(this.API_URL + "/api/reports/getAllRevenue", postData);
+    };
+    OthersService.prototype.getAllRevenueArea = function (postData) {
+        return this.http.post(this.API_URL + "/api/reports/getAllRevenueArea", postData);
+    };
+    OthersService.prototype.getAllRevenueTown = function (postData) {
+        return this.http.post(this.API_URL + "/api/reports/getAllRevenueTown", postData);
+    };
+    OthersService.prototype.getAllRevenueStation = function (postData) {
+        return this.http.post(this.API_URL + "/api/reports/getAllRevenueStation", postData);
     };
     OthersService.prototype.handleCompanySetupError = function (errorResponse) {
         if (errorResponse.error instanceof ErrorEvent) {

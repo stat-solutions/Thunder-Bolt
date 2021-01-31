@@ -80,7 +80,7 @@ var SetLoanAcrualComponent = /** @class */ (function () {
             if (data_1.theStationLocationId === null) {
                 this.errored = true;
                 this.alertService.danger({
-                    html: '<b> The station chose do not exist</b>'
+                    html: '<b> The station chosen does not exist</b>'
                 });
                 //  this.errored = false;
                 return;
@@ -96,7 +96,7 @@ var SetLoanAcrualComponent = /** @class */ (function () {
                     _this.errored = true;
                     if (err.error.status === 500) {
                         _this.alertService.danger({
-                            html: '<b> Sever Could Not handle this request</b>'
+                            html: '<b> Server Could Not handle this request</b>'
                         });
                     }
                     else {
@@ -110,13 +110,13 @@ var SetLoanAcrualComponent = /** @class */ (function () {
         else {
             this.errored = true;
             this.alertService.danger({
-                html: '<b> the provided form details are invalid </b>'
+                html: '<b> The provided form details are invalid </b>'
             });
         }
     };
     SetLoanAcrualComponent = __decorate([
         core_1.Component({
-            selector: 'app-set-loan-tenure',
+            selector: 'app-set-loan-accrual',
             templateUrl: './set-loan-accrual.component.html',
             styleUrls: ['./set-loan-accrual.component.scss']
         })

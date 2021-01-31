@@ -417,6 +417,12 @@ export class OthersService {
     postSetStationLoanInterestRate(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/postSetStationLoanInterestRate`, postData, this.httpOptions);
     }
+    postSetStationAmortCycle(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postSetStationAmortCycle`, postData, this.httpOptions);
+    }
+    postSetStationAmortType(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/loan/postSetStationAmortType`, postData, this.httpOptions);
+    }
     getLoadDetails(postData: any): any{
       return this.http.post(`${this.API_URL}/api/loan/getCustomerLoanDetails`, postData);
     }
@@ -493,7 +499,7 @@ export class OthersService {
       return this.http.post(`${this.API_URL}/api/customer/postApproveIndividualLoanTenure`, postData );
     }
     rejectIndividualLoanTenure(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/postRejectIndividualLoanTenure`, postData );
+      return this.http.post(`${this.API_URL}/api/customer/`, postData );
     }
     setIdividualLoanInterestRate(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanInterestRate`, postData );
@@ -599,6 +605,18 @@ export class OthersService {
     }
     microCustomerStatement(phone: any): any {
       return this.http.get(`${this.API_URL}/api/reports/microCustomerStatement?customerPhoneNumber=${phone}`);
+    }
+    getAllRevenue(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/reports/getAllRevenue`, postData);
+    }
+    getAllRevenueArea(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/reports/getAllRevenueArea`, postData);
+    }
+    getAllRevenueTown(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/reports/getAllRevenueTown`, postData);
+    }
+    getAllRevenueStation(postData: any): any {
+      return this.http.post(`${this.API_URL}/api/reports/getAllRevenueStation`, postData);
     }
     private handleCompanySetupError(errorResponse: HttpErrorResponse): any {
 

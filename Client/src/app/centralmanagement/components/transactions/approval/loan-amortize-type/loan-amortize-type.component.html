@@ -13,6 +13,7 @@
     </div>
     <div
       class="invest-card card-body mt-2 pt-2 mb-5 mx-auto pb-4 px-1 px-lg-auto shadow-lg"
+      [hidden]="!loaded"
     >
       <form [formGroup]="userForm">
         <div class="item-header mb-2">
@@ -31,12 +32,12 @@
             </div>
           </div>
         </div>
-        <div class="iteration" formArrayName="approveRates">
+        <div class="iteration" formArrayName="txnApprovals">
           <div
             class="item-container mt-1"
-            *ngFor="let items of fval.approveRates['controls']; let idx = index"
+            *ngFor="let items of fval.txnApprovals['controls']; let idx = index"
           >
-      <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx" (click)="openModal(template)">
+      <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
         <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
           <div class="row my-0 py-0">
             <div class="col-1">
@@ -60,10 +61,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
+                        {{fval.txnApprovals["controls"][idx]["controls"].product.value}}
                       </span>
                     </div>
                   </div>
@@ -77,10 +75,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
+                        {{fval.txnApprovals["controls"][idx]["controls"].client.value}}
                       </span>
                     </div>
                   </div>
@@ -94,10 +89,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
+                        {{fval.txnApprovals["controls"][idx]["controls"].station.value}}
                       </span>
                     </div>
                   </div>
@@ -111,10 +103,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->Bodaboda Loan
+                        {{fval.txnApprovals["controls"][idx]["controls"].product.value}}
                       </span>
                     </div>
                   </div>
@@ -128,33 +117,24 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"].station
-                              .value
-                          }} -->
-              <input
-                type="text"
-                list="user_contact_number"
-                formControlName="user_contact_number"
-                class="form-control"
-                [ngClass]="{
-                  'is-invalid':
-                    (fval.user_contact_number.touched ||
-                      fval.user_contact_number.dirty) &&
-                    fval.user_contact_number.errors
-                }"
-                autocomplete="off"
-                placeholder="Select Phone number"
-                 (click)="openModal(template)"
-              />
-              <datalist id="user_contact_number">
-                <option>taxi
-                </option>
-                <option>boda
-                </option>
-                <option>micro
-                </option>
-              </datalist>
+                            <input
+                          formControlName="amorType"
+                          class="form-control"
+                          list='amorType'
+                          [ngClass]="{
+                            'is-invalid':
+                              (fval.txnApprovals['controls'][idx]['controls'].amorType.touched ||
+                               fval.txnApprovals['controls'][idx]['controls'].amorType.dirty) &&
+                              fval.txnApprovals['controls'][idx]['controls'].amorType.errors
+                          }"
+                          autocomplete="off"
+                          placeholder="Select Amortization type"
+                        />
+                        <datalist id="amorType">
+                          <option *ngFor="let item of types">
+                            {{ item.name }}
+                          </option>
+                        </datalist>
                       </span>
                     </div>
                   </div>
@@ -170,12 +150,18 @@
                       class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->Bodaboda Loan
+                        {{fval.txnApprovals["controls"][idx]["controls"].comment.value}}
                       </span>
                     </div>
+                    <div class="col-2 justify-content-end font-weight-bold">
+                            <a class="text-dark pointerCursor">
+                              <span
+                                class="itemCreated"
+                                (click)="openModal(template, fval.txnApprovals['controls'][idx]['controls'].clientId.value)"
+                                >Statement
+                              </span>
+                            </a>
+                          </div>
                   </div>
                 </div>
               </div>
@@ -193,6 +179,19 @@
         >
           <i class="fas fa-check"></i> Approve
         </button>
+        <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+          <p class="text-light">Please wait...</p>
+        </ngx-spinner>
+        <label class="col" *ngIf="errored" class="text-danger">
+          <!-- <i class="material-icons">Cancel</i> -->
+
+          <ngx-alerts></ngx-alerts>
+        </label>
+        <label class="col" *ngIf="posted" class="text-danger">
+          <!-- <i class="material-icons">Cancel</i> -->
+
+          <ngx-alerts></ngx-alerts>
+        </label>
         <button
           class="btn btn-info col-4 col-md-3 mx-auto px-0"
           (click)="rejectItems()"
@@ -250,7 +249,7 @@
                                                 >
                                                   <span class="itemCreated">
                                                     <!-- {{
-                            fval.customers["controls"][idx]["controls"]
+                            fval.txnApprovals["controls"][idx]["controls"]
                               .customerName.value
                           }} -->
                                                   </span>
@@ -271,7 +270,7 @@
                                                 >
                                                   <span class="itemCreated">
                                                     <!-- {{
-                            fval.customers["controls"][idx]["controls"]
+                            fval.txnApprovals["controls"][idx]["controls"]
                               .customerName.value
                           }} -->
                                                   </span>

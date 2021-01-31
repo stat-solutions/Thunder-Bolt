@@ -74,40 +74,6 @@
             The phone number should be equal to 10 "digits"!
           </div>
         </div>
-      <div class="form-group text-primary">
-        <label
-          for="loan_product"
-          [ngClass]="fval.loan_product.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.loan_product.valid" class="material-icons"
-            >check_circle</i
-          >Product</label
-        >
-        <div class="input-group mb-0">
-          <select
-          formControlName="loan_product"
-          class="form-control"
-          [ngClass]="{
-            'is-invalid':
-              (fval.loan_product.touched || fval.loan_product.dirty) &&
-              fval.loan_product.errors
-          }"
-          autocomplete="off"
-          placeholder="Select Product"
-        >
-          <option></option>
-          <option *ngFor="let pdt of products">{{pdt.productName}}</option>
-        </select>
-    </div>
-        <div
-          class="text-danger col"
-          *ngIf="
-            (fval.loan_product.touched || fval.loan_product.dirty) &&
-            fval.loan_product.errors?.required
-          "
-        >
-          The Product name is required!
-        </div>
-      </div>
           <div class="form-group text-primary">
             <label for="cycle" [ngClass]="fval.cycle.valid ? 'text-info' : ''">Amortization Cycle<i *ngIf="fval.cycle.valid" class="material-icons"
               >check_circle</i

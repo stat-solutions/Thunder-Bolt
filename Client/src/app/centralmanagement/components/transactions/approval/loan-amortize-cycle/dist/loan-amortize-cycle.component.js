@@ -22,17 +22,14 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
         this.loaded = false;
         this.errored = false;
         this.User = this.authService.loggedInUserInfo();
+        this.cycles = [
+            { name: 'DAILY', code: 1 }, { name: 'WEEKLY', code: 2 },
+            { name: 'FORTNIGHTLY', code: 3 }, { name: 'MONTHLY', code: 4 },
+            { name: 'QUATERLY', code: 5 }, { name: 'HALF YEARLY', code: 6 },
+            { name: 'ANNUALLY', code: 7 }, { name: 'BIANNIALY', code: 8 },
+        ];
     }
     LoanAmortizeCycleComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.others.getSecurityType().subscribe(function (res) {
-            _this.securityTypes = res;
-        }, function (err) {
-            _this.errored = true;
-            _this.alertService.danger({
-                html: '<b>' + err.error.error.message + '</b>'
-            });
-        });
         this.userForm = this.createFormGroup();
         this.fval.selectAll.setValue(false);
         this.initialiseForm();
@@ -46,10 +43,13 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
     Object.defineProperty(LoanAmortizeCycleComponent.prototype, "txnApproval", {
         get: function () {
             return this.fb.group({
-                loanId: this.fb.control({ value: '' }),
                 client: this.fb.control({ value: '' }),
-                amount: this.fb.control({ value: '' }),
-                purpose: this.fb.control({ value: '' }),
+                clientId: this.fb.control({ value: '' }),
+                station: this.fb.control({ value: '' }),
+                product: this.fb.control({ value: '' }),
+                amorCycle: this.fb.control({ value: '' }),
+                comment: this.fb.control({ value: '' }),
+                otherApprovalsAllId: this.fb.control({ value: '' }),
                 approved: this.fb.control({})
             });
         },
@@ -66,37 +66,32 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
     LoanAmortizeCycleComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.others.getMicroCustomers().subscribe(function (res) {
-            _this.customers = res;
-            _this.others.getTxnForApproval().subscribe(function (items) {
-                _this.txnsApprovals = items;
-                _this.txnsApprovals.forEach(function (item, i) {
-                    _this.fval.txnApprovals.controls[i].controls.loanId.setValue(item.txnApprovalDetailsMicroId);
-                    var details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-                    for (var _i = 0, _a = _this.customers; _i < _a.length; _i++) {
-                        var customer = _a[_i];
-                        if (customer.customerId === details[0].customerId) {
-                            _this.fval.txnApprovals.controls[i].controls.client.setValue(customer.customerName);
-                        }
+        this.others.getIndividualLoanAmortizationTypeForApproval().subscribe(function (items) {
+            _this.txnsApprovals = items;
+            _this.txnsApprovals.forEach(function (item, i) {
+                var details = JSON.parse(item.otheApprovalsAllPayLoad);
+                _this.fval.txnApprovals.controls[i].controls.clientId.setValue(details.customerId);
+                _this.fval.txnApprovals.controls[i].controls.comment.setValue(details.comment);
+                var pdt = details.productCode === 200 ? 'BODA BODA FUEL LOAN' :
+                    details.productCode === 300 ? 'TAXI FUEL LOAN' : 'MICRO LOAN';
+                _this.fval.txnApprovals.controls[i].controls.product.setValue(pdt);
+                _this.fval.txnApprovals.controls[i].controls.client.setValue(item.customerName);
+                _this.fval.txnApprovals.controls[i].controls.station.setValue(item.stationName);
+                _this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.setValue(item.otheApprovalsAllId);
+                _this.cycles.forEach(function (cycle) {
+                    if (cycle.code === details.theLoanAmortizationType) {
+                        _this.fval.txnApprovals.controls[i].controls.amorCycle.setValue(cycle.name);
                     }
-                    _this.fval.txnApprovals.controls[i].controls.amount.setValue(Number(details[0].txnAmount));
-                    _this.fval.txnApprovals.controls[i].controls.purpose.setValue(details[0].microLoanPurpose);
-                    _this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
-                    _this.addItem();
-                    n = i + 1;
                 });
-                _this.removeItem(n);
-                _this.loaded = true;
-            }, function (err) {
-                _this.loaded = false;
-                console.log(err.error.error.message);
+                _this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
+                _this.addItem();
+                n = i + 1;
             });
+            _this.removeItem(n);
+            _this.loaded = true;
         }, function (err) {
-            _this.errored = true;
-            console.log(err);
-            _this.alertService.danger({
-                html: '<b>' + err.error.error.message + '</b>'
-            });
+            _this.loaded = false;
+            console.log(err.error.error.message);
         });
     };
     LoanAmortizeCycleComponent.prototype.checkAllItems = function (val) {
@@ -120,35 +115,10 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
     };
     // loan modal method
     LoanAmortizeCycleComponent.prototype.openModal = function (template, id) {
-        var _this = this;
+        this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-center' }));
         this.txnsApprovals.forEach(function (item) {
             if (item.txnApprovalDetailsMicroId === id) {
-                var client = void 0;
-                var details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-                for (var _i = 0, _a = _this.customers; _i < _a.length; _i++) {
-                    var customer = _a[_i];
-                    if (customer.customerId === details[0].customerId) {
-                        client = customer;
-                    }
-                }
-                _this.checkedLoan = {
-                    url: client.customerPhotoUrl,
-                    name: client.customerName,
-                    phone: client.customerPhone1,
-                    data: details
-                };
-                if (_this.checkedLoan.data[1][1].length > 0) {
-                    for (var _b = 0, _c = _this.checkedLoan.data[1][1]; _b < _c.length; _b++) {
-                        var itm = _c[_b];
-                        for (var _d = 0, _e = _this.securityTypes; _d < _e.length; _d++) {
-                            var security = _e[_d];
-                            if (security.securityTypeCode === itm.securityTypeCode) {
-                                itm.securityTypeName = security.securityTypeName;
-                            }
-                        }
-                    }
-                }
-                _this.modalRef = _this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-center' }));
+                // this is where the statememnt shall be initialised
             }
         });
     };
@@ -176,17 +146,25 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
         var itemsApproved = [];
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
-                itemsApproved.push({
-                    txnApprovalDetailsMircroId: _this.fval.txnApprovals.controls[i].controls.loanId.value,
-                    userId: _this.User.userId
+                var data_1 = {
+                    userId: _this.User.userId,
+                    otheApprovalsAllId: _this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+                    theLoanAmortizationCycle: null
+                };
+                _this.cycles.forEach(function (cycle) {
+                    if (cycle.name === _this.fval.txnApprovals.controls[i].controls.amorCycle.value) {
+                        data_1.theLoanAmortizationCycle = cycle.code;
+                        itemsApproved.push(data_1);
+                    }
                 });
             }
         });
+        console.log(itemsApproved);
         if (itemsApproved.length > 0) {
-            this.others.approveMicroTransaction(itemsApproved).subscribe(function (res) {
+            this.others.postApproveIndividualLoanAmortizationCycle(itemsApproved).subscribe(function (res) {
                 _this.posted = true;
                 _this.alertService.success({
-                    html: '<b> Micro Loan Approved Was Successfully </b>'
+                    html: '<b> Individual amortization cycles were approved Successfully </b>'
                 });
                 setTimeout(function () {
                     itemsApproved = [];
@@ -214,18 +192,25 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
         var itemsRejected = [];
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
-                item.status = 1;
-                itemsRejected.push({
-                    txnApprovalDetailsMircroId: _this.fval.txnApprovals.controls[i].controls.loanId.value,
-                    userId: _this.User.userId
+                var data_2 = {
+                    userId: _this.User.userId,
+                    otheApprovalsAllId: _this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+                    theLoanAmortizationCycle: null
+                };
+                _this.cycles.forEach(function (cycle) {
+                    if (cycle.name === _this.fval.txnApprovals.controls[i].controls.amorCycle.value) {
+                        data_2.theLoanAmortizationCycle = cycle.code;
+                        itemsRejected.push(data_2);
+                    }
                 });
             }
         });
+        console.log(itemsRejected);
         if (itemsRejected.length > 0) {
-            this.others.rejectMicroTransaction(itemsRejected).subscribe(function (res) {
+            this.others.postRejectIndividualLoanAmortizationCycle(itemsRejected).subscribe(function (res) {
                 _this.posted = true;
                 _this.alertService.success({
-                    html: '<b> Micro Loan Rejection Was Successfully </b>'
+                    html: '<b> Individual armotization cycles were rejected Successfully </b>'
                 });
                 setTimeout(function () {
                     itemsRejected = [];

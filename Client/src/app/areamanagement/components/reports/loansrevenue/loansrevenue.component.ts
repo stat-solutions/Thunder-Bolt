@@ -94,7 +94,7 @@ export class LoansrevenueComponent implements OnInit {
         );
         break;
       case 'All Loans':
-      this.others.getAllLoansByRegion(this.User.userLocationId).subscribe(
+        this.others.getAllLoansByRegion(this.User.userLocationId).subscribe(
           res => {
             this.singleReport = res;
           },
@@ -102,6 +102,27 @@ export class LoansrevenueComponent implements OnInit {
             console.log(err);
           }
         );
+        break;
+      case 'Revenue Ledger':
+        this.others.getAllRevenueArea({
+          theAreaLocationId: this.User.userLocationId,
+          startDate: dates[0],
+          endDate: dates[1],
+        }).subscribe(
+            res => {
+              if (res.length === 1) {
+                this.totals = res[0];
+                this.singleReport = [];
+              }else {
+                this.totals = res.pop();
+                this.singleReport = res;
+              }
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        break;
     }
   }
   public openModal(template: TemplateRef<any>, photoUrl: string): any {

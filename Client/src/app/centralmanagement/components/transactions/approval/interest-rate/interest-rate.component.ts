@@ -59,6 +59,7 @@ export class InterestRateComponent implements OnInit {
       product: this.fb.control({ value: '' }),
       rate: this.fb.control({ value: '' }),
       comment: this.fb.control({ value: '' }),
+      otherApprovalsAllId: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
   }
@@ -84,6 +85,7 @@ export class InterestRateComponent implements OnInit {
           this.fval.txnApprovals.controls[i].controls.product.setValue(pdt);
           this.fval.txnApprovals.controls[i].controls.client.setValue(item.customerName);
           this.fval.txnApprovals.controls[i].controls.station.setValue(item.stationName);
+          this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.setValue(item.otheApprovalsAllId);
           this.fval.txnApprovals.controls[i].controls.rate.setValue(details.theLoanInterestRate);
           this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
           this.addItem();
@@ -124,28 +126,7 @@ export class InterestRateComponent implements OnInit {
     );
     this.txnsApprovals.forEach(item => {
       if (item.txnApprovalDetailsMicroId === id) {
-        let client;
-        const details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-        for (const customer of this.customers){
-          if (customer.customerId === details[0].customerId) {
-           client = customer;
-          }
-        }
-        this.checkedLoan =  {
-          url: client.customerPhotoUrl,
-          name: client.customerName,
-          phone: client.customerPhone1,
-          data: details
-        };
-        if (this.checkedLoan.data[1][1].length > 0) {
-          for (const itm of this.checkedLoan.data[1][1]) {
-            for (const security of this.securityTypes){
-              if (security.securityTypeCode === itm.securityTypeCode){
-                itm.securityTypeName = security.securityTypeName;
-              }
-            }
-          }
-        }
+        // this is where the statememnt shall be initialised
       }
     });
   }
@@ -175,32 +156,34 @@ export class InterestRateComponent implements OnInit {
     this.txnsApprovals.forEach((item, i) => {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         itemsApproved.push({
-          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
-          userId: this.User.userId
+          userId: this.User.userId,
+          otheApprovalsAllId: this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+          theLoanInterestRate: this.fval.txnApprovals.controls[i].controls.rate.value
         });
       }
     });
+    console.log(itemsApproved);
     if (itemsApproved.length > 0) {
-      this.others.approveMicroTransaction(itemsApproved).subscribe(
-        res => {
-          this.posted = true;
-          this.alertService.success({
-            html: '<b> Micro Loan Approved Was Successfully </b>'
-          });
-          setTimeout(() => {
-            itemsApproved = [];
-            this.userForm = this.createFormGroup();
-            this.fval.selectAll.setValue(false);
-            this.initialiseForm();
-          }, 3000);
-        },
-        err =>  {
-          this.errored = true;
-          this.alertService.danger({
-            html: '<b>' + err.error.error.message + '</b>'
-          });
-        }
-      );
+      // this.others.approveIdividualLoanInterestRate(itemsApproved).subscribe(
+      //   res => {
+      //     this.posted = true;
+      //     this.alertService.success({
+      //       html: '<b> Individual Interest rates were approved Successfully </b>'
+      //     });
+      //     setTimeout(() => {
+      //       itemsApproved = [];
+      //       this.userForm = this.createFormGroup();
+      //       this.fval.selectAll.setValue(false);
+      //       this.initialiseForm();
+      //     }, 3000);
+      //   },
+      //   err =>  {
+      //     this.errored = true;
+      //     this.alertService.danger({
+      //       html: '<b>' + err.error.error.message + '</b>'
+      //     });
+      //   }
+      // );
     } else {
       this.errored = true;
       this.alertService.danger({
@@ -215,32 +198,34 @@ export class InterestRateComponent implements OnInit {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         item.status = 1;
         itemsRejected.push({
-          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
-          userId: this.User.userId
+          userId: this.User.userId,
+          otheApprovalsAllId: this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+          theLoanInterestRate: this.fval.txnApprovals.controls[i].controls.rate.value
         });
       }
     });
+    console.log(itemsRejected);
     if (itemsRejected.length > 0) {
-      this.others.rejectMicroTransaction(itemsRejected).subscribe(
-        res => {
-          this.posted = true;
-          this.alertService.success({
-            html: '<b> Micro Loan Rejection Was Successfully </b>'
-          });
-          setTimeout(() => {
-            itemsRejected = [];
-            this.userForm = this.createFormGroup();
-            this.fval.selectAll.setValue(false);
-            this.initialiseForm();
-          }, 3000);
-        },
-        err =>  {
-          this.errored = true;
-          this.alertService.danger({
-            html: '<b>' + err.error.error.message + '</b>'
-          });
-        }
-      );
+      // this.others.rejectIdividualLoanInterestRate(itemsRejected).subscribe(
+      //   res => {
+      //     this.posted = true;
+      //     this.alertService.success({
+      //       html: '<b> Micro Loan Rejection Was Successfully </b>'
+      //     });
+      //     setTimeout(() => {
+      //       itemsRejected = [];
+      //       this.userForm = this.createFormGroup();
+      //       this.fval.selectAll.setValue(false);
+      //       this.initialiseForm();
+      //     }, 3000);
+      //   },
+      //   err =>  {
+      //     this.errored = true;
+      //     this.alertService.danger({
+      //       html: '<b>' + err.error.error.message + '</b>'
+      //     });
+      //   }
+      // );
     } else {
       this.errored = true;
       this.alertService.danger({

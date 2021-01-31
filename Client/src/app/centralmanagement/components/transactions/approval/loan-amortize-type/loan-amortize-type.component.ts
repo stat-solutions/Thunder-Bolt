@@ -14,6 +14,7 @@ import { AlertService } from 'ngx-alerts';
 import { OthersService } from 'src/app/shared/services/other-services/others.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { NullTemplateVisitor } from '@angular/compiler';
 
 @Component({
   selector: 'app-loan-amortize-type',
@@ -37,6 +38,12 @@ export class LoanAmortizeTypeComponent implements OnInit {
   checkedLoan: any;
   customers: any;
   securityTypes: any;
+  checkedClient: any;
+  types = [
+    { name: 'FLAT RATE', code: 1 },
+    { name: 'REDUCING BALANCE WITH REDUCING INSTALMENT', code: 2 },
+    { name: 'REDUCING BALANCE WITH CONSTANT INSTALMENT', code: 3 },
+  ];
   constructor(
     private authService: AuthServiceService,
     private others: OthersService,
@@ -47,17 +54,6 @@ export class LoanAmortizeTypeComponent implements OnInit {
     private fb: FormBuilder
   ) {}
   ngOnInit(): any {
-    this.others.getSecurityType().subscribe(
-      res => {
-        this.securityTypes = res;
-      },
-      err => {
-        this.errored = true;
-        this.alertService.danger({
-          html: '<b>' + err.error.error.message + '</b>'
-        });
-      }
-    );
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
@@ -70,10 +66,13 @@ export class LoanAmortizeTypeComponent implements OnInit {
   }
   get txnApproval(): any {
     return this.fb.group({
-      loanId: this.fb.control({ value: '' }),
       client: this.fb.control({ value: '' }),
-      amount: this.fb.control({ value: '' }),
-      purpose: this.fb.control({ value: '' }),
+      clientId: this.fb.control({ value: '' }),
+      station: this.fb.control({ value: '' }),
+      product: this.fb.control({ value: '' }),
+      amorType: this.fb.control({ value: '' }),
+      comment: this.fb.control({ value: '' }),
+      otherApprovalsAllId: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
   }
@@ -87,40 +86,34 @@ export class LoanAmortizeTypeComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getMicroCustomers().subscribe(
-      res => {
-        this.customers = res;
-        this.others.getTxnForApproval().subscribe(
-          items => {
-            this.txnsApprovals = items;
-            this.txnsApprovals.forEach((item, i) => {
-            this.fval.txnApprovals.controls[i].controls.loanId.setValue(item.txnApprovalDetailsMicroId);
-            const details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-            for (const customer of this.customers){
-              if (customer.customerId === details[0].customerId) {
-                this.fval.txnApprovals.controls[i].controls.client.setValue(customer.customerName);
-              }
+    this.others.getIndividualLoanAmortizationTypeForApproval().subscribe(
+      items => {
+        this.txnsApprovals = items;
+        this.txnsApprovals.forEach((item, i) => {
+          const details = JSON.parse(item.otheApprovalsAllPayLoad);
+          this.fval.txnApprovals.controls[i].controls.clientId.setValue(details.customerId);
+          this.fval.txnApprovals.controls[i].controls.comment.setValue(details.comment);
+          const pdt = details.productCode === 200 ? 'BODA BODA FUEL LOAN' :
+                      details.productCode === 300 ? 'TAXI FUEL LOAN' : 'MICRO LOAN';
+          this.fval.txnApprovals.controls[i].controls.product.setValue(pdt);
+          this.fval.txnApprovals.controls[i].controls.client.setValue(item.customerName);
+          this.fval.txnApprovals.controls[i].controls.station.setValue(item.stationName);
+          this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.setValue(item.otheApprovalsAllId);
+          this.types.forEach((type) => {
+            if (type.code === details.theLoanAmortizationType) {
+              this.fval.txnApprovals.controls[i].controls.amorType.setValue(type.name);
             }
-            this.fval.txnApprovals.controls[i].controls.amount.setValue(Number(details[0].txnAmount));
-            this.fval.txnApprovals.controls[i].controls.purpose.setValue(details[0].microLoanPurpose);
-            this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
-            this.addItem();
-            n = i + 1;
           });
-            this.removeItem(n);
-            this.loaded = true;
-        }, err => {
-          this.loaded = false;
-          console.log(err.error.error.message);
-        }
-        );
-      },
-      err => {
-        this.errored = true;
-        console.log(err);
-        this.alertService.danger({
-          html: '<b>' + err.error.error.message + '</b>'
-        });
+          this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
+          this.addItem();
+          n = i + 1;
+      });
+        this.removeItem(n);
+        this.loaded = true;
+    },
+    err => {
+      this.loaded = false;
+      console.log(err.error.error.message);
       }
     );
   }
@@ -144,34 +137,13 @@ export class LoanAmortizeTypeComponent implements OnInit {
 
   // loan modal method
   public openModal(template: TemplateRef<any>, id: number): any {
+    this.modalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'modal-lg modal-dialog-center' })
+    );
     this.txnsApprovals.forEach(item => {
       if (item.txnApprovalDetailsMicroId === id) {
-        let client;
-        const details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-        for (const customer of this.customers){
-          if (customer.customerId === details[0].customerId) {
-           client = customer;
-          }
-        }
-        this.checkedLoan =  {
-          url: client.customerPhotoUrl,
-          name: client.customerName,
-          phone: client.customerPhone1,
-          data: details
-        };
-        if (this.checkedLoan.data[1][1].length > 0) {
-          for (const itm of this.checkedLoan.data[1][1]) {
-            for (const security of this.securityTypes){
-              if (security.securityTypeCode === itm.securityTypeCode){
-                itm.securityTypeName = security.securityTypeName;
-              }
-            }
-          }
-        }
-        this.modalRef = this.modalService.show(
-          template,
-          Object.assign({}, { class: 'modal-lg modal-dialog-center' })
-        );
+        // this is where the statememnt shall be initialised
       }
     });
   }
@@ -200,18 +172,26 @@ export class LoanAmortizeTypeComponent implements OnInit {
     let itemsApproved = [];
     this.txnsApprovals.forEach((item, i) => {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
-        itemsApproved.push({
-          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
-          userId: this.User.userId
+        const data = {
+          userId: this.User.userId,
+          otheApprovalsAllId: this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+          theLoanAmortizationType: null
+        };
+        this.types.forEach((type) => {
+          if (type.name === this.fval.txnApprovals.controls[i].controls.amorType.value) {
+            data.theLoanAmortizationType = type.code;
+            itemsApproved.push(data);
+          }
         });
       }
     });
+    // console.log(itemsApproved);
     if (itemsApproved.length > 0) {
-      this.others.approveMicroTransaction(itemsApproved).subscribe(
+      this.others.postApproveIndividualLoanAmortizationType(itemsApproved).subscribe(
         res => {
           this.posted = true;
           this.alertService.success({
-            html: '<b> Micro Loan Approved Was Successfully </b>'
+            html: '<b> Individual amortization types were approved Successfully </b>'
           });
           setTimeout(() => {
             itemsApproved = [];
@@ -239,19 +219,26 @@ export class LoanAmortizeTypeComponent implements OnInit {
     let itemsRejected = [];
     this.txnsApprovals.forEach((item, i) => {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
-        item.status = 1;
-        itemsRejected.push({
-          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
-          userId: this.User.userId
+        const data = {
+          userId: this.User.userId,
+          otheApprovalsAllId: this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+          theLoanAmortizationType: null
+        };
+        this.types.forEach((type) => {
+          if (type.name === this.fval.txnApprovals.controls[i].controls.amorType.value) {
+            data.theLoanAmortizationType = type.code;
+            itemsRejected.push(data);
+          }
         });
       }
     });
+    // console.log(itemsRejected);
     if (itemsRejected.length > 0) {
-      this.others.rejectMicroTransaction(itemsRejected).subscribe(
+      this.others.postRejectIndividualLoanAmortizationType(itemsRejected).subscribe(
         res => {
           this.posted = true;
           this.alertService.success({
-            html: '<b> Micro Loan Rejection Was Successfully </b>'
+            html: '<b>Individual amortization types were rejected Successfully </b>'
           });
           setTimeout(() => {
             itemsRejected = [];

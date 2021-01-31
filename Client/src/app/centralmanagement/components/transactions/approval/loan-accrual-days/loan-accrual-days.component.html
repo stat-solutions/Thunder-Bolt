@@ -201,6 +201,19 @@
         >
           <i class="fas fa-check"></i> Approve
         </button>
+        <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+          <p class="text-light">Please wait...</p>
+        </ngx-spinner>
+        <label class="col" *ngIf="errored" class="text-danger">
+          <!-- <i class="material-icons">Cancel</i> -->
+
+          <ngx-alerts></ngx-alerts>
+        </label>
+        <label class="col" *ngIf="posted" class="text-danger">
+          <!-- <i class="material-icons">Cancel</i> -->
+
+          <ngx-alerts></ngx-alerts>
+        </label>
         <button
           class="btn btn-info col-4 col-md-3 mx-auto px-0"
           (click)="rejectItems()"

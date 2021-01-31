@@ -43,6 +43,7 @@ var InterestRateComponent = /** @class */ (function () {
                 product: this.fb.control({ value: '' }),
                 rate: this.fb.control({ value: '' }),
                 comment: this.fb.control({ value: '' }),
+                otherApprovalsAllId: this.fb.control({ value: '' }),
                 approved: this.fb.control({})
             });
         },
@@ -70,6 +71,7 @@ var InterestRateComponent = /** @class */ (function () {
                 _this.fval.txnApprovals.controls[i].controls.product.setValue(pdt);
                 _this.fval.txnApprovals.controls[i].controls.client.setValue(item.customerName);
                 _this.fval.txnApprovals.controls[i].controls.station.setValue(item.stationName);
+                _this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.setValue(item.otheApprovalsAllId);
                 _this.fval.txnApprovals.controls[i].controls.rate.setValue(details.theLoanInterestRate);
                 _this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
                 _this.addItem();
@@ -103,35 +105,10 @@ var InterestRateComponent = /** @class */ (function () {
     };
     // loan modal method
     InterestRateComponent.prototype.openModal = function (template, id) {
-        var _this = this;
         this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-center' }));
         this.txnsApprovals.forEach(function (item) {
             if (item.txnApprovalDetailsMicroId === id) {
-                var client = void 0;
-                var details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-                for (var _i = 0, _a = _this.customers; _i < _a.length; _i++) {
-                    var customer = _a[_i];
-                    if (customer.customerId === details[0].customerId) {
-                        client = customer;
-                    }
-                }
-                _this.checkedLoan = {
-                    url: client.customerPhotoUrl,
-                    name: client.customerName,
-                    phone: client.customerPhone1,
-                    data: details
-                };
-                if (_this.checkedLoan.data[1][1].length > 0) {
-                    for (var _b = 0, _c = _this.checkedLoan.data[1][1]; _b < _c.length; _b++) {
-                        var itm = _c[_b];
-                        for (var _d = 0, _e = _this.securityTypes; _d < _e.length; _d++) {
-                            var security = _e[_d];
-                            if (security.securityTypeCode === itm.securityTypeCode) {
-                                itm.securityTypeName = security.securityTypeName;
-                            }
-                        }
-                    }
-                }
+                // this is where the statememnt shall be initialised
             }
         });
     };
@@ -160,29 +137,34 @@ var InterestRateComponent = /** @class */ (function () {
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
-                    txnApprovalDetailsMircroId: _this.fval.txnApprovals.controls[i].controls.loanId.value,
-                    userId: _this.User.userId
+                    userId: _this.User.userId,
+                    otheApprovalsAllId: _this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+                    theLoanInterestRate: _this.fval.txnApprovals.controls[i].controls.rate.value
                 });
             }
         });
+        console.log(itemsApproved);
         if (itemsApproved.length > 0) {
-            this.others.approveMicroTransaction(itemsApproved).subscribe(function (res) {
-                _this.posted = true;
-                _this.alertService.success({
-                    html: '<b> Micro Loan Approved Was Successfully </b>'
-                });
-                setTimeout(function () {
-                    itemsApproved = [];
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
-            }, function (err) {
-                _this.errored = true;
-                _this.alertService.danger({
-                    html: '<b>' + err.error.error.message + '</b>'
-                });
-            });
+            // this.others.approveIdividualLoanInterestRate(itemsApproved).subscribe(
+            //   res => {
+            //     this.posted = true;
+            //     this.alertService.success({
+            //       html: '<b> Individual Interest rates were approved Successfully </b>'
+            //     });
+            //     setTimeout(() => {
+            //       itemsApproved = [];
+            //       this.userForm = this.createFormGroup();
+            //       this.fval.selectAll.setValue(false);
+            //       this.initialiseForm();
+            //     }, 3000);
+            //   },
+            //   err =>  {
+            //     this.errored = true;
+            //     this.alertService.danger({
+            //       html: '<b>' + err.error.error.message + '</b>'
+            //     });
+            //   }
+            // );
         }
         else {
             this.errored = true;
@@ -199,29 +181,34 @@ var InterestRateComponent = /** @class */ (function () {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 item.status = 1;
                 itemsRejected.push({
-                    txnApprovalDetailsMircroId: _this.fval.txnApprovals.controls[i].controls.loanId.value,
-                    userId: _this.User.userId
+                    userId: _this.User.userId,
+                    otheApprovalsAllId: _this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+                    theLoanInterestRate: _this.fval.txnApprovals.controls[i].controls.rate.value
                 });
             }
         });
+        console.log(itemsRejected);
         if (itemsRejected.length > 0) {
-            this.others.rejectMicroTransaction(itemsRejected).subscribe(function (res) {
-                _this.posted = true;
-                _this.alertService.success({
-                    html: '<b> Micro Loan Rejection Was Successfully </b>'
-                });
-                setTimeout(function () {
-                    itemsRejected = [];
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
-            }, function (err) {
-                _this.errored = true;
-                _this.alertService.danger({
-                    html: '<b>' + err.error.error.message + '</b>'
-                });
-            });
+            // this.others.rejectIdividualLoanInterestRate(itemsRejected).subscribe(
+            //   res => {
+            //     this.posted = true;
+            //     this.alertService.success({
+            //       html: '<b> Micro Loan Rejection Was Successfully </b>'
+            //     });
+            //     setTimeout(() => {
+            //       itemsRejected = [];
+            //       this.userForm = this.createFormGroup();
+            //       this.fval.selectAll.setValue(false);
+            //       this.initialiseForm();
+            //     }, 3000);
+            //   },
+            //   err =>  {
+            //     this.errored = true;
+            //     this.alertService.danger({
+            //       html: '<b>' + err.error.error.message + '</b>'
+            //     });
+            //   }
+            // );
         }
         else {
             this.errored = true;

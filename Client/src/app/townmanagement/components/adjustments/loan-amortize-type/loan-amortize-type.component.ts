@@ -75,7 +75,7 @@ export class LoanAmortizeTypeComponent implements OnInit {
     return new FormGroup({
       type: new FormControl(
         '',
-        Validators.compose([Validators.required, CustomValidator.maxValue(100)])
+        Validators.compose([Validators.required])
       ),
       user_contact_number: new FormControl('',
         Validators.compose([
@@ -135,30 +135,39 @@ export class LoanAmortizeTypeComponent implements OnInit {
           data.theLoanAmortizationType = type.code;
         }
       });
-      this.others
-        .putSetIndividualLoanAmortizationType(data)
-        .subscribe(
-          (res) => {
-            this.posted = true;
-            this.alertService.success({
-              html:
-                '<b> The amortization type was initiated successfully</b>',
-            });
-            setTimeout(this.revert(), 3000);
-          },
-          (err) => {
-            this.errored = true;
-            if (err.error.status === 500) {
-              this.alertService.danger({
-                html: '<b> Server Could Not handle this request</b>',
+      if (data.theLoanAmortizationType === null){
+        this.errored = true;
+        this.alertService.danger({
+         html: '<b> The amortization Type chosen is not valid</b>'
+        });
+       //  this.errored = false;
+        return;
+      } else {
+        this.others
+          .putSetIndividualLoanAmortizationType(data)
+          .subscribe(
+            (res) => {
+              this.posted = true;
+              this.alertService.success({
+                html:
+                  '<b> The amortization type was initiated successfully</b>',
               });
-            } else {
-              this.alertService.danger({
-                html: '<b>' + err.error.statusText + '</b>',
-              });
+              setTimeout(this.revert(), 3000);
+            },
+            (err) => {
+              this.errored = true;
+              if (err.error.status === 500) {
+                this.alertService.danger({
+                  html: '<b> Server Could Not handle this request</b>',
+                });
+              } else {
+                this.alertService.danger({
+                  html: '<b>' + err.error.statusText + '</b>',
+                });
+              }
             }
-          }
-        );
+          );
+      }
     } else {
       this.errored = true;
       this.alertService.danger({
