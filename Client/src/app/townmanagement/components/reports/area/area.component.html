@@ -2116,7 +2116,7 @@
       </div>
       <div class="col-9 d-flex justify-content-start font-weight-bold">
         <span class="itemCreated"
-          > 
+          >
           {{User.userLocationName}}
         </span>
       </div>
@@ -2227,10 +2227,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-12 col-md-6 col-xl-4">
+                </div>
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
-                        <span class="">Interest Rate Used </span>
+                                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div
+                        class="col-5 d-flex justify-content-start"
+                      >
+                        <span class="">Rate Used </span>
                       </div>
                       <div
                         class="col-7 d-flex justify-content-start font-weight-bold"
@@ -2241,8 +2245,6 @@
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="row">
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
                       <div class="col-5 col d-flex justify-content-start">
@@ -2321,163 +2323,207 @@
       </span>
     </div>
   </div>
-  <div class="iteration">
-    <div class="item-container-1 mt-1">
-      <div
-        class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      >
-        <div class="list-card-body card-body my-0 py-0 mx-0">
-            <div class="row my-0 py-0">
-              <div class="col-2 col-xl-1">
-                <img
-                  class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                  src="assets/img/man.svg"
-                  (click)="openModal(template)"
-                />
-              </div>
-              <div class="col-10 col-xl-11">
-              <div class="row">
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div
-                      class="col-5 d-flex justify-content-start"
-                    >
-                      <span class="">Revenue ID</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-
-                      </span>
+    <div class="iteration">
+      <div class="item-container-1 mt-1">
+        <div
+          class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
+        >
+          <div class="list-card-body card-body my-0 py-0 mx-0">
+              <div class="row my-0 py-0">
+                <div class="col-2 col-xl-1">
+                  <img
+                    class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
+                    src="assets/img/man.svg"
+                    (click)="openModal(template)"
+                  />
+                </div>
+                <div class="col-10 col-xl-11">
+                <div class="row">
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div
+                        class="col-5 d-flex justify-content-start"
+                      >
+                        <span class="">Revenue ID</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          <!-- {{
+              fval.customers["controls"][idx]["controls"]
+                .customerPhone1.value
+            }} -->
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div
-                      class="col-5 d-flex justify-content-start"
-                    >
-                      <span class="">Name</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div
-                      class="col-5 d-flex justify-content-start"
-                    >
-                      <span class="">Phone No.</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-
-                      </span>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div
+                        class="col-5 d-flex justify-content-start"
+                      >
+                        <span class="">Client Name</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          <!-- {{
+              fval.customers["controls"][idx]["controls"]
+                .customerName.value
+            }} -->
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div
-                      class="col-5 col d-flex justify-content-start"
-                    >
-                      <span class="">Date</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div
-                      class="col-5 d-flex justify-content-start"
-                    >
-                      <span class="">Amount Borrowed</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div
-                      class="col-5 d-flex justify-content-start"
-                    >
-                      <span class="">Interest Paid </span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div
-                      class="col-5 col d-flex justify-content-start"
-                    >
-                      <span class="">Percentage</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div
+                        class="col-5 d-flex justify-content-start"
+                      >
+                        <span class="">Unique Identifier </span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          <!-- {{
+              fval.customers["controls"][idx]["controls"]
+                .customerPhone1.value
+            }} -->
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div
+                        class="col-5 col d-flex justify-content-start"
+                      >
+                        <span class="">Product</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          <!-- {{
+              fval.customers["controls"][idx]["controls"]
+                .customerName.value
+            }} -->
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div
+                        class="col-5 col d-flex justify-content-start"
+                      >
+                        <span class="">Station</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          <!-- {{
+              fval.customers["controls"][idx]["controls"]
+                .customerName.value
+            }} -->
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div
+                        class="col-5 d-flex justify-content-start"
+                      >
+                        <span class="">Amount Borrowed</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          <!-- {{
+              fval.customers["controls"][idx]["controls"]
+                .customerPhone1.value
+            }} -->
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    <div class="row">
+                                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div
+                        class="col-5 d-flex justify-content-start"
+                      >
+                        <span class="">Rate Used </span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          <!-- {{
+              fval.customers["controls"][idx]["controls"]
+                .customerPhone1.value
+            }} -->
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div
+                        class="col-5 col d-flex justify-content-start"
+                      >
+                        <span class="">Revenue Earned</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          <!-- {{
+              fval.customers["controls"][idx]["controls"]
+                .customerName.value
+            }} -->
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div
+                        class="col-5 col d-flex justify-content-start"
+                      >
+                        <span class="">Revenue Lost</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          <!-- {{
+              fval.customers["controls"][idx]["controls"]
+                .customerName.value
+            }} -->
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+</div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    <div class="row mx-auto px-auto py-2 border-bottom">
-      <div class="col-12 col-md-6 col-xl-4">
-        <div class="row">
-          <div class="col-5 d-flex justify-content-start">
-            <span class="font-weight-bold">Total Interest </span>
-          </div>
-          <div
-            class="col-7 d-flex justify-content-start font-weight-bold"
-          >
-            <span class="itemCreated">
-
-            </span>
-          </div>
-        </div>
-      </div>
     </div>
-    </div>
-  </div>
 </div>
+
+
 <!--card for displaying Defaulters Report-->
 <div  *ngIf="(type === 'Defaulters')">
       <div class="container mt-3 mb-0 mx-0 shadow-lg">
