@@ -5,6 +5,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 exports.__esModule = true;
 exports.LoanAmortizeCycleComponent = void 0;
 var core_1 = require("@angular/core");
@@ -30,16 +37,6 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
     LoanAmortizeCycleComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.userForm = this.createFormGroup();
-        this.others.getProducts().subscribe(function (res) {
-            _this.products = res;
-            // tslint:disable-next-line: only-arrow-functions
-            _this.products = _this.products.map(function (pdt) {
-                return {
-                    productCode: pdt.productCode,
-                    productName: pdt.productName.replace(/_/g, ' ').toUpperCase()
-                };
-            });
-        }, function (err) { return console.log(err.statusText); });
         this.others.getMicroCustomers().subscribe(function (res) {
             if (res.length > 0) {
                 _this.customers = [];
@@ -64,9 +61,11 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
     };
     LoanAmortizeCycleComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
-            accrualDays: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required, custom_validator_1.CustomValidator.maxValue(100)])),
-            user_contact_number: new forms_1.FormControl(''),
-            loan_product: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required]))
+            cycle: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
+            user_contact_number: new forms_1.FormControl('', forms_1.Validators.compose([
+                forms_1.Validators.required,
+                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
+            ]))
         });
     };
     LoanAmortizeCycleComponent.prototype.revert = function () {
@@ -83,44 +82,72 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
     LoanAmortizeCycleComponent.prototype.openModal = function (template) {
         this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-centered' }));
     };
-    LoanAmortizeCycleComponent.prototype.setAccrualDays = function () {
+    LoanAmortizeCycleComponent.prototype.checkLoanbility = function (value, template) {
+        var _this = this;
+        if (value !== '') {
+            var microCustomers = __spreadArrays(this.customers);
+            microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
+            if (microCustomers.length === 1) {
+                this.checkedClient = microCustomers[0];
+                this.others.microCustomerStatement(this.checkedClient.customerId).subscribe(function (res) {
+                    _this.statement = res;
+                    if (_this.statement.length === 0) {
+                        _this.posted = true;
+                        _this.alertService.success({
+                            html: '<b>Customer has no previous transactions</b>'
+                        });
+                    }
+                    else {
+                        _this.openModal(template);
+                    }
+                }, function (err) {
+                    _this.errored = true;
+                    _this.alertService.danger({
+                        html: '<b>There was a problem getting customer statement</b>'
+                    });
+                });
+            }
+            else {
+                this.errored = true;
+                this.checkedClient = {};
+                this.alertService.danger({
+                    html: '<b> customer phone number ' + value.toUpperCase() + ' is not registered<b>'
+                });
+            }
+        }
+    };
+    LoanAmortizeCycleComponent.prototype.setAmortizationCycle = function () {
         var _this = this;
         // this.spinner.show();
         if (this.userForm.valid) {
             var data_1 = {
-                theStationLocationConstantsDaysForAccrual: this.fval.accrualDays.value,
-                productCode: null,
+                customerId: this.checkedClient.customerId,
+                productCode: 400,
                 userId: this.User.userId,
-                theStationLocationId: null
+                theLoanAmortizationCycle: null,
+                theStationLocationId: this.checkedClient.fktheStationLocationIdCustomer,
+                comment: "Please set the amortization cycle of this customer to  " + this.fval.cycle.value
             };
-            // console.log(this.products);
-            this.products.forEach(function (pdt) {
-                if (pdt.productName === _this.fval.loan_product.value) {
-                    data_1.productCode = pdt.productCode;
+            this.cycles.forEach(function (cycle) {
+                if (cycle.name === _this.fval.cycle.value) {
+                    data_1.theLoanAmortizationCycle = cycle.code;
                 }
             });
-            for (var _i = 0, _a = this.stations; _i < _a.length; _i++) {
-                var station = _a[_i];
-                if (station.stationName.toUpperCase() ===
-                    this.fval.station_name.value.toUpperCase()) {
-                    data_1.theStationLocationId = station.theStationLocationId;
-                }
-            }
-            if (data_1.theStationLocationId === null) {
+            if (data_1.theLoanAmortizationCycle === null) {
                 this.errored = true;
                 this.alertService.danger({
-                    html: '<b> The station chosen does not exist</b>'
+                    html: '<b> The amortization Cycle chosen is not valid</b>'
                 });
                 //  this.errored = false;
                 return;
             }
             else {
                 this.others
-                    .postSetStationNumberOfDaysForAccrualInterest(data_1)
+                    .putSetIndividualLoanAmortizationCycle(data_1)
                     .subscribe(function (res) {
                     _this.posted = true;
                     _this.alertService.success({
-                        html: '<b> The Number Of Days For Accrual Interest was set successfully</b>'
+                        html: '<b> The amortization cycle was initiated successfully</b>'
                     });
                     setTimeout(_this.revert(), 3000);
                 }, function (err) {

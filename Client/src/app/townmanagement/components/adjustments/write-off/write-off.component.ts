@@ -40,6 +40,7 @@ export class WriteOffComponent implements OnInit {
   numberPlates: Array<string> = [];
   phoneNumbers: Array<string> = [];
   User = this.authService.loggedInUserInfo();
+  statement: any;
 
   constructor(
     private authService: AuthServiceService,
@@ -213,7 +214,28 @@ export class WriteOffComponent implements OnInit {
           bodaCustomers = bodaCustomers.filter((customer) => customer.bodabodaCustomerNumberPlate === value.toUpperCase());
           if (bodaCustomers.length === 1){
             this.checkedClient = bodaCustomers[0];
-            this.openModal(template);
+            this.others.bodaAndTaxiCustomerStatement({
+              customerId: this.checkedClient.customerId,
+              productCode: 300
+            }).subscribe(
+              res => {
+                this.statement = res;
+                if (this.statement.length === 0){
+                  this.posted = true;
+                  this.alertService.success({
+                    html: '<b>Customer has no previous transactions</b>'
+                  });
+                } else{
+                  this.openModal(template);
+                }
+              },
+              err => {
+                this.errored = true;
+                this.alertService.danger({
+                    html: '<b>There was a problem getting customer statement</b>'
+                });
+              }
+            );
           } else {
             this.errored = true;
             this.alertService.danger({
@@ -226,7 +248,28 @@ export class WriteOffComponent implements OnInit {
         taxiCustomers = taxiCustomers.filter((customer) => customer.taxiCustomerNumberPlate === value.toUpperCase());
         if (taxiCustomers.length === 1){
           this.checkedClient = taxiCustomers[0];
-          this.openModal(template);
+          this.others.bodaAndTaxiCustomerStatement({
+            customerId: this.checkedClient.customerId,
+            productCode: 300
+          }).subscribe(
+            res => {
+              this.statement = res;
+              if (this.statement.length === 0){
+                this.posted = true;
+                this.alertService.success({
+                  html: '<b>Customer has no previous transactions</b>'
+                });
+              } else{
+                this.openModal(template);
+              }
+            },
+            err => {
+              this.errored = true;
+              this.alertService.danger({
+                  html: '<b>There was a problem getting customer statement</b>'
+              });
+            }
+          );
         } else {
           this.errored = true;
           this.alertService.danger({
@@ -239,7 +282,25 @@ export class WriteOffComponent implements OnInit {
           microCustomers = microCustomers.filter((customer) => customer.customerPhone1 === value.toUpperCase());
           if (microCustomers.length === 1){
             this.checkedClient = microCustomers[0];
-            this.openModal(template);
+            this.others.microCustomerStatement(this.checkedClient.customerId).subscribe(
+              res => {
+                this.statement = res;
+                if (this.statement.length === 0){
+                  this.posted = true;
+                  this.alertService.success({
+                    html: '<b>Customer has no previous transactions</b>'
+                  });
+                } else{
+                  this.openModal(template);
+                }
+              },
+              err => {
+                this.errored = true;
+                this.alertService.danger({
+                    html: '<b>There was a problem getting customer statement</b>'
+                });
+              }
+            );
           } else {
               this.errored = true;
               this.checkedClient = {};

@@ -72,6 +72,9 @@ var loan_accrual_days_component_1 = require("./components/transactions/approval/
 var loan_amortize_cycle_component_1 = require("./components/transactions/approval/loan-amortize-cycle/loan-amortize-cycle.component");
 var loan_amortize_type_component_1 = require("./components/transactions/approval/loan-amortize-type/loan-amortize-type.component");
 var loan_commission_rate_component_1 = require("./components/transactions/approval/loan-commission-rate/loan-commission-rate.component");
+var set_loan_amortize_cycle_component_1 = require("./components/transactions/loans/set-loan-amortize-cycle/set-loan-amortize-cycle.component");
+var set_loan_amortize_type_component_1 = require("./components/transactions/loans/set-loan-amortize-type/set-loan-amortize-type.component");
+var ngx_pagination_1 = require("ngx-pagination");
 var CentralmanagementModule = /** @class */ (function () {
     function CentralmanagementModule() {
     }
@@ -128,6 +131,8 @@ var CentralmanagementModule = /** @class */ (function () {
                 loan_accrual_days_component_1.LoanAccrualDaysComponent,
                 loan_amortize_cycle_component_1.LoanAmortizeCycleComponent,
                 loan_amortize_type_component_1.LoanAmortizeTypeComponent,
+                set_loan_amortize_cycle_component_1.SetLoanAmortizeCycleComponent,
+                set_loan_amortize_type_component_1.SetLoanAmortizeTypeComponent,
                 loan_commission_rate_component_1.LoanCommissionRateComponent
             ],
             imports: [
@@ -144,6 +149,7 @@ var CentralmanagementModule = /** @class */ (function () {
                 datepicker_1.DatepickerModule,
                 datepicker_1.BsDatepickerModule,
                 ngx_pinch_zoom_1.PinchZoomModule,
+                ngx_pagination_1.NgxPaginationModule,
                 ng_bootstrap_1.NgbModule,
                 ngx_alerts_1.AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
             ]

@@ -13,170 +13,162 @@
         </div>
       </div>
     </div>
-    <div
-      class="invest-card card-body mt-2 pt-2 mb-5 mx-auto pb-4 px-1 px-lg-auto shadow-lg"
-    >
-      <form [formGroup]="userForm">
-        <div class="item-header mb-2">
-          <div class="row">
+    <div class="invest-card card-body mt-2 pt-2 mb-5 mx-auto pb-4 px-1 px-lg-auto shadow-lg" [hidden]='!loaded'>
+			<form [formGroup]="userForm">
+				<div class="item-header mb-2">
+				  <div class="row">
             <!--select all items-->
             <div class="col-12 ml-0 pl-0 mx-sm-auto px-sm-auto pt-1">
               <input
-                id="allSelected"
-                formControlName="selectAll"
-                (click)="checkAllItems(!fval.selectAll.value)"
-                type="checkbox"
-                value=""
-                class="ml-4 text-info"
-                tooltip="Select All Loans"
+              id="allSelected"
+              formControlName="selectAll"
+              (click)="checkAllItems(!fval.selectAll.value)"
+              type="checkbox"
+              value=""
+              class="ml-4 text-info"
+              tooltip="Select All Loans"
               /> Select All
             </div>
-          </div>
-        </div>
-        <div class="iteration" formArrayName="approveRates">
-          <div
-            class="item-container mt-1"
-            *ngFor="let items of fval.approveRates['controls']; let idx = index"
-          >
-      <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx" (click)="openModal(template)"
->
-        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
-          <div class="row my-0 py-0">
-            <div class="col-1">
-                    <!--select an item-->
-                    <input
-                      formControlName="approved"
-                      (click)="deselectAll(idx)"
-                      type="checkbox"
-                      value=""
-                      class="ml-1 text-info"
-                    />
-            </div>
-            <div class="col-11">
-              <div class="row">
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
-                      <span class="">Client ID</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
-                      <span class="">Client</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->Keminagano Pulikeria
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
-                      <span class="">Station</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->Keminagano
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
-                      <span class="">Product</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->Keminagano
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
-                      <span class="">Amount</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"].station
-                              .value
-                          }} -->
-                    <input
-                      id="floatAmount"
-                      formControlName="floatAmount"
-                      type="text"
-                      class="form-control"
-                      [ngClass]="{
-                        'is-invalid':
-                          (fval.floatAmount.touched ||
-                            fval.floatAmount.dirty) &&
-                          fval.floatAmount.errors
-                      }"
-                      autocomplete="off"
-                    />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
-                      <span class="">Comment</span>
-                    </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-</div>
-        </div>
-      </form>
+				  </div>
+				</div>
+				<div class="iteration" formArrayName="txnApprovals">
+					<div
+					class="item-container mt-1"
+					*ngFor="let items of fval.txnApprovals['controls']; let idx = index"
+					>
+						<div 
+						class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" 
+						[formGroupName]="idx"
+						>
+							<div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+								<div class="row my-0 py-0">
+									<div class="col-1">
+									  <!--select an item-->
+									  <input
+										formControlName="approved"
+										(click)="deselectAll(idx)"
+										type="checkbox"
+										value=""
+										class="ml-1 text-info"
+									  />
+									</div>
+									<div class="col-11">
+										<div class="row">
+											<div class="col-12 col-md-6 col-xl-4">
+											  <div class="row">
+												<div class="col-5 d-flex justify-content-start">
+												  <span class="">Station</span>
+												</div>
+												<div
+												  class="col-7 d-flex justify-content-start font-weight-bold"
+												>
+												  <span class="itemCreated">
+													{{fval.txnApprovals["controls"][idx]["controls"].station.value}}
+												  </span>
+												</div>
+											  </div>
+											</div>
+											<div class="col-12 col-md-6 col-xl-4">
+											  <div class="row">
+												<div class="col-5 d-flex justify-content-start">
+												  <span class="">Client ID</span>
+												</div>
+												<div
+												  class="col-7 d-flex justify-content-start font-weight-bold"
+												>
+												  <span class="itemCreated">
+													{{fval.txnApprovals["controls"][idx]["controls"].clientId.value}}
+												  </span>
+												</div>
+											  </div>
+											</div>
+											<div class="col-12 col-md-6 col-xl-4">
+											  <div class="row">
+												<div class="col-5 d-flex justify-content-start">
+												  <span class="">Client</span>
+												</div>
+												<div
+												  class="col-7 d-flex justify-content-start font-weight-bold"
+												>
+												  <span class="itemCreated">
+													{{fval.txnApprovals["controls"][idx]["controls"].client.value}}
+												  </span>
+												</div>
+											  </div>
+											</div>
+											<div class="col-12 col-md-6 col-xl-4">
+											  <div class="row">
+												<div class="col-5 d-flex justify-content-start">
+												  <span class="">Product</span>
+												</div>
+												<div
+												  class="col-7 d-flex justify-content-start font-weight-bold"
+												>
+												  <span class="itemCreated">
+													{{fval.txnApprovals["controls"][idx]["controls"].product.value}}
+												  </span>
+												</div>
+											  </div>
+											</div>
+											<div class="col-12 col-md-6 col-xl-4">
+												<div class="row">
+													<div class="col-5 d-flex justify-content-start">
+													  <span class="">Amount</span>
+													</div>
+													<div
+													  class="col-7 d-flex justify-content-start font-weight-bold"
+													>
+														<span class="itemCreated">
+															<input
+															  id="amount"
+															  formControlName="amount"
+															  type="number"
+															  class="form-control"
+															  [ngClass]="{
+																'is-invalid':
+																  ( fval.txnApprovals['controls'][idx]['controls'].amount.touched ||
+																	fval.txnApprovals['controls'][idx]['controls'].amount.dirty) &&
+																  fval.txnApprovals['controls'][idx]['controls'].amount.errors
+																  }"
+															  autocomplete="off"
+															/>
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<div class="row">
+													<div class="col-3 col-md-3 d-flex justify-content-start">
+													  <span class="">Comment</span>
+													</div>
+													<div
+													  class="col-6 col-md-9 d-flex justify-content-start font-weight-bold"
+													>
+													  <span class="itemCreated">
+														{{fval.txnApprovals["controls"][idx]["controls"].comment.value}}
+													  </span>
+                          </div>
+                          <div class="col-2 justify-content-end font-weight-bold">
+                            <a class="text-dark pointerCursor">
+                              <span
+                                class="itemCreated"
+                                (click)="openModal(template, fval.txnApprovals['controls'][idx]['controls'].clientId.value)"
+                                >Statement
+                              </span>
+                            </a>
+                          </div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
       <div class="d-flex mt-3 mb-0 py-2 mx-auto">
         <button
           class="btn btn-info col-4 col-md-3 mx-auto px-0"
@@ -184,6 +176,19 @@
         >
           <i class="fas fa-check"></i> Approve
         </button>
+        <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+          <p class="text-light">Please wait...</p>
+        </ngx-spinner>
+        <label class="col" *ngIf="errored" class="text-danger">
+          <!-- <i class="material-icons">Cancel</i> -->
+
+          <ngx-alerts></ngx-alerts>
+        </label>
+        <label class="col" *ngIf="posted" class="text-danger">
+          <!-- <i class="material-icons">Cancel</i> -->
+
+          <ngx-alerts></ngx-alerts>
+        </label>
         <button
           class="btn btn-info col-4 col-md-3 mx-auto px-0"
           (click)="rejectItems()"
@@ -198,7 +203,7 @@
 <ng-template #template>
   <div class="modal-header bg-info">
     <h4 class="modal-title text-white">
-      {{ checkedClient.name }}'s Statement
+      {{ checkedClient.customerName }}'s Statement
     </h4>
     <button
       type="button"
@@ -213,41 +218,23 @@
   </div>
   <div class="modal-body">
     <div class="row">
-                            <div class="col-12 pt-0 pb-1 mb-0">
+    <div class="col-12 pt-0 pb-1 mb-0">
     <div class="client-modal card mt-0 pt-0 px-0 shadow-lg">
     <div class="card-body mt-0 pt-1 pb-2 mx-0 px-2">
                               <div class="iteration">
-                                <div class="item-container mt-1 pt-0">
+                                <div 
+                                  class="item-container mt-1 pt-0"
+                                  *ngFor="let item of statement"
+                                >
                                   <div
-                                    class="list-card-1 card my-0 py-1 mx-auto px-0 shadow-lg"
+                                    class="list-card card my-0 py-1 mx-auto px-0 shadow-lg"
                                   >
                                     <div
-                                      class="list-card-body-1 card-body my-0 py-0 mx-0"
+                                      class="list-card-body card-body my-0 py-0 mx-0"
                                     >
                                       <div class="row my-0 py-0">
                                         <div class="col-12 my-0 py-0">
                                           <div class="row">
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 col-xl-7 d-flex justify-content-start"
-                                                >
-                                                  <span class="">Txn ID</span>
-                                                </div>
-                                                <div
-                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
                                             <div
                                               class="col-12 col-md-6 col-xl-4"
                                             >
@@ -261,10 +248,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
+                                                    {{item.dateTaken}}
                                                   </span>
                                                 </div>
                                               </div>
@@ -284,10 +268,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"].station
-                              .value
-                          }} -->
+                                                    {{item.timeTaken}}
                                                   </span>
                                                 </div>
                                               </div>
@@ -307,10 +288,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                    Micro Loan
                                                   </span>
                                                 </div>
                                               </div>
@@ -330,10 +308,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                    {{(item.principalTaken + item.loanInterestTaken) | number }}
                                                   </span>
                                                 </div>
                                               </div>
@@ -353,10 +328,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                    {{item.principalTaken | number}}
                                                   </span>
                                                 </div>
                                               </div>
@@ -376,10 +348,7 @@
                                                   class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->34550000
+                                                    {{item.loanInterestTaken | number}}
                                                   </span>
                                                 </div>
                                               </div>
@@ -399,10 +368,7 @@
                                                   class="col-6 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                    {{item.microloanCustomerLoanInterest | number}}
                                                   </span>
                                                 </div>
                                               </div>
@@ -422,10 +388,7 @@
                                                   class="col-6 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                    {{(item.principalPaid + item.loanInterestPaid) | number}}
                                                   </span>
                                                 </div>
                                               </div>
@@ -445,10 +408,7 @@
                                                   class="col-6 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                    {{item.principalPaid | number}}
                                                   </span>
                                                 </div>
                                               </div>
@@ -468,10 +428,7 @@
                                                   class="col-6 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                   {{item.loanInterestPaid | number}}
                                                   </span>
                                                 </div>
                                               </div>
@@ -491,16 +448,13 @@
                                                   class="col-6 d-flex justify-content-start font-weight-bold"
                                                 >
                                                   <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                                                    {{item.theBalance | number}}
                                                   </span>
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
-                                                                                </div>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
@@ -521,4 +475,5 @@
     </button>
   </div>
 </ng-template>
+
 

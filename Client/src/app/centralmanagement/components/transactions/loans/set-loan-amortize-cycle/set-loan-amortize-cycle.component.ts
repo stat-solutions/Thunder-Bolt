@@ -50,50 +50,24 @@ export class SetLoanAmortizeCycleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userForm = this.createFormGroup();
-    this.others.getProducts().subscribe((res) => {
-      this.products = res;
-      // tslint:disable-next-line: only-arrow-functions
-      this.products = this.products.map(function (pdt: any): any {
-        return {
-          productCode: pdt.productCode,
-          productName: pdt.productName.replace(/_/g, ' ').toUpperCase(),
-        };
-      });
-    });
-    this.others.getMicroCustomers().subscribe(
-      (res) => {
-        if (res.length > 0) {
-          this.customers = [];
-          this.customers = res;
-          this.phoneNumbers = [];
-          this.customers.forEach((customer) => {
-            this.phoneNumbers.push(customer.customerPhone1);
-          });
-        } else {
-          this.errored = true;
-          this.alertService.danger({
-            html: '<b>There are no Micro loan customers registered</b>',
-          });
-        }
+    this.others.getAllTheStationLocations().subscribe(
+      res => {
+        this.stations = res;
       },
-      (err) => {
-        this.errored = true;
-        this.alertService.danger({
-          html: '<b>' + err.error.error.message + '</b>',
-        });
+      err => {
+        console.log(err.error.statusText);
       }
     );
+    this.userForm = this.createFormGroup();
   }
 
   createFormGroup(): any {
     return new FormGroup({
       cycle: new FormControl(
         '',
-        Validators.compose([Validators.required, CustomValidator.maxValue(100)])
+        Validators.compose([Validators.required])
       ),
-      user_contact_number: new FormControl(''),
-      loan_product: new FormControl(
+      station_name: new FormControl(
         '',
         Validators.compose([Validators.required])
       ),
@@ -106,72 +80,64 @@ export class SetLoanAmortizeCycleComponent implements OnInit {
     return this.userForm.controls;
   }
 
-  // modal method
-  public openModal(template: TemplateRef<any>): any {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'modal-lg modal-dialog-centered' })
-    );
-  }
-  checkLoanbility(value: any, template: TemplateRef<any>): any {
-    if (value !== '') {
-      let microCustomers = [...this.customers];
-      microCustomers = microCustomers.filter(
-        (customer) => customer.customerPhone1 === value.toUpperCase()
-      );
-      if (microCustomers.length === 1) {
-        this.checkedClient = microCustomers[0];
-        this.openModal(template);
-      } else {
-        this.errored = true;
-        this.checkedClient = {};
-        this.alertService.danger({
-          html:
-            '<b> customer phone number ' +
-            value.toUpperCase() +
-            ' is not registered<b>',
-        });
-      }
-    }
-  }
-
   setAmortizationCycle(): any {
     // this.spinner.show();
     if (this.userForm.valid) {
       const data = {
-        customerId: this.checkedClient.customerId,
         productCode: 400,
         userId: this.User.userId,
-        theLoanAmortizationCycle: null,
-        theStationLocationId: this.checkedClient.fktheStationLocationIdCustomer,
-        comment: `Please set the amortization cycle of this customer to  ${this.fval.cycle.value}`,
+        amortizationCycle: null,
+        theStationLocationId: null,
       };
       this.cycles.forEach((cycle) => {
         if (cycle.name === this.fval.cycle.value) {
-          data.theLoanAmortizationCycle = cycle.code;
+          data.amortizationCycle = cycle.code;
         }
       });
-      this.others.putSetIndividualLoanAmortizationCycle(data).subscribe(
-        (res) => {
-          this.posted = true;
-          this.alertService.success({
-            html: '<b> The amortization cycle was initiated successfully</b>',
-          });
-          setTimeout(this.revert(), 3000);
-        },
-        (err) => {
-          this.errored = true;
-          if (err.error.status === 500) {
-            this.alertService.danger({
-              html: '<b> Server Could Not handle this request</b>',
-            });
-          } else {
-            this.alertService.danger({
-              html: '<b>' + err.error.statusText + '</b>',
-            });
-          }
+      for (const station of this.stations){
+        if (station.stationName.toUpperCase() === this.fval.station_name.value.toUpperCase()){
+         data.theStationLocationId = station.theStationLocationId;
         }
-      );
+      }
+      if (data.theStationLocationId === null){
+        this.errored = true;
+        this.alertService.danger({
+         html: '<b> The station chosen does not exist</b>'
+        });
+       //  this.errored = false;
+        return;
+      } else {
+        if (data.amortizationCycle === null){
+          this.errored = true;
+          this.alertService.danger({
+           html: '<b> The amortization Cycle chosen is not valid</b>'
+          });
+         //  this.errored = false;
+          return;
+        } else {
+          this.others.postSetStationAmortCycle(data).subscribe(
+            (res) => {
+              this.posted = true;
+              this.alertService.success({
+                html: '<b> The amortization cycle was set successfully</b>',
+              });
+              setTimeout(this.revert(), 3000);
+            },
+            (err) => {
+              this.errored = true;
+              if (err.error.status === 500) {
+                this.alertService.danger({
+                  html: '<b> Server Could Not handle this request</b>',
+                });
+              } else {
+                this.alertService.danger({
+                  html: '<b>' + err.error.statusText + '</b>',
+                });
+              }
+            }
+          );
+        }
+      }
     } else {
       this.errored = true;
       this.alertService.danger({
