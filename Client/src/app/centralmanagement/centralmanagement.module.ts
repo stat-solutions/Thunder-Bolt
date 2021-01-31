@@ -65,6 +65,7 @@ import { LoanAmortizeTypeComponent } from './components/transactions/approval/lo
 import { LoanCommissionRateComponent } from './components/transactions/approval/loan-commission-rate/loan-commission-rate.component';
 import { SetLoanAmortizeCycleComponent } from './components/transactions/loans/set-loan-amortize-cycle/set-loan-amortize-cycle.component';
 import { SetLoanAmortizeTypeComponent } from './components/transactions/loans/set-loan-amortize-type/set-loan-amortize-type.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -136,6 +137,7 @@ import { SetLoanAmortizeTypeComponent } from './components/transactions/loans/se
     DatepickerModule,
     BsDatepickerModule,
     PinchZoomModule,
+    NgxPaginationModule,
     NgbModule,
     AlertModule.forRoot({ maxMessages: 5, timeout: 7000 }),
   ],

@@ -11,101 +11,41 @@
         </div>
         <div class="card-body mt-1 pt-3 pb-4 mb-0 mx-auto shadow-lg">
             <form [formGroup]="userForm" (ngSubmit)="setAmortizationCycle()">
-          <div
-            class="form-group text-primary"
-          >
-            <label
-              for="user_contact_number"
-              [ngClass]="fval.user_contact_number.valid ? 'text-info' : ''"
-              >Station<i
-                *ngIf="fval.user_contact_number.valid"
-                class="material-icons"
-                >check_circle</i
-              ></label
-            >
-            <div class="input-group mb-0">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <i
-                    class="fas fa-phone text-primary mx-auto"
-                    style="size: 50px"
-                  ></i>
-                </div>
-              </div>
-              <input
-                type="text"
-                list="user_contact_number"
-                formControlName="user_contact_number"
-                class="form-control"
-                [ngClass]="{
-                  'is-invalid':
-                    (fval.user_contact_number.touched ||
-                      fval.user_contact_number.dirty) &&
-                    fval.user_contact_number.errors
-                }"
-                autocomplete="off"
-                placeholder="Select Phone number"
-                (blur)="checkLoanbility(fval.user_contact_number.value, template)"
-              />
-              <datalist id="user_contact_number">
-                <option *ngFor="let item of phoneNumbers">
-                  {{ item }}
-                </option>
-              </datalist>
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.user_contact_number.touched ||
-                fval.user_contact_number.dirty) &&
-              fval.user_contact_number.errors?.required
-            "
-          >
-            The phone number is required!
-          </div>
-          <div
-            class="text-danger col"
-            *ngIf="
-              (fval.user_contact_number.touched ||
-                fval.user_contact_number.dirty) &&
-              fval.user_contact_number.errors?.hasNumber
-            "
-          >
-            The phone number should be equal to 10 "digits"!
-          </div>
-        </div>
-      <div class="form-group text-primary">
+             <div class="form-group text-primary">
         <label
-          for="loan_product"
-          [ngClass]="fval.loan_product.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.loan_product.valid" class="material-icons"
+          for="station_name"
+          [ngClass]="fval.station_name.valid ? 'text-info' : ''"
+          ><i *ngIf="fval.station_name.valid" class="material-icons"
             >check_circle</i
-          >Product</label
+          >Station</label
         >
         <div class="input-group mb-0">
-          <select
-          formControlName="loan_product"
-          class="form-control"
+          <input
+          type="text"
+          formControlName="station_name"
+          list="station_name"
+          placeholder="Select a station "
+          class="form-control mx-0"
           [ngClass]="{
             'is-invalid':
-              (fval.loan_product.touched || fval.loan_product.dirty) &&
-              fval.loan_product.errors
+              (fval.station_name.touched || fval.station_name.dirty) &&
+              fval.station_name.errors
           }"
-          autocomplete="off"
-          placeholder="Select Product"
-        >
-          <option></option>
-          <option *ngFor="let pdt of products">{{pdt.productName}}</option>
-        </select>
+          autocomplete="on"
+        />
+        <datalist id="station_name">
+          <!-- <option selected>Select Station</option> -->
+          <option *ngFor="let station of stations">{{station.stationName.toUpperCase()}}</option>
+        </datalist>
     </div>
         <div
           class="text-danger col"
           *ngIf="
-            (fval.loan_product.touched || fval.loan_product.dirty) &&
-            fval.loan_product.errors?.required
+            (fval.station_name.touched || fval.station_name.dirty) &&
+            fval.station_name.errors?.required
           "
         >
-          The Product name is required!
+          The Station name is required!
         </div>
       </div>
           <div class="form-group text-primary">
@@ -115,9 +55,9 @@
           >
         <div class="input-group mb-0">
           <input
-          formControlName="loan_product"
+          formControlName="cycle"
           class="form-control"
-          list='loan_product'
+          list='cycle'
           [ngClass]="{
             'is-invalid':
               (fval.cycle.touched || fval.cycle.dirty) &&
@@ -126,7 +66,7 @@
           autocomplete="off"
           placeholder="Select Amortization Cycle"
         />
-        <datalist id="loan_product">
+        <datalist id="cycle">
           <option *ngFor="let item of cycles">
             {{ item.name }}
           </option>
@@ -174,306 +114,3 @@
         </div>
     </div>
 </div>
-
-<ng-template #template>
-  <div class="modal-header bg-info">
-    <h4 class="modal-title text-white">
-      {{ checkedClient.name }}'s Statement
-    </h4>
-    <button
-      type="button"
-      class="pull-right close"
-      data-dismiss="modal"
-      aria-
-      label="Close"
-      (click)="modalRef.hide()"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="row">
-                            <div class="col-12 pt-0 pb-1 mb-0">
-    <div class="client-modal card mt-0 pt-0 px-0 shadow-lg">
-    <div class="card-body mt-0 pt-1 pb-2 mx-0 px-2">
-                              <div class="iteration">
-                                <div class="item-container mt-1 pt-0">
-                                  <div
-                                    class="list-card card my-0 py-1 mx-auto px-0 shadow-lg"
-                                  >
-                                    <div
-                                      class="list-card-body card-body my-0 py-0 mx-0"
-                                    >
-                                      <div class="row my-0 py-0">
-                                        <div class="col-12 my-0 py-0">
-                                          <div class="row">
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 col-xl-7 d-flex justify-content-start"
-                                                >
-                                                  <span class="">Txn ID</span>
-                                                </div>
-                                                <div
-                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 col-xl-7 d-flex justify-content-start"
-                                                >
-                                                  <span class="">Txn Date</span>
-                                                </div>
-                                                <div
-                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 col-xl-7 d-flex justify-content-start"
-                                                >
-                                                  <span class=""
-                                                    >Txn Time</span
-                                                  >
-                                                </div>
-                                                <div
-                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 col-xl-7 d-flex justify-content-start"
-                                                >
-                                                  <span class=""
-                                                    >Txn Type</span
-                                                  >
-                                                </div>
-                                                <div
-                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 col-xl-7 d-flex justify-content-start"
-                                                >
-                                                  <span class=""
-                                                    >Loan Amount
-                                                  </span>
-                                                </div>
-                                                <div
-                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                           <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 col-xl-7 d-flex justify-content-start"
-                                                >
-                                                  <span class=""
-                                                    >Principal Amount</span
-                                                  >
-                                                </div>
-                                                <div
-                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 col-xl-7 d-flex justify-content-start"
-                                                >
-                                                  <span class=""
-                                                    >Interest Amount</span
-                                                  >
-                                                </div>
-                                                <div
-                                                  class="col-6 col-xl-5 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-                                                    34550000
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 d-flex justify-content-start"
-                                                >
-                                                  <span class=""
-                                                    >Interest Rate</span
-                                                  >
-                                                </div>
-                                                <div
-                                                  class="col-6 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 d-flex justify-content-start"
-                                                >
-                                                  <span class=""
-                                                    >Amount Paid</span
-                                                  >
-                                                </div>
-                                                <div
-                                                  class="col-6 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 d-flex justify-content-start"
-                                                >
-                                                  <span class=""
-                                                    >Principal Paid</span
-                                                  >
-                                                </div>
-                                                <div
-                                                  class="col-6 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 d-flex justify-content-start"
-                                                >
-                                                  <span class=""
-                                                    >Interest Paid</span
-                                                  >
-                                                </div>
-                                                <div
-                                                  class="col-6 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-                                                    <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div
-                                              class="col-12 col-md-6 col-xl-4"
-                                            >
-                                              <div class="row">
-                                                <div
-                                                  class="col-6 d-flex justify-content-start"
-                                                >
-                                                  <span class=""
-                                                    >Balance</span
-                                                  >
-                                                </div>
-                                                <div
-                                                  class="col-6 d-flex justify-content-start font-weight-bold"
-                                                >
-                                                  <span class="itemCreated">
-
-                                                  </span>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                                                                </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              </div>
-                              </div>
-                              </div>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-info col-3 col-xl-2 pull-right"
-      (click)="modalRef.hide()"
-    >
-      Ok
-    </button>
-  </div>
-</ng-template>

@@ -31,6 +31,8 @@ export class InterestRateComponent implements OnInit {
   checkedLoan: any;
   customers: any;
   securityTypes: any;
+  checkedClient: any;
+  statement: any;
   constructor(
     private authService: AuthServiceService,
     private others: OthersService,
@@ -59,6 +61,7 @@ export class InterestRateComponent implements OnInit {
       product: this.fb.control({ value: '' }),
       rate: this.fb.control({ value: '' }),
       comment: this.fb.control({ value: '' }),
+      otherApprovalsAllId: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
   }
@@ -84,6 +87,7 @@ export class InterestRateComponent implements OnInit {
           this.fval.txnApprovals.controls[i].controls.product.setValue(pdt);
           this.fval.txnApprovals.controls[i].controls.client.setValue(item.customerName);
           this.fval.txnApprovals.controls[i].controls.station.setValue(item.stationName);
+          this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.setValue(item.otheApprovalsAllId);
           this.fval.txnApprovals.controls[i].controls.rate.setValue(details.theLoanInterestRate);
           this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
           this.addItem();
@@ -118,33 +122,59 @@ export class InterestRateComponent implements OnInit {
 
   // loan modal method
   public openModal(template: TemplateRef<any>, id: number): any {
-    this.modalRef = this.modalService.show(
-      template,
-      Object.assign({}, { class: 'modal-lg modal-dialog-center' })
-    );
     this.txnsApprovals.forEach(item => {
-      if (item.txnApprovalDetailsMicroId === id) {
-        let client;
-        const details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-        for (const customer of this.customers){
-          if (customer.customerId === details[0].customerId) {
-           client = customer;
-          }
-        }
-        this.checkedLoan =  {
-          url: client.customerPhotoUrl,
-          name: client.customerName,
-          phone: client.customerPhone1,
-          data: details
-        };
-        if (this.checkedLoan.data[1][1].length > 0) {
-          for (const itm of this.checkedLoan.data[1][1]) {
-            for (const security of this.securityTypes){
-              if (security.securityTypeCode === itm.securityTypeCode){
-                itm.securityTypeName = security.securityTypeName;
+      const details = JSON.parse(item.otheApprovalsAllPayLoad);
+      if (details.customerId === id) {
+        this.checkedClient = item;
+        if (details.productCode === 400) {
+          this.others.microCustomerStatement(id).subscribe(
+            res => {
+              this.statement = res;
+              if (this.statement.length === 0){
+                this.posted = true;
+                this.alertService.success({
+                  html: '<b>Customer has no previous transactions</b>'
+                });
+              } else{
+                this.modalRef = this.modalService.show(
+                  template,
+                  Object.assign({}, { class: 'modal-lg modal-dialog-center' })
+                );
               }
+            },
+            err => {
+              this.errored = true;
+              this.alertService.danger({
+                  html: '<b>There was a problem getting customer statement</b>'
+              });
             }
-          }
+          );
+        } else {
+          this.others.bodaAndTaxiCustomerStatement({
+            customerId: id,
+            productCode: details.productCode
+          }).subscribe(
+            res => {
+              this.statement = res;
+              if (this.statement.length === 0){
+                this.posted = true;
+                this.alertService.success({
+                  html: '<b>Customer has no previous transactions</b>'
+                });
+              } else{
+                this.modalRef = this.modalService.show(
+                  template,
+                  Object.assign({}, { class: 'modal-lg modal-dialog-center' })
+                );
+              }
+            },
+            err => {
+              this.errored = true;
+              this.alertService.danger({
+                  html: '<b>There was a problem getting customer statement</b>'
+              });
+            }
+          );
         }
       }
     });
@@ -175,17 +205,19 @@ export class InterestRateComponent implements OnInit {
     this.txnsApprovals.forEach((item, i) => {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         itemsApproved.push({
-          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
-          userId: this.User.userId
+          userId: this.User.userId,
+          otheApprovalsAllId: this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+          theLoanInterestRate: this.fval.txnApprovals.controls[i].controls.rate.value
         });
       }
     });
+    // console.log(itemsApproved);
     if (itemsApproved.length > 0) {
-      this.others.approveMicroTransaction(itemsApproved).subscribe(
+      this.others.approveIdividualLoanInterestRate(itemsApproved).subscribe(
         res => {
           this.posted = true;
           this.alertService.success({
-            html: '<b> Micro Loan Approved Was Successfully </b>'
+            html: '<b> Individual Interest rates were approved Successfully </b>'
           });
           setTimeout(() => {
             itemsApproved = [];
@@ -215,32 +247,34 @@ export class InterestRateComponent implements OnInit {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         item.status = 1;
         itemsRejected.push({
-          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
-          userId: this.User.userId
+          userId: this.User.userId,
+          otheApprovalsAllId: this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+          theLoanInterestRate: this.fval.txnApprovals.controls[i].controls.rate.value
         });
       }
     });
+    // console.log(itemsRejected);
     if (itemsRejected.length > 0) {
-      this.others.rejectMicroTransaction(itemsRejected).subscribe(
-        res => {
-          this.posted = true;
-          this.alertService.success({
-            html: '<b> Micro Loan Rejection Was Successfully </b>'
-          });
-          setTimeout(() => {
-            itemsRejected = [];
-            this.userForm = this.createFormGroup();
-            this.fval.selectAll.setValue(false);
-            this.initialiseForm();
-          }, 3000);
-        },
-        err =>  {
-          this.errored = true;
-          this.alertService.danger({
-            html: '<b>' + err.error.error.message + '</b>'
-          });
-        }
-      );
+      // this.others.rejectIdividualLoanInterestRate(itemsRejected).subscribe(
+      //   res => {
+      //     this.posted = true;
+      //     this.alertService.success({
+      //       html: '<b> Individual Interest rates were rejected Successfully </b>'
+      //     });
+      //     setTimeout(() => {
+      //       itemsRejected = [];
+      //       this.userForm = this.createFormGroup();
+      //       this.fval.selectAll.setValue(false);
+      //       this.initialiseForm();
+      //     }, 3000);
+      //   },
+      //   err =>  {
+      //     this.errored = true;
+      //     this.alertService.danger({
+      //       html: '<b>' + err.error.error.message + '</b>'
+      //     });
+      //   }
+      // );
     } else {
       this.errored = true;
       this.alertService.danger({

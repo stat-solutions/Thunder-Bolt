@@ -60,7 +60,7 @@ var LoanAmortizeTypeComponent = /** @class */ (function () {
     };
     LoanAmortizeTypeComponent.prototype.createFormGroup = function () {
         return new forms_1.FormGroup({
-            type: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required, custom_validator_1.CustomValidator.maxValue(100)])),
+            type: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             user_contact_number: new forms_1.FormControl('', forms_1.Validators.compose([
                 forms_1.Validators.required,
                 custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
@@ -82,12 +82,29 @@ var LoanAmortizeTypeComponent = /** @class */ (function () {
         this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-centered' }));
     };
     LoanAmortizeTypeComponent.prototype.checkLoanbility = function (value, template) {
+        var _this = this;
         if (value !== '') {
             var microCustomers = __spreadArrays(this.customers);
             microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
             if (microCustomers.length === 1) {
                 this.checkedClient = microCustomers[0];
-                this.openModal(template);
+                this.others.microCustomerStatement(this.checkedClient.customerId).subscribe(function (res) {
+                    _this.statement = res;
+                    if (_this.statement.length === 0) {
+                        _this.posted = true;
+                        _this.alertService.success({
+                            html: '<b>Customer has no previous transactions</b>'
+                        });
+                    }
+                    else {
+                        _this.openModal(template);
+                    }
+                }, function (err) {
+                    _this.errored = true;
+                    _this.alertService.danger({
+                        html: '<b>There was a problem getting customer statement</b>'
+                    });
+                });
             }
             else {
                 this.errored = true;
@@ -115,27 +132,37 @@ var LoanAmortizeTypeComponent = /** @class */ (function () {
                     data_1.theLoanAmortizationType = type.code;
                 }
             });
-            this.others
-                .putSetIndividualLoanAmortizationType(data_1)
-                .subscribe(function (res) {
-                _this.posted = true;
-                _this.alertService.success({
-                    html: '<b> The amortization type was initiated successfully</b>'
+            if (data_1.theLoanAmortizationType === null) {
+                this.errored = true;
+                this.alertService.danger({
+                    html: '<b> The amortization Type chosen is not valid</b>'
                 });
-                setTimeout(_this.revert(), 3000);
-            }, function (err) {
-                _this.errored = true;
-                if (err.error.status === 500) {
-                    _this.alertService.danger({
-                        html: '<b> Server Could Not handle this request</b>'
+                //  this.errored = false;
+                return;
+            }
+            else {
+                this.others
+                    .putSetIndividualLoanAmortizationType(data_1)
+                    .subscribe(function (res) {
+                    _this.posted = true;
+                    _this.alertService.success({
+                        html: '<b> The amortization type was initiated successfully</b>'
                     });
-                }
-                else {
-                    _this.alertService.danger({
-                        html: '<b>' + err.error.statusText + '</b>'
-                    });
-                }
-            });
+                    setTimeout(_this.revert(), 3000);
+                }, function (err) {
+                    _this.errored = true;
+                    if (err.error.status === 500) {
+                        _this.alertService.danger({
+                            html: '<b> Server Could Not handle this request</b>'
+                        });
+                    }
+                    else {
+                        _this.alertService.danger({
+                            html: '<b>' + err.error.message + '</b>'
+                        });
+                    }
+                });
+            }
         }
         else {
             this.errored = true;

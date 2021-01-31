@@ -230,7 +230,7 @@
                          {{
                            itm.productCode === 100 ? 'SAVINGS' :
                            itm.productCode === 200 ? 'BODA BODA FUEL LOAN' :
-                           itm.productCode === 200 ? 'TAXI FUEL LOAN' : 'MICRO LOAN'
+                           itm.productCode === 300 ? 'TAXI FUEL LOAN' : 'MICRO LOAN'
                            }}
                         </span>
                       </div>
@@ -2098,13 +2098,11 @@
     </div>
 </div>
 <!--card for displaying revenue report-->
-<div *ngIf="(type === 'Revenue')">
+<div *ngIf="type === 'Revenue Ledger'">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
-        <h4
-          class="rub-head4 text-info text-center font-weight-bold py-1"
-        >
+        <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
           Revenue Report
         </h4>
       </div>
@@ -2115,15 +2113,10 @@
       <div class="col-3 d-flex justify-content-start">
         <span class="">Area: </span>
       </div>
-      <div
-        class="col-9 d-flex justify-content-start font-weight-bold"
-      >
+      <div class="col-9 d-flex justify-content-start font-weight-bold">
         <span class="itemCreated"
-          >Eastern
-          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
+          > 
+          {{User.userLocationName}}
         </span>
       </div>
     </div>
@@ -2131,498 +2124,174 @@
       <div class="item-container-1 mt-1">
         <div
           class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
+          *ngFor="let itm of singleReport; let i = index"
         >
           <div class="list-card-body card-body my-0 py-0 mx-0">
-              <div class="row my-0 py-0">
-                <div class="col-2 col-xl-1">
-                  <img
-                    class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                    src="assets/img/man.svg"
-                    (click)="openModal(template)"
-                  />
-                </div>
-                <div class="col-10 col-xl-11">
-                <div class="row">
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 d-flex justify-content-start"
-                      >
-                        <span class="">Revenue ID</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 d-flex justify-content-start"
-                      >
-                        <span class="">Name</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 d-flex justify-content-start"
-                      >
-                        <span class="">Phone No.</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 col d-flex justify-content-start"
-                      >
-                        <span class="">Date</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 d-flex justify-content-start"
-                      >
-                        <span class="">Amount Borrowed</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 d-flex justify-content-start"
-                      >
-                        <span class="">Interest Paid </span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 col d-flex justify-content-start"
-                      >
-                        <span class="">Percentage</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-<div class="row mx-auto px-auto py-2 border-bottom">
-      <div class="col-12 col-md-6 col-xl-4">
-        <div class="row">
-          <div class="col-5 d-flex justify-content-start">
-            <span class="font-weight-bold">Total Deposits </span>
-          </div>
-          <div
-            class="col-7 d-flex justify-content-start font-weight-bold"
-          >
-            <span class="itemCreated">
-              <!-- {{
-                fval.customers["controls"][idx]["controls"]
-                  .customerName.value
-              }} -->
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-xl-4">
-        <div class="row">
-          <div class="col-5 d-flex justify-content-start">
-            <span class="font-weight-bold">Total Withdraws</span>
-          </div>
-          <div
-            class="col-7 d-flex justify-content-start font-weight-bold"
-          >
-            <span class="itemCreated">
-              <!-- {{
-                fval.customers["controls"][idx]["controls"]
-                  .customerName.value
-              }} -->
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-xl-4">
-        <div class="row">
-          <div class="col-5 d-flex justify-content-start">
-            <span class="font-weight-bold">Net Balance</span>
-          </div>
-          <div
-            class="col-7 d-flex justify-content-start font-weight-bold"
-          >
-            <span class="itemCreated">
-              <!-- {{
-                fval.customers["controls"][idx]["controls"]
-                  .customerName.value
-              }} -->
-            </span>
-          </div>
-        </div>
-      </div>
-</div>
-    </div>
-    </div>
-</div>
-
-<!--card for displaying revenue report-->
-<div *ngIf="(type === 'All Loans' || type === 'Revenue')">
-  <div class="container mt-3 mb-0 mx-0 shadow-lg">
-    <div class="row">
-      <div class="col-12">
-        <h4
-          class="rub-head4 text-info text-center font-weight-bold py-1"
-        >
-          Revenue Report
-        </h4>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 pt-2 pb-1 mb-0 mx-0 px-0">
-    <div class="row mx-auto px-auto mb-2">
-      <div class="col-3 d-flex justify-content-start">
-        <span class="">Area: </span>
-      </div>
-      <div
-        class="col-9 d-flex justify-content-start font-weight-bold"
-      >
-        <span class="itemCreated"
-          >Eastern
-          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-        </span>
-      </div>
-    </div>
-    <div class="iteration">
-      <div class="item-container-1 mt-1">
-        <div
-          class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-        >
-          <div class="list-card-body card-body my-0 py-0 mx-0">
-              <div class="row my-0 py-0">
-                <div class="col-2 col-xl-1">
-                  <img
-                    class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                    src="assets/img/man.svg"
-                    (click)="openModal(template)"
-                  />
-                </div>
-                <div class="col-10 col-xl-11">
-                <div class="row">
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 d-flex justify-content-start"
-                      >
-                        <span class="">Revenue ID</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 d-flex justify-content-start"
-                      >
-                        <span class="">Name</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 d-flex justify-content-start"
-                      >
-                        <span class="">Phone No.</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 col d-flex justify-content-start"
-                      >
-                        <span class="">Date</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 d-flex justify-content-start"
-                      >
-                        <span class="">Amount Borrowed</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 d-flex justify-content-start"
-                      >
-                        <span class="">Interest Paid </span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div
-                        class="col-5 col d-flex justify-content-start"
-                      >
-                        <span class="">Percentage</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  <div class="row mx-auto px-auto py-2 border-bottom">
-    <div class="col-12 col-md-6 col-xl-4">
-      <div class="row">
-        <div class="col-5 d-flex justify-content-start">
-          <span class="font-weight-bold">Total Interest </span>
-        </div>
-        <div
-          class="col-7 d-flex justify-content-start font-weight-bold"
-        >
-          <span class="itemCreated">
-            <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
- </div>
- </div>
-</div>
-<!--card for displaying lost revenue report-->
-<div *ngIf="(type === 'All Loans' || type === 'Lost Revenue')">
-<div class="container mt-3 mb-0 mx-0 shadow-lg">
-  <div class="row">
-    <div class="col-12">
-      <h4
-        class="rub-head4 text-info text-center font-weight-bold py-1"
-      >
-        Lost Revenue Report
-      </h4>
-    </div>
-  </div>
-</div>
-<div class="col-12 pt-2 pb-1 mb-0 mx-0 px-0">
-  <div class="row mx-auto px-auto mb-2">
-    <div class="col-3 d-flex justify-content-start">
-      <span class="">Area: </span>
-    </div>
-    <div
-      class="col-9 d-flex justify-content-start font-weight-bold"
-    >
-      <span class="itemCreated"
-        >Eastern
-        <!-- {{
-            fval.customers["controls"][idx]["controls"]
-              .customerName.value
-          }} -->
-      </span>
-    </div>
-  </div>
-  <div class="iteration">
-    <div class="item-container-1 mt-1">
-      <div
-        class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      >
-        <div class="list-card-body card-body my-0 py-0 mx-0">
             <div class="row my-0 py-0">
-              <div class="col-2 col-xl-1">
-                <img
-                  class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                  src="assets/img/man.svg"
-                  (click)="openModal(template)"
-                />
+              <div class="col-10 col-xl-11">
+                <div class="row">
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 d-flex justify-content-start">
+                        <span class="">Name</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                         {{itm.customerName}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 d-flex justify-content-start">
+                        <span class="">Phone No.</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.customerUniqueIdentifier}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 col d-flex justify-content-start">
+                        <span class="">Product</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{
+                            itm.loanProductCode === 100
+                              ? "SAVINGS"
+                              : itm.productCode === 200
+                              ? "BODA BODA FUEL LOAN"
+                              : itm.productCode === 300
+                              ? "TAXI FUEL LOAN"
+                              : "MICRO LOAN"
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 d-flex justify-content-start">
+                        <span class="">Town</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.townName}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 d-flex justify-content-start">
+                        <span class="">Station</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.stationName}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 d-flex justify-content-start">
+                        <span class="">Amount Borrowed</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.loanAmountTaken | number}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 d-flex justify-content-start">
+                        <span class="">Interest Rate Used </span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.rateUsed}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 col d-flex justify-content-start">
+                        <span class="">Revenue Earned</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.revenueEarned | number}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 col d-flex justify-content-start">
+                        <span class="">Revenue Lost</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.revenueLost | number}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-  <div class="row mx-auto px-auto py-2 border-bottom">
-    <div class="col-12 col-md-6 col-xl-4">
-      <div class="row">
-        <div class="col-5 d-flex justify-content-start">
-          <span class="font-weight-bold">Total Interest </span>
-        </div>
-        <div
-          class="col-7 d-flex justify-content-start font-weight-bold"
-        >
-          <span class="itemCreated">
-            <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-          </span>
+    </div>
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Interest </span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated">
+              {{totals.revenueEarned | number}}
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
- </div>
- </div>
 </div>
 <!--card for displaying lost revenue report-->
 <div *ngIf="(type === 'Lost Revenue')">
@@ -2647,78 +2316,6 @@
     >
       <span class="itemCreated"
         >Eastern
-
-<<<<<<< HEAD
-      </span>
-    </div>
-  </div>
-  <div class="iteration">
-    <div class="item-container-1 mt-1">
-      <div
-        class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-      >
-        <div class="list-card-body card-body my-0 py-0 mx-0">
-            <div class="row my-0 py-0">
-              <div class="col-2 col-xl-1">
-                <img
-                  class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                  src="assets/img/man.svg"
-                  (click)="openModal(template)"
-                />
->>>>>>> 2404029... rebased commit with reports and adjustments
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-  <div class="row mx-auto px-auto py-2 border-bottom">
-    <div class="col-12 col-md-6 col-xl-4">
-      <div class="row">
-        <div class="col-5 d-flex justify-content-start">
-          <span class="font-weight-bold">Total Interest </span>
-        </div>
-        <div
-          class="col-7 d-flex justify-content-start font-weight-bold"
-        >
-          <span class="itemCreated">
-            <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
- </div>
- </div>
-</div>
-<!--card for displaying lost revenue report-->
-<div *ngIf="(type === 'Lost Revenue')">
-<div class="container mt-3 mb-0 mx-0 shadow-lg">
-  <div class="row">
-    <div class="col-12">
-      <h4
-        class="rub-head4 text-info text-center font-weight-bold py-1"
-      >
-        Lost Revenue Report
-      </h4>
-    </div>
-  </div>
-</div>
-<div class="col-12 pt-2 pb-1 mb-0 mx-0 px-0">
-  <div class="row mx-auto px-auto mb-2">
-    <div class="col-3 d-flex justify-content-start">
-      <span class="">Area: </span>
-    </div>
-    <div
-      class="col-9 d-flex justify-content-start font-weight-bold"
-    >
-      <span class="itemCreated"
-        >Eastern
-
-=======
->>>>>>> 370fa38... rebased commit with reports and adjustments
       </span>
     </div>
   </div>

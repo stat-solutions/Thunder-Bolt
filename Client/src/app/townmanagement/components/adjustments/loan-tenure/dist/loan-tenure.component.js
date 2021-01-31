@@ -157,6 +157,7 @@ var LoanTenureComponent = /** @class */ (function () {
         this.phoneNumbers = [];
     };
     LoanTenureComponent.prototype.checkLoanbility = function (value, template) {
+        var _this = this;
         if (value !== '') {
             // console.log(this.loanType);
             switch (this.loanType) {
@@ -165,7 +166,26 @@ var LoanTenureComponent = /** @class */ (function () {
                     bodaCustomers = bodaCustomers.filter(function (customer) { return customer.bodabodaCustomerNumberPlate === value.toUpperCase(); });
                     if (bodaCustomers.length === 1) {
                         this.checkedClient = bodaCustomers[0];
-                        this.openModal(template);
+                        this.others.bodaAndTaxiCustomerStatement({
+                            customerId: this.checkedClient.customerId,
+                            productCode: 300
+                        }).subscribe(function (res) {
+                            _this.statement = res;
+                            if (_this.statement.length === 0) {
+                                _this.posted = true;
+                                _this.alertService.success({
+                                    html: '<b>Customer has no previous transactions</b>'
+                                });
+                            }
+                            else {
+                                _this.openModal(template);
+                            }
+                        }, function (err) {
+                            _this.errored = true;
+                            _this.alertService.danger({
+                                html: '<b>There was a problem getting customer statement</b>'
+                            });
+                        });
                     }
                     else {
                         this.errored = true;
@@ -179,7 +199,26 @@ var LoanTenureComponent = /** @class */ (function () {
                     taxiCustomers = taxiCustomers.filter(function (customer) { return customer.taxiCustomerNumberPlate === value.toUpperCase(); });
                     if (taxiCustomers.length === 1) {
                         this.checkedClient = taxiCustomers[0];
-                        this.openModal(template);
+                        this.others.bodaAndTaxiCustomerStatement({
+                            customerId: this.checkedClient.customerId,
+                            productCode: 300
+                        }).subscribe(function (res) {
+                            _this.statement = res;
+                            if (_this.statement.length === 0) {
+                                _this.posted = true;
+                                _this.alertService.success({
+                                    html: '<b>Customer has no previous transactions</b>'
+                                });
+                            }
+                            else {
+                                _this.openModal(template);
+                            }
+                        }, function (err) {
+                            _this.errored = true;
+                            _this.alertService.danger({
+                                html: '<b>There was a problem getting customer statement</b>'
+                            });
+                        });
                     }
                     else {
                         this.errored = true;
@@ -193,7 +232,23 @@ var LoanTenureComponent = /** @class */ (function () {
                     microCustomers = microCustomers.filter(function (customer) { return customer.customerPhone1 === value.toUpperCase(); });
                     if (microCustomers.length === 1) {
                         this.checkedClient = microCustomers[0];
-                        this.openModal(template);
+                        this.others.microCustomerStatement(this.checkedClient.customerId).subscribe(function (res) {
+                            _this.statement = res;
+                            if (_this.statement.length === 0) {
+                                _this.posted = true;
+                                _this.alertService.success({
+                                    html: '<b>Customer has no previous transactions</b>'
+                                });
+                            }
+                            else {
+                                _this.openModal(template);
+                            }
+                        }, function (err) {
+                            _this.errored = true;
+                            _this.alertService.danger({
+                                html: '<b>There was a problem getting customer statement</b>'
+                            });
+                        });
                     }
                     else {
                         this.errored = true;

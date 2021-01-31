@@ -9,6 +9,19 @@
         </h3>
       </div>
     </div>
+    <div>
+      <ngx-spinner class="bg-info" size="medium" type="ball-scale-multiple">
+        <p class="text-light">Please wait...</p>
+      </ngx-spinner>
+      <label class="col" *ngIf="errored" class="text-danger">
+        <!-- <i class="material-icons">Cancel</i> -->
+        <ngx-alerts></ngx-alerts>
+      </label>
+      <label class="col" *ngIf="posted" class="text-danger">
+        <!-- <i class="material-icons">Cancel</i> -->
+        <ngx-alerts></ngx-alerts>
+      </label>
+    </div>
   </div>
   <div class="jumbotron-fluid mx-0 px-0 my-0 pt-1 pb-0">
     <div class="container mx-auto px-0 mb-0 pb-2 col-12">
@@ -30,7 +43,7 @@
                     formControlName="report_type"
                     class="form-control"
                     autocomplete="off"
-                    placeholder="Specify Area"
+                    placeholder="Specify Type"
                     (change)="changeReport(userForm.controls.report_type.value)"
                   >
                     <option selected>Specify Type</option>
@@ -41,15 +54,45 @@
                 </div>
 
                 <!--input field form control to search reports by set filter-->
-                <div class="col">
-                  <input
-                    id="search_by"
+                <div class="row" *ngIf="type === 'Cash Ledger'">
+                <div class="col-6">
+                  <p>Select a Level</p>
+                  <select
                     formControlName="search_by"
-                    type="text"
                     class="form-control mt-2"
                     autocomplete="off"
-                  />
+                    placeholder="Select a level"
+                    (change)="changeLevels(userForm.controls.search_by.value)"
+                  >
+                  <!-- <option selected>Select a level</option> -->
+                  <option>Region</option>
+                  <option>Town</option>
+                  <option>Station</option>
+                </select>
                 </div>
+                <div class="col-6">
+                  <p>Select a {{level}}</p>
+                  <span>
+                    <span class="itemCreated">
+                      <input
+                        formControlName="location"
+                        class="form-control"
+                        list='location'
+                        autocomplete="off"
+                        [placeholder]="select"
+                      />
+                      <datalist id="location">
+                        <option *ngFor="let item of locations">
+                          {{ 
+                            level === 'Region' ? item.areaRegionName :
+                            level === 'Town' ? item.townName : item.stationName
+                          }}
+                        </option>
+                      </datalist>
+                    </span>
+                  </span>
+                </div>
+              </div>
                 <!--/end-->
               </div>
               <div class="col-1 mx-0 px-0">
@@ -141,6 +184,21 @@
                     <button ngbDropdownItem>CSV</button>
                   </div>
                 </div>
+              </div> 
+              <div class="col-2 ml-4 mr-0 mx-sm-0 ml-xl-5 pt-2">
+                <pagination-controls
+                      (pageChange)="pageChanged($event)"
+                      (pageBoundsCorrection)="pageChanged($event)"
+                      maxSize="9"
+                      directionLinks="true"
+                      autoHide="true"
+                      responsive="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page">
+                </pagination-controls>
               </div>
             </div>
           </form>
@@ -176,7 +234,10 @@
       <div class="item-container mt-1">
         <div
           class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
-          *ngFor="let itm of singleReport; let i = index"
+          *ngFor="let itm of singleReport | paginate: {
+            itemsPerPage: pageSize,
+            currentPage: p,
+            totalItems: total }; let i = index "
         >
           <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
             <div class="row my-0 py-0">
@@ -247,7 +308,7 @@
                               ? "SAVINGS"
                               : itm.productCode === 200
                               ? "BODA BODA FUEL LOAN"
-                              : itm.productCode === 200
+                              : itm.productCode === 300
                               ? "TAXI FUEL LOAN"
                               : "MICRO LOAN"
                           }}
@@ -1962,7 +2023,7 @@
   </div>
 </div>
 <!--card for displaying revenue report-->
-<div *ngIf="type === 'Revenue'">
+<div *ngIf="type === 'Revenue Ledger'">
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
     <div class="row">
       <div class="col-12">
@@ -1979,11 +2040,8 @@
       </div>
       <div class="col-9 d-flex justify-content-start font-weight-bold">
         <span class="itemCreated"
-          >Eastern
-          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
+          > 
+          {{User.userLocationName}}
         </span>
       </div>
     </div>
@@ -1991,35 +2049,14 @@
       <div class="item-container-1 mt-1">
         <div
           class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
+          *ngFor="let itm of singleReport; let i = index"
         >
           <div class="list-card-body card-body my-0 py-0 mx-0">
             <div class="row my-0 py-0">
-              <div class="col-2 col-xl-1">
-                <img
-                  class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
-                  src="assets/img/man.svg"
-                  (click)="openModal(template)"
-                />
-              </div>
               <div class="col-10 col-xl-11">
                 <div class="row">
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
-                        <span class="">Revenue ID</span>
-                      </div>
-                      <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-                      >
-                        <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
-                        </span>
-                      </div>
-                    </div>
-                  </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
                       <div class="col-5 d-flex justify-content-start">
@@ -2029,10 +2066,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
+                         {{itm.customerName}}
                         </span>
                       </div>
                     </div>
@@ -2046,10 +2080,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
+                          {{itm.customerUniqueIdentifier}}
                         </span>
                       </div>
                     </div>
@@ -2059,16 +2090,49 @@
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
                       <div class="col-5 col d-flex justify-content-start">
-                        <span class="">Date</span>
+                        <span class="">Product</span>
                       </div>
                       <div
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
+                          {{
+                            itm.loanProductCode === 100
+                              ? "SAVINGS"
+                              : itm.productCode === 200
+                              ? "BODA BODA FUEL LOAN"
+                              : itm.productCode === 300
+                              ? "TAXI FUEL LOAN"
+                              : "MICRO LOAN"
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 d-flex justify-content-start">
+                        <span class="">Town</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.townName}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 d-flex justify-content-start">
+                        <span class="">Station</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.stationName}}
                         </span>
                       </div>
                     </div>
@@ -2082,10 +2146,7 @@
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
+                          {{itm.loanAmountTaken | number}}
                         </span>
                       </div>
                     </div>
@@ -2093,16 +2154,13 @@
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
                       <div class="col-5 d-flex justify-content-start">
-                        <span class="">Interest Paid </span>
+                        <span class="">Interest Rate Used </span>
                       </div>
                       <div
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerPhone1.value
-            }} -->
+                          {{itm.rateUsed}}
                         </span>
                       </div>
                     </div>
@@ -2112,16 +2170,27 @@
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
                       <div class="col-5 col d-flex justify-content-start">
-                        <span class="">Percentage</span>
+                        <span class="">Revenue Earned</span>
                       </div>
                       <div
                         class="col-7 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
-                          <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
+                          {{itm.revenueEarned | number}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 col d-flex justify-content-start">
+                        <span class="">Revenue Lost</span>
+                      </div>
+                      <div
+                        class="col-7 d-flex justify-content-start font-weight-bold"
+                      >
+                        <span class="itemCreated">
+                          {{itm.revenueLost | number}}
                         </span>
                       </div>
                     </div>
@@ -2132,20 +2201,17 @@
           </div>
         </div>
       </div>
-      <div class="row mx-auto px-auto py-2 border-bottom">
-        <div class="col-12 col-md-6 col-xl-4">
-          <div class="row">
-            <div class="col-5 d-flex justify-content-start">
-              <span class="font-weight-bold">Total Interest </span>
-            </div>
-            <div class="col-7 d-flex justify-content-start font-weight-bold">
-              <span class="itemCreated">
-                <!-- {{
-              fval.customers["controls"][idx]["controls"]
-                .customerName.value
-            }} -->
-              </span>
-            </div>
+    </div>
+    <div class="row mx-auto px-auto py-2 border-bottom">
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="row">
+          <div class="col-5 d-flex justify-content-start">
+            <span class="font-weight-bold">Total Interest </span>
+          </div>
+          <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <span class="itemCreated">
+              {{totals.revenueEarned | number}}
+            </span>
           </div>
         </div>
       </div>

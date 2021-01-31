@@ -93,14 +93,35 @@ export class AreaComponent implements OnInit {
         );
         break;
       case 'All Loans':
-      this.others.getAllLoansByStation(this.User.userLocationId).subscribe(
-          res => {
-            this.singleReport = res;
-          },
-          err => {
-            console.log(err);
-          }
+        this.others.getAllLoansByStation(this.User.userLocationId).subscribe(
+            res => {
+              this.singleReport = res;
+            },
+            err => {
+              console.log(err);
+            }
         );
+        break;
+      case 'Revenue Ledger':
+        this.others.getAllRevenueStation({
+          theStationLocationId: this.User.userLocationId,
+          startDate: dates[0],
+          endDate: dates[1],
+        }).subscribe(
+            res => {
+              if (res.length === 1) {
+                this.totals = res[0];
+                this.singleReport = [];
+              }else {
+                this.totals = res.pop();
+                this.singleReport = res;
+              }
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        break;
     }
   }
   public openModal(template: TemplateRef<any>, photoUrl: string): any {

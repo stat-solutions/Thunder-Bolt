@@ -14,6 +14,8 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 })
 export class AreasComponent implements OnInit {
   public modalRef: BsModalRef;
+  posted: boolean;
+  errored: boolean;
   userForm: FormGroup;
   user = '/../../../assets/img/man.svg';
   type: string;
@@ -31,7 +33,16 @@ export class AreasComponent implements OnInit {
   imageUrl: string;
   totals: any;
   stationName: string;
-
+  locations: any;
+  locationId: any;
+  level: any;
+  areas: any;
+  towns: any;
+  stations: any;
+  select: string;
+  pageSize: number;
+  p: number;
+  total: number;
   constructor(
     private fb: FormBuilder,
     private modalService: BsModalService,
@@ -44,14 +55,49 @@ export class AreasComponent implements OnInit {
 
   ngOnInit(): void {
     this.reports.sort();
+    this.others.getAllTheStationLocations().subscribe(
+      res => this.stations = res,
+      err => console.log(err)
+    );
+    this.others.getAllTheTownLocations().subscribe(
+      res => this.towns = res,
+      err => console.log(err)
+    );
+    this.others.getAllTheAreaLocations().subscribe(
+      res => this.areas = res,
+      err => console.log(err)
+    );
     this.userForm = this .createFormGroup();
+    this.select = 'place holder';
+    this.pageSize = 10;
   }
 
   createFormGroup(): any {
     return this.fb.group({
       report_type: this.fb.control('', Validators.compose([])),
+      search_by: this.fb.control('', Validators.compose([])),
+      location: this.fb.control('', Validators.compose([])),
       range_date: this.fb.control('', Validators.compose([])),
     });
+  }
+  changeLevels(val: string): any{
+    switch (val) {
+      case 'Region':
+        this.level = val;
+        this.select = `select a ${val}`;
+        this.locations = this.areas;
+        break;
+      case 'Town':
+        this.level = val;
+        this.select = `select a ${val}`;
+        this.locations = this.towns;
+        break;
+      case 'Station':
+        this.level = val;
+        this.select = `select a ${val}`;
+        this.locations = this.stations;
+        break;
+    }
   }
   changeReport(val: any): any {
     // console.log(val);
@@ -66,40 +112,129 @@ export class AreasComponent implements OnInit {
       const startDate = `${val[0].getFullYear()}-${val[0].getMonth() + 1}-${val[0].getDate()}`;
       const endDate = `${val[1].getFullYear()}-${val[1].getMonth() + 1}-${val[1].getDate()}`;
       this.fetchReports([startDate, endDate], this.type);
-      this.userForm.controls.range_date.setValue('');
     }
   }
   fetchReports(dates: Array<string>, typeOfReport: string): any{
     switch (typeOfReport){
       case 'Cash Ledger':
-        this.others.getCashLedgerStation({
-          theStationLocationId: this.User.userLocationId,
+        this.p = 1;
+        this.total = 0;
+        const locatioVal = this.userForm.controls.location.value;
+        if ( locatioVal !== '') {
+          switch (this.level) {
+            case 'Region':
+              this.locations.forEach(location => {
+                if (location.areaRegionName === locatioVal){
+                  this.others.getCashLedgerArea({
+                    theAreaLocationId: location.theAreaLocationId,
+                    startDate: dates[0],
+                    endDate: dates[1],
+                  }).subscribe(
+                    res => {
+                      if (res.length === 1) {
+                        this.totals = res[0];
+                        this.singleReport = [];
+                      }else {
+                        this.totals = res.pop();
+                        this.singleReport = res;
+                        this.total = this.singleReport.length;
+                      }
+                    },
+                    err => {
+                      console.log(err);
+                    }
+                  );
+                }
+              });
+              break;
+            case 'Town':
+              this.locations.forEach(location => {
+                if (location.townName === locatioVal){
+                  this.others.getCashLedgerTown({
+                    theTownLocationId: location.theTownLocationId,
+                    startDate: dates[0],
+                    endDate: dates[1],
+                  }).subscribe(
+                    res => {
+                      if (res.length === 1) {
+                        this.totals = res[0];
+                        this.singleReport = [];
+                      }else {
+                        this.totals = res.pop();
+                        this.singleReport = res;
+                        this.total = this.singleReport.length;
+                      }
+                    },
+                    err => {
+                      console.log(err);
+                    }
+                  );
+                }
+              });
+              break;
+            case 'Station':
+              this.locations.forEach(location => {
+                if (location.stationName === locatioVal){
+                  this.others.getCashLedgerStation({
+                    theStationLocationId: location.theStationLocationId,
+                    startDate: dates[0],
+                    endDate: dates[1],
+                  }).subscribe(
+                    res => {
+                      if (res.length === 1) {
+                        this.totals = res[0];
+                        this.singleReport = [];
+                      }else {
+                        this.totals = res.pop();
+                        this.singleReport = res;
+                        this.total = this.singleReport.length;
+                      }
+                    },
+                    err => {
+                      console.log(err);
+                    }
+                  );
+                }
+              });
+              break;
+            }
+        }
+        break;
+      case 'All Loans':
+        this.p = 1;
+        this.total = 0;
+        this.others.getAllLoans().subscribe(
+            res => {
+              this.singleReport = res;
+              this.total = this.singleReport.length;
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        break;
+      case 'Revenue Ledger':
+        this.p = 1;
+        this.total = 0;
+        this.others.getAllRevenue({
           startDate: dates[0],
           endDate: dates[1],
         }).subscribe(
-          res => {
-            if (res.length === 1) {
-              this.totals = res[0];
-              this.singleReport = [];
-            }else {
-              this.totals = res.pop();
-              this.singleReport = res;
+            res => {
+              if (res.length === 1) {
+                this.totals = res[0];
+                this.singleReport = [];
+              }else {
+                this.totals = res.pop();
+                this.singleReport = res;
+                this.total = this.singleReport.length;
+              }
+            },
+            err => {
+              console.log(err);
             }
-          },
-          err => {
-            console.log(err);
-          }
-        );
+          );
         break;
-      case 'All Loans':
-      this.others.getAllLoans().subscribe(
-          res => {
-            this.singleReport = res;
-          },
-          err => {
-            console.log(err);
-          }
-        );
     }
   }
   public openModal(template: TemplateRef<any>, photoUrl: string): any {
@@ -108,5 +243,8 @@ export class AreasComponent implements OnInit {
       template,
       Object.assign({}, { class: 'modal-dialog-centered' })
     );
+  }
+  pageChanged(event): any{
+    this.p = event;
   }
 }

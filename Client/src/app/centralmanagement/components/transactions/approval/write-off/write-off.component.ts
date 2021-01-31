@@ -31,6 +31,8 @@ export class WriteOffComponent implements OnInit {
   checkedLoan: any;
   customers: any;
   securityTypes: any;
+  checkedClient: any;
+  statement: any;
   constructor(
     private authService: AuthServiceService,
     private others: OthersService,
@@ -41,17 +43,6 @@ export class WriteOffComponent implements OnInit {
     private fb: FormBuilder
   ) {}
   ngOnInit(): any {
-    this.others.getSecurityType().subscribe(
-      res => {
-        this.securityTypes = res;
-      },
-      err => {
-        this.errored = true;
-        this.alertService.danger({
-          html: '<b>' + err.error.error.message + '</b>'
-        });
-      }
-    );
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
@@ -64,10 +55,13 @@ export class WriteOffComponent implements OnInit {
   }
   get txnApproval(): any {
     return this.fb.group({
-      loanId: this.fb.control({ value: '' }),
       client: this.fb.control({ value: '' }),
+      clientId: this.fb.control({ value: '' }),
+      station: this.fb.control({ value: '' }),
+      product: this.fb.control({ value: '' }),
       amount: this.fb.control({ value: '' }),
-      purpose: this.fb.control({ value: '' }),
+      comment: this.fb.control({ value: '' }),
+      otherApprovalsAllId: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
   }
@@ -81,40 +75,30 @@ export class WriteOffComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getMicroCustomers().subscribe(
-      res => {
-        this.customers = res;
-        this.others.getTxnForApproval().subscribe(
-          items => {
-            this.txnsApprovals = items;
-            this.txnsApprovals.forEach((item, i) => {
-            this.fval.txnApprovals.controls[i].controls.loanId.setValue(item.txnApprovalDetailsMicroId);
-            const details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-            for (const customer of this.customers){
-              if (customer.customerId === details[0].customerId) {
-                this.fval.txnApprovals.controls[i].controls.client.setValue(customer.customerName);
-              }
-            }
-            this.fval.txnApprovals.controls[i].controls.amount.setValue(Number(details[0].txnAmount));
-            this.fval.txnApprovals.controls[i].controls.purpose.setValue(details[0].microLoanPurpose);
-            this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
-            this.addItem();
-            n = i + 1;
-          });
-            this.removeItem(n);
-            this.loaded = true;
-        }, err => {
-          this.loaded = false;
-          console.log(err.error.error.message);
-        }
-        );
-      },
-      err => {
-        this.errored = true;
-        console.log(err);
-        this.alertService.danger({
-          html: '<b>' + err.error.error.message + '</b>'
-        });
+    this.others.getWaivedPrincipalForApproval().subscribe(
+      items => {
+        this.txnsApprovals = items;
+        this.txnsApprovals.forEach((item, i) => {
+          const details = JSON.parse(item.otheApprovalsAllPayLoad);
+          this.fval.txnApprovals.controls[i].controls.clientId.setValue(details.customerId);
+          this.fval.txnApprovals.controls[i].controls.comment.setValue(details.comment);
+          const pdt = details.productCode === 200 ? 'BODA BODA FUEL LOAN' :
+                      details.productCode === 300 ? 'TAXI FUEL LOAN' : 'MICRO LOAN';
+          this.fval.txnApprovals.controls[i].controls.product.setValue(pdt);
+          this.fval.txnApprovals.controls[i].controls.client.setValue(item.customerName);
+          this.fval.txnApprovals.controls[i].controls.station.setValue(item.stationName);
+          this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.setValue(item.otheApprovalsAllId);
+          this.fval.txnApprovals.controls[i].controls.amount.setValue(details.thePrincipalToBeWiaved);
+          this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
+          this.addItem();
+          n = i + 1;
+      });
+        this.removeItem(n);
+        this.loaded = true;
+    },
+    err => {
+      this.loaded = false;
+      console.log(err.error.error.message);
       }
     );
   }
@@ -139,33 +123,59 @@ export class WriteOffComponent implements OnInit {
   // loan modal method
   public openModal(template: TemplateRef<any>, id: number): any {
     this.txnsApprovals.forEach(item => {
-      if (item.txnApprovalDetailsMicroId === id) {
-        let client;
-        const details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-        for (const customer of this.customers){
-          if (customer.customerId === details[0].customerId) {
-           client = customer;
-          }
-        }
-        this.checkedLoan =  {
-          url: client.customerPhotoUrl,
-          name: client.customerName,
-          phone: client.customerPhone1,
-          data: details
-        };
-        if (this.checkedLoan.data[1][1].length > 0) {
-          for (const itm of this.checkedLoan.data[1][1]) {
-            for (const security of this.securityTypes){
-              if (security.securityTypeCode === itm.securityTypeCode){
-                itm.securityTypeName = security.securityTypeName;
+      const details = JSON.parse(item.otheApprovalsAllPayLoad);
+      if (details.customerId === id) {
+        this.checkedClient = item;
+        if (details.productCode === 400) {
+          this.others.microCustomerStatement(id).subscribe(
+            res => {
+              this.statement = res;
+              if (this.statement.length === 0){
+                this.posted = true;
+                this.alertService.success({
+                  html: '<b>Customer has no previous transactions</b>'
+                });
+              } else{
+                this.modalRef = this.modalService.show(
+                  template,
+                  Object.assign({}, { class: 'modal-lg modal-dialog-center' })
+                );
               }
+            },
+            err => {
+              this.errored = true;
+              this.alertService.danger({
+                  html: '<b>There was a problem getting customer statement</b>'
+              });
             }
-          }
+          );
+        } else {
+          this.others.bodaAndTaxiCustomerStatement({
+            customerId: id,
+            productCode: details.productCode
+          }).subscribe(
+            res => {
+              this.statement = res;
+              if (this.statement.length === 0){
+                this.posted = true;
+                this.alertService.success({
+                  html: '<b>Customer has no previous transactions</b>'
+                });
+              } else{
+                this.modalRef = this.modalService.show(
+                  template,
+                  Object.assign({}, { class: 'modal-lg modal-dialog-center' })
+                );
+              }
+            },
+            err => {
+              this.errored = true;
+              this.alertService.danger({
+                  html: '<b>There was a problem getting customer statement</b>'
+              });
+            }
+          );
         }
-        this.modalRef = this.modalService.show(
-          template,
-          Object.assign({}, { class: 'modal-lg modal-dialog-center' })
-        );
       }
     });
   }
@@ -195,17 +205,19 @@ export class WriteOffComponent implements OnInit {
     this.txnsApprovals.forEach((item, i) => {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         itemsApproved.push({
-          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
-          userId: this.User.userId
+          userId: this.User.userId,
+          otheApprovalsAllId: this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+          thePrincipalToBeWiaved: this.fval.txnApprovals.controls[i].controls.amount.value
         });
       }
     });
+    // console.log(itemsApproved);
     if (itemsApproved.length > 0) {
-      this.others.approveMicroTransaction(itemsApproved).subscribe(
+      this.others.postApproveWaivedPrincipal(itemsApproved).subscribe(
         res => {
           this.posted = true;
           this.alertService.success({
-            html: '<b> Micro Loan Approved Was Successfully </b>'
+            html: '<b> Individual Waive Principals were approved Successfully </b>'
           });
           setTimeout(() => {
             itemsApproved = [];
@@ -224,7 +236,7 @@ export class WriteOffComponent implements OnInit {
     } else {
       this.errored = true;
       this.alertService.danger({
-            html: '<b> Please select a loan first </b>'
+            html: '<b>Please select a something first</b>'
           });
       return;
     }
@@ -235,17 +247,19 @@ export class WriteOffComponent implements OnInit {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         item.status = 1;
         itemsRejected.push({
-          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
-          userId: this.User.userId
+          userId: this.User.userId,
+          otheApprovalsAllId: this.fval.txnApprovals.controls[i].controls.otherApprovalsAllId.value,
+          thePrincipalToBeWiaved: this.fval.txnApprovals.controls[i].controls.amount.value
         });
       }
     });
+    // console.log(itemsRejected);
     if (itemsRejected.length > 0) {
-      this.others.rejectMicroTransaction(itemsRejected).subscribe(
+      this.others.postRejectWaivedPrincipal(itemsRejected).subscribe(
         res => {
           this.posted = true;
           this.alertService.success({
-            html: '<b> Micro Loan Rejection Was Successfully </b>'
+            html: '<b> Individual Waive Princiapals were rejected Successfully </b>'
           });
           setTimeout(() => {
             itemsRejected = [];
@@ -264,10 +278,11 @@ export class WriteOffComponent implements OnInit {
     } else {
       this.errored = true;
       this.alertService.danger({
-            html: '<b> Please select a loan first </b>'
+            html: '<b> Please select a something first </b>'
           });
       return;
     }
   }
 }
+
 

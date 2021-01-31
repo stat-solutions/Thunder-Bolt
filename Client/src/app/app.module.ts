@@ -25,6 +25,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AsyncPipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PinchZoomModule } from 'ngx-pinch-zoom';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,6 +50,7 @@ import { PinchZoomModule } from 'ngx-pinch-zoom';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireMessagingModule,
+    NgxPaginationModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     JwtModule.forRoot({
       config: {
