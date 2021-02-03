@@ -15,9 +15,9 @@
         <label
           for="station_name"
           [ngClass]="fval.station_name.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.station_name.valid" class="material-icons"
+          >Station<i *ngIf="fval.station_name.valid" class="material-icons"
             >check_circle</i
-          >Station</label
+          ></label
         >
         <div class="input-group mb-0">
           <input
@@ -52,9 +52,9 @@
         <label
           for="loan_product"
           [ngClass]="fval.loan_product.valid ? 'text-info' : ''"
-          ><i *ngIf="fval.loan_product.valid" class="material-icons"
+          >Product<i *ngIf="fval.loan_product.valid" class="material-icons"
             >check_circle</i
-          >Product</label
+          ></label
         >
         <div class="input-group mb-0">
           <select
@@ -112,7 +112,7 @@
               fval.accrualDays.errors?.required
             "
           >
-            The accrualDays is required!
+            The accrual days is required
           </div>
           <div
           class="col"
@@ -133,7 +133,7 @@
               ? "cancel"
               : "check_circle"
           }}</i>
-          The accrualDays should be a maximum of 100!
+          The accrual days should be a maximum of 100
         </div>
         </div>
 

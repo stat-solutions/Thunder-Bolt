@@ -34,11 +34,7 @@ button, button:focus, button:active {
 }
 .item-container-1 {
   min-height: 35px !important;
-  border-left:3px solid#adabab;
   border-radius: 5px;
-}
-.item-container-1:hover {
-  border-left: 3px solid #17aae0
 }
 
 .list-card {
@@ -52,6 +48,10 @@ font-size: .8rem;
 .list-card-1 {
   font-size: .8rem;
   height: auto !important;
+  border-left: 3px solid #adabab
+}
+.list-card-1:hover {
+  border-left: 3px solid #17aae0
 }
 .list-card-body {
   width: 100%;
