@@ -12,7 +12,19 @@
         </div>
       </div>
     </div>
-    <div class="invest-card card-body mt-2 pt-2 pt-md-4 mb-3 mx-auto pb-4 shadow-lg" [hidden]='!loaded'>
+    <div
+      class="invest-card card-body mt-2 py-4 mb-5 mx-0 mx-sm-auto px-1 px-lg-auto shadow-lg"
+      [hidden]="townApprovals.length !== 0"
+    >
+      <div class="row">
+        <div class="col-12">
+          <h5 class="rub-head4 text-center font-weight-bold py-1">
+            There are no towns to approve
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div class="invest-card card-body mt-2 pt-2 pt-md-4 mb-3 mx-auto pb-4 shadow-lg" [hidden]="townApprovals.length === 0">
       <form [formGroup]="userForm">
         <div class="item-header">
           <div class="row">
@@ -59,7 +71,7 @@
             </div>
           </div>
         </div>
-        <div class="d-flex mt-3 mb-0 pt-2 pb-2 mx-auto">
+        <div class="d-flex mt-3 mb-0 pt-2 pb-2 mx-auto" [hidden]="townApprovals.length === 0">
           <button
             class="btn btn-info col-5 col-md-4 mx-auto px-0"
             (click)="approveItems()"

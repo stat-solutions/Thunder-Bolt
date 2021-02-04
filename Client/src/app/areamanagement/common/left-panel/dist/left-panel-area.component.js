@@ -38,9 +38,9 @@ var LeftPanelAreaComponent = /** @class */ (function () {
                 url: '/areamanagement/dashboard'
             },
             {
-                name: 'Creation',
+                name: 'Select Towns',
                 icon: 'fas fa-wrench',
-                url: '/areamanagement/create'
+                url: '/areamanagement/selecttowns'
             },
             {
                 name: 'Approvals',
@@ -48,15 +48,10 @@ var LeftPanelAreaComponent = /** @class */ (function () {
                 url: '/areamanagement/approvals',
                 subMenu: [
                     {
-                        name: 'Loan Approvals',
-                        icon: 'fas fa-credit-card',
-                        url: '/areamanagement/approvals/loansapprovals'
+                        name: 'Verify Clients',
+                        icon: 'fas fa-clipboard-list',
+                        url: '/areamanagement/approvals/verifyclients'
                     },
-                    {
-                        name: 'Creation Approvals',
-                        icon: 'fas fa-wrench',
-                        url: '/areamanagement/approvals/createapprovals'
-                    }
                 ]
             },
             {
@@ -65,32 +60,27 @@ var LeftPanelAreaComponent = /** @class */ (function () {
                 url: '/areamanagement/reports',
                 subMenu: [
                     {
-                        name: 'Towns',
+                        name: 'Loans and Revenue',
                         icon: 'fas fa-clipboard-list',
-                        url: '/areamanagement/reports/townsreports'
-                    },
-                    {
-                        name: 'Stations',
-                        icon: 'fas fa-clipboard-list',
-                        url: '/areamanagement/reports/stationsreports'
+                        url: '/areamanagement/reports/loansrevenue'
                     },
                     {
                         name: 'Clients',
                         icon: 'fas fa-clipboard-list',
-                        url: '/areamanagement/reports/clientsreports'
+                        url: '/areamanagement/reports/clients'
                     },
                     {
                         name: 'Users',
-                        icon: 'fas fa-user-cog',
-                        url: '/areamanagement/reports/usersreports'
-                    }
+                        icon: 'fas fa-clipboard-list',
+                        url: '/areamanagement/reports/users'
+                    },
                 ]
             },
             {
                 name: 'Profile',
                 icon: 'fas fa-user-cog',
                 url: '/areamanagement/profile'
-            }
+            },
         ];
     };
     __decorate([

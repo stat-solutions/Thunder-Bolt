@@ -94,7 +94,6 @@ export class InterestRateComponent implements OnInit {
           n = i + 1;
       });
         this.removeItem(n);
-        this.loaded = true;
     },
     err => {
       this.loaded = false;
@@ -255,26 +254,26 @@ export class InterestRateComponent implements OnInit {
     });
     // console.log(itemsRejected);
     if (itemsRejected.length > 0) {
-      // this.others.rejectIdividualLoanInterestRate(itemsRejected).subscribe(
-      //   res => {
-      //     this.posted = true;
-      //     this.alertService.success({
-      //       html: '<b> Individual Interest rates were rejected Successfully </b>'
-      //     });
-      //     setTimeout(() => {
-      //       itemsRejected = [];
-      //       this.userForm = this.createFormGroup();
-      //       this.fval.selectAll.setValue(false);
-      //       this.initialiseForm();
-      //     }, 3000);
-      //   },
-      //   err =>  {
-      //     this.errored = true;
-      //     this.alertService.danger({
-      //       html: '<b>' + err.error.error.message + '</b>'
-      //     });
-      //   }
-      // );
+      this.others.rejectIdividualLoanInterestRate(itemsRejected).subscribe(
+        res => {
+          this.posted = true;
+          this.alertService.success({
+            html: '<b> Individual Interest rates were rejected Successfully </b>'
+          });
+          setTimeout(() => {
+            itemsRejected = [];
+            this.userForm = this.createFormGroup();
+            this.fval.selectAll.setValue(false);
+            this.initialiseForm();
+          }, 3000);
+        },
+        err =>  {
+          this.errored = true;
+          this.alertService.danger({
+            html: '<b>' + err.error.error.message + '</b>'
+          });
+        }
+      );
     } else {
       this.errored = true;
       this.alertService.danger({

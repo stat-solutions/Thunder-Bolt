@@ -87,7 +87,7 @@ export class LoanLimitComponent implements OnInit {
           this.fval.txnApprovals.controls[i].controls.product.setValue(pdt);
           this.fval.txnApprovals.controls[i].controls.client.setValue(item.customerName);
           this.fval.txnApprovals.controls[i].controls.station.setValue(item.stationName);
-          this.fval.txnApprovals.controls[i].controls.approvalLoanLimitId.setValue(item.otheApprovalsAllId);
+          this.fval.txnApprovals.controls[i].controls.approvalLoanLimitId.setValue(item.approvalLoanLimitId);
           this.fval.txnApprovals.controls[i].controls.limit.setValue(details.theLoanLimit);
           this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
           this.addItem();

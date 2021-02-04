@@ -24,6 +24,24 @@ var WithdrawSavingsComponent = /** @class */ (function () {
         this.User = this.authService.loggedInUserInfo();
     }
     WithdrawSavingsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.others.getSavingsCustomers().subscribe(function (res) {
+            if (res.length > 0) {
+                _this.customers = res;
+            }
+            else {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>There are no Savings customers registered</b>'
+                });
+            }
+        }, function (err) {
+            _this.errored = true;
+            console.log(err);
+            _this.alertService.danger({
+                html: '<b>' + err.error.error.message + '</b>'
+            });
+        });
         this.userForm = this.createFormGroup();
         this.fval.selectAll.setValue(false);
         this.initialiseForm();
@@ -37,9 +55,12 @@ var WithdrawSavingsComponent = /** @class */ (function () {
     Object.defineProperty(WithdrawSavingsComponent.prototype, "txnApproval", {
         get: function () {
             return this.fb.group({
+                txnApprovalDetailsId: this.fb.control({ value: '' }),
                 comment: this.fb.control({ value: '' }),
                 client: this.fb.control({ value: '' }),
+                clientId: this.fb.control({ value: '' }),
                 amount: this.fb.control({ value: '' }),
+                product: this.fb.control({ value: '' }),
                 station: this.fb.control({ value: '' }),
                 approved: this.fb.control({})
             });
@@ -57,37 +78,30 @@ var WithdrawSavingsComponent = /** @class */ (function () {
     WithdrawSavingsComponent.prototype.initialiseForm = function () {
         var _this = this;
         var n;
-        this.others.getSavingsCustomers().subscribe(function (res) {
-            _this.customers = res;
-            _this.others.getTxnsForApproval().subscribe(function (items) {
-                _this.txnsApprovals = items;
-                _this.txnsApprovals.forEach(function (item, i) {
-                    _this.fval.txnApprovals.controls[i].controls.station.setValue(item.txnApprovalDetailsMicroId);
-                    var details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-                    for (var _i = 0, _a = _this.customers; _i < _a.length; _i++) {
-                        var customer = _a[_i];
-                        if (customer.customerId === details[0].customerId) {
-                            _this.fval.txnApprovals.controls[i].controls.client.setValue(customer.customerName);
-                        }
+        this.others.getTxnsForApproval().subscribe(function (items) {
+            _this.txnsApprovals = items;
+            _this.txnsApprovals.forEach(function (item, i) {
+                var details = JSON.parse(item.txnApprovalDetailsPayLoad);
+                _this.fval.txnApprovals.controls[i].controls.txnApprovalDetailsId.setValue(item.txnApprovalDetailsId);
+                _this.fval.txnApprovals.controls[i].controls.clientId.setValue(details.customerId);
+                _this.customers.forEach(function (customer) {
+                    if (customer.customerId === details.customerId) {
+                        _this.fval.txnApprovals.controls[i].controls.client.setValue(customer.customerName);
                     }
-                    _this.fval.txnApprovals.controls[i].controls.amount.setValue(Number(details[0].txnAmount));
-                    _this.fval.txnApprovals.controls[i].controls.comment.setValue(details[0].microLoanPurpose);
-                    _this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
-                    _this.addItem();
-                    n = i + 1;
                 });
-                _this.removeItem(n);
-                _this.loaded = true;
-            }, function (err) {
-                _this.loaded = false;
-                console.log(err.error.error.message);
+                _this.fval.txnApprovals.controls[i].controls.product.setValue(item.txnDetailsCat + 'S');
+                _this.fval.txnApprovals.controls[i].controls.station.setValue(item.stationName);
+                _this.fval.txnApprovals.controls[i].controls.amount.setValue(details.txnAmount);
+                _this.fval.txnApprovals.controls[i].controls.comment.setValue('Please approve this listed transaction');
+                _this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
+                _this.addItem();
+                n = i + 1;
             });
+            _this.removeItem(n);
+            _this.loaded = true;
         }, function (err) {
-            _this.errored = true;
-            console.log(err);
-            _this.alertService.danger({
-                html: '<b>' + err.error.error.message + '</b>'
-            });
+            _this.loaded = false;
+            console.log(err.error.error.message);
         });
     };
     WithdrawSavingsComponent.prototype.checkAllItems = function (val) {
@@ -134,7 +148,7 @@ var WithdrawSavingsComponent = /** @class */ (function () {
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
-                    txnApprovalDetailsMircroId: _this.fval.txnApprovals.controls[i].controls.loanId.value,
+                    txnApprovalDetailsId: _this.fval.txnApprovals.controls[i].controls.txnApprovalDetailsId.value,
                     userId: _this.User.userId
                 });
             }
@@ -143,7 +157,7 @@ var WithdrawSavingsComponent = /** @class */ (function () {
             this.others.postApproveTxns(itemsApproved).subscribe(function (res) {
                 _this.posted = true;
                 _this.alertService.success({
-                    html: '<b> Micro Loan Approved Was Successfully </b>'
+                    html: '<b> Savings Withdraw was Approved Successfully </b>'
                 });
                 setTimeout(function () {
                     itemsApproved = [];
@@ -161,7 +175,7 @@ var WithdrawSavingsComponent = /** @class */ (function () {
         else {
             this.errored = true;
             this.alertService.danger({
-                html: '<b> Please select a loan first </b>'
+                html: '<b> Please select something first </b>'
             });
             return;
         }
@@ -173,7 +187,7 @@ var WithdrawSavingsComponent = /** @class */ (function () {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 item.status = 1;
                 itemsRejected.push({
-                    txnApprovalDetailsMircroId: _this.fval.txnApprovals.controls[i].controls.loanId.value,
+                    txnApprovalDetailsId: _this.fval.txnApprovals.controls[i].controls.txnApprovalDetailsId.value,
                     userId: _this.User.userId
                 });
             }
@@ -182,7 +196,7 @@ var WithdrawSavingsComponent = /** @class */ (function () {
             this.others.postRejectTxns(itemsRejected).subscribe(function (res) {
                 _this.posted = true;
                 _this.alertService.success({
-                    html: '<b> Micro Loan Rejection Was Successfully </b>'
+                    html: '<b> Savings Withraws Were rejected Successfully </b>'
                 });
                 setTimeout(function () {
                     itemsRejected = [];

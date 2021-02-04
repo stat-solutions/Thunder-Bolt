@@ -17,6 +17,8 @@ var ApproveAreasComponent = /** @class */ (function () {
         this.alertService = alertService;
         this.fb = fb;
         this.posted = false;
+        this.loaded = false;
+        this.areaApproval = [];
         this.User = this.authService.loggedInUserInfo();
     }
     ApproveAreasComponent.prototype.ngOnInit = function () {
@@ -61,6 +63,7 @@ var ApproveAreasComponent = /** @class */ (function () {
                 _this.addItem();
                 n = i + 1;
             });
+            _this.loaded = true;
             _this.removeItem(n);
         }, function (err) { return console.log(err); });
     };

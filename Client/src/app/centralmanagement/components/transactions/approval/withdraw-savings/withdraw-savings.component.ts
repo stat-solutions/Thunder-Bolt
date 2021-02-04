@@ -47,6 +47,25 @@ export class WithdrawSavingsComponent implements OnInit {
     private fb: FormBuilder
   ) {}
   ngOnInit(): any {
+    this.others.getSavingsCustomers().subscribe(
+      res => {
+        if (res.length > 0){
+          this.customers = res;
+        } else {
+          this.errored = true;
+          this.alertService.danger({
+            html: '<b>There are no Savings customers registered</b>'
+          });
+        }
+      },
+      err => {
+        this.errored = true;
+        console.log(err);
+        this.alertService.danger({
+          html: '<b>' + err.error.error.message + '</b>'
+        });
+      }
+  );
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);
     this.initialiseForm();
@@ -59,9 +78,12 @@ export class WithdrawSavingsComponent implements OnInit {
   }
   get txnApproval(): any {
     return this.fb.group({
+      txnApprovalDetailsId: this.fb.control({ value: '' }),
       comment: this.fb.control({ value: '' }),
       client: this.fb.control({ value: '' }),
+      clientId: this.fb.control({ value: '' }),
       amount: this.fb.control({ value: '' }),
+      product: this.fb.control({ value: '' }),
       station: this.fb.control({ value: '' }),
       approved: this.fb.control({}),
     });
@@ -76,40 +98,31 @@ export class WithdrawSavingsComponent implements OnInit {
   }
   initialiseForm(): any {
     let n: number;
-    this.others.getSavingsCustomers().subscribe(
-      res => {
-        this.customers = res;
-        this.others.getTxnsForApproval().subscribe(
-          items => {
-            this.txnsApprovals = items;
-            this.txnsApprovals.forEach((item, i) => {
-            this.fval.txnApprovals.controls[i].controls.station.setValue(item.txnApprovalDetailsMicroId);
-            const details = JSON.parse(item.txnApprovalDetailsMicroPayLoad);
-            for (const customer of this.customers){
-              if (customer.customerId === details[0].customerId) {
-                this.fval.txnApprovals.controls[i].controls.client.setValue(customer.customerName);
-              }
+    this.others.getTxnsForApproval().subscribe(
+      items => {
+          this.txnsApprovals = items;
+          this.txnsApprovals.forEach((item, i) => {
+          const details = JSON.parse(item.txnApprovalDetailsPayLoad);
+          this.fval.txnApprovals.controls[i].controls.txnApprovalDetailsId.setValue(item.txnApprovalDetailsId);
+          this.fval.txnApprovals.controls[i].controls.clientId.setValue(details.customerId);
+          this.customers.forEach(customer => {
+            if (customer.customerId === details.customerId) {
+              this.fval.txnApprovals.controls[i].controls.client.setValue(customer.customerName);
             }
-            this.fval.txnApprovals.controls[i].controls.amount.setValue(Number(details[0].txnAmount));
-            this.fval.txnApprovals.controls[i].controls.comment.setValue(details[0].microLoanPurpose);
-            this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
-            this.addItem();
-            n = i + 1;
           });
-            this.removeItem(n);
-            this.loaded = true;
-        }, err => {
-          this.loaded = false;
-          console.log(err.error.error.message);
-        }
-        );
-      },
-      err => {
-        this.errored = true;
-        console.log(err);
-        this.alertService.danger({
-          html: '<b>' + err.error.error.message + '</b>'
+          this.fval.txnApprovals.controls[i].controls.product.setValue(item.txnDetailsCat + 'S');
+          this.fval.txnApprovals.controls[i].controls.station.setValue(item.stationName);
+          this.fval.txnApprovals.controls[i].controls.amount.setValue(details.txnAmount);
+          this.fval.txnApprovals.controls[i].controls.comment.setValue('Please approve this listed transaction');
+          this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
+          this.addItem();
+          n = i + 1;
         });
+          this.removeItem(n);
+          this.loaded = true;
+      }, err => {
+        this.loaded = false;
+        console.log(err.error.error.message);
       }
     );
   }
@@ -155,8 +168,8 @@ export class WithdrawSavingsComponent implements OnInit {
     this.txnsApprovals.forEach((item, i) => {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         itemsApproved.push({
-          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
-          userId: this.User.userId
+          txnApprovalDetailsId: this.fval.txnApprovals.controls[i].controls.txnApprovalDetailsId.value,
+          userId: this.User.userId,
         });
       }
     });
@@ -165,7 +178,7 @@ export class WithdrawSavingsComponent implements OnInit {
         res => {
           this.posted = true;
           this.alertService.success({
-            html: '<b> Micro Loan Approved Was Successfully </b>'
+            html: '<b> Savings Withdraw was Approved Successfully </b>'
           });
           setTimeout(() => {
             itemsApproved = [];
@@ -184,7 +197,7 @@ export class WithdrawSavingsComponent implements OnInit {
     } else {
       this.errored = true;
       this.alertService.danger({
-            html: '<b> Please select a loan first </b>'
+            html: '<b> Please select something first </b>'
           });
       return;
     }
@@ -195,8 +208,8 @@ export class WithdrawSavingsComponent implements OnInit {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         item.status = 1;
         itemsRejected.push({
-          txnApprovalDetailsMircroId: this.fval.txnApprovals.controls[i].controls.loanId.value,
-          userId: this.User.userId
+          txnApprovalDetailsId: this.fval.txnApprovals.controls[i].controls.txnApprovalDetailsId.value,
+          userId: this.User.userId,
         });
       }
     });
@@ -205,7 +218,7 @@ export class WithdrawSavingsComponent implements OnInit {
         res => {
           this.posted = true;
           this.alertService.success({
-            html: '<b> Micro Loan Rejection Was Successfully </b>'
+            html: '<b> Savings Withraws Were rejected Successfully </b>'
           });
           setTimeout(() => {
             itemsRejected = [];

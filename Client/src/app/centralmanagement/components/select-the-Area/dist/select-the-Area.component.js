@@ -18,7 +18,9 @@ var SelectTheAreaComponent = /** @class */ (function () {
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
+        this.approvedAreas = [];
         this.posted = false;
+        this.loaded = false;
         this.User = this.authService.loggedInUserInfo();
     }
     SelectTheAreaComponent.prototype.ngOnInit = function () {
@@ -68,6 +70,7 @@ var SelectTheAreaComponent = /** @class */ (function () {
                 n = i + 1;
             });
             _this.removeItem(n);
+            _this.loaded = true;
         });
     };
     SelectTheAreaComponent.prototype.checkAllItems = function (val) {

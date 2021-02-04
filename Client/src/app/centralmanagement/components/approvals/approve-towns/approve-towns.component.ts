@@ -21,7 +21,7 @@ export interface TownApprovals {
 })
 export class ApproveTownsComponent implements OnInit {
   userForm: FormGroup;
-  townApprovals: any;
+  townApprovals = [];
   posted = false;
   loaded = false;
   actionButton: string;

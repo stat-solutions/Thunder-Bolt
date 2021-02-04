@@ -71,7 +71,7 @@ var LoanLimitComponent = /** @class */ (function () {
                 _this.fval.txnApprovals.controls[i].controls.product.setValue(pdt);
                 _this.fval.txnApprovals.controls[i].controls.client.setValue(item.customerName);
                 _this.fval.txnApprovals.controls[i].controls.station.setValue(item.stationName);
-                _this.fval.txnApprovals.controls[i].controls.approvalLoanLimitId.setValue(item.otheApprovalsAllId);
+                _this.fval.txnApprovals.controls[i].controls.approvalLoanLimitId.setValue(item.approvalLoanLimitId);
                 _this.fval.txnApprovals.controls[i].controls.limit.setValue(details.theLoanLimit);
                 _this.fval.txnApprovals.controls[i].controls.approved.setValue(false);
                 _this.addItem();
@@ -180,7 +180,7 @@ var LoanLimitComponent = /** @class */ (function () {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
                     userId: _this.User.userId,
-                    otheApprovalsAllId: _this.fval.txnApprovals.controls[i].controls.approvalLoanLimitId.value,
+                    approvalLoanLimitId: _this.fval.txnApprovals.controls[i].controls.approvalLoanLimitId.value,
                     theLoanLimit: _this.fval.txnApprovals.controls[i].controls.limit.value
                 });
             }
@@ -221,7 +221,7 @@ var LoanLimitComponent = /** @class */ (function () {
                 item.status = 1;
                 itemsRejected.push({
                     userId: _this.User.userId,
-                    otheApprovalsAllId: _this.fval.txnApprovals.controls[i].controls.approvalLoanLimitId.value,
+                    approvalLoanLimitId: _this.fval.txnApprovals.controls[i].controls.approvalLoanLimitId.value,
                     theLoanLimit: _this.fval.txnApprovals.controls[i].controls.limit.value
                 });
             }

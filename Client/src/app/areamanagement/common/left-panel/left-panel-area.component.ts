@@ -71,11 +71,11 @@ export class LeftPanelAreaComponent implements OnInit {
             icon: 'fas fa-clipboard-list',
             url: '/areamanagement/approvals/verifyclients',
           },
-          {
-            name: 'Loan Approvals',
-            icon: 'fas fa-clipboard-list',
-            url: '/areamanagement/approvals/loanapprovals',
-          },
+          // {
+          //   name: 'Loan Approvals',
+          //   icon: 'fas fa-clipboard-list',
+          //   url: '/areamanagement/approvals/loanapprovals',
+          // },
         ],
       },
       {

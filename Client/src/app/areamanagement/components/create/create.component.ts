@@ -22,7 +22,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 })
 export class CreateComponent implements OnInit {
   userForm: FormGroup;
-  approvedTowns: any;
+  approvedTowns = [];
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -149,13 +149,27 @@ export class CreateComponent implements OnInit {
     if (townsSelected.length > 0) {
         this.others.createTheTown(townsSelected).subscribe(
           res => {
+            this.posted = true;
+            this.alertService.success({
+              html: '<b> Towns were  set successfully</b>'
+            });
             setTimeout(() => {
-              this.refresh();
+              this.userForm = this.createFormGroup();
+              this.fval.selectAll.setValue(false);
+              this.initialiseForm();
             }, 3000);
-          }, err => console.log(err)
+          }, err => {
+            this.errored = true;
+            this.alertService.danger({
+              html: '<b>Something went wrong</b>'
+            });
+          }
         );
     } else {
-      alert('Please select something');
+      this.errored = true;
+      this.alertService.danger({
+              html: '<b> Please select something </b>'
+            });
       return;
     }
   }

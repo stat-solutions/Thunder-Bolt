@@ -12,8 +12,20 @@
       </div>
     </div>
     <div
+      class="invest-card card-body mt-2 py-4 mb-5 mx-0 mx-sm-auto px-1 px-lg-auto shadow-lg"
+      [hidden]="txnsApprovals.length !== 0"
+    >
+      <div class="row">
+        <div class="col-12">
+          <h5 class="rub-head4 text-center font-weight-bold py-1">
+            There are no Loan Amortization Cycles to approve 
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div
       class="invest-card card-body mt-2 pt-2 mb-5 mx-auto pb-4 px-1 px-lg-auto shadow-lg"
-      [hidden]="!loaded"
+      [hidden]="txnsApprovals.length === 0"
     >
     <form [formGroup]="userForm">
       <div class="item-header mb-2">
@@ -168,7 +180,7 @@
 					</div>
 				</div>
     </form>
-      <div class="d-flex mt-3 mb-0 py-2 mx-auto">
+      <div class="d-flex mt-3 mb-0 py-2 mx-auto" [hidden]='txnsApprovals.length === 0'>
         <button
           class="btn btn-info col-4 col-md-3 mx-auto px-0"
           (click)="approveItems()"

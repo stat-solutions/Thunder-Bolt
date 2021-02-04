@@ -530,10 +530,10 @@ var OthersService = /** @class */ (function () {
         return this.http.get(this.API_URL + "/api/customer/getIndividualLoanInterestRateForApproval");
     };
     OthersService.prototype.approveIdividualLoanInterestRate = function (postData) {
-        return this.http.post(this.API_URL + "/api/customer/getIndividualLoanInterestRateForApproval", postData);
+        return this.http.post(this.API_URL + "/api/customer/postApproveIndividualLoanInterestRate", postData);
     };
     OthersService.prototype.rejectIdividualLoanInterestRate = function (postData) {
-        return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanLimit", postData);
+        return this.http.post(this.API_URL + "/api/customer/postRejectIndividualLoanInterestRate", postData);
     };
     OthersService.prototype.setIdividualLoanAccrualDays = function (postData) {
         return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanAccrualDays", postData);
@@ -545,7 +545,7 @@ var OthersService = /** @class */ (function () {
         return this.http.post(this.API_URL + "/api/customer/postApproveIndividualLoanAccrualDays", postData);
     };
     OthersService.prototype.rejectIdividualLoanAccrualDays = function (postData) {
-        return this.http.post(this.API_URL + "/api/customer/putSetIndividualLoanLimit", postData);
+        return this.http.post(this.API_URL + "/api/customer/postRejectIndividualLoanAccrualDays", postData);
     };
     OthersService.prototype.waiveInterest = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/waiveInterest", postData);
@@ -557,7 +557,7 @@ var OthersService = /** @class */ (function () {
         return this.http.post(this.API_URL + "/api/loan/postApproveWaivedInterest", postData);
     };
     OthersService.prototype.postRejectWaivedInterest = function (postData) {
-        return this.http.post(this.API_URL + "/api/loan/putSetIndividualLoanLimit", postData);
+        return this.http.post(this.API_URL + "/api/loan/postRejectWaivedInterest", postData);
     };
     OthersService.prototype.waivePrincimpal = function (postData) {
         return this.http.post(this.API_URL + "/api/loan/waivePrincimpal", postData);

@@ -16,7 +16,9 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
+        this.centralUserApprovals = [];
         this.posted = false;
+        this.loaded = false;
         this.User = this.authService.loggedInUserInfo();
     }
     ApproveCentralUsersComponent.prototype.ngOnInit = function () {
@@ -65,6 +67,7 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
                 _this.addItem();
                 n = i + 1;
             });
+            _this.loaded = true;
             _this.removeItem(n);
         });
     };

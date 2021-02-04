@@ -16,7 +16,9 @@ var ApproveStationsComponent = /** @class */ (function () {
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
+        this.stationApproval = [];
         this.posted = false;
+        this.loaded = false;
         this.User = this.authService.loggedInUserInfo();
     }
     ApproveStationsComponent.prototype.ngOnInit = function () {
@@ -59,6 +61,7 @@ var ApproveStationsComponent = /** @class */ (function () {
                 _this.addItem();
                 n = i + 1;
             });
+            _this.loaded = true;
             _this.removeItem(n);
         });
     };
@@ -106,7 +109,7 @@ var ApproveStationsComponent = /** @class */ (function () {
             if (_this.fval.approveStations.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
                     stationId: item.stationId,
-                    stationStatus: 3,
+                    stationStatus: 2,
                     userId: _this.User.userId
                 });
             }

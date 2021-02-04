@@ -508,10 +508,10 @@ export class OthersService {
       return this.http.get(`${this.API_URL}/api/customer/getIndividualLoanInterestRateForApproval`);
     }
     approveIdividualLoanInterestRate(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/getIndividualLoanInterestRateForApproval`, postData );
+      return this.http.post(`${this.API_URL}/api/customer/postApproveIndividualLoanInterestRate`, postData );
     }
     rejectIdividualLoanInterestRate(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );
+      return this.http.post(`${this.API_URL}/api/customer/postRejectIndividualLoanInterestRate`, postData );
     }
     setIdividualLoanAccrualDays(postData: any): any {
       return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanAccrualDays`, postData );
@@ -523,7 +523,7 @@ export class OthersService {
       return this.http.post(`${this.API_URL}/api/customer/postApproveIndividualLoanAccrualDays`, postData );
     }
     rejectIdividualLoanAccrualDays(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/customer/putSetIndividualLoanLimit`, postData );
+      return this.http.post(`${this.API_URL}/api/customer/postRejectIndividualLoanAccrualDays`, postData );
     }
     waiveInterest(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/waiveInterest`, postData );
@@ -535,7 +535,7 @@ export class OthersService {
       return this.http.post(`${this.API_URL}/api/loan/postApproveWaivedInterest`, postData );
     }
     postRejectWaivedInterest(postData: any): any {
-      return this.http.post(`${this.API_URL}/api/loan/putSetIndividualLoanLimit`, postData );
+      return this.http.post(`${this.API_URL}/api/loan/postRejectWaivedInterest`, postData );
     }
     waivePrincimpal(postData: any): any {
       return this.http.post(`${this.API_URL}/api/loan/waivePrincimpal`, postData );

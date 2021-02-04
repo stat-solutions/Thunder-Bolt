@@ -16,7 +16,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 })
 export class SelectTheAreaComponent implements OnInit {
   userForm: FormGroup;
-  approvedAreas: any;
+  approvedAreas = [];
   posted = false;
   loaded = false;
   actionButton: string;

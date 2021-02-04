@@ -24,7 +24,7 @@ export class ApproveAreasComponent implements OnInit {
   serviceErrors: string;
   status: boolean;
   checkedOk: boolean;
-  areaApproval: any;
+  areaApproval = [];
   User = this.authService.loggedInUserInfo();
   constructor(
     private authService: AuthServiceService,

@@ -16,7 +16,7 @@ import { OthersService } from 'src/app/shared/services/other-services/others.ser
 })
 export class CreateStationComponent implements OnInit {
   userForm: FormGroup;
-  approvedStations: any;
+  approvedStations = [];
   posted = false;
   actionButton: string;
   errored: boolean;
@@ -141,13 +141,26 @@ export class CreateStationComponent implements OnInit {
     if (stationsSelected.length > 0) {
         this.others.createTheStation(stationsSelected).subscribe(
           res => {
+            this.posted = true;
+            this.alertService.success({
+              html: '<b> Stations were  set successfully</b>'
+            });
             setTimeout(() => {
-              this.refresh();
+              this.userForm = this.createFormGroup();
+              this.fval.selectAll.setValue(false);
+              this.initialiseForm();
             }, 3000);
-          }, err => console.log(err)
-        );
+          }, err => {
+            this.errored = true;
+            this.alertService.danger({
+              html: '<b>Something went wrong</b>'
+            });
+          });
     } else {
-      alert('Please select something');
+      this.errored = true;
+      this.alertService.danger({
+              html: '<b> Please select something </b>'
+            });
       return;
     }
   }

@@ -18,6 +18,7 @@ var CreateStationComponent = /** @class */ (function () {
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
+        this.approvedStations = [];
         this.posted = false;
         this.User = this.authService.loggedInUserInfo();
     }
@@ -57,7 +58,7 @@ var CreateStationComponent = /** @class */ (function () {
             _this.approvedStations = units;
             // console.log(this.approvedStations)
             _this.approvedStations.forEach(function (item, i) {
-                _this.fval.selectedStations.controls[i].controls.stationId.setValue(item.theStationLocationId);
+                _this.fval.selectedStations.controls[i].controls.stationId.setValue(item.stationId);
                 _this.fval.selectedStations.controls[i].controls.stationName.setValue(item.stationName);
                 _this.fval.selectedStations.controls[i].controls.approved.setValue(false);
                 _this.addItem();
@@ -112,8 +113,8 @@ var CreateStationComponent = /** @class */ (function () {
         this.approvedStations.forEach(function (item, i) {
             if (_this.fval.selectedStations.controls[i].controls.approved.value === true) {
                 stationsSelected.push({
-                    theStationLocationId: item.theStationLocationId,
-                    locationId: _this.User.userLocationId,
+                    stationId: item.stationId,
+                    theTownLocationId: _this.User.userLocationId,
                     userId: _this.User.userId
                 });
             }
@@ -121,13 +122,27 @@ var CreateStationComponent = /** @class */ (function () {
         // console.log(stationsSelected);
         if (stationsSelected.length > 0) {
             this.others.createTheStation(stationsSelected).subscribe(function (res) {
+                _this.posted = true;
+                _this.alertService.success({
+                    html: '<b> Stations were  set successfully</b>'
+                });
                 setTimeout(function () {
-                    _this.refresh();
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
                 }, 3000);
-            }, function (err) { return console.log(err); });
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>Something went wrong</b>'
+                });
+            });
         }
         else {
-            alert('Please select something');
+            this.errored = true;
+            this.alertService.danger({
+                html: '<b> Please select something </b>'
+            });
             return;
         }
     };

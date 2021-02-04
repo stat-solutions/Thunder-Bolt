@@ -16,7 +16,9 @@ var ApproveTownsComponent = /** @class */ (function () {
         this.spinner = spinner;
         this.alertService = alertService;
         this.fb = fb;
+        this.townApprovals = [];
         this.posted = false;
+        this.loaded = false;
         this.User = this.authService.loggedInUserInfo();
     }
     ApproveTownsComponent.prototype.ngOnInit = function () {
@@ -63,6 +65,7 @@ var ApproveTownsComponent = /** @class */ (function () {
                 _this.addItem();
                 n = i + 1;
             });
+            _this.loaded = true;
             _this.removeItem(n);
         });
     };

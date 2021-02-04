@@ -228,26 +228,23 @@ var WaiveInterestComponent = /** @class */ (function () {
         });
         // console.log(itemsRejected);
         if (itemsRejected.length > 0) {
-            // this.others.postRejectWaivedInterest(itemsRejected).subscribe(
-            //   res => {
-            //     this.posted = true;
-            //     this.alertService.success({
-            //       html: '<b> Individual Waive Interests were rejected Successfully </b>'
-            //     });
-            //     setTimeout(() => {
-            //       itemsRejected = [];
-            //       this.userForm = this.createFormGroup();
-            //       this.fval.selectAll.setValue(false);
-            //       this.initialiseForm();
-            //     }, 3000);
-            //   },
-            //   err =>  {
-            //     this.errored = true;
-            //     this.alertService.danger({
-            //       html: '<b>' + err.error.error.message + '</b>'
-            //     });
-            //   }
-            // );
+            this.others.postRejectWaivedInterest(itemsRejected).subscribe(function (res) {
+                _this.posted = true;
+                _this.alertService.success({
+                    html: '<b> Individual Waive Interests were rejected Successfully </b>'
+                });
+                setTimeout(function () {
+                    itemsRejected = [];
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
+                }, 3000);
+            }, function (err) {
+                _this.errored = true;
+                _this.alertService.danger({
+                    html: '<b>' + err.error.error.message + '</b>'
+                });
+            });
         }
         else {
             this.errored = true;

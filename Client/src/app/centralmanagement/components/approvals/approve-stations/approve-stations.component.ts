@@ -22,7 +22,7 @@ export interface StationApprovals {
 })
 export class ApproveStationsComponent implements OnInit {
   userForm: FormGroup;
-  stationApproval: any;
+  stationApproval = [];
   posted = false;
   loaded = false;
   actionButton: string;

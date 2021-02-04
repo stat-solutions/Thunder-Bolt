@@ -23,7 +23,7 @@ export interface ApproveCentralUsers {
 })
 export class ApproveCentralUsersComponent implements OnInit {
   userForm: FormGroup;
-  centralUserApprovals: any;
+  centralUserApprovals = [];
   posted = false;
   loaded = false;
   actionButton: string;
@@ -40,11 +40,6 @@ export class ApproveCentralUsersComponent implements OnInit {
     private alertService: AlertService,
     private fb: FormBuilder
   ) {}
-  ngOnChanges(): void {
-    this.userForm = this.createFormGroup();
-    this.fval.selectAll.setValue(false);
-    this.initialiseForm();
-  }
   ngOnInit(): void {
     this.userForm = this.createFormGroup();
     this.fval.selectAll.setValue(false);

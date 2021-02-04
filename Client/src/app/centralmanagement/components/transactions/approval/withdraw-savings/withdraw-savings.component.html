@@ -14,7 +14,20 @@
       </div>
     </div>
     <div
+      class="invest-card card-body mt-2 py-4 mb-5 mx-0 mx-sm-auto px-1 px-lg-auto shadow-lg"
+      [hidden]="txnsApprovals.length !== 0"
+    >
+      <div class="row">
+        <div class="col-12">
+          <h5 class="rub-head4 text-center font-weight-bold py-1">
+            There are no Savings Withdraws to approve 
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div
       class="invest-card card-body mt-2 pt-2 mb-5 mx-auto pb-4 px-1 px-lg-auto shadow-lg"
+      [hidden]="txnsApprovals.length === 0"
     >
       <form [formGroup]="userForm">
         <div class="item-header mb-2">
@@ -33,10 +46,10 @@
             </div>
           </div>
         </div>
-        <div class="iteration" formArrayName="approveRates">
+        <div class="iteration" formArrayName="txnApprovals">
           <div
             class="item-container mt-1"
-            *ngFor="let items of fval.approveRates['controls']; let idx = index"
+            *ngFor="let items of fval.txnApprovals['controls']; let idx = index"
           >
       <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx"
 >
@@ -63,10 +76,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->
+                        {{ fval.txnApprovals["controls"][idx]["controls"].clientId.value }}
                       </span>
                     </div>
                   </div>
@@ -80,10 +90,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->Keminagano Pulikeria
+                        {{ fval.txnApprovals["controls"][idx]["controls"].client.value }}
                       </span>
                     </div>
                   </div>
@@ -97,10 +104,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerName.value
-                          }} -->Keminagano
+                        {{ fval.txnApprovals["controls"][idx]["controls"].station.value }}
                       </span>
                     </div>
                   </div>
@@ -114,7 +118,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        SAVINGS
+                        {{ fval.txnApprovals["controls"][idx]["controls"].product.value }}
                       </span>
                     </div>
                   </div>
@@ -128,23 +132,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"].station
-                              .value
-                          }} -->
-                    <input
-                      id="floatAmount"
-                      formControlName="floatAmount"
-                      type="text"
-                      class="form-control"
-                      [ngClass]="{
-                        'is-invalid':
-                          (fval.floatAmount.touched ||
-                            fval.floatAmount.dirty) &&
-                          fval.floatAmount.errors
-                      }"
-                      autocomplete="off"
-                    />
+                        {{ fval.txnApprovals["controls"][idx]["controls"].amount.value | number}}
                       </span>
                     </div>
                   </div>
@@ -158,10 +146,7 @@
                       class="col-7 d-flex justify-content-start font-weight-bold"
                     >
                       <span class="itemCreated">
-                        <!-- {{
-                            fval.customers["controls"][idx]["controls"]
-                              .customerPhone1.value
-                          }} -->
+                        {{ fval.txnApprovals["controls"][idx]["controls"].comment.value }}
                       </span>
                     </div>
                   </div>
@@ -174,7 +159,7 @@
 </div>
         </div>
       </form>
-      <div class="d-flex mt-3 mb-0 py-2 mx-auto">
+      <div class="d-flex mt-3 mb-0 py-2 mx-auto" [hidden]="txnsApprovals.length === 0">
         <button
           class="btn btn-info col-4 col-md-3 mx-auto px-0"
           (click)="approveItems()"

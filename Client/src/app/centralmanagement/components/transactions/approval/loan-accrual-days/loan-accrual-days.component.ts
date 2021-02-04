@@ -261,26 +261,26 @@ export class LoanAccrualDaysComponent implements OnInit {
     });
     // console.log(itemsRejected);
     if (itemsRejected.length > 0) {
-      // this.others.rejectIdividualLoanAccrualDays(itemsRejected).subscribe(
-      //   res => {
-      //     this.posted = true;
-      //     this.alertService.success({
-      //       html: '<b> Individual accrual days were rejected successfully </b>'
-      //     });
-      //     setTimeout(() => {
-      //       itemsRejected = [];
-      //       this.userForm = this.createFormGroup();
-      //       this.fval.selectAll.setValue(false);
-      //       this.initialiseForm();
-      //     }, 3000);
-      //   },
-      //   err =>  {
-      //     this.errored = true;
-      //     this.alertService.danger({
-      //       html: '<b>' + err.error.error.message + '</b>'
-      //     });
-      //   }
-      // );
+      this.others.rejectIdividualLoanAccrualDays(itemsRejected).subscribe(
+        res => {
+          this.posted = true;
+          this.alertService.success({
+            html: '<b> Individual accrual days were rejected successfully </b>'
+          });
+          setTimeout(() => {
+            itemsRejected = [];
+            this.userForm = this.createFormGroup();
+            this.fval.selectAll.setValue(false);
+            this.initialiseForm();
+          }, 3000);
+        },
+        err =>  {
+          this.errored = true;
+          this.alertService.danger({
+            html: '<b>' + err.error.error.message + '</b>'
+          });
+        }
+      );
     } else {
       this.errored = true;
       this.alertService.danger({

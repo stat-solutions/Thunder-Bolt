@@ -127,7 +127,7 @@ var WithdrawComponent = /** @class */ (function () {
                 var data = {
                     txnAmount: parseInt(this.fval.amount_to_pay.value.replace(/[\D\s\._\-]+/g, ''), 10),
                     customerId: this.checkedClient.customerId,
-                    txnDetailsId: this.assignTxnId('INDIVIDUALSAVING ', 'SAVINGWITHDRAW'),
+                    txnDetailsId: this.assignTxnId('INDIVIDUALSAVING', 'SAVINGWITHDRAWAL'),
                     userId: this.User.userId,
                     productCode: 100,
                     theStationLocationId: this.User.userLocationId
