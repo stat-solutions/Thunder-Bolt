@@ -21,7 +21,7 @@ export class AreaComponent implements OnInit {
   type: string;
   reports = [
     'All Loans', 'Normal Loans', 'Completed Loans', 'Defaulters', 'Float Deposits',
-    'Defaulters', 'Revenue Ledger', 'Lost Revenue', 'Cash Ledger', 'Paid Ledger',
+     'Revenue Ledger', 'Lost Revenue', 'Cash Ledger', 'Paid Ledger',
     'Borrowed Ledger', 'Recovery', 'Enforcement', 'Savings', 'General Savings',
     'Float Withdraws', 'Float Deposit & Withdraw', 'Waived Principal', 'Reversed Principal',
     'Waived Interest', 'Loan Transaction', 'Interest', 'Float Balance Per Day', 'Commission',

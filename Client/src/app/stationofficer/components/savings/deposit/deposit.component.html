@@ -74,7 +74,7 @@
               fval.user_contact_number.errors?.hasNumber
             "
           >
-            The phone number should be equal to 10 "digits"!
+            The phone number should be equal to 10 "digits"
           </div>
         </div>
         <!--/end-->
@@ -110,7 +110,7 @@
               fval.amount_to_pay.errors?.required
             "
           >
-            The amount to deposit is required!
+            The amount to deposit is required
           </div>
           <div
             class="text-danger col"
@@ -119,7 +119,7 @@
               fval.amount_to_pay.errors?.maxLength
             "
           >
-            Please enter valid amount to deposit!
+            Please enter valid amount to deposit
           </div>
           <div
             class="text-danger col"
@@ -128,7 +128,7 @@
               fval.amount_to_pay.errors?.minlength
             "
           >
-            Please enter valid amount to deposit!
+            Please enter valid amount to deposit
           </div>
           <div
             class="text-danger col"
@@ -137,13 +137,13 @@
               fval.amount_to_pay.errors?.hasNumber
             "
           >
-            Please enter valid amount to deposit!
+            Please enter valid amount to deposit
           </div>
         </div>
 
         <div class="form-group text-primary">
           <label for="pin" [ngClass]="fval.pin.valid ? 'text-info' : ''"
-            >PIN<i *ngIf="fval.pin.valid" class="material-icons"
+            >Client PIN<i *ngIf="fval.pin.valid" class="material-icons"
               >check_circle</i
             ></label
           >
@@ -165,10 +165,10 @@
                 'is-invalid':
                   (fval.pin.touched || fval.pin.dirty) && fval.pin.errors
               }"
-              placeholder="Enter your PIN"
+              placeholder="Let the client enter PIN"
               autocomplete="off"
             />
-          <div class="input-group-append">
+          <!-- <div class="input-group-append">
             <span class="input-group-text">
               <i
                 class="fas"
@@ -179,7 +179,7 @@
                 (click)="toggleFieldType()"
               ></i>
             </span>
-          </div>
+          </div> -->
           </div>
           <div
             class="text-danger col"
@@ -187,7 +187,7 @@
               (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.required
             "
           >
-            The PIN is required!
+            The PIN is required
           </div>
 
           <div
@@ -196,7 +196,7 @@
               (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.maxlength
             "
           >
-            Please enter a valid pin!
+            Please enter a valid pin
           </div>
           <div
             class="text-danger col"
@@ -204,7 +204,7 @@
               (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.hasNumber
             "
           >
-            Only digits are allowed!
+            Only digits are allowed
           </div>
           <div
             class="text-danger col"
@@ -212,7 +212,7 @@
               (fval.pin.touched || fval.pin.dirty) && fval.pin.errors?.minlength
             "
           >
-            Please enter a valid pin!
+            Please enter a valid pin
           </div>
         </div>
         <div class="d-flex my-3 pt-2 pb-3 mx-auto">

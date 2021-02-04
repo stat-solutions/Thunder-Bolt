@@ -38,7 +38,7 @@
             *ngFor="let items of fval.txnApprovals['controls']; let idx = index"
           >
       <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
-        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+        <div class="list-card-body card-body my-0 py-0 mx-0">
           <div class="row my-0 py-0">
             <div class="col-1">
                     <!--select an item-->
@@ -110,12 +110,12 @@
                 </div>
                 <div class="col-12 col-md-6 col-xl-4">
                   <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
+												<div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                       <span class="">Type</span>
                     </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
+												<div
+												  class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+												>
                       <span class="itemCreated">
                             <input
                           formControlName="amorType"
@@ -140,20 +140,18 @@
                   </div>
                 </div>
               </div>
-                  <div class="row">
-                              <div class="col-12">
-                  <div class="row">
-                    <div class="col-5 col-md-3 d-flex justify-content-start">
-                      <span class="">Comment</span>
-                    </div>
-                    <div
-                      class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
-                    >
-                      <span class="itemCreated">
-                        {{fval.txnApprovals["controls"][idx]["controls"].comment.value}}
-                      </span>
-                    </div>
-                    <div class="col-2 justify-content-end font-weight-bold">
+										<div class="row">
+													<div class="col-3 col-md-2 col-xl-1 d-flex justify-content-start">
+													  <span class="">Comment</span>
+													</div>
+													<div
+													  class="col-9 col-md-7 col-xl-9 d-flex justify-content-start font-weight-bold"
+													>
+													  <span class="itemCreated">
+														{{fval.txnApprovals["controls"][idx]["controls"].comment.value}}
+													  </span>
+                          </div>
+                          <div class="col-12 col-md-3 col-xl-2 justify-content-end font-weight-bold">
                             <a class="text-dark pointerCursor">
                               <span
                                 class="itemCreated"
@@ -162,7 +160,7 @@
                               </span>
                             </a>
                           </div>
-                  </div>
+												</div>
                 </div>
               </div>
             </div>
@@ -225,7 +223,7 @@
     <div class="client-modal card mt-0 pt-0 px-0 shadow-lg">
     <div class="card-body mt-0 pt-1 pb-2 mx-0 px-2">
                               <div class="iteration">
-                                <div 
+                                <div
                                   class="item-container mt-1 pt-0"
                                   *ngFor="let item of statement"
                                 >

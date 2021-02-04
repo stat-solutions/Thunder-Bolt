@@ -100,7 +100,7 @@ export class DepositComponent implements OnInit {
         Validators.compose([
           Validators.required,
           CustomValidator.patternValidator(/\d/, { hasNumber: true }),
-          Validators.maxLength(6),
+          Validators.maxLength(9),
           Validators.minLength(3),
         ])
       ),

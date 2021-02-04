@@ -38,9 +38,9 @@
 						class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" 
 						[formGroupName]="idx"
 						>
-							<div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+							<div class="list-card-body card-body my-0 py-0 mx-0">
 								<div class="row my-0 py-0">
-									<div class="col-1">
+									<div class="col-1 mx-md-0 px-md-0">
 									  <!--select an item-->
 									  <input
 										formControlName="approved"
@@ -51,14 +51,14 @@
 									  />
 									</div>
 									<div class="col-11">
-										<div class="row">
+										<div class="row mx-md-0 px-md-0">
 											<div class="col-12 col-md-6 col-xl-4">
 											  <div class="row">
-												<div class="col-5 d-flex justify-content-start">
+												<div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
 												  <span class="">Station</span>
 												</div>
 												<div
-												  class="col-7 d-flex justify-content-start font-weight-bold"
+												  class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
 												>
 												  <span class="itemCreated">
 													{{fval.txnApprovals["controls"][idx]["controls"].station.value}}
@@ -68,11 +68,11 @@
 											</div>
 											<div class="col-12 col-md-6 col-xl-4">
 											  <div class="row">
-												<div class="col-5 d-flex justify-content-start">
+												<div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
 												  <span class="">Client ID</span>
 												</div>
 												<div
-												  class="col-7 d-flex justify-content-start font-weight-bold"
+												  class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
 												>
 												  <span class="itemCreated">
 													{{fval.txnApprovals["controls"][idx]["controls"].clientId.value}}
@@ -82,11 +82,11 @@
 											</div>
 											<div class="col-12 col-md-6 col-xl-4">
 											  <div class="row">
-												<div class="col-5 d-flex justify-content-start">
+												<div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
 												  <span class="">Client</span>
 												</div>
 												<div
-												  class="col-7 d-flex justify-content-start font-weight-bold"
+												  class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
 												>
 												  <span class="itemCreated">
 													{{fval.txnApprovals["controls"][idx]["controls"].client.value}}
@@ -96,11 +96,11 @@
 											</div>
 											<div class="col-12 col-md-6 col-xl-4">
 											  <div class="row">
-												<div class="col-5 d-flex justify-content-start">
+												<div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
 												  <span class="">Product</span>
 												</div>
 												<div
-												  class="col-7 d-flex justify-content-start font-weight-bold"
+												  class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
 												>
 												  <span class="itemCreated">
 													{{fval.txnApprovals["controls"][idx]["controls"].product.value}}
@@ -110,12 +110,12 @@
 											</div>
 											<div class="col-12 col-md-6 col-xl-4">
 												<div class="row">
-													<div class="col-5 d-flex justify-content-start">
+												<div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
 													  <span class="">Days</span>
 													</div>
-													<div
-													  class="col-7 d-flex justify-content-start font-weight-bold"
-													>
+												<div
+												  class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+												>
 														<span class="itemCreated">
 															<input
 															  id="days"
@@ -136,19 +136,17 @@
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-12">
-												<div class="row">
-													<div class="col-3 col-md-3 d-flex justify-content-start">
+													<div class="col-3 col-md-2 col-xl-1 d-flex justify-content-start">
 													  <span class="">Comment</span>
 													</div>
 													<div
-													  class="col-6 col-md-9 d-flex justify-content-start font-weight-bold"
+													  class="col-9 col-md-7 col-xl-9 d-flex justify-content-start font-weight-bold"
 													>
 													  <span class="itemCreated">
 														{{fval.txnApprovals["controls"][idx]["controls"].comment.value}}
 													  </span>
                           </div>
-                          <div class="col-2 justify-content-end font-weight-bold">
+                          <div class="col-12 col-md-3 col-xl-2 justify-content-end font-weight-bold">
                             <a class="text-dark pointerCursor">
                               <span
                                 class="itemCreated"
@@ -158,16 +156,14 @@
                             </a>
                           </div>
 												</div>
-											</div>
+									</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>
 			</form>
-      <div class="d-flex mt-3 mb-0 py-2 mx-auto">
+<div class="d-flex mt-3 mb-0 py-2 mx-auto mx-md-5 px-md-5">
         <button
           class="btn btn-info col-4 col-md-3 mx-auto px-0"
           (click)="approveItems()"
