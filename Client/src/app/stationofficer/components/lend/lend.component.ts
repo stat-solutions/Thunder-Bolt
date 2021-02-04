@@ -67,8 +67,8 @@ export class LendComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(8),
+          Validators.minLength(7),
+          Validators.maxLength(7),
         ])
       ),
       amount_to_borrow: new FormControl(

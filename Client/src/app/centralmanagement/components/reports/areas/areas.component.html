@@ -209,7 +209,11 @@
 </div>
 <!--card for displaying All Loans Report -->
 <div *ngIf="type === 'All Loans'">
+<<<<<<< HEAD
   <div class="container mt-3 mb-0 mx-0 shadow-lg">
+=======
+  <div class="container mt-3 mb-0 shadow-lg">
+>>>>>>> 9b4f2c6... styling reports2
     <div class="row">
       <div class="col-12">
         <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
@@ -239,7 +243,7 @@
             currentPage: p,
             totalItems: total }; let i = index "
         >
-          <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="list-card-body card-body my-0 py-0 mx-0">
             <div class="row my-0 py-0">
               <div class="col-2 col-xl-1">
                 <img
@@ -452,7 +456,11 @@
                         <span class="">Comment</span>
                       </div>
                       <div
+<<<<<<< HEAD
                         class="col-7 d-flex justify-content-start font-weight-bold"
+=======
+                        class="col-7 col-md-8 col-xl-10 d-flex justify-content-start font-weight-bold"
+>>>>>>> 9b4f2c6... styling reports2
                       >
                         <span class="itemCreated">
                           {{ itm.customerComment }}
@@ -498,7 +506,7 @@
           class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
           *ngFor="let itm of singleReport; let i = index"
         >
-          <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="list-card-body card-body my-0 py-0 mx-0">
             <div class="row my-0 py-0">
               <div class="col-12">
                 <div class="row">
@@ -633,7 +641,7 @@
               <span class="font-weight-bold">Total Cash In</span>
             </div>
             <div
-              class="col-7 d-flex justify-content-start font-weight-bold"
+              class="col-7 d-flex justify-content-start font-weight-bold text-info"
               [hidden]="totals.cashInX1 === null"
             >
               <span class="itemCreated">
@@ -648,7 +656,7 @@
               <span class="font-weight-bold">Total Cash Out</span>
             </div>
             <div
-              class="col-7 d-flex justify-content-start font-weight-bold"
+              class="col-7 d-flex justify-content-start font-weight-bold text-info"
               [hidden]="totals.cashOutX1 === null"
             >
               <span class="itemCreated">
@@ -662,7 +670,7 @@
             <div class="col-5 d-flex justify-content-start">
               <span class="font-weight-bold">Net Balance</span>
             </div>
-            <div class="col-7 d-flex justify-content-start font-weight-bold">
+            <div class="col-7 d-flex justify-content-start font-weight-bold text-info">
               <span class="itemCreated">
                 {{ totals.balanceX1 | number }}
               </span>
@@ -2153,8 +2161,13 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
+<<<<<<< HEAD
                       <div class="col-5 d-flex justify-content-start">
                         <span class="">Interest Rate Used </span>
+=======
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
+                        <span class="">Interest Rate(%)</span>
+>>>>>>> 9b4f2c6... styling reports2
                       </div>
                       <div
                         class="col-7 d-flex justify-content-start font-weight-bold"
@@ -2208,7 +2221,7 @@
           <div class="col-5 d-flex justify-content-start">
             <span class="font-weight-bold">Total Interest </span>
           </div>
-          <div class="col-7 d-flex justify-content-start font-weight-bold">
+          <div class="col-7 d-flex justify-content-start font-weight-bold text-info">
             <span class="itemCreated">
               {{totals.revenueEarned | number}}
             </span>

@@ -143,7 +143,7 @@
 </div>
 <!--card for displaying All Loans Report -->
 <div *ngIf="(type === 'All Loans')">
-  <div class="container mt-3 mb-0 mx-0 shadow-lg">
+  <div class="container mt-3 mb-0 shadow-lg">
     <div class="row">
       <div class="col-12">
         <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
@@ -171,23 +171,25 @@
         class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
         *ngFor="let itm of singleReport; let i = index"
         >
-          <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="list-card-body card-body my-0 py-0 mx-0">
             <div class="row my-0 py-0">
-              <div class="col-2 col-xl-1">
+              <div class="col-2 col-md-1">
                 <img
                   class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
                   [src]="itm.customerPhotoUrl"
                   (click)="openModal(template, itm.customerPhotoUrl)"
                 />
               </div>
-              <div class="col-10 col-xl-11">
-                <div class="row">
+              <div class="col-10 col-md-11">
+                <div class="row mx-md-0 px-md-0">
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Client ID</span>
                       </div>
-                      <div class="col-7 d-flex justify-content-start font-weight-bold">
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                         <span class="itemCreated">
                          {{itm.customerId}}
                         </span>
@@ -196,10 +198,12 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Client Name</span>
                       </div>
-                      <div class="col-7 d-flex justify-content-start font-weight-bold">
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                         <span class="itemCreated">
                           {{itm.customerName}}
                         </span>
@@ -208,24 +212,26 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Phone No.</span>
                       </div>
-                      <div class="col-7 d-flex justify-content-start font-weight-bold">
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                         <span class="itemCreated">
                          {{itm.customerPhone1}}
                         </span>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="row">
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Loan Type</span>
                       </div>
-                      <div class="col-7 d-flex justify-content-start font-weight-bold">
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                         <span class="itemCreated">
                          {{
                            itm.productCode === 100 ? 'SAVINGS' :
@@ -238,10 +244,12 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Date Taken </span>
                       </div>
-                      <div class="col-7 d-flex justify-content-start font-weight-bold">
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                         <span class="itemCreated">
                          {{itm.dateTaken}}
                         </span>
@@ -250,24 +258,26 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Time Taken </span>
                       </div>
-                      <div class="col-7 d-flex justify-content-start font-weight-bold">
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                         <span class="itemCreated">
                           {{itm.timeTaken}}
                         </span>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="row">
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-6 d-flex justify-content-start">
+                      <div class="col-6 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Amount Taken</span>
                       </div>
-                      <div class="col-6 d-flex justify-content-start font-weight-bold">
+                      <div
+                        class="col-6 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                         <span class="itemCreated">
                           {{itm.loanAmountTaken | number}}
                         </span>
@@ -276,10 +286,12 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-6 d-flex justify-content-start">
-                        <span class="">Loan Int. Expected</span>
+                      <div class="col-6 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
+                        <span class="">Int. Expected</span>
                       </div>
-                      <div class="col-6 d-flex justify-content-start font-weight-bold">
+                      <div
+                        class="col-6 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                         <span class="itemCreated">
                           {{itm.loanInterestTaken | number}}
                         </span>
@@ -288,25 +300,25 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-6 d-flex justify-content-start">
-                        <span class="">Loan Int. Paid</span>
+                      <div class="col-6 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
+                        <span class="">Interest Paid</span>
                       </div>
-                      <div class="col-6 d-flex justify-content-start font-weight-bold">
+                      <div
+                        class="col-6 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                         <span class="itemCreated">
                          {{itm.loanInterestPaid | number}}
                         </span>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="row">
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-6 d-flex justify-content-start">
-                        <span class="">Loan Int. Left</span>
+                      <div class="col-6 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
+                        <span class="">Interest Left</span>
                       </div>
                       <div
-                        class="col-6 d-flex justify-content-start font-weight-bold"
+                        class="col-6 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       >
                         <span class="itemCreated">
                          {{itm.loanInterestRemain | number}}
@@ -316,11 +328,11 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 col d-flex justify-content-start">
-                        <span class="">Loan Int. Written Off</span>
+                      <div class="col-6 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
+                        <span class="">Int. Written Off</span>
                       </div>
                       <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
+                        class="col-6 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       >
                         <span class="itemCreated">
                           {{itm.loanInterestWrittenOff}}
@@ -330,25 +342,25 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 col d-flex justify-content-start">
+                      <div class="col-6 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Loan Aging</span>
                       </div>
                       <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
+                        class="col-6 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       >
                         <span class="itemCreated">
-                          {{itm.loanAging}} Day
+                          {{itm.loanAging}} Day(s)
                         </span>
                       </div>
                     </div>
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 col d-flex justify-content-start">
-                        <span class="">Loan Int. Rate Used</span>
+                      <div class="col-6 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
+                        <span class="">Interest Rate</span>
                       </div>
                       <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
+                        class="col-6 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       >
                         <span class="itemCreated">
                           {{itm.interestRateUsed}}% per year
@@ -358,11 +370,11 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 col-xl-2 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Comment</span>
                       </div>
                       <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-8 col-xl-10 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           {{itm.customerComment}}
@@ -379,9 +391,10 @@
     </div>
   </div>
 </div>
+
 <!--card for displaying cash ledger-->
-<div *ngIf="(type === 'Cash Ledger')">
-  <div class="container mt-3 mb-0 mx-0 shadow-lg" >
+<div *ngIf="type === 'Cash Ledger'">
+  <div class="container mt-3 mb-0 mx-auto shadow-lg">
     <div class="row">
       <div class="col-12">
         <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
@@ -390,7 +403,7 @@
       </div>
     </div>
   </div>
-  <div class="col-12 pt-2 pb-1 mb-0 mx-0 px-0">
+  <div class="col-12 pt-2 pb-1 mb-0">
     <div class="row mx-auto px-auto mb-2">
       <div class="col-3 d-flex justify-content-start">
         <span class="">Station: </span>
@@ -408,18 +421,18 @@
         class="list-card-1 card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
         *ngFor="let itm of singleReport; let i = index"
       >
-        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="list-card-body card-body my-0 py-0 mx-0">
           <div class="row my-0 py-0">
             <div class="col-12">
-              <div class="row">
-                <div class="col-12 col-md-6 col-xl-4">
-                  <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
+                <div class="row mx-md-0 px-md-0">
+                  <div class="col-12 col-md-6 col-xl-4">
+                    <div class="row">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                       <span class="">Date</span>
                     </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                       <span class="itemCreated">
                       {{ itm.theDateX1 }}
                       </span>
@@ -428,12 +441,12 @@
                 </div>
                 <div class="col-12 col-md-6 col-xl-4">
                   <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                       <span class="">Time</span>
                     </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                       <span class="itemCreated">
                         {{ itm.theTimeX1 }}
                       </span>
@@ -442,11 +455,11 @@
                 </div>
                 <div class="col-12 col-md-6 col-xl-4">
                   <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                       <span class="">Narration 1</span>
                     </div>
                     <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       [hidden]="itm.narration1X1 === 'null'"
                     >
                       <span class="itemCreated">
@@ -455,17 +468,14 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-12 col-md-6 col-xl-4">
                   <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                       <span class="">Narration 2</span>
                     </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-
-                    >
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                       <span class="itemCreated" [hidden]="itm.narration2X1 === 'null'">
                         {{ itm.narration2X1 }}
                       </span>
@@ -474,11 +484,11 @@
                 </div>
                 <div class="col-12 col-md-6 col-xl-4">
                   <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                       <span class="">Cash In</span>
                     </div>
                     <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       [hidden]="itm.cashInX1 === null"
                     >
                       <span class="itemCreated">
@@ -489,11 +499,11 @@
                 </div>
                 <div class="col-12 col-md-6 col-xl-4">
                   <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                       <span class="">Cash Out</span>
                     </div>
                     <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
                       [hidden]="itm.cashOutX1 === null"
                     >
                       <span class="itemCreated">
@@ -502,26 +512,24 @@
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-12 col-md-6 col-xl-4">
                   <div class="row">
-                    <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                       <span class="">Balance</span>
                     </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                       <span class="itemCreated">
                        {{ itm.balanceX1 | number}}
                       </span>
                     </div>
-                    <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                       <span class="">Process By</span>
                     </div>
-                    <div
-                      class="col-7 d-flex justify-content-start font-weight-bold"
-                    >
+                      <div
+                        class="col-7 col-md-8 d-flex justify-content-start font-weight-bold mx-md-0 px-md-0"
+                      >
                       <span class="itemCreated">
                        {{ itm.userNameX1}}
                       </span>
@@ -541,7 +549,7 @@
                 <span class="font-weight-bold">Total Cash In</span>
               </div>
               <div
-                class="col-7 d-flex justify-content-start font-weight-bold"
+                class="col-7 d-flex justify-content-start font-weight-bold text-info"
                 [hidden]="totals.cashInX1 === null"
               >
                 <span class="itemCreated">
@@ -556,7 +564,7 @@
                 <span class="font-weight-bold">Total Cash Out</span>
               </div>
               <div
-                class="col-7 d-flex justify-content-start font-weight-bold"
+                class="col-7 d-flex justify-content-start font-weight-bold text-info"
                 [hidden]="totals.cashOutX1 === null"
               >
                 <span class="itemCreated">
@@ -571,7 +579,7 @@
                 <span class="font-weight-bold">Net Balance</span>
               </div>
               <div
-                class="col-7 d-flex justify-content-start font-weight-bold"
+                class="col-7 d-flex justify-content-start font-weight-bold text-info"
               >
                 <span class="itemCreated">
                   {{ totals.balanceX1 | number}}
@@ -2111,7 +2119,7 @@
   <div class="col-12 pt-2 pb-1 mb-0 mx-0 px-0">
     <div class="row mx-auto px-auto mb-2">
       <div class="col-3 d-flex justify-content-start">
-        <span class="">Area: </span>
+        <span class="">Station: </span>
       </div>
       <div class="col-9 d-flex justify-content-start font-weight-bold">
         <span class="itemCreated"
@@ -4466,7 +4474,7 @@ fval.customers["controls"][idx]["controls"]
         <h4
           class="rub-head4 text-info text-center font-weight-bold py-1"
         >
-          Float Balance Per Day Report
+          Float Balance Per Day
         </h4>
       </div>
     </div>

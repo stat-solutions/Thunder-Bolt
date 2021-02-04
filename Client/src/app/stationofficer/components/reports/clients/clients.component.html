@@ -155,7 +155,7 @@
   <div class="col-12 pt-2 pb-1 mb-0">
     <div class="row mx-auto px-auto mb-2">
       <div class="col-3 d-flex justify-content-start">
-        <span class="">station: </span>
+        <span class="">Station: </span>
       </div>
       <div class="col-9 d-flex justify-content-start font-weight-bold">
         <span class="itemCreated">
@@ -169,24 +169,24 @@
           class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg"
           *ngFor="let itm of singleReport; let i = index"
           >
-          <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+          <div class="list-card-body card-body my-0 py-0 mx-0">
             <div class="row my-0 py-0">
-              <div class="col-2 col-xl-1">
+              <div class="col-2 col-md-1">
                 <img
                   class="img-circle-1 mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
                   [src]="itm.customerPhotoUrl"
                   (click)="openModal(template, itm.customerPhotoUrl)"
                 />
               </div>
-              <div class="col-10 col-xl-11">
-                <div class="row">
+              <div class="col-10 col-md-11">
+                <div class="row mx-md-0 px-md-0">
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-6 d-flex justify-content-start">
+                      <div class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Client ID</span>
                       </div>
                       <div
-                        class="col-6 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           {{itm.customerId}}
@@ -196,11 +196,11 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-6 d-flex justify-content-start">
+                      <div class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Client Name</span>
                       </div>
                       <div
-                        class="col-6 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           {{itm.customerName}}
@@ -209,11 +209,11 @@
                     </div>
                   </div><div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-6 d-flex justify-content-start">
-                        <span class="">Client ID Type</span>
+                      <div class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
+                        <span class="">ID Type</span>
                       </div>
                       <div
-                        class="col-6 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           {{itm.customerIdType}}
@@ -223,11 +223,11 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-6 d-flex justify-content-start">
-                        <span class="">Client ID Number</span>
+                      <div class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
+                        <span class="">ID Number</span>
                       </div>
                       <div
-                        class="col-6 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           {{itm.customerIdNumber}}
@@ -237,11 +237,11 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-6 d-flex justify-content-start">
+                      <div class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Phone No.</span>
                       </div>
                       <div
-                        class="col-6 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           {{itm.customerPhone1}} / {{itm.customerPhone2}}
@@ -249,15 +249,13 @@
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="row">
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-6 d-flex justify-content-start">
+                      <div class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Loan Limit</span>
                       </div>
                       <div
-                        class="col-6 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           loan limit
@@ -267,11 +265,11 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Next Of Kin</span>
                       </div>
                       <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           <!-- {{
@@ -284,11 +282,11 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Kin Contact</span>
                       </div>
                       <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           <!-- {{
@@ -299,15 +297,13 @@
                       </div>
                     </div>
                   </div>
-                  </div>
+                  <div class="col-12">
                     <div class="row">
-                  <div class="col-12 col-md-6 col-xl-4">
-                    <div class="row">
-                      <div class="col-5 d-flex justify-content-start">
+                      <div class="col-5 col-md-3 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Comment</span>
                       </div>
                       <div
-                        class="col-7 d-flex justify-content-start font-weight-bold"
+                        class="col-7 col-md-9 d-flex justify-content-start font-weight-bold"
                       >
                         <span class="itemCreated">
                           {{itm.customerComment}}
