@@ -83,7 +83,7 @@
                       />
                       <datalist id="location">
                         <option *ngFor="let item of locations">
-                          {{ 
+                          {{
                             level === 'Region' ? item.areaRegionName :
                             level === 'Town' ? item.townName : item.stationName
                           }}
@@ -184,7 +184,7 @@
                     <button ngbDropdownItem>CSV</button>
                   </div>
                 </div>
-              </div> 
+              </div>
               <div class="col-2 ml-4 mr-0 mx-sm-0 ml-xl-5 pt-2">
                 <pagination-controls
                       (pageChange)="pageChanged($event)"
@@ -209,11 +209,7 @@
 </div>
 <!--card for displaying All Loans Report -->
 <div *ngIf="type === 'All Loans'">
-<<<<<<< HEAD
-  <div class="container mt-3 mb-0 mx-0 shadow-lg">
-=======
   <div class="container mt-3 mb-0 shadow-lg">
->>>>>>> 9b4f2c6... styling reports2
     <div class="row">
       <div class="col-12">
         <h4 class="rub-head4 text-info text-center font-weight-bold py-1">
@@ -245,14 +241,14 @@
         >
           <div class="list-card-body card-body my-0 py-0 mx-0">
             <div class="row my-0 py-0">
-              <div class="col-2 col-xl-1">
+              <div class="col-2 col-md-1">
                 <img
                   class="img-circle mx-auto mt-2 mt-md-0 mt-xl-1 mb-1 pb-0"
                   [src]="itm.customerPhotoUrl"
                   (click)="openModal(template, itm.customerPhotoUrl)"
                 />
               </div>
-              <div class="col-10 col-xl-11">
+              <div class="col-10 col-md-11">
                 <div class="row">
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
@@ -456,11 +452,7 @@
                         <span class="">Comment</span>
                       </div>
                       <div
-<<<<<<< HEAD
-                        class="col-7 d-flex justify-content-start font-weight-bold"
-=======
                         class="col-7 col-md-8 col-xl-10 d-flex justify-content-start font-weight-bold"
->>>>>>> 9b4f2c6... styling reports2
                       >
                         <span class="itemCreated">
                           {{ itm.customerComment }}
@@ -2048,7 +2040,7 @@
       </div>
       <div class="col-9 d-flex justify-content-start font-weight-bold">
         <span class="itemCreated"
-          > 
+          >
           {{User.userLocationName}}
         </span>
       </div>
@@ -2161,13 +2153,8 @@
                   </div>
                   <div class="col-12 col-md-6 col-xl-4">
                     <div class="row">
-<<<<<<< HEAD
-                      <div class="col-5 d-flex justify-content-start">
-                        <span class="">Interest Rate Used </span>
-=======
                       <div class="col-5 col-md-4 d-flex justify-content-start mx-md-0 px-md-0">
                         <span class="">Interest Rate(%)</span>
->>>>>>> 9b4f2c6... styling reports2
                       </div>
                       <div
                         class="col-7 d-flex justify-content-start font-weight-bold"

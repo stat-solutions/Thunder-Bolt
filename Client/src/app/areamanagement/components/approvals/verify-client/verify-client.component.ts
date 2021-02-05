@@ -116,7 +116,7 @@ export class VerifyClientComponent implements OnInit {
         this.userForm = this.createFormGroup();
         this.fval.selectAll.setValue(false);
         this.initialiseForm(this.customers);
-        this.currentCustomer =  'BodaBoda Fuel';
+        this.currentCustomer =  'Boda Fuel';
       },
       err =>  {
         this.errored = true;

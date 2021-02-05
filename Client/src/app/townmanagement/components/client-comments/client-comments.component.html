@@ -40,7 +40,7 @@
           >
       <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx" (click)="openModal(template)"
 >
-        <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
+        <div class="list-card-body card-body my-0 py-0 mx-0">
           <div class="row my-0 py-0">
             <div class="col-1">
                     <!--select an item-->
@@ -191,15 +191,15 @@
 </div>
         </div>
       </form>
-      <div class="d-flex mt-3 mb-0 py-2 mx-auto">
+<div class="d-flex mt-3 mb-0 py-2 mx-auto mx-md-5 px-md-5">
         <button
-          class="btn btn-info col-4 col-md-3 mx-auto px-0"
+          class="btn btn-info col-4 col-md-2 mx-auto px-0"
           (click)="approveItems()"
         >
           <i class="fas fa-check"></i> Save
         </button>
         <button
-          class="btn btn-info col-4 col-md-3 mx-auto px-0"
+          class="btn btn-info col-4 col-md-2 mx-auto px-0"
           (click)="rejectItems()"
         >
           <i class="fas fa-times"></i> Cancel

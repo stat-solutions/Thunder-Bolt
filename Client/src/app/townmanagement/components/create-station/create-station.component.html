@@ -42,12 +42,6 @@
                       <div class="col-6">
                           <h4 class="text-center text-info">Station Name</h4>
                       </div>
-                      <!-- <div class="col-3">
-                          <h4 class="text-center text-info">Role</h4>
-                      </div>
-                      <div class="col-3">
-                          <h4 class="text-center text-info">Location</h4>
-                      </div> -->
                   </div>
               </div>
              <div class="iteration" formArrayName="selectedStations">
@@ -56,8 +50,8 @@
                   *ngFor="let items of fval.selectedStations['controls'];let idx = index"
               >
                   <div class="list-card card mt-1 pt-2 mb-0 mx-auto px-0 pb-0 shadow-lg" [formGroupName]="idx">
-                      <div class="list-card-body card-body mt-0 pt-0 mb-0 pb-0 mx-0">
-                          <div class="row mt-0 pt-0 mb-0 pb-0">
+                      <div class="list-card-body card-body my-0 py-0 mx-0">
+                          <div class="row my-0 py-0">
                               <div class="col-1 ml-0 pl-1">
                                   <!--select an item-->
                                   <input
@@ -68,13 +62,13 @@
                                   class="ml-1 text-info"
                               />
                               </div>
-                              <div class="col-4 pl-1 text-center">
-                                  <span class="itemCreated">
+                              <div class="col-4 text-center d-flex justify-content-center">
+                                  <span class="itemCreated text-center">
                                       {{fval.selectedStations["controls"][idx]["controls"].stationId.value}}
                                   </span>
                               </div>
-                              <div class="col-6 text-center">
-                                  <span class="itemCreated">
+                              <div class="col-6 text-center d-flex justify-content-center">
+                                  <span class="itemCreated text-center">
                                       {{fval.selectedStations["controls"][idx]["controls"].stationName.value}}
                                   </span>
                               </div>
@@ -84,7 +78,7 @@
               </div>
           </div>
           </form>
-              <div class="d-flex mt-3 mb-0 py-2 mx-auto" [hidden]="approvedStations.length === 0">
+              <div class="d-flex mt-3 mb-0 py-2 mx-auto mx-md-5 px-md-5" [hidden]="approvedStations.length === 0">
                   <button
                   class="btn btn-info col-4 col-md-3 mx-auto px-0"
                   (click)="approveItems()"
@@ -93,10 +87,10 @@
               </button>
               <label class="col" *ngIf="errored" class="text-danger">
                 <!-- <i class="material-icons">Cancel</i> -->
-      
+
                 <ngx-alerts></ngx-alerts>
                 </label>
-      
+
                 <label class="col" *ngIf="posted" class="text-info">
                   <!-- <i class="material-icons">check_circle</i> -->
                   <ngx-alerts></ngx-alerts>
