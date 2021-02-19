@@ -208,6 +208,7 @@ export class LoanAccrualDaysComponent implements OnInit {
 
   approveItems(): any {
     let itemsApproved = [];
+    this.spinner.show();
     this.txnsApprovals.forEach((item, i) => {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         itemsApproved.push({
@@ -225,15 +226,15 @@ export class LoanAccrualDaysComponent implements OnInit {
           this.alertService.success({
             html: '<b> Individual accrual days were approved Successfully </b>'
           });
-          setTimeout(() => {
-            itemsApproved = [];
-            this.userForm = this.createFormGroup();
-            this.fval.selectAll.setValue(false);
-            this.initialiseForm();
-          }, 3000);
+          itemsApproved = [];
+          this.userForm = this.createFormGroup();
+          this.fval.selectAll.setValue(false);
+          this.initialiseForm();
+          this.spinner.hide();
         },
         err =>  {
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
             html: '<b>' + err.error.error.message + '</b>'
           });
@@ -241,6 +242,7 @@ export class LoanAccrualDaysComponent implements OnInit {
       );
     } else {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
             html: '<b> Please select a something first </b>'
           });
@@ -249,6 +251,7 @@ export class LoanAccrualDaysComponent implements OnInit {
   }
   rejectItems(): any {
     let itemsRejected = [];
+    this.spinner.show();
     this.txnsApprovals.forEach((item, i) => {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         item.status = 1;
@@ -267,15 +270,15 @@ export class LoanAccrualDaysComponent implements OnInit {
           this.alertService.success({
             html: '<b> Individual accrual days were rejected successfully </b>'
           });
-          setTimeout(() => {
-            itemsRejected = [];
-            this.userForm = this.createFormGroup();
-            this.fval.selectAll.setValue(false);
-            this.initialiseForm();
-          }, 3000);
+          itemsRejected = [];
+          this.userForm = this.createFormGroup();
+          this.fval.selectAll.setValue(false);
+          this.initialiseForm();
+          this.spinner.hide();
         },
         err =>  {
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
             html: '<b>' + err.error.error.message + '</b>'
           });
@@ -283,6 +286,7 @@ export class LoanAccrualDaysComponent implements OnInit {
       );
     } else {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
             html: '<b> Please select a something first </b>'
           });

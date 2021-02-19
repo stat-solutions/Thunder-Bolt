@@ -19,13 +19,14 @@ var forms_1 = require("@angular/forms");
 var custom_validator_1 = require("src/app/validators/custom-validator");
 var operators_1 = require("rxjs/operators");
 var GetLoanComponent = /** @class */ (function () {
-    function GetLoanComponent(authService, others, spinner, router, alertService, storage) {
+    function GetLoanComponent(authService, others, spinner, router, alertService, storage, modalService) {
         this.authService = authService;
         this.others = others;
         this.spinner = spinner;
         this.router = router;
         this.alertService = alertService;
         this.storage = storage;
+        this.modalService = modalService;
         this.registered = false;
         this.submitted = false;
         this.errored = false;
@@ -53,7 +54,9 @@ var GetLoanComponent = /** @class */ (function () {
         this.userForm = this.createFormGroup();
         this.garantorsForm = this.garantorsFormGroup();
         this.securityForm = this.securityFormGroup();
-        this.others.getAllTheStationLocationsByTown(this.User.userLocationId).subscribe(function (res) {
+        this.others
+            .getAllTheStationLocationsByTown(this.User.userLocationId)
+            .subscribe(function (res) {
             _this.stations = res;
             // tslint:disable-next-line: only-arrow-functions
         }, function (err) { return console.log(err.statusText); });
@@ -221,6 +224,10 @@ var GetLoanComponent = /** @class */ (function () {
     GetLoanComponent.prototype.toggleFieldType = function () {
         this.fieldType = !this.fieldType;
     };
+    // modal
+    GetLoanComponent.prototype.openModal = function (template) {
+        this.modalRef = this.modalService.show(template, Object.assign({}, { "class": 'modal-lg modal-dialog-centered' }));
+    };
     GetLoanComponent.prototype.revert = function () {
         this.userForm.reset();
     };
@@ -248,7 +255,8 @@ var GetLoanComponent = /** @class */ (function () {
     GetLoanComponent.prototype.assignTxnId = function (familyName, typeName) {
         for (var _i = 0, _a = this.txns; _i < _a.length; _i++) {
             var txn = _a[_i];
-            if (txn.txnDetailsFamilyName.toUpperCase() === familyName && txn.txnDetailsTypeName.toUpperCase() === typeName) {
+            if (txn.txnDetailsFamilyName.toUpperCase() === familyName &&
+                txn.txnDetailsTypeName.toUpperCase() === typeName) {
                 return txn.txnDetailsId;
             }
         }
@@ -272,7 +280,8 @@ var GetLoanComponent = /** @class */ (function () {
                     userId: this.User.userId,
                     productCode: 400,
                     microLoanPurpose: this.fval.loanpurpose.value.toUpperCase(),
-                    theStationLocationId: this.checkedClient.fktheStationLocationIdCustomer
+                    theStationLocationId: this.checkedClient
+                        .fktheStationLocationIdCustomer
                 };
                 if (txn.txnDetailsId) {
                     this.data.push(txn);
@@ -300,8 +309,9 @@ var GetLoanComponent = /** @class */ (function () {
                 _this.guarantors.push({
                     microLoanGuarantorName: _this.garantorFval.name.value.toUpperCase(),
                     microLoanGuarantorPhone1: _this.garantorFval.main_contact_number1.value.toUpperCase(),
-                    microLoanGuarantorPhone2: _this.garantorFval.main_contact_number2.value === '' ? _this.garantorFval.main_contact_number1.value :
-                        _this.garantorFval.main_contact_number2.value,
+                    microLoanGuarantorPhone2: _this.garantorFval.main_contact_number2.value === ''
+                        ? _this.garantorFval.main_contact_number1.value
+                        : _this.garantorFval.main_contact_number2.value,
                     microLoanGuarantorPlaceOfResidense: _this.garantorFval.currentResidence.value.toUpperCase(),
                     microLoanGuarantorTypeOfBusiness: _this.garantorFval.currentBusinesstype.value.toUpperCase(),
                     microLoanGuarantorBusinessLocation: _this.garantorFval.businessLocation.value.toUpperCase(),
@@ -348,8 +358,9 @@ var GetLoanComponent = /** @class */ (function () {
                 _this.guarantors.push({
                     microLoanGuarantorName: _this.garantorFval.name.value.toUpperCase(),
                     microLoanGuarantorPhone1: _this.garantorFval.main_contact_number1.value.toUpperCase(),
-                    microLoanGuarantorPhone2: _this.garantorFval.main_contact_number2.value === '' ? _this.garantorFval.main_contact_number1.value :
-                        _this.garantorFval.main_contact_number2.value,
+                    microLoanGuarantorPhone2: _this.garantorFval.main_contact_number2.value === ''
+                        ? _this.garantorFval.main_contact_number1.value
+                        : _this.garantorFval.main_contact_number2.value,
                     microLoanGuarantorPlaceOfResidense: _this.garantorFval.currentResidence.value.toUpperCase(),
                     microLoanGuarantorTypeOfBusiness: _this.garantorFval.currentBusinesstype.value.toUpperCase(),
                     microLoanGuarantorBusinessLocation: _this.garantorFval.businessLocation.value.toUpperCase(),
@@ -397,6 +408,7 @@ var GetLoanComponent = /** @class */ (function () {
     };
     GetLoanComponent.prototype.postLoan = function () {
         var _this = this;
+        this.spinner.show();
         this.data.push([this.guarantors, this.securities]);
         // console.log(this.data);
         this.others.createMicroLoan(this.data).subscribe(function (res) {
@@ -405,6 +417,7 @@ var GetLoanComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Loan was initiated successfully, wait for approval and confirm</b>'
                 });
+                _this.spinner.hide();
                 setTimeout(function () {
                     _this.router.navigate(['/townmanagement/microloan/confirm']);
                 }, 3000);

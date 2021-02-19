@@ -128,6 +128,7 @@ export class CreateStationComponent implements OnInit {
 
   approveItems(): any {
     const stationsSelected = [];
+    this.spinner.show();
     this.approvedStations.forEach((item, i) => {
       if (this.fval.selectedStations.controls[i].controls.approved.value === true) {
         stationsSelected.push({
@@ -145,19 +146,20 @@ export class CreateStationComponent implements OnInit {
             this.alertService.success({
               html: '<b> Stations were  set successfully</b>'
             });
-            setTimeout(() => {
-              this.userForm = this.createFormGroup();
-              this.fval.selectAll.setValue(false);
-              this.initialiseForm();
-            }, 3000);
+            this.userForm = this.createFormGroup();
+            this.fval.selectAll.setValue(false);
+            this.initialiseForm();
+            this.spinner.hide();
           }, err => {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
               html: '<b>Something went wrong</b>'
             });
           });
     } else {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
               html: '<b> Please select something </b>'
             });

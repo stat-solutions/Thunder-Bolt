@@ -107,11 +107,8 @@ var PersonalInfoComponent = /** @class */ (function () {
             bodabodaCustomerSidePhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             bodabodaCustomerRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownershipStatus: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            ownersName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            ownersPhoneNumber: new forms_1.FormControl('', forms_1.Validators.compose([
-                forms_1.Validators.required,
-                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
-            ]))
+            ownersName: new forms_1.FormControl(''),
+            ownersPhoneNumber: new forms_1.FormControl('')
         });
     };
     PersonalInfoComponent.prototype.taxiClientFormGroup = function () {
@@ -131,11 +128,8 @@ var PersonalInfoComponent = /** @class */ (function () {
             taxiCustomerSidePhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             taxiCustomerRearPhotoUrl: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
             ownershipStatus: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            ownersName: new forms_1.FormControl('', forms_1.Validators.compose([forms_1.Validators.required])),
-            ownersPhoneNumber: new forms_1.FormControl('', forms_1.Validators.compose([
-                forms_1.Validators.required,
-                custom_validator_1.CustomValidator.patternValidator(/^(([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9]))$/, { hasNumber: true }),
-            ]))
+            ownersName: new forms_1.FormControl(''),
+            ownersPhoneNumber: new forms_1.FormControl('')
         });
     };
     PersonalInfoComponent.prototype.microClientFormGroup = function () {
@@ -351,7 +345,7 @@ var PersonalInfoComponent = /** @class */ (function () {
             if (this.data[0].theStationLocationId === null || this.data[0].productCode === null) {
                 this.errored = true;
                 this.alertService.danger({
-                    html: '<b> The station or initial products chose do not exist</b>'
+                    html: '<b> The station or initial products chosen do not exist</b>'
                 });
                 this.data = [];
                 //  this.errored = false;
@@ -456,12 +450,14 @@ var PersonalInfoComponent = /** @class */ (function () {
     };
     PersonalInfoComponent.prototype.saveClientAndPdt = function () {
         var _this = this;
+        this.spinner.show();
         if (this.showBodaForm) {
             if (this.bodaClientForm.valid) {
                 if (this.bodaFval.ownershipStatus.value.toUpperCase() !== 'PAIDOUT'
                     && (this.bodaFval.ownersName.value === '' ||
                         this.bodaFval.ownersPhoneNumber.value === '')) {
                     this.errored = true;
+                    this.spinner.hide();
                     this.alertService.danger({
                         html: '<strong>The ownership details are missing!</strong>'
                     });
@@ -495,9 +491,10 @@ var PersonalInfoComponent = /** @class */ (function () {
                             _this.data[1].bodabodaStageId = bodaStage.bodabodaStageId;
                         }
                     });
-                    console.log(this.data);
+                    // console.log(this.data);
                     if (this.data[1].bodabodaStageId === null) {
                         this.errored = true;
+                        this.spinner.hide();
                         this.alertService.danger({
                             html: '<b> bodaboda stage selected was not found </b>'
                         });
@@ -513,18 +510,18 @@ var PersonalInfoComponent = /** @class */ (function () {
                             });
                             _this.revert();
                             _this.bodaClientForm.reset();
-                            setTimeout(function () {
-                                _this.goBack();
-                                _this.userForm = _this.createFormGroup();
-                                _this.bodaClientForm = _this.bodaClientFormGroup();
-                                _this.taxiClientForm = _this.taxiClientFormGroup();
-                                _this.microClientForm = _this.microClientFormGroup();
-                                _this.savingsClientForm = _this.savingsClientFormGroup();
-                            }, 3000);
+                            _this.goBack();
+                            _this.userForm = _this.createFormGroup();
+                            _this.bodaClientForm = _this.bodaClientFormGroup();
+                            _this.taxiClientForm = _this.taxiClientFormGroup();
+                            _this.microClientForm = _this.microClientFormGroup();
+                            _this.savingsClientForm = _this.savingsClientFormGroup();
+                            _this.spinner.hide();
                         }, function (err) {
                             _this.data = [];
                             _this.errored = true;
                             console.log(err.statusText);
+                            _this.spinner.hide();
                             _this.alertService.danger({
                                 html: '<b>' + err.statusText + '</b>'
                             });
@@ -534,6 +531,7 @@ var PersonalInfoComponent = /** @class */ (function () {
             }
             else {
                 this.errored = true;
+                this.spinner.hide();
                 this.alertService.danger({
                     html: '<strong>Some form fields where not filled!</strong>'
                 });
@@ -545,6 +543,7 @@ var PersonalInfoComponent = /** @class */ (function () {
                     && (this.taxiFval.ownersName.value === '' ||
                         this.taxiFval.ownersPhoneNumber.value === '')) {
                     this.errored = true;
+                    this.spinner.hide();
                     this.alertService.danger({
                         html: '<strong>The ownership details are missing!</strong>'
                     });
@@ -579,9 +578,10 @@ var PersonalInfoComponent = /** @class */ (function () {
                             _this.data[1].taxiStageId = taxiStage.taxiStageId;
                         }
                     });
-                    console.log(this.data);
+                    // console.log(this.data);
                     if (this.data[1].taxiStageId === null) {
                         this.errored = true;
+                        this.spinner.hide();
                         this.alertService.danger({
                             html: '<b> taxi stage selected was not found </b>'
                         });
@@ -597,17 +597,18 @@ var PersonalInfoComponent = /** @class */ (function () {
                             });
                             _this.revert();
                             _this.taxiClientForm.reset();
-                            setTimeout(function () {
-                                _this.goBack();
-                                _this.userForm = _this.createFormGroup();
-                                _this.bodaClientForm = _this.bodaClientFormGroup();
-                                _this.taxiClientForm = _this.taxiClientFormGroup();
-                                _this.microClientForm = _this.microClientFormGroup();
-                                _this.savingsClientForm = _this.savingsClientFormGroup();
-                            }, 3000);
+                            _this.goBack();
+                            _this.userForm = _this.createFormGroup();
+                            _this.bodaClientForm = _this.bodaClientFormGroup();
+                            _this.taxiClientForm = _this.taxiClientFormGroup();
+                            _this.microClientForm = _this.microClientFormGroup();
+                            _this.savingsClientForm = _this.savingsClientFormGroup();
+                            _this.spinner.hide();
                         }, function (err) {
                             _this.data = [];
+                            _this.errored = true;
                             console.log(err.statusText);
+                            _this.spinner.hide();
                             _this.alertService.danger({
                                 html: '<b>' + err.error.error.message + '</b>'
                             });
@@ -617,6 +618,7 @@ var PersonalInfoComponent = /** @class */ (function () {
             }
             else {
                 this.errored = true;
+                this.spinner.hide();
                 this.alertService.danger({
                     html: '<strong>Some form fields where not filled!</strong>'
                 });
@@ -644,17 +646,18 @@ var PersonalInfoComponent = /** @class */ (function () {
                     });
                     _this.revert();
                     _this.microClientForm.reset();
-                    setTimeout(function () {
-                        _this.goBack();
-                        _this.userForm = _this.createFormGroup();
-                        _this.bodaClientForm = _this.bodaClientFormGroup();
-                        _this.taxiClientForm = _this.taxiClientFormGroup();
-                        _this.microClientForm = _this.microClientFormGroup();
-                        _this.savingsClientForm = _this.savingsClientFormGroup();
-                    }, 3000);
+                    _this.goBack();
+                    _this.userForm = _this.createFormGroup();
+                    _this.bodaClientForm = _this.bodaClientFormGroup();
+                    _this.taxiClientForm = _this.taxiClientFormGroup();
+                    _this.microClientForm = _this.microClientFormGroup();
+                    _this.savingsClientForm = _this.savingsClientFormGroup();
+                    _this.spinner.hide();
                 }, function (err) {
                     _this.data = [];
                     console.log(err.statusText);
+                    _this.spinner.hide();
+                    _this.errored = true;
                     _this.alertService.danger({
                         html: '<b>' + err.error.error.message + '</b>'
                     });
@@ -662,6 +665,7 @@ var PersonalInfoComponent = /** @class */ (function () {
             }
             else {
                 this.errored = true;
+                this.spinner.hide();
                 this.alertService.danger({
                     html: '<strong>Some form fields where not filled!</strong>'
                 });
@@ -685,17 +689,18 @@ var PersonalInfoComponent = /** @class */ (function () {
                     });
                     _this.revert();
                     _this.microClientForm.reset();
-                    setTimeout(function () {
-                        _this.goBack();
-                        _this.userForm = _this.createFormGroup();
-                        _this.bodaClientForm = _this.bodaClientFormGroup();
-                        _this.taxiClientForm = _this.taxiClientFormGroup();
-                        _this.microClientForm = _this.microClientFormGroup();
-                        _this.savingsClientForm = _this.savingsClientFormGroup();
-                    }, 3000);
+                    _this.goBack();
+                    _this.userForm = _this.createFormGroup();
+                    _this.bodaClientForm = _this.bodaClientFormGroup();
+                    _this.taxiClientForm = _this.taxiClientFormGroup();
+                    _this.microClientForm = _this.microClientFormGroup();
+                    _this.savingsClientForm = _this.savingsClientFormGroup();
+                    _this.spinner.hide();
                 }, function (err) {
                     _this.data = [];
                     // console.log(err.statusText);
+                    _this.spinner.hide();
+                    _this.errored = true;
                     _this.alertService.danger({
                         html: '<b>' + err.error.error.message + '</b>'
                     });
@@ -703,6 +708,7 @@ var PersonalInfoComponent = /** @class */ (function () {
             }
             else {
                 this.errored = true;
+                this.spinner.hide();
                 this.alertService.danger({
                     html: '<strong>Some form fields where not filled!</strong>'
                 });

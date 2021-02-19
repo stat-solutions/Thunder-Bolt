@@ -293,7 +293,7 @@ export class GetLoanComponent implements OnInit {
     this.fieldType = !this.fieldType;
   }
 
-  //modal
+  // modal
   public openModal(template: TemplateRef<any>): any {
     this.modalRef = this.modalService.show(
       template,
@@ -473,6 +473,7 @@ export class GetLoanComponent implements OnInit {
     }
   }
   postLoan(): any {
+    this.spinner.show();
     this.data.push([this.guarantors, this.securities]);
     // console.log(this.data);
     this.others.createMicroLoan(this.data).subscribe(
@@ -483,6 +484,7 @@ export class GetLoanComponent implements OnInit {
             html:
               '<b> Loan was initiated successfully, wait for approval and confirm</b>',
           });
+          this.spinner.hide();
           setTimeout(() => {
             this.router.navigate(['/townmanagement/microloan/confirm']);
           }, 3000);

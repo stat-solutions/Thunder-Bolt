@@ -107,6 +107,7 @@ var ApproveAreasComponent = /** @class */ (function () {
     ApproveAreasComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
+        this.spinner.show();
         this.areaApproval.forEach(function (item, i) {
             if (_this.fval.approveAreas.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
@@ -124,14 +125,14 @@ var ApproveAreasComponent = /** @class */ (function () {
                     _this.alertService.success({
                         html: '<b> Areas were approved successfully</b>'
                     });
-                    setTimeout(function () {
-                        _this.userForm = _this.createFormGroup();
-                        _this.fval.selectAll.setValue(false);
-                        _this.initialiseForm();
-                    }, 3000);
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
+                    _this.spinner.hide();
                 }
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.ststusText + '</b>'
                 });
@@ -139,6 +140,7 @@ var ApproveAreasComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select something </b>'
             });
@@ -148,6 +150,7 @@ var ApproveAreasComponent = /** @class */ (function () {
     ApproveAreasComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
+        this.spinner.show();
         this.areaApproval.forEach(function (item, i) {
             if (_this.fval.approveAreas.controls[i].controls.approved.value === true) {
                 itemsRejected.push({
@@ -165,11 +168,10 @@ var ApproveAreasComponent = /** @class */ (function () {
                     _this.alertService.success({
                         html: '<b> Areas were rejected successfully</b>'
                     });
-                    setTimeout(function () {
-                        _this.userForm = _this.createFormGroup();
-                        _this.fval.selectAll.setValue(false);
-                        _this.initialiseForm();
-                    }, 3000);
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
+                    _this.spinner.hide();
                 }
             }, function (err) {
                 _this.errored = true;

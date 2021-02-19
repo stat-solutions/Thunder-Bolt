@@ -113,6 +113,7 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
     };
     ApproveCentralUsersComponent.prototype.approveItems = function () {
         var _this = this;
+        this.spinner.show();
         var itemsApproved = [];
         this.centralUserApprovals.forEach(function (item, i) {
             if (_this.fval.approveUsers.controls[i].controls.approved.value === true) {
@@ -130,13 +131,13 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Users where approved successfully</b>'
                 });
-                setTimeout(function () {
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
+                _this.userForm = _this.createFormGroup();
+                _this.fval.selectAll.setValue(false);
+                _this.initialiseForm();
+                _this.spinner.hide();
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.ststusText + '</b>'
                 });
@@ -144,6 +145,7 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select something </b>'
             });
@@ -153,6 +155,7 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
     ApproveCentralUsersComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
+        this.spinner.show();
         this.centralUserApprovals.forEach(function (item, i) {
             if (_this.fval.approveUsers.controls[i].controls.approved.value === true) {
                 itemsRejected.push({
@@ -169,13 +172,13 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Users where rejected successfully</b>'
                 });
-                setTimeout(function () {
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
+                _this.userForm = _this.createFormGroup();
+                _this.fval.selectAll.setValue(false);
+                _this.initialiseForm();
+                _this.spinner.hide();
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.ststusText + '</b>'
                 });
@@ -183,6 +186,7 @@ var ApproveCentralUsersComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select something </b>'
             });

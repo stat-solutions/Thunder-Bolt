@@ -117,6 +117,7 @@ export class ApproveAreasComponent implements OnInit {
 
   approveItems(): any {
     const itemsApproved = [];
+    this.spinner.show();
     this.areaApproval.forEach((item, i) => {
       if (this.fval.approveAreas.controls[i].controls.approved.value === true) {
         itemsApproved.push({
@@ -136,15 +137,15 @@ export class ApproveAreasComponent implements OnInit {
             this.alertService.success({
               html: '<b> Areas were approved successfully</b>'
             });
-            setTimeout(() => {
-              this.userForm = this.createFormGroup();
-              this.fval.selectAll.setValue(false);
-              this.initialiseForm();
-            }, 3000);
+            this.userForm = this.createFormGroup();
+            this.fval.selectAll.setValue(false);
+            this.initialiseForm();
+            this.spinner.hide();
           }
         },
         err => {
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
               html: '<b>' + err.error.ststusText + '</b>'
             });
@@ -152,6 +153,7 @@ export class ApproveAreasComponent implements OnInit {
       );
     } else {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
               html: '<b> Please select something </b>'
             });
@@ -160,6 +162,7 @@ export class ApproveAreasComponent implements OnInit {
   }
   rejectItems(): any {
     const itemsRejected = [];
+    this.spinner.show();
     this.areaApproval.forEach((item, i) => {
       if (this.fval.approveAreas.controls[i].controls.approved.value === true) {
         itemsRejected.push({
@@ -178,11 +181,10 @@ export class ApproveAreasComponent implements OnInit {
             this.alertService.success({
               html: '<b> Areas were rejected successfully</b>'
             });
-            setTimeout(() => {
-              this.userForm = this.createFormGroup();
-              this.fval.selectAll.setValue(false);
-              this.initialiseForm();
-            }, 3000);
+            this.userForm = this.createFormGroup();
+            this.fval.selectAll.setValue(false);
+            this.initialiseForm();
+            this.spinner.hide();
           }
         },
         err => {

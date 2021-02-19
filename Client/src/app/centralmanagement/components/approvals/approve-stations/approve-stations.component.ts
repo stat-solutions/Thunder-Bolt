@@ -120,6 +120,7 @@ export class ApproveStationsComponent implements OnInit {
   }
   approveItems(): any {
     const itemsApproved = [];
+    this.spinner.show();
     this.stationApproval.forEach((item, i) => {
       if (this.fval.approveStations.controls[i].controls.approved.value === true) {
         itemsApproved.push({
@@ -139,11 +140,10 @@ export class ApproveStationsComponent implements OnInit {
             this.alertService.success({
               html: '<b> Stations were approved successfully</b>'
             });
-            setTimeout(() => {
-              this.userForm = this.createFormGroup();
-              this.fval.selectAll.setValue(false);
-              this.initialiseForm();
-            }, 3000);
+            this.userForm = this.createFormGroup();
+            this.fval.selectAll.setValue(false);
+            this.initialiseForm();
+            this.spinner.hide();
           }
         },
         err => {
@@ -155,6 +155,7 @@ export class ApproveStationsComponent implements OnInit {
       );
     } else {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
               html: '<b> Please select something </b>'
             });
@@ -163,6 +164,7 @@ export class ApproveStationsComponent implements OnInit {
   }
   rejectItems(): any {
     const itemsRejected = [];
+    this.spinner.show();
     this.stationApproval.forEach((item, i) => {
       if (this.fval.approveStations.controls[i].controls.approved.value === true) {
         itemsRejected.push({
@@ -181,15 +183,15 @@ export class ApproveStationsComponent implements OnInit {
             this.alertService.success({
               html: '<b> Stations were rejected successfully</b>'
             });
-            setTimeout(() => {
-              this.userForm = this.createFormGroup();
-              this.fval.selectAll.setValue(false);
-              this.initialiseForm();
-            }, 3000);
+            this.userForm = this.createFormGroup();
+            this.fval.selectAll.setValue(false);
+            this.initialiseForm();
+            this.spinner.hide();
           }
         },
         err => {
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
               html: '<b>' + err.error.ststusText + '</b>'
             });
@@ -197,6 +199,7 @@ export class ApproveStationsComponent implements OnInit {
       );
     } else {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
               html: '<b> Please select something </b>'
             });

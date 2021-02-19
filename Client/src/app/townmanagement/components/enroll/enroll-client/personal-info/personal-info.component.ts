@@ -646,6 +646,7 @@ export class PersonalInfoComponent implements OnInit {
     setTimeout(this.saveClientAndPdt(), 5000);
   }
   saveClientAndPdt(): any {
+    this.spinner.show();
     if (this.showBodaForm){
       if (this.bodaClientForm.valid) {
         if (
@@ -653,6 +654,7 @@ export class PersonalInfoComponent implements OnInit {
           && (this.bodaFval.ownersName.value === '' ||
               this.bodaFval.ownersPhoneNumber.value === '')){
               this.errored = true;
+              this.spinner.hide();
               this.alertService.danger({
                 html: '<strong>The ownership details are missing!</strong>'
             });
@@ -687,9 +689,10 @@ export class PersonalInfoComponent implements OnInit {
               this.data[1].bodabodaStageId = bodaStage.bodabodaStageId;
             }
           });
-          console.log(this.data);
+          // console.log(this.data);
           if (this.data[1].bodabodaStageId  === null) {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
               html: '<b> bodaboda stage selected was not found </b>'
             });
@@ -705,19 +708,19 @@ export class PersonalInfoComponent implements OnInit {
                 });
                 this.revert();
                 this.bodaClientForm.reset();
-                setTimeout(() => {
-                  this.goBack();
-                  this.userForm = this.createFormGroup();
-                  this.bodaClientForm = this.bodaClientFormGroup();
-                  this.taxiClientForm = this.taxiClientFormGroup();
-                  this.microClientForm = this.microClientFormGroup();
-                  this.savingsClientForm = this.savingsClientFormGroup();
-                  }, 3000);
+                this.goBack();
+                this.userForm = this.createFormGroup();
+                this.bodaClientForm = this.bodaClientFormGroup();
+                this.taxiClientForm = this.taxiClientFormGroup();
+                this.microClientForm = this.microClientFormGroup();
+                this.savingsClientForm = this.savingsClientFormGroup();
+                this.spinner.hide();
               },
               err => {
                 this.data = [];
                 this.errored = true;
                 console.log(err.statusText);
+                this.spinner.hide();
                 this.alertService.danger({
                     html: '<b>' + err.statusText + '</b>'
                   });
@@ -728,6 +731,7 @@ export class PersonalInfoComponent implements OnInit {
     }
     else {
         this.errored = true;
+        this.spinner.hide();
         this.alertService.danger({
             html: '<strong>Some form fields where not filled!</strong>'
         });
@@ -740,6 +744,7 @@ export class PersonalInfoComponent implements OnInit {
           && (this.taxiFval.ownersName.value === '' ||
               this.taxiFval.ownersPhoneNumber.value === '')){
               this.errored = true;
+              this.spinner.hide();
               this.alertService.danger({
                 html: '<strong>The ownership details are missing!</strong>'
             });
@@ -775,9 +780,10 @@ export class PersonalInfoComponent implements OnInit {
               this.data[1].taxiStageId = taxiStage.taxiStageId;
             }
           });
-          console.log(this.data);
+          // console.log(this.data);
           if (this.data[1].taxiStageId === null) {
               this.errored = true;
+              this.spinner.hide();
               this.alertService.danger({
                 html: '<b> taxi stage selected was not found </b>'
               });
@@ -793,18 +799,19 @@ export class PersonalInfoComponent implements OnInit {
                 });
                 this.revert();
                 this.taxiClientForm.reset();
-                setTimeout(() => {
-                  this.goBack();
-                  this.userForm = this.createFormGroup();
-                  this.bodaClientForm = this.bodaClientFormGroup();
-                  this.taxiClientForm = this.taxiClientFormGroup();
-                  this.microClientForm = this.microClientFormGroup();
-                  this.savingsClientForm = this.savingsClientFormGroup();
-                  }, 3000);
+                this.goBack();
+                this.userForm = this.createFormGroup();
+                this.bodaClientForm = this.bodaClientFormGroup();
+                this.taxiClientForm = this.taxiClientFormGroup();
+                this.microClientForm = this.microClientFormGroup();
+                this.savingsClientForm = this.savingsClientFormGroup();
+                this.spinner.hide();
               },
               err => {
                 this.data = [];
+                this.errored = true;
                 console.log(err.statusText);
+                this.spinner.hide();
                 this.alertService.danger({
                     html: '<b>' + err.error.error.message + '</b>'
                   });
@@ -814,6 +821,7 @@ export class PersonalInfoComponent implements OnInit {
         }
       } else {
         this.errored = true;
+        this.spinner.hide();
         this.alertService.danger({
             html: '<strong>Some form fields where not filled!</strong>'
         });
@@ -842,18 +850,19 @@ export class PersonalInfoComponent implements OnInit {
             });
             this.revert();
             this.microClientForm.reset();
-            setTimeout(() => {
-              this.goBack();
-              this.userForm = this.createFormGroup();
-              this.bodaClientForm = this.bodaClientFormGroup();
-              this.taxiClientForm = this.taxiClientFormGroup();
-              this.microClientForm = this.microClientFormGroup();
-              this.savingsClientForm = this.savingsClientFormGroup();
-                }, 3000);
+            this.goBack();
+            this.userForm = this.createFormGroup();
+            this.bodaClientForm = this.bodaClientFormGroup();
+            this.taxiClientForm = this.taxiClientFormGroup();
+            this.microClientForm = this.microClientFormGroup();
+            this.savingsClientForm = this.savingsClientFormGroup();
+            this.spinner.hide();
           },
           err => {
             this.data = [];
             console.log(err.statusText);
+            this.spinner.hide();
+            this.errored = true;
             this.alertService.danger({
                   html: '<b>' + err.error.error.message + '</b>'
                 });
@@ -861,6 +870,7 @@ export class PersonalInfoComponent implements OnInit {
         );
       } else {
         this.errored = true;
+        this.spinner.hide();
         this.alertService.danger({
             html: '<strong>Some form fields where not filled!</strong>'
         });
@@ -885,18 +895,19 @@ export class PersonalInfoComponent implements OnInit {
             });
             this.revert();
             this.microClientForm.reset();
-            setTimeout(() => {
-                this.goBack();
-                this.userForm = this.createFormGroup();
-                this.bodaClientForm = this.bodaClientFormGroup();
-                this.taxiClientForm = this.taxiClientFormGroup();
-                this.microClientForm = this.microClientFormGroup();
-                this.savingsClientForm = this.savingsClientFormGroup();
-                }, 3000);
+            this.goBack();
+            this.userForm = this.createFormGroup();
+            this.bodaClientForm = this.bodaClientFormGroup();
+            this.taxiClientForm = this.taxiClientFormGroup();
+            this.microClientForm = this.microClientFormGroup();
+            this.savingsClientForm = this.savingsClientFormGroup();
+            this.spinner.hide();
           },
           err => {
             this.data = [];
             // console.log(err.statusText);
+            this.spinner.hide();
+            this.errored = true;
             this.alertService.danger({
                   html: '<b>' + err.error.error.message + '</b>'
                 });
@@ -904,6 +915,7 @@ export class PersonalInfoComponent implements OnInit {
         );
       } else {
         this.errored = true;
+        this.spinner.hide();
         this.alertService.danger({
             html: '<strong>Some form fields where not filled!</strong>'
         });

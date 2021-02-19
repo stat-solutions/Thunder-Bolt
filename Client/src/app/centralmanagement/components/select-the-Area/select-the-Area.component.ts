@@ -128,6 +128,7 @@ export class SelectTheAreaComponent implements OnInit {
 
   approveItems(): any {
     const areasSelected = [];
+    this.spinner.show();
     this.approvedAreas.forEach((item, i) => {
       if (this.fval.selectedAreas.controls[i].controls.approved.value === true) {
         areasSelected.push({
@@ -145,13 +146,13 @@ export class SelectTheAreaComponent implements OnInit {
             this.alertService.success({
               html: '<b> Areas were  set successfully</b>'
             });
-            setTimeout(() => {
-              this.userForm = this.createFormGroup();
-              this.fval.selectAll.setValue(false);
-              this.initialiseForm();
-            }, 3000);
+            this.fval.selectAll.setValue(false);
+            this.userForm = this.createFormGroup();
+            this.initialiseForm();
+            this.spinner.hide();
           }, err => {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
               html: '<b>' + err.error.ststusText + '</b>'
             });
@@ -159,6 +160,7 @@ export class SelectTheAreaComponent implements OnInit {
         );
     } else {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
               html: '<b> Please select something </b>'
             });

@@ -175,6 +175,7 @@ var InterestRateComponent = /** @class */ (function () {
     InterestRateComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
+        this.spinner.show();
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
@@ -191,14 +192,14 @@ var InterestRateComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Individual Interest rates were approved Successfully </b>'
                 });
-                setTimeout(function () {
-                    itemsApproved = [];
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
+                itemsApproved = [];
+                _this.userForm = _this.createFormGroup();
+                _this.fval.selectAll.setValue(false);
+                _this.initialiseForm();
+                _this.spinner.hide();
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.error.message + '</b>'
                 });
@@ -206,6 +207,7 @@ var InterestRateComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select a loan first </b>'
             });
@@ -215,6 +217,7 @@ var InterestRateComponent = /** @class */ (function () {
     InterestRateComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
+        this.spinner.show();
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 item.status = 1;
@@ -232,14 +235,14 @@ var InterestRateComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Individual Interest rates were rejected Successfully </b>'
                 });
-                setTimeout(function () {
-                    itemsRejected = [];
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
+                itemsRejected = [];
+                _this.userForm = _this.createFormGroup();
+                _this.fval.selectAll.setValue(false);
+                _this.initialiseForm();
+                _this.spinner.hide();
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.error.message + '</b>'
                 });
@@ -247,6 +250,7 @@ var InterestRateComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select a loan first </b>'
             });

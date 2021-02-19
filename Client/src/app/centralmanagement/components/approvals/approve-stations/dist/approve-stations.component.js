@@ -105,6 +105,7 @@ var ApproveStationsComponent = /** @class */ (function () {
     ApproveStationsComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
+        this.spinner.show();
         this.stationApproval.forEach(function (item, i) {
             if (_this.fval.approveStations.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
@@ -122,11 +123,10 @@ var ApproveStationsComponent = /** @class */ (function () {
                     _this.alertService.success({
                         html: '<b> Stations were approved successfully</b>'
                     });
-                    setTimeout(function () {
-                        _this.userForm = _this.createFormGroup();
-                        _this.fval.selectAll.setValue(false);
-                        _this.initialiseForm();
-                    }, 3000);
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
+                    _this.spinner.hide();
                 }
             }, function (err) {
                 _this.errored = true;
@@ -137,6 +137,7 @@ var ApproveStationsComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select something </b>'
             });
@@ -146,6 +147,7 @@ var ApproveStationsComponent = /** @class */ (function () {
     ApproveStationsComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
+        this.spinner.show();
         this.stationApproval.forEach(function (item, i) {
             if (_this.fval.approveStations.controls[i].controls.approved.value === true) {
                 itemsRejected.push({
@@ -163,14 +165,14 @@ var ApproveStationsComponent = /** @class */ (function () {
                     _this.alertService.success({
                         html: '<b> Stations were rejected successfully</b>'
                     });
-                    setTimeout(function () {
-                        _this.userForm = _this.createFormGroup();
-                        _this.fval.selectAll.setValue(false);
-                        _this.initialiseForm();
-                    }, 3000);
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
+                    _this.spinner.hide();
                 }
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.ststusText + '</b>'
                 });
@@ -178,6 +180,7 @@ var ApproveStationsComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select something </b>'
             });

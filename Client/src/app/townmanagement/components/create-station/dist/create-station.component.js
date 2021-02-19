@@ -110,6 +110,7 @@ var CreateStationComponent = /** @class */ (function () {
     CreateStationComponent.prototype.approveItems = function () {
         var _this = this;
         var stationsSelected = [];
+        this.spinner.show();
         this.approvedStations.forEach(function (item, i) {
             if (_this.fval.selectedStations.controls[i].controls.approved.value === true) {
                 stationsSelected.push({
@@ -126,13 +127,13 @@ var CreateStationComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Stations were  set successfully</b>'
                 });
-                setTimeout(function () {
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
+                _this.userForm = _this.createFormGroup();
+                _this.fval.selectAll.setValue(false);
+                _this.initialiseForm();
+                _this.spinner.hide();
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>Something went wrong</b>'
                 });
@@ -140,6 +141,7 @@ var CreateStationComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select something </b>'
             });

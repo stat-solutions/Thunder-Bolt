@@ -109,6 +109,7 @@ var ApproveTownsComponent = /** @class */ (function () {
     ApproveTownsComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
+        this.spinner.show();
         this.townApprovals.forEach(function (item, i) {
             if (_this.fval.approveTowns.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
@@ -126,14 +127,14 @@ var ApproveTownsComponent = /** @class */ (function () {
                     _this.alertService.success({
                         html: '<b> Towns were approved successfully</b>'
                     });
-                    setTimeout(function () {
-                        _this.userForm = _this.createFormGroup();
-                        _this.fval.selectAll.setValue(false);
-                        _this.initialiseForm();
-                    }, 3000);
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
+                    _this.spinner.hide();
                 }
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.ststusText + '</b>'
                 });
@@ -141,6 +142,7 @@ var ApproveTownsComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select something </b>'
             });
@@ -150,6 +152,7 @@ var ApproveTownsComponent = /** @class */ (function () {
     ApproveTownsComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
+        this.spinner.show();
         this.townApprovals.forEach(function (item, i) {
             if (_this.fval.approveTowns.controls[i].controls.approved.value === true) {
                 itemsRejected.push({
@@ -167,14 +170,14 @@ var ApproveTownsComponent = /** @class */ (function () {
                     _this.alertService.success({
                         html: '<b> Towns were rejected successfully</b>'
                     });
-                    setTimeout(function () {
-                        _this.userForm = _this.createFormGroup();
-                        _this.fval.selectAll.setValue(false);
-                        _this.initialiseForm();
-                    }, 3000);
+                    _this.userForm = _this.createFormGroup();
+                    _this.fval.selectAll.setValue(false);
+                    _this.initialiseForm();
+                    _this.spinner.hide();
                 }
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.ststusText + '</b>'
                 });
@@ -182,6 +185,7 @@ var ApproveTownsComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select something </b>'
             });

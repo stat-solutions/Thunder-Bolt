@@ -177,6 +177,7 @@ var LoanCommissionRateComponent = /** @class */ (function () {
     LoanCommissionRateComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
+        this.spinner.show();
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
@@ -194,12 +195,11 @@ var LoanCommissionRateComponent = /** @class */ (function () {
             //     this.alertService.success({
             //       html: '<b> Individual Interest rates were approved Successfully </b>'
             //     });
-            //     setTimeout(() => {
-            //       itemsApproved = [];
-            //       this.userForm = this.createFormGroup();
-            //       this.fval.selectAll.setValue(false);
-            //       this.initialiseForm();
-            //     }, 3000);
+            //     itemsApproved = [];
+            //     this.userForm = this.createFormGroup();
+            //     this.fval.selectAll.setValue(false);
+            //     this.initialiseForm();
+            // this.spinner.hide();
             //   },
             //   err =>  {
             //     this.errored = true;
@@ -211,6 +211,7 @@ var LoanCommissionRateComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select a loan first </b>'
             });
@@ -220,6 +221,7 @@ var LoanCommissionRateComponent = /** @class */ (function () {
     LoanCommissionRateComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
+        this.spinner.show();
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 item.status = 1;

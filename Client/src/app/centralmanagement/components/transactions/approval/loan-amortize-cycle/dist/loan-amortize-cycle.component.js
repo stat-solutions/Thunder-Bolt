@@ -162,6 +162,7 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
     LoanAmortizeCycleComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
+        this.spinner.show();
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 var data_1 = {
@@ -184,14 +185,14 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Individual amortization cycles were approved Successfully </b>'
                 });
-                setTimeout(function () {
-                    itemsApproved = [];
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
+                _this.userForm = _this.createFormGroup();
+                itemsApproved = [];
+                _this.fval.selectAll.setValue(false);
+                _this.initialiseForm();
+                _this.spinner.hide();
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.error.message + '</b>'
                 });
@@ -199,6 +200,7 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select a something first</b>'
             });
@@ -208,6 +210,7 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
     LoanAmortizeCycleComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
+        this.spinner.show();
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 var data_2 = {
@@ -230,14 +233,14 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Individual armotization cycles were rejected Successfully </b>'
                 });
-                setTimeout(function () {
-                    itemsRejected = [];
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
+                itemsRejected = [];
+                _this.userForm = _this.createFormGroup();
+                _this.fval.selectAll.setValue(false);
+                _this.initialiseForm();
+                _this.spinner.hide();
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.error.message + '</b>'
                 });
@@ -245,6 +248,7 @@ var LoanAmortizeCycleComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select a something first </b>'
             });

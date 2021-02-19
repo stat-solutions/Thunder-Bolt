@@ -176,6 +176,7 @@ var ReversePrincipleComponent = /** @class */ (function () {
     ReversePrincipleComponent.prototype.approveItems = function () {
         var _this = this;
         var itemsApproved = [];
+        this.spinner.show();
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 itemsApproved.push({
@@ -192,14 +193,14 @@ var ReversePrincipleComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Individual Reverse Principals were approved Successfully </b>'
                 });
-                setTimeout(function () {
-                    itemsApproved = [];
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
+                itemsApproved = [];
+                _this.userForm = _this.createFormGroup();
+                _this.fval.selectAll.setValue(false);
+                _this.initialiseForm();
+                _this.spinner.hide();
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.error.message + '</b>'
                 });
@@ -207,6 +208,7 @@ var ReversePrincipleComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select a something first </b>'
             });
@@ -216,6 +218,7 @@ var ReversePrincipleComponent = /** @class */ (function () {
     ReversePrincipleComponent.prototype.rejectItems = function () {
         var _this = this;
         var itemsRejected = [];
+        this.spinner.show();
         this.txnsApprovals.forEach(function (item, i) {
             if (_this.fval.txnApprovals.controls[i].controls.approved.value === true) {
                 item.status = 1;
@@ -233,14 +236,14 @@ var ReversePrincipleComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Individual Reverse Principal were rejected Successfully </b>'
                 });
-                setTimeout(function () {
-                    itemsRejected = [];
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
+                itemsRejected = [];
+                _this.userForm = _this.createFormGroup();
+                _this.fval.selectAll.setValue(false);
+                _this.initialiseForm();
+                _this.spinner.hide();
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.error.message + '</b>'
                 });
@@ -248,6 +251,7 @@ var ReversePrincipleComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select a something first </b>'
             });

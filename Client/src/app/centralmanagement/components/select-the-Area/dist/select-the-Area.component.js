@@ -116,6 +116,7 @@ var SelectTheAreaComponent = /** @class */ (function () {
     SelectTheAreaComponent.prototype.approveItems = function () {
         var _this = this;
         var areasSelected = [];
+        this.spinner.show();
         this.approvedAreas.forEach(function (item, i) {
             if (_this.fval.selectedAreas.controls[i].controls.approved.value === true) {
                 areasSelected.push({
@@ -132,13 +133,13 @@ var SelectTheAreaComponent = /** @class */ (function () {
                 _this.alertService.success({
                     html: '<b> Areas were  set successfully</b>'
                 });
-                setTimeout(function () {
-                    _this.userForm = _this.createFormGroup();
-                    _this.fval.selectAll.setValue(false);
-                    _this.initialiseForm();
-                }, 3000);
+                _this.fval.selectAll.setValue(false);
+                _this.userForm = _this.createFormGroup();
+                _this.initialiseForm();
+                _this.spinner.hide();
             }, function (err) {
                 _this.errored = true;
+                _this.spinner.hide();
                 _this.alertService.danger({
                     html: '<b>' + err.error.ststusText + '</b>'
                 });
@@ -146,6 +147,7 @@ var SelectTheAreaComponent = /** @class */ (function () {
         }
         else {
             this.errored = true;
+            this.spinner.hide();
             this.alertService.danger({
                 html: '<b> Please select something </b>'
             });

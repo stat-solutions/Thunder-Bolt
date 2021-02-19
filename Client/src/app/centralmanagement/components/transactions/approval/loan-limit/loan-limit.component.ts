@@ -202,6 +202,7 @@ export class LoanLimitComponent implements OnInit {
 
   approveItems(): any {
     let itemsApproved = [];
+    this.spinner.show();
     this.txnsApprovals.forEach((item, i) => {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         itemsApproved.push({
@@ -219,15 +220,15 @@ export class LoanLimitComponent implements OnInit {
           this.alertService.success({
             html: '<b> Individual Loan Limits were approved Successfully </b>'
           });
-          setTimeout(() => {
-            itemsApproved = [];
-            this.userForm = this.createFormGroup();
-            this.fval.selectAll.setValue(false);
-            this.initialiseForm();
-          }, 3000);
+          itemsApproved = [];
+          this.userForm = this.createFormGroup();
+          this.fval.selectAll.setValue(false);
+          this.initialiseForm();
+          this.spinner.hide();
         },
         err =>  {
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
             html: '<b>' + err.error.error.message + '</b>'
           });
@@ -235,6 +236,7 @@ export class LoanLimitComponent implements OnInit {
       );
     } else {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
             html: '<b> Please select a something first</b>'
           });
@@ -243,6 +245,7 @@ export class LoanLimitComponent implements OnInit {
   }
   rejectItems(): any {
     let itemsRejected = [];
+    this.spinner.show();
     this.txnsApprovals.forEach((item, i) => {
       if (this.fval.txnApprovals.controls[i].controls.approved.value === true) {
         item.status = 1;
@@ -261,15 +264,15 @@ export class LoanLimitComponent implements OnInit {
           this.alertService.success({
             html: '<b> Individual Loan Limits were rejected Successfully </b>'
           });
-          setTimeout(() => {
-            itemsRejected = [];
-            this.userForm = this.createFormGroup();
-            this.fval.selectAll.setValue(false);
-            this.initialiseForm();
-          }, 3000);
+          itemsRejected = [];
+          this.userForm = this.createFormGroup();
+          this.fval.selectAll.setValue(false);
+          this.initialiseForm();
+          this.spinner.hide();
         },
         err =>  {
           this.errored = true;
+          this.spinner.hide();
           this.alertService.danger({
             html: '<b>' + err.error.error.message + '</b>'
           });
@@ -277,6 +280,7 @@ export class LoanLimitComponent implements OnInit {
       );
     } else {
       this.errored = true;
+      this.spinner.hide();
       this.alertService.danger({
             html: '<b> Please select a something first </b>'
           });
